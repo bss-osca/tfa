@@ -6,6 +6,8 @@
 [datacamp-signup]: https://www.datacamp.com/groups/shared_links/cbaee6c73e7d78549a9e32a900793b2d5491ace1824efc1760a6729735948215
 [dplyr-cran]: https://CRAN.R-project.org/package=dplyr
 
+[excel-vs-r]: https://www.jessesadler.com/post/excel-vs-r/
+
 [google-form]: https://forms.gle/s39GeDGV9AzAXUo18
 [google-grupper]: https://docs.google.com/spreadsheets/d/1DHxthd5AQywAU4Crb3hM9rnog2GqGQYZ2o175SQgn_0/edit?usp=sharing
 [GitHub]: https://github.com/
@@ -16,6 +18,7 @@
 
 [Peergrade]: https://peergrade.io
 [peergrade-signup]: https://app.peergrade.io/join
+[point-and-click]: https://en.wikipedia.org/wiki/Point_and_click
 
 [R]: https://www.r-project.org
 [RStudio]: https://rstudio.com
