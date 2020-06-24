@@ -42,9 +42,7 @@ jobs:
 
 
       - name: Render book
-        run: |
-          Rscript -e 'setwd("book/")'
-          Rscript -e 'bookdown::render_book("index.Rmd", output_dir = "../docs/", quiet = TRUE)'
+        run: Rscript -e 'setwd("book");bookdown::render_book("index.Rmd", output_dir = "../docs/", quiet = TRUE)'
 
       - name: Commit results
         run: |
