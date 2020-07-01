@@ -10,21 +10,21 @@
 
   <meta property="og:title" content="Module 4 R basics and workflows | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://relund.dk/" />
-  <meta property="og:image" content="https://relund.dk/assets/logo.png" />
+  <meta property="og:url" content="https://tools4analytics.github.io/course/" />
+  <meta property="og:image" content="https://tools4analytics.github.io/course/assets/logo.png" />
   <meta property="og:description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
-  <meta name="github-repo" content="Tools4Analytics/classroomTFA" />
+  <meta name="github-repo" content="Tools4Analytics/course/tree/master/book" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Module 4 R basics and workflows | Tools for Analytics (TFA)" />
   
   <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
-  <meta name="twitter:image" content="https://relund.dk/assets/logo.png" />
+  <meta name="twitter:image" content="https://tools4analytics.github.io/course/assets/logo.png" />
 
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2020-06-25" />
+<meta name="date" content="2020-07-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +32,7 @@
   
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="install.html"/>
-<link rel="next" href="loops-and.html"/>
-<script src="libs/header-attrs-2.1/header-attrs.js"></script>
+<link rel="next" href="loops-and-conditionals.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -82,17 +81,18 @@
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -112,7 +112,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -145,7 +145,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<link rel="stylesheet" href="assets/style.css" type="text/css" />
+<link rel="stylesheet" href="assets\style.css" type="text/css" />
 </head>
 
 <body>
@@ -161,88 +161,123 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="toc-logo"><a href="./"><img src="assets/logo.png"></a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
-<ul>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#how-this-book-is-organised"><i class="fa fa-check"></i><b>1.1</b> How this book is organised</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i><b>1.2</b> Learning goals</a></li>
 <li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i><b>1.3</b> Acknowledgements</a></li>
 </ul></li>
 <li class="part"><span><b>I Getting started</b></span></li>
-<li class="chapter" data-level="2" data-path="sec-signup.html"><a href="sec-signup.html"><i class="fa fa-check"></i><b>2</b> Signup for online resources</a>
-<ul>
+<li class="chapter" data-level="2" data-path="sec-signup.html"><a href="sec-signup.html"><i class="fa fa-check"></i><b>2</b> Signup for online resources</a><ul>
 <li class="chapter" data-level="2.1" data-path="sec-signup.html"><a href="sec-signup.html#learning-outcomes"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="2.2" data-path="sec-signup.html"><a href="sec-signup.html#online-tasksactivitites"><i class="fa fa-check"></i><b>2.2</b> Online Tasks/activitites</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>3</b> Install R, RStudio and Git</a>
-<ul>
+<li class="chapter" data-level="3" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>3</b> Install R and RStudio</a><ul>
 <li class="chapter" data-level="3.1" data-path="install.html"><a href="install.html#learning-outcomes-1"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="3.2" data-path="install.html"><a href="install.html#install-r-and-rstudio"><i class="fa fa-check"></i><b>3.2</b> Install R and RStudio</a></li>
 <li class="chapter" data-level="3.3" data-path="install.html"><a href="install.html#test-your-installation"><i class="fa fa-check"></i><b>3.3</b> Test your installation</a></li>
 <li class="chapter" data-level="3.4" data-path="install.html"><a href="install.html#add-on-packages"><i class="fa fa-check"></i><b>3.4</b> Add-on packages</a></li>
-<li class="chapter" data-level="3.5" data-path="install.html"><a href="install.html#recap"><i class="fa fa-check"></i><b>3.5</b> Recap</a></li>
+<li class="chapter" data-level="3.5" data-path="install.html"><a href="install.html#different-learning-paths"><i class="fa fa-check"></i><b>3.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="3.6" data-path="install.html"><a href="install.html#recap"><i class="fa fa-check"></i><b>3.6</b> Recap</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>4</b> R basics and workflows</a>
-<ul>
+<li class="chapter" data-level="4" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>4</b> R basics and workflows</a><ul>
 <li class="chapter" data-level="4.1" data-path="r-basics.html"><a href="r-basics.html#learning-outcomes-2"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="4.2" data-path="r-basics.html"><a href="r-basics.html#working-with-r-at-the-command-line-in-rstudio"><i class="fa fa-check"></i><b>4.2</b> Working with R at the command line in RStudio</a></li>
 <li class="chapter" data-level="4.3" data-path="r-basics.html"><a href="r-basics.html#your-first-datacamp-course"><i class="fa fa-check"></i><b>4.3</b> Your first DataCamp course</a></li>
-<li class="chapter" data-level="4.4" data-path="r-basics.html"><a href="r-basics.html#rprojs"><i class="fa fa-check"></i><b>4.4</b> RStudio projects</a>
-<ul>
+<li class="chapter" data-level="4.4" data-path="r-basics.html"><a href="r-basics.html#rprojs"><i class="fa fa-check"></i><b>4.4</b> RStudio projects</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="r-basics.html"><a href="r-basics.html#storing-your-code-in-a-script-file"><i class="fa fa-check"></i><b>4.4.1</b> Storing your code in a script file</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="r-basics.html"><a href="r-basics.html#global-options"><i class="fa fa-check"></i><b>4.5</b> Global options</a></li>
 <li class="chapter" data-level="4.6" data-path="r-basics.html"><a href="r-basics.html#working-directory"><i class="fa fa-check"></i><b>4.6</b> Working directory</a></li>
-<li class="chapter" data-level="4.7" data-path="r-basics.html"><a href="r-basics.html#recap-1"><i class="fa fa-check"></i><b>4.7</b> Recap</a></li>
-<li class="chapter" data-level="4.8" data-path="r-basics.html"><a href="r-basics.html#exercises"><i class="fa fa-check"></i><b>4.8</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="4.8.1" data-path="r-basics.html"><a href="r-basics.html#exercise-install-packages"><i class="fa fa-check"></i><b>4.8.1</b> Exercise (install packages)</a></li>
-<li class="chapter" data-level="4.8.2" data-path="r-basics.html"><a href="r-basics.html#exercise"><i class="fa fa-check"></i><b>4.8.2</b> Exercise</a></li>
-<li class="chapter" data-level="4.8.3" data-path="r-basics.html"><a href="r-basics.html#exercise-1"><i class="fa fa-check"></i><b>4.8.3</b> Exercise ()</a></li>
-<li class="chapter" data-level="4.8.4" data-path="r-basics.html"><a href="r-basics.html#exercise-string-management"><i class="fa fa-check"></i><b>4.8.4</b> Exercise (string management)</a></li>
+<li class="chapter" data-level="4.7" data-path="r-basics.html"><a href="r-basics.html#different-learning-paths-1"><i class="fa fa-check"></i><b>4.7</b> Different learning paths</a></li>
+<li class="chapter" data-level="4.8" data-path="r-basics.html"><a href="r-basics.html#recap-1"><i class="fa fa-check"></i><b>4.8</b> Recap</a></li>
+<li class="chapter" data-level="4.9" data-path="r-basics.html"><a href="r-basics.html#exercises"><i class="fa fa-check"></i><b>4.9</b> Exercises</a><ul>
+<li class="chapter" data-level="4.9.1" data-path="r-basics.html"><a href="r-basics.html#exercise-install-packages"><i class="fa fa-check"></i><b>4.9.1</b> Exercise (install packages)</a></li>
+<li class="chapter" data-level="4.9.2" data-path="r-basics.html"><a href="r-basics.html#exercise"><i class="fa fa-check"></i><b>4.9.2</b> Exercise</a></li>
+<li class="chapter" data-level="4.9.3" data-path="r-basics.html"><a href="r-basics.html#exercise-1"><i class="fa fa-check"></i><b>4.9.3</b> Exercise ()</a></li>
+<li class="chapter" data-level="4.9.4" data-path="r-basics.html"><a href="r-basics.html#exercise-string-management"><i class="fa fa-check"></i><b>4.9.4</b> Exercise (string management)</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>II Programming in R</b></span></li>
-<li class="chapter" data-level="5" data-path="loops-and.html"><a href="loops-and.html"><i class="fa fa-check"></i><b>5</b> Loops and</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="loops-and.html"><a href="loops-and.html#learning-outcomes-3"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="5.2" data-path="loops-and.html"><a href="loops-and.html#exercises-1"><i class="fa fa-check"></i><b>5.2</b> Exercises</a></li>
-<li class="chapter" data-level="5.3" data-path="loops-and.html"><a href="loops-and.html#resources"><i class="fa fa-check"></i><b>5.3</b> Resources</a></li>
+<li class="chapter" data-level="5" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html"><i class="fa fa-check"></i><b>5</b> Loops and conditionals</a><ul>
+<li class="chapter" data-level="5.1" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html#learning-outcomes-3"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="5.2" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>5.2</b> Conditionals and control flow</a></li>
+<li class="chapter" data-level="5.3" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html#loops"><i class="fa fa-check"></i><b>5.3</b> Loops</a></li>
+<li class="chapter" data-level="5.4" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html#different-learning-paths-2"><i class="fa fa-check"></i><b>5.4</b> Different learning paths</a></li>
+<li class="chapter" data-level="5.5" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html#exercises-1"><i class="fa fa-check"></i><b>5.5</b> Exercises</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html#exercise-2"><i class="fa fa-check"></i><b>5.5.1</b> Exercise ()</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html#resources"><i class="fa fa-check"></i><b>5.6</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>6</b> Functions</a><ul>
+<li class="chapter" data-level="6.1" data-path="functions.html"><a href="functions.html#learning-outcomes-4"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="6.2" data-path="functions.html"><a href="functions.html#datacamp-course"><i class="fa fa-check"></i><b>6.2</b> DataCamp course</a></li>
+<li class="chapter" data-level="6.3" data-path="functions.html"><a href="functions.html#different-learning-paths-3"><i class="fa fa-check"></i><b>6.3</b> Different learning paths</a></li>
+<li class="chapter" data-level="6.4" data-path="functions.html"><a href="functions.html#exercises-2"><i class="fa fa-check"></i><b>6.4</b> Exercises</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="functions.html"><a href="functions.html#exercise-3"><i class="fa fa-check"></i><b>6.4.1</b> Exercise ()</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="functions.html"><a href="functions.html#resources-1"><i class="fa fa-check"></i><b>6.5</b> Resources</a></li>
 </ul></li>
 <li class="part"><span><b>III IO, tidy and transform</b></span></li>
-<li class="chapter" data-level="6" data-path="introduction-to-tidyverse.html"><a href="introduction-to-tidyverse.html"><i class="fa fa-check"></i><b>6</b> Introduction to tidyverse</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="introduction-to-tidyverse.html"><a href="introduction-to-tidyverse.html#learning-outcomes-4"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="6.2" data-path="introduction-to-tidyverse.html"><a href="introduction-to-tidyverse.html#other-sections"><i class="fa fa-check"></i><b>6.2</b> [Other sections]</a></li>
-<li class="chapter" data-level="6.3" data-path="introduction-to-tidyverse.html"><a href="introduction-to-tidyverse.html#recap-2"><i class="fa fa-check"></i><b>6.3</b> Recap</a></li>
-<li class="chapter" data-level="6.4" data-path="introduction-to-tidyverse.html"><a href="introduction-to-tidyverse.html#exercises-2"><i class="fa fa-check"></i><b>6.4</b> Exercises</a></li>
-<li class="chapter" data-level="6.5" data-path="introduction-to-tidyverse.html"><a href="introduction-to-tidyverse.html#resources-1"><i class="fa fa-check"></i><b>6.5</b> Resources</a></li>
+<li class="chapter" data-level="7" data-path="introduction-to-tidyverse-and-r-markdown.html"><a href="introduction-to-tidyverse-and-r-markdown.html"><i class="fa fa-check"></i><b>7</b> Introduction to tidyverse and R Markdown</a><ul>
+<li class="chapter" data-level="7.1" data-path="introduction-to-tidyverse-and-r-markdown.html"><a href="introduction-to-tidyverse-and-r-markdown.html#learning-outcomes-5"><i class="fa fa-check"></i><b>7.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="7.2" data-path="introduction-to-tidyverse-and-r-markdown.html"><a href="introduction-to-tidyverse-and-r-markdown.html#the-tidyverse-package"><i class="fa fa-check"></i><b>7.2</b> The tidyverse package</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="introduction-to-tidyverse-and-r-markdown.html"><a href="introduction-to-tidyverse-and-r-markdown.html#writing-repoducible-reports"><i class="fa fa-check"></i><b>7.2.1</b> Writing repoducible reports</a></li>
 </ul></li>
-<li class="part"><span><b>IV IO, tidy and transform</b></span></li>
-<li class="chapter" data-level="7" data-path="importing-and-exporting-data.html"><a href="importing-and-exporting-data.html"><i class="fa fa-check"></i><b>7</b> Importing and exporting data</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="importing-and-exporting-data.html"><a href="importing-and-exporting-data.html#learning-outcomes-5"><i class="fa fa-check"></i><b>7.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="7.2" data-path="importing-and-exporting-data.html"><a href="importing-and-exporting-data.html#other-sections-1"><i class="fa fa-check"></i><b>7.2</b> [Other sections]</a></li>
-<li class="chapter" data-level="7.3" data-path="importing-and-exporting-data.html"><a href="importing-and-exporting-data.html#recap-3"><i class="fa fa-check"></i><b>7.3</b> Recap</a></li>
-<li class="chapter" data-level="7.4" data-path="importing-and-exporting-data.html"><a href="importing-and-exporting-data.html#exercises-3"><i class="fa fa-check"></i><b>7.4</b> Exercises</a></li>
-<li class="chapter" data-level="7.5" data-path="importing-and-exporting-data.html"><a href="importing-and-exporting-data.html#resources-2"><i class="fa fa-check"></i><b>7.5</b> Resources</a></li>
+<li class="chapter" data-level="7.3" data-path="introduction-to-tidyverse-and-r-markdown.html"><a href="introduction-to-tidyverse-and-r-markdown.html#different-learning-paths-4"><i class="fa fa-check"></i><b>7.3</b> Different learning paths</a></li>
+<li class="chapter" data-level="7.4" data-path="introduction-to-tidyverse-and-r-markdown.html"><a href="introduction-to-tidyverse-and-r-markdown.html#recap-2"><i class="fa fa-check"></i><b>7.4</b> Recap</a></li>
+<li class="chapter" data-level="7.5" data-path="introduction-to-tidyverse-and-r-markdown.html"><a href="introduction-to-tidyverse-and-r-markdown.html#exercises-3"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
+<li class="chapter" data-level="7.6" data-path="introduction-to-tidyverse-and-r-markdown.html"><a href="introduction-to-tidyverse-and-r-markdown.html#resources-2"><i class="fa fa-check"></i><b>7.6</b> Resources</a></li>
 </ul></li>
-<li class="part"><span><b>V Visualization</b></span></li>
-<li class="chapter" data-level="8" data-path="introduction-to-ggplot.html"><a href="introduction-to-ggplot.html"><i class="fa fa-check"></i><b>8</b> Introduction to ggplot</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="introduction-to-ggplot.html"><a href="introduction-to-ggplot.html#learning-outcomes-6"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="8.2" data-path="introduction-to-ggplot.html"><a href="introduction-to-ggplot.html#other-sections-2"><i class="fa fa-check"></i><b>8.2</b> [Other sections]</a></li>
-<li class="chapter" data-level="8.3" data-path="introduction-to-ggplot.html"><a href="introduction-to-ggplot.html#recap-4"><i class="fa fa-check"></i><b>8.3</b> Recap</a></li>
-<li class="chapter" data-level="8.4" data-path="introduction-to-ggplot.html"><a href="introduction-to-ggplot.html#exercises-4"><i class="fa fa-check"></i><b>8.4</b> Exercises</a></li>
-<li class="chapter" data-level="8.5" data-path="introduction-to-ggplot.html"><a href="introduction-to-ggplot.html#resources-3"><i class="fa fa-check"></i><b>8.5</b> Resources</a></li>
+<li class="chapter" data-level="8" data-path="importing-and-exporting-data.html"><a href="importing-and-exporting-data.html"><i class="fa fa-check"></i><b>8</b> Importing and exporting data</a><ul>
+<li class="chapter" data-level="8.1" data-path="importing-and-exporting-data.html"><a href="importing-and-exporting-data.html#learning-outcomes-6"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="8.2" data-path="importing-and-exporting-data.html"><a href="importing-and-exporting-data.html#different-learning-paths-5"><i class="fa fa-check"></i><b>8.2</b> Different learning paths</a></li>
+<li class="chapter" data-level="8.3" data-path="importing-and-exporting-data.html"><a href="importing-and-exporting-data.html#recap-3"><i class="fa fa-check"></i><b>8.3</b> Recap</a></li>
+<li class="chapter" data-level="8.4" data-path="importing-and-exporting-data.html"><a href="importing-and-exporting-data.html#exercises-4"><i class="fa fa-check"></i><b>8.4</b> Exercises</a></li>
+<li class="chapter" data-level="8.5" data-path="importing-and-exporting-data.html"><a href="importing-and-exporting-data.html#resources-3"><i class="fa fa-check"></i><b>8.5</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>9</b> Transforming data</a><ul>
+<li class="chapter" data-level="9.1" data-path="transforming-data.html"><a href="transforming-data.html#learning-outcomes-7"><i class="fa fa-check"></i><b>9.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="9.2" data-path="transforming-data.html"><a href="transforming-data.html#tidy"><i class="fa fa-check"></i><b>9.2</b> Tidy</a></li>
+<li class="chapter" data-level="9.3" data-path="transforming-data.html"><a href="transforming-data.html#wangling"><i class="fa fa-check"></i><b>9.3</b> Wangling</a></li>
+<li class="chapter" data-level="9.4" data-path="transforming-data.html"><a href="transforming-data.html#different-learning-paths-6"><i class="fa fa-check"></i><b>9.4</b> Different learning paths</a></li>
+<li class="chapter" data-level="9.5" data-path="transforming-data.html"><a href="transforming-data.html#recap-4"><i class="fa fa-check"></i><b>9.5</b> Recap</a></li>
+<li class="chapter" data-level="9.6" data-path="transforming-data.html"><a href="transforming-data.html#exercises-5"><i class="fa fa-check"></i><b>9.6</b> Exercises</a></li>
+<li class="chapter" data-level="9.7" data-path="transforming-data.html"><a href="transforming-data.html#resources-4"><i class="fa fa-check"></i><b>9.7</b> Resources</a></li>
+</ul></li>
+<li class="part"><span><b>IV Visualization</b></span></li>
+<li class="chapter" data-level="10" data-path="plotting-using-ggplot.html"><a href="plotting-using-ggplot.html"><i class="fa fa-check"></i><b>10</b> Plotting using ggplot</a><ul>
+<li class="chapter" data-level="10.1" data-path="plotting-using-ggplot.html"><a href="plotting-using-ggplot.html#learning-outcomes-8"><i class="fa fa-check"></i><b>10.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="10.2" data-path="plotting-using-ggplot.html"><a href="plotting-using-ggplot.html#other-sections"><i class="fa fa-check"></i><b>10.2</b> [Other sections]</a></li>
+<li class="chapter" data-level="10.3" data-path="plotting-using-ggplot.html"><a href="plotting-using-ggplot.html#different-learning-paths-7"><i class="fa fa-check"></i><b>10.3</b> Different learning paths</a></li>
+<li class="chapter" data-level="10.4" data-path="plotting-using-ggplot.html"><a href="plotting-using-ggplot.html#recap-5"><i class="fa fa-check"></i><b>10.4</b> Recap</a></li>
+<li class="chapter" data-level="10.5" data-path="plotting-using-ggplot.html"><a href="plotting-using-ggplot.html#exercises-6"><i class="fa fa-check"></i><b>10.5</b> Exercises</a></li>
+<li class="chapter" data-level="10.6" data-path="plotting-using-ggplot.html"><a href="plotting-using-ggplot.html#resources-5"><i class="fa fa-check"></i><b>10.6</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="spartial-data-and-maps.html"><a href="spartial-data-and-maps.html"><i class="fa fa-check"></i><b>11</b> Spartial data and maps</a><ul>
+<li class="chapter" data-level="11.1" data-path="spartial-data-and-maps.html"><a href="spartial-data-and-maps.html#learning-outcomes-9"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="11.2" data-path="spartial-data-and-maps.html"><a href="spartial-data-and-maps.html#different-learning-paths-8"><i class="fa fa-check"></i><b>11.2</b> Different learning paths</a></li>
+<li class="chapter" data-level="11.3" data-path="spartial-data-and-maps.html"><a href="spartial-data-and-maps.html#recap-6"><i class="fa fa-check"></i><b>11.3</b> Recap</a></li>
+<li class="chapter" data-level="11.4" data-path="spartial-data-and-maps.html"><a href="spartial-data-and-maps.html#exercises-7"><i class="fa fa-check"></i><b>11.4</b> Exercises</a></li>
+<li class="chapter" data-level="11.5" data-path="spartial-data-and-maps.html"><a href="spartial-data-and-maps.html#resources-6"><i class="fa fa-check"></i><b>11.5</b> Resources</a></li>
+</ul></li>
+<li class="part"><span><b>V R project in groups</b></span></li>
+<li class="chapter" data-level="12" data-path="mandatory-r-project.html"><a href="mandatory-r-project.html"><i class="fa fa-check"></i><b>12</b> Mandatory R project</a><ul>
+<li class="chapter" data-level="12.1" data-path="mandatory-r-project.html"><a href="mandatory-r-project.html#learning-outcomes-10"><i class="fa fa-check"></i><b>12.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="12.2" data-path="mandatory-r-project.html"><a href="mandatory-r-project.html#other-sections-1"><i class="fa fa-check"></i><b>12.2</b> [Other sections]</a></li>
+<li class="chapter" data-level="12.3" data-path="mandatory-r-project.html"><a href="mandatory-r-project.html#recap-7"><i class="fa fa-check"></i><b>12.3</b> Recap</a></li>
+<li class="chapter" data-level="12.4" data-path="mandatory-r-project.html"><a href="mandatory-r-project.html#exercises-8"><i class="fa fa-check"></i><b>12.4</b> Exercises</a></li>
+<li class="chapter" data-level="12.5" data-path="mandatory-r-project.html"><a href="mandatory-r-project.html#resources-7"><i class="fa fa-check"></i><b>12.5</b> Resources</a></li>
 </ul></li>
 <li class="part"><span><b>VI Appendix</b></span></li>
+<li class="chapter" data-level="" data-path="hints-for-working-in-groups.html"><a href="hints-for-working-in-groups.html"><i class="fa fa-check"></i>Hints for working in groups</a></li>
 <li class="chapter" data-level="" data-path="course-description.html"><a href="course-description.html"><i class="fa fa-check"></i>Course description</a></li>
+<li class="chapter" data-level="" data-path="using-r-in-excel-and-excel-in-r.html"><a href="using-r-in-excel-and-excel-in-r.html"><i class="fa fa-check"></i>Using R in Excel and Excel in R</a></li>
+<li class="chapter" data-level="13" data-path="run-a-opl-model-from-r.html"><a href="run-a-opl-model-from-r.html"><i class="fa fa-check"></i><b>13</b> Run a OPL model from R</a></li>
 <li class="chapter" data-level="" data-path="learning-goals-1.html"><a href="learning-goals-1.html"><i class="fa fa-check"></i>Learning goals</a></li>
 <li class="chapter" data-level="" data-path="schedule.html"><a href="schedule.html"><i class="fa fa-check"></i>Schedule</a></li>
 <li class="chapter" data-level="" data-path="sec-ba.html"><a href="sec-ba.html"><i class="fa fa-check"></i>Business Analytics</a></li>
-<li class="chapter" data-level="" data-path="license.html"><a href="license.html"><i class="fa fa-check"></i>License</a>
-<ul>
-<li class="chapter" data-level="8.6" data-path="license.html"><a href="license.html#colophon"><i class="fa fa-check"></i><b>8.6</b> Colophon</a></li>
+<li class="chapter" data-level="" data-path="license.html"><a href="license.html"><i class="fa fa-check"></i>License</a><ul>
+<li class="chapter" data-level="13.1" data-path="license.html"><a href="license.html#colophon"><i class="fa fa-check"></i><b>13.1</b> Colophon</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><center>
@@ -271,9 +306,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="r-basics" class="section level1" number="4">
+<div id="r-basics" class="section level1">
 <h1><span class="header-section-number">Module 4</span> R basics and workflows</h1>
-<div id="learning-outcomes-2" class="section level2" number="4.1">
+<div id="learning-outcomes-2" class="section level2">
 <h2><span class="header-section-number">4.1</span> Learning outcomes</h2>
 <p>By the end of this module, you are expected to have:</p>
 <ul>
@@ -285,7 +320,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- Content from: https://stat545.com/block002_hello-r-workspace-wd-project.html-->
 <!-- Content from: https://moderndive.netlify.app/1-getting-started.html -->
 </div>
-<div id="working-with-r-at-the-command-line-in-rstudio" class="section level2" number="4.2">
+<div id="working-with-r-at-the-command-line-in-rstudio" class="section level2">
 <h2><span class="header-section-number">4.2</span> Working with R at the command line in RStudio</h2>
 <p>R is a programming language and free software environment. The R language is widely used among statisticians and data miners for data analysis. To run R you need to install it on your computer. Throughout this book, we will assume that you are using R via RStudio. First time users often confuse the two. At its simplest, R is like a car’s engine while RStudio is like a car’s dashboard as illustrated in Figure <a href="r-basics.html#fig:R-vs-RStudio-1">4.1</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:R-vs-RStudio-1"></span>
@@ -349,21 +384,23 @@ thisIsCamelCase      # you start each word with a capital letter</code></pre>
 <p>Now look at your Environment tab in the upper right pane where user-defined objects accumulate. You can also get a listing of these objects with commands:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="r-basics.html#cb14-1"></a><span class="kw">objects</span>()</span>
 <span id="cb14-2"><a href="r-basics.html#cb14-2"></a><span class="co">#&gt; [1] &quot;addIcon&quot;             &quot;check_quietly&quot;       &quot;install_quietly&quot;     &quot;pretty_install&quot;     </span></span>
-<span id="cb14-3"><a href="r-basics.html#cb14-3"></a><span class="co">#&gt; [5] &quot;shhh_check&quot;          &quot;this_is_a_long_name&quot; &quot;x&quot;                   &quot;yo&quot;</span></span>
-<span id="cb14-4"><a href="r-basics.html#cb14-4"></a><span class="kw">ls</span>()</span>
-<span id="cb14-5"><a href="r-basics.html#cb14-5"></a><span class="co">#&gt; [1] &quot;addIcon&quot;             &quot;check_quietly&quot;       &quot;install_quietly&quot;     &quot;pretty_install&quot;     </span></span>
-<span id="cb14-6"><a href="r-basics.html#cb14-6"></a><span class="co">#&gt; [5] &quot;shhh_check&quot;          &quot;this_is_a_long_name&quot; &quot;x&quot;                   &quot;yo&quot;</span></span></code></pre></div>
+<span id="cb14-3"><a href="r-basics.html#cb14-3"></a><span class="co">#&gt; [5] &quot;shhh_check&quot;          &quot;strLPath&quot;            &quot;this_is_a_long_name&quot; &quot;x&quot;                  </span></span>
+<span id="cb14-4"><a href="r-basics.html#cb14-4"></a><span class="co">#&gt; [9] &quot;yo&quot;</span></span>
+<span id="cb14-5"><a href="r-basics.html#cb14-5"></a><span class="kw">ls</span>()</span>
+<span id="cb14-6"><a href="r-basics.html#cb14-6"></a><span class="co">#&gt; [1] &quot;addIcon&quot;             &quot;check_quietly&quot;       &quot;install_quietly&quot;     &quot;pretty_install&quot;     </span></span>
+<span id="cb14-7"><a href="r-basics.html#cb14-7"></a><span class="co">#&gt; [5] &quot;shhh_check&quot;          &quot;strLPath&quot;            &quot;this_is_a_long_name&quot; &quot;x&quot;                  </span></span>
+<span id="cb14-8"><a href="r-basics.html#cb14-8"></a><span class="co">#&gt; [9] &quot;yo&quot;</span></span></code></pre></div>
 <p>If you want to remove the object named <code>yo</code>, you can do this:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="r-basics.html#cb15-1"></a><span class="kw">rm</span>(yo)</span></code></pre></div>
 <p>To remove everything:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="r-basics.html#cb16-1"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</span></code></pre></div>
 <p>or click the broom in RStudio’s Environment pane.</p>
 </div>
-<div id="your-first-datacamp-course" class="section level2" number="4.3">
+<div id="your-first-datacamp-course" class="section level2">
 <h2><span class="header-section-number">4.3</span> Your first DataCamp course</h2>
-<p><a href="https://www.datacamp.com/">Datacamp</a> is an online platform for learning data science. We are going to use the platform for online lessons and exercises. DataCamp runs all the courses in your browser. That is, R is run on a server and you don’t use RStudio here. The first course gives an [Introduction to R][datacamp-r-intro]. You are expected to have completed the course before continuing this module!</p>
+<p><a href="https://www.datacamp.com/">Datacamp</a> is an online platform for learning data science. We are going to use the platform for online lessons and exercises. DataCamp runs all the courses in your browser. That is, R is run on a server and you don’t use RStudio here. The first course gives an <a href="https://learn.datacamp.com/courses/free-introduction-to-r">Introduction to R</a>. You are expected to have completed the course before continuing this module!</p>
 </div>
-<div id="rprojs" class="section level2" number="4.4">
+<div id="rprojs" class="section level2">
 <h2><span class="header-section-number">4.4</span> RStudio projects</h2>
 <p>Let us return to RStudio.</p>
 <p>One day you will need to quit R, do something else and return to your analysis later.</p>
@@ -373,7 +410,7 @@ thisIsCamelCase      # you start each word with a capital letter</code></pre>
 <p>Let’s make one to use for the rest of this module. Do this: <strong>File &gt; New Project… &gt; New Directory &gt; New Project &gt;</strong>. The directory name you choose here will be the project name. Call it whatever you want (or follow me for convenience). I used <code>tfa_testing</code> in my <code>tmp</code> directory (that is <code>tfa_testing</code> is now a subfolder of <code>tmp</code>.</p>
 <p>You now need a way to store R code in your project. We will use 2 ways of storing your code. In a R script file or a R Markdown document. Normally you store lines of R code in a script file that you need to run.</p>
 <p>R Markdown provides an easy way to produce a rich, fully-documented reproducible analysis. Here you combine text, figures and metadata needed to reproduce the analysis from beginning to end in a single file. R Markdown compiles to nicely formatted HTML, PDF, or Word. We are going to use R Markdown for larger projects (e.g. the mandatory R report in Week 48). We will come back to R Markdown later</p>
-<div id="storing-your-code-in-a-script-file" class="section level3" number="4.4.1">
+<div id="storing-your-code-in-a-script-file" class="section level3">
 <h3><span class="header-section-number">4.4.1</span> Storing your code in a script file</h3>
 <p>R code can be stored in a script file with file suffix <code>.R</code>. A script file contains a line for each R command to run (think of each line as a command added to the console). Create a new script file <strong>File &gt; New File &gt; R Script</strong>. Let us add some R code to the file:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="r-basics.html#cb17-1"></a><span class="co"># this is a comment</span></span>
@@ -400,13 +437,13 @@ thisIsCamelCase      # you start each word with a capital letter</code></pre>
 <!-- Have a look at the output (a html file) in the Viewer and the input file `testing.Rmd`. In a RMarkdown file you store your R code inside *code chunks* and add comments and text outside the chunks using simple markdown.  -->
 </div>
 </div>
-<div id="global-options" class="section level2" number="4.5">
+<div id="global-options" class="section level2">
 <h2><span class="header-section-number">4.5</span> Global options</h2>
 <p>Quit RStudio. Inspect the folder associated with your project if you wish. Maybe view the PDF in an external viewer. Restart RStudio. Notice that things, by default, restore to where we were earlier. Check the Environment tap (top-right plane). The environment should be empty. If it contains objects you defined before you closed R, it is because they have been restored. This is in general not advisable and please change it by opening <strong>Tools &gt; Global Options …</strong>. Under <strong>General</strong> set the check marks as:</p>
 <p><img src="img/global_options_general.PNG" width="60%" style="display: block; margin: auto;" /></p>
 <p>Quit RStudio and reopen it. The Environment tab should now be empty.</p>
 </div>
-<div id="working-directory" class="section level2" number="4.6">
+<div id="working-directory" class="section level2">
 <h2><span class="header-section-number">4.6</span> Working directory</h2>
 <p>Any process running on your computer has a notion of its “working directory”. In R, this is where R will look, by default, for files you ask it to load. It also where, by default, any files you write to disk will go. Chances are your current working directory is the directory we inspected above, i.e. the one where RStudio wanted to save the workspace.</p>
 <p>You can explicitly check your working directory with:</p>
@@ -415,8 +452,16 @@ thisIsCamelCase      # you start each word with a capital letter</code></pre>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="r-basics.html#cb19-1"></a><span class="kw">setwd</span>(<span class="st">&quot;./subfolder&quot;</span>)  <span class="co"># sets the working dir to a subfolder of you project folder</span></span></code></pre></div>
 <p>You can also use RStudio’s Files pane to navigate to a directory and then set it as working directory from the menu: <strong>Session &gt; Set Working Directory &gt; To Files Pane Location</strong>.</p>
 </div>
-<div id="recap-1" class="section level2" number="4.7">
-<h2><span class="header-section-number">4.7</span> Recap</h2>
+<div id="different-learning-paths-1" class="section level2">
+<h2><span class="header-section-number">4.7</span> Different learning paths</h2>
+<p>We are all different and you may like different learning styles compared to others. As a result you may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be usefull for you.</p>
+<ul>
+<li>Suggestion 1</li>
+<li>Suggestion 2</li>
+</ul>
+</div>
+<div id="recap-1" class="section level2">
+<h2><span class="header-section-number">4.8</span> Recap</h2>
 <p>R is a programming language that runs computations, while RStudio is an integrated development environment (IDE) that provides an interface by adding many convenient features and tools.</p>
 <p>Adopt a naming convention. Either use snake case or use camel case. Choose the naming convention you like best in your study group. But stick only to one of them.</p>
 <p>Store your work in a project that keeps all the files associated with a project organized together (such as input data, R scripts, analytical results and figures). You may think of a project as a folder where you store all you work.</p>
@@ -437,21 +482,22 @@ thisIsCamelCase      # you start each word with a capital letter</code></pre>
 <li><em>Data types</em>: integers, doubles/numerics, logicals, and characters. Integers are values like -1, 0, 2, 4092. Doubles or numerics are a larger set of values containing both the integers but also fractions and decimal values like -24.932 and 0.8. Logicals are either <code>TRUE</code> or <code>FALSE</code> while characters are text such as “Hamilton”, “The Wire is the greatest TV show ever”, and “This ramen is delicious.” Note that characters are often denoted with the quotation marks around them.</li>
 <li><em>Vectors</em>: a series of values. These are created using the <code>c()</code> function, where <code>c()</code> stands for “combine” or “concatenate.” For example, <code>c(6, 11, 13, 31, 90, 92)</code> creates a six element series of positive integer values .</li>
 <li><em>Factors</em>: <em>categorical data</em> are commonly represented in R as factors. Categorical data can also be represented as <em>strings</em>.</li>
-<li><em>Data frames</em>: rectangular spreadsheets. They are representations of datasets in R where the rows correspond to <em>observations</em> and the columns correspond to <em>variables</em> that describe the observations.
+<li><em>Data frames</em>: rectangular spreadsheets. They are representations of datasets in R where the rows correspond to <em>observations</em> and the columns correspond to <em>variables</em> that describe the observations.</li>
+<li><em>Lists</em> …</li>
+</ul>
 <!-- * *Conditionals*: \index{conditionals} -->
 <!--   + Testing for equality in R using `==` (and not `=`, which is typically used for assignment). For example, `2 + 1 == 3` compares `2 + 1` to `3` and is correct R code, while `2 + 1 = 3` will return an error. -->
 <!--   + Boolean algebra: `TRUE/FALSE` statements and mathematical operators such as `<` (less than), `<=` (less than or equal), and `!=` (not equal to). \index{Boolean algebra} For example, `4 + 2 >= 3` will return `TRUE`, but `3 + 5 <= 1` will return `FALSE`. -->
 <!--   + Logical operators: `&` representing "and" as well as `|` representing "or." For example, `(2 + 1 == 3) & (2 + 1 == 4)` returns `FALSE` since both clauses are not `TRUE` (only the first clause is `TRUE`). On the other hand, `(2 + 1 == 3) | (2 + 1 == 4)` returns `TRUE` since at least one of the two clauses is `TRUE`. \index{operators!logical} -->
 <!-- * *Functions*, also called *commands*: Functions perform tasks in R. They take in inputs called *arguments* and return outputs. You can either manually specify a function's arguments or use the function's *default values*. \index{functions}  -->
 <!--   + For example, the function `seq()` in R generates a sequence of numbers. If you just run `seq()` it will return the value 1. That doesn't seem very useful! This is because the default arguments are set as `seq(from = 1, to = 1)`. Thus, if you don't pass in different values for `from` and `to` to change this behavior, R just assumes all you want is the number 1. You can change the argument values by updating the values after the `=` sign. If we try out `seq(from = 2, to = 5)` we get the result `2 3 4 5` that we might expect.  -->
-<!--   + We'll work with functions a lot throughout this book and you'll get lots of practice in understanding their behaviors. To further assist you in understanding when a function is mentioned in the book, we'll also include the `()` after them as we did with `seq()` above. --></li>
-</ul>
+<!--   + We'll work with functions a lot throughout this book and you'll get lots of practice in understanding their behaviors. To further assist you in understanding when a function is mentioned in the book, we'll also include the `()` after them as we did with `seq()` above. -->
 </div>
-<div id="exercises" class="section level2" number="4.8">
-<h2><span class="header-section-number">4.8</span> Exercises</h2>
+<div id="exercises" class="section level2">
+<h2><span class="header-section-number">4.9</span> Exercises</h2>
 <p>Exercises are numbered using [module number].[section number].[exercise number].</p>
-<div id="exercise-install-packages" class="section level3" number="4.8.1">
-<h3><span class="header-section-number">4.8.1</span> Exercise (install packages)</h3>
+<div id="exercise-install-packages" class="section level3">
+<h3><span class="header-section-number">4.9.1</span> Exercise (install packages)</h3>
 <p>This exercise is done from the Console in RStudio.</p>
 <ol style="list-style-type: decimal">
 <li>Install the package <code>devtools</code> using function <code>install.packages</code>. Note you can always get help/see documentation by typing <code>?install.packages</code> or typing <code>install.packages</code> and press F1.</li>
@@ -506,16 +552,16 @@ cat(&quot;world&quot;)
 <span id="cb23-2"><a href="r-basics.html#cb23-2"></a><span class="st">  </span><span class="kw">bs_attach_modal</span>(<span class="dt">id_modal =</span> <span class="st">&quot;hint&quot;</span>)</span></code></pre></div>
 <button class="btn btn-default" data-toggle="modal" data-target="#hint">Hint</button>
 </div>
-<div id="exercise" class="section level3" number="4.8.2">
-<h3><span class="header-section-number">4.8.2</span> Exercise</h3>
+<div id="exercise" class="section level3">
+<h3><span class="header-section-number">4.9.2</span> Exercise</h3>
 <p>[Add text]</p>
 </div>
-<div id="exercise-1" class="section level3" number="4.8.3">
-<h3><span class="header-section-number">4.8.3</span> Exercise ()</h3>
+<div id="exercise-1" class="section level3">
+<h3><span class="header-section-number">4.9.3</span> Exercise ()</h3>
 <p>[Add text]</p>
 </div>
-<div id="exercise-string-management" class="section level3" number="4.8.4">
-<h3><span class="header-section-number">4.8.4</span> Exercise (string management)</h3>
+<div id="exercise-string-management" class="section level3">
+<h3><span class="header-section-number">4.9.4</span> Exercise (string management)</h3>
 <p>[Add text]</p>
 <!-- OLD -->
 <!--RStudio Links-->
@@ -539,7 +585,7 @@ cat(&quot;world&quot;)
         </div>
       </div>
 <a href="install.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="loops-and.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="loops-and-conditionals.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -554,23 +600,14 @@ cat(&quot;world&quot;)
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": true,
-"facebook": false,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
+"sharing": false,
 "fontsettings": {
 "theme": "white",
 "family": "sans",
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio-education/stat545/edit/master/r-workflow.Rmd",
+"link": "https://github.com/Tools4Analytics/course/edit/master/book/workflow.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -581,7 +618,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["https://github.com/rstudio-education/stat545/raw/master/r-workflow.Rmd", "TFA.epub"],
+"download": null,
 "toc": {
 "collapse": "section"
 }
