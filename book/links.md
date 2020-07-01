@@ -4,6 +4,12 @@
 
 [Datacamp]: https://www.datacamp.com/
 [datacamp-signup]: https://www.datacamp.com/groups/shared_links/cbaee6c73e7d78549a9e32a900793b2d5491ace1824efc1760a6729735948215
+[datacamp-r-intro]: https://learn.datacamp.com/courses/free-introduction-to-r
+[datacamp-r-rmarkdown]: https://campus.datacamp.com/courses/reporting-with-rmarkdown
+[datacamp-r-communicating]: https://learn.datacamp.com/courses/communicating-with-data-in-the-tidyverse
+[datacamp-r-intermediate]: https://learn.datacamp.com/courses/intermediate-r
+[datacamp-r-functions]: https://learn.datacamp.com/courses/introduction-to-writing-functions-in-r
+[datacamp-r-tidyverse]: https://learn.datacamp.com/courses/introduction-to-the-tidyverse
 [dplyr-cran]: https://CRAN.R-project.org/package=dplyr
 
 [excel-vs-r]: https://www.jessesadler.com/post/excel-vs-r/

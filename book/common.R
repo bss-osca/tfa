@@ -1,6 +1,6 @@
-## seeded with content from same in adv-r
-## deleted bits that seem irrelevant
-## commented out bits that look like they may become relevant
+## Common code relevant for all chapters
+
+strLPath <- "We are all different and you may like different learning styles compared to others. As a result you may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be usefull for you."
 
 library(tidyverse)
 library(knitr)
@@ -87,12 +87,12 @@ pretty_install <- function(...) {
 #' addIcon("calendar", attrib = list(title = "See calendar"))
 #' addIcon("calendar", attrib = list(title = "See calendar", style="font-size: 3em; color: Tomato;"))
 #' addIcon("credit-card", attrib = list(title = "Card"), lib = "glyphicon")
-addIcon <- function(name, attrib = NULL, lib = "font-awesome") 
+addIcon <- function(name, attrib = NULL, lib = "font-awesome")
 {
   prefixes <- list(`font-awesome` = "fa", glyphicon = "glyphicon")
   prefix <- prefixes[[lib]]
   if (is.null(prefix)) {
-    stop("Unknown font library '", lib, "' specified. Must be one of ", 
+    stop("Unknown font library '", lib, "' specified. Must be one of ",
          paste0("\"", names(prefixes), "\"", collapse = ", "))
   }
   prefix_class <- prefix
@@ -114,10 +114,10 @@ addIcon <- function(name, attrib = NULL, lib = "font-awesome")
   }
   if (lib == "glyphicon") {
     iconTag <- do.call(htmltools::tags$span, attrib)
-    # htmltools::htmlDependencies(iconTag) <- 
-    #   htmltools::htmlDependency("bootstrap", "3.3.7", 
-    #                             c(href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7"), 
-    #                             stylesheet = "css/bootstrap.min.css", 
+    # htmltools::htmlDependencies(iconTag) <-
+    #   htmltools::htmlDependency("bootstrap", "3.3.7",
+    #                             c(href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7"),
+    #                             stylesheet = "css/bootstrap.min.css",
     #                             script = "js/bootstrap.min.js",
     #                             all_files = F)
   }
