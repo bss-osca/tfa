@@ -1,9 +1,10 @@
 ## Common code relevant for all chapters
 
-strLPath <- "We are all different and you may like different learning styles compared to others. As a result you may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be usefull for you."
-
 library(tidyverse)
+library(bsplus)
+library(htmltools)
 library(knitr)
+
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
@@ -17,24 +18,24 @@ knitr::opts_chunk$set(
   fig.show = "hold"
 )
 
-options(
-  rlang_trace_top_env = rlang::current_env(),
-  rlang__backtrace_on_error = "none"
-)
+# options(
+#   rlang_trace_top_env = rlang::current_env(),
+#   rlang__backtrace_on_error = "none"
+# )
 
 options(
   width = 100,
   digits = 3,
-  str = strOptions(strict.width = "cut"),
+  # str = strOptions(strict.width = "cut"),
   knitr.kable.NA = ''
 )
 
-if (knitr::is_latex_output()) {
-  knitr::opts_chunk$set(width = 69)
-  options(width = 69)
-  options(crayon.enabled = FALSE)
-  options(cli.unicode = TRUE)
-}
+# if (knitr::is_latex_output()) {
+#   knitr::opts_chunk$set(width = 69)
+#   options(width = 69)
+#   options(crayon.enabled = FALSE)
+#   options(cli.unicode = TRUE)
+# }
 
 # knitr::knit_hooks$set(
 #   small_mar = function(before, options, envir) {
@@ -45,31 +46,31 @@ if (knitr::is_latex_output()) {
 # )
 
 
-knitr::knit_hooks$set(chunk_envvar = function(before, options, envir) {
-  envvar <- options$chunk_envvar
-  if (before && !is.null(envvar)) {
-    old_envvar <<- Sys.getenv(names(envvar), names = TRUE, unset = NA)
-    do.call("Sys.setenv", as.list(envvar))
-    #print(str(options))
-  } else {
-    do.call("Sys.setenv", as.list(old_envvar))
-  }
-})
+# knitr::knit_hooks$set(chunk_envvar = function(before, options, envir) {
+#   envvar <- options$chunk_envvar
+#   if (before && !is.null(envvar)) {
+#     old_envvar <<- Sys.getenv(names(envvar), names = TRUE, unset = NA)
+#     do.call("Sys.setenv", as.list(envvar))
+#     #print(str(options))
+#   } else {
+#     do.call("Sys.setenv", as.list(old_envvar))
+#   }
+# })
 
-check_quietly <- purrr::quietly(devtools::check)
-install_quietly <- purrr::quietly(devtools::install)
-
-shhh_check <- function(..., quiet = TRUE) {
-  out <- check_quietly(..., quiet = quiet)
-  out$result
-}
-
-pretty_install <- function(...) {
-  out <- install_quietly(...)
-  output <- strsplit(out$output, split = "\n")[[1]]
-  output <- grep("^(\\s*|[-|])$", output, value = TRUE, invert = TRUE)
-  c(output, out$messages)
-}
+# check_quietly <- purrr::quietly(devtools::check)
+# install_quietly <- purrr::quietly(devtools::install)
+#
+# shhh_check <- function(..., quiet = TRUE) {
+#   out <- check_quietly(..., quiet = quiet)
+#   out$result
+# }
+#
+# pretty_install <- function(...) {
+#   out <- install_quietly(...)
+#   output <- strsplit(out$output, split = "\n")[[1]]
+#   output <- grep("^(\\s*|[-|])$", output, value = TRUE, invert = TRUE)
+#   c(output, out$messages)
+# }
 
 
 #' Add a icon
@@ -123,3 +124,5 @@ addIcon <- function(name, attrib = NULL, lib = "font-awesome")
   }
   htmltools::browsable(iconTag)
 }
+
+strLPath <- "We are all different and you may like different learning styles compared to others. As a result you may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be usefull for you."

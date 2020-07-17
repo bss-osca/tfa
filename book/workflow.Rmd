@@ -1,6 +1,15 @@
-```{r, include = FALSE, cache=FALSE}
-source("common.R")
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
 ```
+
+```{r}
+strLPath
+```
+
 
 # R basics and workflows {#r-basics}
 
@@ -15,6 +24,7 @@ By the end of this module, you are expected to have:
 
 <!-- Content from: https://stat545.com/block002_hello-r-workspace-wd-project.html-->
 <!-- Content from: https://moderndive.netlify.app/1-getting-started.html -->
+<!-- Exercises from: https://rafalab.github.io/dsbook/r-basics.html -->
 
 ## Working with R at the command line in RStudio
 
@@ -26,7 +36,7 @@ knitr::include_graphics("img/R_vs_RStudio_1.png")
 
 More precisely, R is a programming language that runs computations, while RStudio is an *integrated development environment (IDE)* that provides an interface by adding many convenient features and tools. So just as the way of having access to a speedometer, rearview mirrors, and a navigation system makes driving much easier, using RStudio's interface makes using R much easier as well. 
 
-Compared to Excel. The benefit of using Excel is that the initial learning curve is quite minimal, and most analysis can be done via point-and-click on the top panel. Once a user imports their data into the program, it’s not exceedingly hard to make basic graphs and charts. R is a programming language, however, meaning the initial learning curve is steeper. It will take you some time to become familiar with the interface and master the various functions. Luckily, using R can quickly become second-nature with practice. For a detailed description you may see [Excel vs R: A Brief Introduction to R][excel-vs-r] by Jesse Sadler.
+Compared to Excel. The benefit of using Excel is that the initial learning curve is quite minimal, and most analysis can be done via point-and-click on the top panel. Once a user imports their data into the program, it's not exceedingly hard to make basic graphs and charts. R is a programming language, however, meaning the initial learning curve is steeper. It will take you some time to become familiar with the interface and master the various functions. Luckily, using R can quickly become second-nature with practice. For a detailed description you may see [Excel vs R: A Brief Introduction to R][excel-vs-r] by Jesse Sadler.
 
 Compared to VBA, R is an [interpreted language][wiki-interpreted]; users typically access it through a command-line or script file. To run VBA you need to compile and execute it.   
 
@@ -57,7 +67,7 @@ x
 ```
 
 All R statements where you create objects -- "assignments" -- have this form:
-```{r eval = FALSE}
+```{r, eval = FALSE}
 objectName <- value
 ```
 and in my head I hear, e.g., "x equals 12". You will make lots of assignments and the operator `<-` is a pain to type. Don't be lazy and use `=`, although it would work, because it will just sow confusion later. Instead, utilize RStudio's keyboard shortcut: Alt + - (the minus sign).
@@ -82,7 +92,7 @@ To inspect this, try out RStudio's completion facility: type the first few chara
 
 In VBA you have procedures and functions. In R we only use functions which always return an object. R has a mind-blowing collection of built-in functions that are accessed like so:
 
-```{r eval = FALSE, tidy = FALSE}
+```{r, eval = FALSE, tidy = FALSE}
 functionName(arg1 = val1, arg2 = val2, ...)
 ```
 
@@ -133,7 +143,7 @@ rm(yo)
 
 To remove everything:
 
-```{r}
+```{r, eval=FALSE}
 rm(list = ls())
 ```
 
@@ -143,6 +153,57 @@ or click the broom in RStudio's Environment pane.
 ## Your first DataCamp course
 
 [Datacamp] is an online platform for learning data science. We are going to use the platform for online lessons and exercises. DataCamp runs all the courses in your browser. That is, R is run on a server and you don't use RStudio here. The first course gives an [Introduction to R][datacamp-r-intro]. You are expected to have completed the course before continuing this module!
+
+
+## Pipes
+
+<!-- https://rafalab.github.io/dsbook/tidyverse.html -->
+
+Must functions support the pipe operator which are a powerful tool for clearly expressing a sequence of multiple operations. The pipe operator `%>%`, comes from the magrittr package and is loaded automaticaly when you load tidyverse. You may use the RStudio keyboard shortcut: Ctrl+Shift+M (Windows), Cmd+Shift+M (Mac).
+
+Consider the following code:
+
+```{r}
+# calculate x as a sequence of operations
+x <- 16
+x <- sqrt(x)
+x <- log2(x)
+x
+# same as
+y <- log2(sqrt(16))
+y
+```
+
+Note we here calculate `x` using a sequence of operations:
+
+$$ \mbox{original data (x)}
+\rightarrow \mbox{ sqrt }
+\rightarrow \mbox{ log2 }. $$
+
+That is, we take what is left of the arrow (the object `x`) and input it into the function on the right of the arrow. These operations can be done using the pipe operator:
+
+```{r}
+x <- 16
+x <- x %>%
+   sqrt() %>%
+   log2()
+x
+```
+In general, the pipe _sends_ the result of the left side of the pipe to be the first argument of the function on the right side of the pipe. That is, you may have other arguments in your functions:
+
+```{r}
+16 %>% sqrt() %>% log2()
+16 %>% sqrt() %>% log(base = 2)   # equivalent
+```
+
+The above example is simple but illustrate that you can use pipes to skip intermediate assignment operations. Later you will do more complex pipes when we consider data wangling. For instance,
+
+```{r}
+mtcars %>% select(cyl, gear, hp, mpg) %>% filter(gear == 4, cyl == 4)
+```
+
+selects the columns related to cylinders, gears, hoursepower and miles, and then rows with cars having four cylinders and gears. For a more detailed introduction to pipes see [Chapter 18][r4ds-pipes] in @r4ds.
+
 
 
 ## RStudio projects {#rprojs}
@@ -233,8 +294,18 @@ You can also use RStudio's Files pane to navigate to a directory and then set it
 
 `r strLPath`
 
-* Suggestion 1 
-* Suggestion 2
+* Roger Peng has a lot of [videos](https://www.youtube.com/playlist?list=PLjTlxb-wKvXPqyY3FZDO8GqIaWuEDy-Od) on YouTube about R. Of special interest are
+   
+   - A introduction to the R language ([Part 1](https://www.youtube.com/watch?v=vGY5i_J2c-c), [Part 2](https://www.youtube.com/watch?v=w8_XdYI3reU), [Part 3](https://www.youtube.com/watch?v=NuY6jY4qE7I)) including data types and basic operations.
+   - [A introduction to subsetting in R](https://www.youtube.com/watch?v=hWbgqzsQJF0&list=PLjTlxb-wKvXPqyY3FZDO8GqIaWuEDy-Od&index=10&t=0s) 
+   - 
+   
+* An introduction to R is given in [Chapter 4](https://bookdown.org/rdpeng/rprogdatascience/r-nuts-and-bolts.html) of @rdpeng.
+* A detailed tutorial on subsetting is given in [Chapter 9](https://bookdown.org/rdpeng/rprogdatascience/subsetting-r-objects.html) of @rdpeng.
+* A longer tutorial to factors is given in [Chapter 15][r4ds-factors] of @r4ds.
+* In general @r4ds
+
+
 
 ## Recap
 
@@ -253,6 +324,8 @@ This workflow will serve you well in the future:
 
 Avoid using the mouse for pieces of your analytical workflow, such as loading a dataset or saving a figure. Terribly important for reproducibility and for making it possible to retrospectively determine how a numerical table or PDF was actually produced.
 
+Learn and use shortcuts as much as possible. For instance Alt+- for the assingment operator and Ctro+Shift+M for the pipe operator. A reference card of shortcuts can be seen using Alt+Shift+K.
+
 Store your R commands in a script file and R scripts with a `.R` suffix. 
 
 Comments start with one or more `#` symbols. Use them. RStudio helps you (de)comment selected lines with Ctrl+Shift+C (Windows and Linux) or Ctrl+Shift+C (Mac).
@@ -267,18 +340,18 @@ The interactive DataCamp course gave an introduction to some basic programming c
 * *Vectors*: a series of values. These are created using the `c()` function, where `c()` stands for "combine" or "concatenate." For example, `c(6, 11, 13, 31, 90, 92)` creates a six element series of positive integer values \index{vectors}.
 * *Factors*: *categorical data* are commonly represented in R as factors. Categorical data can also be represented as *strings*. 
 * *Data frames*: rectangular spreadsheets. They are representations of datasets in R where the rows correspond to *observations* and the columns correspond to *variables* that describe the observations. 
-* *Lists* ...
+* *Lists* are general containers that can be used to store a set of different objects under one name (that is, the name of the list) in an ordered way. These objects can be matrices, vectors, data frames, even other lists, etc. It is not even required that these objects are related to each other in any way.
+* *Comparison operators* known to R are:
 
-<!-- * *Conditionals*: \index{conditionals} -->
-<!--   + Testing for equality in R using `==` (and not `=`, which is typically used for assignment). For example, `2 + 1 == 3` compares `2 + 1` to `3` and is correct R code, while `2 + 1 = 3` will return an error. -->
-<!--   + Boolean algebra: `TRUE/FALSE` statements and mathematical operators such as `<` (less than), `<=` (less than or equal), and `!=` (not equal to). \index{Boolean algebra} For example, `4 + 2 >= 3` will return `TRUE`, but `3 + 5 <= 1` will return `FALSE`. -->
+   - `<` for less than,
+   - `>` for greater than,
+   - `<=` for less than or equal to,
+   - `>=` for greater than or equal to,
+   - `==` for equal to each other (and not `=` which is typically used for assignment!),
+   - `!=` not equal to each other.
+
 <!--   + Logical operators: `&` representing "and" as well as `|` representing "or." For example, `(2 + 1 == 3) & (2 + 1 == 4)` returns `FALSE` since both clauses are not `TRUE` (only the first clause is `TRUE`). On the other hand, `(2 + 1 == 3) | (2 + 1 == 4)` returns `TRUE` since at least one of the two clauses is `TRUE`. \index{operators!logical} -->
-<!-- * *Functions*, also called *commands*: Functions perform tasks in R. They take in inputs called *arguments* and return outputs. You can either manually specify a function's arguments or use the function's *default values*. \index{functions}  -->
-<!--   + For example, the function `seq()` in R generates a sequence of numbers. If you just run `seq()` it will return the value 1. That doesn't seem very useful! This is because the default arguments are set as `seq(from = 1, to = 1)`. Thus, if you don't pass in different values for `from` and `to` to change this behavior, R just assumes all you want is the number 1. You can change the argument values by updating the values after the `=` sign. If we try out `seq(from = 2, to = 5)` we get the result `2 3 4 5` that we might expect.  -->
-<!--   + We'll work with functions a lot throughout this book and you'll get lots of practice in understanding their behaviors. To further assist you in understanding when a function is mentioned in the book, we'll also include the `()` after them as we did with `seq()` above. -->
-
-
-
+<!-- * *Functions*, also called *commands*: Functions perform tasks in R. They take in inputs called *arguments* and return outputs. You can either manually specify a function's arguments or use the function's *default values*. \index{functions} -->
 
 
 
@@ -291,70 +364,664 @@ file.remove(c("avg_x.txt", "toy_line_plot.pdf"))
 
 ## Exercises
 
-Exercises are numbered using [module number].[section number].[exercise number]. 
+<!-- [Try to add shortscuts etc for projects ...] -->
+
+Exercises are numbered using [module number].[section number].[exercise number]. In general you are expected to start solving some of the exercises as homework (except the ones marked with an asterisk). When you meet in your study group, go through each exercise and discuss/solve it. 
+
+Practice using shortcuts in RStudio (use Shift+Alt+K to get an overview). 
+
+### Exercise (group work)*
+
+You have all been allocated into groups. During the course you are expected to solve the R exercises in these groups. Before you start, it is a good idea to agree on a set of group rules:
+
+   1) It is a good idea to have a common place for your code. Have a look at the section [Working in groups](#groups) and decide on a place to share your code.
+   1) Create a common folder and project for your group.
+   1) Agree on a coding convention.
+   1) Agree about rules of how to meet etc.
+
 
 ### Exercise (install packages)
 
-This exercise is done from the Console in RStudio. 
+*This exercise is done from the Console in RStudio (under Windows [remember to have admin rights](#install-r)).*
 
-   1) Install the package `devtools` using function `install.packages`. Note you can always get help/see documentation by typing `?install.packages` or typing `install.packages` and press F1. 
-   
-You now have install the package from the default repository ([CRAN][cran]). You may also install packages from other repositories (e.g. GitHub)
-   
-   1) Have a look at the documentation for function `install_github` in the package `devtools`. This can be done in different ways:
-   
+   1) Install the package `devtools` using function `install.packages`. Note you can always get help/see documentation of a function by typing `?install.packages` or typing `install.packages` and press F1. 
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
 ```r
-library(devtools)    # we here load all the functions in devtools 
+install.packages("devtools")
+```')
+sink()
+}
+bs_modal(id = "solution-i1", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="display:block;float:right") %>%
+  bs_attach_modal(id_modal = "solution-i1")
+```
+ 
+   
+You now have install the package from the default repository ([CRAN][cran]). 
+
+<!-- You may also install packages from other repositories (e.g. GitHub): -->
+
+<!--    2) Have a look at the documentation for function `install_github` in the package `devtools`. This can be done in different ways: -->
+
+```r
+library(devtools)    # we here load all the functions in devtools
 ?install_github
 
 ?devtools::install_github     # we here use the namespace devtools to load only one function
 ```
 
-   1) Install the package `tfa` from github using path ``
+<!--    2) Install the package `tfa` from github using path ``Tools4Analytics/course/ -->
 
-```{r filter}
-# filter the flights table to include only United and
-# American flights
 
+
+### Exercise (piping)
+
+*Solve this exercise using a script file (e.g. `exercises/pipe.R`). Remember that you can run a line in the file using Ctrl+Enter* 
+
+The pipe `%>%` can be used to perform operations sequentially without having to define intermediate objects (Ctrl+Shift+M). Have a look at the dataset `mtcars`: 
+
+```{r, eval=FALSE}
+head(mtcars)
+?mtcars
 ```
 
+The pipe
+
 ```{r}
+library(tidyverse)
+mtcars %>% select(cyl, gear, hp, mpg) %>% filter(gear == 4, cyl == 4)
+```
+
+selects the columns related to cylinders, gears, hoursepower and miles, and then rows with cars having four cylinders and gears. 
+
+```{r, echo=FALSE}
 {
 sink("tmp.md")
 cat('
-Vi tester
 ```r
-cat("hello")
-cat("world")
+mtcars %>% 
+   select(mpg, hp, am, gear)
 ```')
 sink()
 }
-bs_modal(id = "hint", title = "Hint", 
+bs_modal(id = "solution-p1", title = "Solution", 
          body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-p1")
 ```
+
+1) Create a pipe that selects columns related to miles, hoursepower, transmission and gears.
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+mtcars %>% 
+   select(mpg, hp, am, gear) %>% 
+   filter(mpg < 20, gear == 4)
+```')
+sink()
+}
+bs_modal(id = "solution-p2", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-p2")
+```
+
+2) Given the answer in 1), filter so cars have miles less than 20 and 4 gears.
+
+The "or" operator in R is `|`.
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+mtcars %>% 
+   select(mpg, hp, am, gear) %>% 
+   filter(mpg < 20 | gear == 4)
+```')
+sink()
+}
+bs_modal(id = "solution-p3", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-p3")
+```
+
+3) Given the answer in 1), filter so cars have miles less than 20 or 4 gears.
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+mtcars %>% 
+   filter(mpg < 20, gear == 4) %>% 
+   select(wt, vs) )
+```')
+sink()
+}
+bs_modal(id = "solution-p4", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-p4")
+```
+
+4) Create a pipe that filter the cars having miles less than 20 and 4 gears and selects columns related to weight and engine.
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+dat <- mtcars 
+dat <- filter(dat, mpg < 20, gear == 4) 
+dat <- select(dat, wt, vs) 
+dat
+```')
+sink()
+}
+bs_modal(id = "solution-p5", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-p5")
+```
+
+5) Solve Question 4 without the pipe operator. 
+
+
+
+
+### Exercise (working dir)
+
+*Do this exercise from the Console in RStudio.*
+
+When reading and writing to local files, your working directory becomes important. You can get and set the working directory using functions `getwd` and `setwd`. 
+
+Set the working directory to the project directory using the menu: **Session > Set Working Directory > To Project Directory**. Now let us create some files:
 
 ```{r}
-bs_button("Hint") %>%
-  bs_attach_modal(id_modal = "hint")
+dir.create("subfolder") 
+write_file("Some text in a file", path = "test1.txt")
+write_file("Some other text in a file", path = "subfolder/test2.txt")
+```
+
+1) Which folders and files have been created? You may have a look in the **Files** plane.
+
+We can read the file again using:
+
+```{r}
+
+read_file("test1.txt")
+```
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+read_file("subfolder/test2.txt")
+```')
+sink()
+}
+bs_modal(id = "solution-w2", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-w2")
+```
+
+2) Read the file `test2.txt`.
+
+3) Set the working directory to `subfolder` using function `setwd`. Note that `setwd` supports relative paths. Check that you are in the right working directory using `getwd`. You may also have a look at the files in the directory using function `list.files`.
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+setwd("subfolder")  # Q3
+read_file("../test1.txt")
+read_file("test2.txt")
+```')
+sink()
+}
+bs_modal(id = "solution-w4", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-w4")
+```
+
+4) Read files `test1.txt` and `test2.txt`. Note that in relative paths `../` means going to the parent folder.  What is different compared to Question 2?
+
+```{r, include=FALSE}
+unlink("subfolder", recursive = TRUE)
+unlink("test1.txt")
 ```
 
 
-### Exercise
+### Exercise (vectors)
 
-[Add text]
+*Solve this exercise using a script file.*
 
-### Exercise ()
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+n <- 100
+n*(n+1)/2
+```')
+sink()
+}
+bs_modal(id = "solution-v1", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-v1")
+```
 
-[Add text]
+1) What is the sum of the first 100 positive integers? The formula for the sum of integers $1$ through $n$ is $n(n+1)/2$. Define $n=100$ and then use R to compute the sum of $1$ through $100$ using the formula. What is the sum?
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+n <- 1000
+n*(n+1)/2
+```')
+sink()
+}
+bs_modal(id = "solution-v2", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-v2")
+```
+
+2) Now use the same formula to compute the sum of the integers from 1 through 1000.
+
+3) Look at the result of typing the following code into R:
+
+   ```{r, eval=FALSE}
+   n <- 1000
+   x <- seq(1, n)
+   sum(x)
+   ```
+
+   Based on the result, what do you think the functions `seq` and `sum` do?  You can use `help`.
+
+   a. `sum` creates a list of numbers and `seq` adds them up.
+   b. `seq` creates a list of numbers and `sum` adds them up.
+   c. `seq` creates a random list and `sum` computes the sum of 1 through 1,000.
+   d. `sum` always returns the same number.
+
+4) Run code
+
+```{r}
+set.seed(123)
+v <- sample.int(100,30)
+v
+```
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+sum(v)
+mean(v)
+sd(v)
+```')
+sink()
+}
+bs_modal(id = "solution-v5", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-v5")
+```
+
+5) What is the sum, mean and standard deviation of `v`? 
+
+
+
+6) Select elements 1, 6, 4 and 15 of `v`.
+
+7) Select elements with value above 50.
+
+8) Select elements with value above 75 or below 25.
+
+9) Select elements with value 43.
+
+10) Select elements with value `NA`.
+
+11) Which elements have value above 75 or below 25? Hint: see the documentation of function `which`.
+
+
+
+
+### Exercise (matrices)
+
+*Solve this exercise using a script file.*
+
+Consider matrices
+
+```{r}
+m1 <- matrix(c(37, 8, 51, NA, 50, 97, 86, NA, 84, 46, 17, 62L), nrow = 3)
+m2 <- matrix(c(37, 8, 51, NA, 50, 97, 86, NA, 84, 46, 17, 62L), nrow = 3, byrow = TRUE)
+m3 <- matrix(c(37, 8, 51, NA, 50, 97, 86, NA, 84, 46, 17, 62L), ncol = 3)
+```
+
+1) What is the difference between the three matrices (think/discuss before running the code).
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+rowSums(m1, na.rm = T)
+colSums(m2, na.rm = T)
+```')
+sink()
+}
+bs_modal(id = "solution-m2", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-m2")
+```
+
+2) Calculate the row sums of `m1` and column sums of `m2` ignoring `NA` values. Hint: Have a look at the documentation of `rowSums`.
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+rbind(m1, c(1, 2, 3, 4))
+```')
+sink()
+}
+bs_modal(id = "solution-m3", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-m3")
+```
+
+3) Add row `c(1, 2, 3, 4)` as last row to `m1`. 
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+rbind(c(1, 2, 3, 4), m1)
+```')
+sink()
+}
+bs_modal(id = "solution-m4", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-m4")
+```
+
+4) Add row `c(1, 2, 3, 4)` as first row to `m1`. 
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+cbind(m3, c(1, 2, 3, 4))
+```')
+sink()
+}
+bs_modal(id = "solution-m5", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-m5")
+```
+
+5) Add column `c(1, 2, 3, 4)` as last column to `m3`.
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+m1[2,4]
+```')
+sink()
+}
+bs_modal(id = "solution-m6", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-m6")
+```
+
+6) Select the element in row 2 and column 4 of `m1`. 
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+m1[2:3,1:2]
+```')
+sink()
+}
+bs_modal(id = "solution-m7", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-m7")
+```
+
+7) Select elements in rows 2-3 and columns 1-2 of `m1`. 
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+m1[3, c(1,3,4)]
+```')
+sink()
+}
+bs_modal(id = "solution-m8", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-m8")
+```
+
+8) Select elements in row 3 and columns 1, 3 and 4 of `m1`. 
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+m1[3,]
+```')
+sink()
+}
+bs_modal(id = "solution-m9", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-m9")
+```
+
+9) Select elements in row 3 of `m1`. 
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+m2[is.na(m2)]
+```')
+sink()
+}
+bs_modal(id = "solution-m10", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-m10")
+```
+
+10) Select all `NA` elements in `m2`. 
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+m2[m2 > 50]
+```')
+sink()
+}
+bs_modal(id = "solution-m11", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-m11")
+```
+
+11) Select all elements greater that 50 in `m2`. 
+
+
+
+### Exercise (data frames)
+
+*Solve this exercise using a script file.*
+
+Data frames may be seen as cell blocks in Excel. They are representations of datasets in R where the rows correspond to *observations* and the columns correspond to *variables* that describe the observations. 
+
+We consider the data frame `mtcars`:
+
+```{r, eval=FALSE}
+str(mtcars)
+glimpse(mtcars)
+?mtcars
+```
+
+1) Use the `head` and `tail` functions to have a look at the data.
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+mtcars[,4]
+mtcars[,"hp"]
+mtcars$hp
+```')
+sink()
+}
+bs_modal(id = "solution-df2", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-df2")
+```
+
+2) Select column `hp` using index (column 4), its name, and the `$` operator.
+
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+mtcars <- rbind(mtcars, 
+   c(34, 3, 87, 112, 4.5, 1.515, 167, 1, 1, 5, 3))
+rownames(mtcars)[33] <- "Phantom XE"
+```')
+sink()
+}
+bs_modal(id = "solution-df3", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-df3")
+```
+
+3) Update `mtcars` by adding row `c(34, 3, 87, 112, 4.5, 1.515, 167, 1, 1, 5, 3)`. Name the row 'Phantom XE'.
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+col <- c(NA, "green", "blue", "red", NA, "blue", "green", "blue", "red", "red", 
+   "blue", "green", "blue", "blue", "green", "red", "red", NA, NA, "red", 
+   "green", "red", "red", NA, "green", NA, "blue", "green", "green", "red", 
+   "green", "blue", NA)
+mtcars <- cbind(mtcars, col)
+class(mtcars$col)
+```')
+sink()
+}
+bs_modal(id = "solution-df4", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-df4")
+```
+
+4) Update `mtcars` by adding column:
+
+```{r}
+col <- c(NA, "green", "blue", "red", NA, "blue", "green", "blue", "red", "red", 
+         "blue", "green", "blue", "blue", "green", "red", "red", NA, NA, "red", 
+         "green", "red", "red", NA, "green", NA, "blue", "green", "green", 
+         "red", "green", "blue", NA)
+```
+
+What class is column `col`?
+
+```{r, echo=FALSE}
+{
+sink("tmp.md")
+cat('
+```r
+mtcars[mtcars$vs == 0,]
+```')
+sink()
+}
+bs_modal(id = "solution-df5", title = "Solution", 
+         body = includeMarkdown("tmp.md"))
+bs_button("Solution", style="float:right") %>%
+  bs_attach_modal(id_modal = "solution-df5")
+```
+
+5) Select cars with a V-shaped engine.
+
+
+
+
+### Exercise (lists)
+
+*Solve this exercise using a script file.*
+
+Lists are general containers that can be used to store a set of different objects under one name (that is, the name of the list) in an ordered way. These objects can be matrices, vectors, data frames, even other lists, etc.
+
+Let us define a list 
+
+
+Sometimes it may be usefull to define an empty list with a number of elements
+
+
+creation
+
+selection [] and [[]]
 
 ### Exercise (string management)
 
-
+creation (and empty list with elements)
 
 [Add text]
 
    
-   
+
+
    
 
 
