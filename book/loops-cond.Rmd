@@ -196,23 +196,23 @@ addSolution('if_else(x < 7 | x > 10, NA_integer_, x)')
 
    which generate a natural number from the vector `c(1:10,NA,5.5)`. 
 
-```{r, echo=FALSE}
-addSolution('
-x <- sample(c(1:10,NA,5.5), 1)
-if (is.na(x)) {
-  y <- "missing"
-} else if (x %% 2 == 0) {
-  y <- "even"
-} else if (x %% 2 == 1) {
-  y <- "odd"
-} else if (x %% 1 > 0) {
-  y <- "decimal"
-} 
-x
-y
-')
-```
-   
+   ```{r, echo=FALSE}
+   addSolution('
+   x <- sample(c(1:10,NA,5.5), 1)
+   if (is.na(x)) {
+     y <- "missing"
+   } else if (x %% 2 == 0) {
+     y <- "even"
+   } else if (x %% 2 == 1) {
+     y <- "odd"
+   } else if (x %% 1 > 0) {
+     y <- "decimal"
+   } 
+   x
+   y
+   ')
+   ```
+
    Write code which set object `y` equal to "even" if `x` is even, "odd" if `x` is odd, "decimal" if `x` has a decimal not zero and "missing" if `x` is `NA`. Hint: have a look at `?'%%'` (the modulo operator).
 
 
@@ -269,6 +269,78 @@ addSolution('
 ')
 ```
 5) Solve Question 1 and 2 using a vectorized alternative. 
+
+
+### Exercise (calculating distances)
+
+Consider zip codes in Jutland:
+
+```{r}
+library(tfa)
+zips
+```
+
+We want to calculate distances between between a subset of zip areas:
+
+```{r}
+idx <- 1:5
+dat <- zips[idx,]
+dat
+distanceMat <- matrix(NA, nrow = length(idx), ncol = length(idx))
+colnames(distanceMat) <- str_c(dat$Zip[idx], dat$Area[idx], sep = " ") 
+rownames(distanceMat) <- colnames(distanceMat)
+distanceMat
+```
+
+We can find average distances between two zip codes (here rows 1 and 2 in `dat`) using Bing maps:
+
+```{r}
+key <- "AlUJdApmvPe8y2_IMrC4j4x8fzytbD2M0SvlmpemL09ae_CWS6-IuNSgrAtXoyeP"
+url <- str_c("http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=",
+             dat$Zip[1], ",Denmark",
+             "&wp.1=",
+             dat$Zip[2], ",Denmark",
+             "&avoid=minimizeTolls&key=", key)
+library(jsonlite)
+lst <- jsonlite::fromJSON(url)
+dist <- lst$resourceSets$resources[[1]]$travelDistance
+dist
+lst$statusCode
+lst$statusDescription
+```
+
+Note we call the Bing maps API with the two zip codes. A json files is returned and stored in a list. To get the average travel distance we access `travelDistance`. The status code should be 200 if the calculation returned is okay.
+
+```{r, echo=FALSE}
+addSolution('
+for(i in 1:nrow(distanceMat)) {
+   for(j in 1:ncol(distanceMat)) {
+      if (i>j) {distanceMat[i,j] <- distanceMat[j,i]; next}   # assume symetric distances
+      if (!is.na(distanceMat[i,j])) next   # value already calculated 
+      if (i==j) {distanceMat[i,j] <- 0; next}
+      
+      url <- str_c("http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=",
+                   dat$Zip[i], ",Denmark",
+                   "&wp.1=",
+                   dat$Zip[j], ",Denmark",
+                   "&avoid=minimizeTolls&key=", key)
+      lst <- jsonlite::fromJSON(url)
+      if (lst$statusCode == 200) {
+         distanceMat[i,j] <- lst$resourceSets$resources[[1]]$travelDistance
+      }
+   }
+}
+distanceMat
+')
+```
+
+Use nested for loops to fill `distanceMat` with distances. Assume that the distance from a to b is the same as from b to a. That is, you only have to call the API once for two zip codes. Use an if statement to check if the status code is okay.
+
+
+
+
+
+
 
 
 
