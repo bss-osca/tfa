@@ -6,10 +6,9 @@
 \title{Zip numbers for Jutland in Denmark}
 \format{
 A data frame with 53940 rows and 10 variables:
-
-*\link{Zip} Zip code.
 \itemize{
-\item Area Name of area
+\item \strong{Zip} Zip code.
+\item \strong{Area} Name of area.
 }
 }
 \usage{
@@ -17,5 +16,8 @@ zips
 }
 \description{
 A dataset containing the zip numbers for Jutland in Denmark.
+}
+\examples{
+zips
 }
 \keyword{datasets}
