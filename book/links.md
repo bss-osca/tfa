@@ -8,8 +8,11 @@
 [datacamp-r-rmarkdown]: https://campus.datacamp.com/courses/reporting-with-rmarkdown
 [datacamp-r-communicating]: https://learn.datacamp.com/courses/communicating-with-data-in-the-tidyverse
 [datacamp-r-intermediate]: https://learn.datacamp.com/courses/intermediate-r
+[datacamp-r-intermediate-chap1]: https://campus.datacamp.com/courses/intermediate-r/chapter-1-conditionals-and-control-flow
+[datacamp-r-intermediate-chap2]: https://campus.datacamp.com/courses/intermediate-r/chapter-2-loops
 [datacamp-r-functions]: https://learn.datacamp.com/courses/introduction-to-writing-functions-in-r
 [datacamp-r-tidyverse]: https://learn.datacamp.com/courses/introduction-to-the-tidyverse
+[datacamp-r-strings]: https://learn.datacamp.com/courses/string-manipulation-with-stringr-in-r
 [dplyr-cran]: https://CRAN.R-project.org/package=dplyr
 
 [excel-vs-r]: https://www.jessesadler.com/post/excel-vs-r/
@@ -28,6 +31,8 @@
 [hg-exist-github-last]: https://happygitwithr.com/existing-github-last.html
 [hg-credential-helper]: https://happygitwithr.com/credential-caching.html
 
+[osca-programme]: https://kandidat.au.dk/en/operationsandsupplychainanalytics/
+
 [Peergrade]: https://peergrade.io
 [peergrade-signup]: https://app.peergrade.io/join
 [point-and-click]: https://en.wikipedia.org/wiki/Point_and_click
@@ -37,16 +42,28 @@
 [rstudio-download]: https://rstudio.com/products/rstudio/download/#download
 [rstudio-customizing]: https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio
 [rstudio-key-shortcuts]: https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts
-[rstudio-video-projects]: https://vimeo.com/319318233
+
 [r4ds-pipes]: https://r4ds.had.co.nz/pipes.html
 [r4ds-factors]: https://r4ds.had.co.nz/factors.html
 [r4ds-strings]: https://r4ds.had.co.nz/strings.html
+[r4ds-iteration]: https://r4ds.had.co.nz/iteration.html
 
 [stat-545]: https://stat545.com
 
 [tidyverse-main-page]: https://www.tidyverse.org
 
 [Udemy]: https://www.udemy.com/
+
+[video-install]: https://vimeo.com/415501284
+[video-rstudio-intro]: https://vimeo.com/416391353
+[video-packages]: https://vimeo.com/416743698
+[video-projects]: https://vimeo.com/319318233
+[video-r-intro-p1]: https://www.youtube.com/watch?v=vGY5i_J2c-c
+[video-r-intro-p2]: https://www.youtube.com/watch?v=w8_XdYI3reU
+[video-r-intro-p3]: https://www.youtube.com/watch?v=NuY6jY4qE7I
+[video-subsetting]: https://www.youtube.com/watch?v=hWbgqzsQJF0&list=PLjTlxb-wKvXPqyY3FZDO8GqIaWuEDy-Od&index=10&t=0s
+[video-datatypes]: https://www.youtube.com/watch?v=5AQM-yUX9zg&list=PLjTlxb-wKvXPqyY3FZDO8GqIaWuEDy-Od&index=10
+[video-control-structures]: https://www.youtube.com/watch?v=s_h9ruNwI_0
 
 [wiki-snake-case]: https://en.wikipedia.org/wiki/Snake_case
 [wiki-camel-case]: https://en.wikipedia.org/wiki/Camel_case

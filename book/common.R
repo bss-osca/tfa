@@ -45,6 +45,12 @@ options(
 #   }
 # )
 
+knit_hooks$set(solution = function(before, options, envir) {
+  if (!before) {
+    addSolution(options$code)
+  }
+})
+
 
 # knitr::knit_hooks$set(chunk_envvar = function(before, options, envir) {
 #   envvar <- options$chunk_envvar
@@ -126,3 +132,18 @@ addIcon <- function(name, attrib = NULL, lib = "font-awesome")
 }
 
 strLPath <- "We are all different and you may like different learning styles compared to others. As a result you may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be usefull for you."
+
+ctrSol <- 0
+addSolution <- function(code = "", text = "") {
+  {
+    sink("tmp.md")
+    cat('\n```r\n', str_trim(code), '\n```', sep="")
+    cat('\n', text)
+    sink()
+  }
+  id = str_c("solution", ctrSol)
+  ctrSol <<- ctrSol + 1
+  tagList(bs_modal(id = id, title = "Solution", body = includeMarkdown("tmp.md")),
+          bs_button("Solution", style="float:right") %>%
+            bs_attach_modal(id_modal = id))
+}
