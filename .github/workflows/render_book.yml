@@ -46,6 +46,8 @@ jobs:
 
       - name: Commit results
         run: |
+          git config user.email "junk@relund.dk"
+          git config user.name "Lars Relund"
           git add .
           git commit --allow-empty -am 'gHA build: ${{github.run_number}}' || echo "No changes to commit"
           git pull --rebase
