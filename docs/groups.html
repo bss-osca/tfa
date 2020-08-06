@@ -220,6 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.6.1" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html#exercise-conditional-expressions"><i class="fa fa-check"></i><b>5.6.1</b> Exercise (conditional expressions)</a></li>
 <li class="chapter" data-level="5.6.2" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html#exercise-loops"><i class="fa fa-check"></i><b>5.6.2</b> Exercise (loops)</a></li>
 <li class="chapter" data-level="5.6.3" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html#exercise-calculating-distances"><i class="fa fa-check"></i><b>5.6.3</b> Exercise (calculating distances)</a></li>
+<li class="chapter" data-level="5.6.4" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html#exercise-expand_grid"><i class="fa fa-check"></i><b>5.6.4</b> Exercise (<code>expand_grid</code>)</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>6</b> Functions</a>
@@ -395,11 +396,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4>macOS</h4>
 <p><strong>Option 1</strong> (<em>highly recommended</em>): Install the Xcode command line tools (<strong>not all of Xcode</strong>), which includes Git.</p>
 <p>Go to the shell and enter one of these commands to elicit an offer to install developer command line tools:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb52-1"><a href="groups.html#cb52-1" aria-hidden="true"></a><span class="fu">git</span> --version</span>
-<span id="cb52-2"><a href="groups.html#cb52-2" aria-hidden="true"></a><span class="fu">git</span> config</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb59-1"><a href="groups.html#cb59-1" aria-hidden="true"></a><span class="fu">git</span> --version</span>
+<span id="cb59-2"><a href="groups.html#cb59-2" aria-hidden="true"></a><span class="fu">git</span> config</span></code></pre></div>
 <p>Accept the offer! Click on “Install”.</p>
 <p>Here’s another way to request this installation, more directly:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb53-1"><a href="groups.html#cb53-1" aria-hidden="true"></a><span class="ex">xcode-select</span> --install</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb60-1"><a href="groups.html#cb60-1" aria-hidden="true"></a><span class="ex">xcode-select</span> --install</span></code></pre></div>
 <p>We just happen to find this Git-based trigger apropos.</p>
 <p>Note also that, after upgrading macOS, you might need to re-do the above and/or re-agree to the Xcode license agreement. We have seen this cause the RStudio Git pane to disappear on a system where it was previously working. Use commands like those above to tickle Xcode into prompting you for what it needs, then restart RStudio.</p>
 <p><strong>Option 2</strong> (<em>recommended</em>): Install Git from here: <a href="http://git-scm.com/downloads" class="uri">http://git-scm.com/downloads</a>.</p>
@@ -417,9 +418,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">12.7.0.1</span> Linux</h4>
 <p>Install Git via your distro’s package manager.</p>
 <p>Ubuntu or Debian Linux:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb55-1"><a href="groups.html#cb55-1" aria-hidden="true"></a><span class="fu">sudo</span> apt-get install git</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb62-1"><a href="groups.html#cb62-1" aria-hidden="true"></a><span class="fu">sudo</span> apt-get install git</span></code></pre></div>
 <p>Fedora or RedHat Linux:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb56-1"><a href="groups.html#cb56-1" aria-hidden="true"></a><span class="fu">sudo</span> yum install git</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb63-1"><a href="groups.html#cb63-1" aria-hidden="true"></a><span class="fu">sudo</span> yum install git</span></code></pre></div>
 <p>A comprehensive list for various Linux and Unix package managers: <a href="https://git-scm.com/download/linux" class="uri">https://git-scm.com/download/linux</a></p>
 </div>
 </div>
@@ -434,11 +435,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- ``` -->
 <!-- substituting your name and **the email associated with your GitHub account**. -->
 <p>You can set your Git user name and email from within R using the <a href="https://usethis.r-lib.org">usethis package</a>:</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="groups.html#cb57-1" aria-hidden="true"></a><span class="co">## install if needed (do this exactly once):</span></span>
-<span id="cb57-2"><a href="groups.html#cb57-2" aria-hidden="true"></a><span class="co">## install.packages(&quot;usethis&quot;)</span></span>
-<span id="cb57-3"><a href="groups.html#cb57-3" aria-hidden="true"></a></span>
-<span id="cb57-4"><a href="groups.html#cb57-4" aria-hidden="true"></a><span class="kw">library</span>(usethis)</span>
-<span id="cb57-5"><a href="groups.html#cb57-5" aria-hidden="true"></a><span class="kw">use_git_config</span>(<span class="dt">user.name =</span> <span class="st">&quot;Jane Doe&quot;</span>, <span class="dt">user.email =</span> <span class="st">&quot;jane@example.org&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="groups.html#cb64-1" aria-hidden="true"></a><span class="co">## install if needed (do this exactly once):</span></span>
+<span id="cb64-2"><a href="groups.html#cb64-2" aria-hidden="true"></a><span class="co">## install.packages(&quot;usethis&quot;)</span></span>
+<span id="cb64-3"><a href="groups.html#cb64-3" aria-hidden="true"></a></span>
+<span id="cb64-4"><a href="groups.html#cb64-4" aria-hidden="true"></a><span class="kw">library</span>(usethis)</span>
+<span id="cb64-5"><a href="groups.html#cb64-5" aria-hidden="true"></a><span class="kw">use_git_config</span>(<span class="dt">user.name =</span> <span class="st">&quot;Jane Doe&quot;</span>, <span class="dt">user.email =</span> <span class="st">&quot;jane@example.org&quot;</span>)</span></code></pre></div>
 <p>What user name should you give to Git? This does not have to be your GitHub user name, although it can be. Another good option is your actual first name and last name. If you commit from different machines, sometimes people work that info into the user name. Your commits will be labelled with this user name, so make it informative to potential collaborators and future you.</p>
 <p>What email should you give to Git? This <strong>must</strong> be the email associated with your GitHub account.</p>
 <p>These commands return nothing. You can check that Git understood what you typed by looking at the output of <code>git config --global --list</code> from a shell. An easy way to get into a shell from RStudio is **Tools &gt; Terminal* or *Tools &gt; Shell**. If you have any problems go though Chapters 4-14 on the <a href="https://happygitwithr.com">Happy Git site</a>.</p>
@@ -509,10 +510,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Why? Establish this habit for the future! If you make changes to the repo in the browser or from another machine or (one day) a collaborator has pushed, you will be happier if you pull those changes in before you attempt to push.</p>
 <p>Click the blue “Pull” button in the “Git” tab in RStudio. I doubt anything will happen, i.e. you’ll get the message “Already up-to-date.” This is just to establish a habit.</p>
 <p>Click the green “Push” button to send your local changes to GitHub. You should see some message along these lines.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb58-1"><a href="groups.html#cb58-1" aria-hidden="true"></a>[<span class="ex">master</span> dc671f0] blah</span>
-<span id="cb58-2"><a href="groups.html#cb58-2" aria-hidden="true"></a> <span class="ex">3</span> files changed, 22 insertions(+)</span>
-<span id="cb58-3"><a href="groups.html#cb58-3" aria-hidden="true"></a> <span class="ex">create</span> mode 100644 .gitignore</span>
-<span id="cb58-4"><a href="groups.html#cb58-4" aria-hidden="true"></a> <span class="ex">create</span> mode 100644 myrepo.Rproj</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb65-1"><a href="groups.html#cb65-1" aria-hidden="true"></a>[<span class="ex">master</span> dc671f0] blah</span>
+<span id="cb65-2"><a href="groups.html#cb65-2" aria-hidden="true"></a> <span class="ex">3</span> files changed, 22 insertions(+)</span>
+<span id="cb65-3"><a href="groups.html#cb65-3" aria-hidden="true"></a> <span class="ex">create</span> mode 100644 .gitignore</span>
+<span id="cb65-4"><a href="groups.html#cb65-4" aria-hidden="true"></a> <span class="ex">create</span> mode 100644 myrepo.Rproj</span></code></pre></div>
 <p><strong>Step 5</strong>: Confirm the local change propagated to the GitHub remote</p>
 <p>Go back to the browser. I assume we’re still viewing your new GitHub repo.</p>
 <p>Refresh.</p>
