@@ -10,6 +10,7 @@
 [datacamp-r-intermediate]: https://learn.datacamp.com/courses/intermediate-r
 [datacamp-r-intermediate-chap1]: https://campus.datacamp.com/courses/intermediate-r/chapter-1-conditionals-and-control-flow
 [datacamp-r-intermediate-chap2]: https://campus.datacamp.com/courses/intermediate-r/chapter-2-loops
+[datacamp-r-intermediate-chap4]: https://campus.datacamp.com/courses/intermediate-r/chapter-4-the-apply-family
 [datacamp-r-functions]: https://learn.datacamp.com/courses/introduction-to-writing-functions-in-r
 [datacamp-r-tidyverse]: https://learn.datacamp.com/courses/introduction-to-the-tidyverse
 [datacamp-r-strings]: https://learn.datacamp.com/courses/string-manipulation-with-stringr-in-r
