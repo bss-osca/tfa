@@ -206,10 +206,8 @@ mat
 
 `r strLPath`
 
-* Roger Peng has a lot of [videos](https://www.youtube.com/playlist?list=PLjTlxb-wKvXPqyY3FZDO8GqIaWuEDy-Od) on YouTube about R. Of special interest are
-   
-   - [An introduction to control structures][video-control-structures] including `if`, `for` and `while`.
-   
+* Roger Peng has a video [An introduction to control structures][video-control-structures] including `if`, `for` and `while`.
+* Hefin Rhys has a video [Conditional statements and loops in R][video-conditional-loops] doing examples in RStudio.
 * For a more detailed introduction to loops see [Chapter 21][r4ds-iteration] in @r4ds.
 * Loops can also be created using the *apply* family of functions. An introduction is given in [Chapter 4][datacamp-r-intermediate-chap4] of the interactive DataCamp course [Intermediate R][datacamp-r-intermediate].
 
@@ -386,7 +384,7 @@ addSolution('
 5) Solve Question 1 and 2 using a vectorized alternative. 
 
 
-### Exercise (calculating distances)
+### Exercise (calculating distances) {#ex-dist}
 
 Consider zip codes in Jutland:
 
@@ -428,6 +426,7 @@ Note we call the Bing maps API with the two zip codes. A [json file](https://en.
 
 ```{r, echo=FALSE}
 addSolution('
+key <- "AlUJdApmvPe8y2_IMrC4j4x8fzytbD2M0SvlmpemL09ae_CWS6-IuNSgrAtXoyeP"
 for(i in 1:nrow(distanceMat)) {
    for(j in 1:ncol(distanceMat)) {
       if (i>j) {distanceMat[i,j] <- distanceMat[j,i]; next}   # assume symetric distances
@@ -454,8 +453,31 @@ Use nested for loops to fill `distanceMat` with distances. Assume that the dista
 
 ### Exercise (`expand_grid`)
 
+```{r, echo=FALSE}
+addSolution('
+ite <- expand_grid(i = c(1,5), j = 2:3)
+ite
+key <- "AlUJdApmvPe8y2_IMrC4j4x8fzytbD2M0SvlmpemL09ae_CWS6-IuNSgrAtXoyeP"
+for (r in 1:nrow(ite)) { # iterate over rows
+   i <- ite$i[r]
+   j <- ite$j[r]
+   if (i==j) {distanceMat[i,j] <- 0; next}
+   url <- str_c("http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=",
+                dat$Zip[i], ",Denmark",
+                "&wp.1=",
+                dat$Zip[j], ",Denmark",
+                "&avoid=minimizeTolls&key=", key)
+   lst <- jsonlite::fromJSON(url)
+   if (lst$statusCode == 200) {
+      distanceMat[i,j] <- lst$resourceSets$resources[[1]]$travelDistance
+      distanceMat[j,i] <- distanceMat[i,j]
+   }
+}
+distanceMat
+')
+```
 
-
+Consider the solution of Exercise \@ref(ex-dist) and assume that you only want to calculate the distance from rows 1 and 5 to rows 2 and 3 in `dat`. Modify the solution using `expand_grid` so only one loop is used.
 
 
 

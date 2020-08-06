@@ -10,6 +10,7 @@
 [datacamp-r-intermediate]: https://learn.datacamp.com/courses/intermediate-r
 [datacamp-r-intermediate-chap1]: https://campus.datacamp.com/courses/intermediate-r/chapter-1-conditionals-and-control-flow
 [datacamp-r-intermediate-chap2]: https://campus.datacamp.com/courses/intermediate-r/chapter-2-loops
+[datacamp-r-intermediate-chap3]: https://campus.datacamp.com/courses/intermediate-r/chapter-3-functions
 [datacamp-r-intermediate-chap4]: https://campus.datacamp.com/courses/intermediate-r/chapter-4-the-apply-family
 [datacamp-r-functions]: https://learn.datacamp.com/courses/introduction-to-writing-functions-in-r
 [datacamp-r-tidyverse]: https://learn.datacamp.com/courses/introduction-to-the-tidyverse
@@ -50,6 +51,9 @@
 [r4ds-iteration]: https://r4ds.had.co.nz/iteration.html
 
 [stat-545]: https://stat545.com
+[stat-545-functions-part1]: https://stat545.com/functions-part1.html
+[stat-545-functions-part2]: https://stat545.com/functions-part2.html
+[stat-545-functions-part3]: https://stat545.com/functions-part3.html
 
 [tidyverse-main-page]: https://www.tidyverse.org
 
@@ -65,6 +69,8 @@
 [video-subsetting]: https://www.youtube.com/watch?v=hWbgqzsQJF0&list=PLjTlxb-wKvXPqyY3FZDO8GqIaWuEDy-Od&index=10&t=0s
 [video-datatypes]: https://www.youtube.com/watch?v=5AQM-yUX9zg&list=PLjTlxb-wKvXPqyY3FZDO8GqIaWuEDy-Od&index=10
 [video-control-structures]: https://www.youtube.com/watch?v=s_h9ruNwI_0
+[video-conditional-loops]: https://www.youtube.com/watch?v=2evtsnPaoDg
+[video-functions]: https://www.youtube.com/watch?v=ffPeac3BigM
 
 [wiki-snake-case]: https://en.wikipedia.org/wiki/Snake_case
 [wiki-camel-case]: https://en.wikipedia.org/wiki/Camel_case
