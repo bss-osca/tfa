@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 ```{r include = FALSE, cache=FALSE}
 source("common.R")
 ```
@@ -5,8 +10,19 @@ source("common.R")
 
 # Functions
 
+> To understand computations in R, two slogans are helpful:
+>
+>    Everything that exists is an object.
+>
+>    Everything that happens is a function call.
+>
+>   John Chambers
 
-[Intro]
+<!-- https://bookdown.org/rdpeng/rprogdatascience/functions.html -->
+
+Writing functions is a core activity of an R programmer. It represents the key step of the transition from a user to a programmer. Functions have inputs and outputs. Functions (and control structures) are what makes your code more dynamic.
+
+Functions are often used to encapsulate a sequence of expressions that need to be executed numerous times, perhaps under slightly different conditions. In programming, functional programming is a programming paradigm, a style how code is written. Rather than repeating code, functions and control structures allow one to build code in blocks. As a result your code becomes more structured, more readable and much easier to maintain and debug (find errors).
 
 ## Learning outcomes
 
@@ -20,9 +36,6 @@ By the end of this module, you are expected to be able to:
 * Explain how variable scope and precedence works.
 * Document functions. 
 
-
-data type comparison with VBA
-
 <!-- SOLO increasing: identify · memorise · name · do simple procedure · collect data · -->
 <!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
 <!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
@@ -31,12 +44,68 @@ data type comparison with VBA
 
 ## DataCamp course
 
-An excellent introduction to functions is given in [Chapter 3][datacamp-r-intermediate-chap3] in DataCamp course [Intermediate R][datacamp-intermediate-r]. Please complete the chapter before continuing. 
+An excellent introduction to functions is given in [Chapter 3][datacamp-r-intermediate-chap3] in the DataCamp course [Intermediate R][datacamp-intermediate-r]. Please complete the chapter before continuing. 
 
 
- or 
+## Functions returning multiple arguments
 
 
+
+## Documenting your functions
+
+It is always a good idea to document your functions. This is in fact always done in functions of a package. For instance try `?mutate` and see the documentation in the **Help** tab.
+
+Assume that you have written a function
+
+```{r}
+subtract <- function(x, y) {
+  return(x-y)
+}
+```
+
+In RStudio you can insert a [Roxygen](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) documentation skeleton by having the cursor at the first line of the function and go to **Code > Insert Roxygen Skeleton** (Ctrl+Alt+Shift+R):
+
+```{r}
+#' Title
+#'
+#' @param x 
+#' @param y 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+subtract <- function(x, y) {
+  return(x-y)
+}
+```
+
+You now can modify your documentation to
+
+```{r}
+#' Subtract two vectors
+#'
+#' @param x First vector.
+#' @param y Vector to be subtracted.
+#'
+#' @return The difference.
+#' @export
+#'
+#' @examples
+#' subtract(x = c(5,5), y = c(2,3))
+subtract <- function(x, y) {
+  return(x-y)
+}
+```
+
+Note 
+
+* Parameters/function arguments are documented using the `@param` tag.
+* Return value is documented using the `@return` tag. 
+* Under the `@examples` tag you can insert some examples. 
+* Ignore the `@export` tag. This is used if you include your function in your own package. Package development is beyond the scope of this course. If you are interested, have a look at the book @r-pkgs. 
+
+A list of further tags can be seen in the vignette [Rd (documentation) tags](https://roxygen2.r-lib.org/articles/rd.html).
 
 
 
@@ -45,28 +114,151 @@ An excellent introduction to functions is given in [Chapter 3][datacamp-r-interm
 `r strLPath`
 
 * For a more detailed interactive tutorial about functions see the DataCamp course [Introduction to Writing Functions in R][datacamp-r-functions].
-* Roger Peng has a video about [Writing functions in R][video-functions] giving examples in RStudio. 
-* A detailed tutorial on functions is given in Chapters [18][stat-545-functions-part1], [19][stat-545-functions-part2] and [20][stat-545-functions-part3] of @stat545.
+* Hefin Rhys has a video about [Writing functions in R][video-functions] giving examples in RStudio.
 * An introduction to functions is also given in [Chapter 14](https://bookdown.org/rdpeng/rprogdatascience/functions.html) of @rdpeng.
+* A detailed tutorial on functions is given in Chapters [18][stat-545-functions-part1], [19][stat-545-functions-part2] and [20][stat-545-functions-part3] of @stat545.
+
+
+## Recap
+
+Writing functions is a core activity of an R programmer. It represents the key step of the transition from a user to a programmer. Functions have inputs and outputs. Functions (and control structures) are what makes your code more dynamic.
+
+Functions are often used to encapsulate a sequence of expressions that need to be executed numerous times, perhaps under slightly different conditions. In programming, functional programming is a programming paradigm, a style how code is written. Rather than repeating code, functions and control structures allow one to build code in blocks. As a result your code becomes more structured, more readable and much easier to maintain and debug (find errors).
+
+Functions can be defined using the `function()` directive. 
+
+The named arguments (input values) can have default values.
+
+A function can be called using its name and its arguments can be specified by name or by position in the argument list.
+
+Functions always return the last expression evaluated in the function body or when you use the `return` flow control statement (good coding practice). 
+
+Functions can be assigned to R objects just like any other R object.
+
+Document your functions using the Roxygen skeleton!
 
 
 ## Exercises
 
-### Exercise ()
+### Exercise (defining functions)
 
-### Exercise
+```{r, echo=FALSE}
+addSolution("
+#' Computes the sum of the integers from 1 to n (inclusive).
+#'
+#' @param n Max value in the sum.
+#'
+#' @return Sum of the integers from 1 to n.
+#'
+#' @examples
+#' sum_n(30)
+sum_n <- function(n) {
+  return(sum(1:n))
+}
+sum_n(5000)
+")
+```
 
-3\. The function `nchar` tells you how many characters long a character vector is. Write a line of code that assigns to the object `new_names` the state abbreviation when the state name is longer than 8 characters.
-    
-### Exercise
+1) Create a function `sum_n` that for any given value, say $n$, computes the sum of the integers from 1 to n (inclusive). Use the function to determine the sum of integers from 1 to 5000. Remember to document your function.
 
-4\. Create a function `sum_n` that for any given value, say $n$, computes the sum of the integers from 1 to n (inclusive). Use the function to determine the sum of integers from 1 to 5,000.
+```{r, echo=FALSE}
+addSolution("
+#' Computes the sum S_n = 1^2 + 2^2 + 3^2 + ... + n^2
+#'
+#' @param n Max input in sum.
+#'
+#' @return S_n
+compute_s_n <- function(n) {
+  return(sum((1:n)^2))
+}
+compute_s_n(10)
+")
+```
 
-### Exercise
+2) Write a function `compute_s_n` that for any given $n$ computes the sum $S_n = 1^2 + 2^2 + 3^2 + \dots + n^2$. Report the value of the sum when $n=10$.
 
-5\. Create a function `altman_plot` that takes two arguments, `x` and `y`, and plots the difference against the sum.
+```{r, echo=FALSE}
+addSolution("
+s_n <- vector('numeric', 25)
+for (n in 1:25) {
+  s_n[n] <- compute_s_n(n)
+}
+s_n
+")
+```
+
+3) Define an empty numerical vector `s_n` of size 25 using `s_n <- vector("numeric", 25)` and store in the results of $S_1, S_2, \dots S_{25}$ using a for-loop.
+```{r, echo=FALSE}
+addSolution("
+compute_s_n_alt <- function(n) {
+  return(n*(n+1)*(2*n+1)/6)
+}
+for (n in 1:25) {
+  if (s_n[n] != compute_s_n_alt(n)) {
+    cat('Error!')
+    break
+  }
+}
+")
+```
+Confirm that the formula for the sum is $S_n= n(n+1)(2n+1)/6$ for $n = 1, \ldots, 25$.
+
+```{r, echo=FALSE}
+addSolution("
+biggest <- function(a, b) {
+  if (a > b) return(1)
+  return(0)
+}
+biggest(3,4)
+biggest(3,3)
+biggest(8,2)
+")
+```
+
+4) Write a function `biggest` which takes two integers as arguments.  Let the 
+function  return  1  if  the  first argument  is  larger  than  the second and return  0 
+otherwise. 
+
+```{r, echo=FALSE}
+addSolution("
+shipping_cost <- function(total) {
+  return(0.1 * total)
+}
+shipping_cost(450)
+")
+```
+
+5) Write a function that returns the shipping cost as 10% of the total cost of an 
+order (input argument).   
+```{r, echo=FALSE}
+addSolution("
+shipping_cost <- function(total, pct = 0.1) {
+  return(pct * total)
+}
+shipping_cost(450)
+shipping_cost(450, pct = 0.2)
+")
+```
+Rewrite the function so the percentage is an input argument with a default of 10%. 
+
+```{r, echo=FALSE}
+addSolution("
+shipping_cost <- function(total, pct = 0.1) {
+  return(pct * total)
+}
+shipping_cost(450)
+
+gasoline_cost <- function(total, pct = 0.1) {
+  return(shipping_cost(total, pct) * 0.5)
+}
+gasoline_cost(450)
+")
+```
+
+6) Given Question 5 the shipping cost can be split into parts. One part is gasoline which is 50% of the shipping cost. Write a function that has total cost a input argument and calculate the gasoline cost and uses the function defined in Question 5. 
   
-### Exercise
+  
+### Exercise (scope)
 
 6\. After running the code below, what is the value of `x`?
 
@@ -78,49 +270,8 @@ my_func <- function(y){
 }
 ```
 
-### Exercise
 
-7\. Write a function `compute_s_n` that for any given $n$ computes the sum $S_n = 1^2 + 2^2 + 3^2 + \dots n^2$. Report the value of the sum when $n=10$.
-
-### Exercise 
-
-8\. Define an empty numerical vector `s_n` of size 25 using `s_n <- vector("numeric", 25)` and store in the results of $S_1, S_2, \dots S_{25}$ using a for-loop.
-
-### Exercise
-
-9\. Repeat exercise 8, but this time use `sapply`.
-
-### Exercise
-
-### Exercise
-10\. Repeat exercise 8, but this time use `map_dbl`.
-
-### Exercise
-11\. Plot $S_n$ versus $n$. Use points defined by $n=1,\dots,25$.
-
-### Exercise
-12\. Confirm that the formula for this sum is $S_n= n(n+1)(2n+1)/6$.
-
-<!-- <div class = "boxExercise"> -->
-<!-- `r addIcon("laptop-code", attrib = list(class = "fa-pull-right fa-5x iconStyle1"))`   -->
-
-<!-- **Exercise 1** -->
-<!-- asdf asdlfkj sdfklj fsdjka æ -->
-
-<!--    1. sdf -->
-<!--    2. edasf -->
-
-<!-- **Exercise 2** -->
-<!-- asdfav sdaf sdhj sdjkahdf jkhasdkjæsdfh asjf -->
-
-<!--    1. sdf -->
-<!--    2. sdf -->
-<!-- </div> -->
-
-
-<!-- `r addIcon("file-code", attrib = list(class = "fa-pull-right fa-5x iconStyle1"))` -->
-<!-- `r addIcon("code", attrib = list(class = "fa-pull-right fa-5x iconStyle1"))` -->
-<!-- `r addIcon("external-link-alt", attrib = list(class = "fa-pull-right fa-5x iconStyle1"))` -->
+### Exercise (return multiple objects)
 
 
 
