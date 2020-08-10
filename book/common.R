@@ -137,7 +137,7 @@ ctrSol <- 0
 addSolution <- function(code = "", text = "") {
   {
     sink("tmp.md")
-    cat('\n```r\n', str_trim(code), '\n```', sep="")
+    if (code != "") cat('\n```r\n', str_trim(code), '\n```', sep="")
     cat('\n', text)
     sink()
   }
