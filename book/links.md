@@ -92,20 +92,10 @@
 
 <!-- OLD -->
 
-[cran]: https://cloud.r-project.org
-[cran-faq]: https://cran.r-project.org/faqs.html
-[cran-R-admin]: http://cran.r-project.org/doc/manuals/R-admin.html
-[cran-add-ons]: https://cran.r-project.org/doc/manuals/R-admin.html#Add_002don-packages
-
-
 [software-carpentry]: https://software-carpentry.org
-[cran-r-extensions]: https://cran.r-project.org/doc/manuals/r-release/R-exts.html
-
 
 <!--RStudio Links-->
-[rstudio-preview]: https://www.rstudio.com/products/rstudio/download/preview/
 
-[rstudio-workbench]: https://www.rstudio.com/wp-content/uploads/2014/04/rstudio-workbench.png
 [rstudio-support]: https://support.rstudio.com/hc/en-us
 [rstudio-R-help]: https://support.rstudio.com/hc/en-us/articles/200552336-Getting-Help-with-R
 
@@ -117,15 +107,7 @@
 [rstudio-regex-cheatsheet]: https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf
 [rstudio-devtools]: https://www.rstudio.com/products/rpackages/devtools/
 
-<!--HappyGitWithR Links-->
 
-
-[hg-git-client]: https://happygitwithr.com/git-client.html
-[hg-github-account]: https://happygitwithr.com/github-acct.html
-[hg-install-r-rstudio]: https://happygitwithr.com/install-r-rstudio.html
-[hg-connect-intro]: https://happygitwithr.com/connect-intro.html
-[hg-browsability]: https://happygitwithr.com/workflows-browsability.html
-[hg-shell]: https://happygitwithr.com/shell.html
 
 <!--Package Links-->
 [rmarkdown]: https://rmarkdown.rstudio.com
@@ -193,15 +175,6 @@
 [cowplot-github]: https://github.com/wilkelab/cowplot
 [cowplot-vignette]: https://cran.r-project.org/web/packages/cowplot/vignettes/introduction.html
 
-[devtools-cran]: https://CRAN.R-project.org/package=devtools
-[devtools-github]: https://github.com/r-lib/devtools
-[devtools-web]: https://devtools.r-lib.org
-[devtools-cheatsheet]: https://www.rstudio.com/wp-content/uploads/2015/03/devtools-cheatsheet.pdf
-[devtools-cheatsheet-old]: https://rawgit.com/rstudio/cheatsheets/master/package-development.pdf
-[devtools-1-6]: https://blog.rstudio.com/2014/10/02/devtools-1-6/
-[devtools-1-8]: https://blog.rstudio.com/2015/05/11/devtools-1-9-0/
-[devtools-1-9-1]: https://blog.rstudio.com/2015/09/13/devtools-1-9-1/
-
 [googlesheets-cran]: https://CRAN.R-project.org/package=googlesheets
 [googlesheets-github]: https://github.com/jennybc/googlesheets
 
@@ -235,13 +208,6 @@
 [roxygen2-cran]: https://CRAN.R-project.org/package=roxygen2
 [roxygen2-vignette]: https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html
 
-[shinythemes-web]: https://rstudio.github.io/shinythemes/
-[shinythemes-cran]: https://CRAN.R-project.org/package=shinythemes
-
-[shinyjs-web]: https://deanattali.com/shinyjs/
-[shinyjs-cran]: https://CRAN.R-project.org/package=shinyjs
-[shinyjs-github]: https://github.com/daattali/shinyjs
-
 [leaflet-web]: https://rstudio.github.io/leaflet/
 [leaflet-cran]: https://CRAN.R-project.org/package=leaflet
 [leaflet-github]: https://github.com/rstudio/leaflet
@@ -264,14 +230,6 @@
 [gistr-cran]: https://CRAN.R-project.org/package=gistr
 [gistr-github]: https://github.com/ropensci/gistr
 
-[rvest-web]: https://rvest.tidyverse.org
-[rvest-cran]: https://CRAN.R-project.org/package=rvest
-[rvest-github]: https://github.com/tidyverse/rvest
-
-[xml2-web]: https://xml2.r-lib.org
-[xml2-cran]: https://CRAN.R-project.org/package=xml2
-[xml2-github]: https://github.com/r-lib/xml2
-
 [jsonlite-paper]: https://arxiv.org/abs/1403.2805
 [jsonlite-cran]: https://CRAN.R-project.org/package=jsonlite
 [jsonlite-github]: https://github.com/jeroen/jsonlite
@@ -284,27 +242,6 @@
 [janitor-cran]: https://CRAN.R-project.org/package=janitor
 [janitor-github]: https://github.com/sfirke/janitor
 
-[purrr-web]: https://purrr.tidyverse.org
-[curl-cran]: https://CRAN.R-project.org/package=curl
-
-<!--Shiny links-->
-[shinydashboard-web]: https://rstudio.github.io/shinydashboard/
-[shinydashboard-cran]: https://CRAN.R-project.org/package=shinydashboard
-[shinydashboard-github]: https://github.com/rstudio/shinydashboard
-
-
-[shiny-official-web]: https://shiny.rstudio.com
-[shiny-official-tutorial]: https://shiny.rstudio.com/tutorial/
-[shiny-cheatsheet]: https://shiny.rstudio.com/images/shiny-cheatsheet.pdf
-[shiny-articles]: https://shiny.rstudio.com/articles/
-[shiny-bookdown]: https://bookdown.org/yihui/rmarkdown/shiny-documents.html
-[shiny-google-groups]: https://groups.google.com/forum/#!forum/shiny-discuss
-[shiny-stack-overflow]: https://stackoverflow.com/questions/tagged/shiny
-[shinyapps-web]: https://www.shinyapps.io
-[shiny-server-setup]: https://deanattali.com/2015/05/09/setup-rstudio-shiny-server-digital-ocean/
-[shiny-reactivity]: https://shiny.rstudio.com/articles/understanding-reactivity.html
-[shiny-debugging]: https://shiny.rstudio.com/articles/debugging.html
-[shiny-server]: https://www.rstudio.com/products/shiny/shiny-server/
 
 <!--Publications--> 
 [adv-r]: http://adv-r.had.co.nz
@@ -315,24 +252,8 @@
 [adv-r-return-values]: http://adv-r.had.co.nz/Functions.html#return-values
 [adv-r-closures]: http://adv-r.had.co.nz/Functional-programming.html#closures
 
-[r4ds]: https://r4ds.had.co.nz
-[r4ds-transform]: https://r4ds.had.co.nz/transform.html
-[r4ds-strings]: https://r4ds.had.co.nz/strings.html
-[r4ds-readr-strings]: https://r4ds.had.co.nz/data-import.html#readr-strings
-[r4ds-dates-times]: https://r4ds.had.co.nz/dates-and-times.html
-[r4ds-data-import]: http://r4ds.had.co.nz/data-import.html
-[r4ds-relational-data]: https://r4ds.had.co.nz/relational-data.html
-[r4ds-pepper-shaker]: https://r4ds.had.co.nz/vectors.html#lists-of-condiments
 
-[r-pkgs2]: https://r-pkgs.org/index.html
-[r-pkgs2-whole-game]: https://r-pkgs.org/whole-game.html
-[r-pkgs2-description]: https://r-pkgs.org/description.html
-[r-pkgs2-man]: https://r-pkgs.org/man.htm
-[r-pkgs2-tests]: https://r-pkgs.org/tests.html
-[r-pkgs2-namespace]: https://r-pkgs.org/namespace.html
-[r-pkgs2-vignettes]: https://r-pkgs.org/vignettes.html
-[r-pkgs2-release]: https://r-pkgs.org/release.html
-[r-pkgs2-r-code]: https://r-pkgs.org/r.html#r
+
 
 [r-graphics-cookbook]: http://shop.oreilly.com/product/0636920023135.do
 
@@ -340,9 +261,7 @@
 [cookbook-for-r-graphs]: http://www.cookbook-r.com/Graphs/
 [cookbook-for-r-multigraphs]: http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/
 
-[elegant-graphics-springer]: https://www.springer.com/gp/book/9780387981413
 
-[testthat-article]: https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf
 [worry-about-color]: https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=2ahUKEwi0xYqJ8JbjAhWNvp4KHViYDxsQFjABegQIABAC&url=https%3A%2F%2Fwww.researchgate.net%2Fprofile%2FAhmed_Elhattab2%2Fpost%2FPlease_suggest_some_good_3D_plot_tool_Software_for_surface_plot%2Fattachment%2F5c05ba35cfe4a7645506948e%2FAS%253A699894335557644%25401543879221725%2Fdownload%2FWhy%2BShould%2BEngineers%2Band%2BScientists%2BBe%2BWorried%2BAbout%2BColor_.pdf&usg=AOvVaw1qwjjGMd7h_z6TLUjzu7Nb
 [escaping-rgbland-pdf]: https://eeecon.uibk.ac.at/~zeileis/papers/Zeileis+Hornik+Murrell-2009.pdf
 [escaping-rgbland-doi]: https://doi.org/10.1016/j.csda.2008.11.033
@@ -361,23 +280,6 @@
 [rdocs-dev]: https://rdrr.io/r/grDevices/dev.html
 
 
-<!--Wikipedia Links-->
-
-[wiki-hello-world]: https://en.wikipedia.org/wiki/%22Hello,_world!%22_program
-[wiki-janus]: https://en.wikipedia.org/wiki/Janus
-[wiki-nesting-dolls]: https://en.wikipedia.org/wiki/Matryoshka_doll
-[wiki-pure-fxns]: https://en.wikipedia.org/wiki/Pure_function
-[wiki-camel-case]: https://en.wikipedia.org/wiki/Camel_case
-[wiki-mojibake]: https://en.wikipedia.org/wiki/Mojibake
-[wiki-row-col-major-order]: https://en.wikipedia.org/wiki/Row-_and_column-major_order
-[wiki-boxplot]: https://en.wikipedia.org/wiki/Box_plot
-[wiki-brewer]: https://en.wikipedia.org/wiki/Cynthia_Brewer
-[wiki-vector-graphics]: https://en.wikipedia.org/wiki/Vector_graphics
-[wiki-raster-graphics]: https://en.wikipedia.org/wiki/Raster_graphics
-[wiki-dry]: https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
-[wiki-web-scraping]: https://en.wikipedia.org/wiki/Web_scraping
-[wiki-xpath]: https://en.wikipedia.org/wiki/XPath
-[wiki-css-selector]: https://en.wikipedia.org/wiki/Cascading_Style_Sheets#Selector
 
 
 <!--Misc. Links-->
