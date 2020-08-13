@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Tools for Analytics (TFA)</title>
+  <title>Module 2 Install R and RStudio | Tools for Analytics (TFA)</title>
   <meta name="description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Tools for Analytics (TFA)" />
+  <meta property="og:title" content="Module 2 Install R and RStudio | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://tools4analytics.github.io/course/" />
   <meta property="og:image" content="https://tools4analytics.github.io/course/assets/logo.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="Tools4Analytics/course/tree/master/book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Tools for Analytics (TFA)" />
+  <meta name="twitter:title" content="Module 2 Install R and RStudio | Tools for Analytics (TFA)" />
   
   <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
   <meta name="twitter:image" content="https://tools4analytics.github.io/course/assets/logo.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
-
-<link rel="next" href="sec-install.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="sec-r-basics.html"/>
 <script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -339,95 +339,102 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Tools for Analytics (TFA)</h1>
-<h2 class="subtitle"><em>Course notes R part</em></h2>
-<p class="author"><em>Lars Relund Nielsen</em></p>
-<p class="date"><em>2020-08-13</em></p>
-</div>
-<div id="sec-intro" class="section level1" number="1">
-<h1><span class="header-section-number">Module 1</span> Introduction</h1>
-<!-- OLD -->
-<!--RStudio Links-->
-<!--Package Links-->
-<!--Publications-->
-<!--R Documentation-->
-<!--Misc. Links-->
-<!-- R links: -->
-<!-- https://learn.datacamp.com/courses/introduction-to-data-in-r -->
-<p>This site/book contains course notes for the R part of the course “Tools for Analytics” held at <a href="https://bss.au.dk/en/">BSS</a>. The notes organize what we will be doing in each week. The course is an introductory course at the <a href="https://kandidat.au.dk/en/operationsandsupplychainanalytics/">Operations and Supply Chain Analytics programme</a> and intended to give knowledge about IT tools for Analytics.</p>
-<p>Since the amount of available data has increased extensively in many companies, there is a need for analysts with the ability to do tasks within Analytics. For instance, extract relevant data and perform valid quantitative analysis. Clearly, it is also important that the analyst can communicate the results of the analysis to their surroundings. This requires for the analyst to be particularly qualified in handling IT based tools beyond e.g. basic Excel.
-<!-- The use of programming is the basis for performing a variety of analytical tasks including impact studies, risk analysis, and design of reports. --></p>
-<p>Business Analytics (BA) (or just Analytics) refers to the scientific process of transforming data into insight for making better decisions in business. BA can both be seen as the complete decision making process for solving a business problem and the creation of business value by integration of concepts, methods and data. As a process, it can be characterized by descriptive, predictive, and prescriptive model building using data sources. For a full definition see the <a href="sec-ba.html#sec:ba">appendix</a>.</p>
-<p>Within a Business Analytics (BA) framework the course focus on giving you an introduction to programming, handeling data and doing descriptive analytics. Descriptive analytics categorizes, characterizes, consolidates, and classifies data. Examples are standard reporting and dashboards (key performance indicators (KPIs), what happened or is happening now?) and ad-hoc reporting (how many/often?). Descriptive analytics often serves as a first step in the successful application of predictive or prescriptive analytics. Predictive and prescriptive analytics are covered in other courses of the <a href="https://kandidat.au.dk/en/operationsandsupplychainanalytics/">programme</a>.</p>
-<p>Analytics may be seen as a data driven process:</p>
-<div class="figure" style="text-align: center"><span id="fig:process"></span>
-<img src="img/process.PNG" alt="Analytics as a data driven process."  />
-<p class="caption">
-Figure 1.1: Analytics as a data driven process.
-</p>
-</div>
-<!-- Tidying your data also including cleaning your data.  -->
-<p>For doing data driven analytics you first must <strong>import</strong> your data. That is, take data from a database, file, web API etc. and transform it into a data frame/table. In general raw data may be messy and need to be structured in a <strong>tidy</strong> way. Tidying your data means storing it in a structured form sutaiable for analysis. In brief, when your data is <strong>tidy</strong>, each column is a variable, and each row is an observation. Tidy data is important because the consistent structure lets you focus your struggle on questions about the data.
-Once you have tidy data, a common first step is to <strong>transform</strong> it. Transformation includes narrowing in on observations of interest (e.g. only observations from a specific year or warehouse), creating new variables based on existing variables (like the cost of using the machine that day given idle time). Together, tidying and transforming are called <strong>wrangling</strong>, because
-it can be a hard process to get your data in the right form.</p>
-<p>The next step is to do a simple <strong>exploration</strong> of you data such as calculating a set of summary statistics (like counts, means or KPIs). A good way to get an overview over your data is by <strong>visualisation</strong>. A good visualisation will show you things that you did not expect, raise new questions about the data or confirm your hypotesis. A good visualisation might also hint that you’re asking the wrong question, or you need to collect different data. Exploration and visusalization are descriptive analytics and used to answer questions such as: What happend? How many, how often, where? Where exactly is the problem? What actions are needed?
-<strong>Models</strong> are complementary tools to visualisation. Once you have made your questions sufficiently precise, you can use a model to answer them. A model is a description of a system using mathematical concepts and a simplification of the real system. That is, the results of a model are based on a set of assumptions. Models for statistical analysis, forecasting, system behaivior are predictive analytics and answer questions like: Why is this happening? What if these trends continue? What will happen next? Models for prescriptive analytics use optimization and other decision modelling techniques to suggest decision options with the goal of improving business performance and answer questions like: What is the best that can happen?</p>
-<p>Exploration, visualizaton and modeling may be seen as different steps which can be used for <strong>analyzing</strong> the data and answer the overall questions. This part of the course will focus on the different steps except modeling.</p>
-<p>Given an analysis, <strong>communication</strong> is an absolutely critical part. It doesn’t matter how well your models and visualization have led you to understand the data unless you can also communicate your results to decision makers.</p>
-<p>Note that analytics is not a one-way process, is is common that you several times have to tidy and transform your data, explore and visualize based on the results of a model, rerun the model given feedback on you communication to the decision makers etc. Common connections are visualized using directed arrows in Figure <a href="index.html#fig:process">1.1</a>.</p>
-<p>Surrounding the process is <strong>programming</strong>. Programming is the Swiss army knife you use during parts of the process. An introduction to programming is given in the first part of the course using VBA in Excel. We will cover programming using R in this part of the course.</p>
-<div id="how-this-book-is-organised" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> How this book is organised</h2>
-<p>[Færdiggøres]</p>
-<p>The book consists of different parts each containing teaching modules about a specific topic:</p>
+<div id="sec-install" class="section level1" number="2">
+<h1><span class="header-section-number">Module 2</span> Install R and RStudio</h1>
+<!-- 
+Content from: https://stat545.com/block000_r-rstudio-install.html
+-->
+<div id="learning-outcomes" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Learning outcomes</h2>
+<p>By the end of this module, you are expected to have:</p>
 <ul>
-<li><a href="sec-install.html#sec-install">Part I</a> focus on helping you install the needed programs on your computer and give you a short introduction to R.</li>
-<li>In <a href="sec-loops.html#sec-loops">Part II</a> gives you an overview over programming in R including loops, conditionals and functions.</li>
-<li>In <a href="sec-tidy-intro.html#sec-tidy-intro">Part III</a> the focus is on import/export, tidy and transformation of data.</li>
-<li><a href="sec-plot.html#sec-plot">Part IV</a> considers visualization of data in R.</li>
-<li><a href="sec-project.html#sec-project">Part V</a> presents your mandatory R project.</li>
-<li><a href="sec-r-excel.html#sec-r-excel">Part VI</a> contains extra modules not part of the curriculum in this course. But it may be useful during your study.</li>
-</ul>
-<p>In all parts communication are considered …</p>
-<p>You can expect the book to be updated when the course runs. The date listed above is the last time this guide was updated.</p>
-<p>The R part of the course covers learning goals:</p>
-<ul>
-<li>explore, groom, visualize, and analyze data,</li>
-<li>make all of that reproducible, reusable, and shareable,</li>
-<li>using R.</li>
+<li>Installed R.</li>
+<li>Installed RStudio.
+<!-- * Installed Git. --></li>
+<li>Tested R and RStudio. <!--  and Git. --></li>
+<li>Installed some packages.</li>
 </ul>
 </div>
-<div id="ack" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Acknowledgements</h2>
-<p>Some of the materials in this book are taken from various places</p>
+<div id="install-r" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Install R and RStudio</h2>
+<p><a href="https://www.r-project.org">R</a> is a programming language and free software environment. The R language is widely used among statisticians and data miners for developing statistical software and data analysis. For a further overview and description of the history of R see <a href="https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html">Chapter 2</a> in <span class="citation">Peng (<a href="#ref-rdpeng" role="doc-biblioref">2018</a>)</span>. To run R you need to install it on your computer. Moreover, you need the IDE (integrated development environment) <a href="https://rstudio.com">RStudio</a>, to save your work.</p>
+<div class="boxTask">
+<i class="fa-pull-right fa-5x iconStyle1 fas fa-tasks"></i>
 <ul>
-<li><p>The bookdown skeleton and some notes are based on the <a href="https://stat545.com">Stat545</a> course.</p></li>
-<li><p>Some content in Module <a href="index.html#sec-intro">1</a> is inspired by <a href="https://r4ds.had.co.nz/introduction.html">Chapter 1</a> in <span class="citation">Wickham (<a href="#ref-r4ds" role="doc-biblioref">2017</a>)</span>.</p></li>
-<li><p>Module <a href="sec-install.html#sec-install">2</a> is inspired by <a href="https://stat545.com/block000_r-rstudio-install.html">Chapter 1</a> in <span class="citation">Bryan (<a href="#ref-stat545" role="doc-biblioref">2017</a>)</span>.</p></li>
-<li><p>Module <a href="sec-r-basics.html#sec-r-basics">3</a> is using some text and images from <a href="https://moderndive.netlify.app/1-getting-started.html">Chapter 1</a> in <span class="citation">Ismay and Kim (<a href="#ref-moderndrive" role="doc-biblioref">2020</a>)</span> and <a href="https://stat545.com/block002_hello-r-workspace-wd-project.html">Chapter 2</a> in <span class="citation">Bryan (<a href="#ref-stat545" role="doc-biblioref">2017</a>)</span>. A few exercises are inspired by <a href="https://rafalab.github.io/dsbook/r-basics.html">Chapter 2</a> in <span class="citation">Irizarry (<a href="#ref-dsbook" role="doc-biblioref">2020</a>)</span>.</p>
-<!-- * Notes about git and GitHub are based on [Happy Git and GitHub for the useR][happy-git] site. --></li>
+<li>Install R from <a href="https://cloud.r-project.org">CRAN</a> (Comprehensive R Archive Network). Install the latest precompiled binary distribution for your operating system (use the links up at the top of the CRAN page)!</li>
+<li>Install the desktop version of <a href="https://rstudio.com/products/rstudio/download/#download">RStudio</a>, a powerful user interface for R.
+<!-- * Install the latest version of [Git][git-install]. If you have problems, see [here][hg-install-git]. --></li>
+<li>Under Windows it is a good idea to always open R with administrator rights:
+<ul>
+<li><p>Add a shortcut for RStudio (e.g. to the taskbar or desktop).</p></li>
+<li><p>Ctrl+Shift+Right-Click the shortcut and choose <strong>Properties</strong>:
+<img src="img/win_admin1.PNG" alt="Choose Properties" /></p></li>
+<li><p>Under <strong>Shortcut</strong> click <strong>Advanced</strong> and set <strong>Run as administrator</strong>
+<img src="img/win_admin3.PNG" alt="Choose Properties" /></p>
+<p>You now always can open RStudio with this shortcut.</p></li>
+</ul></li>
 </ul>
-<p>I would like to thank all for their inspiration. This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>.</p>
-
+</div>
+<p>If you have a pre-existing installation of R and/or RStudio, reinstall both to the latest versions. It can be considerably harder to run old software than new.</p>
+<!-- * If you upgrade R, you will need to update any packages you have installed. The command below should get you started, though you may need to specify more arguments if, e.g., you have been using a non-default library for your packages. -->
+<!--     ``` r -->
+<!--     update.packages(ask = FALSE, checkBuilt = TRUE) -->
+<!--     ``` -->
+<!--   __Note:__ this will only look for updates on CRAN. So if you use a package that lives *only* on GitHub or if you want a development version from GitHub, you will need to  update manually, e.g. via `devtools::install_github()`. -->
+</div>
+<div id="test-your-installation" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Test your installation</h2>
+<div class="boxTask">
+<i class="fa-pull-right fa-5x iconStyle1 fas fa-tasks"></i>
+<ul>
+<li><p>Do whatever is appropriate for your OS to launch RStudio. You should get a window similar to the screenshot you see [here][rstudio-workbench], but yours will be more boring because you haven’t written any code or made any figures yet!</p></li>
+<li><p>Put your cursor in the pane labeled Console, which is where you interact with the live R process. Create a simple object with code like <code>x &lt;- 2 * 4</code> (followed by enter or return). Then inspect the <code>x</code> object by typing <code>x</code> followed by enter or return. You should see the value 8 print to screen. If yes, you’ve succeeded in installing R and RStudio.</p></li>
+<li><p>Try to open a new file <strong>File &gt; New File &gt; New RMarkdown…</strong>. Use the defaults and press <strong>OK</strong>. Next save the file and compile it using <strong>Knit</strong> (Ctrl+Shift+K). You have now compiled a document with R code inside of it.</p></li>
+</ul>
+<!-- * Close and restart R. Go to **Tools > Global Options > Git/SVN **. The 'Git executable' field should point to the path where Git is installed. On windows the path looks like `C:/Program Files/Git/bin/git.exe` and on macOS and Linux, the path usually looks something like `/usr/bin/git`. If the field is not filled with a path, have a look at [Chapter 13](https://happygitwithr.com/rstudio-see-git.html) and [14](https://happygitwithr.com/troubleshooting.html) at the [Happy Git][happy-git] site. -->
 </div>
 </div>
+<div id="add-on-packages" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Add-on packages</h2>
+<p>R is an extensible system and many people share useful code they have developed as a <em>package</em> via CRAN and GitHub. To install a package from CRAN, for example the <a href="https://CRAN.R-project.org/package=dplyr">dplyr</a> package for data manipulation, one way to do it in the R console.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="sec-install.html#cb1-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p>By including <code>dependencies = TRUE</code>, we are being explicit and extra-careful to install any additional packages the target package, <code>dplyr</code> in the example above, needs to have around.</p>
+<div class="boxTask">
+<i class="fa-pull-right fa-5x iconStyle1 fas fa-tasks"></i>
+<ul>
+<li>Install the package <a href="https://www.tidyverse.org">tidyverse</a> which is in fact a bundle of packages by running (note this operation may take a long time):</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="sec-install.html#cb2-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<ul>
+<li>Check if you have successfully installed tidyverse by loading the package:</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="sec-install.html#cb3-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<ul>
+<li>If your install was unsuccessful try to install the packages who fails one at a time.</li>
+</ul>
+</div>
+<p>You may also see this short <a href="https://vimeo.com/416743698">video</a> explaining what packages are.</p>
+</div>
+<div id="different-learning-paths" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Different learning paths</h2>
+<p>We are all different and you may like different learning styles compared to others. As a result you may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be usefull for you.</p>
+<ul>
+<li><p><a href="https://vimeo.com/user114793395">Intro 2R</a> has a set of introductory <a href="https://vimeo.com/user114793395">videos</a> about R. Of special interest are</p>
+<ul>
+<li><a href="https://vimeo.com/415501284">A video about installing R and RStudio</a>.</li>
+<li><a href="https://vimeo.com/416391353">A video giving an introduction to RStudio</a>.</li>
+<li><a href="https://vimeo.com/416743698">A video about installing new packages</a>.</li>
+</ul></li>
+</ul>
 
-
-
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="sec-install.html#cb4-1" aria-hidden="true"></a>strLPath</span>
+<span id="cb4-2"><a href="sec-install.html#cb4-2" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;We are all different and you may like different learning styles compared to others. As a result you may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be usefull for you.&quot;</span></span></code></pre></div>
+</div>
+</div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-stat545">
-<p>Bryan, J. 2017. <em>STAT 545 - Data Wrangling, Exploration, and Analysis with R</em>. <a href="https://stat545.com/">https://stat545.com/</a>.</p>
-</div>
-<div id="ref-dsbook">
-<p>Irizarry, R. A. 2020. <em>Introduction to Data Science - Data Analysis and Prediction Algorithms with R</em>. <a href="https://rafalab.github.io/dsbook/">https://rafalab.github.io/dsbook/</a>.</p>
-</div>
-<div id="ref-moderndrive">
-<p>Ismay, C., and A. Y. Kim. 2020. <em>Statistical Inference via Data Science</em>. ModernDrive. <a href="https://moderndive.netlify.app/">https://moderndive.netlify.app/</a>.</p>
-</div>
-<div id="ref-r4ds">
-<p>Wickham, H. 2017. <em>R for Data Science</em>. O’Reilly. <a href="https://r4ds.had.co.nz/">https://r4ds.had.co.nz/</a>.</p>
+<div id="ref-rdpeng">
+<p>Peng, R. D. 2018. <em>R Programming for Data Science</em>. <a href="https://bookdown.org/rdpeng/rprogdatascience/">https://bookdown.org/rdpeng/rprogdatascience/</a>.</p>
 </div>
 </div>
             </section>
@@ -435,8 +442,8 @@ it can be a hard process to get your data in the right form.</p>
           </div>
         </div>
       </div>
-
-<a href="sec-install.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sec-r-basics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -458,7 +465,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/Tools4Analytics/course/edit/master/book/index.Rmd",
+"link": "https://github.com/Tools4Analytics/course/edit/master/book/install-r.Rmd",
 "text": "Edit"
 },
 "history": {
