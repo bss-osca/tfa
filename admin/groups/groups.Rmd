@@ -1,0 +1,66 @@
+---
+title: "Groups"
+author: "Lars Relund Nielsen"
+date: "17/8/2020"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readxl)
+library(ggraph)
+library(igraph)
+library(tidygraph)
+```
+
+The groups spreadsheet must be saved in the `cplex` subfolder. First run cplex:
+
+```{r}
+oplPath <- "C:/tools/CPLEX_Studio127/opl/bin/x64_win64/oplrun"
+system(str_c(oplPath, " -p ", 'cplex/group_allocation "Opt and find alternative solutions"'))
+```
+
+Next, we plot the solutions:
+
+```{r, warning=FALSE, message=FALSE, fig.keep='all', out.width="100%", cache=TRUE}
+create_groups <- function() {
+   dat <- read_excel("cplex/group_allocation/group_allocation.xlsx")
+   studNames <- dat %>% pull(2) %>% str_replace_all("(^.*? )(.)(.*)", "\\1\\2")
+   dat <- dat %>% select(-(1:4))
+   adj_mat <- dat %>% replace(is.na(.), 0) %>% as.matrix()
+   g <- adj_mat %>% 
+      graph_from_adjacency_matrix(mode = "undirected") %>% 
+      as_tbl_graph() %>% 
+      activate(nodes) %>% 
+      mutate(name = studNames)
+   sol_files <- list.files(pattern = "plot_node.*csv")
+   for (f in sol_files) {
+      fS <- str_remove(f, ".csv")
+      sol <- read_csv2(file = f, locale = locale(encoding = "latin1")) %>% 
+         arrange(Id)
+      g <- g %>% 
+         activate(nodes) %>% 
+         mutate(group = sol$Group, gName = str_c(group, name, sep=": ")) 
+      plt <- ggraph(g, layout = 'fr') + 
+         geom_edge_link() +
+         geom_node_label(aes(colour = as.factor(group), label = gName), size = 2) +
+         ggtitle(fS) +
+         theme_graph() + 
+         theme(legend.position = "none")
+      # png(file = str_c(fS, ".png"), width = 1000, height = 1000)
+      print(plt)
+      # dev.off()
+   }
+}
+create_groups()
+```
+
+The result file:
+
+```{r}
+cat(read_file("results.txt", locale = locale(encoding = "latin1")))
+```
+
