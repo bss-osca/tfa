@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 ```{r include = FALSE, cache=FALSE}
 source("common.R")
 ```
@@ -85,6 +90,7 @@ An introduction to R Markdown is given in the Chapters [3][datacamp-r-communicat
 * The R Markdown cheatsheet may be useful. Find the newest version in RStudio **Help > Cheatsheets**.
 * Glenn Moncrieff gives a nice detained overview on how to create [reproducible projects](https://rpubs.com/glennwithtwons/reproducible-r-toolbox).  
 * If you are interested in trying Git and GitHub out see @hgit for detailed help.
+* All chunk options for R code can be seen [here](https://yihui.org/knitr/options/).
 
 
 ## Recap
@@ -113,17 +119,45 @@ An introduction to R Markdown is given in the Chapters [3][datacamp-r-communicat
 Load the tfa package:
 
 ```{r}
+# remotes::install_github("bss-osca/tfa/tfa-package")  # if not installed
 library(tfa)
 ```
 
-The package contains templates for exercises etc. Go to **File > New File > R Markdown...**. In the pop-up box select the **From template** in the left column and then **TFA Exercise**. Press *Ok* and a new R Markdown document will be opened. 
+The package contains templates for exercises etc. Go to **File > New File > R Markdown...**. In the pop-up box select **From template** in the left column and then **TFA Exercise**. Press *Ok* and a new R Markdown document will be opened. 
 
 1) Change the meta text (e.g. the title and add your name) in the yaml.
 
 2) Render/compile the document by pressing the *Knit* button (or Ctrl+Shift+K).  
 
+```{r, echo=FALSE}
+addSolution(text = "All the code is now hidden. But not the output.")
+```
 
+3) Change `echo = TRUE` to `echo = FALSE` in the first chunk `setup` and render the document. What have happened? 
 
+You can easily go to a chunk using the navigation in bottom left of the source window. 
+
+```{r, out.width="80%", echo=FALSE}
+knitr::include_graphics("img/win_chunk_selection.PNG")
+```
+
+4) Try to change `fig.asp = 0.25` to e.g. 0.5 in Chunk 10. What happens? 
+
+5) Create a new section ``## Question 4` and add text in italic: *What is the sum of all setup costs?*
+
+```{r, echo=FALSE}
+addSolution("
+total <- sum(setup_costs)
+")
+```
+
+6) Add a code chunk solving Question 5 above.
+
+```{r, echo=FALSE}
+addSolution(text = "The sum of all setup costs are `` `r total` ``.")
+```
+
+7) Add a line of text with the result.
 
 
 
