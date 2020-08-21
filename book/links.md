@@ -8,6 +8,8 @@
 [datacamp-r-intro]: https://learn.datacamp.com/courses/free-introduction-to-r
 [datacamp-r-rmarkdown]: https://campus.datacamp.com/courses/reporting-with-rmarkdown
 [datacamp-r-communicating]: https://learn.datacamp.com/courses/communicating-with-data-in-the-tidyverse
+[datacamp-r-communicating-chap3]: https://campus.datacamp.com/courses/communicating-with-data-in-the-tidyverse/introduction-to-rmarkdown
+[datacamp-r-communicating-chap4]: https://campus.datacamp.com/courses/communicating-with-data-in-the-tidyverse/customizing-your-rmarkdown-report
 [datacamp-r-intermediate]: https://learn.datacamp.com/courses/intermediate-r
 [datacamp-r-intermediate-chap1]: https://campus.datacamp.com/courses/intermediate-r/chapter-1-conditionals-and-control-flow
 [datacamp-r-intermediate-chap2]: https://campus.datacamp.com/courses/intermediate-r/chapter-2-loops
@@ -24,6 +26,8 @@
 [google-grupper]: https://docs.google.com/spreadsheets/d/1DHxthd5AQywAU4Crb3hM9rnog2GqGQYZ2o175SQgn_0/edit?usp=sharing
 [GitHub]: https://github.com/
 [git-install]: https://git-scm.com/downloads
+[github-actions]: https://github.com/features/actions
+[github-pages]: https://pages.github.com/
 
 [happy-git]: https://happygitwithr.com
 [hg-install-git]: https://happygitwithr.com/install-git.html
@@ -39,12 +43,14 @@
 [Peergrade]: https://peergrade.io
 [peergrade-signup]: https://app.peergrade.io/join
 [point-and-click]: https://en.wikipedia.org/wiki/Point_and_click
+[pkg-bookdown]: https://bookdown.org/yihui/bookdown/
 
 [R]: https://www.r-project.org
 [RStudio]: https://rstudio.com
 [rstudio-download]: https://rstudio.com/products/rstudio/download/#download
 [rstudio-customizing]: https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio
 [rstudio-key-shortcuts]: https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts
+[r-markdown]: https://rmarkdown.rstudio.com/
 
 [r4ds-pipes]: https://r4ds.had.co.nz/pipes.html
 [r4ds-factors]: https://r4ds.had.co.nz/factors.html
@@ -68,6 +74,8 @@
 [tidyverse-stringr]: https://stringr.tidyverse.org/
 [tidyverse-forcats]: https://forcats.tidyverse.org/
 
+[tutorial-markdown]: https://commonmark.org/help/tutorial/
+
 [Udemy]: https://www.udemy.com/
 
 [video-install]: https://vimeo.com/415501284
@@ -87,7 +95,7 @@
 [wiki-snake-case]: https://en.wikipedia.org/wiki/Snake_case
 [wiki-camel-case]: https://en.wikipedia.org/wiki/Camel_case
 [wiki-interpreted]: https://en.wikipedia.org/wiki/Interpreted_language
-
+[wiki-literate-programming]: https://en.wikipedia.org/wiki/Literate_programming
 
 
 
