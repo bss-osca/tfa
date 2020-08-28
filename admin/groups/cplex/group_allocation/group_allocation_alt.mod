@@ -62,7 +62,6 @@ main {
   var curr = Infinity;
   var k,v;
   best = curr;
-  var grpSet = new Array(7,8,9,10,11,12,13,14,15,16,17);	// the different number of groups we consider
   
   // solution pool settings
   cplex.solnpoolagap = 0;			// absolute solution gap in solution pool = 0 (only keep optimal solutions)
@@ -73,19 +72,22 @@ main {
   
   var fT = new IloOplOutputFile("../../results.txt");		// open file for writing
   
-  for (var i=0; i<grpSet.length; i++) {
+  //writeln(mod.dataElements.persons/mod.dataElements.groupMax);
+  
+  for (var i=mod.dataElements.persons/mod.dataElements.groupMax; 
+           i<=mod.dataElements.persons/mod.dataElements.groupMin; i++) {
     var def = mod.modelDefinition;
     var data = mod.dataElements;
     if ( mod!=thisOplModel ) mod.end();
     mod = new IloOplModel(def,cplex);
-    data.groups = grpSet[i];
+    data.groups = i;
     mod.addDataSource(data);
     mod.generate();
     fT.writeln("-----------------");
-    fT.writeln("Solve with ",grpSet[i]," groups:");
+    fT.writeln("Solve with ", i," groups:");
     if ( cplex.solve() ) {
       curr = cplex.getObjValue();
-      if ( best>curr ) {best = curr; bestGrp = grpSet[i]}  
+      if ( best>curr ) {best = curr; bestGrp = i}  
 	  if (cplex.populate()) {	// find alternative solutions
 		  var nsolns = cplex.solnPoolNsolns;
 		  fT.writeln("Number of solutions found = ",nsolns);
@@ -103,7 +105,7 @@ main {
 				if (mod.x[e]==0) fT.writeln("   ",e.i,":",mod.PersonNames[e.i]," <--> ",e.j,":",mod.PersonNames[e.j]," (cost = ", mod.cost[e],")");
 			fT.writeln("---------");
 		    // write csv list with node labels for gephi
-		    var f = new IloOplOutputFile("../../plot_node_labels_g"+grpSet[i]+"_s"+(s+1)+".csv");		// open file for writing
+		    var f = new IloOplOutputFile("../../plot_node_labels_g"+i+"_s"+(s+1)+"_c="+cplex.getObjValue(s)+".csv");		// open file for writing
 		    f.writeln("Id;Label;Group");
 		    for (var k in mod.Groups) {
 		  	  for (var v in mod.PersonIds)
