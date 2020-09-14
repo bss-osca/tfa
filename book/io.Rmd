@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 ```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
 ```
 
@@ -5,49 +10,332 @@
 
 # Importing and exporting data {#sec-io}
 
+For doing data driven analytics you first must __import__ some data. That is, take data from a database, file, web API etc. and transform it into a data frame/table. Moreover, after processing data you often want to export or store some of the results. This module introduces you to different ways of importing and exporting data. 
+
 ## Learning outcomes
 
 By the end of this module, you are expected to be able to:
 
 * Import and export csv files in different formats.
 * Import and export data from Excel.
-* Import and export dat from Google Sheets
+* Import and export data from Google Sheets
 * Write to a text file.
 * Save data using R's native format.
+* Read and write to a json file.
 
-<!-- SOLO increasing: identify · memorise · name · do simple procedure · collect data · -->
+<!-- SOLO increasing: identify · memorize · name · do simple procedure · collect data · -->
 <!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
 <!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
 <!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
 
-[MORE TO COME]
+
+## CSV files
+
+[CSV files][wiki-csv] contains *comma separated values* (csv) in plain text and are often named using the file suffix `.csv`. Each line of the file is a data record. Each record consists of one or more fields, separated by a common delimiter (e.g. `,`, `;` or `_`). The CSV file format is not fully standardized. Different delimiters may be used, fields may be surrounded by quotation marks, text may contain escape characters and the encoding of the file may not be known. Despite these problems CSV files are commonly used since they are easy to exchange and read.
+
+We will use the [readr][readr-web] package for reading and writing. An overview over the functions can be seen in the [cheatsheet][cheatsheet-readr].
 
 
-<!-- [R tutorial?] -->
+### Reading a CSV file
 
-<!-- https://www.datacamp.com/community/open-courses/reading-data-into-r-with-readr -->
+In general use the following functions
+
+   * `read_csv`: Read a file with delimiter `,`.
+   * `read_csv2`: Read a file with delimiter `;`.
+   * `read_delim`: Read a file with a delimiter set by you.
+
+#### Reading an unknown CSV file
+
+For importing a CSV file properly you need to know the delimiter, if the files has headers and the encoding. If you are not sure, you may have a look on the file by opening it in a text editor or try to read some lines:  
+
+```{r}
+csv_file <- system.file("extdata/mtcars.csv", package = "readr")  # csv file
+lines <- read_lines(csv_file, n_max = 3)
+lines
+cat(lines, sep = "\n")
+```
+It seems that the delimiter is a `,` and we may try to read the file using `read_csv`:
+
+```{r}
+dat <- read_csv(csv_file)
+head(dat)
+```
+Consider another example:
+
+```{r}
+csv_file <- system.file("extdata/massey-rating.txt", package = "readr")
+lines <- read_lines(csv_file, n_max = 3)
+cat(lines, sep = "\n")
+```
+
+Here it is harder to guess the delimiter. It could be a space or a tabulator. Let us try to read it assuming a space or tabulator
+
+```{r}
+read_tsv(csv_file)                  # assume tabulator (\t)
+read_delim(csv_file, delim = " ", trim_ws = T)   # assume space
+```
+
+The first function puts all data in one column. The second function worked even though we have some warnings.
+
+CSV files should always be saved using encoding UTF-8. However, sometimes you may have encoding problems when you read a file:
+
+```{r}
+csv_file <- system.file("extdata/persons.csv", package = "tfa")
+read_csv(csv_file)
+```
+
+Note that some of the characters are not converted correctly. This is usually because the file encoding is not UTF-8. In this case try to guess the encoding using
+
+```{r}
+guess_encoding(csv_file)
+dat <- read_csv(csv_file, locale = locale(encoding = "ISO-8859-1"))
+dat
+```
 
 
-<!-- ## Different learning paths -->
+### Writing to CSV files
 
-<!-- `r strLPath` -->
+Given a tibble/data frame export it using `write_csv`:
 
-<!-- * Suggestion 1  -->
-<!-- * Suggestion 2 -->
+```{r}
+csv_file <- "testing.csv"
+write_csv(dat, path = csv_file) 
+```
+
+You can now always import the data again using `read_csv`:
+
+```{r}
+read_csv(csv_file)
+guess_encoding(csv_file)
+```
+Note that `write_csv` always save the file using encoding UTF-8. 
+
+In a few cases you may need to save a CSV file that can be read by Excel. For this purpose use:
+
+```{r}
+write_excel_csv2(dat, csv_file)
+```
+
+The CSV file can now be opened correctly in Excel. 
 
 
-<!-- ## Recap -->
+## Excel
 
-<!-- [Summary of learning] -->
+There are different packages in R for reading and writing to Excel. We will use the [readxl][tidyverse-readxl] package for reading Excel files which is a part of tidyverse. The package supports both the legacy `.xls` format and the modern xml-based `.xlsx` format. Let us use one of the example files provided by the package:
 
-<!-- ## Exercises -->
+```{r}
+xlsx_file <- system.file("extdata/datasets.xlsx", package = "readxl")
+```
 
-<!-- `r strExercises` -->
+It is always a good idea to have a look at the file before you import from it. You can open it from R by using 
+
+```{r, eval=FALSE}
+browseURL(xlsx_file)
+```
+
+Data can be read using
+
+```{r}
+library(readxl)
+xlsx <- read_excel(xlsx_file)   # reads the first sheet
+xlsx
+xlsx <- read_excel(xlsx_file, sheet = 2)   # reads the second sheet
+xlsx
+xlsx <- read_excel(xlsx_file, sheet = "quakes")   # reads a named sheet
+xlsx
+xlsx <- read_excel(xlsx_file, sheet = "mtcars", range = "A5:G11", col_names = F)   # reads a range
+colnames(xlsx) <- read_excel(xlsx_file, sheet = "mtcars", range = "A1:G1", col_names = F)   # reads the column names
+xlsx
+```
+
+Writing to an Excel file can be done using the [openxlsx][pkg-openxlsx] package. To write to a new file use:
+
+```{r, cache=TRUE}
+library(openxlsx)
+dat <- trees   # test dataset
+head(dat)
+write.xlsx(dat, "test1.xlsx", sheetName = "trees") # start at cell A1
+write.xlsx(dat, "test2.xlsx", sheetName = "trees", startCol = "C", startRow = 3)
+```
+
+If you want to append a sheet to a file use:
+
+```{r, cache=TRUE}
+xlsx_file <- system.file("extdata/testing.xlsx", package = "tfa")
+file.copy(xlsx_file, "test.xlsx")         # copy the file so can make some tests
+wb <- loadWorkbook(file = "test.xlsx")    # read the workbook
+addWorksheet(wb = wb, sheetName = "trees")
+writeData(wb, sheet = "trees", x = dat)
+saveWorkbook(wb, file = "test.xlsx", overwrite = TRUE)
+```
+
+```{r, include=FALSE}
+file.remove("test.xlsx", "test1.xlsx", "test2.xlsx")
+```
 
 
-<!-- ## Resources -->
+## Google Sheets
 
-<!-- [Links to further resources] -->
+You can import and export to Google sheets using the [googlesheets4][tidyverse-googlesheets4] package in tidyverse. To read and write data you in general need to be logged in as a Google user. The package will ask you when needed. However if you only want to read data from a public sheet you can use `gs4_deauth` to skip this:
+
+```{r}
+library(googlesheets4)
+gs4_deauth()
+```
+
+To read data use:
+
+```{r}
+url <- "https://docs.google.com/spreadsheets/d/1U6Cf_qEOhiR9AZqTqS3mbMF3zt2db48ZP5v3rkrAEJY/edit#gid=780868077"
+read_sheet(url)
+read_sheet(url, sheet = 3)
+range_read(url, sheet = 2, n_max = 3)
+range_read(url, range = "Africa!A5:C15")
+```
+
+To write data to a new file use:
+
+```{r, eval=FALSE}
+gs4_auth()
+gs <- gs4_create("test", sheets = c("Sheet 1", "Sheet 2"))
+write_sheet(dat, ss = gs)
+range_write(gs, dat, sheet = "Sheet 1", range = "C4")
+```
+
+To see the results have a look at your Google sheet `test` in your browser.
+
+
+## Text files
+
+You can read and write to plain text files using the [readr][readr-web] package. However, mostly you want to write to a text file because you want to save some kind of log file when you run your script. Here `sink` is a excellent function to use. Since it redirects your R output. To see the output without messages, errors and warnings use:
+
+```{r, error=TRUE, eval=FALSE}
+sink(file = "ex1.log", split = TRUE)  # open the file for output
+cat("This is a string\n... and on a new line\n\n")
+print("This is another string")
+head(mtcars)
+rep(1, 4)
+message("A message.")
+warning("A warning.")
+rep(3, f)  # a error
+cat("\nLast line\n")
+sink()  # close the file again
+# file.show("ex1.log")   # to view in external viewer
+```
+
+Let us have a look at the content of the file (run `cat(read_file("ex1.log"))`):
+
+```{r, comment="", echo=FALSE}
+cat(read_file("ex1.log"))
+```
+
+Note that messages, errors and warnings are not included in the output. If you want to include it use:
+
+```{r, error=TRUE, eval=FALSE}
+zz <- file("ex2.log", open = "wt")
+sink(zz, type = "output")   # open the file for output
+sink(zz, type = "message")  # open the same file for messages, errors and warnings
+cat("This is a string\n... and on a new line\n\n")
+print("This is another string")
+head(mtcars)
+rep(1, 4)
+message("A message.")
+warning("A warning.")
+rep(3, f)  # a error
+cat("\nLast line\n")
+sink()  # close the file for output
+sink()  # close the file for messages, errors and warnings
+```
+
+That is, we call sink two times. Let us have a look at the content of the file:
+
+```{r, comment="", echo=FALSE}
+cat(read_file("ex2.log"))
+```
+
+
+## R's native binary format
+
+In general, we can differ between two main types of data/files. Information is either binary encoded (basically just 0’s and 1’s) or stored as text files. What we have considered so far is storing data in text files. 
+
+Text files can be read by humans and computers alike. The great thing about plain text is their simplicity and their ease of use: any programming language can read a plain text file. Text files are good for storing tabular data but lacks type-safety, and has limited precision for numeric values. Binary file formats cannot be read by humans but allows space-efficient data compression. Furthermore, binary formats may be difficult to read and write using other programs.
+
+As most other programming languages, R comes with its own binary format. We will focus on the Rds data format which are optimised for speed and compression ratios. To save and read an R object use:
+
+```{r}
+dat <- list(x = c(2, 5, 6), y = "A string", z = mtcars)
+saveRDS(dat, file = "test.rds")
+readRDS("test.rds")
+```
+
+Note we here have saved a non tabular R object (a list).
+
+
+## Json
+
+[JavaScript Object Notation][wiki-json] (json) is an open standard text file format, and data interchange format, that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and array data types. It can be used to store non tabular data in text format. It is often used for data-exchange in web-apis. 
+
+Let us try to read and write to a json file using the [jsonlite][pkg-jsonlite] package.
+
+```{r}
+library(jsonlite)
+dat <- list(x = c(2, 5, 6), y = "A string", z = head(mtcars))
+write_json(dat, "test.json", pretty = T)
+lst <- read_json("test.json", simplifyDataFrame = T, simplifyVector = T)
+lst
+```
+
+The content of the json file look likes:
+
+```{r, comment="", echo=FALSE}
+cat(read_file("test.json"))
+```
+
+
+
+## Different learning paths 
+
+`r strLPath`
+
+* [Chapter 5](https://rafalab.github.io/dsbook/importing-data.html) in @dsbook gives an alternative introduction to importing data.
+
+
+## Recap
+
+* For doing data driven analytics you first must import some data. That is, take data from a database, file, web API etc. and transform it into a data frame/table. 
+
+* CSV files contain delimiter separated values in plain text and are often named using the file suffix `.csv`. 
+
+* Each line of a csv file is a data record. Each record consists of one or more fields, separated by a common delimiter (e.g. `,`, `;` or `_`). 
+
+* The [readxl][tidyverse-readxl] package can be used to read Excel files. 
+
+* Writing to an Excel file can be done using the [openxlsx][pkg-openxlsx] package. 
+
+* You can import and export to Google sheets using the [googlesheets4][tidyverse-googlesheets4] package in tidyverse. 
+
+* Use `sink` to save output of you R script.
+
+* There are two main types of data files. Information is either binary encoded or stored as text files. 
+
+* Text files can be read by humans and computers alike. The great thing about plain text is their simplicity and their ease of use: any programming language can read a plain text file. 
+
+* Text files are good for storing tabular data but lacks type-safety, and has limited precision for numeric values. 
+
+* Binary file formats cannot be read by humans but allows space-efficient data compression. Moreover they can be used to save non tabular data.
+
+* As most other programming languages, R comes with its own binary format. We will focus on the Rds data format which are optimized for speed and compression ratios. 
+
+* Json is an open standard text file format, and data interchange format. It can be used to store non tabular data in text format. It is often used for data-exchange in web-api's. 
+
+
+
+
+## Exercises
+
+`r strExercises`
+
+
 
 
 

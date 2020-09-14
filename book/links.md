@@ -2,6 +2,7 @@
 
 [course-help]: https://blackboard.au.dk/webapps/discussionboard/do/forum?action=list_threads&course_id=_139525_1&forum_id=190010&nav=discussion_board&conf_id=_274569_1&content_id=_2651740_1&mode=view
 [cran]: https://cloud.r-project.org
+[cheatsheet-readr]: https://rawgit.com/rstudio/cheatsheets/master/data-import.pdf
 
 [Datacamp]: https://www.datacamp.com/
 [datacamp-signup]: https://www.datacamp.com/groups/shared_links/cbaee6c73e7d78549a9e32a900793b2d5491ace1824efc1760a6729735948215
@@ -44,6 +45,9 @@
 [peergrade-signup]: https://app.peergrade.io/join
 [point-and-click]: https://en.wikipedia.org/wiki/Point_and_click
 [pkg-bookdown]: https://bookdown.org/yihui/bookdown/
+[pkg-openxlsx]: https://ycphs.github.io/openxlsx/index.html
+[pkg-ropensci-writexl]: https://docs.ropensci.org/writexl/
+[pkg-jsonlite]: https://cran.r-project.org/web/packages/jsonlite/index.html
 
 [R]: https://www.r-project.org
 [RStudio]: https://rstudio.com
@@ -51,6 +55,7 @@
 [rstudio-customizing]: https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio
 [rstudio-key-shortcuts]: https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts
 [r-markdown]: https://rmarkdown.rstudio.com/
+[ropensci-writexl]: https://docs.ropensci.org/writexl/
 
 [r4ds-pipes]: https://r4ds.had.co.nz/pipes.html
 [r4ds-factors]: https://r4ds.had.co.nz/factors.html
@@ -73,6 +78,8 @@
 [tidyverse-tibble]: https://tibble.tidyverse.org/
 [tidyverse-stringr]: https://stringr.tidyverse.org/
 [tidyverse-forcats]: https://forcats.tidyverse.org/
+[tidyverse-readxl]: https://readxl.tidyverse.org
+[tidyverse-googlesheets4]: https://googlesheets4.tidyverse.org/index.html
 
 [tutorial-markdown]: https://commonmark.org/help/tutorial/
 
@@ -96,6 +103,14 @@
 [wiki-camel-case]: https://en.wikipedia.org/wiki/Camel_case
 [wiki-interpreted]: https://en.wikipedia.org/wiki/Interpreted_language
 [wiki-literate-programming]: https://en.wikipedia.org/wiki/Literate_programming
+[wiki-csv]: https://en.wikipedia.org/wiki/Comma-separated_values
+[wiki-json]: https://en.wikipedia.org/wiki/JSON
+
+
+
+
+
+
 
 
 
