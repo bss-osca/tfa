@@ -99,6 +99,7 @@
 [video-functions]: https://www.youtube.com/watch?v=ffPeac3BigM
 [video-tibble-vs-df]: https://www.youtube.com/watch?v=EBk6PnvE1R4
 
+
 [wiki-snake-case]: https://en.wikipedia.org/wiki/Snake_case
 [wiki-camel-case]: https://en.wikipedia.org/wiki/Camel_case
 [wiki-interpreted]: https://en.wikipedia.org/wiki/Interpreted_language
