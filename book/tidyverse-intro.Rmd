@@ -87,15 +87,28 @@ Tibbles are a modern data frame, keeping what time has proven to be effective, a
 Let us see a few examples:
 
 ```{r}
-tbl1 <- tibble(name = c("Lars", "Susan", "Hans"), age = c(23,56,45))
+tbl1 <- tibble(name = c("Lars", "Susan", "Hans"), age = c(23, 56, 45))
 tbl1
 tbl2 <- tibble(x = 1:3, y = list(1:5, 1:10, 1:20))
 tbl2
+tbl3 <- as_tibble(mtcars)
+tbl3
+tbl4 <- tribble(
+  ~x, ~y, ~z,
+  #--|--|----
+  "a", 2, 3.6,
+  "b", 1, 8.5
+)
+tbl4
 ```
 
+Note that we can always coerce a data frame to a tibble (`tbl3`) or create it directly using `tibble`. Another way to create a tibble is with `tribble`. Here column headings are defined by formulas (i.e. they start with ~), and entries are separated by commas. This makes it possible to lay out small amounts of data in easy to read form.
 
+Tibbles have a refined print method that shows only the first 10 rows along with the number of columns that will fit on your screen. This makes it much easier to work with large data. In addition to its name, each column reports its type. Hence your console is not overwhelmed with data. To see a full view of the data you may use RStudio's built-in data viewer:
 
-
+```{r, eval=FALSE}
+View(tbl3)
+```
 
 
 ## Different learning paths {#t-intro-lp}
@@ -109,6 +122,8 @@ tbl2
 * Glenn Moncrieff gives a nice detained overview on how to create [reproducible projects](https://rpubs.com/glennwithtwons/reproducible-r-toolbox).  
 * If you are interested in trying Git and GitHub out see @hgit for detailed help.
 * All chunk options for R code can be seen [here](https://yihui.org/knitr/options/).
+* An introduction to tibbles and differences to data frames is given in the video [Working with tibbles in R][video-tibble-vs-df] by Hefin Rhys.
+* [Chapter 10](https://r4ds.had.co.nz/tibbles.html) in @r4ds gives an introduction to tibbles.
 
 
 ## Recap
@@ -126,6 +141,13 @@ tbl2
 * In practice it may be hard to make your project totally reproducible. That is, there are different levels of reproducibility. 
 
 * R Markdown documents are a attempt to make reproducible documents and combine R code and markdown text.
+
+* Tibbles are a modern data frame, keeping what time has proven to be effective, and throwing out what is not. 
+
+* Tibbles are more strict compared to data frames e.g. they do not change variable names or types, do not do partial matching and complain more e.g. when a variable does not exist. 
+
+* Tibbles have an enhanced `print` method and can have columns that are lists.
+
 
 
 ## Exercises
@@ -178,9 +200,9 @@ addSolution(text = "The sum of all setup costs are `` `r total` ``.")
 7) Add a line of text with the result.
 
 
+### Exercise (tibbles)
 
-
-
+Solve this exercise using a R script file.
 
 
 
