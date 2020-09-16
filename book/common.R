@@ -45,11 +45,11 @@ options(
 #   }
 # )
 
-knit_hooks$set(solution = function(before, options, envir) {
-  if (!before) {
-    addSolution(options$code)
-  }
-})
+# knit_hooks$set(solution = function(before, options, envir) {
+#   if (!before) {
+#     addSolution(options$code)
+#   }
+# })
 
 
 # knitr::knit_hooks$set(chunk_envvar = function(before, options, envir) {
