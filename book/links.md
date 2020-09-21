@@ -54,9 +54,9 @@
 [rstudio-download]: https://rstudio.com/products/rstudio/download/#download
 [rstudio-customizing]: https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio
 [rstudio-key-shortcuts]: https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts
+[rstudio-workbench]: https://www.rstudio.com/wp-content/uploads/2014/04/rstudio-workbench.png
 [r-markdown]: https://rmarkdown.rstudio.com/
 [ropensci-writexl]: https://docs.ropensci.org/writexl/
-
 [r4ds-pipes]: https://r4ds.had.co.nz/pipes.html
 [r4ds-factors]: https://r4ds.had.co.nz/factors.html
 [r4ds-strings]: https://r4ds.had.co.nz/strings.html
