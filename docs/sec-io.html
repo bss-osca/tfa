@@ -367,8 +367,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="csv-files" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> CSV files</h2>
-<p>[CSV files][wiki-csv] contains <em>comma separated values</em> (csv) in plain text and are often named using the file suffix <code>.csv</code>. Each line of the file is a data record. Each record consists of one or more fields, separated by a common delimiter (e.g. <code>,</code>, <code>;</code> or <code>_</code>). The CSV file format is not fully standardized. Different delimiters may be used, fields may be surrounded by quotation marks, text may contain escape characters and the encoding of the file may not be known. Despite these problems CSV files are commonly used since they are easy to exchange and read.</p>
-<p>We will use the [readr][readr-web] package for reading and writing. An overview over the functions can be seen in the [cheatsheet][cheatsheet-readr].</p>
+<p><a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV files</a> contains <em>comma separated values</em> (csv) in plain text and are often named using the file suffix <code>.csv</code>. Each line of the file is a data record. Each record consists of one or more fields, separated by a common delimiter (e.g. <code>,</code>, <code>;</code> or <code>_</code>). The CSV file format is not fully standardized. Different delimiters may be used, fields may be surrounded by quotation marks, text may contain escape characters and the encoding of the file may not be known. Despite these problems CSV files are commonly used since they are easy to exchange and read.</p>
+<p>We will use the [readr][readr-web] package for reading and writing. An overview over the functions can be seen in the <a href="https://rawgit.com/rstudio/cheatsheets/master/data-import.pdf">cheatsheet</a>.</p>
 <div id="reading-a-csv-file" class="section level3" number="7.2.1">
 <h3><span class="header-section-number">7.2.1</span> Reading a CSV file</h3>
 <p>In general use the following functions</p>
@@ -550,7 +550,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="excel" class="section level2" number="7.3">
 <h2><span class="header-section-number">7.3</span> Excel</h2>
-<p>There are different packages in R for reading and writing to Excel. We will use the [readxl][tidyverse-readxl] package for reading Excel files which is a part of tidyverse. The package supports both the legacy <code>.xls</code> format and the modern xml-based <code>.xlsx</code> format. Let us use one of the example files provided by the package:</p>
+<p>There are different packages in R for reading and writing to Excel. We will use the <a href="https://readxl.tidyverse.org">readxl</a> package for reading Excel files which is a part of tidyverse. The package supports both the legacy <code>.xls</code> format and the modern xml-based <code>.xlsx</code> format. Let us use one of the example files provided by the package:</p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="sec-io.html#cb85-1" aria-hidden="true"></a>xlsx_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/datasets.xlsx&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;readxl&quot;</span>)</span></code></pre></div>
 <p>It is always a good idea to have a look at the file before you import from it. You can open it from R by using</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="sec-io.html#cb86-1" aria-hidden="true"></a><span class="kw">browseURL</span>(xlsx_file)</span></code></pre></div>
@@ -631,7 +631,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb87-74"><a href="sec-io.html#cb87-74" aria-hidden="true"></a><span class="co">#&gt; [90m5[39m  24.4     4  147.    62  3.69  3.19  20  </span></span>
 <span id="cb87-75"><a href="sec-io.html#cb87-75" aria-hidden="true"></a><span class="co">#&gt; [90m6[39m  22.8     4  141.    95  3.92  3.15  22.9</span></span>
 <span id="cb87-76"><a href="sec-io.html#cb87-76" aria-hidden="true"></a><span class="co">#&gt; [90m7[39m  19.2     6  168.   123  3.92  3.44  18.3</span></span></code></pre></div>
-<p>Writing to an Excel file can be done using the [openxlsx][pkg-openxlsx] package. To write to a new file use:</p>
+<p>Writing to an Excel file can be done using the <a href="https://ycphs.github.io/openxlsx/index.html">openxlsx</a> package. To write to a new file use:</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="sec-io.html#cb88-1" aria-hidden="true"></a><span class="kw">library</span>(openxlsx)</span>
 <span id="cb88-2"><a href="sec-io.html#cb88-2" aria-hidden="true"></a>dat &lt;-<span class="st"> </span>trees   <span class="co"># test dataset</span></span>
 <span id="cb88-3"><a href="sec-io.html#cb88-3" aria-hidden="true"></a><span class="kw">head</span>(dat)</span>
@@ -655,7 +655,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="google-sheets" class="section level2" number="7.4">
 <h2><span class="header-section-number">7.4</span> Google Sheets</h2>
-<p>You can import and export to Google sheets using the [googlesheets4][tidyverse-googlesheets4] package in tidyverse. To read and write data you in general need to be logged in as a Google user. The package will ask you when needed. However if you only want to read data from a public sheet you can use <code>gs4_deauth</code> to skip this:</p>
+<p>You can import and export to Google sheets using the <a href="https://googlesheets4.tidyverse.org/index.html">googlesheets4</a> package in tidyverse. To read and write data you in general need to be logged in as a Google user. The package will ask you when needed. However if you only want to read data from a public sheet you can use <code>gs4_deauth</code> to skip this:</p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="sec-io.html#cb90-1" aria-hidden="true"></a><span class="kw">library</span>(googlesheets4)</span>
 <span id="cb90-2"><a href="sec-io.html#cb90-2" aria-hidden="true"></a><span class="kw">gs4_deauth</span>()</span></code></pre></div>
 <p>To read data use:</p>
@@ -842,8 +842,8 @@ Last line</code></pre>
 </div>
 <div id="json" class="section level2" number="7.7">
 <h2><span class="header-section-number">7.7</span> Json</h2>
-<p>[JavaScript Object Notation][wiki-json] (json) is an open standard text file format, and data interchange format, that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and array data types. It can be used to store non tabular data in text format. It is often used for data-exchange in web-apis.</p>
-<p>Let us try to read and write to a json file using the [jsonlite][pkg-jsonlite] package.</p>
+<p><a href="https://en.wikipedia.org/wiki/JSON">JavaScript Object Notation</a> (json) is an open standard text file format, and data interchange format, that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and array data types. It can be used to store non tabular data in text format. It is often used for data-exchange in web-apis.</p>
+<p>Let us try to read and write to a json file using the <a href="https://cran.r-project.org/web/packages/jsonlite/index.html">jsonlite</a> package.</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="sec-io.html#cb98-1" aria-hidden="true"></a><span class="kw">library</span>(jsonlite)</span>
 <span id="cb98-2"><a href="sec-io.html#cb98-2" aria-hidden="true"></a>dat &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="dt">y =</span> <span class="st">&quot;A string&quot;</span>, <span class="dt">z =</span> <span class="kw">head</span>(mtcars))</span>
 <span id="cb98-3"><a href="sec-io.html#cb98-3" aria-hidden="true"></a><span class="kw">write_json</span>(dat, <span class="st">&quot;test.json&quot;</span>, <span class="dt">pretty =</span> T)</span>
@@ -968,9 +968,9 @@ Last line</code></pre>
 <li><p>For doing data driven analytics you first must import some data. That is, take data from a database, file, web API etc. and transform it into a data frame/table.</p></li>
 <li><p>CSV files contain delimiter separated values in plain text and are often named using the file suffix <code>.csv</code>.</p></li>
 <li><p>Each line of a csv file is a data record. Each record consists of one or more fields, separated by a common delimiter (e.g. <code>,</code>, <code>;</code> or <code>_</code>).</p></li>
-<li><p>The [readxl][tidyverse-readxl] package can be used to read Excel files.</p></li>
-<li><p>Writing to an Excel file can be done using the [openxlsx][pkg-openxlsx] package.</p></li>
-<li><p>You can import and export to Google sheets using the [googlesheets4][tidyverse-googlesheets4] package in tidyverse.</p></li>
+<li><p>The <a href="https://readxl.tidyverse.org">readxl</a> package can be used to read Excel files.</p></li>
+<li><p>Writing to an Excel file can be done using the <a href="https://ycphs.github.io/openxlsx/index.html">openxlsx</a> package.</p></li>
+<li><p>You can import and export to Google sheets using the <a href="https://googlesheets4.tidyverse.org/index.html">googlesheets4</a> package in tidyverse.</p></li>
 <li><p>Use <code>sink</code> to save output of you R script.</p></li>
 <li><p>There are two main types of data files. Information is either binary encoded or stored as text files.</p></li>
 <li><p>Text files can be read by humans and computers alike. The great thing about plain text is their simplicity and their ease of use: any programming language can read a plain text file.</p></li>
