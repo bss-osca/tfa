@@ -1,8 +1,8 @@
 on:
   push:
-    # branches: master
-    branches-ignore:
-      - '**'
+    branches: master
+    # branches-ignore:
+    #   - '**'
 
 name: Generate book
 
@@ -19,21 +19,14 @@ jobs:
         uses: r-lib/actions/setup-r@master
 
       - name: Setup pandoc
-        uses: r-lib/actions/setup-pandoc@v1
+        uses: r-lib/actions/setup-pandoc@master
 
-      - name: Cache Renv packages
-        uses: actions/cache@v2
-        with:
-          path: $HOME/.local/share/renv
-          key: r-${{ hashFiles('renv.lock') }}
-          restore-keys: r-
-
-      - name: Cache bookdown results
-        uses: actions/cache@v2
-        with:
-          path: book/_bookdown_files
-          key: bookdown-${{ hashFiles('**/*Rmd') }}
-          restore-keys: bookdown-
+      # - name: Query dependencies
+      #   run: |
+      #     install.packages('remotes')
+      #     saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+      #     writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+      #   shell: Rscript {0}
 
       - name: Install packages
         run: |
