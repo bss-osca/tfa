@@ -1,6 +1,8 @@
 on:
   push:
     branches: master
+    # branches-ignore:
+    #   - '**'
 
 name: Generate book
 
@@ -42,7 +44,7 @@ jobs:
 
 
       - name: Render book
-        run: Rscript render_book.R
+        run: Rscript book/render_book.R
 
       - name: Commit results
         run: |
