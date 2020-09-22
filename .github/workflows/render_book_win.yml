@@ -1,45 +1,48 @@
 on:
   push:
-    branches: master
-    # branches-ignore:
-    #   - '**'
+    # branches: master
+    branches-ignore:
+      - '**'
 
-name: Render book
+name: Generate book
 
 jobs:
-  Render book:
-    runs-on: ubuntu-18.04
+  build:
+    runs-on: windows-latest
     env:
       GITHUB_PAT: ${{ secrets.TFA }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+
       - name: Setup R
         uses: r-lib/actions/setup-r@master
+
       - name: Setup pandoc
         uses: r-lib/actions/setup-pandoc@v1
-      - name: Install libcurl
-        run: sudo apt-get install libcurl4-openssl-dev
-      # - name: Query dependencies
-      #   run: Rscript -e "install.packages('remotes')" -e "saveRDS(remotes::dev_package_deps(dependencies = TRUE), 'depends.Rds')"
+
       - name: Cache Renv packages
         uses: actions/cache@v2
         with:
           path: $HOME/.local/share/renv
           key: r-${{ hashFiles('renv.lock') }}
           restore-keys: r-
+
       - name: Cache bookdown results
         uses: actions/cache@v2
         with:
           path: book/_bookdown_files
           key: bookdown-${{ hashFiles('**/*Rmd') }}
           restore-keys: bookdown-
+
       - name: Install packages
         run: |
           R -e 'install.packages("renv")'
           R -e 'renv::restore()'
+
       - name: Render book
-        run: Rscript render_book.R
+        run: Rscript book/render_book.R
+
       - name: Commit results
         run: |
           git config user.email "junk@relund.dk"
