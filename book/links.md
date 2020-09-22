@@ -38,6 +38,7 @@
 [hg-exist-github-first]: https://happygitwithr.com/existing-github-first.html
 [hg-exist-github-last]: https://happygitwithr.com/existing-github-last.html
 [hg-credential-helper]: https://happygitwithr.com/credential-caching.html
+[hypothes.is]: https://web.hypothes.is/
 
 [osca-programme]: https://kandidat.au.dk/en/operationsandsupplychainanalytics/
 
