@@ -81,7 +81,6 @@
 [tidyverse-forcats]: https://forcats.tidyverse.org/
 [tidyverse-readxl]: https://readxl.tidyverse.org
 [tidyverse-googlesheets4]: https://googlesheets4.tidyverse.org/index.html
-
 [tutorial-markdown]: https://commonmark.org/help/tutorial/
 
 [Udemy]: https://www.udemy.com/
@@ -99,7 +98,6 @@
 [video-conditional-loops]: https://www.youtube.com/watch?v=2evtsnPaoDg
 [video-functions]: https://www.youtube.com/watch?v=ffPeac3BigM
 [video-tibble-vs-df]: https://www.youtube.com/watch?v=EBk6PnvE1R4
-
 
 [wiki-snake-case]: https://en.wikipedia.org/wiki/Snake_case
 [wiki-camel-case]: https://en.wikipedia.org/wiki/Camel_case
