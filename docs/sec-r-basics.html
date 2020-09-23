@@ -67,7 +67,7 @@
 <script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 <html>
 <head>
-<!--<script>
+<script>
   $(document).ready(function() {
 
   // Section anchors
@@ -76,7 +76,7 @@
     $(this).addClass("hasAnchor").prepend('<a href="' + anchor + '" class="anchor"></a>');
   });
 });
-</script>-->
+</script>
 <script src="https://hypothes.is/embed.js" async></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -392,11 +392,11 @@ Figure 3.2: Icons of R versus RStudio on your computer.
 <p>Now that you’re set up with R and RStudio, you are probably asking yourself, “OK - now how do I use R?”. The first thing to note is that unlike other software programs like Excel or SPSS that provide <a href="https://en.wikipedia.org/wiki/Point_and_click">point-and-click</a> interfaces, R is an <a href="https://en.wikipedia.org/wiki/Interpreted_language">interpreted language</a>. This means you have to type in commands written in <em>R code</em>. In other words, you have to code/program in R. Note that we’ll use the terms “coding” and “programming” interchangeably in this book.</p>
 <p>Go into the Console, where we interact with the live R process.</p>
 <p>Make an assignment and then inspect the object you just created:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="sec-r-basics.html#cb4-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span><span class="dv">4</span></span>
-<span id="cb4-2"><a href="sec-r-basics.html#cb4-2" aria-hidden="true"></a>x</span>
-<span id="cb4-3"><a href="sec-r-basics.html#cb4-3" aria-hidden="true"></a><span class="co">#&gt; [1] 12</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="sec-r-basics.html#cb5-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span><span class="dv">4</span></span>
+<span id="cb5-2"><a href="sec-r-basics.html#cb5-2" aria-hidden="true"></a>x</span>
+<span id="cb5-3"><a href="sec-r-basics.html#cb5-3" aria-hidden="true"></a><span class="co">#&gt; [1] 12</span></span></code></pre></div>
 <p>All R statements where you create objects – “assignments” – have this form:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="sec-r-basics.html#cb5-1" aria-hidden="true"></a>object_name &lt;-<span class="st"> </span>value</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="sec-r-basics.html#cb6-1" aria-hidden="true"></a>object_name &lt;-<span class="st"> </span>value</span></code></pre></div>
 <p>and in my head I hear, e.g., “x equals 12”. You will make lots of assignments and the operator <code>&lt;-</code> is a pain to type. Don’t be lazy and use <code>=</code>, although it would work, because it will just sow confusion later. Instead, utilize RStudio’s keyboard shortcut: Alt+- (the minus sign).</p>
 <p>Notice that RStudio automatically surrounds <code>&lt;-</code> with spaces, which demonstrates a useful code formatting practice. Give your eyes a break and use spaces.</p>
 <p>RStudio offers many handy <a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts">keyboard shortcuts</a>. Also, Alt+Shift+K brings up a keyboard shortcut reference card.</p>
@@ -404,37 +404,37 @@ Figure 3.2: Icons of R versus RStudio on your computer.
 <pre><code>this_is_snake_case   # note you don&#39;t use capital letters here
 thisIsCamelCase      # you start each word with a capital letter</code></pre>
 <p>Make another assignment:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="sec-r-basics.html#cb7-1" aria-hidden="true"></a>this_is_a_long_name &lt;-<span class="st"> </span><span class="fl">2.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="sec-r-basics.html#cb8-1" aria-hidden="true"></a>this_is_a_long_name &lt;-<span class="st"> </span><span class="fl">2.5</span></span></code></pre></div>
 <p>To inspect this, try out RStudio’s completion facility: type the first few characters, press TAB, add characters until you disambiguate, then press return.</p>
 <p>In VBA you have procedures and functions. In R we only use functions which always return an object. R has a mind-blowing collection of built-in functions that are accessed like so:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="sec-r-basics.html#cb8-1" aria-hidden="true"></a><span class="kw">function_name</span>(<span class="dt">arg1 =</span> val1, <span class="dt">arg2 =</span> val2, ...)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="sec-r-basics.html#cb9-1" aria-hidden="true"></a><span class="kw">function_name</span>(<span class="dt">arg1 =</span> val1, <span class="dt">arg2 =</span> val2, ...)</span></code></pre></div>
 <p>Let’s try function <code>seq()</code> which makes regular sequences of numbers and, while we’re at it, demo more helpful features of RStudio.</p>
 <p>Type <code>se</code> and hit TAB. A pop up shows you possible completions. Specify <code>seq()</code> by typing more to disambiguate or using the up/down arrows to select. Notice the floating tool-tip-type help that pops up, reminding you of a function’s arguments. If you want even more help, press F1 as directed to get the full documentation in the help tab of the lower right pane. Now open the parentheses and notice the automatic addition of the closing parenthesis and the placement of cursor in the middle. Type the arguments <code>1, 10</code> and hit return.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="sec-r-basics.html#cb9-1" aria-hidden="true"></a><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)</span>
-<span id="cb9-2"><a href="sec-r-basics.html#cb9-2" aria-hidden="true"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="sec-r-basics.html#cb10-1" aria-hidden="true"></a><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)</span>
+<span id="cb10-2"><a href="sec-r-basics.html#cb10-2" aria-hidden="true"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre></div>
 <p>The above also demonstrates something about how R resolves function arguments. Type seq and press F1 or type:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="sec-r-basics.html#cb10-1" aria-hidden="true"></a>?seq</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="sec-r-basics.html#cb11-1" aria-hidden="true"></a>?seq</span></code></pre></div>
 <p>The Help tab of the lower right pane will show the help documentation of function <code>seq</code> with a description of usage, arguments, return value etc. Note all function arguments have names. You can always specify arguments using <code>name = value</code> form. But if you do not, R attempts to resolve by position. So above, it is assumed that we want a sequence <code>from = 1</code> that goes <code>to = 10</code>. Since we didn’t specify step size, the default value of <code>by</code> in the function definition is used, which ends up being 1 in this case. Note since the default value for <code>from</code> is 1, the same result is obtained by typing:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="sec-r-basics.html#cb11-1" aria-hidden="true"></a><span class="kw">seq</span>(<span class="dt">to =</span> <span class="dv">10</span>)</span>
-<span id="cb11-2"><a href="sec-r-basics.html#cb11-2" aria-hidden="true"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="sec-r-basics.html#cb12-1" aria-hidden="true"></a><span class="kw">seq</span>(<span class="dt">to =</span> <span class="dv">10</span>)</span>
+<span id="cb12-2"><a href="sec-r-basics.html#cb12-2" aria-hidden="true"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre></div>
 <p>Make this assignment and notice similar help with quotation marks.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="sec-r-basics.html#cb12-1" aria-hidden="true"></a>yo &lt;-<span class="st"> &quot;hello world&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="sec-r-basics.html#cb13-1" aria-hidden="true"></a>yo &lt;-<span class="st"> &quot;hello world&quot;</span></span></code></pre></div>
 <p>If you just make an assignment, you don’t see the value. You may see the value by:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="sec-r-basics.html#cb13-1" aria-hidden="true"></a>yo          <span class="co"># same as print(yo)</span></span>
-<span id="cb13-2"><a href="sec-r-basics.html#cb13-2" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;hello world&quot;</span></span>
-<span id="cb13-3"><a href="sec-r-basics.html#cb13-3" aria-hidden="true"></a><span class="kw">print</span>(yo)  </span>
-<span id="cb13-4"><a href="sec-r-basics.html#cb13-4" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;hello world&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="sec-r-basics.html#cb14-1" aria-hidden="true"></a>yo          <span class="co"># same as print(yo)</span></span>
+<span id="cb14-2"><a href="sec-r-basics.html#cb14-2" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;hello world&quot;</span></span>
+<span id="cb14-3"><a href="sec-r-basics.html#cb14-3" aria-hidden="true"></a><span class="kw">print</span>(yo)  </span>
+<span id="cb14-4"><a href="sec-r-basics.html#cb14-4" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;hello world&quot;</span></span></code></pre></div>
 <p>Now look at your Environment tab in the upper right pane where user-defined objects accumulate. You can also get a listing of these objects with commands:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="sec-r-basics.html#cb14-1" aria-hidden="true"></a><span class="kw">objects</span>()</span>
-<span id="cb14-2"><a href="sec-r-basics.html#cb14-2" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;addIcon&quot;             &quot;addSolution&quot;         &quot;ctrSol&quot;              &quot;strExercises&quot;       </span></span>
-<span id="cb14-3"><a href="sec-r-basics.html#cb14-3" aria-hidden="true"></a><span class="co">#&gt; [5] &quot;strLPath&quot;            &quot;this_is_a_long_name&quot; &quot;x&quot;                   &quot;yo&quot;</span></span>
-<span id="cb14-4"><a href="sec-r-basics.html#cb14-4" aria-hidden="true"></a><span class="kw">ls</span>()</span>
-<span id="cb14-5"><a href="sec-r-basics.html#cb14-5" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;addIcon&quot;             &quot;addSolution&quot;         &quot;ctrSol&quot;              &quot;strExercises&quot;       </span></span>
-<span id="cb14-6"><a href="sec-r-basics.html#cb14-6" aria-hidden="true"></a><span class="co">#&gt; [5] &quot;strLPath&quot;            &quot;this_is_a_long_name&quot; &quot;x&quot;                   &quot;yo&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="sec-r-basics.html#cb15-1" aria-hidden="true"></a><span class="kw">objects</span>()</span>
+<span id="cb15-2"><a href="sec-r-basics.html#cb15-2" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;addIcon&quot;             &quot;addSolution&quot;         &quot;ctrSol&quot;              &quot;strExercises&quot;       </span></span>
+<span id="cb15-3"><a href="sec-r-basics.html#cb15-3" aria-hidden="true"></a><span class="co">#&gt; [5] &quot;strLPath&quot;            &quot;this_is_a_long_name&quot; &quot;x&quot;                   &quot;yo&quot;</span></span>
+<span id="cb15-4"><a href="sec-r-basics.html#cb15-4" aria-hidden="true"></a><span class="kw">ls</span>()</span>
+<span id="cb15-5"><a href="sec-r-basics.html#cb15-5" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;addIcon&quot;             &quot;addSolution&quot;         &quot;ctrSol&quot;              &quot;strExercises&quot;       </span></span>
+<span id="cb15-6"><a href="sec-r-basics.html#cb15-6" aria-hidden="true"></a><span class="co">#&gt; [5] &quot;strLPath&quot;            &quot;this_is_a_long_name&quot; &quot;x&quot;                   &quot;yo&quot;</span></span></code></pre></div>
 <p>If you want to remove the object named <code>yo</code>, you can do this:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="sec-r-basics.html#cb15-1" aria-hidden="true"></a><span class="kw">rm</span>(yo)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="sec-r-basics.html#cb16-1" aria-hidden="true"></a><span class="kw">rm</span>(yo)</span></code></pre></div>
 <p>To remove everything:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="sec-r-basics.html#cb16-1" aria-hidden="true"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="sec-r-basics.html#cb17-1" aria-hidden="true"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</span></code></pre></div>
 <p>or click the broom in RStudio’s Environment pane.</p>
 </div>
 <div id="your-first-datacamp-course" class="section level2" number="3.3">
@@ -446,43 +446,43 @@ thisIsCamelCase      # you start each word with a capital letter</code></pre>
 <!-- https://rafalab.github.io/dsbook/tidyverse.html -->
 <p>Must functions support the pipe operator which are a powerful tool for clearly expressing a sequence of multiple operations. The pipe operator <code>%&gt;%</code>, comes from the magrittr package and is loaded automaticaly when you load tidyverse. You may use the RStudio keyboard shortcut Ctrl+Shift+M.</p>
 <p>Consider the following code:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="sec-r-basics.html#cb17-1" aria-hidden="true"></a><span class="co"># calculate x as a sequence of operations</span></span>
-<span id="cb17-2"><a href="sec-r-basics.html#cb17-2" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="dv">16</span></span>
-<span id="cb17-3"><a href="sec-r-basics.html#cb17-3" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">sqrt</span>(x)</span>
-<span id="cb17-4"><a href="sec-r-basics.html#cb17-4" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">log2</span>(x)</span>
-<span id="cb17-5"><a href="sec-r-basics.html#cb17-5" aria-hidden="true"></a>x</span>
-<span id="cb17-6"><a href="sec-r-basics.html#cb17-6" aria-hidden="true"></a><span class="co">#&gt; [1] 2</span></span>
-<span id="cb17-7"><a href="sec-r-basics.html#cb17-7" aria-hidden="true"></a><span class="co"># same as</span></span>
-<span id="cb17-8"><a href="sec-r-basics.html#cb17-8" aria-hidden="true"></a>y &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="kw">sqrt</span>(<span class="dv">16</span>))</span>
-<span id="cb17-9"><a href="sec-r-basics.html#cb17-9" aria-hidden="true"></a>y</span>
-<span id="cb17-10"><a href="sec-r-basics.html#cb17-10" aria-hidden="true"></a><span class="co">#&gt; [1] 2</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="sec-r-basics.html#cb18-1" aria-hidden="true"></a><span class="co"># calculate x as a sequence of operations</span></span>
+<span id="cb18-2"><a href="sec-r-basics.html#cb18-2" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="dv">16</span></span>
+<span id="cb18-3"><a href="sec-r-basics.html#cb18-3" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">sqrt</span>(x)</span>
+<span id="cb18-4"><a href="sec-r-basics.html#cb18-4" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">log2</span>(x)</span>
+<span id="cb18-5"><a href="sec-r-basics.html#cb18-5" aria-hidden="true"></a>x</span>
+<span id="cb18-6"><a href="sec-r-basics.html#cb18-6" aria-hidden="true"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb18-7"><a href="sec-r-basics.html#cb18-7" aria-hidden="true"></a><span class="co"># same as</span></span>
+<span id="cb18-8"><a href="sec-r-basics.html#cb18-8" aria-hidden="true"></a>y &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="kw">sqrt</span>(<span class="dv">16</span>))</span>
+<span id="cb18-9"><a href="sec-r-basics.html#cb18-9" aria-hidden="true"></a>y</span>
+<span id="cb18-10"><a href="sec-r-basics.html#cb18-10" aria-hidden="true"></a><span class="co">#&gt; [1] 2</span></span></code></pre></div>
 <p>Note we here calculate <code>x</code> using a sequence of operations:</p>
 <p><span class="math display">\[ \mbox{original data (x)}
 \rightarrow \mbox{ sqrt }
 \rightarrow \mbox{ log2 }. \]</span></p>
 <p>That is, we take what is left of the arrow (the object <code>x</code>) and input it into the function on the right of the arrow. These operations can be done using the pipe operator:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="sec-r-basics.html#cb18-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="dv">16</span></span>
-<span id="cb18-2"><a href="sec-r-basics.html#cb18-2" aria-hidden="true"></a>x &lt;-<span class="st"> </span>x <span class="op">%&gt;%</span></span>
-<span id="cb18-3"><a href="sec-r-basics.html#cb18-3" aria-hidden="true"></a><span class="st">   </span><span class="kw">sqrt</span>() <span class="op">%&gt;%</span></span>
-<span id="cb18-4"><a href="sec-r-basics.html#cb18-4" aria-hidden="true"></a><span class="st">   </span><span class="kw">log2</span>()</span>
-<span id="cb18-5"><a href="sec-r-basics.html#cb18-5" aria-hidden="true"></a>x</span>
-<span id="cb18-6"><a href="sec-r-basics.html#cb18-6" aria-hidden="true"></a><span class="co">#&gt; [1] 2</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="sec-r-basics.html#cb19-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="dv">16</span></span>
+<span id="cb19-2"><a href="sec-r-basics.html#cb19-2" aria-hidden="true"></a>x &lt;-<span class="st"> </span>x <span class="op">%&gt;%</span></span>
+<span id="cb19-3"><a href="sec-r-basics.html#cb19-3" aria-hidden="true"></a><span class="st">   </span><span class="kw">sqrt</span>() <span class="op">%&gt;%</span></span>
+<span id="cb19-4"><a href="sec-r-basics.html#cb19-4" aria-hidden="true"></a><span class="st">   </span><span class="kw">log2</span>()</span>
+<span id="cb19-5"><a href="sec-r-basics.html#cb19-5" aria-hidden="true"></a>x</span>
+<span id="cb19-6"><a href="sec-r-basics.html#cb19-6" aria-hidden="true"></a><span class="co">#&gt; [1] 2</span></span></code></pre></div>
 <p>In general, the pipe <em>sends</em> the result of the left side of the pipe to be the first argument of the function on the right side of the pipe. That is, you may have other arguments in your functions:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="sec-r-basics.html#cb19-1" aria-hidden="true"></a><span class="dv">16</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sqrt</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">log2</span>()</span>
-<span id="cb19-2"><a href="sec-r-basics.html#cb19-2" aria-hidden="true"></a><span class="co">#&gt; [1] 2</span></span>
-<span id="cb19-3"><a href="sec-r-basics.html#cb19-3" aria-hidden="true"></a><span class="dv">16</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sqrt</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">log</span>(<span class="dt">base =</span> <span class="dv">2</span>)   <span class="co"># equivalent</span></span>
-<span id="cb19-4"><a href="sec-r-basics.html#cb19-4" aria-hidden="true"></a><span class="co">#&gt; [1] 2</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="sec-r-basics.html#cb20-1" aria-hidden="true"></a><span class="dv">16</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sqrt</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">log2</span>()</span>
+<span id="cb20-2"><a href="sec-r-basics.html#cb20-2" aria-hidden="true"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb20-3"><a href="sec-r-basics.html#cb20-3" aria-hidden="true"></a><span class="dv">16</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sqrt</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">log</span>(<span class="dt">base =</span> <span class="dv">2</span>)   <span class="co"># equivalent</span></span>
+<span id="cb20-4"><a href="sec-r-basics.html#cb20-4" aria-hidden="true"></a><span class="co">#&gt; [1] 2</span></span></code></pre></div>
 <p>The above example is simple but illustrate that you can use pipes to skip intermediate assignment operations. Later you will do more complex pipes when we consider data wangling. For instance,</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="sec-r-basics.html#cb20-1" aria-hidden="true"></a>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(cyl, gear, hp, mpg) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gear <span class="op">==</span><span class="st"> </span><span class="dv">4</span>, cyl <span class="op">==</span><span class="st"> </span><span class="dv">4</span>)</span>
-<span id="cb20-2"><a href="sec-r-basics.html#cb20-2" aria-hidden="true"></a><span class="co">#&gt;                cyl gear  hp  mpg</span></span>
-<span id="cb20-3"><a href="sec-r-basics.html#cb20-3" aria-hidden="true"></a><span class="co">#&gt; Datsun 710       4    4  93 22.8</span></span>
-<span id="cb20-4"><a href="sec-r-basics.html#cb20-4" aria-hidden="true"></a><span class="co">#&gt; Merc 240D        4    4  62 24.4</span></span>
-<span id="cb20-5"><a href="sec-r-basics.html#cb20-5" aria-hidden="true"></a><span class="co">#&gt; Merc 230         4    4  95 22.8</span></span>
-<span id="cb20-6"><a href="sec-r-basics.html#cb20-6" aria-hidden="true"></a><span class="co">#&gt; Fiat 128         4    4  66 32.4</span></span>
-<span id="cb20-7"><a href="sec-r-basics.html#cb20-7" aria-hidden="true"></a><span class="co">#&gt; Honda Civic      4    4  52 30.4</span></span>
-<span id="cb20-8"><a href="sec-r-basics.html#cb20-8" aria-hidden="true"></a><span class="co">#&gt; Toyota Corolla   4    4  65 33.9</span></span>
-<span id="cb20-9"><a href="sec-r-basics.html#cb20-9" aria-hidden="true"></a><span class="co">#&gt; Fiat X1-9        4    4  66 27.3</span></span>
-<span id="cb20-10"><a href="sec-r-basics.html#cb20-10" aria-hidden="true"></a><span class="co">#&gt; Volvo 142E       4    4 109 21.4</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="sec-r-basics.html#cb21-1" aria-hidden="true"></a>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(cyl, gear, hp, mpg) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gear <span class="op">==</span><span class="st"> </span><span class="dv">4</span>, cyl <span class="op">==</span><span class="st"> </span><span class="dv">4</span>)</span>
+<span id="cb21-2"><a href="sec-r-basics.html#cb21-2" aria-hidden="true"></a><span class="co">#&gt;                cyl gear  hp  mpg</span></span>
+<span id="cb21-3"><a href="sec-r-basics.html#cb21-3" aria-hidden="true"></a><span class="co">#&gt; Datsun 710       4    4  93 22.8</span></span>
+<span id="cb21-4"><a href="sec-r-basics.html#cb21-4" aria-hidden="true"></a><span class="co">#&gt; Merc 240D        4    4  62 24.4</span></span>
+<span id="cb21-5"><a href="sec-r-basics.html#cb21-5" aria-hidden="true"></a><span class="co">#&gt; Merc 230         4    4  95 22.8</span></span>
+<span id="cb21-6"><a href="sec-r-basics.html#cb21-6" aria-hidden="true"></a><span class="co">#&gt; Fiat 128         4    4  66 32.4</span></span>
+<span id="cb21-7"><a href="sec-r-basics.html#cb21-7" aria-hidden="true"></a><span class="co">#&gt; Honda Civic      4    4  52 30.4</span></span>
+<span id="cb21-8"><a href="sec-r-basics.html#cb21-8" aria-hidden="true"></a><span class="co">#&gt; Toyota Corolla   4    4  65 33.9</span></span>
+<span id="cb21-9"><a href="sec-r-basics.html#cb21-9" aria-hidden="true"></a><span class="co">#&gt; Fiat X1-9        4    4  66 27.3</span></span>
+<span id="cb21-10"><a href="sec-r-basics.html#cb21-10" aria-hidden="true"></a><span class="co">#&gt; Volvo 142E       4    4 109 21.4</span></span></code></pre></div>
 <p>selects the columns related to cylinders, gears, hourse power and miles, and then rows with cars having four cylinders and gears. For a more detailed introduction to pipes see <a href="https://r4ds.had.co.nz/pipes.html">Chapter 18</a> in <span class="citation">Wickham (<a href="#ref-r4ds" role="doc-biblioref">2017</a>)</span>.</p>
 </div>
 <div id="rprojs" class="section level2" number="3.5">
@@ -498,17 +498,17 @@ thisIsCamelCase      # you start each word with a capital letter</code></pre>
 <div id="storing-your-code-in-a-script-file" class="section level3" number="3.5.1">
 <h3><span class="header-section-number">3.5.1</span> Storing your code in a script file</h3>
 <p>R code can be stored in a script file with file suffix <code>.R</code>. A script file contains a line for each R command to run (think of each line as a command added to the console). Create a new script file <strong>File &gt; New File &gt; R Script</strong>. Let us add some R code to the file:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="sec-r-basics.html#cb21-1" aria-hidden="true"></a><span class="co"># this is a comment</span></span>
-<span id="cb21-2"><a href="sec-r-basics.html#cb21-2" aria-hidden="true"></a>a &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb21-3"><a href="sec-r-basics.html#cb21-3" aria-hidden="true"></a>b &lt;-<span class="st"> </span><span class="dv">-3</span></span>
-<span id="cb21-4"><a href="sec-r-basics.html#cb21-4" aria-hidden="true"></a>sig_sq &lt;-<span class="st"> </span><span class="fl">0.5</span></span>
-<span id="cb21-5"><a href="sec-r-basics.html#cb21-5" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">40</span>)</span>
-<span id="cb21-6"><a href="sec-r-basics.html#cb21-6" aria-hidden="true"></a>y &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span>b <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">40</span>, <span class="dt">sd =</span> <span class="kw">sqrt</span>(sig_sq))</span>
-<span id="cb21-7"><a href="sec-r-basics.html#cb21-7" aria-hidden="true"></a>(avg_x &lt;-<span class="st"> </span><span class="kw">mean</span>(x))</span>
-<span id="cb21-8"><a href="sec-r-basics.html#cb21-8" aria-hidden="true"></a><span class="kw">write</span>(avg_x, <span class="st">&quot;avg_x.txt&quot;</span>)</span>
-<span id="cb21-9"><a href="sec-r-basics.html#cb21-9" aria-hidden="true"></a><span class="kw">plot</span>(x, y)</span>
-<span id="cb21-10"><a href="sec-r-basics.html#cb21-10" aria-hidden="true"></a><span class="kw">abline</span>(a, b, <span class="dt">col =</span> <span class="st">&quot;purple&quot;</span>)</span>
-<span id="cb21-11"><a href="sec-r-basics.html#cb21-11" aria-hidden="true"></a><span class="kw">dev.print</span>(pdf, <span class="st">&quot;toy_line_plot.pdf&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="sec-r-basics.html#cb22-1" aria-hidden="true"></a><span class="co"># this is a comment</span></span>
+<span id="cb22-2"><a href="sec-r-basics.html#cb22-2" aria-hidden="true"></a>a &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb22-3"><a href="sec-r-basics.html#cb22-3" aria-hidden="true"></a>b &lt;-<span class="st"> </span><span class="dv">-3</span></span>
+<span id="cb22-4"><a href="sec-r-basics.html#cb22-4" aria-hidden="true"></a>sig_sq &lt;-<span class="st"> </span><span class="fl">0.5</span></span>
+<span id="cb22-5"><a href="sec-r-basics.html#cb22-5" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">40</span>)</span>
+<span id="cb22-6"><a href="sec-r-basics.html#cb22-6" aria-hidden="true"></a>y &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span>b <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">40</span>, <span class="dt">sd =</span> <span class="kw">sqrt</span>(sig_sq))</span>
+<span id="cb22-7"><a href="sec-r-basics.html#cb22-7" aria-hidden="true"></a>(avg_x &lt;-<span class="st"> </span><span class="kw">mean</span>(x))</span>
+<span id="cb22-8"><a href="sec-r-basics.html#cb22-8" aria-hidden="true"></a><span class="kw">write</span>(avg_x, <span class="st">&quot;avg_x.txt&quot;</span>)</span>
+<span id="cb22-9"><a href="sec-r-basics.html#cb22-9" aria-hidden="true"></a><span class="kw">plot</span>(x, y)</span>
+<span id="cb22-10"><a href="sec-r-basics.html#cb22-10" aria-hidden="true"></a><span class="kw">abline</span>(a, b, <span class="dt">col =</span> <span class="st">&quot;purple&quot;</span>)</span>
+<span id="cb22-11"><a href="sec-r-basics.html#cb22-11" aria-hidden="true"></a><span class="kw">dev.print</span>(pdf, <span class="st">&quot;toy_line_plot.pdf&quot;</span>)</span></code></pre></div>
 <p>Save the file as <code>testing.R</code> Now run each line by setting the cursor at the first line, hit Ctrl+Enter (runs the line in the Console and moves the cursor to the next line). Repeat Ctrl+Enter until you have run all the lines. Alternatively you may select all the code and hit Ctrl+Enter.</p>
 <p>Change some things about your code. For instance set a sample size <code>n</code> at the top, e.g. <code>n &lt;- 40</code>, and then replace all the hard-wired 40’s with <code>n</code>. Change some other minor-but-detectable stuff, e.g. alter the sample size <code>n</code>, the slope of the line <code>b</code>,the color of the line etc. Practice the different ways to re-run the code:</p>
 <ul>
@@ -532,9 +532,9 @@ thisIsCamelCase      # you start each word with a capital letter</code></pre>
 <h2><span class="header-section-number">3.7</span> Working directory</h2>
 <p>Any process running on your computer has a notion of its “working directory”. In R, this is where R will look, by default, for files you ask it to load. It also where, by default, any files you write to disk will go. Chances are your current working directory is the directory we inspected above, i.e. the one where RStudio wanted to save the workspace.</p>
 <p>You can explicitly check your working directory with:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="sec-r-basics.html#cb22-1" aria-hidden="true"></a><span class="kw">getwd</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="sec-r-basics.html#cb23-1" aria-hidden="true"></a><span class="kw">getwd</span>()</span></code></pre></div>
 <p>It is also displayed at the top of the RStudio console. In general it should be the directory of your R project. You can set R’s working directory at the command line like so:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="sec-r-basics.html#cb23-1" aria-hidden="true"></a><span class="kw">setwd</span>(<span class="st">&quot;./subfolder&quot;</span>)  <span class="co"># sets the working dir to a subfolder of you project folder</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="sec-r-basics.html#cb24-1" aria-hidden="true"></a><span class="kw">setwd</span>(<span class="st">&quot;./subfolder&quot;</span>)  <span class="co"># sets the working dir to a subfolder of you project folder</span></span></code></pre></div>
 <p>You can also use RStudio’s Files pane to navigate to a directory and then set it as working directory from the menu: <strong>Session &gt; Set Working Directory &gt; To Files Pane Location</strong>.</p>
 </div>
 <div id="lp-r-basics" class="section level2" number="3.8">
@@ -637,10 +637,10 @@ thisIsCamelCase      # you start each word with a capital letter</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Have a look at the documentation for function <code>install_github</code> in the package <code>devtools</code>. This can be done in different ways:</li>
 </ol>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="sec-r-basics.html#cb24-1" aria-hidden="true"></a><span class="kw">library</span>(devtools)    <span class="co"># we here load all the functions in devtools</span></span>
-<span id="cb24-2"><a href="sec-r-basics.html#cb24-2" aria-hidden="true"></a>?install_github</span>
-<span id="cb24-3"><a href="sec-r-basics.html#cb24-3" aria-hidden="true"></a></span>
-<span id="cb24-4"><a href="sec-r-basics.html#cb24-4" aria-hidden="true"></a>?devtools<span class="op">::</span>install_github     <span class="co"># we here use the namespace devtools to load only one function</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="sec-r-basics.html#cb25-1" aria-hidden="true"></a><span class="kw">library</span>(devtools)    <span class="co"># we here load all the functions in devtools</span></span>
+<span id="cb25-2"><a href="sec-r-basics.html#cb25-2" aria-hidden="true"></a>?install_github</span>
+<span id="cb25-3"><a href="sec-r-basics.html#cb25-3" aria-hidden="true"></a></span>
+<span id="cb25-4"><a href="sec-r-basics.html#cb25-4" aria-hidden="true"></a>?devtools<span class="op">::</span>install_github     <span class="co"># we here use the namespace devtools to load only one function</span></span></code></pre></div>
 <div class="modal fade" id="solution0" tabindex="-1" role="dialog" aria-labelledby="solution0-title">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
@@ -668,20 +668,20 @@ thisIsCamelCase      # you start each word with a capital letter</code></pre>
 <h3><span class="header-section-number">3.10.3</span> Exercise (piping)</h3>
 <p><em>Solve this exercise using a script file (e.g. <code>exercises/pipe.R</code>). Remember that you can run a line in the file using Ctrl+Enter</em></p>
 <p>The pipe <code>%&gt;%</code> can be used to perform operations sequentially without having to define intermediate objects (Ctrl+Shift+M). Have a look at the dataset <code>mtcars</code>:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="sec-r-basics.html#cb25-1" aria-hidden="true"></a><span class="kw">head</span>(mtcars)</span>
-<span id="cb25-2"><a href="sec-r-basics.html#cb25-2" aria-hidden="true"></a>?mtcars</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="sec-r-basics.html#cb26-1" aria-hidden="true"></a><span class="kw">head</span>(mtcars)</span>
+<span id="cb26-2"><a href="sec-r-basics.html#cb26-2" aria-hidden="true"></a>?mtcars</span></code></pre></div>
 <p>The pipe</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="sec-r-basics.html#cb26-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb26-2"><a href="sec-r-basics.html#cb26-2" aria-hidden="true"></a>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(cyl, gear, hp, mpg) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gear <span class="op">==</span><span class="st"> </span><span class="dv">4</span> <span class="op">&amp;</span><span class="st"> </span>cyl <span class="op">==</span><span class="st"> </span><span class="dv">4</span>)</span>
-<span id="cb26-3"><a href="sec-r-basics.html#cb26-3" aria-hidden="true"></a><span class="co">#&gt;                cyl gear  hp  mpg</span></span>
-<span id="cb26-4"><a href="sec-r-basics.html#cb26-4" aria-hidden="true"></a><span class="co">#&gt; Datsun 710       4    4  93 22.8</span></span>
-<span id="cb26-5"><a href="sec-r-basics.html#cb26-5" aria-hidden="true"></a><span class="co">#&gt; Merc 240D        4    4  62 24.4</span></span>
-<span id="cb26-6"><a href="sec-r-basics.html#cb26-6" aria-hidden="true"></a><span class="co">#&gt; Merc 230         4    4  95 22.8</span></span>
-<span id="cb26-7"><a href="sec-r-basics.html#cb26-7" aria-hidden="true"></a><span class="co">#&gt; Fiat 128         4    4  66 32.4</span></span>
-<span id="cb26-8"><a href="sec-r-basics.html#cb26-8" aria-hidden="true"></a><span class="co">#&gt; Honda Civic      4    4  52 30.4</span></span>
-<span id="cb26-9"><a href="sec-r-basics.html#cb26-9" aria-hidden="true"></a><span class="co">#&gt; Toyota Corolla   4    4  65 33.9</span></span>
-<span id="cb26-10"><a href="sec-r-basics.html#cb26-10" aria-hidden="true"></a><span class="co">#&gt; Fiat X1-9        4    4  66 27.3</span></span>
-<span id="cb26-11"><a href="sec-r-basics.html#cb26-11" aria-hidden="true"></a><span class="co">#&gt; Volvo 142E       4    4 109 21.4</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="sec-r-basics.html#cb27-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb27-2"><a href="sec-r-basics.html#cb27-2" aria-hidden="true"></a>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(cyl, gear, hp, mpg) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gear <span class="op">==</span><span class="st"> </span><span class="dv">4</span> <span class="op">&amp;</span><span class="st"> </span>cyl <span class="op">==</span><span class="st"> </span><span class="dv">4</span>)</span>
+<span id="cb27-3"><a href="sec-r-basics.html#cb27-3" aria-hidden="true"></a><span class="co">#&gt;                cyl gear  hp  mpg</span></span>
+<span id="cb27-4"><a href="sec-r-basics.html#cb27-4" aria-hidden="true"></a><span class="co">#&gt; Datsun 710       4    4  93 22.8</span></span>
+<span id="cb27-5"><a href="sec-r-basics.html#cb27-5" aria-hidden="true"></a><span class="co">#&gt; Merc 240D        4    4  62 24.4</span></span>
+<span id="cb27-6"><a href="sec-r-basics.html#cb27-6" aria-hidden="true"></a><span class="co">#&gt; Merc 230         4    4  95 22.8</span></span>
+<span id="cb27-7"><a href="sec-r-basics.html#cb27-7" aria-hidden="true"></a><span class="co">#&gt; Fiat 128         4    4  66 32.4</span></span>
+<span id="cb27-8"><a href="sec-r-basics.html#cb27-8" aria-hidden="true"></a><span class="co">#&gt; Honda Civic      4    4  52 30.4</span></span>
+<span id="cb27-9"><a href="sec-r-basics.html#cb27-9" aria-hidden="true"></a><span class="co">#&gt; Toyota Corolla   4    4  65 33.9</span></span>
+<span id="cb27-10"><a href="sec-r-basics.html#cb27-10" aria-hidden="true"></a><span class="co">#&gt; Fiat X1-9        4    4  66 27.3</span></span>
+<span id="cb27-11"><a href="sec-r-basics.html#cb27-11" aria-hidden="true"></a><span class="co">#&gt; Volvo 142E       4    4 109 21.4</span></span></code></pre></div>
 <p>selects the columns related to cylinders, gears, hoursepower and miles, and then rows with cars having four cylinders and (operator <code>&amp;</code>) gears.</p>
 <p><div class="modal fade" id="solution-p1" tabindex="-1" role="dialog" aria-labelledby="solution-p1-title">
 <div class="modal-dialog" role="document">
@@ -805,16 +805,16 @@ dat
 <p><em>Do this exercise from the Console in RStudio.</em></p>
 <p>When reading and writing to local files, your working directory becomes important. You can get and set the working directory using functions <code>getwd</code> and <code>setwd</code>.</p>
 <p>Set the working directory to the project directory using the menu: <strong>Session &gt; Set Working Directory &gt; To Project Directory</strong>. Now let us create some files:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="sec-r-basics.html#cb27-1" aria-hidden="true"></a><span class="kw">dir.create</span>(<span class="st">&quot;subfolder&quot;</span>) </span>
-<span id="cb27-2"><a href="sec-r-basics.html#cb27-2" aria-hidden="true"></a><span class="kw">write_file</span>(<span class="st">&quot;Some text in a file&quot;</span>, <span class="dt">path =</span> <span class="st">&quot;test1.txt&quot;</span>)</span>
-<span id="cb27-3"><a href="sec-r-basics.html#cb27-3" aria-hidden="true"></a><span class="kw">write_file</span>(<span class="st">&quot;Some other text in a file&quot;</span>, <span class="dt">path =</span> <span class="st">&quot;subfolder/test2.txt&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="sec-r-basics.html#cb28-1" aria-hidden="true"></a><span class="kw">dir.create</span>(<span class="st">&quot;subfolder&quot;</span>) </span>
+<span id="cb28-2"><a href="sec-r-basics.html#cb28-2" aria-hidden="true"></a><span class="kw">write_file</span>(<span class="st">&quot;Some text in a file&quot;</span>, <span class="dt">path =</span> <span class="st">&quot;test1.txt&quot;</span>)</span>
+<span id="cb28-3"><a href="sec-r-basics.html#cb28-3" aria-hidden="true"></a><span class="kw">write_file</span>(<span class="st">&quot;Some other text in a file&quot;</span>, <span class="dt">path =</span> <span class="st">&quot;subfolder/test2.txt&quot;</span>)</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Which folders and files have been created? You may have a look in the <strong>Files</strong> plane.</li>
 </ol>
 <p>We can read the file again using:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="sec-r-basics.html#cb28-1" aria-hidden="true"></a></span>
-<span id="cb28-2"><a href="sec-r-basics.html#cb28-2" aria-hidden="true"></a><span class="kw">read_file</span>(<span class="st">&quot;test1.txt&quot;</span>)</span>
-<span id="cb28-3"><a href="sec-r-basics.html#cb28-3" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Some text in a file&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="sec-r-basics.html#cb29-1" aria-hidden="true"></a></span>
+<span id="cb29-2"><a href="sec-r-basics.html#cb29-2" aria-hidden="true"></a><span class="kw">read_file</span>(<span class="st">&quot;test1.txt&quot;</span>)</span>
+<span id="cb29-3"><a href="sec-r-basics.html#cb29-3" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Some text in a file&quot;</span></span></code></pre></div>
 <p><div class="modal fade" id="solution-w2" tabindex="-1" role="dialog" aria-labelledby="solution-w2-title">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
@@ -908,9 +908,9 @@ n*(n+1)/2
 <ol start="2" style="list-style-type: decimal">
 <li><p>Now use the same formula to compute the sum of the integers from 1 through 1000.</p></li>
 <li><p>Look at the result of typing the following code into R:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="sec-r-basics.html#cb29-1" aria-hidden="true"></a>n &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb29-2"><a href="sec-r-basics.html#cb29-2" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, n)</span>
-<span id="cb29-3"><a href="sec-r-basics.html#cb29-3" aria-hidden="true"></a><span class="kw">sum</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="sec-r-basics.html#cb30-1" aria-hidden="true"></a>n &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb30-2"><a href="sec-r-basics.html#cb30-2" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, n)</span>
+<span id="cb30-3"><a href="sec-r-basics.html#cb30-3" aria-hidden="true"></a><span class="kw">sum</span>(x)</span></code></pre></div>
 <p>Based on the result, what do you think the functions <code>seq</code> and <code>sum</code> do? You can use <code>help</code>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><code>sum</code> creates a list of numbers and <code>seq</code> adds them up.</li>
@@ -920,10 +920,10 @@ n*(n+1)/2
 </ol></li>
 <li><p>Run code</p></li>
 </ol>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="sec-r-basics.html#cb30-1" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb30-2"><a href="sec-r-basics.html#cb30-2" aria-hidden="true"></a>v &lt;-<span class="st"> </span><span class="kw">sample.int</span>(<span class="dv">100</span>,<span class="dv">30</span>)</span>
-<span id="cb30-3"><a href="sec-r-basics.html#cb30-3" aria-hidden="true"></a>v</span>
-<span id="cb30-4"><a href="sec-r-basics.html#cb30-4" aria-hidden="true"></a><span class="co">#&gt;  [1] 31 79 51 14 67 42 50 43 97 25 90 69 57  9 72 26  7 95 87 36 78 93 76 15 32 84 82 41 23 27</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="sec-r-basics.html#cb31-1" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb31-2"><a href="sec-r-basics.html#cb31-2" aria-hidden="true"></a>v &lt;-<span class="st"> </span><span class="kw">sample.int</span>(<span class="dv">100</span>,<span class="dv">30</span>)</span>
+<span id="cb31-3"><a href="sec-r-basics.html#cb31-3" aria-hidden="true"></a>v</span>
+<span id="cb31-4"><a href="sec-r-basics.html#cb31-4" aria-hidden="true"></a><span class="co">#&gt;  [1] 31 79 51 14 67 42 50 43 97 25 90 69 57  9 72 26  7 95 87 36 78 93 76 15 32 84 82 41 23 27</span></span></code></pre></div>
 <p><div class="modal fade" id="solution-v5" tabindex="-1" role="dialog" aria-labelledby="solution-v5-title">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
@@ -958,9 +958,9 @@ sd(v)
 <h3><span class="header-section-number">3.10.6</span> Exercise (matrices)</h3>
 <p><em>Solve this exercise using a script file.</em></p>
 <p>Consider matrices</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="sec-r-basics.html#cb31-1" aria-hidden="true"></a>m1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">37</span>, <span class="dv">8</span>, <span class="dv">51</span>, <span class="ot">NA</span>, <span class="dv">50</span>, <span class="dv">97</span>, <span class="dv">86</span>, <span class="ot">NA</span>, <span class="dv">84</span>, <span class="dv">46</span>, <span class="dv">17</span>, 62L), <span class="dt">nrow =</span> <span class="dv">3</span>)</span>
-<span id="cb31-2"><a href="sec-r-basics.html#cb31-2" aria-hidden="true"></a>m2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">37</span>, <span class="dv">8</span>, <span class="dv">51</span>, <span class="ot">NA</span>, <span class="dv">50</span>, <span class="dv">97</span>, <span class="dv">86</span>, <span class="ot">NA</span>, <span class="dv">84</span>, <span class="dv">46</span>, <span class="dv">17</span>, 62L), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb31-3"><a href="sec-r-basics.html#cb31-3" aria-hidden="true"></a>m3 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">37</span>, <span class="dv">8</span>, <span class="dv">51</span>, <span class="ot">NA</span>, <span class="dv">50</span>, <span class="dv">97</span>, <span class="dv">86</span>, <span class="ot">NA</span>, <span class="dv">84</span>, <span class="dv">46</span>, <span class="dv">17</span>, 62L), <span class="dt">ncol =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="sec-r-basics.html#cb32-1" aria-hidden="true"></a>m1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">37</span>, <span class="dv">8</span>, <span class="dv">51</span>, <span class="ot">NA</span>, <span class="dv">50</span>, <span class="dv">97</span>, <span class="dv">86</span>, <span class="ot">NA</span>, <span class="dv">84</span>, <span class="dv">46</span>, <span class="dv">17</span>, 62L), <span class="dt">nrow =</span> <span class="dv">3</span>)</span>
+<span id="cb32-2"><a href="sec-r-basics.html#cb32-2" aria-hidden="true"></a>m2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">37</span>, <span class="dv">8</span>, <span class="dv">51</span>, <span class="ot">NA</span>, <span class="dv">50</span>, <span class="dv">97</span>, <span class="dv">86</span>, <span class="ot">NA</span>, <span class="dv">84</span>, <span class="dv">46</span>, <span class="dv">17</span>, 62L), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb32-3"><a href="sec-r-basics.html#cb32-3" aria-hidden="true"></a>m3 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">37</span>, <span class="dv">8</span>, <span class="dv">51</span>, <span class="ot">NA</span>, <span class="dv">50</span>, <span class="dv">97</span>, <span class="dv">86</span>, <span class="ot">NA</span>, <span class="dv">84</span>, <span class="dv">46</span>, <span class="dv">17</span>, 62L), <span class="dt">ncol =</span> <span class="dv">3</span>)</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>What is the difference between the three matrices (think/discuss before running the code).</li>
 </ol>
@@ -1181,9 +1181,9 @@ colSums(m2, na.rm = T)
 <p><em>Solve this exercise using a script file.</em></p>
 <p>Data frames may be seen as cell blocks in Excel. They are representations of datasets in R where the rows correspond to <em>observations</em> and the columns correspond to <em>variables</em> that describe the observations.</p>
 <p>We consider the data frame <code>mtcars</code>:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="sec-r-basics.html#cb32-1" aria-hidden="true"></a><span class="kw">str</span>(mtcars)</span>
-<span id="cb32-2"><a href="sec-r-basics.html#cb32-2" aria-hidden="true"></a><span class="kw">glimpse</span>(mtcars)</span>
-<span id="cb32-3"><a href="sec-r-basics.html#cb32-3" aria-hidden="true"></a>?mtcars</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="sec-r-basics.html#cb33-1" aria-hidden="true"></a><span class="kw">str</span>(mtcars)</span>
+<span id="cb33-2"><a href="sec-r-basics.html#cb33-2" aria-hidden="true"></a><span class="kw">glimpse</span>(mtcars)</span>
+<span id="cb33-3"><a href="sec-r-basics.html#cb33-3" aria-hidden="true"></a>?mtcars</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Use the <code>head</code> and <code>tail</code> functions to have a look at the data.</li>
 </ol>
@@ -1259,10 +1259,10 @@ class(mtcars$col)
 <ol start="4" style="list-style-type: decimal">
 <li>Update <code>mtcars</code> by adding column:</li>
 </ol>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="sec-r-basics.html#cb33-1" aria-hidden="true"></a>col &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">NA</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;red&quot;</span>, </span>
-<span id="cb33-2"><a href="sec-r-basics.html#cb33-2" aria-hidden="true"></a>         <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="st">&quot;red&quot;</span>, </span>
-<span id="cb33-3"><a href="sec-r-basics.html#cb33-3" aria-hidden="true"></a>         <span class="st">&quot;green&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;green&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;green&quot;</span>, </span>
-<span id="cb33-4"><a href="sec-r-basics.html#cb33-4" aria-hidden="true"></a>         <span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="ot">NA</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="sec-r-basics.html#cb34-1" aria-hidden="true"></a>col &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">NA</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb34-2"><a href="sec-r-basics.html#cb34-2" aria-hidden="true"></a>         <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb34-3"><a href="sec-r-basics.html#cb34-3" aria-hidden="true"></a>         <span class="st">&quot;green&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;green&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;green&quot;</span>, </span>
+<span id="cb34-4"><a href="sec-r-basics.html#cb34-4" aria-hidden="true"></a>         <span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="ot">NA</span>)</span></code></pre></div>
 <p>What class is column <code>col</code>?</p>
 <p><div class="modal fade" id="solution-df5" tabindex="-1" role="dialog" aria-labelledby="solution-df5-title">
 <div class="modal-dialog" role="document">
@@ -1291,27 +1291,27 @@ class(mtcars$col)
 <p><em>Solve this exercise using a script file.</em></p>
 <p>Lists are general containers that can be used to store a set of different objects under one name (that is, the name of the list) in an ordered way. These objects can be matrices, vectors, data frames, even other lists, etc.</p>
 <p>Let us define a list:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="sec-r-basics.html#cb34-1" aria-hidden="true"></a>lst &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">45</span>, <span class="st">&quot;Lars&quot;</span>, <span class="ot">TRUE</span>, <span class="fl">80.5</span>)</span>
-<span id="cb34-2"><a href="sec-r-basics.html#cb34-2" aria-hidden="true"></a>lst</span>
-<span id="cb34-3"><a href="sec-r-basics.html#cb34-3" aria-hidden="true"></a><span class="co">#&gt; [[1]]</span></span>
-<span id="cb34-4"><a href="sec-r-basics.html#cb34-4" aria-hidden="true"></a><span class="co">#&gt; [1] 45</span></span>
-<span id="cb34-5"><a href="sec-r-basics.html#cb34-5" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb34-6"><a href="sec-r-basics.html#cb34-6" aria-hidden="true"></a><span class="co">#&gt; [[2]]</span></span>
-<span id="cb34-7"><a href="sec-r-basics.html#cb34-7" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Lars&quot;</span></span>
-<span id="cb34-8"><a href="sec-r-basics.html#cb34-8" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb34-9"><a href="sec-r-basics.html#cb34-9" aria-hidden="true"></a><span class="co">#&gt; [[3]]</span></span>
-<span id="cb34-10"><a href="sec-r-basics.html#cb34-10" aria-hidden="true"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb34-11"><a href="sec-r-basics.html#cb34-11" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb34-12"><a href="sec-r-basics.html#cb34-12" aria-hidden="true"></a><span class="co">#&gt; [[4]]</span></span>
-<span id="cb34-13"><a href="sec-r-basics.html#cb34-13" aria-hidden="true"></a><span class="co">#&gt; [1] 80.5</span></span></code></pre></div>
-<p>Elements can be accessed using brackets:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="sec-r-basics.html#cb35-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span>lst[<span class="dv">2</span>]</span>
-<span id="cb35-2"><a href="sec-r-basics.html#cb35-2" aria-hidden="true"></a>x</span>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="sec-r-basics.html#cb35-1" aria-hidden="true"></a>lst &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">45</span>, <span class="st">&quot;Lars&quot;</span>, <span class="ot">TRUE</span>, <span class="fl">80.5</span>)</span>
+<span id="cb35-2"><a href="sec-r-basics.html#cb35-2" aria-hidden="true"></a>lst</span>
 <span id="cb35-3"><a href="sec-r-basics.html#cb35-3" aria-hidden="true"></a><span class="co">#&gt; [[1]]</span></span>
-<span id="cb35-4"><a href="sec-r-basics.html#cb35-4" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Lars&quot;</span></span>
-<span id="cb35-5"><a href="sec-r-basics.html#cb35-5" aria-hidden="true"></a>y &lt;-<span class="st"> </span>lst[[<span class="dv">2</span>]]</span>
-<span id="cb35-6"><a href="sec-r-basics.html#cb35-6" aria-hidden="true"></a>y</span>
-<span id="cb35-7"><a href="sec-r-basics.html#cb35-7" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Lars&quot;</span></span></code></pre></div>
+<span id="cb35-4"><a href="sec-r-basics.html#cb35-4" aria-hidden="true"></a><span class="co">#&gt; [1] 45</span></span>
+<span id="cb35-5"><a href="sec-r-basics.html#cb35-5" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb35-6"><a href="sec-r-basics.html#cb35-6" aria-hidden="true"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb35-7"><a href="sec-r-basics.html#cb35-7" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Lars&quot;</span></span>
+<span id="cb35-8"><a href="sec-r-basics.html#cb35-8" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb35-9"><a href="sec-r-basics.html#cb35-9" aria-hidden="true"></a><span class="co">#&gt; [[3]]</span></span>
+<span id="cb35-10"><a href="sec-r-basics.html#cb35-10" aria-hidden="true"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb35-11"><a href="sec-r-basics.html#cb35-11" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb35-12"><a href="sec-r-basics.html#cb35-12" aria-hidden="true"></a><span class="co">#&gt; [[4]]</span></span>
+<span id="cb35-13"><a href="sec-r-basics.html#cb35-13" aria-hidden="true"></a><span class="co">#&gt; [1] 80.5</span></span></code></pre></div>
+<p>Elements can be accessed using brackets:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="sec-r-basics.html#cb36-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span>lst[<span class="dv">2</span>]</span>
+<span id="cb36-2"><a href="sec-r-basics.html#cb36-2" aria-hidden="true"></a>x</span>
+<span id="cb36-3"><a href="sec-r-basics.html#cb36-3" aria-hidden="true"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb36-4"><a href="sec-r-basics.html#cb36-4" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Lars&quot;</span></span>
+<span id="cb36-5"><a href="sec-r-basics.html#cb36-5" aria-hidden="true"></a>y &lt;-<span class="st"> </span>lst[[<span class="dv">2</span>]]</span>
+<span id="cb36-6"><a href="sec-r-basics.html#cb36-6" aria-hidden="true"></a>y</span>
+<span id="cb36-7"><a href="sec-r-basics.html#cb36-7" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Lars&quot;</span></span></code></pre></div>
 <p><div class="modal fade" id="solution-list1" tabindex="-1" role="dialog" aria-labelledby="solution-list1-title">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
@@ -1374,31 +1374,31 @@ lst
 </div><button class="btn btn-default" style="float:right" data-toggle="modal" data-target="#solution-list3">Solution</button>
 3) Extract the name component using the <code>$</code> operator.</p>
 <p>You can add/change/remove components using:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="sec-r-basics.html#cb36-1" aria-hidden="true"></a>lst<span class="op">$</span>height &lt;-<span class="st"> </span><span class="dv">173</span>  <span class="co"># add component</span></span>
-<span id="cb36-2"><a href="sec-r-basics.html#cb36-2" aria-hidden="true"></a>lst<span class="op">$</span>name &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">first =</span> <span class="st">&quot;Lars&quot;</span>, <span class="dt">last =</span> <span class="st">&quot;Nielsen&quot;</span>)  <span class="co"># change the name component</span></span>
-<span id="cb36-3"><a href="sec-r-basics.html#cb36-3" aria-hidden="true"></a>lst<span class="op">$</span>male &lt;-<span class="st"> </span><span class="ot">NULL</span>   <span class="co"># remove male component</span></span>
-<span id="cb36-4"><a href="sec-r-basics.html#cb36-4" aria-hidden="true"></a>lst</span>
-<span id="cb36-5"><a href="sec-r-basics.html#cb36-5" aria-hidden="true"></a><span class="co">#&gt; [[1]]</span></span>
-<span id="cb36-6"><a href="sec-r-basics.html#cb36-6" aria-hidden="true"></a><span class="co">#&gt; [1] 45</span></span>
-<span id="cb36-7"><a href="sec-r-basics.html#cb36-7" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb36-8"><a href="sec-r-basics.html#cb36-8" aria-hidden="true"></a><span class="co">#&gt; [[2]]</span></span>
-<span id="cb36-9"><a href="sec-r-basics.html#cb36-9" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Lars&quot;</span></span>
-<span id="cb36-10"><a href="sec-r-basics.html#cb36-10" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb36-11"><a href="sec-r-basics.html#cb36-11" aria-hidden="true"></a><span class="co">#&gt; [[3]]</span></span>
-<span id="cb36-12"><a href="sec-r-basics.html#cb36-12" aria-hidden="true"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb36-13"><a href="sec-r-basics.html#cb36-13" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb36-14"><a href="sec-r-basics.html#cb36-14" aria-hidden="true"></a><span class="co">#&gt; [[4]]</span></span>
-<span id="cb36-15"><a href="sec-r-basics.html#cb36-15" aria-hidden="true"></a><span class="co">#&gt; [1] 80.5</span></span>
-<span id="cb36-16"><a href="sec-r-basics.html#cb36-16" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb36-17"><a href="sec-r-basics.html#cb36-17" aria-hidden="true"></a><span class="co">#&gt; $height</span></span>
-<span id="cb36-18"><a href="sec-r-basics.html#cb36-18" aria-hidden="true"></a><span class="co">#&gt; [1] 173</span></span>
-<span id="cb36-19"><a href="sec-r-basics.html#cb36-19" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb36-20"><a href="sec-r-basics.html#cb36-20" aria-hidden="true"></a><span class="co">#&gt; $name</span></span>
-<span id="cb36-21"><a href="sec-r-basics.html#cb36-21" aria-hidden="true"></a><span class="co">#&gt; $name$first</span></span>
-<span id="cb36-22"><a href="sec-r-basics.html#cb36-22" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Lars&quot;</span></span>
-<span id="cb36-23"><a href="sec-r-basics.html#cb36-23" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb36-24"><a href="sec-r-basics.html#cb36-24" aria-hidden="true"></a><span class="co">#&gt; $name$last</span></span>
-<span id="cb36-25"><a href="sec-r-basics.html#cb36-25" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Nielsen&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="sec-r-basics.html#cb37-1" aria-hidden="true"></a>lst<span class="op">$</span>height &lt;-<span class="st"> </span><span class="dv">173</span>  <span class="co"># add component</span></span>
+<span id="cb37-2"><a href="sec-r-basics.html#cb37-2" aria-hidden="true"></a>lst<span class="op">$</span>name &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">first =</span> <span class="st">&quot;Lars&quot;</span>, <span class="dt">last =</span> <span class="st">&quot;Nielsen&quot;</span>)  <span class="co"># change the name component</span></span>
+<span id="cb37-3"><a href="sec-r-basics.html#cb37-3" aria-hidden="true"></a>lst<span class="op">$</span>male &lt;-<span class="st"> </span><span class="ot">NULL</span>   <span class="co"># remove male component</span></span>
+<span id="cb37-4"><a href="sec-r-basics.html#cb37-4" aria-hidden="true"></a>lst</span>
+<span id="cb37-5"><a href="sec-r-basics.html#cb37-5" aria-hidden="true"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb37-6"><a href="sec-r-basics.html#cb37-6" aria-hidden="true"></a><span class="co">#&gt; [1] 45</span></span>
+<span id="cb37-7"><a href="sec-r-basics.html#cb37-7" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb37-8"><a href="sec-r-basics.html#cb37-8" aria-hidden="true"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb37-9"><a href="sec-r-basics.html#cb37-9" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Lars&quot;</span></span>
+<span id="cb37-10"><a href="sec-r-basics.html#cb37-10" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb37-11"><a href="sec-r-basics.html#cb37-11" aria-hidden="true"></a><span class="co">#&gt; [[3]]</span></span>
+<span id="cb37-12"><a href="sec-r-basics.html#cb37-12" aria-hidden="true"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb37-13"><a href="sec-r-basics.html#cb37-13" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb37-14"><a href="sec-r-basics.html#cb37-14" aria-hidden="true"></a><span class="co">#&gt; [[4]]</span></span>
+<span id="cb37-15"><a href="sec-r-basics.html#cb37-15" aria-hidden="true"></a><span class="co">#&gt; [1] 80.5</span></span>
+<span id="cb37-16"><a href="sec-r-basics.html#cb37-16" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb37-17"><a href="sec-r-basics.html#cb37-17" aria-hidden="true"></a><span class="co">#&gt; $height</span></span>
+<span id="cb37-18"><a href="sec-r-basics.html#cb37-18" aria-hidden="true"></a><span class="co">#&gt; [1] 173</span></span>
+<span id="cb37-19"><a href="sec-r-basics.html#cb37-19" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb37-20"><a href="sec-r-basics.html#cb37-20" aria-hidden="true"></a><span class="co">#&gt; $name</span></span>
+<span id="cb37-21"><a href="sec-r-basics.html#cb37-21" aria-hidden="true"></a><span class="co">#&gt; $name$first</span></span>
+<span id="cb37-22"><a href="sec-r-basics.html#cb37-22" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Lars&quot;</span></span>
+<span id="cb37-23"><a href="sec-r-basics.html#cb37-23" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb37-24"><a href="sec-r-basics.html#cb37-24" aria-hidden="true"></a><span class="co">#&gt; $name$last</span></span>
+<span id="cb37-25"><a href="sec-r-basics.html#cb37-25" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Nielsen&quot;</span></span></code></pre></div>
 <p><div class="modal fade" id="solution-list4" tabindex="-1" role="dialog" aria-labelledby="solution-list4-title">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
@@ -1422,31 +1422,31 @@ lst
 <div id="ex-strings" class="section level3" number="3.10.9">
 <h3><span class="header-section-number">3.10.9</span> Exercise (string management)</h3>
 <p>Strings in R can be defined using single or double quotes:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="sec-r-basics.html#cb37-1" aria-hidden="true"></a>str1 &lt;-<span class="st"> &quot;Business Analytics (BA) refers to the scientific process of transforming data into insight for making better decisions in business.&quot;</span></span>
-<span id="cb37-2"><a href="sec-r-basics.html#cb37-2" aria-hidden="true"></a></span>
-<span id="cb37-3"><a href="sec-r-basics.html#cb37-3" aria-hidden="true"></a>str2 &lt;-<span class="st"> &#39;BA can both be seen as the complete decision making process for solving a business problem or as a set of methodologies that enable the creation of business value.&#39;</span></span>
-<span id="cb37-4"><a href="sec-r-basics.html#cb37-4" aria-hidden="true"></a></span>
-<span id="cb37-5"><a href="sec-r-basics.html#cb37-5" aria-hidden="true"></a>str3 &lt;-<span class="st"> </span><span class="kw">c</span>(str1, str2)  <span class="co"># vector of strings</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="sec-r-basics.html#cb38-1" aria-hidden="true"></a>str1 &lt;-<span class="st"> &quot;Business Analytics (BA) refers to the scientific process of transforming data into insight for making better decisions in business.&quot;</span></span>
+<span id="cb38-2"><a href="sec-r-basics.html#cb38-2" aria-hidden="true"></a></span>
+<span id="cb38-3"><a href="sec-r-basics.html#cb38-3" aria-hidden="true"></a>str2 &lt;-<span class="st"> &#39;BA can both be seen as the complete decision making process for solving a business problem or as a set of methodologies that enable the creation of business value.&#39;</span></span>
+<span id="cb38-4"><a href="sec-r-basics.html#cb38-4" aria-hidden="true"></a></span>
+<span id="cb38-5"><a href="sec-r-basics.html#cb38-5" aria-hidden="true"></a>str3 &lt;-<span class="st"> </span><span class="kw">c</span>(str1, str2)  <span class="co"># vector of strings</span></span></code></pre></div>
 <p>The stringr package in tidyverse provide many useful functions for string manipulation. We will consider a few.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="sec-r-basics.html#cb38-1" aria-hidden="true"></a>str4 &lt;-<span class="st"> </span><span class="kw">str_c</span>(str1, </span>
-<span id="cb38-2"><a href="sec-r-basics.html#cb38-2" aria-hidden="true"></a>      str2, </span>
-<span id="cb38-3"><a href="sec-r-basics.html#cb38-3" aria-hidden="true"></a>      <span class="st">&quot;As a process it can be characterized by descriptive, predictive, and prescriptive model building using data sources.&quot;</span>,</span>
-<span id="cb38-4"><a href="sec-r-basics.html#cb38-4" aria-hidden="true"></a>      <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)   <span class="co"># join strings</span></span>
-<span id="cb38-5"><a href="sec-r-basics.html#cb38-5" aria-hidden="true"></a>str4</span>
-<span id="cb38-6"><a href="sec-r-basics.html#cb38-6" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Business Analytics (BA) refers to the scientific process of transforming data into insight for making better decisions in business. BA can both be seen as the complete decision making process for solving a business problem or as a set of methodologies that enable the creation of business value. As a process it can be characterized by descriptive, predictive, and prescriptive model building using data sources.&quot;</span></span>
-<span id="cb38-7"><a href="sec-r-basics.html#cb38-7" aria-hidden="true"></a><span class="kw">str_c</span>(str3, <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>)    <span class="co"># collapse vector to a string</span></span>
-<span id="cb38-8"><a href="sec-r-basics.html#cb38-8" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Business Analytics (BA) refers to the scientific process of transforming data into insight for making better decisions in business. BA can both be seen as the complete decision making process for solving a business problem or as a set of methodologies that enable the creation of business value.&quot;</span></span>
-<span id="cb38-9"><a href="sec-r-basics.html#cb38-9" aria-hidden="true"></a></span>
-<span id="cb38-10"><a href="sec-r-basics.html#cb38-10" aria-hidden="true"></a><span class="kw">str_replace</span>(str2, <span class="st">&quot;BA&quot;</span>, <span class="st">&quot;Business Analytics&quot;</span>)  <span class="co"># replace first occurrence</span></span>
-<span id="cb38-11"><a href="sec-r-basics.html#cb38-11" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Business Analytics can both be seen as the complete decision making process for solving a business problem or as a set of methodologies that enable the creation of business value.&quot;</span></span>
-<span id="cb38-12"><a href="sec-r-basics.html#cb38-12" aria-hidden="true"></a><span class="kw">str_replace_all</span>(str2, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;a&quot;</span>)              <span class="co"># replace all occurrences</span></span>
-<span id="cb38-13"><a href="sec-r-basics.html#cb38-13" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;BA can both be seen as a complete decision making process for solving a business problem or as a set of methodologies that enable a creation of business value.&quot;</span></span>
-<span id="cb38-14"><a href="sec-r-basics.html#cb38-14" aria-hidden="true"></a></span>
-<span id="cb38-15"><a href="sec-r-basics.html#cb38-15" aria-hidden="true"></a><span class="kw">str_remove</span>(str1, <span class="st">&quot; for making better decisions in business&quot;</span>)</span>
-<span id="cb38-16"><a href="sec-r-basics.html#cb38-16" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Business Analytics (BA) refers to the scientific process of transforming data into insight.&quot;</span></span>
-<span id="cb38-17"><a href="sec-r-basics.html#cb38-17" aria-hidden="true"></a></span>
-<span id="cb38-18"><a href="sec-r-basics.html#cb38-18" aria-hidden="true"></a><span class="kw">str_detect</span>(str2, <span class="st">&quot;BA&quot;</span>)  <span class="co"># detect a pattern</span></span>
-<span id="cb38-19"><a href="sec-r-basics.html#cb38-19" aria-hidden="true"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="sec-r-basics.html#cb39-1" aria-hidden="true"></a>str4 &lt;-<span class="st"> </span><span class="kw">str_c</span>(str1, </span>
+<span id="cb39-2"><a href="sec-r-basics.html#cb39-2" aria-hidden="true"></a>      str2, </span>
+<span id="cb39-3"><a href="sec-r-basics.html#cb39-3" aria-hidden="true"></a>      <span class="st">&quot;As a process it can be characterized by descriptive, predictive, and prescriptive model building using data sources.&quot;</span>,</span>
+<span id="cb39-4"><a href="sec-r-basics.html#cb39-4" aria-hidden="true"></a>      <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)   <span class="co"># join strings</span></span>
+<span id="cb39-5"><a href="sec-r-basics.html#cb39-5" aria-hidden="true"></a>str4</span>
+<span id="cb39-6"><a href="sec-r-basics.html#cb39-6" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Business Analytics (BA) refers to the scientific process of transforming data into insight for making better decisions in business. BA can both be seen as the complete decision making process for solving a business problem or as a set of methodologies that enable the creation of business value. As a process it can be characterized by descriptive, predictive, and prescriptive model building using data sources.&quot;</span></span>
+<span id="cb39-7"><a href="sec-r-basics.html#cb39-7" aria-hidden="true"></a><span class="kw">str_c</span>(str3, <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>)    <span class="co"># collapse vector to a string</span></span>
+<span id="cb39-8"><a href="sec-r-basics.html#cb39-8" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Business Analytics (BA) refers to the scientific process of transforming data into insight for making better decisions in business. BA can both be seen as the complete decision making process for solving a business problem or as a set of methodologies that enable the creation of business value.&quot;</span></span>
+<span id="cb39-9"><a href="sec-r-basics.html#cb39-9" aria-hidden="true"></a></span>
+<span id="cb39-10"><a href="sec-r-basics.html#cb39-10" aria-hidden="true"></a><span class="kw">str_replace</span>(str2, <span class="st">&quot;BA&quot;</span>, <span class="st">&quot;Business Analytics&quot;</span>)  <span class="co"># replace first occurrence</span></span>
+<span id="cb39-11"><a href="sec-r-basics.html#cb39-11" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Business Analytics can both be seen as the complete decision making process for solving a business problem or as a set of methodologies that enable the creation of business value.&quot;</span></span>
+<span id="cb39-12"><a href="sec-r-basics.html#cb39-12" aria-hidden="true"></a><span class="kw">str_replace_all</span>(str2, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;a&quot;</span>)              <span class="co"># replace all occurrences</span></span>
+<span id="cb39-13"><a href="sec-r-basics.html#cb39-13" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;BA can both be seen as a complete decision making process for solving a business problem or as a set of methodologies that enable a creation of business value.&quot;</span></span>
+<span id="cb39-14"><a href="sec-r-basics.html#cb39-14" aria-hidden="true"></a></span>
+<span id="cb39-15"><a href="sec-r-basics.html#cb39-15" aria-hidden="true"></a><span class="kw">str_remove</span>(str1, <span class="st">&quot; for making better decisions in business&quot;</span>)</span>
+<span id="cb39-16"><a href="sec-r-basics.html#cb39-16" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Business Analytics (BA) refers to the scientific process of transforming data into insight.&quot;</span></span>
+<span id="cb39-17"><a href="sec-r-basics.html#cb39-17" aria-hidden="true"></a></span>
+<span id="cb39-18"><a href="sec-r-basics.html#cb39-18" aria-hidden="true"></a><span class="kw">str_detect</span>(str2, <span class="st">&quot;BA&quot;</span>)  <span class="co"># detect a pattern</span></span>
+<span id="cb39-19"><a href="sec-r-basics.html#cb39-19" aria-hidden="true"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 <p><div class="modal fade" id="solution-str1" tabindex="-1" role="dialog" aria-labelledby="solution-str1-title">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
