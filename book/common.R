@@ -18,16 +18,14 @@ knitr::opts_chunk$set(
   fig.show = "hold"
 )
 
-# options(
-#   rlang_trace_top_env = rlang::current_env(),
-#   rlang__backtrace_on_error = "none"
-# )
-
 options(
   width = 100,
   digits = 3,
   # str = strOptions(strict.width = "cut"),
-  knitr.kable.NA = ''
+  knitr.kable.NA = '',
+  crayon.enabled = FALSE,
+  rlang_trace_top_env = rlang::current_env(),
+  rlang__backtrace_on_error = "none"
 )
 
 # if (knitr::is_latex_output()) {
