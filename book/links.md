@@ -19,7 +19,10 @@
 [datacamp-r-functions]: https://learn.datacamp.com/courses/introduction-to-writing-functions-in-r
 [datacamp-r-tidyverse]: https://learn.datacamp.com/courses/introduction-to-the-tidyverse
 [datacamp-r-strings]: https://learn.datacamp.com/courses/string-manipulation-with-stringr-in-r
+[datacamp-r-dplyr]: https://learn.datacamp.com/courses/data-manipulation-with-dplyr
+[datacamp-r-dplyr-bakeoff]: https://learn.datacamp.com/courses/working-with-data-in-the-tidyverse
 [dplyr-cran]: https://CRAN.R-project.org/package=dplyr
+[debug-in-r]: https://rstats.wtf/debugging-r-code.html
 
 [excel-vs-r]: https://www.jessesadler.com/post/excel-vs-r/
 
@@ -98,6 +101,7 @@
 [video-conditional-loops]: https://www.youtube.com/watch?v=2evtsnPaoDg
 [video-functions]: https://www.youtube.com/watch?v=ffPeac3BigM
 [video-tibble-vs-df]: https://www.youtube.com/watch?v=EBk6PnvE1R4
+[video-dplyr]: https://www.youtube.com/watch?v=aywFompr1F4
 
 [wiki-snake-case]: https://en.wikipedia.org/wiki/Snake_case
 [wiki-camel-case]: https://en.wikipedia.org/wiki/Camel_case

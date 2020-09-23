@@ -4,6 +4,9 @@ library(tidyverse)
 library(bsplus)
 library(htmltools)
 library(knitr)
+library(conflicted)
+conflict_prefer("filter", "dplyr")
+conflict_prefer("lag", "dplyr")
 
 knitr::opts_chunk$set(
   comment = "#>",
