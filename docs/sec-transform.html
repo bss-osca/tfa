@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2020-09-23" />
+<meta name="date" content="2020-09-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -277,9 +277,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="sec-transform.html"><a href="sec-transform.html"><i class="fa fa-check"></i><b>8</b> Transforming data</a>
 <ul>
 <li class="chapter" data-level="8.1" data-path="sec-transform.html"><a href="sec-transform.html#lo-transform"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="8.2" data-path="sec-transform.html"><a href="sec-transform.html#lp-transform"><i class="fa fa-check"></i><b>8.2</b> Different learning paths</a></li>
-<li class="chapter" data-level="8.3" data-path="sec-transform.html"><a href="sec-transform.html#recap-rc-transform"><i class="fa fa-check"></i><b>8.3</b> Recap {rc-transform}</a></li>
-<li class="chapter" data-level="8.4" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>8.4</b> Exercises</a></li>
+<li class="chapter" data-level="8.2" data-path="sec-transform.html"><a href="sec-transform.html#working-with-data-in-the-tidyverse"><i class="fa fa-check"></i><b>8.2</b> Working with data in the tidyverse</a></li>
+<li class="chapter" data-level="8.3" data-path="sec-transform.html"><a href="sec-transform.html#lp-transform"><i class="fa fa-check"></i><b>8.3</b> Different learning paths</a></li>
+<li class="chapter" data-level="8.4" data-path="sec-transform.html"><a href="sec-transform.html#rc-transform"><i class="fa fa-check"></i><b>8.4</b> Recap</a></li>
+<li class="chapter" data-level="8.5" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>8.5</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="sec-transform.html"><a href="sec-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>8.5.1</b> Exercise (gapminder)</a></li>
+</ul></li>
 </ul></li>
 <li class="part"><span><b>IV Visualization</b></span></li>
 <li class="chapter" data-level="9" data-path="sec-plot.html"><a href="sec-plot.html"><i class="fa fa-check"></i><b>9</b> Plotting using ggplot</a>
@@ -353,6 +357,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="sec-transform" class="section level1" number="8">
 <h1><span class="header-section-number">Module 8</span> Transforming data</h1>
+<p>In this module we consider transformation of data. In general raw data may be messy and need to be structured in a <strong>tidy</strong> way. Tidying your data means storing it in a structured form suitable for analysis. This is done using a tibble (data frame) where each column is a variable, and each row is an observation. Tidy data is important because the consistent structure lets you focus your struggle on questions about the data.</p>
+<p>Given a raw data set the first step is to clean it and and transform it to a tidy format. Given tidy data, you next often need to <strong>transform</strong> it. Transformation includes narrowing in on observations of interest (e.g. only observations from a specific year or warehouse), creating new variables based on existing variables (like the cost of using the machine that day given idle time). Together, tidying and transforming are called <strong>wrangling</strong>, because it can be a hard process to get your data in the right form.</p>
+<p>In this chapter you will learn how to work with tibbles using the <a href="https://dplyr.tidyverse.org/">dplyr package</a> which is a part of the <a href="https://www.tidyverse.org">tidyverse</a>.</p>
 <div id="lo-transform" class="section level2" number="8.1">
 <h2><span class="header-section-number">8.1</span> Learning outcomes</h2>
 <p>By the end of this module, you are expected to be able to:</p>
@@ -367,32 +374,650 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
 <!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
 <!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
+</div>
+<div id="working-with-data-in-the-tidyverse" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Working with data in the tidyverse</h2>
+<p>An excellent introduction on how to transform data using the tidyverse is given in the interactive DataCamp course <a href="https://learn.datacamp.com/courses/data-manipulation-with-dplyr">Data Manipulation with dplyr</a>. Please complete the course before continuing.</p>
 <!-- ## Tidy  -->
 <!-- ## Wangling -->
 <!-- https://learn.datacamp.com/projects/758 -->
 <!-- https://learn.datacamp.com/courses/dealing-with-missing-data-in-r -->
-<!-- https://learn.datacamp.com/courses/working-with-data-in-the-tidyverse -->
 <!-- https://learn.datacamp.com/courses/introduction-to-the-tidyverse -->
 </div>
-<div id="lp-transform" class="section level2" number="8.2">
-<h2><span class="header-section-number">8.2</span> Different learning paths</h2>
+<div id="lp-transform" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Different learning paths</h2>
 <p>We are all different and you may like different learning styles compared to others. As a result you may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be usefull for you.</p>
 <ul>
-<li>sdfad</li>
+<li>Roger Peng provide a good video giving an <a href="https://www.youtube.com/watch?v=aywFompr1F4">Introduction to the dplyr R package</a>.</li>
+<li><a href="https://bookdown.org/rdpeng/rprogdatascience/managing-data-frames-with-the-dplyr-package.html">Chapter 12</a> in <span class="citation">Peng (<a href="#ref-rdpeng" role="doc-biblioref">2018</a>)</span> provides a nice introduction to dplyr.</li>
+<li>An alternative interactive DataCamp course is <a href="https://learn.datacamp.com/courses/working-with-data-in-the-tidyverse">Working with Data in the Tidyverse</a> which may be good to take if you need more training.</li>
 </ul>
 </div>
-<div id="recap-rc-transform" class="section level2" number="8.3">
-<h2><span class="header-section-number">8.3</span> Recap {rc-transform}</h2>
+<div id="rc-transform" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Recap</h2>
+<ul>
+<li><p>The package dplyr …</p>
+<ul>
+<li>The <code>filter</code> function chooses rows that meet a specific criteria.</li>
+<li>The <code>select</code> function chooses columns that we specify.</li>
+<li>The <code>arrange()</code> function reorders the rows in a data frame.</li>
+</ul></li>
+</ul>
 </div>
-<div id="ex-transform" class="section level2" number="8.4">
-<h2><span class="header-section-number">8.4</span> Exercises</h2>
+<div id="ex-transform" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> Exercises</h2>
 <p>Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck see the <a href="help.html#help">help page</a>. Solutions to each exercise can be seen by pressing the button at each question. Beware you will not learn by giving up to early. Put some effort into finding a solution!</p>
+<div id="ex-gapminder1" class="section level3" number="8.5.1">
+<h3><span class="header-section-number">8.5.1</span> Exercise (gapminder)</h3>
+<p>Use the <em>exercise R markdown template</em> to solve this exercise (<strong>File &gt; New File &gt; R Markdown…</strong>, select <strong>From template</strong> and then <strong>TFA Exercise</strong>).</p>
+<p>The gapminder data set provides values for life expectancy, GDP per capita, and population, every five years, from 1952 to 2007 for 142 countries. The data can be loaded using the gapminder package:</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="sec-transform.html#cb103-1" aria-hidden="true"></a><span class="kw">library</span>(gapminder)</span>
+<span id="cb103-2"><a href="sec-transform.html#cb103-2" aria-hidden="true"></a>gapminder</span>
+<span id="cb103-3"><a href="sec-transform.html#cb103-3" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 1,704 x 6</span></span>
+<span id="cb103-4"><a href="sec-transform.html#cb103-4" aria-hidden="true"></a><span class="co">#&gt;    country     continent  year lifeExp      pop gdpPercap</span></span>
+<span id="cb103-5"><a href="sec-transform.html#cb103-5" aria-hidden="true"></a><span class="co">#&gt;    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;</span></span>
+<span id="cb103-6"><a href="sec-transform.html#cb103-6" aria-hidden="true"></a><span class="co">#&gt;  1 Afghanistan Asia       1952    28.8  8425333      779.</span></span>
+<span id="cb103-7"><a href="sec-transform.html#cb103-7" aria-hidden="true"></a><span class="co">#&gt;  2 Afghanistan Asia       1957    30.3  9240934      821.</span></span>
+<span id="cb103-8"><a href="sec-transform.html#cb103-8" aria-hidden="true"></a><span class="co">#&gt;  3 Afghanistan Asia       1962    32.0 10267083      853.</span></span>
+<span id="cb103-9"><a href="sec-transform.html#cb103-9" aria-hidden="true"></a><span class="co">#&gt;  4 Afghanistan Asia       1967    34.0 11537966      836.</span></span>
+<span id="cb103-10"><a href="sec-transform.html#cb103-10" aria-hidden="true"></a><span class="co">#&gt;  5 Afghanistan Asia       1972    36.1 13079460      740.</span></span>
+<span id="cb103-11"><a href="sec-transform.html#cb103-11" aria-hidden="true"></a><span class="co">#&gt;  6 Afghanistan Asia       1977    38.4 14880372      786.</span></span>
+<span id="cb103-12"><a href="sec-transform.html#cb103-12" aria-hidden="true"></a><span class="co">#&gt;  7 Afghanistan Asia       1982    39.9 12881816      978.</span></span>
+<span id="cb103-13"><a href="sec-transform.html#cb103-13" aria-hidden="true"></a><span class="co">#&gt;  8 Afghanistan Asia       1987    40.8 13867957      852.</span></span>
+<span id="cb103-14"><a href="sec-transform.html#cb103-14" aria-hidden="true"></a><span class="co">#&gt;  9 Afghanistan Asia       1992    41.7 16317921      649.</span></span>
+<span id="cb103-15"><a href="sec-transform.html#cb103-15" aria-hidden="true"></a><span class="co">#&gt; 10 Afghanistan Asia       1997    41.8 22227415      635.</span></span>
+<span id="cb103-16"><a href="sec-transform.html#cb103-16" aria-hidden="true"></a><span class="co">#&gt; # … with 1,694 more rows</span></span></code></pre></div>
+<p>Let us try to examine the data set (use pipes <code>%&gt;%</code> as much as possible).</p>
+<div aria-labelledby="solution0-title" class="modal fade bs-example-modal-lg" id="solution0" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution0-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% glimpse()
+gapminder %&gt;% summary()
+gapminder %&gt;% tail()
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution0">Solution</button>
+<ol class="example" style="list-style-type: decimal">
+<li><p>Use <code>glimpse</code>, <code>summary</code> and <code>tail</code> to examine the data.</p></li>
+<li><p>Use <code>count</code> to count the number of
+<div aria-labelledby="solution1-title" class="modal fade bs-example-modal-lg" id="solution1" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution1-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% count(country) %&gt;% nrow()
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution1">Solution</button></p>
+<ol style="list-style-type: lower-alpha">
+<li>countries,</li>
+<li>continents,
+<div aria-labelledby="solution2-title" class="modal fade bs-example-modal-lg" id="solution2" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution2-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% count(continent) %&gt;% nrow()
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution2">Solution</button></li>
+<li>countries per continent.
+<div aria-labelledby="solution3-title" class="modal fade bs-example-modal-lg" id="solution3" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution3-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% count(continent, country) %&gt;% count(continent)     # or
+gapminder %&gt;% distinct(continent, country) %&gt;% count(continent)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution3">Solution</button></li>
+</ol></li>
+</ol>
+<div aria-labelledby="solution4-title" class="modal fade bs-example-modal-lg" id="solution4" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution4-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% distinct(continent) %&gt;% pull(1) %&gt;% as.character()
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution4">Solution</button>
+<ol start="3" class="example" style="list-style-type: decimal">
+<li><p>Retrieve a vector with all distinct continent values.</p></li>
+<li><p>Subset rows to find:</p>
+<ol style="list-style-type: lower-alpha">
+<li>all rows with life expectancy less that 29 years,
+<div aria-labelledby="solution5-title" class="modal fade bs-example-modal-lg" id="solution5" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution5-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">dapminder %&gt;% filter(lifeExp &lt; 29)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution5">Solution</button></li>
+<li>all rows for Rwanda after year 1979,
+<div aria-labelledby="solution6-title" class="modal fade bs-example-modal-lg" id="solution6" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution6-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% filter(country == &quot;Rwanda&quot;, year &gt; 1979)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution6">Solution</button></li>
+<li>all rows for Rwanda, Afghanistan or France.
+<div aria-labelledby="solution7-title" class="modal fade bs-example-modal-lg" id="solution7" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution7-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;%  filter(country %in% c(&quot;Rwanda&quot;, &quot;Afghanistan&quot;, &quot;France&quot;))
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution7">Solution</button></li>
+</ol></li>
+<li><p>Select columns</p>
+<ol style="list-style-type: lower-alpha">
+<li>year and life expectancy,
+<div aria-labelledby="solution8-title" class="modal fade bs-example-modal-lg" id="solution8" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution8-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% select(year, lifeExp)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution8">Solution</button></li>
+<li>country and GDP per capita.
+<div aria-labelledby="solution9-title" class="modal fade bs-example-modal-lg" id="solution9" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution9-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% select(country, gdpPercap)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution9">Solution</button></li>
+</ol></li>
+</ol>
+<div aria-labelledby="solution10-title" class="modal fade bs-example-modal-lg" id="solution10" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution10-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
+   filter((gdpPercap &gt; 40000 &amp; continent == &quot;Europe&quot;) | (gdpPercap &lt; 400 &amp; continent == &quot;Africa&quot;)) %&gt;% print(n=Inf) %&gt;% 
+   select(continent, country, gdpPercap) %&gt;% 
+   print(n=Inf)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution10">Solution</button>
+<ol start="6" class="example" style="list-style-type: decimal">
+<li>Subset your data set to find all rows with GDP per capita greater than 40000 in Europe or with GDP per capita less than 500 in Africa.</li>
+</ol>
+<div aria-labelledby="solution11-title" class="modal fade bs-example-modal-lg" id="solution11" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution11-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;%
+  mutate(gdp = pop * gdpPercap)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution11">Solution</button>
+<ol start="7" class="example" style="list-style-type: decimal">
+<li>Use <code>mutate</code> to calculate each country’s GDP (population times GDP per capita).</li>
+</ol>
+<p>In general GDP numbers are large and abstract. Let us try to calculate relative numbers.</p>
+<div aria-labelledby="solution12-title" class="modal fade bs-example-modal-lg" id="solution12" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution12-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">mean_dk &lt;- gapminder %&gt;% filter(country == &quot;Denmark&quot;) %&gt;% pull(gdpPercap) %&gt;% mean()
+dat &lt;- gapminder %&gt;% mutate(gdpPercapRel = gdpPercap/mean_dk)
+dat %&gt;% 
+  filter(country == &quot;Denmark&quot;) %&gt;% 
+  select(country, year, gdpPercapRel)
+summary(dat$gdpPercapRel)
+</code></pre>
+
+<p>The relative GDP per capita numbers are, in general, well below 1. We see that most of the countries covered by this dataset have substantially lower GDP per capita, relative to Denmark, across the entire time period.</p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution12">Solution</button>
+<ol start="8" class="example" style="list-style-type: decimal">
+<li><p>Use <code>mutate</code> to calculate GDP per capita relative to mean GDP per capita in Denmark over the whole period (<code>gdpPercap</code> divided by the mean of Danish <code>gdpPercap</code>). Hint you first must calculate the mean of Danish <code>gdpPercap</code> and next use that to add a new column <code>gdpPercapRel</code>. Have a look at the calculated data for Denmark. Does the numbers seems reasonable? I perceive Denmark to be a “high GDP” country, so I predict that the distribution of <code>gdpPercapRel</code> is located below 1, possibly even well below. Check this intuition!</p></li>
+<li><p>Use <code>arrange</code> to order</p>
+<ol style="list-style-type: lower-alpha">
+<li>data by year then country, as opposed to current by country then year,
+<div aria-labelledby="solution13-title" class="modal fade bs-example-modal-lg" id="solution13" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution13-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% arrange(year, country)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution13">Solution</button></li>
+<li>data from 2007, sorted on life expectancy,
+<div aria-labelledby="solution14-title" class="modal fade bs-example-modal-lg" id="solution14" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution14-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;%
+  filter(year == 2007) %&gt;%
+  arrange(lifeExp)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution14">Solution</button></li>
+<li>data from 2007, sorted on life expectancy in <strong>desc</strong>ending order. Hint: use <code>desc()</code> inside <code>arrange</code>.
+<div aria-labelledby="solution15-title" class="modal fade bs-example-modal-lg" id="solution15" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution15-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;%
+  filter(year == 2007) %&gt;%
+  arrange(desc(lifeExp))
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution15">Solution</button></li>
+</ol></li>
+<li><p>Use <code>select</code> to</p>
+<ol style="list-style-type: lower-alpha">
+<li>rename <code>year</code> to <code>yr</code> and keep all other columns (the select helper <code>everything</code> may be used),
+<div aria-labelledby="solution16-title" class="modal fade bs-example-modal-lg" id="solution16" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution16-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% select(yr = year, everything())
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution16">Solution</button></li>
+<li>remove <code>pop</code>
+<div aria-labelledby="solution17-title" class="modal fade bs-example-modal-lg" id="solution17" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution17-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% select(-pop)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution17">Solution</button></li>
+<li>reorder columns in order <code>year</code>, <code>pop</code>, … (remaining).
+<div aria-labelledby="solution18-title" class="modal fade bs-example-modal-lg" id="solution18" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution18-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% select(year, pop, everything())
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution18">Solution</button></li>
+</ol></li>
+<li><p>Use <code>group_by</code> and <code>summarize</code> to find the</p>
+<ol style="list-style-type: lower-alpha">
+<li>number of observations per continent
+<div aria-labelledby="solution19-title" class="modal fade bs-example-modal-lg" id="solution19" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution19-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% group_by(continent) %&gt;% summarize(n = n())
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution19">Solution</button></li>
+<li>number of countries per continent (use <code>n_distinct</code> inside <code>summarize</code> to count the number of distinct observations),
+<div aria-labelledby="solution20-title" class="modal fade bs-example-modal-lg" id="solution20" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution20-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% group_by(continent) %&gt;% summarize(n = n(), n_countries = n_distinct(country))
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution20">Solution</button></li>
+<li>average life expectancy by continent,
+<div aria-labelledby="solution21-title" class="modal fade bs-example-modal-lg" id="solution21" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution21-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% group_by(continent) %&gt;% summarize(avg_lifeExp = mean(lifeExp))
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution21">Solution</button></li>
+<li>minimum and maximum life expectancies seen by year in Asia
+<div aria-labelledby="solution22-title" class="modal fade bs-example-modal-lg" id="solution22" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution22-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% filter(continent == &quot;Asia&quot;) %&gt;% group_by(year) %&gt;% summarize(min_lifeExp = min(lifeExp), max_lifeExp = max(lifeExp))
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution22">Solution</button></li>
+</ol></li>
+</ol>
+<div aria-labelledby="solution23-title" class="modal fade bs-example-modal-lg" id="solution23" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution23-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
+  group_by(country) %&gt;%                 # group by country
+  select(country, year, lifeExp) %&gt;%    # select relevant columns
+  arrange(year, .by_group = TRUE) %&gt;%   # make sure that data is sorted correct
+  mutate(lifeExp_gain = lifeExp - first(lifeExp)) %&gt;%       
+  filter(year &lt; 1963)                   # just for nice printing
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution23">Solution</button>
+<ol start="12" class="example" style="list-style-type: decimal">
+<li><p>Sometimes you don’t want to collapse the <span class="math inline">\(n\)</span> rows for each group into one row. That is, you don’t want to use <code>summarize</code> but <code>mutate</code> within your groups. Try to make a new variable that is the years of life expectancy gained (lost) relative to 1952, for each individual country. You code should look like this</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="sec-transform.html#cb104-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-2"><a href="sec-transform.html#cb104-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span><span class="st">                 </span><span class="co"># group by country</span></span>
+<span id="cb104-3"><a href="sec-transform.html#cb104-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(country, year, lifeExp) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># select relevant columns</span></span>
+<span id="cb104-4"><a href="sec-transform.html#cb104-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">arrange</span>(year, <span class="dt">.by_group =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># make sure that data is sorted correct</span></span>
+<span id="cb104-5"><a href="sec-transform.html#cb104-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lifeExp_gain =</span> ___) <span class="op">%&gt;%</span><span class="st">        </span><span class="co"># define new variable</span></span>
+<span id="cb104-6"><a href="sec-transform.html#cb104-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">&lt;</span><span class="st"> </span><span class="dv">1963</span>)                   <span class="co"># just for nice printing</span></span></code></pre></div>
+<p>The <code>first</code> function may be helpful to extract the first value from a vector in each group.</p></li>
+</ol>
+<div aria-labelledby="solution24-title" class="modal fade bs-example-modal-lg" id="solution24" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution24-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">gapminder %&gt;%
+  select(country, year, continent, lifeExp) %&gt;%     
+  group_by(continent, country) %&gt;%                  
+  mutate(le_delta = lifeExp - lag(lifeExp)) %&gt;%
+  summarize(worst_le_delta = min(le_delta, na.rm = TRUE)) %&gt;%
+  slice_min(worst_le_delta) %&gt;%
+  arrange(worst_le_delta)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution24">Solution</button>
+<ol start="13" class="example" style="list-style-type: decimal">
+<li><p>Which country experienced the sharpest 5-year drop in life expectancy in each continent? Recall that the Gapminder data only has data every five years, e.g. for 1952, 1957, etc. So this really means looking at life expectancy changes between adjacent timepoints. Here the <code>lag</code> function is useful to select the value in the previous row. Your code should look like:</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="sec-transform.html#cb105-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span></span>
+<span id="cb105-2"><a href="sec-transform.html#cb105-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(country, year, continent, lifeExp) <span class="op">%&gt;%</span><span class="st">             </span><span class="co"># select relevant columns</span></span>
+<span id="cb105-3"><a href="sec-transform.html#cb105-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(continent, country) <span class="op">%&gt;%</span><span class="st">                          </span><span class="co"># group</span></span>
+<span id="cb105-4"><a href="sec-transform.html#cb105-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">le_delta =</span> ___) <span class="op">%&gt;%</span><span class="st">                                </span><span class="co"># within country, take (lifeExp in year i) - (lifeExp in year i - 1)</span></span>
+<span id="cb105-5"><a href="sec-transform.html#cb105-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">worst_le_delta =</span> <span class="kw">min</span>(___, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># find lowest value</span></span>
+<span id="cb105-6"><a href="sec-transform.html#cb105-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">slice_min</span>(worst_le_delta) <span class="op">%&gt;%</span><span class="st">                             </span><span class="co"># find min in each continent</span></span>
+<span id="cb105-7"><a href="sec-transform.html#cb105-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">arrange</span>(worst_le_delta)                                   <span class="co"># arrange </span></span></code></pre></div>
+<p>Positive values of <code>le_delta</code> means lifeExp went up, negative means it went down. Break the code into pieces, starting at the top, and inspect the intermediate results. These commands are built up gradually, with lots of errors and refinements along the way.</p></li>
+</ol>
 
 </div>
 </div>
+</div>
 
 
 
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-rdpeng">
+<p>Peng, R. D. 2018. <em>R Programming for Data Science</em>. <a href="https://bookdown.org/rdpeng/rprogdatascience/">https://bookdown.org/rdpeng/rprogdatascience/</a>.</p>
+</div>
+</div>
             </section>
 
           </div>
