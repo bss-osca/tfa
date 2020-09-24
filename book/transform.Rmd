@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 ```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
 ```
 
@@ -6,6 +11,12 @@
 
 
 # Transforming data {#sec-transform}
+
+In this module we consider transformation of data. In general raw data may be messy and need to be structured in a __tidy__ way. Tidying your data means storing it in a structured form suitable for analysis. This is done using a tibble (data frame) where each column is a variable, and each row is an observation. Tidy data is important because the consistent structure lets you focus your struggle on questions about the data. 
+
+Given a raw data set the first step is to clean it and and transform it to a tidy format. Given tidy data, you next often need to __transform__ it. Transformation includes narrowing in on observations of interest (e.g. only observations from a specific year or warehouse), creating new variables based on existing variables (like the cost of using the machine that day given idle time). Together, tidying and transforming are called __wrangling__, because it can be a hard process to get your data in the right form.
+
+In this chapter you will learn how to work with tibbles using the [dplyr package][tidyverse-dplyr] which is a part of the [tidyverse][tidyverse-main-page]. 
 
 ## Learning outcomes {#lo-transform}
 
@@ -23,7 +34,9 @@ By the end of this module, you are expected to be able to:
 <!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
 
 
+## Working with data in the tidyverse
 
+An excellent introduction on how to transform data using the tidyverse is given in the interactive DataCamp course [Data Manipulation with dplyr][datacamp-r-dplyr]. Please complete the course before continuing. 
 
 <!-- ## Tidy  -->
 
@@ -32,12 +45,7 @@ By the end of this module, you are expected to be able to:
 
 
 <!-- https://learn.datacamp.com/projects/758 -->
-
 <!-- https://learn.datacamp.com/courses/dealing-with-missing-data-in-r -->
-
-<!-- https://learn.datacamp.com/courses/working-with-data-in-the-tidyverse -->
-
-
 <!-- https://learn.datacamp.com/courses/introduction-to-the-tidyverse -->
 
 
@@ -45,19 +53,272 @@ By the end of this module, you are expected to be able to:
 
 `r strLPath`
 
-* sdfad
+* Roger Peng provide a good video giving an [Introduction to the dplyr R package][video-dplyr]. 
+* [Chapter 12](https://bookdown.org/rdpeng/rprogdatascience/managing-data-frames-with-the-dplyr-package.html) in @rdpeng provides a nice introduction to dplyr. 
+* An alternative interactive DataCamp course is [Working with Data in the Tidyverse][datacamp-r-dplyr-bakeoff] which may be good to take if you need more training.
 
 
 
-## Recap {rc-transform}
+## Recap {#rc-transform}
 
+* The package dplyr ...
 
-
+   - The `filter` function chooses rows that meet a specific criteria. 
+   - The `select` function chooses columns that we specify. 
+   - The `arrange()` function reorders the rows in a data frame. 
 
 
 ## Exercises {#ex-transform}
 
 `r strExercises`
+
+### Exercise (gapminder) {#ex-gapminder1}
+
+Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
+
+The gapminder data set provides values for life expectancy, GDP per capita, and population, every five years, from 1952 to 2007 for 142 countries. The data can be loaded using the gapminder package:
+
+```{r message = FALSE, warning = FALSE}
+library(gapminder)
+gapminder
+```
+
+Let us try to examine the data set (use pipes `%>%` as much as possible). 
+
+```{r, echo=FALSE}
+addSolution("
+gapminder %>% glimpse()
+gapminder %>% summary()
+gapminder %>% tail()
+")
+```
+
+   (@) Use `glimpse`, `summary` and `tail` to examine the data.
+
+   (@) Use `count` to count the number of
+```{r, echo=FALSE}
+addSolution("
+gapminder %>% count(country) %>% nrow()
+")
+```
+       a) countries, 
+       b) continents,
+```{r, echo=FALSE}
+addSolution("
+gapminder %>% count(continent) %>% nrow()
+")
+```
+       c) countries per continent. 
+```{r, echo=FALSE}
+addSolution("
+gapminder %>% count(continent, country) %>% count(continent)     # or
+gapminder %>% distinct(continent, country) %>% count(continent)
+")
+```
+   
+```{r, echo=FALSE}
+addSolution("
+gapminder %>% distinct(continent) %>% pull(1) %>% as.character()
+")
+```   
+   
+   (@) Retrieve a vector with all distinct continent values.
+
+   
+   (@) Subset rows to find:
+       a) all rows with life expectancy less that 29 years,
+```{r, echo=FALSE}
+addSolution("
+dapminder %>% filter(lifeExp < 29)
+")
+```
+       b) all rows for Rwanda after year 1979,
+```{r, echo=FALSE}
+addSolution('
+gapminder %>% filter(country == "Rwanda", year > 1979)
+')
+```
+       c) all rows for Rwanda, Afghanistan or France.
+```{r, echo=FALSE}
+addSolution('
+gapminder %>%  filter(country %in% c("Rwanda", "Afghanistan", "France"))
+')
+```
+
+
+   (@) Select columns 
+       a) year and life expectancy,
+```{r, echo=FALSE}
+addSolution("
+gapminder %>% select(year, lifeExp)
+")
+```       
+       b) country and GDP per capita.
+```{r, echo=FALSE}
+addSolution("
+gapminder %>% select(country, gdpPercap)
+")
+```       
+      
+
+```{r, echo=FALSE}
+addSolution('
+gapminder %>% 
+   filter((gdpPercap > 40000 & continent == "Europe") | (gdpPercap < 400 & continent == "Africa")) %>% print(n=Inf) %>% 
+   select(continent, country, gdpPercap) %>% 
+   print(n=Inf)
+')
+```   
+
+   (@) Subset your data set to find all rows with GDP per capita greater than 40000 in Europe or with GDP per capita less than 500 in Africa.
+
+```{r, echo=FALSE}
+addSolution('
+gapminder %>%
+  mutate(gdp = pop * gdpPercap)
+')
+```   
+
+   (@) Use `mutate` to calculate each country's GDP (population times GDP per capita).
+
+In general GDP numbers are large and abstract. Let us try to calculate relative numbers.
+
+```{r, echo=FALSE}
+addSolution('
+mean_dk <- gapminder %>% filter(country == "Denmark") %>% pull(gdpPercap) %>% mean()
+dat <- gapminder %>% mutate(gdpPercapRel = gdpPercap/mean_dk)
+dat %>% 
+  filter(country == "Denmark") %>% 
+  select(country, year, gdpPercapRel)
+summary(dat$gdpPercapRel)
+', 
+text = "The relative GDP per capita numbers are, in general, well below 1. We see that most of the countries covered by this dataset have substantially lower GDP per capita, relative to Denmark, across the entire time period.")
+```  
+
+   (@) Use `mutate` to calculate GDP per capita relative to mean GDP per capita in Denmark over the whole period (`gdpPercap` divided by the mean of Danish `gdpPercap`). Hint you first must calculate the mean of Danish `gdpPercap` and next use that to add a new column `gdpPercapRel`. Have a look at the calculated data for Denmark. Does the numbers seems reasonable? I perceive Denmark to be a "high GDP" country, so I predict that the distribution of `gdpPercapRel` is located below 1, possibly even well below. Check this intuition!
+
+
+   (@) Use `arrange` to order 
+      a) data by year then country, as opposed to current by country then year,
+```{r, echo=FALSE}
+addSolution('
+gapminder %>% arrange(year, country)
+')
+``` 
+      b) data from 2007, sorted on life expectancy,
+```{r, echo=FALSE}
+addSolution('
+gapminder %>%
+  filter(year == 2007) %>%
+  arrange(lifeExp)
+')
+``` 
+      c) data from 2007, sorted on life expectancy in **desc**ending order. Hint: use `desc()` inside `arrange`.
+```{r, echo=FALSE}
+addSolution('
+gapminder %>%
+  filter(year == 2007) %>%
+  arrange(desc(lifeExp))
+')
+``` 
+
+
+
+   (@) Use `select` to 
+       a) rename `year` to `yr` and keep all other columns (the select helper `everything` may be used),
+```{r, echo=FALSE}
+addSolution('
+gapminder %>% select(yr = year, everything())
+')
+```        
+       b) remove `pop`
+```{r, echo=FALSE}
+addSolution('
+gapminder %>% select(-pop)
+')
+```        
+       c) reorder columns in order `year`, `pop`, ... (remaining).
+```{r, echo=FALSE}
+addSolution('
+gapminder %>% select(year, pop, everything())
+')
+``` 
+
+  (@) Use `group_by` and `summarize` to find the
+      a) number of observations per continent
+```{r, echo=FALSE}
+addSolution('
+gapminder %>% group_by(continent) %>% summarize(n = n())
+')
+```       
+      b) number of countries per continent (use `n_distinct` inside `summarize` to count the number of distinct observations),
+```{r, echo=FALSE}
+addSolution('
+gapminder %>% group_by(continent) %>% summarize(n = n(), n_countries = n_distinct(country))
+')
+```       
+      c) average life expectancy by continent,
+```{r, echo=FALSE}
+addSolution('
+gapminder %>% group_by(continent) %>% summarize(avg_lifeExp = mean(lifeExp))
+')
+```       
+      d) minimum and maximum life expectancies seen by year in Asia 
+```{r, echo=FALSE}
+addSolution('
+gapminder %>% filter(continent == "Asia") %>% group_by(year) %>% summarize(min_lifeExp = min(lifeExp), max_lifeExp = max(lifeExp))
+')
+``` 
+      
+
+```{r, echo=FALSE}
+addSolution('
+gapminder %>% 
+  group_by(country) %>%                 # group by country
+  select(country, year, lifeExp) %>%    # select relevant columns
+  arrange(year, .by_group = TRUE) %>%   # make sure that data is sorted correct
+  mutate(lifeExp_gain = lifeExp - first(lifeExp)) %>%       
+  filter(year < 1963)                   # just for nice printing
+')
+``` 
+
+  (@) Sometimes you don't want to collapse the $n$ rows for each group into one row. That is, you don't want to use `summarize` but `mutate` within your groups. Try to make a new variable that is the years of life expectancy gained (lost) relative to 1952, for each individual country. You code should look like this
+      ```{r, eval = FALSE}
+      gapminder %>% 
+        group_by(country) %>%                 # group by country
+        select(country, year, lifeExp) %>%    # select relevant columns
+        arrange(year, .by_group = TRUE) %>%   # make sure that data is sorted correct
+        mutate(lifeExp_gain = ___) %>%        # define new variable
+        filter(year < 1963)                   # just for nice printing
+      ```
+      The `first` function may be helpful to extract the first value from a vector in each group.
+
+
+```{r, echo=FALSE}
+addSolution('
+gapminder %>%
+  select(country, year, continent, lifeExp) %>%     
+  group_by(continent, country) %>%                  
+  mutate(le_delta = lifeExp - lag(lifeExp)) %>%
+  summarize(worst_le_delta = min(le_delta, na.rm = TRUE)) %>%
+  slice_min(worst_le_delta) %>%
+  arrange(worst_le_delta)
+')
+``` 
+
+  (@) Which country experienced the sharpest 5-year drop in life expectancy in each continent? Recall that the Gapminder data only has data every five years, e.g. for 1952, 1957, etc. So this really means looking at life expectancy changes between adjacent timepoints. Here the `lag` function is useful to select the value in the previous row. Your code should look like:
+      ```{r, eval=FALSE}
+      gapminder %>%
+        select(country, year, continent, lifeExp) %>%             # select relevant columns
+        group_by(continent, country) %>%                          # group
+        mutate(le_delta = ___) %>%                                # within country, take (lifeExp in year i) - (lifeExp in year i - 1)
+        summarize(worst_le_delta = min(___, na.rm = TRUE)) %>%    # find lowest value
+        slice_min(worst_le_delta) %>%                             # find min in each continent
+        arrange(worst_le_delta)                                   # arrange 
+      ```
+      Positive values of `le_delta` means lifeExp went up, negative means it went down. Break the code into pieces, starting at the top, and inspect the intermediate results. These commands are built up gradually, with lots of errors and refinements along the way. 
+
+
 
 
 

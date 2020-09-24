@@ -146,7 +146,7 @@ addSolution <- function(code = "", text = "") {
   }
   id = str_c("solution", ctrSol)
   ctrSol <<- ctrSol + 1
-  tagList(bs_modal(id = id, title = "Solution", body = includeMarkdown("tmp.md")),
-          bs_button("Solution", style="float:right") %>%
+  tagList(bs_modal(id = id, title = "Solution", body = includeMarkdown("tmp.md"), size = "large"),
+          bs_button("Solution", style="float:right", button_size = "extra-small") %>%
             bs_attach_modal(id_modal = id))
 }
