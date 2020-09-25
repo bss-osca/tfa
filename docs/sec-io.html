@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2020-09-23" />
+<meta name="date" content="2020-09-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -277,9 +277,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="sec-transform.html"><a href="sec-transform.html"><i class="fa fa-check"></i><b>8</b> Transforming data</a>
 <ul>
 <li class="chapter" data-level="8.1" data-path="sec-transform.html"><a href="sec-transform.html#lo-transform"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="8.2" data-path="sec-transform.html"><a href="sec-transform.html#lp-transform"><i class="fa fa-check"></i><b>8.2</b> Different learning paths</a></li>
-<li class="chapter" data-level="8.3" data-path="sec-transform.html"><a href="sec-transform.html#recap-rc-transform"><i class="fa fa-check"></i><b>8.3</b> Recap {rc-transform}</a></li>
-<li class="chapter" data-level="8.4" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>8.4</b> Exercises</a></li>
+<li class="chapter" data-level="8.2" data-path="sec-transform.html"><a href="sec-transform.html#working-with-data-in-the-tidyverse"><i class="fa fa-check"></i><b>8.2</b> Working with data in the tidyverse</a></li>
+<li class="chapter" data-level="8.3" data-path="sec-transform.html"><a href="sec-transform.html#lp-transform"><i class="fa fa-check"></i><b>8.3</b> Different learning paths</a></li>
+<li class="chapter" data-level="8.4" data-path="sec-transform.html"><a href="sec-transform.html#rc-transform"><i class="fa fa-check"></i><b>8.4</b> Recap</a></li>
+<li class="chapter" data-level="8.5" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>8.5</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="sec-transform.html"><a href="sec-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>8.5.1</b> Exercise (gapminder)</a></li>
+</ul></li>
 </ul></li>
 <li class="part"><span><b>IV Visualization</b></span></li>
 <li class="chapter" data-level="9" data-path="sec-plot.html"><a href="sec-plot.html"><i class="fa fa-check"></i><b>9</b> Plotting using ggplot</a>
@@ -990,14 +994,14 @@ Last line</code></pre>
 <p>Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck see the <a href="help.html#help">help page</a>. Solutions to each exercise can be seen by pressing the button at each question. Beware you will not learn by giving up to early. Put some effort into finding a solution!</p>
 <div id="exercise-statistikbanken" class="section level3" number="7.10.1">
 <h3><span class="header-section-number">7.10.1</span> Exercise (Statistikbanken)</h3>
-<p>Use the exercise R markdown template to solve this exercise (<strong>File &gt; New File &gt; R Markdown…</strong>, select <strong>From template</strong> and then <strong>TFA Exercise</strong>).</p>
+<p>Use the <em>exercise R markdown template</em> to solve this exercise (<strong>File &gt; New File &gt; R Markdown…</strong>, select <strong>From template</strong> and then <strong>TFA Exercise</strong>).</p>
 <p>You can use the <a href="https://api.statbank.dk/console">API</a> from <a href="https://www.statistikbanken.dk/">Statistikbanken</a> to download a lot of data sets. Let us consider airports in Denmark (data set with table id FLYV41):</p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="sec-io.html#cb99-1" aria-hidden="true"></a>url &lt;-<span class="st"> &quot;https://api.statbank.dk/v1/data/FLYV41/CSV?lang=en&amp;LUFTHAVN=*&amp;Tid=*&amp;Transport=*&quot;</span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Use <code>cat(read_lines(url, n_max = 3), sep = "\n")</code> to have a look at the delimiter used.</li>
 </ol>
-<div class="modal fade" id="solution0" tabindex="-1" role="dialog" aria-labelledby="solution0-title">
-<div class="modal-dialog" role="document">
+<div aria-labelledby="solution0-title" class="modal fade bs-example-modal-lg" id="solution0" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1016,7 +1020,7 @@ dat
 </div>
 </div>
 </div>
-<button class="btn btn-default" style="float:right" data-toggle="modal" data-target="#solution0">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution0">Solution</button>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Import the csv file.</p></li>
 <li><p>Try to retrieve information and get an overview over the data by running:</p>
@@ -1026,8 +1030,8 @@ dat
 <span id="cb100-4"><a href="sec-io.html#cb100-4" aria-hidden="true"></a><span class="kw">View</span>(lst)</span></code></pre></div>
 <p>Note the data returned is in json format, so we use <code>read_json</code> to read the data into a list.</p></li>
 </ol>
-<div class="modal fade" id="solution1" tabindex="-1" role="dialog" aria-labelledby="solution1-title">
-<div class="modal-dialog" role="document">
+<div aria-labelledby="solution1-title" class="modal fade bs-example-modal-lg" id="solution1" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1049,7 +1053,7 @@ info(&quot;FLYV41&quot;)
 </div>
 </div>
 </div>
-<button class="btn btn-default" style="float:right" data-toggle="modal" data-target="#solution1">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution1">Solution</button>
 <ol start="4" style="list-style-type: decimal">
 <li><p>Create a function <code>info(tab_id)</code> that returns a list with components <code>description</code>, <code>unit</code> and <code>variables</code> from the information for a data set with table id <code>tab_id</code>. Hint you can modify the code in Question 3 to return only parts of the list.</p></li>
 <li><p>Information about all the data sets can be retrieved using:</p>
@@ -1058,8 +1062,8 @@ info(&quot;FLYV41&quot;)
 <span id="cb101-3"><a href="sec-io.html#cb101-3" aria-hidden="true"></a><span class="kw">View</span>(lst)</span></code></pre></div>
 <p>Have a look at the row for FlYV41.</p></li>
 </ol>
-<div class="modal fade" id="solution2" tabindex="-1" role="dialog" aria-labelledby="solution2-title">
-<div class="modal-dialog" role="document">
+<div aria-labelledby="solution2-title" class="modal fade bs-example-modal-lg" id="solution2" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1088,7 +1092,7 @@ get_data(&quot;FLYV41&quot;)
 </div>
 </div>
 </div>
-<button class="btn btn-default" style="float:right" data-toggle="modal" data-target="#solution2">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution2">Solution</button>
 <ol start="6" style="list-style-type: decimal">
 <li><p>Given the information about variables in a data set we can construct the url to retrieve the data in csv format:</p>
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="sec-io.html#cb102-1" aria-hidden="true"></a>tab_id &lt;-<span class="st"> &quot;FLYV41&quot;</span></span>
@@ -1102,8 +1106,8 @@ get_data(&quot;FLYV41&quot;)
 <span id="cb102-9"><a href="sec-io.html#cb102-9" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;https://api.statbank.dk/v1/data/FLYV41/CSV?lang=en&amp;LUFTHAVN=*&amp;Tid=*&quot;</span></span></code></pre></div>
 <p>Create a function <code>get_data(tab_id, col_id)</code> that retrieve a data set.</p></li>
 </ol>
-<div class="modal fade" id="solution3" tabindex="-1" role="dialog" aria-labelledby="solution3-title">
-<div class="modal-dialog" role="document">
+<div aria-labelledby="solution3-title" class="modal fade bs-example-modal-lg" id="solution3" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1122,12 +1126,12 @@ write_csv(dat, &quot;test.csv&quot;)
 </div>
 </div>
 </div>
-<button class="btn btn-default" style="float:right" data-toggle="modal" data-target="#solution3">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution3">Solution</button>
 <ol start="7" style="list-style-type: decimal">
 <li>Use the function <code>get_data</code> to retrieve data for <code>tab_id = "FOLK1A"</code> and <code>col_id = c(2, 3, 5)</code> and save it as a csv file with a comma as delimiter.</li>
 </ol>
-<div class="modal fade" id="solution4" tabindex="-1" role="dialog" aria-labelledby="solution4-title">
-<div class="modal-dialog" role="document">
+<div aria-labelledby="solution4-title" class="modal fade bs-example-modal-lg" id="solution4" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1150,7 +1154,7 @@ gs4_browse(gs)
 </div>
 </div>
 </div>
-<button class="btn btn-default" style="float:right" data-toggle="modal" data-target="#solution4">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution4">Solution</button>
 <ol start="8" style="list-style-type: decimal">
 <li>Save the data in an Excel file and a Google sheet.</li>
 </ol>
