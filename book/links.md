@@ -3,6 +3,7 @@
 [course-help]: https://blackboard.au.dk/webapps/discussionboard/do/forum?action=list_threads&course_id=_139525_1&forum_id=190010&nav=discussion_board&conf_id=_274569_1&content_id=_2651740_1&mode=view
 [cran]: https://cloud.r-project.org
 [cheatsheet-readr]: https://rawgit.com/rstudio/cheatsheets/master/data-import.pdf
+[course-welcome-to-the-tidyverse]: https://github.com/rstudio-education/welcome-to-the-tidyverse
 
 [Datacamp]: https://www.datacamp.com/
 [datacamp-signup]: https://www.datacamp.com/groups/shared_links/cbaee6c73e7d78549a9e32a900793b2d5491ace1824efc1760a6729735948215

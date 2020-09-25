@@ -137,7 +137,7 @@ strLPath <- "We are all different and you may like different learning styles com
 strExercises <- "Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck see the [help page](#help). Solutions to each exercise can be seen by pressing the button at each question. Beware you will not learn by giving up to early. Put some effort into finding a solution!"
 
 ctrSol <- 0
-addSolution <- function(code = "", text = "") {
+addSolution <- function(code = "", text = "", title = "Solution") {
   {
     sink("tmp.md")
     if (code != "") cat('\n```r\n', str_trim(code), '\n```', sep="")
@@ -146,7 +146,7 @@ addSolution <- function(code = "", text = "") {
   }
   id = str_c("solution", ctrSol)
   ctrSol <<- ctrSol + 1
-  tagList(bs_modal(id = id, title = "Solution", body = includeMarkdown("tmp.md"), size = "large"),
-          bs_button("Solution", style="float:right", button_size = "extra-small") %>%
+  tagList(bs_modal(id = id, title = title, body = includeMarkdown("tmp.md"), size = "large"),
+          bs_button(title, style="float:right", button_size = "extra-small") %>%
             bs_attach_modal(id_modal = id))
 }

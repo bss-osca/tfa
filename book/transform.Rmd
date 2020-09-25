@@ -7,9 +7,6 @@ editor_options:
 ```
 
 
-
-
-
 # Transforming data {#sec-transform}
 
 In this module we consider transformation of data. In general raw data may be messy and need to be structured in a __tidy__ way. Tidying your data means storing it in a structured form suitable for analysis. This is done using a tibble (data frame) where each column is a variable, and each row is an observation. Tidy data is important because the consistent structure lets you focus your struggle on questions about the data. 
@@ -56,7 +53,7 @@ An excellent introduction on how to transform data using the tidyverse is given 
 * Roger Peng provide a good video giving an [Introduction to the dplyr R package][video-dplyr]. 
 * [Chapter 12](https://bookdown.org/rdpeng/rprogdatascience/managing-data-frames-with-the-dplyr-package.html) in @rdpeng provides a nice introduction to dplyr. 
 * An alternative interactive DataCamp course is [Working with Data in the Tidyverse][datacamp-r-dplyr-bakeoff] which may be good to take if you need more training.
-
+* The Data transformation with dplyr cheatsheet is very useful. Find the newest version in RStudio **Help > Cheatsheets**.
 
 
 ## Recap {#rc-transform}
@@ -67,6 +64,17 @@ An excellent introduction on how to transform data using the tidyverse is given 
    - The `select` function chooses columns that we specify. 
    - The `arrange()` function reorders the rows in a data frame. 
 
+
+
+* Extract variables with `select()`  
+* Extract cases with `filter()`  
+* Arrange cases, with `arrange()`  
+
+* Make tables of summaries with `summarise()`  
+* Make new variables, with `mutate()`  
+* Do groupwise operations with `group_by()`
+
+* Connect operations with `%>%`  
 
 ## Exercises {#ex-transform}
 
@@ -223,7 +231,6 @@ gapminder %>%
 ``` 
 
 
-
    (@) Use `select` to 
        a) rename `year` to `yr` and keep all other columns (the select helper `everything` may be used),
 ```{r, echo=FALSE}
@@ -320,8 +327,390 @@ gapminder %>%
 
 
 
+### Exercise (babynames) {#ex-babynames1}
+
+Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
+
+The package babynames contains a dataset provided by the USA social security administration:
+
+* `babynames`: For each year from 1880 to 2017, the number of children of 
+  each sex given each name. All names with more than 5 uses are given.
+  (Source: http://www.ssa.gov/oact/babynames/limits.html)
+
+Install it using 
+
+```r
+install.packages("babynames")
+```
+
+We will use the skimr package to get an overview over `babynames`:
+
+```{r}
+library(babynames)
+library(skimr)
+skim(babynames)
+```
+
+```{r, echo=FALSE}
+addSolution(text = "The last line only selects the `n` column.")
+``` 
+
+  1) Which of these is NOT a way to select the `name` and `n` columns together?
+      ```r
+      select(babynames, -c(year, sex, prop))
+      select(babynames, name:n)
+      select(babynames, starts_with("n"))
+      select(babynames, ends_with("n"))
+      ```
+  
+  2) Use `filter` and the logical operators to find:
+```{r, echo=FALSE}
+addSolution('
+babynames %>% filter(prop >= 0.08)
+')
+```   
+        a) All of the names where prop is greater than or equal to 0.08  
+```{r, echo=FALSE}
+addSolution('
+babynames %>% filter(name == "Sea")
+')
+```       
+        b) All of the children named "Sea" 
+
+
+  3) Use Boolean operators to return only the rows that contain:
+      a) _Boys_ named Sue,
+```{r, echo=FALSE}
+addSolution('
+babynames %>% filter(name == "Sue", sex == "M")
+')
+``` 
+      b) Names that were used by exactly 5 or 6 children in 1880,
+```{r, echo=FALSE}
+addSolution('
+babynames %>% filter(year == 1880, n == 5 | n == 6)
+')
+```       
+      c) Names that are one of Acura, Lexus, or Yugo.
+```{r, echo=FALSE}
+addSolution('
+babynames %>% filter(name %in% c("Acura", "Lexus", "Yugo"))
+')
+```       
+
+```{r, echo=FALSE}
+addSolution('
+min(babynames$n)
+max(babynames$n)
+')
+```  
+
+  4) What is the smallest value of n? What is the largest?
+
+
+```{r, echo=FALSE}
+addSolution('
+babynames %>% 
+  filter(sex == "F", year == 2017) %>% 
+  select(name, n) %>% 
+  arrange(desc(n)) 
+')
+```  
+
+  5) Write a sequence of functions that filters babynames to just the girls that were born in 2017, then selects the `name` and `n` columns, then, arranges the results so that the most popular names are near the top.
+
+
+```{r, echo=FALSE}
+addSolution('
+babynames %>% 
+  filter(sex == "M", name == "Lars")
+')
+```  
+
+  6) Trim `babynames` to just the rows that contain your `name` and your `sex`.
+
+
+ 
+```{r, echo=FALSE}
+addSolution('
+babynames %>% 
+  filter(name == "Khaleesi") %>% 
+  summarise(total = sum(n), first = min(year))
+')
+```  
+```{r, echo=FALSE}
+addSolution('
+babynames ___ 
+  filter(_______________________) ___
+  ___________(total = ________, first = _______)
+', title = "Hint")
+``` 
+
+  7) Complete the code below to extract the rows where `name == "Khaleesi"`. Then use `summarise()` to find the total number of children named Khaleesi and the first year Khaleesi appeared in the data.
+
+
+```{r, echo=FALSE}
+addSolution('
+babynames %>%
+  group_by(name, sex) %>% 
+  summarize(total = sum(n)) %>% 
+  arrange(desc(total))
+')
+```  
+```{r, echo=FALSE}
+addSolution('
+babynames %>%
+  _______(name, sex) %>% 
+  _______(total = _____(n)) %>% 
+  _______(desc(_____))
+', title = "Hint")
+``` 
+
+  8) Use `group_by()`, `summarise()`, and `arrange()` to display the ten most popular names. Compute popularity as the *total* number of children of a single gender given a name. 
+      
+      
+```{r, echo=FALSE}
+addSolution('
+babynames %>% 
+  group_by(year) %>% 
+  summarise(total = sum(n))
+')
+```  
+
+  9) Use `group_by()` to calculate the total number of children born each year over time.
+
+
+```{r, echo=FALSE}
+addSolution('
+babynames %>% 
+  group_by(year, sex) %>% 
+  mutate(rank = min_rank(desc(n))) %>% 
+  arrange(year, sex, desc(prop))
+', text = "The same results if you use `n` since in the same order.")
+```  
+```{r, echo=FALSE}
+addSolution('
+babynames %>% 
+  group_by(___, ___) %>% 
+  ___(rank = ___(desc(___))) %>% 
+  arrange(year, sex, desc(prop))
+', title = "Hint")
+``` 
+
+  10) Column `prop` denote the proportion given year and sex. Use `mutate()` and `min_rank()` to rank each row in babynames from _largest_ `prop` to lowest `prop` given year and sex. What happens if you do the same using the `n` column?
+
+
+```{r, echo=FALSE}
+addSolution('
+babynames %>% 
+  group_by(year, sex) %>% 
+  mutate(rank = min_rank(desc(n))) %>% 
+  filter(rank == 1, year > 2009)
+')
+```  
+
+  11) Filter the results to find all names with `rank == 1` after 2009.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 ```{r links, child="links.md"}
 ```
+
+### Exercise (profit) {#ex-profit1}
+
+Consider the dataset profit:
+
+```{r}
+path <- system.file("extdata/profit_raw.csv", package = "tfa")
+profit <- read_csv(path)
+skim(profit)
+```
+
+Note that it seems that the dataset need to be cleaned. All columns are strings (some should be numbers) and there seems to be missing values. First you may try to have a view of the dataset in R using
+
+```r
+View(profit)
+```
+
+First focus on column `Quarter` which currently has 12 distinct values
+
+```{r}
+profit %>% distinct(Quarter)
+```
+
+You would like it to be values 1-4. 
+
+  1) Use `mutate`, `str_remove` and `as.numeric` to convert the column to a numeric by removing all 'q' and 'Q' values.
+
+```{r}
+profit <- profit %>% mutate(Quarter = str_remove(Quarter, "q") %>% str_remove("Q") %>% as.numeric())
+```
+
+Let us look at the next columns
+
+```{r}
+profit %>% distinct(Channel) %>% pull()
+profit %>% distinct(`Customer ID`) %>% pull()
+profit %>% distinct(Country) %>% pull()
+profit %>% distinct(`Product Line`) %>% pull()
+```
+
+These seems to be okay. The last columns should be numbers. Let us consider `Revenue`. 
+
+```{r}
+profit %>% distinct(Revenue) %>% pull()
+```
+
+Most values start with a dollar sign. Let us have a look at the other ones:
+
+```{r}
+profit %>% filter(!str_starts(Revenue, fixed("$"))) 
+na_values <- profit %>% 
+  filter(!str_starts(Revenue, fixed("$"))) %>% 
+  distinct(Revenue) %>% 
+  pull(Revenue)
+```
+
+The expression is a bit complex. Let us break it up. Function `fixed` just return the fixed string '$'. This is necessary since the dollar sign have a special meaning in regular expressions (beyond the scope here). Function `str_starts` check if the string starts with a dollar sign. We use the logical negation (NOT) to find complementary set. 
+
+Note that different strings have been used to indicate `NA` values (`r na_values`). Let us first use a single value to indicate `NA` (a question mark):
+```{r}
+profit <- profit %>% mutate(Revenue = str_replace_all(Revenue, c("unknown" = "?", "Unknown" = "?")))
+```
+
+Next, we replace all `?` with `NA`:
+```{r}
+profit <- profit %>% mutate(Revenue = na_if(Revenue, "?"))
+profit %>% filter(!str_starts(Revenue, fixed("$"))) 
+```
+
+Finally, we remove all dollar signs:
+
+```{r}
+profit <- profit %>% mutate(Revenue = str_remove(Revenue, fixed("$ ")) %>% as.numeric())
+profit
+```
+
+As one pipe: 
+```{r, eval=FALSE}
+profit <- profit %>% 
+  mutate(Revenue = str_replace_all(Revenue, c("unknown" = "?", "Unknown" = "?"))) %>% 
+  mutate(Revenue = na_if(Revenue, "?")) %>% 
+  mutate(Revenue = str_remove(Revenue, fixed("$ ")) %>% as.numeric())
+```
+
+  2) Convert the remaining columns to numeric like `Revenue`. 
+  
+  
+  3) Use the `across` function to apply the operations in Question 2 for a set of columns. Hint: see the examples in on the help page of `across`. The code should look like:
+```{r}
+profit <- read_csv(path)
+profit <- profit %>% 
+  mutate(across(___:___, ~str_replace_all(.x, c("unknown" = "?", "Unknown" = "?")) )) %>% 
+  mutate(across(___:___, ~na_if(.x, "?") )) %>% 
+  mutate(across(___:___, ~str_remove(.x, fixed("$ ")) %>% as.numeric() )) 
+profit
+```
+
+  4) Write one pipe that do all the cleaning
+
+
+```{r}
+profit <- read_csv(path) %>% 
+  mutate(Quarter = str_remove(Quarter, "q") %>% str_remove("Q") %>% as.numeric()) %>% 
+  mutate(across(Revenue:Profit, ~str_replace_all(.x, c("unknown" = "?", "Unknown" = "?")) )) %>% 
+  mutate(across(Revenue:Profit, ~na_if(.x, "?") )) %>% 
+  mutate(across(Revenue:Profit, ~str_remove(.x, fixed("$ ")) %>% as.numeric() )) 
+skim(profit)
+```
+
+  5) Validate that revenue - product costs - customer service cost equals profit. If you see small rounding errors (less than or equal 1) then recalculate the profit.
+
+```{r}
+profit <- profit %>% 
+  mutate(Profit_calc = Revenue - `Product Cost` - `Customer Service Cost`, Diff = abs(Profit - Profit_calc)) %>%  
+  mutate(Profit = if_else(Diff == 1, Profit_calc, Profit, missing = Profit) ) 
+profit %>% filter(is.na(Profit))
+profit %>% filter(Diff == 1, is.na(Profit_calc))
+
+```
+
+  6) Recalculate values in columns `Revenue` - `Profit` if possible. 
+```{r}
+profit %>% rowwise() %>% mutate(c_na = sum(is.na(c_across(Revenue:Profit)))) %>% 
+  mutate(Revenue = if_else(is.na(Revenue) & c_na == 1, Profit + `Product Cost` + `Customer Service Cost`, Revenue, Revenue),
+         `Product Cost` = if_else(is.na(`Product Cost`) & c_na == 1, - Profit + Revenue - `Customer Service Cost`, `Product Cost`), 
+         `Customer Service Cost` = if_else(is.na(`Customer Service Cost`) & c_na == 1, - Profit + Revenue - `Product Cost`, `Customer Service Cost`)) %>% rowwise() %>% mutate(c_na = sum(is.na(c_across(Revenue:Profit)))) %>% filter(c_na == 1)
+
+
+profit %>% filter(is.na(Profit))
+
+profit %>% filter(Diff == 1)
+profit %>% filter(is.na(Diff))
+```
+
+
+
+```{r, eval=FALSE}
+lines <- read_lines("test.txt", n_max = 3)
+cat(lines, sep = "\n")
+dat <- read_csv("test.txt")
+write_csv(dat, "profit_char.csv")
+skim(dat)
+
+dat <- read_csv(
+  "profit_char.csv",
+  col_types = cols(Quarter = col_number(),
+  Channel = col_character(),
+  `Customer ID` = col_character(),
+  Country = col_character(),
+  `Product Line` = col_character(),
+  Revenue = col_number(),
+  `Product Cost` = col_number(),
+  `Customer Service Cost` = col_number(),
+  Profit = col_number())
+                )
+
+write_csv(dat, "profit_full.csv")
+
+skim(dat)
+
+# make messy
+set.seed(42)
+dat <- read_csv("test.txt")
+idx <- sample(1:nrow(dat), round(runif(1)*500), replace = F)
+dat$Quarter[idx] <- str_replace(dat$Quarter[idx], "Q", "")
+idx <- sample(1:nrow(dat), round(runif(1)*500), replace = F)
+dat$Quarter[idx] <- str_replace(dat$Quarter[idx], "Q", "q")
+
+idx <- sample(1:nrow(dat), round(runif(1)*100), replace = F)
+dat$Revenue[idx] <- ""
+idx <- sample(1:nrow(dat), round(runif(1)*50), replace = F)
+dat$Revenue[idx] <- "?"
+idx <- sample(1:nrow(dat), round(runif(1)*50), replace = F)
+dat$Revenue[idx] <- "unknown"
+idx <- sample(1:nrow(dat), round(runif(1)*50), replace = F)
+dat$Revenue[idx] <- "Unknown"
+
+idx <- sample(1:nrow(dat), round(runif(1)*100), replace = F)
+dat$`Customer Service Cost`[idx] <- "NA"
+idx <- sample(1:nrow(dat), round(runif(1)*100), replace = F)
+dat$`Customer Service Cost`[idx] <- "?"
+
+idx <- sample(1:nrow(dat), round(runif(1)*100), replace = F)
+dat$`Product Cost`[idx] <- ""
+
+write_csv(dat, "profit_raw.csv")
+```
+
