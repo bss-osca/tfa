@@ -11,6 +11,7 @@ conflict_prefer("lag", "dplyr")
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
+  message = FALSE,
   # cache = TRUE,
   # fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
   # dpi = 300,
@@ -137,7 +138,8 @@ strLPath <- "We are all different and you may like different learning styles com
 strExercises <- "Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck see the [help page](#help). Solutions to each exercise can be seen by pressing the button at each question. Beware you will not learn by giving up to early. Put some effort into finding a solution!"
 
 ctrSol <- 0
-addSolution <- function(code = "", text = "", title = "Solution") {
+addSolution <- function(code = "", text = "", title = "Solution", evalCode = TRUE) {
+  if (evalCode) eval(parse(text = code), envir = globalenv())
   {
     sink("tmp.md")
     if (code != "") cat('\n```r\n', str_trim(code), '\n```', sep="")

@@ -354,7 +354,7 @@ addSolution("
 url <- 'https://api.statbank.dk/v1/data/FLYV41/CSV?lang=en&LUFTHAVN=*&Tid=*&Transport=*'
 dat <- read_csv2(url)
 dat
-")
+", evalCode = FALSE)
 ```
    
    2) Import the csv file.
@@ -376,7 +376,7 @@ info <- function(tab_id) {
    return(list(description = lst$description, unit = lst$unit, variables = lst$variables))
 }
 info("FLYV41")
-')
+', evalCode = FALSE)
 ```
    
    4) Create a function `info(tab_id)` that returns a list with components `description`, `unit` and `variables` from the information for a data set with table id `tab_id`. Hint you can modify the code in Question 3 to return only parts of the list.
@@ -405,7 +405,7 @@ get_data <- function(tab_id, col_id = NULL) {
 get_data("FLYV41", 3)
 get_data("FLYV41", 1:2)
 get_data("FLYV41")
-')
+', evalCode = FALSE)
 ```
    
    6) Given the information about variables in a data set we can construct the url to retrieve the data in csv format:
@@ -426,7 +426,7 @@ addSolution('
 dat <- get_data("FOLK1A", c(2, 3, 5))
 dat
 write_csv(dat, "test.csv")
-')
+', evalCode = FALSE)
 ```   
    
    7) Use the function `get_data` to retrieve data for `tab_id = "FOLK1A"` and `col_id = c(2, 3, 5)` and save it as a csv file with a comma as delimiter.
@@ -440,7 +440,7 @@ library(googlesheets4)
 gs <- gs4_create("test")
 write_sheet(dat, ss = gs, sheet = "FOLK1A")
 gs4_browse(gs)
-')
+', evalCode = FALSE)
 ``` 
    
    8) Save the data in an Excel file and a Google sheet.
@@ -450,17 +450,6 @@ gs4_browse(gs)
 
    
 
-
-
-
-<!-- ### Exercise (Excel and Google Sheet) -->
-
-<!-- ```{r} -->
-<!-- gid <- "1U6Cf_qEOhiR9AZqTqS3mbMF3zt2db48ZP5v3rkrAEJY"   # gapminder data -->
-<!-- ``` -->
-
-
-<!-- ### Exercise (json) -->
 
 
 

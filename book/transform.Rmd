@@ -137,7 +137,7 @@ gapminder %>% distinct(continent) %>% pull(1) %>% as.character()
        a) all rows with life expectancy less that 29 years,
 ```{r, echo=FALSE}
 addSolution("
-dapminder %>% filter(lifeExp < 29)
+gapminder %>% filter(lifeExp < 29)
 ")
 ```
        b) all rows for Rwanda after year 1979,
@@ -443,7 +443,7 @@ addSolution('
 babynames ___ 
   filter(_______________________) ___
   ___________(total = ________, first = _______)
-', title = "Hint")
+', title = "Hint", evalCode = FALSE)
 ``` 
 
   7) Complete the code below to extract the rows where `name == "Khaleesi"`. Then use `summarise()` to find the total number of children named Khaleesi and the first year Khaleesi appeared in the data.
@@ -463,7 +463,7 @@ babynames %>%
   _______(name, sex) %>% 
   _______(total = _____(n)) %>% 
   _______(desc(_____))
-', title = "Hint")
+', title = "Hint", evalCode = FALSE)
 ``` 
 
   8) Use `group_by()`, `summarise()`, and `arrange()` to display the ten most popular names. Compute popularity as the *total* number of children of a single gender given a name. 
@@ -494,7 +494,7 @@ babynames %>%
   group_by(___, ___) %>% 
   ___(rank = ___(desc(___))) %>% 
   arrange(year, sex, desc(prop))
-', title = "Hint")
+', title = "Hint", evalCode = FALSE)
 ``` 
 
   10) Column `prop` denote the proportion given year and sex. Use `mutate()` and `min_rank()` to rank each row in babynames from _largest_ `prop` to lowest `prop` given year and sex. What happens if you do the same using the `n` column?
@@ -529,140 +529,7 @@ babynames %>%
 
 ### Exercise (profit) {#ex-profit1}
 
-Consider the dataset profit:
-
-```{r}
-path <- system.file("extdata/profit_raw.csv", package = "tfa")
-profit <- read_csv(path)
-skim(profit)
-```
-
-Note that it seems that the dataset need to be cleaned. All columns are strings (some should be numbers) and there seems to be missing values. First you may try to have a view of the dataset in R using
-
-```r
-View(profit)
-```
-
-First focus on column `Quarter` which currently has 12 distinct values
-
-```{r}
-profit %>% distinct(Quarter)
-```
-
-You would like it to be values 1-4. 
-
-  1) Use `mutate`, `str_remove` and `as.numeric` to convert the column to a numeric by removing all 'q' and 'Q' values.
-
-```{r}
-profit <- profit %>% mutate(Quarter = str_remove(Quarter, "q") %>% str_remove("Q") %>% as.numeric())
-```
-
-Let us look at the next columns
-
-```{r}
-profit %>% distinct(Channel) %>% pull()
-profit %>% distinct(`Customer ID`) %>% pull()
-profit %>% distinct(Country) %>% pull()
-profit %>% distinct(`Product Line`) %>% pull()
-```
-
-These seems to be okay. The last columns should be numbers. Let us consider `Revenue`. 
-
-```{r}
-profit %>% distinct(Revenue) %>% pull()
-```
-
-Most values start with a dollar sign. Let us have a look at the other ones:
-
-```{r}
-profit %>% filter(!str_starts(Revenue, fixed("$"))) 
-na_values <- profit %>% 
-  filter(!str_starts(Revenue, fixed("$"))) %>% 
-  distinct(Revenue) %>% 
-  pull(Revenue)
-```
-
-The expression is a bit complex. Let us break it up. Function `fixed` just return the fixed string '$'. This is necessary since the dollar sign have a special meaning in regular expressions (beyond the scope here). Function `str_starts` check if the string starts with a dollar sign. We use the logical negation (NOT) to find complementary set. 
-
-Note that different strings have been used to indicate `NA` values (`r na_values`). Let us first use a single value to indicate `NA` (a question mark):
-```{r}
-profit <- profit %>% mutate(Revenue = str_replace_all(Revenue, c("unknown" = "?", "Unknown" = "?")))
-```
-
-Next, we replace all `?` with `NA`:
-```{r}
-profit <- profit %>% mutate(Revenue = na_if(Revenue, "?"))
-profit %>% filter(!str_starts(Revenue, fixed("$"))) 
-```
-
-Finally, we remove all dollar signs:
-
-```{r}
-profit <- profit %>% mutate(Revenue = str_remove(Revenue, fixed("$ ")) %>% as.numeric())
-profit
-```
-
-As one pipe: 
-```{r, eval=FALSE}
-profit <- profit %>% 
-  mutate(Revenue = str_replace_all(Revenue, c("unknown" = "?", "Unknown" = "?"))) %>% 
-  mutate(Revenue = na_if(Revenue, "?")) %>% 
-  mutate(Revenue = str_remove(Revenue, fixed("$ ")) %>% as.numeric())
-```
-
-  2) Convert the remaining columns to numeric like `Revenue`. 
-  
-  
-  3) Use the `across` function to apply the operations in Question 2 for a set of columns. Hint: see the examples in on the help page of `across`. The code should look like:
-```{r}
-profit <- read_csv(path)
-profit <- profit %>% 
-  mutate(across(___:___, ~str_replace_all(.x, c("unknown" = "?", "Unknown" = "?")) )) %>% 
-  mutate(across(___:___, ~na_if(.x, "?") )) %>% 
-  mutate(across(___:___, ~str_remove(.x, fixed("$ ")) %>% as.numeric() )) 
-profit
-```
-
-  4) Write one pipe that do all the cleaning
-
-
-```{r}
-profit <- read_csv(path) %>% 
-  mutate(Quarter = str_remove(Quarter, "q") %>% str_remove("Q") %>% as.numeric()) %>% 
-  mutate(across(Revenue:Profit, ~str_replace_all(.x, c("unknown" = "?", "Unknown" = "?")) )) %>% 
-  mutate(across(Revenue:Profit, ~na_if(.x, "?") )) %>% 
-  mutate(across(Revenue:Profit, ~str_remove(.x, fixed("$ ")) %>% as.numeric() )) 
-skim(profit)
-```
-
-  5) Validate that revenue - product costs - customer service cost equals profit. If you see small rounding errors (less than or equal 1) then recalculate the profit.
-
-```{r}
-profit <- profit %>% 
-  mutate(Profit_calc = Revenue - `Product Cost` - `Customer Service Cost`, Diff = abs(Profit - Profit_calc)) %>%  
-  mutate(Profit = if_else(Diff == 1, Profit_calc, Profit, missing = Profit) ) 
-profit %>% filter(is.na(Profit))
-profit %>% filter(Diff == 1, is.na(Profit_calc))
-
-```
-
-  6) Recalculate values in columns `Revenue` - `Profit` if possible. 
-```{r}
-profit %>% rowwise() %>% mutate(c_na = sum(is.na(c_across(Revenue:Profit)))) %>% 
-  mutate(Revenue = if_else(is.na(Revenue) & c_na == 1, Profit + `Product Cost` + `Customer Service Cost`, Revenue, Revenue),
-         `Product Cost` = if_else(is.na(`Product Cost`) & c_na == 1, - Profit + Revenue - `Customer Service Cost`, `Product Cost`), 
-         `Customer Service Cost` = if_else(is.na(`Customer Service Cost`) & c_na == 1, - Profit + Revenue - `Product Cost`, `Customer Service Cost`)) %>% rowwise() %>% mutate(c_na = sum(is.na(c_across(Revenue:Profit)))) %>% filter(c_na == 1)
-
-
-profit %>% filter(is.na(Profit))
-
-profit %>% filter(Diff == 1)
-profit %>% filter(is.na(Diff))
-```
-
-
-
-```{r, eval=FALSE}
+```{r, eval=FALSE, include=FALSE}
 lines <- read_lines("test.txt", n_max = 3)
 cat(lines, sep = "\n")
 dat <- read_csv("test.txt")
@@ -713,4 +580,325 @@ dat$`Product Cost`[idx] <- ""
 
 write_csv(dat, "profit_raw.csv")
 ```
+
+Consider the dataset profit containing quarterly financial records for each costumer, product, etc.:
+
+```{r}
+library(skimr)
+path <- system.file("extdata/profit_raw.csv", package = "tfa")
+profit <- read_csv(path)
+skim(profit)
+```
+
+Note that it seems that the dataset need to be cleaned. All columns are strings (some should be numbers) and there seems to be missing values. You may start by having a view of the dataset using
+
+```r
+View(profit)
+```
+
+First focus on column `Quarter` which currently has `r profit %>% distinct(Quarter) %>% nrow()` distinct values
+
+```{r}
+profit %>% distinct(Quarter)
+```
+
+You would like it to be a numeric with values 1-4. 
+
+```{r, echo=FALSE}
+addSolution('
+profit <- profit %>%  
+  mutate(Quarter = str_remove(Quarter, "q") %>% str_remove("Q") %>% 
+  as.numeric())
+profit %>% distinct(Quarter)
+')
+``` 
+
+  1) Use `mutate`, `str_remove` and `as.numeric` to convert the column to a numeric by removing all 'q' and 'Q' values.
+
+Let us look at the next columns
+
+```{r}
+profit %>% distinct(Channel) %>% pull()
+profit %>% distinct(`Customer ID`) %>% pull()
+profit %>% distinct(Country) %>% pull()
+profit %>% distinct(`Product Line`) %>% pull()
+```
+
+These seems to be okay. The last columns should be numbers. Let us consider `Revenue`. 
+
+```{r}
+profit %>% distinct(Revenue) %>% pull() %>% head(n = 100)
+```
+
+Most values start with a dollar sign. Let us have a look at the other ones:
+
+```{r}
+profit %>% filter(!str_starts(Revenue, fixed("$"))) 
+na_values <- profit %>% 
+  filter(!str_starts(Revenue, fixed("$"))) %>% 
+  distinct(Revenue) %>% 
+  pull(Revenue)
+na_values
+```
+
+The expression is a bit complex. Let us break it up. Function `fixed` just return the fixed string '$'. This is necessary since the dollar sign have a special meaning in regular expressions (beyond the scope here). Function `str_starts` check if the string starts with a dollar sign. We use the logical negation (NOT) to find the complementary set. 
+
+Note that different strings have been used to indicate `NA` values (`r na_values`). Let us first use a single value to indicate `NA` (a question mark):
+```{r}
+profit <- profit %>% 
+  mutate(Revenue = str_replace_all(Revenue, c("unknown" = "?", "Unknown" = "?")))
+```
+
+Next, we replace all `?` with `NA`:
+```{r}
+profit <- profit %>% 
+  mutate(Revenue = na_if(Revenue, "?"))
+profit %>% # check
+  filter(!str_starts(Revenue, fixed("$"))) 
+```
+
+Finally, we remove all dollar signs:
+
+```{r}
+profit <- profit %>% 
+  mutate(Revenue = str_remove(Revenue, fixed("$ ")) %>% as.numeric())
+profit
+```
+
+As one pipe: 
+```{r, eval=FALSE}
+profit <- profit %>% 
+  mutate(Revenue = str_replace_all(Revenue, c("unknown" = "?", "Unknown" = "?"))) %>% 
+  mutate(Revenue = na_if(Revenue, "?")) %>% 
+  mutate(Revenue = str_remove(Revenue, fixed("$ ")) %>% as.numeric())
+```
+
+
+
+  2) Convert the remaining columns to numeric like shown for `Revenue` above. 
+  
+
+```{r, echo=FALSE, message=FALSE}
+addSolution('
+profit <- read_csv(path)
+profit <- profit %>% 
+  mutate(across(Revenue:Profit, ~str_replace_all(.x, c("unknown" = "?", "Unknown" = "?")) )) %>% 
+  mutate(across(Revenue:Profit, ~na_if(.x, "?") )) %>% 
+  mutate(across(Revenue:Profit, ~str_remove(.x, fixed("$ ")) %>% as.numeric() )) 
+profit
+')
+```
+  
+   3) Use the `across` function to apply the operations in Question 2 for a set of columns. Hint: see the examples on the help page of `across`. The code should look like:
+      ```r
+      profit <- read_csv(path) %>% 
+        mutate(across(___:___, ~str_replace_all(.x, c("unknown" = "?", "Unknown" = "?")) )) %>% 
+        mutate(across(___:___, ~na_if(.x, "?") )) %>% 
+        mutate(across(___:___, ~str_remove(.x, fixed("$ ")) %>% as.numeric() )) 
+      profit
+      ```
+
+
+
+```{r, echo=FALSE, message=FALSE}
+addSolution('
+profit <- read_csv(path) %>% 
+  mutate(Quarter = str_remove(Quarter, "q") %>% str_remove("Q") %>% as.numeric()) %>% 
+  mutate(across(Revenue:Profit, ~str_replace_all(.x, c("unknown" = "?", "Unknown" = "?")) )) %>% 
+  mutate(across(Revenue:Profit, ~na_if(.x, "?") )) %>% 
+  mutate(across(Revenue:Profit, ~str_remove(.x, fixed("$ ")) %>% as.numeric() )) 
+skim(profit)
+')
+```
+
+  4) Write one pipe that do all the cleaning
+  
+
+
+
+```{r, echo=FALSE}
+addSolution('
+profit <- profit %>% 
+  mutate(Profit_calc = Revenue - `Product Cost` - `Customer Service Cost`, Diff = abs(Profit - Profit_calc)) %>%  
+  mutate(Profit = if_else(Diff > 0 & Diff <= 1, Profit_calc, Profit, missing = Profit) ) 
+profit %>% filter(Diff == 1, is.na(Profit_calc))  # check
+')
+```
+
+  5) Validate that revenue - product costs - customer service cost equals profit. If you see small rounding errors (less than or equal 1) then recalculate the profit.
+
+
+
+
+```{r, echo=FALSE}
+addSolution('
+profit <- profit %>% 
+  rowwise() %>% 
+  mutate(c_na = sum(is.na(c_across(Revenue:Profit)))) %>% 
+  mutate(Revenue = if_else(is.na(Revenue) & c_na == 1, Profit + `Product Cost` + `Customer Service Cost`, Revenue, Revenue),
+         `Product Cost` = if_else(is.na(`Product Cost`) & c_na == 1, - Profit + Revenue - `Customer Service Cost`, `Product Cost`), 
+         `Customer Service Cost` = if_else(is.na(`Customer Service Cost`) & c_na == 1, - Profit + Revenue - `Product Cost`, `Customer Service Cost`)) %>% 
+  select(Quarter:Profit)
+
+# check - do numbers match
+profit %>% 
+  mutate(Profit_calc = Revenue - `Product Cost` - `Customer Service Cost`, Diff = abs(Profit - Profit_calc)) %>%  
+  filter(Diff > 0)
+
+# check - find NA values
+profit %>% 
+  rowwise() %>% 
+  mutate(c_na = sum(is.na(c_across(Revenue:Profit)))) %>% filter(c_na > 0)
+')
+```
+
+   6) Recalculate values in columns `Revenue` - `Profit` if possible. Hint: recall that profit = revenue - product costs - customer service cost; that is, if a single value of these are missing then it can be calculated using the other ones. To find the number of missing values (`NA`) you can create a new column counting the number of missing values:
+      ```{r}
+      profit <- profit %>% 
+        rowwise() %>% 
+        mutate(ct_na = sum(is.na(c_across(Revenue:Profit)))) %>% 
+        ungroup()
+      profit %>% filter(ct_na >= 1)
+      ```
+     You can now recalculate values using:
+      ```r
+      profit <- profit %>% 
+        mutate(Revenue = if_else(is.na(Revenue) & c_na == 1, Profit + `Product Cost` + `Customer Service Cost`, Revenue, Revenue),
+               `Product Cost` = if_else(___, ___, ___), 
+               `Customer Service Cost` = if_else(___, ___, ___))
+      ```
+      You can check you calculations using your code from Question 5.
+  
+
+
+
+```{r, echo=FALSE, message=FALSE}
+addSolution('
+profit %>% 
+  group_by(Quarter) %>% 
+  slice_max(Profit, n = 2)
+')
+```
+
+  7) Find the two best rows with highest profit in each quarter.
+  
+
+
+```{r, echo=FALSE, message=FALSE}
+addSolution('
+profit %>% 
+  group_by(Quarter, `Customer ID`) %>% 
+  summarise(Profit = sum(Profit)) %>% 
+  slice_max(Profit, n = 2)
+')
+```
+
+  8) Find the two best customers with highest profit in each quarter. Is the results the same as in Question 7?
+
+
+
+
+```{r, echo=FALSE, message=FALSE}
+addSolution('
+profit %>% 
+  group_by(`Product Line`) %>% 
+  summarise(Profit = sum(Profit)) %>% 
+  slice_max(Profit)
+# ... repeat 
+
+# Using a function
+summarise_profit  <- function(data, group_var, summarise_var) {
+  data %>%
+    group_by(across({{ group_var }})) %>% 
+    summarise(across({{ summarise_var }}, sum)) %>% 
+    slice_max(Profit)
+}
+summarise_profit(profit, `Product Line`, Profit)
+summarise_profit(profit, `Customer ID`, Profit)
+# ... repeat
+
+# Using purrr package to get a single tibble (if intested in the purrr package)
+val <- names(profit)[1:5]
+max_profit <- map_df(
+  val, 
+  ~{
+      tmp <- profit %>% 
+        group_by(.data[[.x]]) %>% 
+        summarise(Profit = sum(Profit), .groups = "drop") %>% 
+        slice_max(Profit)
+      tibble(by = .x, 
+        best = as.character(tmp[[1,1]]),
+        profit = tmp[[1,2]] 
+      )
+    } 
+  )
+max_profit 
+')
+```
+
+  9) Find the product line, customer, channel, country and quarter with the highest profit. 
+  
+
+
+
+```{r, echo=FALSE, message=FALSE}
+addSolution('
+profit %>% 
+  group_by(`Customer ID`) %>% 
+  distinct(Country) %>% 
+  count(`Customer ID`)
+')
+```
+
+  10) Is there rows with the same customer in different countries?
+  
+
+
+
+```{r, echo=FALSE, message=FALSE}
+addSolution('
+profit %>% arrange(desc(Profit), desc(Revenue))
+')
+```
+
+  11) Sort the data decreasing with respect to profit and next revenue.
+  
+
+  
+  
+```{r, echo=FALSE , message=FALSE}
+addSolution('
+profit %>% 
+  group_by(`Product Line`) %>% 
+  summarise(cost = sum(`Product Cost` + `Customer Service Cost`)) %>% 
+  # print() %>%   # if want a peek before slicing 
+  slice_max(cost)
+
+profit %>% 
+  group_by(`Product Line`) %>% 
+  summarise(cost = sum(`Product Cost`)) %>% 
+  slice_min(cost)
+')
+```
+
+  12) Which product line has the highest and lowest total cost?
+
+
+
+
+```{r, echo=FALSE, message=FALSE}
+addSolution('
+profit %>%
+  mutate(cust_cost_new = `Customer Service Cost` * 1.05, 
+         profit_new = Revenue - cust_cost_new - `Product Cost`) %>% 
+  group_by(`Product Line`) %>% 
+  summarise(cust_cost = sum(`Customer Service Cost`), profit = sum(Profit), 
+            cust_cost_new = sum(cust_cost_new), profit_new = sum(profit_new),
+            profit_decrease = profit_new - profit)
+')
+```
+
+  13) Assume that customer service cost increase with 5%. How will that affect the profit for each product line?
+  
+
 
