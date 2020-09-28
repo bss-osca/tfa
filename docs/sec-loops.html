@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2020-09-25" />
+<meta name="date" content="2020-09-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -283,6 +283,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>8.5</b> Exercises</a>
 <ul>
 <li class="chapter" data-level="8.5.1" data-path="sec-transform.html"><a href="sec-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>8.5.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="8.5.2" data-path="sec-transform.html"><a href="sec-transform.html#ex-babynames1"><i class="fa fa-check"></i><b>8.5.2</b> Exercise (babynames)</a></li>
+<li class="chapter" data-level="8.5.3" data-path="sec-transform.html"><a href="sec-transform.html#ex-profit1"><i class="fa fa-check"></i><b>8.5.3</b> Exercise (profit)</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>IV Visualization</b></span></li>
@@ -832,22 +834,21 @@ while (idx &lt; 5) {
 <h3><span class="header-section-number">4.6.3</span> Exercise (calculating distances)</h3>
 <p>Consider zip codes in Jutland:</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="sec-loops.html#cb54-1" aria-hidden="true"></a><span class="kw">library</span>(tfa)</span>
-<span id="cb54-2"><a href="sec-loops.html#cb54-2" aria-hidden="true"></a><span class="co">#&gt; Loading required package: distill</span></span>
-<span id="cb54-3"><a href="sec-loops.html#cb54-3" aria-hidden="true"></a>zips</span>
-<span id="cb54-4"><a href="sec-loops.html#cb54-4" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 376 x 2</span></span>
-<span id="cb54-5"><a href="sec-loops.html#cb54-5" aria-hidden="true"></a><span class="co">#&gt;      Zip Area           </span></span>
-<span id="cb54-6"><a href="sec-loops.html#cb54-6" aria-hidden="true"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;          </span></span>
-<span id="cb54-7"><a href="sec-loops.html#cb54-7" aria-hidden="true"></a><span class="co">#&gt;  1  5320 &quot;Agedrup&quot;      </span></span>
-<span id="cb54-8"><a href="sec-loops.html#cb54-8" aria-hidden="true"></a><span class="co">#&gt;  2  6753 &quot;Agerb\xe6k&quot;   </span></span>
-<span id="cb54-9"><a href="sec-loops.html#cb54-9" aria-hidden="true"></a><span class="co">#&gt;  3  6534 &quot;Agerskov&quot;     </span></span>
-<span id="cb54-10"><a href="sec-loops.html#cb54-10" aria-hidden="true"></a><span class="co">#&gt;  4  8961 &quot;Alling\xe5bro&quot;</span></span>
-<span id="cb54-11"><a href="sec-loops.html#cb54-11" aria-hidden="true"></a><span class="co">#&gt;  5  6051 &quot;Almind&quot;       </span></span>
-<span id="cb54-12"><a href="sec-loops.html#cb54-12" aria-hidden="true"></a><span class="co">#&gt;  6  8592 &quot;Anholt&quot;       </span></span>
-<span id="cb54-13"><a href="sec-loops.html#cb54-13" aria-hidden="true"></a><span class="co">#&gt;  7  8643 &quot;Ans By&quot;       </span></span>
-<span id="cb54-14"><a href="sec-loops.html#cb54-14" aria-hidden="true"></a><span class="co">#&gt;  8  6823 &quot;Ansager&quot;      </span></span>
-<span id="cb54-15"><a href="sec-loops.html#cb54-15" aria-hidden="true"></a><span class="co">#&gt;  9  9510 &quot;Arden&quot;        </span></span>
-<span id="cb54-16"><a href="sec-loops.html#cb54-16" aria-hidden="true"></a><span class="co">#&gt; 10  5466 &quot;Asperup&quot;      </span></span>
-<span id="cb54-17"><a href="sec-loops.html#cb54-17" aria-hidden="true"></a><span class="co">#&gt; # … with 366 more rows</span></span></code></pre></div>
+<span id="cb54-2"><a href="sec-loops.html#cb54-2" aria-hidden="true"></a>zips</span>
+<span id="cb54-3"><a href="sec-loops.html#cb54-3" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 376 x 2</span></span>
+<span id="cb54-4"><a href="sec-loops.html#cb54-4" aria-hidden="true"></a><span class="co">#&gt;      Zip Area           </span></span>
+<span id="cb54-5"><a href="sec-loops.html#cb54-5" aria-hidden="true"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;          </span></span>
+<span id="cb54-6"><a href="sec-loops.html#cb54-6" aria-hidden="true"></a><span class="co">#&gt;  1  5320 &quot;Agedrup&quot;      </span></span>
+<span id="cb54-7"><a href="sec-loops.html#cb54-7" aria-hidden="true"></a><span class="co">#&gt;  2  6753 &quot;Agerb\xe6k&quot;   </span></span>
+<span id="cb54-8"><a href="sec-loops.html#cb54-8" aria-hidden="true"></a><span class="co">#&gt;  3  6534 &quot;Agerskov&quot;     </span></span>
+<span id="cb54-9"><a href="sec-loops.html#cb54-9" aria-hidden="true"></a><span class="co">#&gt;  4  8961 &quot;Alling\xe5bro&quot;</span></span>
+<span id="cb54-10"><a href="sec-loops.html#cb54-10" aria-hidden="true"></a><span class="co">#&gt;  5  6051 &quot;Almind&quot;       </span></span>
+<span id="cb54-11"><a href="sec-loops.html#cb54-11" aria-hidden="true"></a><span class="co">#&gt;  6  8592 &quot;Anholt&quot;       </span></span>
+<span id="cb54-12"><a href="sec-loops.html#cb54-12" aria-hidden="true"></a><span class="co">#&gt;  7  8643 &quot;Ans By&quot;       </span></span>
+<span id="cb54-13"><a href="sec-loops.html#cb54-13" aria-hidden="true"></a><span class="co">#&gt;  8  6823 &quot;Ansager&quot;      </span></span>
+<span id="cb54-14"><a href="sec-loops.html#cb54-14" aria-hidden="true"></a><span class="co">#&gt;  9  9510 &quot;Arden&quot;        </span></span>
+<span id="cb54-15"><a href="sec-loops.html#cb54-15" aria-hidden="true"></a><span class="co">#&gt; 10  5466 &quot;Asperup&quot;      </span></span>
+<span id="cb54-16"><a href="sec-loops.html#cb54-16" aria-hidden="true"></a><span class="co">#&gt; # … with 366 more rows</span></span></code></pre></div>
 <p>We want to calculate distances between between a subset of zip areas:</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="sec-loops.html#cb55-1" aria-hidden="true"></a>idx &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></span>
 <span id="cb55-2"><a href="sec-loops.html#cb55-2" aria-hidden="true"></a>dat &lt;-<span class="st"> </span>zips[idx,]</span>
