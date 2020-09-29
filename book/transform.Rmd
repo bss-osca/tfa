@@ -53,28 +53,52 @@ An excellent introduction on how to transform data using the tidyverse is given 
 * Roger Peng provide a good video giving an [Introduction to the dplyr R package][video-dplyr]. 
 * [Chapter 12](https://bookdown.org/rdpeng/rprogdatascience/managing-data-frames-with-the-dplyr-package.html) in @rdpeng provides a nice introduction to dplyr. 
 * An alternative interactive DataCamp course is [Working with Data in the Tidyverse][datacamp-r-dplyr-bakeoff] which may be good to take if you need more training.
-* The Data transformation with dplyr cheatsheet is very useful. Find the newest version in RStudio **Help > Cheatsheets**.
+* The 'Data transformation with dplyr' cheatsheet is very useful. Find the newest version in RStudio **Help > Cheatsheets**.
 
 
 ## Recap {#rc-transform}
 
-* The package dplyr ...
+* We considers transformation tidy data where data are stored using a tibble (data frame) where each column is a variable, and each row is an observation/case.
 
-   - The `filter` function chooses rows that meet a specific criteria. 
-   - The `select` function chooses columns that we specify. 
-   - The `arrange()` function reorders the rows in a data frame. 
+* Tidy data is important because the consistent structure lets you focus your struggle on questions about the data. 
+
+* Transformation includes narrowing in on observations of interest (e.g. only observations from a specific year or warehouse), creating new variables based on existing variables (like the cost of using the machine that day given idle time). 
+
+* Tidying and transforming are called wrangling, because it can be a hard process to get your data in the right form.
+
+* The package dplyr provide a consistent set of verbs that help you solve the most common data manipulation challenges:
+   - The `filter` function chooses rows (cases/observations) that meet a specific criteria. 
+   - The `select` function chooses columns (variables) based on their names.
+   - The `arrange` function reorders the rows. 
+   - The `transmute` function adds/modify columns (variables) and drops existing ones.
+   - The `mutate` function adds/modify columns (variables).
+   - The `group_by` function group variables for groupwise operations.
+   - The `ungroup` function remove the current grouping.
+   - The `count` function count rows based on a grouping. 
+   - The `summarise` function reduces multiple values down to a single summary.
+   - The `distinct` function selects unique/distinct rows.
+   - The `pull` function can be use to extract columns as vectors (it is similar to $).
+   
+* Some nice to know functions to use inside e.g. `summarise` or `mutate` are
+   - The `n()` function count the number of rows in a group.
+   - The `n_distinct` count the number of unique rows in a group.
+   - The `first` function considers the first row in a group (remember to order it as needed).
+   - The `slice_min` and `slice_max` functions selects rows with highest or lowest values of a variable.
+   - The `across` function makes it easy to apply the same transformation to multiple columns.
+   
+* Use `print(n = Inf)` in a pipe to print all rows.
+
+* Use the pipe operator `%>%` to connect operations.  
+
+* Use functions `glimpse`, `tail`, `head`, `View` to have look at the data.
+
+* The `skim` function in the skimr package provides an approach to summary statistics.
+
+* Use `as.character`, `as.numeric`, etc. to convert data to a different type.
+
+* Use `nrow` and `ncol` functions to get the number of rows and columns of the data.
 
 
-
-* Extract variables with `select()`  
-* Extract cases with `filter()`  
-* Arrange cases, with `arrange()`  
-
-* Make tables of summaries with `summarise()`  
-* Make new variables, with `mutate()`  
-* Do groupwise operations with `group_by()`
-
-* Connect operations with `%>%`  
 
 ## Exercises {#ex-transform}
 
@@ -98,7 +122,7 @@ addSolution("
 gapminder %>% glimpse()
 gapminder %>% summary()
 gapminder %>% tail()
-")
+", evalCode = FALSE)
 ```
 
    (@) Use `glimpse`, `summary` and `tail` to examine the data.
@@ -106,27 +130,38 @@ gapminder %>% tail()
    (@) Use `count` to count the number of
 ```{r, echo=FALSE}
 addSolution("
-gapminder %>% count(country) %>% nrow()
+gapminder %>% 
+  count(country) %>% 
+  nrow()
 ")
 ```
        a) countries, 
        b) continents,
 ```{r, echo=FALSE}
 addSolution("
-gapminder %>% count(continent) %>% nrow()
+gapminder %>% 
+  count(continent) %>% 
+  nrow()
 ")
 ```
        c) countries per continent. 
 ```{r, echo=FALSE}
 addSolution("
-gapminder %>% count(continent, country) %>% count(continent)     # or
-gapminder %>% distinct(continent, country) %>% count(continent)
+gapminder %>% 
+  count(continent, country) %>% 
+  count(continent)     # or
+gapminder %>% 
+  distinct(continent, country) %>% 
+  count(continent)
 ")
 ```
    
 ```{r, echo=FALSE}
 addSolution("
-gapminder %>% distinct(continent) %>% pull(1) %>% as.character()
+gapminder %>% 
+  distinct(continent) %>% 
+  pull(continent) %>% 
+  as.character()
 ")
 ```   
    
@@ -137,19 +172,22 @@ gapminder %>% distinct(continent) %>% pull(1) %>% as.character()
        a) all rows with life expectancy less that 29 years,
 ```{r, echo=FALSE}
 addSolution("
-gapminder %>% filter(lifeExp < 29)
+gapminder %>% 
+  filter(lifeExp < 29)
 ")
 ```
        b) all rows for Rwanda after year 1979,
 ```{r, echo=FALSE}
 addSolution('
-gapminder %>% filter(country == "Rwanda", year > 1979)
+gapminder %>% 
+  filter(country == "Rwanda", year > 1979)
 ')
 ```
        c) all rows for Rwanda, Afghanistan or France.
 ```{r, echo=FALSE}
 addSolution('
-gapminder %>%  filter(country %in% c("Rwanda", "Afghanistan", "France"))
+gapminder %>%  
+  filter(country %in% c("Rwanda", "Afghanistan", "France"))
 ')
 ```
 
@@ -158,13 +196,15 @@ gapminder %>%  filter(country %in% c("Rwanda", "Afghanistan", "France"))
        a) year and life expectancy,
 ```{r, echo=FALSE}
 addSolution("
-gapminder %>% select(year, lifeExp)
+gapminder %>% 
+  select(year, lifeExp)
 ")
 ```       
        b) country and GDP per capita.
 ```{r, echo=FALSE}
 addSolution("
-gapminder %>% select(country, gdpPercap)
+gapminder %>% 
+  select(country, gdpPercap)
 ")
 ```       
       
@@ -172,9 +212,9 @@ gapminder %>% select(country, gdpPercap)
 ```{r, echo=FALSE}
 addSolution('
 gapminder %>% 
-   filter((gdpPercap > 40000 & continent == "Europe") | (gdpPercap < 400 & continent == "Africa")) %>% print(n=Inf) %>% 
-   select(continent, country, gdpPercap) %>% 
-   print(n=Inf)
+   filter((gdpPercap > 40000 & continent == "Europe") | (gdpPercap < 400 & continent == "Africa")) %>% 
+   # print(n=Inf) %>%   # if want to see the intermediate results
+   select(continent, country, gdpPercap) # %>% print(n=Inf)
 ')
 ```   
 
@@ -193,8 +233,12 @@ In general GDP numbers are large and abstract. Let us try to calculate relative 
 
 ```{r, echo=FALSE}
 addSolution('
-mean_dk <- gapminder %>% filter(country == "Denmark") %>% pull(gdpPercap) %>% mean()
-dat <- gapminder %>% mutate(gdpPercapRel = gdpPercap/mean_dk)
+mean_dk <- gapminder %>% 
+  filter(country == "Denmark") %>% 
+  pull(gdpPercap) %>% 
+  mean()
+dat <- gapminder %>% 
+  mutate(gdpPercapRel = gdpPercap/mean_dk)
 dat %>% 
   filter(country == "Denmark") %>% 
   select(country, year, gdpPercapRel)
@@ -210,7 +254,8 @@ text = "The relative GDP per capita numbers are, in general, well below 1. We se
       a) data by year then country, as opposed to current by country then year,
 ```{r, echo=FALSE}
 addSolution('
-gapminder %>% arrange(year, country)
+gapminder %>% 
+  arrange(year, country)
 ')
 ``` 
       b) data from 2007, sorted on life expectancy,
@@ -235,19 +280,22 @@ gapminder %>%
        a) rename `year` to `yr` and keep all other columns (the select helper `everything` may be used),
 ```{r, echo=FALSE}
 addSolution('
-gapminder %>% select(yr = year, everything())
+gapminder %>% 
+  select(yr = year, everything())
 ')
 ```        
        b) remove `pop`
 ```{r, echo=FALSE}
 addSolution('
-gapminder %>% select(-pop)
+gapminder %>% 
+  select(-pop)
 ')
 ```        
        c) reorder columns in order `year`, `pop`, ... (remaining).
 ```{r, echo=FALSE}
 addSolution('
-gapminder %>% select(year, pop, everything())
+gapminder %>% 
+  select(year, pop, everything())
 ')
 ``` 
 
@@ -255,25 +303,34 @@ gapminder %>% select(year, pop, everything())
       a) number of observations per continent
 ```{r, echo=FALSE}
 addSolution('
-gapminder %>% group_by(continent) %>% summarize(n = n())
+gapminder %>% 
+  group_by(continent) %>% 
+  summarize(n = n())
 ')
 ```       
       b) number of countries per continent (use `n_distinct` inside `summarize` to count the number of distinct observations),
 ```{r, echo=FALSE}
 addSolution('
-gapminder %>% group_by(continent) %>% summarize(n = n(), n_countries = n_distinct(country))
+gapminder %>% 
+  group_by(continent) %>% 
+  summarize(n = n(), n_countries = n_distinct(country))
 ')
 ```       
       c) average life expectancy by continent,
 ```{r, echo=FALSE}
 addSolution('
-gapminder %>% group_by(continent) %>% summarize(avg_lifeExp = mean(lifeExp))
+gapminder %>% 
+  group_by(continent) %>% 
+  summarize(avg_lifeExp = mean(lifeExp))
 ')
 ```       
       d) minimum and maximum life expectancies seen by year in Asia 
 ```{r, echo=FALSE}
 addSolution('
-gapminder %>% filter(continent == "Asia") %>% group_by(year) %>% summarize(min_lifeExp = min(lifeExp), max_lifeExp = max(lifeExp))
+gapminder %>% 
+  filter(continent == "Asia") %>% 
+  group_by(year) %>% 
+  summarize(min_lifeExp = min(lifeExp), max_lifeExp = max(lifeExp))
 ')
 ``` 
       
@@ -290,7 +347,8 @@ gapminder %>%
 ``` 
 
   (@) Sometimes you don't want to collapse the $n$ rows for each group into one row. That is, you don't want to use `summarize` but `mutate` within your groups. Try to make a new variable that is the years of life expectancy gained (lost) relative to 1952, for each individual country. You code should look like this
-      ```{r, eval = FALSE}
+  
+      ```r
       gapminder %>% 
         group_by(country) %>%                 # group by country
         select(country, year, lifeExp) %>%    # select relevant columns
@@ -298,6 +356,7 @@ gapminder %>%
         mutate(lifeExp_gain = ___) %>%        # define new variable
         filter(year < 1963)                   # just for nice printing
       ```
+      
       The `first` function may be helpful to extract the first value from a vector in each group.
 
 
@@ -310,11 +369,12 @@ gapminder %>%
   summarize(worst_le_delta = min(le_delta, na.rm = TRUE)) %>%
   slice_min(worst_le_delta) %>%
   arrange(worst_le_delta)
-')
+', text = "Mostly you are seeing what genocide looks like in dry statistics on average life expectancy.")
 ``` 
 
   (@) Which country experienced the sharpest 5-year drop in life expectancy in each continent? Recall that the Gapminder data only has data every five years, e.g. for 1952, 1957, etc. So this really means looking at life expectancy changes between adjacent timepoints. Here the `lag` function is useful to select the value in the previous row. Your code should look like:
-      ```{r, eval=FALSE}
+  
+      ```r
       gapminder %>%
         select(country, year, continent, lifeExp) %>%             # select relevant columns
         group_by(continent, country) %>%                          # group
@@ -323,6 +383,7 @@ gapminder %>%
         slice_min(worst_le_delta) %>%                             # find min in each continent
         arrange(worst_le_delta)                                   # arrange 
       ```
+      
       Positive values of `le_delta` means lifeExp went up, negative means it went down. Break the code into pieces, starting at the top, and inspect the intermediate results. These commands are built up gradually, with lots of errors and refinements along the way. 
 
 
@@ -331,11 +392,7 @@ gapminder %>%
 
 Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
 
-The package babynames contains a dataset provided by the USA social security administration:
-
-* `babynames`: For each year from 1880 to 2017, the number of children of 
-  each sex given each name. All names with more than 5 uses are given.
-  (Source: http://www.ssa.gov/oact/babynames/limits.html)
+The package babynames contains the dataset `babynames` provided by the USA social security administration. For each year from 1880 to 2017, the number of children of each sex given each name. All names with more than 5 uses are given (source: http://www.ssa.gov/oact/babynames/limits.html).
 
 Install it using 
 
@@ -356,6 +413,7 @@ addSolution(text = "The last line only selects the `n` column.")
 ``` 
 
   1) Which of these is NOT a way to select the `name` and `n` columns together?
+  
       ```r
       select(babynames, -c(year, sex, prop))
       select(babynames, name:n)
@@ -366,13 +424,15 @@ addSolution(text = "The last line only selects the `n` column.")
   2) Use `filter` and the logical operators to find:
 ```{r, echo=FALSE}
 addSolution('
-babynames %>% filter(prop >= 0.08)
+babynames %>% 
+  filter(prop >= 0.08)
 ')
 ```   
         a) All of the names where prop is greater than or equal to 0.08  
 ```{r, echo=FALSE}
 addSolution('
-babynames %>% filter(name == "Sea")
+babynames %>% 
+  filter(name == "Sea")
 ')
 ```       
         b) All of the children named "Sea" 
@@ -382,19 +442,22 @@ babynames %>% filter(name == "Sea")
       a) _Boys_ named Sue,
 ```{r, echo=FALSE}
 addSolution('
-babynames %>% filter(name == "Sue", sex == "M")
+babynames %>% 
+  filter(name == "Sue", sex == "M")
 ')
 ``` 
       b) Names that were used by exactly 5 or 6 children in 1880,
 ```{r, echo=FALSE}
 addSolution('
-babynames %>% filter(year == 1880, n == 5 | n == 6)
+babynames %>% 
+  filter(year == 1880, n == 5 | n == 6)
 ')
 ```       
       c) Names that are one of Acura, Lexus, or Yugo.
 ```{r, echo=FALSE}
 addSolution('
-babynames %>% filter(name %in% c("Acura", "Lexus", "Yugo"))
+babynames %>% 
+  filter(name %in% c("Acura", "Lexus", "Yugo"))
 ')
 ```       
 
@@ -441,12 +504,12 @@ babynames %>%
 ```{r, echo=FALSE}
 addSolution('
 babynames ___ 
-  filter(_______________________) ___
-  ___________(total = ________, first = _______)
+  filter(____) ___
+  ____(total = ___, first = ___)
 ', title = "Hint", evalCode = FALSE)
 ``` 
 
-  7) Complete the code below to extract the rows where `name == "Khaleesi"`. Then use `summarise()` to find the total number of children named Khaleesi and the first year Khaleesi appeared in the data.
+  7) Extract the rows where `name == "Khaleesi"`. Then use `summarise()` to find the total number of children named Khaleesi and the first year Khaleesi appeared in the data.
 
 
 ```{r, echo=FALSE}
@@ -581,6 +644,8 @@ dat$`Product Cost`[idx] <- ""
 write_csv(dat, "profit_raw.csv")
 ```
 
+Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
+
 Consider the dataset profit containing quarterly financial records for each costumer, product, etc.:
 
 ```{r}
@@ -607,10 +672,16 @@ You would like it to be a numeric with values 1-4.
 ```{r, echo=FALSE}
 addSolution('
 profit <- profit %>%  
-  mutate(Quarter = str_remove(Quarter, "q") %>% str_remove("Q") %>% 
-  as.numeric())
+  mutate(Quarter = str_remove(Quarter, "q") %>% str_remove("Q") %>% as.numeric())
 profit %>% distinct(Quarter)
 ')
+``` 
+```{r, echo=FALSE}
+addSolution('
+profit <- profit %>%  
+  mutate(Quarter = str_remove(___, "q") %>% str_remove(___) %>% as.numeric())
+profit %>% distinct(Quarter)
+', title = "Hint", evalCode = FALSE)
 ``` 
 
   1) Use `mutate`, `str_remove` and `as.numeric` to convert the column to a numeric by removing all 'q' and 'Q' values.
@@ -749,10 +820,10 @@ profit %>%
 profit %>% 
   rowwise() %>% 
   mutate(c_na = sum(is.na(c_across(Revenue:Profit)))) %>% filter(c_na > 0)
-')
+', evalCode = FALSE)
 ```
 
-   6) Recalculate values in columns `Revenue` - `Profit` if possible. Hint: recall that profit = revenue - product costs - customer service cost; that is, if a single value of these are missing then it can be calculated using the other ones. To find the number of missing values (`NA`) you can create a new column counting the number of missing values:
+   6) Recalculate values in columns `Revenue` - `Profit` if possible. Hint: recall that profit = revenue - product costs - customer service cost; that is, if a single value of these are missing then the value can be calculated using the other ones. To find the number of missing values (`NA`) you can create a new column counting the number of missing values:
       ```{r}
       profit <- profit %>% 
         rowwise() %>% 
@@ -760,7 +831,7 @@ profit %>%
         ungroup()
       profit %>% filter(ct_na >= 1)
       ```
-     You can now recalculate values using:
+     You can now recalculate values using a code like:
       ```r
       profit <- profit %>% 
         mutate(Revenue = if_else(is.na(Revenue) & c_na == 1, Profit + `Product Cost` + `Customer Service Cost`, Revenue, Revenue),
@@ -790,7 +861,7 @@ profit %>%
   group_by(Quarter, `Customer ID`) %>% 
   summarise(Profit = sum(Profit)) %>% 
   slice_max(Profit, n = 2)
-')
+', text = "The results are not the same with group rows now.")
 ```
 
   8) Find the two best customers with highest profit in each quarter. Is the results the same as in Question 7?
@@ -857,7 +928,8 @@ profit %>%
 
 ```{r, echo=FALSE, message=FALSE}
 addSolution('
-profit %>% arrange(desc(Profit), desc(Revenue))
+profit %>% 
+  arrange(desc(Profit), desc(Revenue))
 ')
 ```
 
