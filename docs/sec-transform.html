@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2020-09-25" />
+<meta name="date" content="2020-09-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -283,6 +283,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>8.5</b> Exercises</a>
 <ul>
 <li class="chapter" data-level="8.5.1" data-path="sec-transform.html"><a href="sec-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>8.5.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="8.5.2" data-path="sec-transform.html"><a href="sec-transform.html#ex-babynames1"><i class="fa fa-check"></i><b>8.5.2</b> Exercise (babynames)</a></li>
+<li class="chapter" data-level="8.5.3" data-path="sec-transform.html"><a href="sec-transform.html#ex-profit1"><i class="fa fa-check"></i><b>8.5.3</b> Exercise (profit)</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>IV Visualization</b></span></li>
@@ -391,6 +393,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Roger Peng provide a good video giving an <a href="https://www.youtube.com/watch?v=aywFompr1F4">Introduction to the dplyr R package</a>.</li>
 <li><a href="https://bookdown.org/rdpeng/rprogdatascience/managing-data-frames-with-the-dplyr-package.html">Chapter 12</a> in <span class="citation">Peng (<a href="#ref-rdpeng" role="doc-biblioref">2018</a>)</span> provides a nice introduction to dplyr.</li>
 <li>An alternative interactive DataCamp course is <a href="https://learn.datacamp.com/courses/working-with-data-in-the-tidyverse">Working with Data in the Tidyverse</a> which may be good to take if you need more training.</li>
+<li>The Data transformation with dplyr cheatsheet is very useful. Find the newest version in RStudio <strong>Help &gt; Cheatsheets</strong>.</li>
 </ul>
 </div>
 <div id="rc-transform" class="section level2" number="8.4">
@@ -402,6 +405,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The <code>select</code> function chooses columns that we specify.</li>
 <li>The <code>arrange()</code> function reorders the rows in a data frame.</li>
 </ul></li>
+<li><p>Extract variables with <code>select()</code><br />
+</p></li>
+<li><p>Extract cases with <code>filter()</code><br />
+</p></li>
+<li><p>Arrange cases, with <code>arrange()</code></p></li>
+<li><p>Make tables of summaries with <code>summarise()</code><br />
+</p></li>
+<li><p>Make new variables, with <code>mutate()</code><br />
+</p></li>
+<li><p>Do groupwise operations with <code>group_by()</code></p></li>
+<li><p>Connect operations with <code>%&gt;%</code></p></li>
 </ul>
 </div>
 <div id="ex-transform" class="section level2" number="8.5">
@@ -411,23 +425,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">8.5.1</span> Exercise (gapminder)</h3>
 <p>Use the <em>exercise R markdown template</em> to solve this exercise (<strong>File &gt; New File &gt; R Markdown…</strong>, select <strong>From template</strong> and then <strong>TFA Exercise</strong>).</p>
 <p>The gapminder data set provides values for life expectancy, GDP per capita, and population, every five years, from 1952 to 2007 for 142 countries. The data can be loaded using the gapminder package:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="sec-transform.html#cb103-1" aria-hidden="true"></a><span class="kw">library</span>(gapminder)</span>
-<span id="cb103-2"><a href="sec-transform.html#cb103-2" aria-hidden="true"></a>gapminder</span>
-<span id="cb103-3"><a href="sec-transform.html#cb103-3" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 1,704 x 6</span></span>
-<span id="cb103-4"><a href="sec-transform.html#cb103-4" aria-hidden="true"></a><span class="co">#&gt;    country     continent  year lifeExp      pop gdpPercap</span></span>
-<span id="cb103-5"><a href="sec-transform.html#cb103-5" aria-hidden="true"></a><span class="co">#&gt;    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;</span></span>
-<span id="cb103-6"><a href="sec-transform.html#cb103-6" aria-hidden="true"></a><span class="co">#&gt;  1 Afghanistan Asia       1952    28.8  8425333      779.</span></span>
-<span id="cb103-7"><a href="sec-transform.html#cb103-7" aria-hidden="true"></a><span class="co">#&gt;  2 Afghanistan Asia       1957    30.3  9240934      821.</span></span>
-<span id="cb103-8"><a href="sec-transform.html#cb103-8" aria-hidden="true"></a><span class="co">#&gt;  3 Afghanistan Asia       1962    32.0 10267083      853.</span></span>
-<span id="cb103-9"><a href="sec-transform.html#cb103-9" aria-hidden="true"></a><span class="co">#&gt;  4 Afghanistan Asia       1967    34.0 11537966      836.</span></span>
-<span id="cb103-10"><a href="sec-transform.html#cb103-10" aria-hidden="true"></a><span class="co">#&gt;  5 Afghanistan Asia       1972    36.1 13079460      740.</span></span>
-<span id="cb103-11"><a href="sec-transform.html#cb103-11" aria-hidden="true"></a><span class="co">#&gt;  6 Afghanistan Asia       1977    38.4 14880372      786.</span></span>
-<span id="cb103-12"><a href="sec-transform.html#cb103-12" aria-hidden="true"></a><span class="co">#&gt;  7 Afghanistan Asia       1982    39.9 12881816      978.</span></span>
-<span id="cb103-13"><a href="sec-transform.html#cb103-13" aria-hidden="true"></a><span class="co">#&gt;  8 Afghanistan Asia       1987    40.8 13867957      852.</span></span>
-<span id="cb103-14"><a href="sec-transform.html#cb103-14" aria-hidden="true"></a><span class="co">#&gt;  9 Afghanistan Asia       1992    41.7 16317921      649.</span></span>
-<span id="cb103-15"><a href="sec-transform.html#cb103-15" aria-hidden="true"></a><span class="co">#&gt; 10 Afghanistan Asia       1997    41.8 22227415      635.</span></span>
-<span id="cb103-16"><a href="sec-transform.html#cb103-16" aria-hidden="true"></a><span class="co">#&gt; # … with 1,694 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="sec-transform.html#cb104-1" aria-hidden="true"></a><span class="kw">library</span>(gapminder)</span>
+<span id="cb104-2"><a href="sec-transform.html#cb104-2" aria-hidden="true"></a>gapminder</span>
+<span id="cb104-3"><a href="sec-transform.html#cb104-3" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 1,704 x 6</span></span>
+<span id="cb104-4"><a href="sec-transform.html#cb104-4" aria-hidden="true"></a><span class="co">#&gt;    country     continent  year lifeExp      pop gdpPercap</span></span>
+<span id="cb104-5"><a href="sec-transform.html#cb104-5" aria-hidden="true"></a><span class="co">#&gt;    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;</span></span>
+<span id="cb104-6"><a href="sec-transform.html#cb104-6" aria-hidden="true"></a><span class="co">#&gt;  1 Afghanistan Asia       1952    28.8  8425333      779.</span></span>
+<span id="cb104-7"><a href="sec-transform.html#cb104-7" aria-hidden="true"></a><span class="co">#&gt;  2 Afghanistan Asia       1957    30.3  9240934      821.</span></span>
+<span id="cb104-8"><a href="sec-transform.html#cb104-8" aria-hidden="true"></a><span class="co">#&gt;  3 Afghanistan Asia       1962    32.0 10267083      853.</span></span>
+<span id="cb104-9"><a href="sec-transform.html#cb104-9" aria-hidden="true"></a><span class="co">#&gt;  4 Afghanistan Asia       1967    34.0 11537966      836.</span></span>
+<span id="cb104-10"><a href="sec-transform.html#cb104-10" aria-hidden="true"></a><span class="co">#&gt;  5 Afghanistan Asia       1972    36.1 13079460      740.</span></span>
+<span id="cb104-11"><a href="sec-transform.html#cb104-11" aria-hidden="true"></a><span class="co">#&gt;  6 Afghanistan Asia       1977    38.4 14880372      786.</span></span>
+<span id="cb104-12"><a href="sec-transform.html#cb104-12" aria-hidden="true"></a><span class="co">#&gt;  7 Afghanistan Asia       1982    39.9 12881816      978.</span></span>
+<span id="cb104-13"><a href="sec-transform.html#cb104-13" aria-hidden="true"></a><span class="co">#&gt;  8 Afghanistan Asia       1987    40.8 13867957      852.</span></span>
+<span id="cb104-14"><a href="sec-transform.html#cb104-14" aria-hidden="true"></a><span class="co">#&gt;  9 Afghanistan Asia       1992    41.7 16317921      649.</span></span>
+<span id="cb104-15"><a href="sec-transform.html#cb104-15" aria-hidden="true"></a><span class="co">#&gt; 10 Afghanistan Asia       1997    41.8 22227415      635.</span></span>
+<span id="cb104-16"><a href="sec-transform.html#cb104-16" aria-hidden="true"></a><span class="co">#&gt; # … with 1,694 more rows</span></span></code></pre></div>
 <p>Let us try to examine the data set (use pipes <code>%&gt;%</code> as much as possible).</p>
+<pre><code>#&gt; Rows: 1,704
+#&gt; Columns: 6
+#&gt; $ country   &lt;fct&gt; Afghanistan, Afghanistan, Afghanistan, Afghanistan, Afghanistan, Afghanistan, A…
+#&gt; $ continent &lt;fct&gt; Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Europe,…
+#&gt; $ year      &lt;int&gt; 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992, 1997, 2002, 2007, 1952, 1…
+#&gt; $ lifeExp   &lt;dbl&gt; 28.8, 30.3, 32.0, 34.0, 36.1, 38.4, 39.9, 40.8, 41.7, 41.8, 42.1, 43.8, 55.2, 5…
+#&gt; $ pop       &lt;int&gt; 8425333, 9240934, 10267083, 11537966, 13079460, 14880372, 12881816, 13867957, 1…
+#&gt; $ gdpPercap &lt;dbl&gt; 779, 821, 853, 836, 740, 786, 978, 852, 649, 635, 727, 975, 1601, 1942, 2313, 2…</code></pre>
 <div aria-labelledby="solution0-title" class="modal fade bs-example-modal-lg" id="solution0" role="dialog" tabindex="-1">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -549,7 +571,7 @@ gapminder %&gt;% distinct(continent, country) %&gt;% count(continent)
 </button>
 <h4 class="modal-title" id="solution5-title">Solution</h4>
 </div>
-<div class="modal-body"><pre><code class="r">dapminder %&gt;% filter(lifeExp &lt; 29)
+<div class="modal-body"><pre><code class="r">gapminder %&gt;% filter(lifeExp &lt; 29)
 </code></pre>
 </div>
 <div class="modal-footer">
@@ -644,6 +666,54 @@ gapminder %&gt;% distinct(continent, country) %&gt;% count(continent)
 <button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution9">Solution</button></li>
 </ol></li>
 </ol>
+<pre><code>#&gt; # A tibble: 21 x 6
+#&gt;    country           continent  year lifeExp      pop gdpPercap
+#&gt;    &lt;fct&gt;             &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+#&gt;  1 Burundi           Africa     1952    39.0  2445618      339.
+#&gt;  2 Burundi           Africa     1957    40.5  2667518      380.
+#&gt;  3 Burundi           Africa     1962    42.0  2961915      355.
+#&gt;  4 Congo, Dem. Rep.  Africa     1997    42.6 47798986      312.
+#&gt;  5 Congo, Dem. Rep.  Africa     2002    45.0 55379852      241.
+#&gt;  6 Congo, Dem. Rep.  Africa     2007    46.5 64606759      278.
+#&gt;  7 Equatorial Guinea Africa     1952    34.5   216964      376.
+#&gt;  8 Eritrea           Africa     1952    35.9  1438760      329.
+#&gt;  9 Eritrea           Africa     1957    38.0  1542611      344.
+#&gt; 10 Eritrea           Africa     1962    40.2  1666618      381.
+#&gt; 11 Ethiopia          Africa     1952    34.1 20860941      362.
+#&gt; 12 Ethiopia          Africa     1957    36.7 22815614      379.
+#&gt; 13 Guinea-Bissau     Africa     1952    32.5   580653      300.
+#&gt; 14 Ireland           Europe     2007    78.9  4109086    40676.
+#&gt; 15 Lesotho           Africa     1952    42.1   748747      299.
+#&gt; 16 Lesotho           Africa     1957    45.0   813338      336.
+#&gt; 17 Malawi            Africa     1952    36.3  2917802      369.
+#&gt; 18 Mozambique        Africa     1987    42.9 12891952      390.
+#&gt; 19 Norway            Europe     1997    78.3  4405672    41283.
+#&gt; 20 Norway            Europe     2002    79.0  4535591    44684.
+#&gt; 21 Norway            Europe     2007    80.2  4627926    49357.
+#&gt; # A tibble: 21 x 3
+#&gt;    continent country           gdpPercap
+#&gt;    &lt;fct&gt;     &lt;fct&gt;                 &lt;dbl&gt;
+#&gt;  1 Africa    Burundi                339.
+#&gt;  2 Africa    Burundi                380.
+#&gt;  3 Africa    Burundi                355.
+#&gt;  4 Africa    Congo, Dem. Rep.       312.
+#&gt;  5 Africa    Congo, Dem. Rep.       241.
+#&gt;  6 Africa    Congo, Dem. Rep.       278.
+#&gt;  7 Africa    Equatorial Guinea      376.
+#&gt;  8 Africa    Eritrea                329.
+#&gt;  9 Africa    Eritrea                344.
+#&gt; 10 Africa    Eritrea                381.
+#&gt; 11 Africa    Ethiopia               362.
+#&gt; 12 Africa    Ethiopia               379.
+#&gt; 13 Africa    Guinea-Bissau          300.
+#&gt; 14 Europe    Ireland              40676.
+#&gt; 15 Africa    Lesotho                299.
+#&gt; 16 Africa    Lesotho                336.
+#&gt; 17 Africa    Malawi                 369.
+#&gt; 18 Africa    Mozambique             390.
+#&gt; 19 Europe    Norway               41283.
+#&gt; 20 Europe    Norway               44684.
+#&gt; 21 Europe    Norway               49357.</code></pre>
 <div aria-labelledby="solution10-title" class="modal fade bs-example-modal-lg" id="solution10" role="dialog" tabindex="-1">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -961,12 +1031,12 @@ summary(dat$gdpPercapRel)
 <button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution23">Solution</button>
 <ol start="12" class="example" style="list-style-type: decimal">
 <li><p>Sometimes you don’t want to collapse the <span class="math inline">\(n\)</span> rows for each group into one row. That is, you don’t want to use <code>summarize</code> but <code>mutate</code> within your groups. Try to make a new variable that is the years of life expectancy gained (lost) relative to 1952, for each individual country. You code should look like this</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="sec-transform.html#cb104-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb104-2"><a href="sec-transform.html#cb104-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span><span class="st">                 </span><span class="co"># group by country</span></span>
-<span id="cb104-3"><a href="sec-transform.html#cb104-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(country, year, lifeExp) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># select relevant columns</span></span>
-<span id="cb104-4"><a href="sec-transform.html#cb104-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">arrange</span>(year, <span class="dt">.by_group =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># make sure that data is sorted correct</span></span>
-<span id="cb104-5"><a href="sec-transform.html#cb104-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lifeExp_gain =</span> ___) <span class="op">%&gt;%</span><span class="st">        </span><span class="co"># define new variable</span></span>
-<span id="cb104-6"><a href="sec-transform.html#cb104-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">&lt;</span><span class="st"> </span><span class="dv">1963</span>)                   <span class="co"># just for nice printing</span></span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="sec-transform.html#cb107-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb107-2"><a href="sec-transform.html#cb107-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span><span class="st">                 </span><span class="co"># group by country</span></span>
+<span id="cb107-3"><a href="sec-transform.html#cb107-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(country, year, lifeExp) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># select relevant columns</span></span>
+<span id="cb107-4"><a href="sec-transform.html#cb107-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">arrange</span>(year, <span class="dt">.by_group =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># make sure that data is sorted correct</span></span>
+<span id="cb107-5"><a href="sec-transform.html#cb107-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lifeExp_gain =</span> ___) <span class="op">%&gt;%</span><span class="st">        </span><span class="co"># define new variable</span></span>
+<span id="cb107-6"><a href="sec-transform.html#cb107-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">&lt;</span><span class="st"> </span><span class="dv">1963</span>)                   <span class="co"># just for nice printing</span></span></code></pre></div>
 <p>The <code>first</code> function may be helpful to extract the first value from a vector in each group.</p></li>
 </ol>
 <div aria-labelledby="solution24-title" class="modal fade bs-example-modal-lg" id="solution24" role="dialog" tabindex="-1">
@@ -996,14 +1066,1192 @@ summary(dat$gdpPercapRel)
 <button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution24">Solution</button>
 <ol start="13" class="example" style="list-style-type: decimal">
 <li><p>Which country experienced the sharpest 5-year drop in life expectancy in each continent? Recall that the Gapminder data only has data every five years, e.g. for 1952, 1957, etc. So this really means looking at life expectancy changes between adjacent timepoints. Here the <code>lag</code> function is useful to select the value in the previous row. Your code should look like:</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="sec-transform.html#cb105-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span></span>
-<span id="cb105-2"><a href="sec-transform.html#cb105-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(country, year, continent, lifeExp) <span class="op">%&gt;%</span><span class="st">             </span><span class="co"># select relevant columns</span></span>
-<span id="cb105-3"><a href="sec-transform.html#cb105-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(continent, country) <span class="op">%&gt;%</span><span class="st">                          </span><span class="co"># group</span></span>
-<span id="cb105-4"><a href="sec-transform.html#cb105-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">le_delta =</span> ___) <span class="op">%&gt;%</span><span class="st">                                </span><span class="co"># within country, take (lifeExp in year i) - (lifeExp in year i - 1)</span></span>
-<span id="cb105-5"><a href="sec-transform.html#cb105-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">worst_le_delta =</span> <span class="kw">min</span>(___, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># find lowest value</span></span>
-<span id="cb105-6"><a href="sec-transform.html#cb105-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">slice_min</span>(worst_le_delta) <span class="op">%&gt;%</span><span class="st">                             </span><span class="co"># find min in each continent</span></span>
-<span id="cb105-7"><a href="sec-transform.html#cb105-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">arrange</span>(worst_le_delta)                                   <span class="co"># arrange </span></span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="sec-transform.html#cb108-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span></span>
+<span id="cb108-2"><a href="sec-transform.html#cb108-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(country, year, continent, lifeExp) <span class="op">%&gt;%</span><span class="st">             </span><span class="co"># select relevant columns</span></span>
+<span id="cb108-3"><a href="sec-transform.html#cb108-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(continent, country) <span class="op">%&gt;%</span><span class="st">                          </span><span class="co"># group</span></span>
+<span id="cb108-4"><a href="sec-transform.html#cb108-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">le_delta =</span> ___) <span class="op">%&gt;%</span><span class="st">                                </span><span class="co"># within country, take (lifeExp in year i) - (lifeExp in year i - 1)</span></span>
+<span id="cb108-5"><a href="sec-transform.html#cb108-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">worst_le_delta =</span> <span class="kw">min</span>(___, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># find lowest value</span></span>
+<span id="cb108-6"><a href="sec-transform.html#cb108-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">slice_min</span>(worst_le_delta) <span class="op">%&gt;%</span><span class="st">                             </span><span class="co"># find min in each continent</span></span>
+<span id="cb108-7"><a href="sec-transform.html#cb108-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">arrange</span>(worst_le_delta)                                   <span class="co"># arrange </span></span></code></pre></div>
 <p>Positive values of <code>le_delta</code> means lifeExp went up, negative means it went down. Break the code into pieces, starting at the top, and inspect the intermediate results. These commands are built up gradually, with lots of errors and refinements along the way.</p></li>
+</ol>
+</div>
+<div id="ex-babynames1" class="section level3" number="8.5.2">
+<h3><span class="header-section-number">8.5.2</span> Exercise (babynames)</h3>
+<p>Use the <em>exercise R markdown template</em> to solve this exercise (<strong>File &gt; New File &gt; R Markdown…</strong>, select <strong>From template</strong> and then <strong>TFA Exercise</strong>).</p>
+<p>The package babynames contains a dataset provided by the USA social security administration:</p>
+<ul>
+<li><code>babynames</code>: For each year from 1880 to 2017, the number of children of
+each sex given each name. All names with more than 5 uses are given.
+(Source: <a href="http://www.ssa.gov/oact/babynames/limits.html" class="uri">http://www.ssa.gov/oact/babynames/limits.html</a>)</li>
+</ul>
+<p>Install it using</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="sec-transform.html#cb109-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">&quot;babynames&quot;</span>)</span></code></pre></div>
+<p>We will use the skimr package to get an overview over <code>babynames</code>:</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="sec-transform.html#cb110-1" aria-hidden="true"></a><span class="kw">library</span>(babynames)</span>
+<span id="cb110-2"><a href="sec-transform.html#cb110-2" aria-hidden="true"></a><span class="kw">library</span>(skimr)</span>
+<span id="cb110-3"><a href="sec-transform.html#cb110-3" aria-hidden="true"></a><span class="kw">skim</span>(babynames)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-204">Table 8.1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">babynames</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">1924665</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">5</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">2</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">sex</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">name</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">15</td>
+<td align="right">0</td>
+<td align="right">97310</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">year</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1975</td>
+<td align="right">34</td>
+<td align="right">1880</td>
+<td align="right">1951</td>
+<td align="right">1985</td>
+<td align="right">2003</td>
+<td align="right">2017.00</td>
+<td align="left">▁▂▃▅▇</td>
+</tr>
+<tr class="even">
+<td align="left">n</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">181</td>
+<td align="right">1533</td>
+<td align="right">5</td>
+<td align="right">7</td>
+<td align="right">12</td>
+<td align="right">32</td>
+<td align="right">99686.00</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">prop</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0.08</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table>
+<div aria-labelledby="solution25-title" class="modal fade bs-example-modal-lg" id="solution25" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution25-title">Solution</h4>
+</div>
+<div class="modal-body"><p>The last line only selects the <code>n</code> column.</p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution25">Solution</button>
+<ol style="list-style-type: decimal">
+<li><p>Which of these is NOT a way to select the <code>name</code> and <code>n</code> columns together?
+<code>r       select(babynames, -c(year, sex, prop))       select(babynames, name:n)       select(babynames, starts_with("n"))       select(babynames, ends_with("n"))</code></p></li>
+<li><p>Use <code>filter</code> and the logical operators to find:
+<div aria-labelledby="solution26-title" class="modal fade bs-example-modal-lg" id="solution26" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution26-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">babynames %&gt;% filter(prop &gt;= 0.08)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution26">Solution</button></p>
+<ol style="list-style-type: lower-alpha">
+<li>All of the names where prop is greater than or equal to 0.08<br />
+<div aria-labelledby="solution27-title" class="modal fade bs-example-modal-lg" id="solution27" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution27-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">babynames %&gt;% filter(name == &quot;Sea&quot;)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution27">Solution</button></li>
+<li>All of the children named “Sea”</li>
+</ol></li>
+<li><p>Use Boolean operators to return only the rows that contain:</p>
+<ol style="list-style-type: lower-alpha">
+<li><em>Boys</em> named Sue,
+<div aria-labelledby="solution28-title" class="modal fade bs-example-modal-lg" id="solution28" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution28-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">babynames %&gt;% filter(name == &quot;Sue&quot;, sex == &quot;M&quot;)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution28">Solution</button></li>
+<li>Names that were used by exactly 5 or 6 children in 1880,
+<div aria-labelledby="solution29-title" class="modal fade bs-example-modal-lg" id="solution29" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution29-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">babynames %&gt;% filter(year == 1880, n == 5 | n == 6)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution29">Solution</button></li>
+<li>Names that are one of Acura, Lexus, or Yugo.
+<div aria-labelledby="solution30-title" class="modal fade bs-example-modal-lg" id="solution30" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution30-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">babynames %&gt;% filter(name %in% c(&quot;Acura&quot;, &quot;Lexus&quot;, &quot;Yugo&quot;))
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution30">Solution</button></li>
+</ol></li>
+</ol>
+<div aria-labelledby="solution31-title" class="modal fade bs-example-modal-lg" id="solution31" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution31-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">min(babynames$n)
+max(babynames$n)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution31">Solution</button>
+<ol start="4" style="list-style-type: decimal">
+<li>What is the smallest value of n? What is the largest?</li>
+</ol>
+<div aria-labelledby="solution32-title" class="modal fade bs-example-modal-lg" id="solution32" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution32-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">babynames %&gt;% 
+  filter(sex == &quot;F&quot;, year == 2017) %&gt;% 
+  select(name, n) %&gt;% 
+  arrange(desc(n))
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution32">Solution</button>
+<ol start="5" style="list-style-type: decimal">
+<li>Write a sequence of functions that filters babynames to just the girls that were born in 2017, then selects the <code>name</code> and <code>n</code> columns, then, arranges the results so that the most popular names are near the top.</li>
+</ol>
+<div aria-labelledby="solution33-title" class="modal fade bs-example-modal-lg" id="solution33" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution33-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">babynames %&gt;% 
+  filter(sex == &quot;M&quot;, name == &quot;Lars&quot;)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution33">Solution</button>
+<ol start="6" style="list-style-type: decimal">
+<li>Trim <code>babynames</code> to just the rows that contain your <code>name</code> and your <code>sex</code>.</li>
+</ol>
+<p><div aria-labelledby="solution34-title" class="modal fade bs-example-modal-lg" id="solution34" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution34-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">babynames %&gt;% 
+  filter(name == &quot;Khaleesi&quot;) %&gt;% 
+  summarise(total = sum(n), first = min(year))
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution34">Solution</button>
+<div aria-labelledby="solution35-title" class="modal fade bs-example-modal-lg" id="solution35" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution35-title">Hint</h4>
+</div>
+<div class="modal-body"><pre><code class="r">babynames ___ 
+  filter(_______________________) ___
+  ___________(total = ________, first = _______)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution35">Hint</button></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Complete the code below to extract the rows where <code>name == "Khaleesi"</code>. Then use <code>summarise()</code> to find the total number of children named Khaleesi and the first year Khaleesi appeared in the data.</li>
+</ol>
+<p><div aria-labelledby="solution36-title" class="modal fade bs-example-modal-lg" id="solution36" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution36-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">babynames %&gt;%
+  group_by(name, sex) %&gt;% 
+  summarize(total = sum(n)) %&gt;% 
+  arrange(desc(total))
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution36">Solution</button>
+<div aria-labelledby="solution37-title" class="modal fade bs-example-modal-lg" id="solution37" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution37-title">Hint</h4>
+</div>
+<div class="modal-body"><pre><code class="r">babynames %&gt;%
+  _______(name, sex) %&gt;% 
+  _______(total = _____(n)) %&gt;% 
+  _______(desc(_____))
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution37">Hint</button></p>
+<ol start="8" style="list-style-type: decimal">
+<li>Use <code>group_by()</code>, <code>summarise()</code>, and <code>arrange()</code> to display the ten most popular names. Compute popularity as the <em>total</em> number of children of a single gender given a name.</li>
+</ol>
+<div aria-labelledby="solution38-title" class="modal fade bs-example-modal-lg" id="solution38" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution38-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">babynames %&gt;% 
+  group_by(year) %&gt;% 
+  summarise(total = sum(n))
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution38">Solution</button>
+<ol start="9" style="list-style-type: decimal">
+<li>Use <code>group_by()</code> to calculate the total number of children born each year over time.</li>
+</ol>
+<p><div aria-labelledby="solution39-title" class="modal fade bs-example-modal-lg" id="solution39" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution39-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">babynames %&gt;% 
+  group_by(year, sex) %&gt;% 
+  mutate(rank = min_rank(desc(n))) %&gt;% 
+  arrange(year, sex, desc(prop))
+</code></pre>
+
+<p>The same results if you use <code>n</code> since in the same order.</p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution39">Solution</button>
+<div aria-labelledby="solution40-title" class="modal fade bs-example-modal-lg" id="solution40" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution40-title">Hint</h4>
+</div>
+<div class="modal-body"><pre><code class="r">babynames %&gt;% 
+  group_by(___, ___) %&gt;% 
+  ___(rank = ___(desc(___))) %&gt;% 
+  arrange(year, sex, desc(prop))
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution40">Hint</button></p>
+<ol start="10" style="list-style-type: decimal">
+<li>Column <code>prop</code> denote the proportion given year and sex. Use <code>mutate()</code> and <code>min_rank()</code> to rank each row in babynames from <em>largest</em> <code>prop</code> to lowest <code>prop</code> given year and sex. What happens if you do the same using the <code>n</code> column?</li>
+</ol>
+<div aria-labelledby="solution41-title" class="modal fade bs-example-modal-lg" id="solution41" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution41-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">babynames %&gt;% 
+  group_by(year, sex) %&gt;% 
+  mutate(rank = min_rank(desc(n))) %&gt;% 
+  filter(rank == 1, year &gt; 2009)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution41">Solution</button>
+<ol start="11" style="list-style-type: decimal">
+<li>Filter the results to find all names with <code>rank == 1</code> after 2009.</li>
+</ol>
+</div>
+<div id="ex-profit1" class="section level3" number="8.5.3">
+<h3><span class="header-section-number">8.5.3</span> Exercise (profit)</h3>
+<p>Consider the dataset profit containing quarterly financial records for each costumer, product, etc.:</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="sec-transform.html#cb111-1" aria-hidden="true"></a><span class="kw">library</span>(skimr)</span>
+<span id="cb111-2"><a href="sec-transform.html#cb111-2" aria-hidden="true"></a>path &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/profit_raw.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tfa&quot;</span>)</span>
+<span id="cb111-3"><a href="sec-transform.html#cb111-3" aria-hidden="true"></a>profit &lt;-<span class="st"> </span><span class="kw">read_csv</span>(path)</span>
+<span id="cb111-4"><a href="sec-transform.html#cb111-4" aria-hidden="true"></a><span class="kw">skim</span>(profit)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-223">Table 8.2: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">profit</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">24546</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">9</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">9</td>
+</tr>
+<tr class="odd">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Quarter</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">12</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Channel</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Customer ID</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">18</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Country</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">14</td>
+<td align="right">0</td>
+<td align="right">47</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Product Line</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">14</td>
+<td align="right">25</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Revenue</td>
+<td align="right">63</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">1210</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Product Cost</td>
+<td align="right">61</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">1139</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Customer Service Cost</td>
+<td align="right">10</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">464</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Profit</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">966</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>Note that it seems that the dataset need to be cleaned. All columns are strings (some should be numbers) and there seems to be missing values. You may start by having a view of the dataset using</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="sec-transform.html#cb112-1" aria-hidden="true"></a><span class="kw">View</span>(profit)</span></code></pre></div>
+<p>First focus on column <code>Quarter</code> which currently has 12 distinct values</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="sec-transform.html#cb113-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(Quarter)</span>
+<span id="cb113-2"><a href="sec-transform.html#cb113-2" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 12 x 1</span></span>
+<span id="cb113-3"><a href="sec-transform.html#cb113-3" aria-hidden="true"></a><span class="co">#&gt;    Quarter</span></span>
+<span id="cb113-4"><a href="sec-transform.html#cb113-4" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;  </span></span>
+<span id="cb113-5"><a href="sec-transform.html#cb113-5" aria-hidden="true"></a><span class="co">#&gt;  1 Q3     </span></span>
+<span id="cb113-6"><a href="sec-transform.html#cb113-6" aria-hidden="true"></a><span class="co">#&gt;  2 1      </span></span>
+<span id="cb113-7"><a href="sec-transform.html#cb113-7" aria-hidden="true"></a><span class="co">#&gt;  3 Q4     </span></span>
+<span id="cb113-8"><a href="sec-transform.html#cb113-8" aria-hidden="true"></a><span class="co">#&gt;  4 Q1     </span></span>
+<span id="cb113-9"><a href="sec-transform.html#cb113-9" aria-hidden="true"></a><span class="co">#&gt;  5 Q2     </span></span>
+<span id="cb113-10"><a href="sec-transform.html#cb113-10" aria-hidden="true"></a><span class="co">#&gt;  6 2      </span></span>
+<span id="cb113-11"><a href="sec-transform.html#cb113-11" aria-hidden="true"></a><span class="co">#&gt;  7 4      </span></span>
+<span id="cb113-12"><a href="sec-transform.html#cb113-12" aria-hidden="true"></a><span class="co">#&gt;  8 q1     </span></span>
+<span id="cb113-13"><a href="sec-transform.html#cb113-13" aria-hidden="true"></a><span class="co">#&gt;  9 q4     </span></span>
+<span id="cb113-14"><a href="sec-transform.html#cb113-14" aria-hidden="true"></a><span class="co">#&gt; 10 q3     </span></span>
+<span id="cb113-15"><a href="sec-transform.html#cb113-15" aria-hidden="true"></a><span class="co">#&gt; 11 q2     </span></span>
+<span id="cb113-16"><a href="sec-transform.html#cb113-16" aria-hidden="true"></a><span class="co">#&gt; 12 3</span></span></code></pre></div>
+<p>You would like it to be a numeric with values 1-4.</p>
+<div aria-labelledby="solution42-title" class="modal fade bs-example-modal-lg" id="solution42" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution42-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">profit &lt;- profit %&gt;%  
+  mutate(Quarter = str_remove(Quarter, &quot;q&quot;) %&gt;% str_remove(&quot;Q&quot;) %&gt;% 
+  as.numeric())
+profit %&gt;% distinct(Quarter)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution42">Solution</button>
+<ol style="list-style-type: decimal">
+<li>Use <code>mutate</code>, <code>str_remove</code> and <code>as.numeric</code> to convert the column to a numeric by removing all ‘q’ and ‘Q’ values.</li>
+</ol>
+<p>Let us look at the next columns</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="sec-transform.html#cb114-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(Channel) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>()</span>
+<span id="cb114-2"><a href="sec-transform.html#cb114-2" aria-hidden="true"></a><span class="co">#&gt;  [1] &quot;ATM&quot; &quot;BRH&quot; &quot;INT&quot; &quot;MAL&quot; &quot;EML&quot; &quot;CCT&quot; &quot;TEL&quot; &quot;MOP&quot; &quot;DSA&quot; &quot;EVE&quot;</span></span>
+<span id="cb114-3"><a href="sec-transform.html#cb114-3" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(<span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>()</span>
+<span id="cb114-4"><a href="sec-transform.html#cb114-4" aria-hidden="true"></a><span class="co">#&gt;  [1] &quot;FRT&quot; &quot;MRT&quot; &quot;PBI&quot; &quot;MAM&quot; &quot;EBP&quot; &quot;RPB&quot; &quot;WEB&quot; &quot;WEM&quot; &quot;HEC&quot; &quot;STF&quot; &quot;IAS&quot; &quot;CRE&quot; &quot;INB&quot; &quot;CAM&quot; &quot;AGR&quot; &quot;SBE&quot;</span></span>
+<span id="cb114-5"><a href="sec-transform.html#cb114-5" aria-hidden="true"></a><span class="co">#&gt; [17] &quot;AFF&quot; &quot;MFN&quot;</span></span>
+<span id="cb114-6"><a href="sec-transform.html#cb114-6" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(Country) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>()</span>
+<span id="cb114-7"><a href="sec-transform.html#cb114-7" aria-hidden="true"></a><span class="co">#&gt;  [1] &quot;USA&quot;            &quot;Canada&quot;         &quot;Great Britain&quot;  &quot;Finland&quot;        &quot;New Zealand&quot;   </span></span>
+<span id="cb114-8"><a href="sec-transform.html#cb114-8" aria-hidden="true"></a><span class="co">#&gt;  [6] &quot;Brazil&quot;         &quot;Mexico&quot;         &quot;Germany&quot;        &quot;Puerto Rico&quot;    &quot;Hong Kong&quot;     </span></span>
+<span id="cb114-9"><a href="sec-transform.html#cb114-9" aria-hidden="true"></a><span class="co">#&gt; [11] &quot;Japan&quot;          &quot;Columbia&quot;       &quot;Switzerland&quot;    &quot;Uruguay&quot;        &quot;Netherlands&quot;   </span></span>
+<span id="cb114-10"><a href="sec-transform.html#cb114-10" aria-hidden="true"></a><span class="co">#&gt; [16] &quot;Korea&quot;          &quot;Venezuela&quot;      &quot;Panama&quot;         &quot;Sweden&quot;         &quot;China&quot;         </span></span>
+<span id="cb114-11"><a href="sec-transform.html#cb114-11" aria-hidden="true"></a><span class="co">#&gt; [21] &quot;Guatemala&quot;      &quot;South Africa&quot;   &quot;Malaysia&quot;       &quot;Nigeria&quot;        &quot;Denmark&quot;       </span></span>
+<span id="cb114-12"><a href="sec-transform.html#cb114-12" aria-hidden="true"></a><span class="co">#&gt; [26] &quot;France&quot;         &quot;India&quot;          &quot;Taiwan&quot;         &quot;Norway&quot;         &quot;Chile&quot;         </span></span>
+<span id="cb114-13"><a href="sec-transform.html#cb114-13" aria-hidden="true"></a><span class="co">#&gt; [31] &quot;Indonesia&quot;      &quot;Ireland&quot;        &quot;Thailand&quot;       &quot;Peru&quot;           &quot;Spain&quot;         </span></span>
+<span id="cb114-14"><a href="sec-transform.html#cb114-14" aria-hidden="true"></a><span class="co">#&gt; [36] &quot;Belgium&quot;        &quot;Poland&quot;         &quot;Ecuador&quot;        &quot;Costa Rica&quot;     &quot;Australia&quot;     </span></span>
+<span id="cb114-15"><a href="sec-transform.html#cb114-15" aria-hidden="true"></a><span class="co">#&gt; [41] &quot;Israel&quot;         &quot;Guam&quot;           &quot;Oman&quot;           &quot;Singapore&quot;      &quot;Argentina&quot;     </span></span>
+<span id="cb114-16"><a href="sec-transform.html#cb114-16" aria-hidden="true"></a><span class="co">#&gt; [46] &quot;Czechoslovakia&quot; &quot;Philippines&quot;</span></span>
+<span id="cb114-17"><a href="sec-transform.html#cb114-17" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(<span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>()</span>
+<span id="cb114-18"><a href="sec-transform.html#cb114-18" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Credit Products&quot;           &quot;Deposit Products&quot;          &quot;Revolving Credit Products&quot;</span></span>
+<span id="cb114-19"><a href="sec-transform.html#cb114-19" aria-hidden="true"></a><span class="co">#&gt; [4] &quot;Other Products&quot;            &quot;Third Party Products&quot;      &quot;Fee Based Products&quot;</span></span></code></pre></div>
+<p>These seems to be okay. The last columns should be numbers. Let us consider <code>Revenue</code>.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="sec-transform.html#cb115-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(Revenue) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dt">n =</span> <span class="dv">100</span>)</span>
+<span id="cb115-2"><a href="sec-transform.html#cb115-2" aria-hidden="true"></a><span class="co">#&gt;   [1] &quot;$ 6044&quot;  &quot;$ 4686&quot;  &quot;$ 6063&quot;  &quot;$ 4682&quot;  &quot;$ 6320&quot;  &quot;$ 2993&quot;  &quot;$ 3355&quot;  &quot;$ 5716&quot;  &quot;$ 3347&quot; </span></span>
+<span id="cb115-3"><a href="sec-transform.html#cb115-3" aria-hidden="true"></a><span class="co">#&gt;  [10] &quot;$ 2624&quot;  &quot;$ 3629&quot;  &quot;$ 5612&quot;  &quot;$ 4618&quot;  &quot;$ 2080&quot;  &quot;$ 2788&quot;  &quot;$ 2829&quot;  &quot;$ 2898&quot;  &quot;$ 5232&quot; </span></span>
+<span id="cb115-4"><a href="sec-transform.html#cb115-4" aria-hidden="true"></a><span class="co">#&gt;  [19] &quot;$ 2949&quot;  &quot;$ 5565&quot;  &quot;$ 2153&quot;  &quot;$ 3097&quot;  &quot;$ 1920&quot;  &quot;$ 4041&quot;  &quot;$ 5931&quot;  &quot;$ 1605&quot;  &quot;$ 2026&quot; </span></span>
+<span id="cb115-5"><a href="sec-transform.html#cb115-5" aria-hidden="true"></a><span class="co">#&gt;  [28] &quot;$ 1687&quot;  &quot;$ 5075&quot;  &quot;$ 4223&quot;  &quot;$ 2456&quot;  &quot;$ 1924&quot;  &quot;$ 1578&quot;  &quot;$ 3235&quot;  &quot;$ 5123&quot;  &quot;$ 1560&quot; </span></span>
+<span id="cb115-6"><a href="sec-transform.html#cb115-6" aria-hidden="true"></a><span class="co">#&gt;  [37] &quot;$ 1945&quot;  &quot;$ 6060&quot;  &quot;$ 1222&quot;  &quot;$ 1660&quot;  &quot;$ 3000&quot;  &quot;$ 2970&quot;  &quot;$ 1631&quot;  &quot;$ 1215&quot;  &quot;$ 1759&quot; </span></span>
+<span id="cb115-7"><a href="sec-transform.html#cb115-7" aria-hidden="true"></a><span class="co">#&gt;  [46] &quot;$ 3285&quot;  &quot;$ 2048&quot;  &quot;$ 2173&quot;  &quot;$ 3353&quot;  &quot;$ 1162&quot;  &quot;$ 1232&quot;  &quot;$ 1561&quot;  &quot;$ 1123&quot;  &quot;$ 1794&quot; </span></span>
+<span id="cb115-8"><a href="sec-transform.html#cb115-8" aria-hidden="true"></a><span class="co">#&gt;  [55] &quot;$ 1202&quot;  &quot;$ 1510&quot;  &quot;$ 4472&quot;  &quot;$ 2370&quot;  &quot;$ 2581&quot;  &quot;$ 2761&quot;  &quot;$ 6371&quot;  &quot;$ 1972&quot;  &quot;$ 1562&quot; </span></span>
+<span id="cb115-9"><a href="sec-transform.html#cb115-9" aria-hidden="true"></a><span class="co">#&gt;  [64] &quot;$ 2742&quot;  &quot;$ 4598&quot;  &quot;$ 5322&quot;  &quot;$ 3411&quot;  NA        &quot;$ 1569&quot;  &quot;$ 2852&quot;  &quot;$ 1622&quot;  &quot;$ 2505&quot; </span></span>
+<span id="cb115-10"><a href="sec-transform.html#cb115-10" aria-hidden="true"></a><span class="co">#&gt;  [73] &quot;$ 1596&quot;  &quot;$ 1447&quot;  &quot;$ 1690&quot;  &quot;$ 2448&quot;  &quot;$ 1593&quot;  &quot;$ 1876&quot;  &quot;$ 6591&quot;  &quot;$ 1611&quot;  &quot;$ 1254&quot; </span></span>
+<span id="cb115-11"><a href="sec-transform.html#cb115-11" aria-hidden="true"></a><span class="co">#&gt;  [82] &quot;Unknown&quot; &quot;$ 842&quot;   &quot;$ 1529&quot;  &quot;$ 1439&quot;  &quot;$ 762&quot;   &quot;$ 1959&quot;  &quot;$ 4382&quot;  &quot;$ 1407&quot;  &quot;$ 909&quot;  </span></span>
+<span id="cb115-12"><a href="sec-transform.html#cb115-12" aria-hidden="true"></a><span class="co">#&gt;  [91] &quot;$ 1549&quot;  &quot;$ 2161&quot;  &quot;$ 1331&quot;  &quot;$ 727&quot;   &quot;$ 1462&quot;  &quot;$ 1067&quot;  &quot;$ 833&quot;   &quot;$ 1675&quot;  &quot;$ 1524&quot; </span></span>
+<span id="cb115-13"><a href="sec-transform.html#cb115-13" aria-hidden="true"></a><span class="co">#&gt; [100] &quot;$ 1285&quot;</span></span></code></pre></div>
+<p>Most values start with a dollar sign. Let us have a look at the other ones:</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="sec-transform.html#cb116-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_starts</span>(Revenue, <span class="kw">fixed</span>(<span class="st">&quot;$&quot;</span>))) </span>
+<span id="cb116-2"><a href="sec-transform.html#cb116-2" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 95 x 9</span></span>
+<span id="cb116-3"><a href="sec-transform.html#cb116-3" aria-hidden="true"></a><span class="co">#&gt;    Quarter Channel `Customer ID` Country `Product Line` Revenue `Product Cost` `Customer Servi…</span></span>
+<span id="cb116-4"><a href="sec-transform.html#cb116-4" aria-hidden="true"></a><span class="co">#&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;          &lt;chr&gt;   &lt;chr&gt;          &lt;chr&gt;           </span></span>
+<span id="cb116-5"><a href="sec-transform.html#cb116-5" aria-hidden="true"></a><span class="co">#&gt;  1       3 INT     MAM           USA     Deposit Produ… Unknown $ 1008         $ 246           </span></span>
+<span id="cb116-6"><a href="sec-transform.html#cb116-6" aria-hidden="true"></a><span class="co">#&gt;  2       3 MAL     RPB           USA     Credit Produc… ?       $ 1420         $ 347           </span></span>
+<span id="cb116-7"><a href="sec-transform.html#cb116-7" aria-hidden="true"></a><span class="co">#&gt;  3       1 MAL     WEM           Great … Other Products ?       $ 87           $ 19            </span></span>
+<span id="cb116-8"><a href="sec-transform.html#cb116-8" aria-hidden="true"></a><span class="co">#&gt;  4       3 ATM     MFN           Germany Fee Based Pro… unknown $ 47           $ 6             </span></span>
+<span id="cb116-9"><a href="sec-transform.html#cb116-9" aria-hidden="true"></a><span class="co">#&gt;  5       3 ATM     PBI           Costa … Third Party P… Unknown $ 51           $ 9             </span></span>
+<span id="cb116-10"><a href="sec-transform.html#cb116-10" aria-hidden="true"></a><span class="co">#&gt;  6       1 ATM     PBI           Chile   Deposit Produ… Unknown $ 58           $ 7             </span></span>
+<span id="cb116-11"><a href="sec-transform.html#cb116-11" aria-hidden="true"></a><span class="co">#&gt;  7       4 CCT     MRT           Great … Revolving Cre… ?       $ 27           $ 5             </span></span>
+<span id="cb116-12"><a href="sec-transform.html#cb116-12" aria-hidden="true"></a><span class="co">#&gt;  8       4 ATM     MAM           Taiwan  Third Party P… unknown $ 55           $ 9             </span></span>
+<span id="cb116-13"><a href="sec-transform.html#cb116-13" aria-hidden="true"></a><span class="co">#&gt;  9       4 MAL     WEB           Japan   Other Products unknown $ 40           $ 7             </span></span>
+<span id="cb116-14"><a href="sec-transform.html#cb116-14" aria-hidden="true"></a><span class="co">#&gt; 10       2 CCT     MAM           Nether… Credit Produc… unknown $ 14           $ 3             </span></span>
+<span id="cb116-15"><a href="sec-transform.html#cb116-15" aria-hidden="true"></a><span class="co">#&gt; # … with 85 more rows, and 1 more variable: Profit &lt;chr&gt;</span></span>
+<span id="cb116-16"><a href="sec-transform.html#cb116-16" aria-hidden="true"></a>na_values &lt;-<span class="st"> </span>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb116-17"><a href="sec-transform.html#cb116-17" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_starts</span>(Revenue, <span class="kw">fixed</span>(<span class="st">&quot;$&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb116-18"><a href="sec-transform.html#cb116-18" aria-hidden="true"></a><span class="st">  </span><span class="kw">distinct</span>(Revenue) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb116-19"><a href="sec-transform.html#cb116-19" aria-hidden="true"></a><span class="st">  </span><span class="kw">pull</span>(Revenue)</span>
+<span id="cb116-20"><a href="sec-transform.html#cb116-20" aria-hidden="true"></a>na_values</span>
+<span id="cb116-21"><a href="sec-transform.html#cb116-21" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Unknown&quot; &quot;?&quot;       &quot;unknown&quot;</span></span></code></pre></div>
+<p>The expression is a bit complex. Let us break it up. Function <code>fixed</code> just return the fixed string ‘$’. This is necessary since the dollar sign have a special meaning in regular expressions (beyond the scope here). Function <code>str_starts</code> check if the string starts with a dollar sign. We use the logical negation (NOT) to find the complementary set.</p>
+<p>Note that different strings have been used to indicate <code>NA</code> values (Unknown, ?, unknown). Let us first use a single value to indicate <code>NA</code> (a question mark):</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="sec-transform.html#cb117-1" aria-hidden="true"></a>profit &lt;-<span class="st"> </span>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb117-2"><a href="sec-transform.html#cb117-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Revenue =</span> <span class="kw">str_replace_all</span>(Revenue, <span class="kw">c</span>(<span class="st">&quot;unknown&quot;</span> =<span class="st"> &quot;?&quot;</span>, <span class="st">&quot;Unknown&quot;</span> =<span class="st"> &quot;?&quot;</span>)))</span></code></pre></div>
+<p>Next, we replace all <code>?</code> with <code>NA</code>:</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="sec-transform.html#cb118-1" aria-hidden="true"></a>profit &lt;-<span class="st"> </span>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb118-2"><a href="sec-transform.html#cb118-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Revenue =</span> <span class="kw">na_if</span>(Revenue, <span class="st">&quot;?&quot;</span>))</span>
+<span id="cb118-3"><a href="sec-transform.html#cb118-3" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># check</span></span>
+<span id="cb118-4"><a href="sec-transform.html#cb118-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_starts</span>(Revenue, <span class="kw">fixed</span>(<span class="st">&quot;$&quot;</span>))) </span>
+<span id="cb118-5"><a href="sec-transform.html#cb118-5" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 0 x 9</span></span>
+<span id="cb118-6"><a href="sec-transform.html#cb118-6" aria-hidden="true"></a><span class="co">#&gt; # … with 9 variables: Quarter &lt;dbl&gt;, Channel &lt;chr&gt;, `Customer ID` &lt;chr&gt;, Country &lt;chr&gt;, `Product</span></span>
+<span id="cb118-7"><a href="sec-transform.html#cb118-7" aria-hidden="true"></a><span class="co">#&gt; #   Line` &lt;chr&gt;, Revenue &lt;chr&gt;, `Product Cost` &lt;chr&gt;, `Customer Service Cost` &lt;chr&gt;, Profit &lt;chr&gt;</span></span></code></pre></div>
+<p>Finally, we remove all dollar signs:</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="sec-transform.html#cb119-1" aria-hidden="true"></a>profit &lt;-<span class="st"> </span>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb119-2"><a href="sec-transform.html#cb119-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Revenue =</span> <span class="kw">str_remove</span>(Revenue, <span class="kw">fixed</span>(<span class="st">&quot;$ &quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>())</span>
+<span id="cb119-3"><a href="sec-transform.html#cb119-3" aria-hidden="true"></a>profit</span>
+<span id="cb119-4"><a href="sec-transform.html#cb119-4" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 24,546 x 9</span></span>
+<span id="cb119-5"><a href="sec-transform.html#cb119-5" aria-hidden="true"></a><span class="co">#&gt;    Quarter Channel `Customer ID` Country `Product Line` Revenue `Product Cost` `Customer Servi…</span></span>
+<span id="cb119-6"><a href="sec-transform.html#cb119-6" aria-hidden="true"></a><span class="co">#&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;            &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;           </span></span>
+<span id="cb119-7"><a href="sec-transform.html#cb119-7" aria-hidden="true"></a><span class="co">#&gt;  1       3 ATM     FRT           USA     Credit Produc…    6044 $ 3998         $ 413           </span></span>
+<span id="cb119-8"><a href="sec-transform.html#cb119-8" aria-hidden="true"></a><span class="co">#&gt;  2       1 ATM     MRT           USA     Credit Produc…    4686 $ 3229         $ 643           </span></span>
+<span id="cb119-9"><a href="sec-transform.html#cb119-9" aria-hidden="true"></a><span class="co">#&gt;  3       4 ATM     PBI           USA     Deposit Produ…    6063 $ 7440         $ 1842          </span></span>
+<span id="cb119-10"><a href="sec-transform.html#cb119-10" aria-hidden="true"></a><span class="co">#&gt;  4       1 ATM     PBI           USA     Deposit Produ…    4682 $ 6127         $ 1118          </span></span>
+<span id="cb119-11"><a href="sec-transform.html#cb119-11" aria-hidden="true"></a><span class="co">#&gt;  5       4 ATM     MRT           USA     Deposit Produ…    6320 $ 7913         $ 1854          </span></span>
+<span id="cb119-12"><a href="sec-transform.html#cb119-12" aria-hidden="true"></a><span class="co">#&gt;  6       3 BRH     MAM           USA     Deposit Produ…    2993 $ 1034         $ 242           </span></span>
+<span id="cb119-13"><a href="sec-transform.html#cb119-13" aria-hidden="true"></a><span class="co">#&gt;  7       4 BRH     PBI           USA     Revolving Cre…    3355 $ 4355         $ 1027          </span></span>
+<span id="cb119-14"><a href="sec-transform.html#cb119-14" aria-hidden="true"></a><span class="co">#&gt;  8       3 ATM     FRT           USA     Revolving Cre…    5716 $ 5617         $ 876           </span></span>
+<span id="cb119-15"><a href="sec-transform.html#cb119-15" aria-hidden="true"></a><span class="co">#&gt;  9       4 BRH     PBI           USA     Deposit Produ…    3347 $ 4229         $ 425           </span></span>
+<span id="cb119-16"><a href="sec-transform.html#cb119-16" aria-hidden="true"></a><span class="co">#&gt; 10       1 BRH     PBI           USA     Credit Produc…    2624 $ 1960         $ 264           </span></span>
+<span id="cb119-17"><a href="sec-transform.html#cb119-17" aria-hidden="true"></a><span class="co">#&gt; # … with 24,536 more rows, and 1 more variable: Profit &lt;chr&gt;</span></span></code></pre></div>
+<p>As one pipe:</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="sec-transform.html#cb120-1" aria-hidden="true"></a>profit &lt;-<span class="st"> </span>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb120-2"><a href="sec-transform.html#cb120-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Revenue =</span> <span class="kw">str_replace_all</span>(Revenue, <span class="kw">c</span>(<span class="st">&quot;unknown&quot;</span> =<span class="st"> &quot;?&quot;</span>, <span class="st">&quot;Unknown&quot;</span> =<span class="st"> &quot;?&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb120-3"><a href="sec-transform.html#cb120-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Revenue =</span> <span class="kw">na_if</span>(Revenue, <span class="st">&quot;?&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb120-4"><a href="sec-transform.html#cb120-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Revenue =</span> <span class="kw">str_remove</span>(Revenue, <span class="kw">fixed</span>(<span class="st">&quot;$ &quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>())</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Convert the remaining columns to numeric like shown for <code>Revenue</code> above.</li>
+</ol>
+<div aria-labelledby="solution43-title" class="modal fade bs-example-modal-lg" id="solution43" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution43-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">profit &lt;- read_csv(path)
+profit &lt;- profit %&gt;% 
+  mutate(across(Revenue:Profit, ~str_replace_all(.x, c(&quot;unknown&quot; = &quot;?&quot;, &quot;Unknown&quot; = &quot;?&quot;)) )) %&gt;% 
+  mutate(across(Revenue:Profit, ~na_if(.x, &quot;?&quot;) )) %&gt;% 
+  mutate(across(Revenue:Profit, ~str_remove(.x, fixed(&quot;$ &quot;)) %&gt;% as.numeric() )) 
+profit
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution43">Solution</button>
+<ol start="3" style="list-style-type: decimal">
+<li>Use the <code>across</code> function to apply the operations in Question 2 for a set of columns. Hint: see the examples on the help page of <code>across</code>. The code should look like:
+<code>r       profit &lt;- read_csv(path) %&gt;%          mutate(across(___:___, ~str_replace_all(.x, c("unknown" = "?", "Unknown" = "?")) )) %&gt;%          mutate(across(___:___, ~na_if(.x, "?") )) %&gt;%          mutate(across(___:___, ~str_remove(.x, fixed("$ ")) %&gt;% as.numeric() ))        profit</code></li>
+</ol>
+<div aria-labelledby="solution44-title" class="modal fade bs-example-modal-lg" id="solution44" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution44-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">profit &lt;- read_csv(path) %&gt;% 
+  mutate(Quarter = str_remove(Quarter, &quot;q&quot;) %&gt;% str_remove(&quot;Q&quot;) %&gt;% as.numeric()) %&gt;% 
+  mutate(across(Revenue:Profit, ~str_replace_all(.x, c(&quot;unknown&quot; = &quot;?&quot;, &quot;Unknown&quot; = &quot;?&quot;)) )) %&gt;% 
+  mutate(across(Revenue:Profit, ~na_if(.x, &quot;?&quot;) )) %&gt;% 
+  mutate(across(Revenue:Profit, ~str_remove(.x, fixed(&quot;$ &quot;)) %&gt;% as.numeric() )) 
+skim(profit)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution44">Solution</button>
+<ol start="4" style="list-style-type: decimal">
+<li>Write one pipe that do all the cleaning</li>
+</ol>
+<div aria-labelledby="solution45-title" class="modal fade bs-example-modal-lg" id="solution45" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution45-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">profit &lt;- profit %&gt;% 
+  mutate(Profit_calc = Revenue - `Product Cost` - `Customer Service Cost`, Diff = abs(Profit - Profit_calc)) %&gt;%  
+  mutate(Profit = if_else(Diff &gt; 0 &amp; Diff &lt;= 1, Profit_calc, Profit, missing = Profit) ) 
+profit %&gt;% filter(Diff == 1, is.na(Profit_calc))  # check
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution45">Solution</button>
+<ol start="5" style="list-style-type: decimal">
+<li>Validate that revenue - product costs - customer service cost equals profit. If you see small rounding errors (less than or equal 1) then recalculate the profit.</li>
+</ol>
+<div aria-labelledby="solution46-title" class="modal fade bs-example-modal-lg" id="solution46" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution46-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">profit &lt;- profit %&gt;% 
+  rowwise() %&gt;% 
+  mutate(c_na = sum(is.na(c_across(Revenue:Profit)))) %&gt;% 
+  mutate(Revenue = if_else(is.na(Revenue) &amp; c_na == 1, Profit + `Product Cost` + `Customer Service Cost`, Revenue, Revenue),
+         `Product Cost` = if_else(is.na(`Product Cost`) &amp; c_na == 1, - Profit + Revenue - `Customer Service Cost`, `Product Cost`), 
+         `Customer Service Cost` = if_else(is.na(`Customer Service Cost`) &amp; c_na == 1, - Profit + Revenue - `Product Cost`, `Customer Service Cost`)) %&gt;% 
+  select(Quarter:Profit)
+
+# check - do numbers match
+profit %&gt;% 
+  mutate(Profit_calc = Revenue - `Product Cost` - `Customer Service Cost`, Diff = abs(Profit - Profit_calc)) %&gt;%  
+  filter(Diff &gt; 0)
+
+# check - find NA values
+profit %&gt;% 
+  rowwise() %&gt;% 
+  mutate(c_na = sum(is.na(c_across(Revenue:Profit)))) %&gt;% filter(c_na &gt; 0)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution46">Solution</button>
+<ol start="6" style="list-style-type: decimal">
+<li><p>Recalculate values in columns <code>Revenue</code> - <code>Profit</code> if possible. Hint: recall that profit = revenue - product costs - customer service cost; that is, if a single value of these are missing then it can be calculated using the other ones. To find the number of missing values (<code>NA</code>) you can create a new column counting the number of missing values:</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="sec-transform.html#cb121-1" aria-hidden="true"></a>profit &lt;-<span class="st"> </span>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb121-2"><a href="sec-transform.html#cb121-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb121-3"><a href="sec-transform.html#cb121-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ct_na =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(<span class="kw">c_across</span>(Revenue<span class="op">:</span>Profit)))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb121-4"><a href="sec-transform.html#cb121-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ungroup</span>()</span>
+<span id="cb121-5"><a href="sec-transform.html#cb121-5" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(ct_na <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb121-6"><a href="sec-transform.html#cb121-6" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 10</span></span>
+<span id="cb121-7"><a href="sec-transform.html#cb121-7" aria-hidden="true"></a><span class="co">#&gt;   Quarter Channel `Customer ID` Country `Product Line` Revenue `Product Cost` `Customer Servi…</span></span>
+<span id="cb121-8"><a href="sec-transform.html#cb121-8" aria-hidden="true"></a><span class="co">#&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;            &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;</span></span>
+<span id="cb121-9"><a href="sec-transform.html#cb121-9" aria-hidden="true"></a><span class="co">#&gt; 1       1 EML     FRT           France  Revolving Cre…       3             NA               NA</span></span>
+<span id="cb121-10"><a href="sec-transform.html#cb121-10" aria-hidden="true"></a><span class="co">#&gt; 2       2 BRH     EBP           Guam    Fee Based Pro…      NA             NA                0</span></span>
+<span id="cb121-11"><a href="sec-transform.html#cb121-11" aria-hidden="true"></a><span class="co">#&gt; 3       1 MAL     MFN           Japan   Fee Based Pro…      NA             NA                5</span></span>
+<span id="cb121-12"><a href="sec-transform.html#cb121-12" aria-hidden="true"></a><span class="co">#&gt; # … with 2 more variables: Profit &lt;dbl&gt;, ct_na &lt;int&gt;</span></span></code></pre></div>
+<pre><code> You can now recalculate values using:</code></pre>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="sec-transform.html#cb123-1" aria-hidden="true"></a>profit &lt;-<span class="st"> </span>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb123-2"><a href="sec-transform.html#cb123-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Revenue =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(Revenue) <span class="op">&amp;</span><span class="st"> </span>c_na <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, Profit <span class="op">+</span><span class="st"> `</span><span class="dt">Product Cost</span><span class="st">`</span> <span class="op">+</span><span class="st"> `</span><span class="dt">Customer Service Cost</span><span class="st">`</span>, Revenue, Revenue),</span>
+<span id="cb123-3"><a href="sec-transform.html#cb123-3" aria-hidden="true"></a>         <span class="st">`</span><span class="dt">Product Cost</span><span class="st">`</span> =<span class="st"> </span><span class="kw">if_else</span>(___, ___, ___), </span>
+<span id="cb123-4"><a href="sec-transform.html#cb123-4" aria-hidden="true"></a>         <span class="st">`</span><span class="dt">Customer Service Cost</span><span class="st">`</span> =<span class="st"> </span><span class="kw">if_else</span>(___, ___, ___))</span></code></pre></div>
+<p>You can check you calculations using your code from Question 5.</p></li>
+</ol>
+<div aria-labelledby="solution47-title" class="modal fade bs-example-modal-lg" id="solution47" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution47-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">profit %&gt;% 
+  group_by(Quarter) %&gt;% 
+  slice_max(Profit, n = 2)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution47">Solution</button>
+<ol start="7" style="list-style-type: decimal">
+<li>Find the two best rows with highest profit in each quarter.</li>
+</ol>
+<div aria-labelledby="solution48-title" class="modal fade bs-example-modal-lg" id="solution48" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution48-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">profit %&gt;% 
+  group_by(Quarter, `Customer ID`) %&gt;% 
+  summarise(Profit = sum(Profit)) %&gt;% 
+  slice_max(Profit, n = 2)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution48">Solution</button>
+<ol start="8" style="list-style-type: decimal">
+<li>Find the two best customers with highest profit in each quarter. Is the results the same as in Question 7?</li>
+</ol>
+<div aria-labelledby="solution49-title" class="modal fade bs-example-modal-lg" id="solution49" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution49-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">profit %&gt;% 
+  group_by(`Product Line`) %&gt;% 
+  summarise(Profit = sum(Profit)) %&gt;% 
+  slice_max(Profit)
+# ... repeat 
+
+# Using a function
+summarise_profit  &lt;- function(data, group_var, summarise_var) {
+  data %&gt;%
+    group_by(across({{ group_var }})) %&gt;% 
+    summarise(across({{ summarise_var }}, sum)) %&gt;% 
+    slice_max(Profit)
+}
+summarise_profit(profit, `Product Line`, Profit)
+summarise_profit(profit, `Customer ID`, Profit)
+# ... repeat
+
+# Using purrr package to get a single tibble (if intested in the purrr package)
+val &lt;- names(profit)[1:5]
+max_profit &lt;- map_df(
+  val, 
+  ~{
+      tmp &lt;- profit %&gt;% 
+        group_by(.data[[.x]]) %&gt;% 
+        summarise(Profit = sum(Profit), .groups = &quot;drop&quot;) %&gt;% 
+        slice_max(Profit)
+      tibble(by = .x, 
+        best = as.character(tmp[[1,1]]),
+        profit = tmp[[1,2]] 
+      )
+    } 
+  )
+max_profit
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution49">Solution</button>
+<ol start="9" style="list-style-type: decimal">
+<li>Find the product line, customer, channel, country and quarter with the highest profit.</li>
+</ol>
+<div aria-labelledby="solution50-title" class="modal fade bs-example-modal-lg" id="solution50" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution50-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">profit %&gt;% 
+  group_by(`Customer ID`) %&gt;% 
+  distinct(Country) %&gt;% 
+  count(`Customer ID`)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution50">Solution</button>
+<ol start="10" style="list-style-type: decimal">
+<li>Is there rows with the same customer in different countries?</li>
+</ol>
+<div aria-labelledby="solution51-title" class="modal fade bs-example-modal-lg" id="solution51" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution51-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">profit %&gt;% arrange(desc(Profit), desc(Revenue))
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution51">Solution</button>
+<ol start="11" style="list-style-type: decimal">
+<li>Sort the data decreasing with respect to profit and next revenue.</li>
+</ol>
+<div aria-labelledby="solution52-title" class="modal fade bs-example-modal-lg" id="solution52" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution52-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">profit %&gt;% 
+  group_by(`Product Line`) %&gt;% 
+  summarise(cost = sum(`Product Cost` + `Customer Service Cost`)) %&gt;% 
+  # print() %&gt;%   # if want a peek before slicing 
+  slice_max(cost)
+
+profit %&gt;% 
+  group_by(`Product Line`) %&gt;% 
+  summarise(cost = sum(`Product Cost`)) %&gt;% 
+  slice_min(cost)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution52">Solution</button>
+<ol start="12" style="list-style-type: decimal">
+<li>Which product line has the highest and lowest total cost?</li>
+</ol>
+<div aria-labelledby="solution53-title" class="modal fade bs-example-modal-lg" id="solution53" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="solution53-title">Solution</h4>
+</div>
+<div class="modal-body"><pre><code class="r">profit %&gt;%
+  mutate(cust_cost_new = `Customer Service Cost` * 1.05, 
+         profit_new = Revenue - cust_cost_new - `Product Cost`) %&gt;% 
+  group_by(`Product Line`) %&gt;% 
+  summarise(cust_cost = sum(`Customer Service Cost`), profit = sum(Profit), 
+            cust_cost_new = sum(cust_cost_new), profit_new = sum(profit_new),
+            profit_decrease = profit_new - profit)
+</code></pre>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution53">Solution</button>
+<ol start="13" style="list-style-type: decimal">
+<li>Assume that customer service cost increase with 5%. How will that affect the profit for each product line?</li>
 </ol>
 
 </div>
