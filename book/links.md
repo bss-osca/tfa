@@ -22,6 +22,8 @@
 [datacamp-r-strings]: https://learn.datacamp.com/courses/string-manipulation-with-stringr-in-r
 [datacamp-r-dplyr]: https://learn.datacamp.com/courses/data-manipulation-with-dplyr
 [datacamp-r-dplyr-bakeoff]: https://learn.datacamp.com/courses/working-with-data-in-the-tidyverse
+[datacamp-r-ggplot2-intro]: https://learn.datacamp.com/courses/introduction-to-data-visualization-with-ggplot2
+[datacamp-r-ggplot2-intermediate]: https://learn.datacamp.com/courses/intermediate-data-visualization-with-ggplot2
 [dplyr-cran]: https://CRAN.R-project.org/package=dplyr
 [debug-in-r]: https://rstats.wtf/debugging-r-code.html
 

@@ -133,7 +133,7 @@ addIcon <- function(name, attrib = NULL, lib = "font-awesome")
   htmltools::browsable(iconTag)
 }
 
-strLPath <- "We are all different and you may like different learning styles compared to others. As a result you may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be usefull for you."
+strLPath <- "We are all different and you may like different learning styles compared to others. As a result you may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be useful for you."
 
 strExercises <- "Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck see the [help page](#help). Solutions to each exercise can be seen by pressing the button at each question. Beware you will not learn by giving up to early. Put some effort into finding a solution!"
 
