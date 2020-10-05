@@ -48,8 +48,26 @@ options(
 # )
 
 # knit_hooks$set(solution = function(before, options, envir) {
-#   if (!before) {
-#     addSolution(options$code)
+#   if (before) {
+#     str_c('<div aria-labelledby="asdf-title" class="modal fade bs-example-modal-lg" id="asdf" role="dialog" tabindex="-1">
+#   <div class="modal-dialog modal-lg" role="document">
+#     <div class="modal-content">
+#       <div class="modal-header">
+#         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+#           <span aria-hidden="true">&times;</span>
+#         </button>
+#         <h4 class="modal-title" id="asdf-title">sdfa</h4>
+#       </div>
+#       <div class="modal-body">')
+#   } else {
+#     str_c('</div>
+#       <div class="modal-footer">
+#         <button class="btn btn-default" data-dismiss="modal">Close</button>
+#       </div>
+#     </div>
+#   </div>
+# </div>
+# <button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#sda">sdfaf</button>')
 #   }
 # })
 

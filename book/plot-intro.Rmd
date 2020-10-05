@@ -93,6 +93,8 @@ An excellent introduction to data visualization using [ggplot2][tidyverse-ggplot
 
 ### Exercise (gapminder) {#ex-gapminder2}
 
+Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
+
 In this exercise, we will demonstrate how relatively simple ggplot2 code can create insightful and aesthetically pleasing plots. As motivation we will create plots that help us better understand trends in world health and economics. 
 
 <!-- As we go through our case study, we will describe relevant general data visualization principles and learn concepts such as _faceting_, _time series plots_, _transformations_,  and _ridge plots_.   -->
@@ -659,6 +661,232 @@ gapminder %>%
 
 
 
-### Exercise (babynames) {#ex-babynames2}
+### Exercise (profit) {#ex-profit2}
+
+Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
+
+Consider the dataset profit (provided by the tfa package) containing quarterly financial records for each costumer, product, etc.:
+
+```{r}
+library(tfa)
+library(skimr)
+glimpse(profit)
+skim(profit)
+```
+
+  1) Make a barplot that shows the total profitability of the product lines. Use the following steps:
+     a) Convert all character columns to factor columns.
+```{r, echo=FALSE}
+addSolution('
+profit <- profit %>%
+  mutate(across(where(is.character), as.factor))
+')
+``` 
+     b) Group by product line, calculate the total profit and plot profit for each product line.
+```{r, echo=FALSE}
+addSolution('
+profit %>% 
+  group_by(`Product Line`) %>% 
+  summarise(Profit = sum(Profit)) %>% 
+  ggplot(aes(x = `Product Line`, y = Profit)) +
+  geom_col()
+')
+``` 
+     c) Plot profit for each product line where product line is reordered based on total profit.
+```{r, echo=FALSE}
+addSolution('
+profit %>% 
+  group_by(`Product Line`) %>% 
+  summarise(Profit = sum(Profit)) %>% 
+  ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
+  geom_col()
+')
+``` 
+     d) Add a title to the plot using `labs`.
+```{r, echo=FALSE}
+addSolution('
+profit %>% 
+  group_by(`Product Line`) %>% 
+  summarise(Profit = sum(Profit)) %>% 
+  ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
+  geom_col() + 
+  labs(title = "Total profit for each product line") 
+')
+``` 
+     e) Rotate the x-axis labels 90 degrees (try Googling "ggplot2 rotate axis labels").
+```{r, echo=FALSE}
+addSolution('
+profit %>% 
+  group_by(`Product Line`) %>% 
+  summarise(Profit = sum(Profit)) %>% 
+  ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
+  geom_col() +
+  labs(title = "Total profit for each product line") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+')
+``` 
+
+     Which product line is best and worst?
+
+
+
+```{r, echo=FALSE}
+addSolution('
+profit %>% 
+  group_by(`Product Line`, Quarter) %>% 
+  summarise(Profit = sum(Profit)) %>% 
+  ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
+  geom_col() +
+  facet_grid(cols = vars(Quarter)) +
+  labs(title = "Total profit for each product line") +  
+  xlab("Product Line") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+')
+``` 
+
+  2) Make a barplot that shows the total profitability of the product lines in each quarter. Are there details we have missed in Question 1?
+
+
+
+```{r, echo=FALSE}
+addSolution('
+profit %>% 
+  ggplot(aes(y = Profit, x = reorder(`Product Line`, Profit))) +
+  geom_boxplot() +
+  labs(title = "Profit for each product line") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+')
+``` 
+
+
+  3) Make a boxplot of profitability of the product lines. Any insight?
+  
+
+```{r, echo=FALSE}
+addSolution('
+profit %>% 
+  group_by(`Customer ID`) %>% 
+  summarise(Profit = sum(Profit)) %>% 
+  ggplot(aes(x = reorder(`Customer ID`, Profit), y = Profit)) +
+  geom_col() +
+  labs(title = "Mean profit for each product line") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+')
+``` 
+
+  4) Make a barplot that shows the total profitability of the customers. Which customer is best and worst?
+
+
+```{r, echo=FALSE}
+addSolution('
+profit %>% 
+  group_by(`Customer ID`) %>% 
+  summarise(Profit = mean(Profit)) %>% 
+  ggplot(aes(x = reorder(`Customer ID`, Profit), y = Profit)) +
+  geom_col() +
+  labs(title = "Mean profit for each product line") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+')
+``` 
+
+  5) Make a barplot that shows the mean profitability of the customers. Which customer is best and worst? Compare against Question 4 and discuss.
+  
+  
+  
+```{r, echo=FALSE}
+profit %>% 
+  group_by(`Customer ID`) %>% 
+  summarise(ctr = n(), t_profit = sum(Profit)) %>% 
+  ggplot(aes(x = reorder(`Customer ID`, t_profit), y = ctr, fill = t_profit)) +
+  geom_col() +
+  labs(title = "Mean profit for each product line") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+
+addSolution('
+profit %>% 
+  group_by(`Customer ID`) %>% 
+  summarise(Profit = mean(Profit)) %>% 
+  ggplot(aes(x = reorder(`Customer ID`, Profit), y = Profit)) +
+  geom_col() +
+  labs(title = "Mean profit for each product line") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+')
+``` 
+  
+  6) Make a plot illustrating number of transactions for each customer
+  
+  
+  
+```{r}
+profit %>% 
+  ggplot(aes(x = reorder(`Customer ID`, Profit), y = Profit)) +
+  geom_boxplot() +
+  labs(title = "Mean profit for each product line") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+
+profit %>% 
+  group_by(`Customer ID`) %>% 
+  mutate(t_profit_cust_id = sum(Profit),
+         `Customer ID` = reorder(`Customer ID`, t_profit_cust_id)
+         ) %>% 
+  ggplot(aes(y = Profit, x = `Customer ID`)) +
+  geom_boxplot() +
+  # facet_wrap(facets = vars(reorder(`Customer ID`, Profit))) + 
+  labs(title = "Mean profit for each product line") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+Density plot
+
+```{r}
+profit %>% 
+  group_by(`Customer ID`) %>% 
+  ggplot(aes(x = Profit)) +
+  geom_density() +
+  facet_wrap(facets = vars(reorder(`Customer ID`, Profit))) + 
+  labs(title = "Mean profit for each product line") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+```{r}
+profit %>% 
+  ggplot(aes(x = Profit)) +
+  geom_histogram(binwidth = 10) +
+  labs(title = "Mean profit for each product line") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+  2) Make a plot that shows the total profitability of the product lines in each quarter.
+  
+```{r}
+profit %>% 
+  group_by(Quarter, `Product Line`, Country) %>% 
+  summarise(Profit = mean(Profit)) %>% 
+  ggplot(aes(x = `Product Line`, y = Profit)) +
+  geom_point() + 
+  geom_col() + 
+  facet_grid(cols = vars(Quarter), rows = vars(Country)) + 
+  labs(title = "Mean profit for each product line") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
 
 
