@@ -20,7 +20,7 @@ source("common.R")
 
 Writing functions is a core activity of an R programmer. It represents the key step of the transition from a user to a programmer. Functions have inputs and outputs. Functions (and control structures) are what makes your code more dynamic.
 
-Functions are often used to encapsulate a sequence of expressions that need to be executed numerous times, perhaps under slightly different conditions. In programming, functional programming is a programming paradigm, a style how code is written. Rather than repeating code, functions and control structures allow one to build code in blocks. As a result your code becomes more structured, more readable and much easier to maintain and debug (find errors).
+Functions are often used to encapsulate a sequence of expressions that needs to be executed numerous times, perhaps under slightly different conditions. In programming, functional programming is a programming paradigm, a style of how code is written. Rather than repeating the code, functions and control structures allow one to build code in blocks. As a result, your code becomes more structured, more readable and much easier to maintain and debug (find errors).
 
 ## Learning outcomes {#lo-functions}
 
@@ -36,24 +36,24 @@ By the end of this module, you are expected to be able to:
 
 The learning outcomes relate to the [overall learning goals](#lg-course) number 2, 3, 4 and 10 of the course.
 
-<!-- SOLO increasing: identify · memorise · name · do simple procedure · collect data · -->
+<!-- SOLO increasing: identify · memorize · name · do simple procedure · collect data · -->
 <!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
-<!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
-<!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
+<!-- algorithms · compare · contrast · explain causes · analyze · relate · derive · -->
+<!-- evaluate · apply · argue · theorize · generalize · hypothesis · solve · reflect -->
 
 
 ## DataCamp course
 
-An excellent introduction to functions is given in [Chapter 3][datacamp-r-intermediate-chap3] in the DataCamp course [Intermediate R][datacamp-intermediate-r]. Please complete the chapter before continuing. 
+An excellent introduction to functions is given in [Chapter 3][datacamp-r-intermediate-chap3] in the DataCamp course [Intermediate R][datacamp-r-intermediate]. Please complete the chapter before continuing. 
 
 
 ## Functions returning multiple objects
 
-Functions in R only return a single object. However, note that the object may be a list. That is, if you want to return multiple arguments store them in a list. A simple example:
+Functions in R only return a single object. However, note that the object may be a list. That is, if you want to return multiple arguments, store them in a list. A simple example:
 
 ```{r}
 test <- function() {
-  # the function do some stuff and calculate some results
+  # the function does some stuff and calculate some results
   res1 <- 45
   res2 <- "Success"
   res3 <- c(4, 7, 9)
@@ -67,7 +67,7 @@ test()
 
 ## The `...` argument
 
-The special argument `...` which indicate a variable number of arguments and is usually used to pass arguments to nested functions used inside the function. Consider example:
+The special argument `...` indicates a variable number of arguments and is usually used to pass arguments to nested functions used inside the function. Consider example:
 
 ```{r}
 my_name <- function(first = "Lars", last = "Nielsen") {
@@ -83,7 +83,7 @@ cite_text("Learning by doing is the best way to learn how to program!", last = "
 cite_text("To be or not to be", first = "Shakespeare", last = "")
 ```
 
-Note in the first function run we use the defaults in `my_name`. In the second run, we change the default last name and in the last run, we change both arguments.
+Note in the first function run, we use the defaults in `my_name`. In the second run, we change the default last name and in the last run, we change both arguments.
 
 If you need to retrieve/capture the content of the `...` argument, put it in a list:
 
@@ -168,7 +168,7 @@ A list of further tags can be seen in the vignette [Rd (documentation) tags](htt
 
 Writing functions is a core activity of an R programmer. It represents the key step of the transition from a user to a programmer. Functions have inputs and outputs. Functions (and control structures) are what makes your code more dynamic.
 
-Functions are often used to encapsulate a sequence of expressions that need to be executed numerous times, perhaps under slightly different conditions. In programming, functional programming is a programming paradigm, a style how code is written. Rather than repeating code, functions and control structures allow one to build code in blocks. As a result your code becomes more structured, more readable and much easier to maintain and debug (find errors).
+Functions are often used to encapsulate a sequence of expressions that need to be executed numerous times, perhaps under slightly different conditions. In programming, functional programming is a programming paradigm, a style of how code is written. Rather than repeating the code, functions and control structures allow one to build code in blocks. As a result, your code becomes more structured, more readable and much easier to maintain and debug (find errors).
 
 Functions can be defined using the `function()` directive. 
 
@@ -178,7 +178,7 @@ A function can be called using its name and its arguments can be specified by na
 
 Functions always return the last expression evaluated in the function body or when you use the `return` flow control statement (good coding practice). 
 
-Scoping refers to the rules R uses to lookup the value of variables. A function will first look inside the body of the function to identify all the variables. If all variables exist no further search are required. Otherwise, R will look one level up to see if the variable exists. 
+Scoping refers to the rules R uses to look up the value of variables. A function will first look inside the body of the function to identify all the variables. If all variables exist, no further search is required. Otherwise, R will look one level up to see if the variable exists. 
 
 Functions can be assigned to R objects just like any other R object.
 
@@ -307,7 +307,7 @@ gasoline_cost(450)
 ")
 ```
 
-7) Given Question 5 the shipping cost can be split into parts. One part is gasoline which is 50% of the shipping cost. Write a function that has total cost a input argument and calculate the gasoline cost and uses the function defined in Question 5 inside it.   
+7) Given Question 5, the shipping cost can be split into parts. One part is gasoline which is 50% of the shipping cost. Write a function that has total cost an input argument and calculate the gasoline cost and use the function defined in Question 5 inside it.   
   
 ```{r, echo=FALSE}
 addSolution("
@@ -323,7 +323,7 @@ gasoline_cost(450, pct = 0.2)
 ")
 ```
 
-8) Given Question 6 the shipping cost can be split into parts. One part is gasoline which is 50% of the shipping cost. Write a function that has total cost a input argument and calculate the gasoline cost and uses the function defined in Question 6 inside it. Hint: Use the `...` argument to pass arguments to `shipping_cost`.
+8) Given Question 6, the shipping cost can be split into parts. One part is gasoline which is 50% of the shipping cost. Write a function that has total cost a input argument and calculate the gasoline cost and uses the function defined in Question 6 inside it. Hint: Use the `...` argument to pass arguments to `shipping_cost`.
 
 ```{r, echo=FALSE}
 addSolution("
@@ -344,7 +344,7 @@ costs(450, pct = 0.15)
 ")
 ```
 
-9) Given Question 8, write a function `costs` that given total cost returns the total cost, shipping cost and gasoline cost.
+9) Given Question 8, write a function `costs` that, given total cost, returns the total cost, shipping cost and gasoline cost.
 
   
 ### Exercise (scope)
@@ -368,7 +368,7 @@ my_func(7)
 addSolution(text = "The code runs. But it is not good coding practice to call global variables inside a function (`x`). Instead `x` should have been an argument to the function.")
 ```
 
-2) Any problems with the following code?
+2) Is there any problems with the following code?
 
 ```{r, eval=FALSE}
 x <- 3
@@ -423,7 +423,7 @@ startup_costs <- c(27, 28, 32, 35, 26)
 startup_costs
 ```
 
-Moreover, when changing from one job to another job the setup costs are given as:
+Moreover, when changing from one job to another job, the setup costs are given as:
 
 ```{r}
 setup_costs <- matrix(c(
@@ -473,7 +473,7 @@ greedy <- function(startup, setup) {
 greedy(startup_costs, setup_costs)
 ```
 
-First, the job with minimum startup cost is found using function `which.min` and we define cost a the startup cost. We use `cat` to make some debugging statements and initialize `job_seq` with the first job. Next we have to have a way ignoring jobs already done. We do that here by setting the columns of setup cost equal to NA for jobs already done. Hence they will not be selected by `which.min`. The `for` loop runs 4 times and selects jobs and accumulate the total cost.
+First, the job with minimum startup cost is found using function `which.min` and we define cost as the startup cost. We use `cat` to make some debugging statements and initialize `job_seq` with the first job. Next, we have to find a way ignoring jobs already done. We do that here by setting the columns of setup cost equal to NA for jobs already done. Hence, they will not be selected by `which.min`. The `for` loop runs 4 times and selects jobs and accumulate the total cost.
 
 A well-known better strategy is to:
 
@@ -502,7 +502,7 @@ better(startup_costs, setup_costs)
 ")
 ```
 
-Implement a `better` function calculating a better strategy. Hint: to find the minimum column costs you may use `apply(rbind(startup, setup), 2, min, na.rm = T)`.
+Implement a `better` function calculating a better strategy. Hint: to find the minimum column costs, you may use `apply(rbind(startup, setup), 2, min, na.rm = T)`.
 
 
 ```{r links, child="links.md"}
