@@ -526,6 +526,7 @@ read_file("test2.txt")
 4) Read files `test1.txt` and `test2.txt`. Note that in relative paths `../` means going to the parent folder.  What is different compared to Question 2?
 
 ```{r, include=FALSE}
+setwd("..")
 unlink("subfolder", recursive = TRUE)
 unlink("test1.txt")
 ```
@@ -539,7 +540,7 @@ unlink("test1.txt")
 ```{r, echo=FALSE, message=FALSE}
 addSolution('
 n <- 100
-n*(n+1)/2
+n * (n+1) / 2
 ')
 ```
 
@@ -549,7 +550,7 @@ n*(n+1)/2
 ```{r, echo=FALSE, message=FALSE}
 addSolution('
 n <- 1000
-n*(n+1)/2
+n * (n+1) / 2
 ')
 ```
 
@@ -563,7 +564,7 @@ n*(n+1)/2
    sum(x)
    ```
 
-   Based on the result, what do you think the functions `seq` and `sum` do?  You can use `help`.
+   Based on the result, what do you think the functions `seq` and `sum` do?  You can use e.g `help("sum")` or `?sum`.
 
    a. `sum` creates a list of numbers and `seq` adds them up.
    b. `seq` creates a list of numbers and `sum` adds them up.
@@ -589,15 +590,56 @@ sd(v)
 
 5) What is the sum, mean, and standard deviation of `v`? 
 
-6) Select elements 1, 6, 4 and 15 of `v`.
+
+```{r, echo=FALSE, message=FALSE}
+addSolution('
+v[c(1, 6, 4, 15)]
+')
+```
+
+6) Select elements 1, 6, 4, and 15 of `v`.
+
+
+```{r, echo=FALSE, message=FALSE}
+addSolution('
+v[v > 50]
+')
+```
 
 7) Select elements with value above 50.
 
+
+```{r, echo=FALSE, message=FALSE}
+addSolution('
+v[v > 75 | v < 25]
+')
+```
+
 8) Select elements with value above 75 or below 25.
+
+
+```{r, echo=FALSE, message=FALSE}
+addSolution('
+v[v == 43]
+')
+```
 
 9) Select elements with value 43.
 
+
+```{r, echo=FALSE, message=FALSE}
+addSolution('
+v[is.na(v)]
+')
+```
+
 10) Select elements with value `NA`.
+
+```{r, echo=FALSE, message=FALSE}
+addSolution('
+which(v > 75 | v < 25)
+')
+```
 
 11) Which elements have value above 75 or below 25? Hint: see the documentation of function `which`.
 

@@ -456,13 +456,12 @@ greedy <- function(startup, setup) {
   jobs <- nrow(setup)
   cur_job <- which.min(startup)
   cost <- startup[cur_job]
-  cat("Start job:", cur_job, "\n")
+  # cat("Start job:", cur_job, "\n")
   job_seq <- cur_job
   setup[, cur_job] <- NA
-  # browser()
   for (i in 1:(jobs-1)) {
     next_job <- which.min(setup[cur_job, ])
-    cat("Next job:", next_job, "\n") 
+    # cat("Next job:", next_job, "\n") 
     cost <- cost + setup[cur_job, next_job]
     job_seq <- c(job_seq, next_job)
     cur_job <- next_job
