@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2020-10-07" />
+<meta name="date" content="2020-10-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -376,7 +376,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>By the end of this module, you are expected to be able to:</p>
 <ul>
 <li>Formulate conditional statements.</li>
-<li>Use functions <code>any</code>, and <code>all</code>.</li>
+<li>Use functions <code>any</code> and <code>all</code>.</li>
 <li>Formulate loops in R using for and while statements.</li>
 <li>Use function <code>if_else</code>.</li>
 </ul>
@@ -442,8 +442,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>An excellent introduction to conditionals and if statements is given in <a href="https://campus.datacamp.com/courses/intermediate-r/chapter-2-loops">Chapter 2</a> of the interactive DataCamp course <a href="https://learn.datacamp.com/courses/intermediate-r">Intermediate R</a>. Please complete the chapter before continuing.</p>
 <p>Loops in R may be slow. However, not if you follow some golden rules:</p>
 <ul>
-<li>Don’t use a loop when a vectorized alternative exists.</li>
-<li>Don’t grow objects (via <code>c</code>, <code>cbind</code>, etc) during the loop - R has to create a new object and copy across the information just to add a new element or row/column. Instead, allocate an object to hold the results and fill it in during the loop.</li>
+<li>Do not use a loop when a vectorized alternative exists.</li>
+<li>Do not grow objects (via <code>c</code>, <code>cbind</code>, etc) during the loop - R has to create a new object and copy across the information just to add a new element or row/column. Instead, allocate an object to hold the results and fill it in during the loop.</li>
 </ul>
 <p>As an example, consider the for loop with 4 iterations:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="sec-loops.html#cb42-1" aria-hidden="true"></a>i_val &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">9</span>)</span>
@@ -455,7 +455,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb42-7"><a href="sec-loops.html#cb42-7" aria-hidden="true"></a>}</span>
 <span id="cb42-8"><a href="sec-loops.html#cb42-8" aria-hidden="true"></a>res</span>
 <span id="cb42-9"><a href="sec-loops.html#cb42-9" aria-hidden="true"></a><span class="co">#&gt; [1] 15 21 45 63</span></span></code></pre></div>
-<p>Note we allocate memory for the result vector before the loop so we don’t have to grow the result object. Next, we calculate results <span class="math inline">\(6i+9\)</span> using a loop. Be careful here! This is not the same:</p>
+<p>Note we allocate memory for the result vector before the loop so we do not have to grow the result object. Next, we calculate results <span class="math inline">\(6i+9\)</span> using a loop. Be careful here! This is not the same:</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="sec-loops.html#cb43-1" aria-hidden="true"></a>res &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,<span class="dv">4</span>)</span>
 <span id="cb43-2"><a href="sec-loops.html#cb43-2" aria-hidden="true"></a><span class="cf">for</span> (i <span class="cf">in</span> i_val) {</span>
 <span id="cb43-3"><a href="sec-loops.html#cb43-3" aria-hidden="true"></a>  res[i] &lt;-<span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">9</span></span>
@@ -608,11 +608,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>If you use <code>&amp;&amp;</code> and <code>||</code> only the first element in vectors are compared. In general this is used rarely.</p>
 <p>Useful functions that return a logical are <code>any</code> and <code>all</code> which can be used to join logical values in vectors.</p>
-<p>Conditional Statements can be constructed using for instance <code>if</code> and <code>while</code> statements. Moreover, function <code>if_else</code> is a vetorized alternative.</p>
+<p>Conditional Statements can be constructed using for instance <code>if</code> and <code>while</code> statements. Moreover, function <code>if_else</code> is a vectorized alternative.</p>
 <p><em>Loops</em> can be created using <code>for</code> and <code>while</code> statements.</p>
 <p>You can break out of a loop using <code>break</code> and jump to the next iteration (skipping the remainder of the code in the loop) using <code>next</code>.</p>
-<p>Don’t use a loop when a vectorized alternative exists.</p>
-<p>Don’t grow objects during the loop. Instead, allocate an object to hold the results and fill it in during the loop.</p>
+<p>Do not use a loop when a vectorized alternative exists.</p>
+<p>Do not grow objects during the loop. Instead, allocate an object to hold the results and fill it in during the loop.</p>
 <p>Nested loops are possible in R. However, often they can be converted into a single loop by defining a data frame having the values of the nested loops in each row. Here function <code>expand_grid</code> may be useful to create the data frame.</p>
 </div>
 <div id="ex-loops" class="section level2" number="4.6">
