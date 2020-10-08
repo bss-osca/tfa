@@ -22,7 +22,7 @@ This module considers programming with loops and conditional statements.
 By the end of this module, you are expected to be able to:
 
 * Formulate conditional statements.
-* Use functions `any`, and `all`.
+* Use functions `any` and `all`.
 * Formulate loops in R using for and while statements.
 * Use function `if_else`.
 
@@ -93,8 +93,8 @@ An excellent introduction to conditionals and if statements is given in [Chapter
 
 Loops in R may be slow. However, not if you follow some golden rules:
 
-* Don’t use a loop when a vectorized alternative exists.
-* Don’t grow objects (via `c`, `cbind`, etc) during the loop - R has to create a new object and copy across the information just to add a new element or row/column. Instead, allocate an object to hold the results and fill it in during the loop.
+* Do not use a loop when a vectorized alternative exists.
+* Do not grow objects (via `c`, `cbind`, etc) during the loop - R has to create a new object and copy across the information just to add a new element or row/column. Instead, allocate an object to hold the results and fill it in during the loop.
 
 As an example, consider the for loop with 4 iterations:
 
@@ -108,7 +108,7 @@ for (idx in 1:length(i_val)) {
 res
 ```
 
-Note we allocate memory for the result vector before the loop so we don't have to grow the result object. Next, we calculate results $6i+9$ using a loop. Be careful here! This is not the same:
+Note we allocate memory for the result vector before the loop so we do not have to grow the result object. Next, we calculate results $6i+9$ using a loop. Be careful here! This is not the same:
 
 ```{r}
 res <- rep(NA,4)
@@ -235,15 +235,15 @@ If you use `&&` and `||` only the first element in vectors are compared. In gene
 
 Useful functions that return a logical are `any` and `all` which can be used to join logical values in vectors.
 
-Conditional Statements can be constructed using for instance `if` and `while` statements. Moreover, function `if_else` is a vetorized alternative.
+Conditional Statements can be constructed using for instance `if` and `while` statements. Moreover, function `if_else` is a vectorized alternative.
 
 *Loops* can be created using `for` and `while` statements. 
 
 You can break out of a loop using `break` and jump to the next iteration (skipping the remainder of the code in the loop) using `next`.
 
-Don’t use a loop when a vectorized alternative exists.
+Do not use a loop when a vectorized alternative exists.
 
-Don’t grow objects during the loop. Instead, allocate an object to hold the results and fill it in during the loop.
+Do not grow objects during the loop. Instead, allocate an object to hold the results and fill it in during the loop.
 
 Nested loops are possible in R. However, often they can be converted into a single loop by defining a data frame having the values of the nested loops in each row. Here function `expand_grid` may be useful to create the data frame. 
 
