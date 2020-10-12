@@ -1,0 +1,211 @@
+---
+title: "Programming"
+author: "Lars Relund Nielsen"
+output:
+  xaringan::moon_reader:
+    css: "./libs/slides.css"
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+      highlightStyle: solarized-light
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, child = "../setup.Rmd", echo=FALSE}
+```
+
+```{r packages, echo=FALSE, message=FALSE, warning=FALSE}
+# use xaringan::inf_mr(cast_from = "..") to preview
+library(tidyverse)
+```
+
+
+## Comparison/relational operators
+
+- `<` for less than, `>` for greater than,
+- `<=` for less than or equal to, `>=` for greater than or equal to,
+- `==` for equal to each other (and not `=` which is typically used for assignment!),
+- `!=` not equal to each other.
+
+```{r l1, eval=FALSE}
+x <- TRUE   # you may use x <- T 
+y <- FALSE  # you may use y <- F
+x == y
+```
+--
+```{r, ref.label="l1", echo=FALSE}
+```
+--
+```{r l2, eval=FALSE}
+z <- c(1, -1, 3)
+z > 0   # vector comparison
+```
+--
+```{r, ref.label="l2", echo=FALSE}
+```
+
+---
+
+## A vector of booleans  
+
+```{r l3, eval=FALSE}
+z <- c(1, -1, 3)
+all(z > 0)
+any(z > 0)
+```
+--
+```{r, ref.label="l3", echo=FALSE}
+```
+--
+.your-turn[
+Your turn - Try to guess the output
+```{r, eval=FALSE}
+x <- c(1, 2, 45, NA, -1)
+x > 0
+x > -100
+any(x > 0)
+all(x > -100)
+```
+]
+
+```{r echo=FALSE}
+countdown(minutes = 1)
+```
+
+---
+
+## Logical operators 
+
+- `&` and,
+- `|` or,
+- `!` not.
+- If you use `&&` and `||` only the first element in vectors are compared. 
+
+```{r}
+x <- 4
+y <- "Lars"
+z <- NA
+x == 4 & y == "lars"
+```
+--
+```{r l4, eval=FALSE}
+x > 4 | y != "lars"
+```
+--
+```{r, ref.label="l4", echo=FALSE}
+```
+
+---
+Remember parenthesis 
+```{r l5, eval=FALSE}
+(x == 4 | y != "Lars") & !is.na(z)
+x == 4 | (y != "Lars" & !is.na(z))
+```
+--
+```{r, ref.label="l5", echo=FALSE}
+```
+--
+Applied to vectors
+```{r}
+v1 <- 1:4
+v2 <- c(2,-1,7,9)
+v1 > 1 & v2 < 3
+```
+--
+```{r l6, eval=FALSE}
+v1 > 1 && v2 < 3
+```
+--
+```{r, ref.label="l6", echo=FALSE}
+```
+
+---
+
+## Conditional Statements 
+
+- `if` and `while` (a single boolean),
+- `if_else` (a vectorized alternative).
+
+```{r}
+x <- 5
+if (x < 3) {
+  cat("first")
+} else if (x > 4) {
+  cat("next")
+} else {
+  cat("last")
+}
+```
+
+```{r}
+x <- 1
+while(x < 5) {
+  x <- x + 1
+}
+```
+
+
+```{r}
+library(tidyverse)
+## using if_else
+x <- c(-5:5, NA)
+res <- if_else(x < 0, "negative", "positive", "missing")
+res
+```
+
+
+---
+
+## Functions
+ 
+- Writing functions is a core activity of an R programmer.  
+- Functions have inputs and outputs. 
+
+Functions are often used to encapsulate a sequence of expressions that needs to be executed numerous times, perhaps under slightly different conditions. In programming, functional programming is a programming paradigm, a style of how code is written. Rather than repeating the code, functions and control structures allow one to build code in blocks. As a result, your code becomes more structured, more readable and much easier to maintain and debug (find errors).
+
+## Functions
+
+- A function have inputs and outputs.
+- Functions are often used to encapsulate a sequence of expressions that need to be executed numerous times, perhaps under slightly different conditions. 
+- In programming, functional programming is a programming paradigm, a style how code is written. Rather than repeating code, functions and control structures allow one to build code in blocks. 
+- Functions are (often) verbs, followed by what they will be applied to in parentheses.
+
+```{r eval=FALSE}
+do_this(to_this)
+do_that(to_this, to_that, with_those)
+```
+
+---
+
+## Your Turn
+
+.your-turn[
+
+- Create a vector `v` with numbers 2, 4, 6, 8 [see the help for function `seq` by writing `?seq` in the console and having a look at the examples]. 
+- What is the sum of `v`?
+- What is the sum of the numbers in `x <- c(1:4, NA)` [see `?sum`]?
+- Does `x` contain a missing value (`NA`) [see `?is.na`]
+- Convert `s <- "1.2"` to a number [see `?as.numeric`].
+- What is the return value of `class(x)`?
+- Set `y <- NULL` and check if `y` is null [see `?NULL`]. 
+- Set `lst <- list(x = 3, y = "foo")` and check if `lst` contains an object `z` [use `is.null`].
+]
+
+```{r echo=FALSE}
+countdown(minutes = 5)
+```
+
+
+
+
+
+```{r copy to docs, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../../docs/slides/", overwrite = T)
+file.copy("../slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../../docs/slides/", recursive = T)
+file.copy("img", "../../docs/slides/", recursive = T)
+```
+
