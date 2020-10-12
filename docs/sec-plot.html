@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2020-10-08" />
+<meta name="date" content="2020-10-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -370,7 +370,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="sec-plot" class="section level1" number="9">
 <h1><span class="header-section-number">Module 9</span> Data visualization using ggplot</h1>
-<p>This module considers visualization of your data using the [ggplot2][tidyverse-ggplot2] package which is a part of [tidyverse][tidyverse-main-page]. R has several systems for making plots, but ggplot2 is one of the most elegant and most versatile. Using ggplot2 you can do more faster by learning one system and applying it in many places.</p>
+<p>This module considers visualization of your data using the <a href="https://ggplot2.tidyverse.org/">ggplot2</a> package which is a part of <a href="https://www.tidyverse.org">tidyverse</a>. R has several systems for making plots, but ggplot2 is one of the most elegant and most versatile. Using ggplot2 you can do more faster by learning one system and applying it in many places.</p>
 <div id="lo-plot" class="section level2" number="9.1">
 <h2><span class="header-section-number">9.1</span> Learning outcomes</h2>
 <p>By the end of this module, you are expected to:</p>
@@ -390,10 +390,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="introduction-to-data-visualization" class="section level2" number="9.2">
 <h2><span class="header-section-number">9.2</span> Introduction to data visualization</h2>
-<p>[ggplot2][tidyverse-ggplot2] is a plotting package that makes it simple to create complex plots from data in a data frame. It provides an interface for specifying what variables to plot, how they are displayed, and general visual properties. Hence only minimal changes are needed if the underlying data change or if we decide to change from a bar plot to a scatterplot.</p>
+<p><a href="https://ggplot2.tidyverse.org/">ggplot2</a> is a plotting package that makes it simple to create complex plots from data in a data frame. It provides an interface for specifying what variables to plot, how they are displayed, and general visual properties. Hence only minimal changes are needed if the underlying data change or if we decide to change from a bar plot to a scatterplot.</p>
 <p>The package implements the grammar of graphics, a coherent system for describing and building layered plots. A plot is built step by step by adding new layers. Adding layers in this fashion allows for extensive flexibility and customization of plots.</p>
-<p>An excellent introduction to data visualization using [ggplot2][tidyverse-ggplot2] is given in the interactive DataCamp course [Introduction to data visualization with ggplot2][datacamp-r-ggplot2-intro]. Please complete the course before continuing.</p>
-<p>[datacamp-r-ggplot2-intermediate]</p>
+<p>An excellent introduction to data visualization using <a href="https://ggplot2.tidyverse.org/">ggplot2</a> is given in the interactive DataCamp course <a href="https://learn.datacamp.com/courses/introduction-to-data-visualization-with-ggplot2">Introduction to data visualization with ggplot2</a>. Please complete the course before continuing.</p>
+<p><a href="https://learn.datacamp.com/courses/intermediate-data-visualization-with-ggplot2">datacamp-r-ggplot2-intermediate</a></p>
 <!-- In the examples above, we have seen some of the components that make up a plot: -->
 <!-- • data and aesthetic mappings, -->
 <!-- • geometric objects, -->
@@ -572,388 +572,492 @@ South Africa
 </tbody>
 </table>
 <p>We see that the European countries on this list have higher child mortality rates: Poland has a higher rate than South Korea, and Russia has a higher rate than Malaysia. We also see that Pakistan has a much higher rate than Vietnam, and South Africa has a much higher rate than Thailand. It turns out that when Hans Rosling gave this quiz to educated groups of people, the average score was less than 2.5 out of 5, worse than what they would have obtained had they guessed randomly. This implies that we are misinformed. We will try to use visualization to help us being more informed.</p>
-<p><strong>The west vs the developing world</strong></p>
+<div id="the-west-vs-the-developing-world" class="section level4 unnumbered">
+<h4>The west vs the developing world</h4>
 <p>There is a preconceived notion that the world is divided into two groups: the western world (Western Europe and North America), characterized by long life spans and small families, versus the developing world (Africa, Asia, and Latin America) characterized by short life spans and large families. But do the data support this dichotomous view?</p>
-<p><div aria-labelledby="solution0-title" class="modal fade bs-example-modal-lg" id="solution0" role="dialog" tabindex="-1">
+<div id="n7YC7ktNf5NHoRoonRkd" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="n7YC7ktNf5NHoRoonRkd-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution0-title">Solution</h4>
+<h4 class="modal-title" id="n7YC7ktNf5NHoRoonRkd-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">filter(gapminder, year == 1962) %&gt;%
-  ggplot( aes(fertility, life_expectancy, color = continent)) +
-  geom_point()
-</code></pre>
-
-<p>Most points fall into two distinct categories: </p>
-
+<div class="modal-body">
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="sec-plot.html#cb124-1" aria-hidden="true"></a><span class="kw">filter</span>(gapminder, year <span class="op">==</span><span class="st"> </span><span class="dv">1962</span>) <span class="op">%&gt;%</span></span>
+<span id="cb124-2"><a href="sec-plot.html#cb124-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(fertility, life_expectancy, <span class="dt">color =</span> continent)) <span class="op">+</span></span>
+<span id="cb124-3"><a href="sec-plot.html#cb124-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() </span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-253-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+Most points fall into two distinct categories:
+</p>
 <ol>
-<li>Life expectancy around 70 years and 3 or fewer children per family.</li>
-<li>Life expectancy lower than 65 years and more than 5 children per family.</li>
-<li>Countries are from the regions we expect.</li>
+<li>
+Life expectancy around 70 years and 3 or fewer children per family.
+</li>
+<li>
+Life expectancy lower than 65 years and more than 5 children per family.
+</li>
+<li>
+Countries are from the regions we expect.
+</li>
 </ol>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution0">Solution</button>
-<div aria-labelledby="solution1-title" class="modal fade bs-example-modal-lg" id="solution1" role="dialog" tabindex="-1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#n7YC7ktNf5NHoRoonRkd">
+Solution
+</button>
+<div id="i0TDNbL6FfPm6QztsA8e" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="i0TDNbL6FfPm6QztsA8e-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution1-title">Hint</h4>
+<h4 class="modal-title" id="i0TDNbL6FfPm6QztsA8e-title">
+Hint
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">filter(gapminder, year == ___) %&gt;%
-  ggplot( aes(___, ___, color = ___)) +
-  geom_point()
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="sec-plot.html#cb125-1" aria-hidden="true"></a><span class="kw">filter</span>(gapminder, year <span class="op">==</span><span class="st"> </span>___) <span class="op">%&gt;%</span></span>
+<span id="cb125-2"><a href="sec-plot.html#cb125-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(___, ___, <span class="dt">color =</span> ___)) <span class="op">+</span></span>
+<span id="cb125-3"><a href="sec-plot.html#cb125-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() </span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution1">Hint</button></p>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#i0TDNbL6FfPm6QztsA8e">
+Hint
+</button>
 <ol style="list-style-type: decimal">
 <li>Make a scatterplot of life expectancy versus fertility rates (average number of children per woman) in 1962. Use continent as color aesthetic.</li>
 </ol>
-<p><div aria-labelledby="solution2-title" class="modal fade bs-example-modal-lg" id="solution2" role="dialog" tabindex="-1">
+<div id="LeJBm5SVbKUxTtubP9vI" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="LeJBm5SVbKUxTtubP9vI-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution2-title">Solution</h4>
+<h4 class="modal-title" id="LeJBm5SVbKUxTtubP9vI-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">filter(gapminder, year %in% c(1962, 2012)) %&gt;%
-  ggplot(aes(fertility, life_expectancy, col = continent)) +
-  geom_point() +
-  facet_grid(cols = vars(year))
-</code></pre>
-
-<p>This plot clearly shows that the majority of countries have moved from the <em>developing world</em> cluster to the <em>western world</em> one. In 2012, the western versus developing world view no longer makes sense. This is particularly clear when comparing Europe to Asia, the latter of which includes several countries that have made great improvements.</p>
+<div class="modal-body">
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="sec-plot.html#cb126-1" aria-hidden="true"></a><span class="kw">filter</span>(gapminder, year <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1962</span>, <span class="dv">2012</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb126-2"><a href="sec-plot.html#cb126-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(fertility, life_expectancy, <span class="dt">col =</span> continent)) <span class="op">+</span></span>
+<span id="cb126-3"><a href="sec-plot.html#cb126-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb126-4"><a href="sec-plot.html#cb126-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> <span class="kw">vars</span>(year))</span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-255-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+This plot clearly shows that the majority of countries have moved from the <em>developing world</em> cluster to the <em>western world</em> one. In 2012, the western versus developing world view no longer makes sense. This is particularly clear when comparing Europe to Asia, the latter of which includes several countries that have made great improvements.
+</p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution2">Solution</button>
-<div aria-labelledby="solution3-title" class="modal fade bs-example-modal-lg" id="solution3" role="dialog" tabindex="-1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#LeJBm5SVbKUxTtubP9vI">
+Solution
+</button>
+<div id="3wi8YxaPeJJDMz958gct" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="3wi8YxaPeJJDMz958gct-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution3-title">Hint</h4>
+<h4 class="modal-title" id="3wi8YxaPeJJDMz958gct-title">
+Hint
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">filter(gapminder, ___ %in% c(1962, 2012)) %&gt;%
-  ggplot(aes(___, ___, col = ___)) +
-  geom_point() +
-  facet_grid(cols = vars(___))
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="sec-plot.html#cb127-1" aria-hidden="true"></a><span class="kw">filter</span>(gapminder, ___ <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1962</span>, <span class="dv">2012</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb127-2"><a href="sec-plot.html#cb127-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(___, ___, <span class="dt">col =</span> ___)) <span class="op">+</span></span>
+<span id="cb127-3"><a href="sec-plot.html#cb127-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb127-4"><a href="sec-plot.html#cb127-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> <span class="kw">vars</span>(___))</span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution3">Hint</button></p>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#3wi8YxaPeJJDMz958gct">
+Hint
+</button>
 <ol start="2" style="list-style-type: decimal">
-<li><p>In 1962, “the West versus developing world” view was grounded in some reality. Is this still the case 50 years later?</p>
-<p><em>Hint: we could easily plot the 2012 data in the same way we did for 1962. To make comparisons, side by side plots are preferable. In <strong>ggplot2</strong>, we can achieve this by <em>faceting</em> variables and making a plot for each year. That is, you must filter by years 1962 and 2012 and add the layer <code>facet_grid</code>, which automatically separates the plots.</em></p></li>
+<li>In 1962, “the West versus developing world” view was grounded in some reality. Is this still the case 50 years later? We could easily plot the 2012 data in the same way we did for 1962. To make comparisons, side by side plots are preferable. In <strong>ggplot2</strong>, we can achieve this by <em>faceting</em> variables and making a plot for each year. That is, you must filter by years 1962 and 2012 and add the layer <code>facet_grid</code>, which automatically separates the plots.</li>
 </ol>
-<p><div aria-labelledby="solution4-title" class="modal fade bs-example-modal-lg" id="solution4" role="dialog" tabindex="-1">
+<div id="fjWeomyRJP0BqEE4FjqU" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="fjWeomyRJP0BqEE4FjqU-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution4-title">Solution</h4>
+<h4 class="modal-title" id="fjWeomyRJP0BqEE4FjqU-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">years &lt;- c(1962, 1970, 1980, 1990, 2000, 2012)
-continents &lt;- c(&quot;Europe&quot;, &quot;Asia&quot;)
-gapminder %&gt;% 
-  filter(year %in% years &amp; continent %in% continents) %&gt;%
-  ggplot( aes(fertility, life_expectancy, col = continent)) +
-  geom_point() +
-  facet_wrap(vars(year))
-</code></pre>
-
-<p>The plot clearly shows how most Asian countries have improved at a much faster rate than European ones.</p>
+<div class="modal-body">
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="sec-plot.html#cb128-1" aria-hidden="true"></a>years &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1962</span>, <span class="dv">1970</span>, <span class="dv">1980</span>, <span class="dv">1990</span>, <span class="dv">2000</span>, <span class="dv">2012</span>)</span>
+<span id="cb128-2"><a href="sec-plot.html#cb128-2" aria-hidden="true"></a>continents &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;Asia&quot;</span>)</span>
+<span id="cb128-3"><a href="sec-plot.html#cb128-3" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb128-4"><a href="sec-plot.html#cb128-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">%in%</span><span class="st"> </span>years <span class="op">&amp;</span><span class="st"> </span>continent <span class="op">%in%</span><span class="st"> </span>continents) <span class="op">%&gt;%</span></span>
+<span id="cb128-5"><a href="sec-plot.html#cb128-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(fertility, life_expectancy, <span class="dt">col =</span> continent)) <span class="op">+</span></span>
+<span id="cb128-6"><a href="sec-plot.html#cb128-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb128-7"><a href="sec-plot.html#cb128-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(year)) </span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-257-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+The plot clearly shows how most Asian countries have improved at a much faster rate than European ones.
+</p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution4">Solution</button>
-<div aria-labelledby="solution5-title" class="modal fade bs-example-modal-lg" id="solution5" role="dialog" tabindex="-1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#fjWeomyRJP0BqEE4FjqU">
+Solution
+</button>
+<div id="OF6OZDRDVLeNMXjDPGdB" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="OF6OZDRDVLeNMXjDPGdB-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution5-title">Hint</h4>
+<h4 class="modal-title" id="OF6OZDRDVLeNMXjDPGdB-title">
+Hint
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  filter(year %in% ___ &amp; continent %in% ___) %&gt;%
-  ggplot(aes(___)) +
-  geom_point() +
-  facet_wrap(___)
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="sec-plot.html#cb129-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb129-2"><a href="sec-plot.html#cb129-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">%in%</span><span class="st"> </span>___ <span class="op">&amp;</span><span class="st"> </span>continent <span class="op">%in%</span><span class="st"> </span>___) <span class="op">%&gt;%</span></span>
+<span id="cb129-3"><a href="sec-plot.html#cb129-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(___)) <span class="op">+</span></span>
+<span id="cb129-4"><a href="sec-plot.html#cb129-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb129-5"><a href="sec-plot.html#cb129-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_wrap</span>(___) </span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution5">Hint</button></p>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#OF6OZDRDVLeNMXjDPGdB">
+Hint
+</button>
 <ol start="3" style="list-style-type: decimal">
-<li><p>To explore the transformation through the years, make a plot for years 1962, 1970, 1980, 1990, 2000 and 2012 considering Europe and Asia. How has Asia transformed through the years compared to Europe?</p>
-<p><em>Hint: since we consider many years, we will not want all the plots on the same row. Instead, we will want to use multiple rows and columns. The function <code>facet_wrap</code> permits us to do this by automatically wrapping the series of plots.</em></p></li>
+<li>To explore the transformation through the years, make a plot for years 1962, 1970, 1980, 1990, 2000 and 2012 considering Europe and Asia. How has Asia transformed through the years compared to Europe? Since we consider many years, we will not want all the plots on the same row. Instead, we will want to use multiple rows and columns. The function <code>facet_wrap</code> permits us to do this by automatically wrapping the series of plots.</li>
 </ol>
-<div class="box">
-<p><strong>Observation - scales</strong></p>
+</div>
+<div id="infobox---scales" class="section level4 unnumbered box">
+<h4>Infobox - Scales</h4>
 <p>The default choice of the range of the axes is important. When not using <code>facet</code>, this range is determined by the data shown in the plot. When using <code>facet</code>, this range is determined by the data shown in all plots and therefore kept fixed across plots. This makes comparisons across plots much easier. For example, in the above plot, we can see that life expectancy has increased and the fertility has decreased across most countries. We see this because the cloud of points moves. This is not the case if we adjust the scales:</p>
 <p><img src="TFA_files/figure-html/unnamed-chunk-259-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>In the plot above, we have to pay special attention to the range to notice that the plot on the right has a larger life expectancy.</p>
 </div>
-<p><div aria-labelledby="solution6-title" class="modal fade bs-example-modal-lg" id="solution6" role="dialog" tabindex="-1">
+<div id="rkfcNWsaqJhGaTGZutGJ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="rkfcNWsaqJhGaTGZutGJ-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution6-title">Solution</h4>
+<h4 class="modal-title" id="rkfcNWsaqJhGaTGZutGJ-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  filter(continent == &quot;Asia&quot;) %&gt;%
-  ggplot(aes(fertility, life_expectancy, col = year)) +
-  geom_point()
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="sec-plot.html#cb130-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb130-2"><a href="sec-plot.html#cb130-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(continent <span class="op">==</span><span class="st"> &quot;Asia&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb130-3"><a href="sec-plot.html#cb130-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(fertility, life_expectancy, <span class="dt">col =</span> year)) <span class="op">+</span></span>
+<span id="cb130-4"><a href="sec-plot.html#cb130-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>()  </span>
+<span id="cb130-5"><a href="sec-plot.html#cb130-5" aria-hidden="true"></a><span class="co">#&gt; Warning: Removed 47 rows containing missing values (geom_point).</span></span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-260-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution6">Solution</button>
-<div aria-labelledby="solution7-title" class="modal fade bs-example-modal-lg" id="solution7" role="dialog" tabindex="-1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#rkfcNWsaqJhGaTGZutGJ">
+Solution
+</button>
+<div id="zcwSPe9ZExbVOsMHAATF" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="zcwSPe9ZExbVOsMHAATF-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution7-title">Hint</h4>
+<h4 class="modal-title" id="zcwSPe9ZExbVOsMHAATF-title">
+Hint
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  filter(___) %&gt;%
-  ggplot(aes(___)) +
-  geom_point()
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="sec-plot.html#cb131-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb131-2"><a href="sec-plot.html#cb131-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(___) <span class="op">%&gt;%</span></span>
+<span id="cb131-3"><a href="sec-plot.html#cb131-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(___)) <span class="op">+</span></span>
+<span id="cb131-4"><a href="sec-plot.html#cb131-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() </span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution7">Hint</button></p>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#zcwSPe9ZExbVOsMHAATF">
+Hint
+</button>
 <ol start="4" style="list-style-type: decimal">
 <li>Illustrate the transformation for Asia using a single plot where use year as color aesthetic.</li>
 </ol>
-<p><strong>Time series plots</strong></p>
+<div id="time-series-plots" class="section level4 unnumbered">
+<h4>Time series plots</h4>
 <p>The visualizations above effectively illustrate that data no longer supports the western versus developing world view. Once we see these plots, new questions emerge. For example, which countries are improving more and which ones less? Was the improvement constant during the last 50 years or was it more accelerated during certain periods? For a closer look that may help answer these questions, we introduce <em>time series plots</em>.</p>
 <p>Time series plots have time in the x-axis and an outcome or measurement of interest on the y-axis. For example, here is a trend plot of United States fertility rates:</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="sec-plot.html#cb124-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb124-2"><a href="sec-plot.html#cb124-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> &quot;United States&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb124-3"><a href="sec-plot.html#cb124-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, fertility)) <span class="op">+</span></span>
-<span id="cb124-4"><a href="sec-plot.html#cb124-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="sec-plot.html#cb132-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb132-2"><a href="sec-plot.html#cb132-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> &quot;United States&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb132-3"><a href="sec-plot.html#cb132-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, fertility)) <span class="op">+</span></span>
+<span id="cb132-4"><a href="sec-plot.html#cb132-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="TFA_files/figure-html/fertility-time-series-plot-points-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We see that the trend is not linear at all. Instead there is sharp drop during the 1960s and 1970s to below 2. Then the trend comes back to 2 and stabilizes during the 1990s.</p>
 <p>When the points are regularly and densely spaced, as they are here, we create curves by joining the points with lines, to convey that these data are from a single series, here a country. To do this, we use the <code>geom_line</code> function instead of <code>geom_point</code>.</p>
-<div aria-labelledby="solution8-title" class="modal fade bs-example-modal-lg" id="solution8" role="dialog" tabindex="-1">
+<div id="Df2hLPouHxjg3OTYhucQ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Df2hLPouHxjg3OTYhucQ-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution8-title">Solution</h4>
+<h4 class="modal-title" id="Df2hLPouHxjg3OTYhucQ-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  filter(country == &quot;United States&quot;) %&gt;% 
-  ggplot(aes(year, fertility)) +
-  geom_line()
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="sec-plot.html#cb133-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb133-2"><a href="sec-plot.html#cb133-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> &quot;United States&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb133-3"><a href="sec-plot.html#cb133-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, fertility)) <span class="op">+</span></span>
+<span id="cb133-4"><a href="sec-plot.html#cb133-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>()</span>
+<span id="cb133-5"><a href="sec-plot.html#cb133-5" aria-hidden="true"></a><span class="co">#&gt; Warning: Removed 1 row(s) containing missing values (geom_path).</span></span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-262-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution8">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Df2hLPouHxjg3OTYhucQ">
+Solution
+</button>
 <ol start="5" style="list-style-type: decimal">
 <li>Make a lineplot showing the time series of fertility versus year for United States.</li>
 </ol>
-<p><div aria-labelledby="solution9-title" class="modal fade bs-example-modal-lg" id="solution9" role="dialog" tabindex="-1">
+<div id="X3GOCp9nXfAdJiOyxjFD" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="X3GOCp9nXfAdJiOyxjFD-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution9-title">Solution</h4>
+<h4 class="modal-title" id="X3GOCp9nXfAdJiOyxjFD-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">countries &lt;- c(&quot;South Korea&quot;, &quot;Germany&quot;)
-gapminder %&gt;% filter(country %in% countries) %&gt;% 
-  ggplot(aes(year, fertility, col = country)) +
-  geom_line()
-</code></pre>
-
-<p>The plot clearly shows how South Korea&#39;s fertility rate dropped drastically during the 1960s and 1970s, and by 1990 had a similar rate to that of Germany.</p>
+<div class="modal-body">
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="sec-plot.html#cb134-1" aria-hidden="true"></a>countries &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;South Korea&quot;</span>, <span class="st">&quot;Germany&quot;</span>)</span>
+<span id="cb134-2"><a href="sec-plot.html#cb134-2" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(country <span class="op">%in%</span><span class="st"> </span>countries) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb134-3"><a href="sec-plot.html#cb134-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, fertility, <span class="dt">col =</span> country)) <span class="op">+</span></span>
+<span id="cb134-4"><a href="sec-plot.html#cb134-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>() </span>
+<span id="cb134-5"><a href="sec-plot.html#cb134-5" aria-hidden="true"></a><span class="co">#&gt; Warning: Removed 2 row(s) containing missing values (geom_path).</span></span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-263-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+The plot clearly shows how South Korea's fertility rate dropped drastically during the 1960s and 1970s, and by 1990 had a similar rate to that of Germany.
+</p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution9">Solution</button>
-<div aria-labelledby="solution10-title" class="modal fade bs-example-modal-lg" id="solution10" role="dialog" tabindex="-1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#X3GOCp9nXfAdJiOyxjFD">
+Solution
+</button>
+<div id="aGWmAPTrvsfwWZKL1Vs0" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="aGWmAPTrvsfwWZKL1Vs0-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution10-title">Hint</h4>
+<h4 class="modal-title" id="aGWmAPTrvsfwWZKL1Vs0-title">
+Hint
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% filter(country %in% ___) %&gt;% 
-  ggplot(aes(year, fertility, col = ___)) +
-  geom_line()
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="sec-plot.html#cb135-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(country <span class="op">%in%</span><span class="st"> </span>___) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb135-2"><a href="sec-plot.html#cb135-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, fertility, <span class="dt">col =</span> ___)) <span class="op">+</span></span>
+<span id="cb135-3"><a href="sec-plot.html#cb135-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution10">Hint</button></p>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#aGWmAPTrvsfwWZKL1Vs0">
+Hint
+</button>
 <ol start="6" style="list-style-type: decimal">
 <li>Lineplots is particularly helpful when we look at more countries. Make a lineplot showing the time series of fertility versus year for South Korea and Germany. Use country as color aesthetic.</li>
 </ol>
-<div aria-labelledby="solution11-title" class="modal fade bs-example-modal-lg" id="solution11" role="dialog" tabindex="-1">
+<div id="4AljyS4el8OD3O4E3fI6" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="4AljyS4el8OD3O4E3fI6-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution11-title">Solution</h4>
+<h4 class="modal-title" id="4AljyS4el8OD3O4E3fI6-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  filter(country %in% countries) %&gt;% 
-  ggplot(aes(year, life_expectancy, col = country)) +
-  geom_line()
-</code></pre>
-
-<p>The plot clearly shows how an improvement in life expectancy followed the drops in fertility rates. In 1960, Germans lived 15 years longer than South Koreans, although by 2010 the gap is completely closed. It exemplifies the improvement that many non-western countries have achieved in the last 40 years.</p>
+<div class="modal-body">
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="sec-plot.html#cb136-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb136-2"><a href="sec-plot.html#cb136-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(country <span class="op">%in%</span><span class="st"> </span>countries) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb136-3"><a href="sec-plot.html#cb136-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, life_expectancy, <span class="dt">col =</span> country)) <span class="op">+</span></span>
+<span id="cb136-4"><a href="sec-plot.html#cb136-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>() </span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-265-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+The plot clearly shows how an improvement in life expectancy followed the drops in fertility rates. In 1960, Germans lived 15 years longer than South Koreans, although by 2010 the gap is completely closed. It exemplifies the improvement that many non-western countries have achieved in the last 40 years.
+</p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution11">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#4AljyS4el8OD3O4E3fI6">
+Solution
+</button>
 <ol start="7" style="list-style-type: decimal">
 <li>Make a lineplot showing the time series of life expectancy versus year for South Korea and Germany. Use country as color aesthetic.</li>
 </ol>
-<p><strong>Data transformations</strong></p>
+</div>
+<div id="data-transformations" class="section level4 unnumbered">
+<h4>Data transformations</h4>
 <p>We now shift our attention to the second question related to the commonly held notion that wealth distribution across the world has become worse during the last decades. When general audiences are asked if poor countries have become poorer and rich countries become richer, the majority answers yes. By using stratification, histograms, smooth densities, and boxplots, we will be able to understand if this is in fact the case. First we learn how transformations can sometimes help provide more informative summaries and plots.</p>
 <p>The <code>gapminder</code> data table includes a column with the countries’ gross domestic product (GDP). GDP measures the market value of goods and services produced by a country in a year. The GDP per person is often used as a rough summary of a country’s wealth. Here we divide this quantity by 365 to obtain the more interpretable measure <em>dollars per day</em>. Using current US dollars as a unit, a person surviving on an income of less than $2 a day is defined to be living in <em>absolute poverty</em>. We add this variable to the data table:</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="sec-plot.html#cb125-1" aria-hidden="true"></a>gapminder &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st">  </span></span>
-<span id="cb125-2"><a href="sec-plot.html#cb125-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dollars_per_day =</span> gdp<span class="op">/</span>population<span class="op">/</span><span class="dv">365</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="sec-plot.html#cb137-1" aria-hidden="true"></a>gapminder &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st">  </span></span>
+<span id="cb137-2"><a href="sec-plot.html#cb137-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dollars_per_day =</span> gdp<span class="op">/</span>population<span class="op">/</span><span class="dv">365</span>)</span></code></pre></div>
 <p>The GDP values are adjusted for inflation and represent current US dollars, so these values are meant to be comparable across the years. Of course, these are country averages and within each country there is much variability. All the graphs and insights described below relate to country averages and not to individuals.</p>
 <p>Here is a histogram of per day incomes from 1970:</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="sec-plot.html#cb126-1" aria-hidden="true"></a>past_year &lt;-<span class="st"> </span><span class="dv">1970</span></span>
-<span id="cb126-2"><a href="sec-plot.html#cb126-2" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb126-3"><a href="sec-plot.html#cb126-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>past_year <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(gdp)) <span class="op">%&gt;%</span></span>
-<span id="cb126-4"><a href="sec-plot.html#cb126-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dollars_per_day)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb126-5"><a href="sec-plot.html#cb126-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="sec-plot.html#cb138-1" aria-hidden="true"></a>past_year &lt;-<span class="st"> </span><span class="dv">1970</span></span>
+<span id="cb138-2"><a href="sec-plot.html#cb138-2" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb138-3"><a href="sec-plot.html#cb138-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>past_year <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(gdp)) <span class="op">%&gt;%</span></span>
+<span id="cb138-4"><a href="sec-plot.html#cb138-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dollars_per_day)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb138-5"><a href="sec-plot.html#cb138-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
 <p><img src="TFA_files/figure-html/dollars-per-day-distribution-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We use the <code>color = "black"</code> argument to draw a boundary and clearly distinguish the bins.</p>
 <p>In this plot, we see that for the majority of countries, averages are below $10 a day. However, the majority of the x-axis is dedicated to the 35 countries with averages above $10. So the plot is not very informative about countries with values below $10 a day.</p>
 <p>It might be more informative to quickly be able to see how many countries have average daily incomes of about $1 (extremely poor), $2 (very poor), $4 (poor), $8 (middle), $16 (well off), $32 (rich), $64 (very rich) per day. These changes are multiplicative and log transformations convert multiplicative changes into additive ones: when using base 2, a doubling of a value turns into an increase by 1.</p>
-<div aria-labelledby="solution12-title" class="modal fade bs-example-modal-lg" id="solution12" role="dialog" tabindex="-1">
+<div id="4skoy66nm0mjdT90SUOS" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="4skoy66nm0mjdT90SUOS-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution12-title">Solution</h4>
+<h4 class="modal-title" id="4skoy66nm0mjdT90SUOS-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  filter(year == past_year &amp; !is.na(gdp)) %&gt;%
-  ggplot(aes(log2(dollars_per_day))) + 
-  geom_histogram(binwidth = 1, color = &quot;black&quot;)
-</code></pre>
-
-<p>This provides a <em>close-up</em> of the mid to lower income countries.</p>
+<div class="modal-body">
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="sec-plot.html#cb139-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb139-2"><a href="sec-plot.html#cb139-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>past_year <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(gdp)) <span class="op">%&gt;%</span></span>
+<span id="cb139-3"><a href="sec-plot.html#cb139-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">log2</span>(dollars_per_day))) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb139-4"><a href="sec-plot.html#cb139-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-267-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+This provides a <em>close-up</em> of the mid to lower income countries.
+</p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution12">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#4skoy66nm0mjdT90SUOS">
+Solution
+</button>
 <ol start="8" style="list-style-type: decimal">
 <li>Make a histogram of <code>log2(dollars_per_day)</code> from 1970.</li>
 </ol>
-<div class="box">
-<p><strong>Observation - Which base?</strong></p>
+</div>
+<div id="infobox---which-base" class="section level4 unnumbered box">
+<h4>Infobox - Which base?</h4>
 <p>In the case above, we used base 2 in the log transformations. Other common choices are base <span class="math inline">\(\mathrm{e}\)</span> (the natural log) and base 10.</p>
 <p>In general, we do not recommend using the natural log for data exploration and visualization. This is because while <span class="math inline">\(2^2, 2^3, 2^4, \dots\)</span> or <span class="math inline">\(10^2, 10^3, \dots\)</span> are easy to compute in our heads, the same is not true for <span class="math inline">\(\mathrm{e}^2, \mathrm{e}^3, \dots\)</span>, so the scale is not intuitive or easy to interpret.</p>
 <p>In the dollars per day example, we used base 2 instead of base 10 because the resulting range is easier to interpret. The range of the values being plotted is 0.327, 48.885.</p>
 <p>In base 10, this turns into a range that includes very few integers: just 0 and 1.
 With base two, our range includes -2, -1, 0, 1, 2, 3, 4, and 5. It is easier to compute <span class="math inline">\(2^x\)</span> and <span class="math inline">\(10^x\)</span> when <span class="math inline">\(x\)</span> is an integer and between -10 and 10, so we prefer to have smaller integers in the scale. Another consequence of a limited range is that choosing the binwidth is more challenging. With log base 2, we know that a binwidth of 1 will translate to a bin with range <span class="math inline">\(x\)</span> to <span class="math inline">\(2x\)</span>.</p>
 <p>For an example in which base 10 makes more sense, consider population sizes. A log base 10 is preferable since the range for these is:</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="sec-plot.html#cb127-1" aria-hidden="true"></a><span class="kw">filter</span>(gapminder, year <span class="op">==</span><span class="st"> </span>past_year) <span class="op">%&gt;%</span></span>
-<span id="cb127-2"><a href="sec-plot.html#cb127-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">min =</span> <span class="kw">min</span>(population), <span class="dt">max =</span> <span class="kw">max</span>(population))</span>
-<span id="cb127-3"><a href="sec-plot.html#cb127-3" aria-hidden="true"></a><span class="co">#&gt;     min      max</span></span>
-<span id="cb127-4"><a href="sec-plot.html#cb127-4" aria-hidden="true"></a><span class="co">#&gt; 1 46075 8.09e+08</span></span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="sec-plot.html#cb140-1" aria-hidden="true"></a><span class="kw">filter</span>(gapminder, year <span class="op">==</span><span class="st"> </span>past_year) <span class="op">%&gt;%</span></span>
+<span id="cb140-2"><a href="sec-plot.html#cb140-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">min =</span> <span class="kw">min</span>(population), <span class="dt">max =</span> <span class="kw">max</span>(population))</span>
+<span id="cb140-3"><a href="sec-plot.html#cb140-3" aria-hidden="true"></a><span class="co">#&gt;     min      max</span></span>
+<span id="cb140-4"><a href="sec-plot.html#cb140-4" aria-hidden="true"></a><span class="co">#&gt; 1 46075 8.09e+08</span></span></code></pre></div>
 <p>Here is the histogram of the transformed values:</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="sec-plot.html#cb128-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb128-2"><a href="sec-plot.html#cb128-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>past_year) <span class="op">%&gt;%</span></span>
-<span id="cb128-3"><a href="sec-plot.html#cb128-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">log10</span>(population))) <span class="op">+</span></span>
-<span id="cb128-4"><a href="sec-plot.html#cb128-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">0.5</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="sec-plot.html#cb141-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb141-2"><a href="sec-plot.html#cb141-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>past_year) <span class="op">%&gt;%</span></span>
+<span id="cb141-3"><a href="sec-plot.html#cb141-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">log10</span>(population))) <span class="op">+</span></span>
+<span id="cb141-4"><a href="sec-plot.html#cb141-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">0.5</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
 <p><img src="TFA_files/figure-html/population-histogram-log10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>In the above, we quickly see that country populations range between ten thousand and ten billion.</p>
 </div>
@@ -962,368 +1066,452 @@ With base two, our range includes -2, -1, 0, 1, 2, 3, 4, and 5. It is easier to 
 <p>for log transformed data, we know that the value of <span class="math inline">\(x\)</span> is about 1.5. If the scales are logged:</p>
 <p><code>----1----x----10------100---</code></p>
 <p>then, to determine <code>x</code>, we need to compute <span class="math inline">\(10^{1.5}\)</span>, which is not easy to do in our heads. The advantage of using logged scales is that we see the original values on the axes. However, the advantage of showing logged scales is that the original values are displayed in the plot, which are easier to interpret. For example, we would see “32 dollars a day” instead of “5 log base 2 dollars a day”.</p>
-<div aria-labelledby="solution13-title" class="modal fade bs-example-modal-lg" id="solution13" role="dialog" tabindex="-1">
+<div id="i3LnpELrqI9h62z2KucH" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="i3LnpELrqI9h62z2KucH-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution13-title">Solution</h4>
+<h4 class="modal-title" id="i3LnpELrqI9h62z2KucH-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  filter(year == past_year &amp; !is.na(gdp)) %&gt;%
-  ggplot(aes(dollars_per_day)) + 
-  geom_histogram(binwidth = 1, color = &quot;black&quot;) +
-  scale_x_continuous(trans = &quot;log2&quot;)
-</code></pre>
-
-<p>The plot from Q8 is the same except the values on the x-axis.</p>
+<div class="modal-body">
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="sec-plot.html#cb142-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb142-2"><a href="sec-plot.html#cb142-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>past_year <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(gdp)) <span class="op">%&gt;%</span></span>
+<span id="cb142-3"><a href="sec-plot.html#cb142-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dollars_per_day)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb142-4"><a href="sec-plot.html#cb142-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></span>
+<span id="cb142-5"><a href="sec-plot.html#cb142-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>)</span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-269-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+The plot from Q8 is the same except the values on the x-axis.
+</p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution13">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#i3LnpELrqI9h62z2KucH">
+Solution
+</button>
 <ol start="9" style="list-style-type: decimal">
-<li><p>Make a histogram of <code>dollars_per_day</code> from 1970 using a log2 scale on the x-axis. Compare it to the plot from Question 8.</p>
-<p><em>Hint: you can use the <code>scale_x_continuous</code> function with <code>trans = "log2"</code>.</em></p></li>
+<li>Make a histogram of <code>dollars_per_day</code> from 1970 using a log2 scale on the x-axis. Compare it to the plot from Question 8. <em>Hint: you can use the <code>scale_x_continuous</code> function with <code>trans = "log2"</code>.</em></li>
 </ol>
 <p>The histograms in Question 8 and 9 have two <em>bumps</em>: one at about 4 and another at about 32. In statistics these bumps are sometimes referred to as <em>modes</em>. The mode of a distribution is the value with the highest frequency. The mode of the normal distribution is the average. When a distribution, like the one above, doesn’t monotonically decrease from the mode, we call the locations where it goes up and down again <em>local modes</em> and say that the distribution has <em>multiple modes</em> indicating different distributions for different groups.</p>
 <p>The histogram above suggests that the 1970 country income distribution has two modes: one at about 2 dollars per day (1 in the log 2 scale) and another at about 32 dollars per day (5 in the log 2 scale). However, the histogram does not show us if the two groups of countries are <em>west</em> versus the <em>rest</em>. Let us create the <code>group</code> column:</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="sec-plot.html#cb129-1" aria-hidden="true"></a>gapminder &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb129-2"><a href="sec-plot.html#cb129-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">group =</span> <span class="kw">case_when</span>(</span>
-<span id="cb129-3"><a href="sec-plot.html#cb129-3" aria-hidden="true"></a>    region <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Western Europe&quot;</span>, <span class="st">&quot;Northern Europe&quot;</span>,<span class="st">&quot;Southern Europe&quot;</span>, </span>
-<span id="cb129-4"><a href="sec-plot.html#cb129-4" aria-hidden="true"></a>                  <span class="st">&quot;Northern America&quot;</span>, <span class="st">&quot;Australia and New Zealand&quot;</span>) <span class="op">~</span><span class="st"> &quot;West&quot;</span>,</span>
-<span id="cb129-5"><a href="sec-plot.html#cb129-5" aria-hidden="true"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;Rest&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb129-6"><a href="sec-plot.html#cb129-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">as_tibble</span>()</span></code></pre></div>
-<p><div aria-labelledby="solution14-title" class="modal fade bs-example-modal-lg" id="solution14" role="dialog" tabindex="-1">
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="sec-plot.html#cb143-1" aria-hidden="true"></a>gapminder &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb143-2"><a href="sec-plot.html#cb143-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">group =</span> <span class="kw">case_when</span>(</span>
+<span id="cb143-3"><a href="sec-plot.html#cb143-3" aria-hidden="true"></a>    region <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Western Europe&quot;</span>, <span class="st">&quot;Northern Europe&quot;</span>,<span class="st">&quot;Southern Europe&quot;</span>, </span>
+<span id="cb143-4"><a href="sec-plot.html#cb143-4" aria-hidden="true"></a>                  <span class="st">&quot;Northern America&quot;</span>, <span class="st">&quot;Australia and New Zealand&quot;</span>) <span class="op">~</span><span class="st"> &quot;West&quot;</span>,</span>
+<span id="cb143-5"><a href="sec-plot.html#cb143-5" aria-hidden="true"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;Rest&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb143-6"><a href="sec-plot.html#cb143-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">as_tibble</span>()</span></code></pre></div>
+<div id="jpJUhddyP7WDUMyOEc8x" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="jpJUhddyP7WDUMyOEc8x-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution14-title">Solution</h4>
+<h4 class="modal-title" id="jpJUhddyP7WDUMyOEc8x-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  filter(year == past_year &amp; !is.na(gdp)) %&gt;%
-  ggplot(aes(dollars_per_day)) + 
-  geom_histogram(binwidth = 1, color = &quot;black&quot;) +
-  facet_grid(cols = vars(group)) +
-  scale_x_continuous(trans = &quot;log2&quot;)
-</code></pre>
-
-<p>The plot confirms the west vs the rest dichotomy.</p>
+<div class="modal-body">
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="sec-plot.html#cb144-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb144-2"><a href="sec-plot.html#cb144-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>past_year <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(gdp)) <span class="op">%&gt;%</span></span>
+<span id="cb144-3"><a href="sec-plot.html#cb144-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dollars_per_day)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb144-4"><a href="sec-plot.html#cb144-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></span>
+<span id="cb144-5"><a href="sec-plot.html#cb144-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> <span class="kw">vars</span>(group)) <span class="op">+</span></span>
+<span id="cb144-6"><a href="sec-plot.html#cb144-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>)</span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-271-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+The plot confirms the west vs the rest dichotomy.
+</p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution14">Solution</button>
-<div aria-labelledby="solution15-title" class="modal fade bs-example-modal-lg" id="solution15" role="dialog" tabindex="-1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#jpJUhddyP7WDUMyOEc8x">
+Solution
+</button>
+<div id="VAczfPKp8BtJMmB1PTQL" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="VAczfPKp8BtJMmB1PTQL-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution15-title">Hint</h4>
+<h4 class="modal-title" id="VAczfPKp8BtJMmB1PTQL-title">
+Hint
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  filter(year == past_year &amp; !is.na(gdp)) %&gt;%
-  ggplot(aes(dollars_per_day)) + 
-  geom_histogram(binwidth = 1, color = &quot;black&quot;) +
-  facet_grid(cols = ___) +
-  scale_x_continuous(trans = &quot;log2&quot;)
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="sec-plot.html#cb145-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb145-2"><a href="sec-plot.html#cb145-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>past_year <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(gdp)) <span class="op">%&gt;%</span></span>
+<span id="cb145-3"><a href="sec-plot.html#cb145-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dollars_per_day)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb145-4"><a href="sec-plot.html#cb145-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></span>
+<span id="cb145-5"><a href="sec-plot.html#cb145-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> ___) <span class="op">+</span></span>
+<span id="cb145-6"><a href="sec-plot.html#cb145-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>)</span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution15">Hint</button></p>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#VAczfPKp8BtJMmB1PTQL">
+Hint
+</button>
 <ol start="10" style="list-style-type: decimal">
 <li>Make a histogram of <code>dollars_per_day</code> from 1970 using a log2 scale and <em>facet</em> it by group. Is there a <em>west</em> versus the <em>rest</em> dichotomy?</li>
 </ol>
 <p>The exploratory data analysis above has revealed two characteristics about average income distribution in 1970. Using a histogram, we found a bimodal distribution with the modes relating to poor and rich countries. We will try to visualize these summaries in one plot.</p>
-<p><div aria-labelledby="solution16-title" class="modal fade bs-example-modal-lg" id="solution16" role="dialog" tabindex="-1">
+<div id="rSXxmCJyalNlXuBH5DyI" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="rSXxmCJyalNlXuBH5DyI-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution16-title">Solution</h4>
+<h4 class="modal-title" id="rSXxmCJyalNlXuBH5DyI-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  filter(year == past_year &amp; !is.na(gdp)) %&gt;%
-  ggplot(aes(group, dollars_per_day)) +
-  geom_boxplot() +
-  scale_y_continuous(trans = &quot;log2&quot;) + 
-  geom_point()
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="sec-plot.html#cb146-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb146-2"><a href="sec-plot.html#cb146-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>past_year <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(gdp)) <span class="op">%&gt;%</span></span>
+<span id="cb146-3"><a href="sec-plot.html#cb146-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(group, dollars_per_day)) <span class="op">+</span></span>
+<span id="cb146-4"><a href="sec-plot.html#cb146-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
+<span id="cb146-5"><a href="sec-plot.html#cb146-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb146-6"><a href="sec-plot.html#cb146-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-273-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution16">Solution</button>
-<div aria-labelledby="solution17-title" class="modal fade bs-example-modal-lg" id="solution17" role="dialog" tabindex="-1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#rSXxmCJyalNlXuBH5DyI">
+Solution
+</button>
+<div id="jm6EG67zz8uZORh5LgJp" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="jm6EG67zz8uZORh5LgJp-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution17-title">Hint</h4>
+<h4 class="modal-title" id="jm6EG67zz8uZORh5LgJp-title">
+Hint
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  filter(year == past_year &amp; !is.na(gdp)) %&gt;%
-  ggplot(aes(group, dollars_per_day)) +
-  geom____() +
-  scale_y_continuous(trans = &quot;log2&quot;) + 
-  geom____()
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="sec-plot.html#cb147-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb147-2"><a href="sec-plot.html#cb147-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>past_year <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(gdp)) <span class="op">%&gt;%</span></span>
+<span id="cb147-3"><a href="sec-plot.html#cb147-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(group, dollars_per_day)) <span class="op">+</span></span>
+<span id="cb147-4"><a href="sec-plot.html#cb147-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom____</span>() <span class="op">+</span></span>
+<span id="cb147-5"><a href="sec-plot.html#cb147-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb147-6"><a href="sec-plot.html#cb147-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom____</span>()</span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution17">Hint</button></p>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#jm6EG67zz8uZORh5LgJp">
+Hint
+</button>
 <ol start="11" style="list-style-type: decimal">
 <li>Make a boxplot (<code>geom_boxplot</code>) of <code>dollars_per_day</code> (y-axis) versus <code>group</code> (x-axis) from 1970 using a log2 scale. Also add a the data using <code>geom_point()</code>.</li>
 </ol>
 <p>Data exploration clearly shows that in 1970 there was a “west versus the rest” dichotomy. But does this dichotomy persist? We first have to be a little careful here since there are more countries represented in 2010 than in 1970: the total counts are larger. One reason for this is that several countries were founded after 1970. For example, the Soviet Union divided into several countries during the 1990s. Another reason is that data was available for more countries in 2010. Hence we only have to consider the countries with data available for both years:</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="sec-plot.html#cb130-1" aria-hidden="true"></a>past_year &lt;-<span class="st"> </span><span class="dv">1970</span></span>
-<span id="cb130-2"><a href="sec-plot.html#cb130-2" aria-hidden="true"></a>present_year &lt;-<span class="st"> </span><span class="dv">2010</span></span>
-<span id="cb130-3"><a href="sec-plot.html#cb130-3" aria-hidden="true"></a>years &lt;-<span class="st"> </span><span class="kw">c</span>(past_year, present_year)</span>
-<span id="cb130-4"><a href="sec-plot.html#cb130-4" aria-hidden="true"></a>country_list_<span class="dv">1</span> &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-5"><a href="sec-plot.html#cb130-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>past_year <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(dollars_per_day)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-6"><a href="sec-plot.html#cb130-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">pull</span>(country)</span>
-<span id="cb130-7"><a href="sec-plot.html#cb130-7" aria-hidden="true"></a></span>
-<span id="cb130-8"><a href="sec-plot.html#cb130-8" aria-hidden="true"></a>country_list_<span class="dv">2</span> &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-9"><a href="sec-plot.html#cb130-9" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>present_year <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(dollars_per_day)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-10"><a href="sec-plot.html#cb130-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">pull</span>(country)</span>
-<span id="cb130-11"><a href="sec-plot.html#cb130-11" aria-hidden="true"></a>      </span>
-<span id="cb130-12"><a href="sec-plot.html#cb130-12" aria-hidden="true"></a>country_list &lt;-<span class="st"> </span><span class="kw">intersect</span>(country_list_<span class="dv">1</span>, country_list_<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="sec-plot.html#cb148-1" aria-hidden="true"></a>past_year &lt;-<span class="st"> </span><span class="dv">1970</span></span>
+<span id="cb148-2"><a href="sec-plot.html#cb148-2" aria-hidden="true"></a>present_year &lt;-<span class="st"> </span><span class="dv">2010</span></span>
+<span id="cb148-3"><a href="sec-plot.html#cb148-3" aria-hidden="true"></a>years &lt;-<span class="st"> </span><span class="kw">c</span>(past_year, present_year)</span>
+<span id="cb148-4"><a href="sec-plot.html#cb148-4" aria-hidden="true"></a>country_list_<span class="dv">1</span> &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb148-5"><a href="sec-plot.html#cb148-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>past_year <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(dollars_per_day)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb148-6"><a href="sec-plot.html#cb148-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">pull</span>(country)</span>
+<span id="cb148-7"><a href="sec-plot.html#cb148-7" aria-hidden="true"></a></span>
+<span id="cb148-8"><a href="sec-plot.html#cb148-8" aria-hidden="true"></a>country_list_<span class="dv">2</span> &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb148-9"><a href="sec-plot.html#cb148-9" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>present_year <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(dollars_per_day)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb148-10"><a href="sec-plot.html#cb148-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">pull</span>(country)</span>
+<span id="cb148-11"><a href="sec-plot.html#cb148-11" aria-hidden="true"></a>      </span>
+<span id="cb148-12"><a href="sec-plot.html#cb148-12" aria-hidden="true"></a>country_list &lt;-<span class="st"> </span><span class="kw">intersect</span>(country_list_<span class="dv">1</span>, country_list_<span class="dv">2</span>)</span></code></pre></div>
 <p>We can now filter the rows by <code>years</code> and <code>country_list</code>.</p>
-<p><div aria-labelledby="solution18-title" class="modal fade bs-example-modal-lg" id="solution18" role="dialog" tabindex="-1">
+<div id="DUHBwJT1XdaJtcIO9rxY" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="DUHBwJT1XdaJtcIO9rxY-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution18-title">Solution</h4>
+<h4 class="modal-title" id="DUHBwJT1XdaJtcIO9rxY-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  filter(year %in% years &amp; country %in% country_list) %&gt;%
-  ggplot(aes(dollars_per_day)) +
-  geom_histogram(binwidth = 1, color = &quot;black&quot;) +
-  scale_x_continuous(trans = &quot;log2&quot;) + 
-  facet_grid(year ~ group)
-</code></pre>
-
-<p>The income gap between rich and poor countries has narrowed considerably during the last 40 years</p>
+<div class="modal-body">
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="sec-plot.html#cb149-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb149-2"><a href="sec-plot.html#cb149-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">%in%</span><span class="st"> </span>years <span class="op">&amp;</span><span class="st"> </span>country <span class="op">%in%</span><span class="st"> </span>country_list) <span class="op">%&gt;%</span></span>
+<span id="cb149-3"><a href="sec-plot.html#cb149-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dollars_per_day)) <span class="op">+</span></span>
+<span id="cb149-4"><a href="sec-plot.html#cb149-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></span>
+<span id="cb149-5"><a href="sec-plot.html#cb149-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb149-6"><a href="sec-plot.html#cb149-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(year <span class="op">~</span><span class="st"> </span>group)</span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-276-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+The income gap between rich and poor countries has narrowed considerably during the last 40 years
+</p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution18">Solution</button>
-<div aria-labelledby="solution19-title" class="modal fade bs-example-modal-lg" id="solution19" role="dialog" tabindex="-1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#DUHBwJT1XdaJtcIO9rxY">
+Solution
+</button>
+<div id="KzEb6U69HajArhl9MfWL" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="KzEb6U69HajArhl9MfWL-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution19-title">Hint</h4>
+<h4 class="modal-title" id="KzEb6U69HajArhl9MfWL-title">
+Hint
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  filter(year %in% ___ &amp; country %in% ___) %&gt;%
-  ggplot(aes(dollars_per_day)) +
-  geom_histogram(binwidth = 1, color = &quot;black&quot;) +
-  scale_x_continuous(trans = &quot;log2&quot;) + 
-  facet_grid(___)
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="sec-plot.html#cb150-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb150-2"><a href="sec-plot.html#cb150-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">%in%</span><span class="st"> </span>___ <span class="op">&amp;</span><span class="st"> </span>country <span class="op">%in%</span><span class="st"> </span>___) <span class="op">%&gt;%</span></span>
+<span id="cb150-3"><a href="sec-plot.html#cb150-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dollars_per_day)) <span class="op">+</span></span>
+<span id="cb150-4"><a href="sec-plot.html#cb150-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></span>
+<span id="cb150-5"><a href="sec-plot.html#cb150-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb150-6"><a href="sec-plot.html#cb150-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(___)</span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution19">Hint</button></p>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#KzEb6U69HajArhl9MfWL">
+Hint
+</button>
 <ol start="12" style="list-style-type: decimal">
 <li>Make a histogram of <code>dollars_per_day</code> from 1970 and 2010 using a log2 scale and <em>facet</em> it by group and year. Does the dichotomy persist?</li>
 </ol>
-<p><div aria-labelledby="solution20-title" class="modal fade bs-example-modal-lg" id="solution20" role="dialog" tabindex="-1">
+<div id="E3Etok97yRSAaGEgHo5o" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="E3Etok97yRSAaGEgHo5o-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution20-title">Solution</h4>
+<h4 class="modal-title" id="E3Etok97yRSAaGEgHo5o-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  filter(year %in% years &amp; country %in% country_list) %&gt;%
-  mutate(year = factor(year)) %&gt;%
-  ggplot(aes(group, dollars_per_day, fill = year)) +
-  geom_boxplot() +
-  scale_y_continuous(trans = &quot;log2&quot;)
-</code></pre>
-
-<p>We now see that the rich countries have become a bit richer, but percentage-wise, the poor countries appear to have improved more. In particular, we see that the proportion of <em>developing</em> countries earning more than $16 a day increased substantially.</p>
+<div class="modal-body">
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="sec-plot.html#cb151-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb151-2"><a href="sec-plot.html#cb151-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">%in%</span><span class="st"> </span>years <span class="op">&amp;</span><span class="st"> </span>country <span class="op">%in%</span><span class="st"> </span>country_list) <span class="op">%&gt;%</span></span>
+<span id="cb151-3"><a href="sec-plot.html#cb151-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">factor</span>(year)) <span class="op">%&gt;%</span></span>
+<span id="cb151-4"><a href="sec-plot.html#cb151-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(group, dollars_per_day, <span class="dt">fill =</span> year)) <span class="op">+</span></span>
+<span id="cb151-5"><a href="sec-plot.html#cb151-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
+<span id="cb151-6"><a href="sec-plot.html#cb151-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>) </span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-278-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+We now see that the rich countries have become a bit richer, but percentage-wise, the poor countries appear to have improved more. In particular, we see that the proportion of <em>developing</em> countries earning more than $16 a day increased substantially.
+</p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution20">Solution</button>
-<div aria-labelledby="solution21-title" class="modal fade bs-example-modal-lg" id="solution21" role="dialog" tabindex="-1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#E3Etok97yRSAaGEgHo5o">
+Solution
+</button>
+<div id="QkfRc0DhDoJgv77gQpy4" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="QkfRc0DhDoJgv77gQpy4-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution21-title">Hint</h4>
+<h4 class="modal-title" id="QkfRc0DhDoJgv77gQpy4-title">
+Hint
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  filter(year %in% years &amp; country %in% country_list) %&gt;%
-  mutate(year = factor(___)) %&gt;%
-  ggplot(aes(group, dollars_per_day, fill = ___)) +
-  geom_boxplot() +
-  scale_y_continuous(trans = &quot;log2&quot;)
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="sec-plot.html#cb152-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb152-2"><a href="sec-plot.html#cb152-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">%in%</span><span class="st"> </span>years <span class="op">&amp;</span><span class="st"> </span>country <span class="op">%in%</span><span class="st"> </span>country_list) <span class="op">%&gt;%</span></span>
+<span id="cb152-3"><a href="sec-plot.html#cb152-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">factor</span>(___)) <span class="op">%&gt;%</span></span>
+<span id="cb152-4"><a href="sec-plot.html#cb152-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(group, dollars_per_day, <span class="dt">fill =</span> ___)) <span class="op">+</span></span>
+<span id="cb152-5"><a href="sec-plot.html#cb152-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
+<span id="cb152-6"><a href="sec-plot.html#cb152-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>) </span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution21">Hint</button></p>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#QkfRc0DhDoJgv77gQpy4">
+Hint
+</button>
 <ol start="13" style="list-style-type: decimal">
 <li><p>Make a boxplot of <code>dollars_per_day</code> versus <code>group</code> from 1970 and 2010 using a log2 scale. Use year as fill aesthetic.</p>
 <p><em>Hint: you must convert year to a factor using <code>mutate(year = factor(year))</code>.</em></p></li>
 </ol>
 <p>The previous data exploration suggested that the income gap between rich and poor countries has narrowed considerably during the last 40 years.
 We used a series of histograms and boxplots to see this. Let us now shift to density plots. Let’s start by noting that density plots for income distribution in 1970 and 2010 deliver the message that the gap is closing:</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="sec-plot.html#cb131-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb131-2"><a href="sec-plot.html#cb131-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">%in%</span><span class="st"> </span>years <span class="op">&amp;</span><span class="st"> </span>country <span class="op">%in%</span><span class="st"> </span>country_list) <span class="op">%&gt;%</span></span>
-<span id="cb131-3"><a href="sec-plot.html#cb131-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dollars_per_day)) <span class="op">+</span></span>
-<span id="cb131-4"><a href="sec-plot.html#cb131-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb131-5"><a href="sec-plot.html#cb131-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb131-6"><a href="sec-plot.html#cb131-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> <span class="kw">vars</span>(year))</span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="sec-plot.html#cb153-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb153-2"><a href="sec-plot.html#cb153-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">%in%</span><span class="st"> </span>years <span class="op">&amp;</span><span class="st"> </span>country <span class="op">%in%</span><span class="st"> </span>country_list) <span class="op">%&gt;%</span></span>
+<span id="cb153-3"><a href="sec-plot.html#cb153-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dollars_per_day)) <span class="op">+</span></span>
+<span id="cb153-4"><a href="sec-plot.html#cb153-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb153-5"><a href="sec-plot.html#cb153-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb153-6"><a href="sec-plot.html#cb153-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> <span class="kw">vars</span>(year))</span></code></pre></div>
 <p><img src="TFA_files/figure-html/income-smooth-density-by-year-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>In the 1970 plot, we see two clear modes: poor and rich countries. In 2010, it appears that some of the poor countries have shifted towards the right, closing the gap.</p>
 <p>The next message we need to convey is that the reason for this change in distribution is that several poor countries became richer, rather than some rich countries becoming poorer. To do this, we can assign a color to the groups we identified during data exploration.</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="sec-plot.html#cb132-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb132-2"><a href="sec-plot.html#cb132-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">%in%</span><span class="st"> </span>years <span class="op">&amp;</span><span class="st"> </span>country <span class="op">%in%</span><span class="st"> </span>country_list) <span class="op">%&gt;%</span></span>
-<span id="cb132-3"><a href="sec-plot.html#cb132-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dollars_per_day, <span class="dt">fill =</span> group)) <span class="op">+</span></span>
-<span id="cb132-4"><a href="sec-plot.html#cb132-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>) <span class="op">+</span></span>
-<span id="cb132-5"><a href="sec-plot.html#cb132-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb132-6"><a href="sec-plot.html#cb132-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> <span class="kw">vars</span>(year))</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="sec-plot.html#cb154-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb154-2"><a href="sec-plot.html#cb154-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">%in%</span><span class="st"> </span>years <span class="op">&amp;</span><span class="st"> </span>country <span class="op">%in%</span><span class="st"> </span>country_list) <span class="op">%&gt;%</span></span>
+<span id="cb154-3"><a href="sec-plot.html#cb154-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dollars_per_day, <span class="dt">fill =</span> group)) <span class="op">+</span></span>
+<span id="cb154-4"><a href="sec-plot.html#cb154-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>) <span class="op">+</span></span>
+<span id="cb154-5"><a href="sec-plot.html#cb154-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb154-6"><a href="sec-plot.html#cb154-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> <span class="kw">vars</span>(year))</span></code></pre></div>
 <p><img src="TFA_files/figure-html/income-smooth-density-by-year-west-v-developing-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Note the default is to have the area represented by each distribution add up to 1, regardless of the size of each group: the number of countries in the ‘west’ group is 21 and in the ‘rest’ group is 87. We may use count on the y-axis instead:</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="sec-plot.html#cb133-1" aria-hidden="true"></a>p &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb133-2"><a href="sec-plot.html#cb133-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">%in%</span><span class="st"> </span>years <span class="op">&amp;</span><span class="st"> </span>country <span class="op">%in%</span><span class="st"> </span>country_list) <span class="op">%&gt;%</span></span>
-<span id="cb133-3"><a href="sec-plot.html#cb133-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dollars_per_day, <span class="dt">y =</span> ..count.., <span class="dt">fill =</span> group)) <span class="op">+</span></span>
-<span id="cb133-4"><a href="sec-plot.html#cb133-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>, <span class="dt">limit =</span> <span class="kw">c</span>(<span class="fl">0.125</span>, <span class="dv">300</span>)) <span class="op">+</span></span>
-<span id="cb133-5"><a href="sec-plot.html#cb133-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> <span class="kw">vars</span>(year))</span>
-<span id="cb133-6"><a href="sec-plot.html#cb133-6" aria-hidden="true"></a>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="sec-plot.html#cb155-1" aria-hidden="true"></a>p &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb155-2"><a href="sec-plot.html#cb155-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">%in%</span><span class="st"> </span>years <span class="op">&amp;</span><span class="st"> </span>country <span class="op">%in%</span><span class="st"> </span>country_list) <span class="op">%&gt;%</span></span>
+<span id="cb155-3"><a href="sec-plot.html#cb155-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dollars_per_day, <span class="dt">y =</span> ..count.., <span class="dt">fill =</span> group)) <span class="op">+</span></span>
+<span id="cb155-4"><a href="sec-plot.html#cb155-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>, <span class="dt">limit =</span> <span class="kw">c</span>(<span class="fl">0.125</span>, <span class="dv">300</span>)) <span class="op">+</span></span>
+<span id="cb155-5"><a href="sec-plot.html#cb155-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> <span class="kw">vars</span>(year))</span>
+<span id="cb155-6"><a href="sec-plot.html#cb155-6" aria-hidden="true"></a>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>) </span></code></pre></div>
 <p><img src="TFA_files/figure-html/income-smooth-density-counts-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div aria-labelledby="solution22-title" class="modal fade bs-example-modal-lg" id="solution22" role="dialog" tabindex="-1">
+<div id="Sh5zF3gmLMH4MBXVwLS5" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Sh5zF3gmLMH4MBXVwLS5-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution22-title">Solution</h4>
+<h4 class="modal-title" id="Sh5zF3gmLMH4MBXVwLS5-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">p + geom_density(alpha = 0.2, bw = 0.75)
-</code></pre>
-
-<p>This plot now shows that the developing world distribution is changing.</p>
+<div class="modal-body">
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="sec-plot.html#cb156-1" aria-hidden="true"></a>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>, <span class="dt">bw =</span> <span class="fl">0.75</span>)</span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-281-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+This plot now shows that the developing world distribution is changing.
+</p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution22">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Sh5zF3gmLMH4MBXVwLS5">
+Solution
+</button>
 <ol start="14" style="list-style-type: decimal">
 <li>To get densities smoother, use <code>bw = 0.75</code> argument so that the same bandwidth is used in each density. Comment on the plot.</li>
 </ol>
 <p>As a final point, we note that in these distributions weigh every country the same. So if most of the population is improving, but living in a very large country, such as China, we might not appreciate this. We can actually weight the smooth densities using the <code>weight</code> mapping argument. First we modify the dataset:</p>
-<p><div aria-labelledby="solution23-title" class="modal fade bs-example-modal-lg" id="solution23" role="dialog" tabindex="-1">
+<div id="rOjASl3oIMJ2Wgu1zIwg" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="rOjASl3oIMJ2Wgu1zIwg-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution23-title">Solution</h4>
+<h4 class="modal-title" id="rOjASl3oIMJ2Wgu1zIwg-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  ggplot(aes(dollars_per_day, fill = group, weight = weight)) +
-  scale_x_continuous(trans = &quot;log2&quot;, limit = c(0.125, 300)) + 
-  geom_density(alpha = 0.2, bw = 0.75) + 
-  facet_grid(cols = vars(year))
-</code></pre>
-
-<p>We now see that the rich countries have become a bit richer, but percentage-wise, the poor countries appear to have improved more. In particular, we see that the proportion of <em>developing</em> countries earning more than $16 a day increased substantially.</p>
+<div class="modal-body">
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="sec-plot.html#cb157-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb157-2"><a href="sec-plot.html#cb157-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dollars_per_day, <span class="dt">fill =</span> group, <span class="dt">weight =</span> weight)) <span class="op">+</span></span>
+<span id="cb157-3"><a href="sec-plot.html#cb157-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>, <span class="dt">limit =</span> <span class="kw">c</span>(<span class="fl">0.125</span>, <span class="dv">300</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb157-4"><a href="sec-plot.html#cb157-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>, <span class="dt">bw =</span> <span class="fl">0.75</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb157-5"><a href="sec-plot.html#cb157-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> <span class="kw">vars</span>(year))</span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-282-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+We now see that the rich countries have become a bit richer, but percentage-wise, the poor countries appear to have improved more. In particular, we see that the proportion of <em>developing</em> countries earning more than $16 a day increased substantially.
+</p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution23">Solution</button>
-<div aria-labelledby="solution24-title" class="modal fade bs-example-modal-lg" id="solution24" role="dialog" tabindex="-1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#rOjASl3oIMJ2Wgu1zIwg">
+Solution
+</button>
+<div id="Ro2jLpXHn5pHkx5qnNKC" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Ro2jLpXHn5pHkx5qnNKC-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution24-title">Hint</h4>
+<h4 class="modal-title" id="Ro2jLpXHn5pHkx5qnNKC-title">
+Hint
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">gapminder %&gt;% 
-  ggplot(aes(dollars_per_day, fill = group, weight = ___)) +
-  scale_x_continuous(trans = &quot;log2&quot;, limit = c(0.125, 300)) + 
-  geom_density(alpha = 0.2, bw = 0.75) + 
-  facet_grid(cols = vars(year))
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="sec-plot.html#cb158-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb158-2"><a href="sec-plot.html#cb158-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dollars_per_day, <span class="dt">fill =</span> group, <span class="dt">weight =</span> ___)) <span class="op">+</span></span>
+<span id="cb158-3"><a href="sec-plot.html#cb158-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>, <span class="dt">limit =</span> <span class="kw">c</span>(<span class="fl">0.125</span>, <span class="dv">300</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb158-4"><a href="sec-plot.html#cb158-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>, <span class="dt">bw =</span> <span class="fl">0.75</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb158-5"><a href="sec-plot.html#cb158-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> <span class="kw">vars</span>(year))</span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution24">Hint</button></p>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Ro2jLpXHn5pHkx5qnNKC">
+Hint
+</button>
 <ol start="15" style="list-style-type: decimal">
 <li>Modify the ggplot function with a weight argument and plot the density (with area equal 1).</li>
 </ol>
@@ -1332,24 +1520,24 @@ We used a series of histograms and boxplots to see this. Let us now shift to den
 <h3><span class="header-section-number">9.5.2</span> Exercise (profit)</h3>
 <p>Use the <em>exercise R markdown template</em> to solve this exercise (<strong>File &gt; New File &gt; R Markdown…</strong>, select <strong>From template</strong> and then <strong>TFA Exercise</strong>).</p>
 <p>Consider the dataset profit (provided by the tfa package) containing quarterly financial records for each costumer, product, etc.:</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="sec-plot.html#cb134-1" aria-hidden="true"></a><span class="kw">library</span>(tfa)</span>
-<span id="cb134-2"><a href="sec-plot.html#cb134-2" aria-hidden="true"></a><span class="kw">library</span>(skimr)</span>
-<span id="cb134-3"><a href="sec-plot.html#cb134-3" aria-hidden="true"></a><span class="kw">glimpse</span>(profit)</span>
-<span id="cb134-4"><a href="sec-plot.html#cb134-4" aria-hidden="true"></a><span class="co">#&gt; Rows: 24,546</span></span>
-<span id="cb134-5"><a href="sec-plot.html#cb134-5" aria-hidden="true"></a><span class="co">#&gt; Columns: 12</span></span>
-<span id="cb134-6"><a href="sec-plot.html#cb134-6" aria-hidden="true"></a><span class="co">#&gt; $ Quarter                 &lt;dbl&gt; 3, 1, 4, 1, 4, 3, 4, 3, 4, 1, 1, 3, 3, 3, 2, 2, 1, 2, 3, 2, 2, 2,…</span></span>
-<span id="cb134-7"><a href="sec-plot.html#cb134-7" aria-hidden="true"></a><span class="co">#&gt; $ Channel                 &lt;chr&gt; &quot;ATM&quot;, &quot;ATM&quot;, &quot;ATM&quot;, &quot;ATM&quot;, &quot;ATM&quot;, &quot;BRH&quot;, &quot;BRH&quot;, &quot;ATM&quot;, &quot;BRH&quot;, &quot;B…</span></span>
-<span id="cb134-8"><a href="sec-plot.html#cb134-8" aria-hidden="true"></a><span class="co">#&gt; $ `Customer ID`           &lt;chr&gt; &quot;FRT&quot;, &quot;MRT&quot;, &quot;PBI&quot;, &quot;PBI&quot;, &quot;MRT&quot;, &quot;MAM&quot;, &quot;PBI&quot;, &quot;FRT&quot;, &quot;PBI&quot;, &quot;P…</span></span>
-<span id="cb134-9"><a href="sec-plot.html#cb134-9" aria-hidden="true"></a><span class="co">#&gt; $ Country                 &lt;chr&gt; &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;U…</span></span>
-<span id="cb134-10"><a href="sec-plot.html#cb134-10" aria-hidden="true"></a><span class="co">#&gt; $ `Product Line`          &lt;chr&gt; &quot;Credit Products&quot;, &quot;Credit Products&quot;, &quot;Deposit Products&quot;, &quot;Deposi…</span></span>
-<span id="cb134-11"><a href="sec-plot.html#cb134-11" aria-hidden="true"></a><span class="co">#&gt; $ Revenue                 &lt;dbl&gt; 6044, 4686, 6063, 4682, 6320, 2993, 3355, 5716, 3347, 2624, 3629,…</span></span>
-<span id="cb134-12"><a href="sec-plot.html#cb134-12" aria-hidden="true"></a><span class="co">#&gt; $ `Product Cost`          &lt;dbl&gt; 3998, 3229, 7440, 6127, 7913, 1034, 4355, 5617, 4229, 1960, 4650,…</span></span>
-<span id="cb134-13"><a href="sec-plot.html#cb134-13" aria-hidden="true"></a><span class="co">#&gt; $ `Customer Service Cost` &lt;dbl&gt; 413, 643, 1842, 1118, 1854, 242, 1027, 876, 425, 264, 700, 1482, …</span></span>
-<span id="cb134-14"><a href="sec-plot.html#cb134-14" aria-hidden="true"></a><span class="co">#&gt; $ Profit                  &lt;dbl&gt; 1633, 814, -3219, -2563, -3447, 1717, -2027, -777, -1307, 400, -1…</span></span>
-<span id="cb134-15"><a href="sec-plot.html#cb134-15" aria-hidden="true"></a><span class="co">#&gt; $ Profit_calc             &lt;dbl&gt; 1633, 814, -3219, -2563, -3447, 1717, -2027, -777, -1307, 400, -1…</span></span>
-<span id="cb134-16"><a href="sec-plot.html#cb134-16" aria-hidden="true"></a><span class="co">#&gt; $ Diff                    &lt;dbl&gt; 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1,…</span></span>
-<span id="cb134-17"><a href="sec-plot.html#cb134-17" aria-hidden="true"></a><span class="co">#&gt; $ ct_na                   &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…</span></span>
-<span id="cb134-18"><a href="sec-plot.html#cb134-18" aria-hidden="true"></a><span class="kw">skim</span>(profit)</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="sec-plot.html#cb159-1" aria-hidden="true"></a><span class="kw">library</span>(tfa)</span>
+<span id="cb159-2"><a href="sec-plot.html#cb159-2" aria-hidden="true"></a><span class="kw">library</span>(skimr)</span>
+<span id="cb159-3"><a href="sec-plot.html#cb159-3" aria-hidden="true"></a><span class="kw">glimpse</span>(profit)</span>
+<span id="cb159-4"><a href="sec-plot.html#cb159-4" aria-hidden="true"></a><span class="co">#&gt; Rows: 24,546</span></span>
+<span id="cb159-5"><a href="sec-plot.html#cb159-5" aria-hidden="true"></a><span class="co">#&gt; Columns: 12</span></span>
+<span id="cb159-6"><a href="sec-plot.html#cb159-6" aria-hidden="true"></a><span class="co">#&gt; $ Quarter                 &lt;dbl&gt; 3, 1, 4, 1, 4, 3, 4, 3, 4, 1, 1, 3, 3, 3, 2, 2, 1, 2, 3, 2, 2, 2,…</span></span>
+<span id="cb159-7"><a href="sec-plot.html#cb159-7" aria-hidden="true"></a><span class="co">#&gt; $ Channel                 &lt;chr&gt; &quot;ATM&quot;, &quot;ATM&quot;, &quot;ATM&quot;, &quot;ATM&quot;, &quot;ATM&quot;, &quot;BRH&quot;, &quot;BRH&quot;, &quot;ATM&quot;, &quot;BRH&quot;, &quot;B…</span></span>
+<span id="cb159-8"><a href="sec-plot.html#cb159-8" aria-hidden="true"></a><span class="co">#&gt; $ `Customer ID`           &lt;chr&gt; &quot;FRT&quot;, &quot;MRT&quot;, &quot;PBI&quot;, &quot;PBI&quot;, &quot;MRT&quot;, &quot;MAM&quot;, &quot;PBI&quot;, &quot;FRT&quot;, &quot;PBI&quot;, &quot;P…</span></span>
+<span id="cb159-9"><a href="sec-plot.html#cb159-9" aria-hidden="true"></a><span class="co">#&gt; $ Country                 &lt;chr&gt; &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;U…</span></span>
+<span id="cb159-10"><a href="sec-plot.html#cb159-10" aria-hidden="true"></a><span class="co">#&gt; $ `Product Line`          &lt;chr&gt; &quot;Credit Products&quot;, &quot;Credit Products&quot;, &quot;Deposit Products&quot;, &quot;Deposi…</span></span>
+<span id="cb159-11"><a href="sec-plot.html#cb159-11" aria-hidden="true"></a><span class="co">#&gt; $ Revenue                 &lt;dbl&gt; 6044, 4686, 6063, 4682, 6320, 2993, 3355, 5716, 3347, 2624, 3629,…</span></span>
+<span id="cb159-12"><a href="sec-plot.html#cb159-12" aria-hidden="true"></a><span class="co">#&gt; $ `Product Cost`          &lt;dbl&gt; 3998, 3229, 7440, 6127, 7913, 1034, 4355, 5617, 4229, 1960, 4650,…</span></span>
+<span id="cb159-13"><a href="sec-plot.html#cb159-13" aria-hidden="true"></a><span class="co">#&gt; $ `Customer Service Cost` &lt;dbl&gt; 413, 643, 1842, 1118, 1854, 242, 1027, 876, 425, 264, 700, 1482, …</span></span>
+<span id="cb159-14"><a href="sec-plot.html#cb159-14" aria-hidden="true"></a><span class="co">#&gt; $ Profit                  &lt;dbl&gt; 1633, 814, -3219, -2563, -3447, 1717, -2027, -777, -1307, 400, -1…</span></span>
+<span id="cb159-15"><a href="sec-plot.html#cb159-15" aria-hidden="true"></a><span class="co">#&gt; $ Profit_calc             &lt;dbl&gt; 1633, 814, -3219, -2563, -3447, 1717, -2027, -777, -1307, 400, -1…</span></span>
+<span id="cb159-16"><a href="sec-plot.html#cb159-16" aria-hidden="true"></a><span class="co">#&gt; $ Diff                    &lt;dbl&gt; 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1,…</span></span>
+<span id="cb159-17"><a href="sec-plot.html#cb159-17" aria-hidden="true"></a><span class="co">#&gt; $ ct_na                   &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…</span></span>
+<span id="cb159-18"><a href="sec-plot.html#cb159-18" aria-hidden="true"></a><span class="kw">skim</span>(profit)</span></code></pre></div>
 <table style="width: auto;" class="table table-condensed">
 <caption>
 <span id="tab:unnamed-chunk-284">Table 9.1: </span>Data summary
@@ -1894,317 +2082,428 @@ ct_na
 </tbody>
 </table>
 <ol style="list-style-type: decimal">
-<li>Make a barplot that shows the total profitability of the product lines. Use the following steps:
-<ol style="list-style-type: lower-alpha">
-<li>Convert all character columns to factor columns.
-<div aria-labelledby="solution25-title" class="modal fade bs-example-modal-lg" id="solution25" role="dialog" tabindex="-1">
-<div class="modal-dialog modal-lg" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-<h4 class="modal-title" id="solution25-title">Solution</h4>
-</div>
-<div class="modal-body"><pre><code class="r">profit &lt;- profit %&gt;%
-  mutate(across(where(is.character), as.factor))
-</code></pre>
-</div>
-<div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
-</div>
-</div>
-</div>
-</div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution25">Solution</button></li>
-<li>Group by product line, calculate the total profit and plot profit for each product line.
-<div aria-labelledby="solution26-title" class="modal fade bs-example-modal-lg" id="solution26" role="dialog" tabindex="-1">
-<div class="modal-dialog modal-lg" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-<h4 class="modal-title" id="solution26-title">Solution</h4>
-</div>
-<div class="modal-body"><pre><code class="r">profit %&gt;% 
-  group_by(`Product Line`) %&gt;% 
-  summarise(Profit = sum(Profit)) %&gt;% 
-  ggplot(aes(x = `Product Line`, y = Profit)) +
-  geom_col()
-</code></pre>
-</div>
-<div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
-</div>
-</div>
-</div>
-</div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution26">Solution</button></li>
-<li>Plot profit for each product line where product line is reordered based on total profit.
-<div aria-labelledby="solution27-title" class="modal fade bs-example-modal-lg" id="solution27" role="dialog" tabindex="-1">
-<div class="modal-dialog modal-lg" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-<h4 class="modal-title" id="solution27-title">Solution</h4>
-</div>
-<div class="modal-body"><pre><code class="r">profit %&gt;% 
-  group_by(`Product Line`) %&gt;% 
-  summarise(Profit = sum(Profit)) %&gt;% 
-  ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
-  geom_col()
-</code></pre>
-</div>
-<div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
-</div>
-</div>
-</div>
-</div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution27">Solution</button></li>
-<li>Add a title to the plot using <code>labs</code>.
-<div aria-labelledby="solution28-title" class="modal fade bs-example-modal-lg" id="solution28" role="dialog" tabindex="-1">
-<div class="modal-dialog modal-lg" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-<h4 class="modal-title" id="solution28-title">Solution</h4>
-</div>
-<div class="modal-body"><pre><code class="r">profit %&gt;% 
-  group_by(`Product Line`) %&gt;% 
-  summarise(Profit = sum(Profit)) %&gt;% 
-  ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
-  geom_col() + 
-  labs(title = &quot;Total profit for each product line&quot;)
-</code></pre>
-</div>
-<div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
-</div>
-</div>
-</div>
-</div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution28">Solution</button></li>
-<li>Rotate the x-axis labels 90 degrees (try Googling “ggplot2 rotate axis labels”).
-<div aria-labelledby="solution29-title" class="modal fade bs-example-modal-lg" id="solution29" role="dialog" tabindex="-1">
-<div class="modal-dialog modal-lg" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-<h4 class="modal-title" id="solution29-title">Solution</h4>
-</div>
-<div class="modal-body"><pre><code class="r">profit %&gt;% 
-  group_by(`Product Line`) %&gt;% 
-  summarise(Profit = sum(Profit)) %&gt;% 
-  ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
-  geom_col() +
-  labs(title = &quot;Total profit for each product line&quot;) + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-</code></pre>
-</div>
-<div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
-</div>
-</div>
-</div>
-</div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution29">Solution</button></li>
+<li>Make a barplot that shows the total profitability of the product lines. Use the following steps:</li>
 </ol>
-Which product line is best and worst?</li>
-</ol>
-<div aria-labelledby="solution30-title" class="modal fade bs-example-modal-lg" id="solution30" role="dialog" tabindex="-1">
+<div id="ZtWafWV12vlCeeOoXsYu" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ZtWafWV12vlCeeOoXsYu-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution30-title">Solution</h4>
+<h4 class="modal-title" id="ZtWafWV12vlCeeOoXsYu-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">profit %&gt;% 
-  group_by(`Product Line`, Quarter) %&gt;% 
-  summarise(Profit = sum(Profit)) %&gt;% 
-  ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
-  geom_col() +
-  facet_grid(cols = vars(Quarter)) +
-  labs(title = &quot;Total profit for each product line&quot;) +  
-  xlab(&quot;Product Line&quot;) + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="sec-plot.html#cb160-1" aria-hidden="true"></a>profit &lt;-<span class="st"> </span>profit <span class="op">%&gt;%</span></span>
+<span id="cb160-2"><a href="sec-plot.html#cb160-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.character), as.factor))</span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution30">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#ZtWafWV12vlCeeOoXsYu">
+Solution
+</button>
+<p>      
+a) Convert all character columns to factor columns.</p>
+<div id="aQwhP1ZUsoqMs9HfyaW3" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="aQwhP1ZUsoqMs9HfyaW3-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="aQwhP1ZUsoqMs9HfyaW3-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="sec-plot.html#cb161-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb161-2"><a href="sec-plot.html#cb161-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(<span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb161-3"><a href="sec-plot.html#cb161-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Profit =</span> <span class="kw">sum</span>(Profit)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb161-4"><a href="sec-plot.html#cb161-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>, <span class="dt">y =</span> Profit)) <span class="op">+</span></span>
+<span id="cb161-5"><a href="sec-plot.html#cb161-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>()</span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-286-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#aQwhP1ZUsoqMs9HfyaW3">
+Solution
+</button>
+<p>      
+b) Group by product line, calculate the total profit and plot profit for each product line.</p>
+<div id="y75sVKt1EgEJAn9pKNd5" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="y75sVKt1EgEJAn9pKNd5-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="y75sVKt1EgEJAn9pKNd5-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="sec-plot.html#cb162-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb162-2"><a href="sec-plot.html#cb162-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(<span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb162-3"><a href="sec-plot.html#cb162-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Profit =</span> <span class="kw">sum</span>(Profit)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb162-4"><a href="sec-plot.html#cb162-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(<span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>, Profit), <span class="dt">y =</span> Profit)) <span class="op">+</span></span>
+<span id="cb162-5"><a href="sec-plot.html#cb162-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>()</span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-287-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#y75sVKt1EgEJAn9pKNd5">
+Solution
+</button>
+<p>      
+c) Plot profit for each product line where product line is reordered based on total profit.</p>
+<div id="1zamtky2urmN2MGqMIlq" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="1zamtky2urmN2MGqMIlq-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="1zamtky2urmN2MGqMIlq-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="sec-plot.html#cb163-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb163-2"><a href="sec-plot.html#cb163-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(<span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb163-3"><a href="sec-plot.html#cb163-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Profit =</span> <span class="kw">sum</span>(Profit)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb163-4"><a href="sec-plot.html#cb163-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(<span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>, Profit), <span class="dt">y =</span> Profit)) <span class="op">+</span></span>
+<span id="cb163-5"><a href="sec-plot.html#cb163-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb163-6"><a href="sec-plot.html#cb163-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Total profit for each product line&quot;</span>) </span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-288-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#1zamtky2urmN2MGqMIlq">
+Solution
+</button>
+<p>      
+d) Add a title to the plot using <code>labs</code>.</p>
+<div id="Sj6DxkoPantN5ck5Icku" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Sj6DxkoPantN5ck5Icku-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="Sj6DxkoPantN5ck5Icku-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="sec-plot.html#cb164-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb164-2"><a href="sec-plot.html#cb164-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(<span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb164-3"><a href="sec-plot.html#cb164-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Profit =</span> <span class="kw">sum</span>(Profit)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb164-4"><a href="sec-plot.html#cb164-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(<span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>, Profit), <span class="dt">y =</span> Profit)) <span class="op">+</span></span>
+<span id="cb164-5"><a href="sec-plot.html#cb164-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span></span>
+<span id="cb164-6"><a href="sec-plot.html#cb164-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Total profit for each product line&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb164-7"><a href="sec-plot.html#cb164-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Product line&quot;</span>) <span class="op">+</span></span>
+<span id="cb164-8"><a href="sec-plot.html#cb164-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>, <span class="dt">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-289-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Sj6DxkoPantN5ck5Icku">
+Solution
+</button>
+<p>      
+e) Rotate the x-axis labels 90 degrees (try Googling “ggplot2 rotate axis labels”).</p>
+<div id="TZjru3VLqn7iE4w9eA1W" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="TZjru3VLqn7iE4w9eA1W-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="TZjru3VLqn7iE4w9eA1W-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="sec-plot.html#cb165-1" aria-hidden="true"></a>dat &lt;-<span class="st"> </span>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb165-2"><a href="sec-plot.html#cb165-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(<span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb165-3"><a href="sec-plot.html#cb165-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Profit =</span> <span class="kw">sum</span>(Profit)) </span>
+<span id="cb165-4"><a href="sec-plot.html#cb165-4" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice_min</span>(Profit)</span>
+<span id="cb165-5"><a href="sec-plot.html#cb165-5" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
+<span id="cb165-6"><a href="sec-plot.html#cb165-6" aria-hidden="true"></a><span class="co">#&gt;   `Product Line`       Profit</span></span>
+<span id="cb165-7"><a href="sec-plot.html#cb165-7" aria-hidden="true"></a><span class="co">#&gt;   &lt;fct&gt;                 &lt;dbl&gt;</span></span>
+<span id="cb165-8"><a href="sec-plot.html#cb165-8" aria-hidden="true"></a><span class="co">#&gt; 1 Third Party Products   2264</span></span>
+<span id="cb165-9"><a href="sec-plot.html#cb165-9" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice_max</span>(Profit)</span>
+<span id="cb165-10"><a href="sec-plot.html#cb165-10" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
+<span id="cb165-11"><a href="sec-plot.html#cb165-11" aria-hidden="true"></a><span class="co">#&gt;   `Product Line`  Profit</span></span>
+<span id="cb165-12"><a href="sec-plot.html#cb165-12" aria-hidden="true"></a><span class="co">#&gt;   &lt;fct&gt;            &lt;dbl&gt;</span></span>
+<span id="cb165-13"><a href="sec-plot.html#cb165-13" aria-hidden="true"></a><span class="co">#&gt; 1 Credit Products  31022</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#TZjru3VLqn7iE4w9eA1W">
+Solution
+</button>
+<p>      
+f) Which product line is best and worst?</p>
+<div id="5HQaoCSRjipsxYWATF2d" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="5HQaoCSRjipsxYWATF2d-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="5HQaoCSRjipsxYWATF2d-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="sec-plot.html#cb166-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb166-2"><a href="sec-plot.html#cb166-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(<span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>, Quarter) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb166-3"><a href="sec-plot.html#cb166-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Profit =</span> <span class="kw">sum</span>(Profit)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb166-4"><a href="sec-plot.html#cb166-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(<span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>, Profit), <span class="dt">y =</span> Profit)) <span class="op">+</span></span>
+<span id="cb166-5"><a href="sec-plot.html#cb166-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span></span>
+<span id="cb166-6"><a href="sec-plot.html#cb166-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> <span class="kw">vars</span>(Quarter)) <span class="op">+</span></span>
+<span id="cb166-7"><a href="sec-plot.html#cb166-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Total profit for each product line&quot;</span>) <span class="op">+</span><span class="st">  </span></span>
+<span id="cb166-8"><a href="sec-plot.html#cb166-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Product Line&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb166-9"><a href="sec-plot.html#cb166-9" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>, <span class="dt">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-291-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+Some product lines have quite different earnings in different quarters.
+</p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#5HQaoCSRjipsxYWATF2d">
+Solution
+</button>
 <ol start="2" style="list-style-type: decimal">
 <li>Make a barplot that shows the total profitability of the product lines in each quarter. Are there details we have missed in Question 1?</li>
 </ol>
-<div aria-labelledby="solution31-title" class="modal fade bs-example-modal-lg" id="solution31" role="dialog" tabindex="-1">
+<div id="X8HaA5QMqG1rKdXNBQdW" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="X8HaA5QMqG1rKdXNBQdW-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution31-title">Solution</h4>
+<h4 class="modal-title" id="X8HaA5QMqG1rKdXNBQdW-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">profit %&gt;% 
-  ggplot(aes(y = Profit, x = reorder(`Product Line`, Profit))) +
-  geom_boxplot() +
-  labs(title = &quot;Profit for each product line&quot;) + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="sec-plot.html#cb167-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb167-2"><a href="sec-plot.html#cb167-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> Profit, <span class="dt">x =</span> <span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>)) <span class="op">+</span></span>
+<span id="cb167-3"><a href="sec-plot.html#cb167-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
+<span id="cb167-4"><a href="sec-plot.html#cb167-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Profit for each product line&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb167-5"><a href="sec-plot.html#cb167-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>, <span class="dt">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-292-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+The profit varies more for three of the product lines.
+</p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution31">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#X8HaA5QMqG1rKdXNBQdW">
+Solution
+</button>
 <ol start="3" style="list-style-type: decimal">
 <li>Make a boxplot of profitability of the product lines. Any insight?</li>
 </ol>
-<div aria-labelledby="solution32-title" class="modal fade bs-example-modal-lg" id="solution32" role="dialog" tabindex="-1">
+<div id="ejUN00z6Piksbkqbn1Ps" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ejUN00z6Piksbkqbn1Ps-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution32-title">Solution</h4>
+<h4 class="modal-title" id="ejUN00z6Piksbkqbn1Ps-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">profit %&gt;% 
-  group_by(`Customer ID`) %&gt;% 
-  summarise(Profit = sum(Profit)) %&gt;% 
-  ggplot(aes(x = reorder(`Customer ID`, Profit), y = Profit)) +
-  geom_col() +
-  labs(title = &quot;Mean profit for each product line&quot;) + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="sec-plot.html#cb168-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb168-2"><a href="sec-plot.html#cb168-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(<span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb168-3"><a href="sec-plot.html#cb168-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Profit =</span> <span class="kw">sum</span>(Profit)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb168-4"><a href="sec-plot.html#cb168-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(<span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>, Profit), <span class="dt">y =</span> Profit)) <span class="op">+</span></span>
+<span id="cb168-5"><a href="sec-plot.html#cb168-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span></span>
+<span id="cb168-6"><a href="sec-plot.html#cb168-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Total profit for each customer&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb168-7"><a href="sec-plot.html#cb168-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>, <span class="dt">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-293-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+Lowest and highest total profit is for PBI and WEM, respectively.
+</p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution32">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#ejUN00z6Piksbkqbn1Ps">
+Solution
+</button>
 <ol start="4" style="list-style-type: decimal">
 <li>Make a barplot that shows the total profitability of the customers. Which customer is best and worst?</li>
 </ol>
-<div aria-labelledby="solution33-title" class="modal fade bs-example-modal-lg" id="solution33" role="dialog" tabindex="-1">
+<div id="evAJnzJ0z93bJWn4hwHF" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="evAJnzJ0z93bJWn4hwHF-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution33-title">Solution</h4>
+<h4 class="modal-title" id="evAJnzJ0z93bJWn4hwHF-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">profit %&gt;% 
-  group_by(`Customer ID`) %&gt;% 
-  summarise(Profit = mean(Profit)) %&gt;% 
-  ggplot(aes(x = reorder(`Customer ID`, Profit), y = Profit)) +
-  geom_col() +
-  labs(title = &quot;Mean profit for each product line&quot;) + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="sec-plot.html#cb169-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb169-2"><a href="sec-plot.html#cb169-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(<span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb169-3"><a href="sec-plot.html#cb169-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Profit =</span> <span class="kw">mean</span>(Profit)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb169-4"><a href="sec-plot.html#cb169-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(<span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>, Profit), <span class="dt">y =</span> Profit)) <span class="op">+</span></span>
+<span id="cb169-5"><a href="sec-plot.html#cb169-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span></span>
+<span id="cb169-6"><a href="sec-plot.html#cb169-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Mean profit for each customer&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb169-7"><a href="sec-plot.html#cb169-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>, <span class="dt">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-294-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+Since the number of transactions are not the same, the order of customers will not be the same.
+</p>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution33">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#evAJnzJ0z93bJWn4hwHF">
+Solution
+</button>
 <ol start="5" style="list-style-type: decimal">
 <li>Make a barplot that shows the mean profitability of the customers. Which customer is best and worst? Compare against Question 4 and discuss.</li>
 </ol>
-<p><div aria-labelledby="solution34-title" class="modal fade bs-example-modal-lg" id="solution34" role="dialog" tabindex="-1">
+<div id="94YUUt2CVEZTZ89Pgeuo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="94YUUt2CVEZTZ89Pgeuo-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution34-title">Solution</h4>
+<h4 class="modal-title" id="94YUUt2CVEZTZ89Pgeuo-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">profit %&gt;% 
-  group_by(`Customer ID`) %&gt;% 
-  summarise(Profit = mean(Profit)) %&gt;% 
-  ggplot(aes(x = reorder(`Customer ID`, Profit), y = Profit)) +
-  geom_col() +
-  labs(title = &quot;Mean profit for each product line&quot;) + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="sec-plot.html#cb170-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb170-2"><a href="sec-plot.html#cb170-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(<span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb170-3"><a href="sec-plot.html#cb170-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">ctr =</span> <span class="kw">n</span>(), <span class="st">`</span><span class="dt">Total Profit</span><span class="st">`</span> =<span class="st"> </span><span class="kw">sum</span>(Profit)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb170-4"><a href="sec-plot.html#cb170-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(<span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>, <span class="st">`</span><span class="dt">Total Profit</span><span class="st">`</span>), <span class="dt">y =</span> ctr, <span class="dt">fill =</span> <span class="st">`</span><span class="dt">Total Profit</span><span class="st">`</span>)) <span class="op">+</span></span>
+<span id="cb170-5"><a href="sec-plot.html#cb170-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span></span>
+<span id="cb170-6"><a href="sec-plot.html#cb170-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Number of transactions (rows) for each customer&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb170-7"><a href="sec-plot.html#cb170-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Customer&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Transactions&quot;</span>) <span class="op">+</span></span>
+<span id="cb170-8"><a href="sec-plot.html#cb170-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>, <span class="dt">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution34">Solution</button><img src="TFA_files/figure-html/unnamed-chunk-294-1.png" width="672" style="display: block; margin: auto;" /></p>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#94YUUt2CVEZTZ89Pgeuo">
+Solution
+</button>
 <ol start="6" style="list-style-type: decimal">
-<li>Make a plot illustrating number of transactions for each customer</li>
+<li>Make a plot illustrating number of transactions for each customer. Use total profit as fill atheistic.</li>
 </ol>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="sec-plot.html#cb135-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb135-2"><a href="sec-plot.html#cb135-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(<span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>, Profit), <span class="dt">y =</span> Profit)) <span class="op">+</span></span>
-<span id="cb135-3"><a href="sec-plot.html#cb135-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
-<span id="cb135-4"><a href="sec-plot.html#cb135-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Mean profit for each product line&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb135-5"><a href="sec-plot.html#cb135-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>, <span class="dt">hjust=</span><span class="dv">1</span>))</span>
-<span id="cb135-6"><a href="sec-plot.html#cb135-6" aria-hidden="true"></a></span>
-<span id="cb135-7"><a href="sec-plot.html#cb135-7" aria-hidden="true"></a></span>
-<span id="cb135-8"><a href="sec-plot.html#cb135-8" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb135-9"><a href="sec-plot.html#cb135-9" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(<span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb135-10"><a href="sec-plot.html#cb135-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">t_profit_cust_id =</span> <span class="kw">sum</span>(Profit),</span>
-<span id="cb135-11"><a href="sec-plot.html#cb135-11" aria-hidden="true"></a>         <span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span> =<span class="st"> </span><span class="kw">reorder</span>(<span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>, t_profit_cust_id)</span>
-<span id="cb135-12"><a href="sec-plot.html#cb135-12" aria-hidden="true"></a>         ) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb135-13"><a href="sec-plot.html#cb135-13" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> Profit, <span class="dt">x =</span> <span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>)) <span class="op">+</span></span>
-<span id="cb135-14"><a href="sec-plot.html#cb135-14" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
-<span id="cb135-15"><a href="sec-plot.html#cb135-15" aria-hidden="true"></a><span class="st">  </span><span class="co"># facet_wrap(facets = vars(reorder(`Customer ID`, Profit))) + </span></span>
-<span id="cb135-16"><a href="sec-plot.html#cb135-16" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Mean profit for each product line&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb135-17"><a href="sec-plot.html#cb135-17" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>, <span class="dt">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-295-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-295-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Density plot</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="sec-plot.html#cb136-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb136-2"><a href="sec-plot.html#cb136-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(<span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb136-3"><a href="sec-plot.html#cb136-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Profit)) <span class="op">+</span></span>
-<span id="cb136-4"><a href="sec-plot.html#cb136-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></span>
-<span id="cb136-5"><a href="sec-plot.html#cb136-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="dt">facets =</span> <span class="kw">vars</span>(<span class="kw">reorder</span>(<span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>, Profit))) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb136-6"><a href="sec-plot.html#cb136-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Mean profit for each product line&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb136-7"><a href="sec-plot.html#cb136-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>, <span class="dt">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<div id="fo7FKPdoGo0eoSC1HuvX" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="fo7FKPdoGo0eoSC1HuvX-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="fo7FKPdoGo0eoSC1HuvX-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="sec-plot.html#cb171-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb171-2"><a href="sec-plot.html#cb171-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(<span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb171-3"><a href="sec-plot.html#cb171-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> Profit, <span class="dt">x =</span> <span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>)) <span class="op">+</span></span>
+<span id="cb171-4"><a href="sec-plot.html#cb171-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
+<span id="cb171-5"><a href="sec-plot.html#cb171-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Profit for each customer&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb171-6"><a href="sec-plot.html#cb171-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>, <span class="dt">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
 <p><img src="TFA_files/figure-html/unnamed-chunk-296-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="sec-plot.html#cb137-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb137-2"><a href="sec-plot.html#cb137-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Profit)) <span class="op">+</span></span>
-<span id="cb137-3"><a href="sec-plot.html#cb137-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">10</span>) <span class="op">+</span></span>
-<span id="cb137-4"><a href="sec-plot.html#cb137-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Mean profit for each product line&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb137-5"><a href="sec-plot.html#cb137-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>, <span class="dt">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-297-1.png" width="672" style="display: block; margin: auto;" /></p>
-<ol start="2" style="list-style-type: decimal">
-<li>Make a plot that shows the total profitability of the product lines in each quarter.</li>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#fo7FKPdoGo0eoSC1HuvX">
+Solution
+</button>
+<ol start="7" style="list-style-type: decimal">
+<li>Make a boxplot illustrating the profit for each customer.</li>
 </ol>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="sec-plot.html#cb138-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb138-2"><a href="sec-plot.html#cb138-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(Quarter, <span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>, Country) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb138-3"><a href="sec-plot.html#cb138-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Profit =</span> <span class="kw">mean</span>(Profit)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb138-4"><a href="sec-plot.html#cb138-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>, <span class="dt">y =</span> Profit)) <span class="op">+</span></span>
-<span id="cb138-5"><a href="sec-plot.html#cb138-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb138-6"><a href="sec-plot.html#cb138-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb138-7"><a href="sec-plot.html#cb138-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> <span class="kw">vars</span>(Quarter), <span class="dt">rows =</span> <span class="kw">vars</span>(Country)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb138-8"><a href="sec-plot.html#cb138-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Mean profit for each product line&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb138-9"><a href="sec-plot.html#cb138-9" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>, <span class="dt">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-298-1.png" width="672" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
