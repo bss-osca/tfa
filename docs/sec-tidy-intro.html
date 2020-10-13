@@ -428,53 +428,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.4</span> Tibbles</h2>
 <p>Tibbles are a modern data frame, keeping what time has proven to be effective, and throwing out what is not. Tibbles are more strict compared to data frames e.g. they do not change variable names or types, do not do partial matching and complain more e.g. when a variable does not exist. This forces you to confront problems earlier, typically leading to cleaner, more expressive code. Moreover, tibbles have an enhanced <code>print</code> method and can have columns that are lists.</p>
 <p>Let us see a few examples:</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="sec-tidy-intro.html#cb144-1" aria-hidden="true"></a>tbl1 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Lars&quot;</span>, <span class="st">&quot;Susan&quot;</span>, <span class="st">&quot;Hans&quot;</span>), <span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">23</span>, <span class="dv">56</span>, <span class="dv">45</span>))</span>
-<span id="cb144-2"><a href="sec-tidy-intro.html#cb144-2" aria-hidden="true"></a>tbl1</span>
-<span id="cb144-3"><a href="sec-tidy-intro.html#cb144-3" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
-<span id="cb144-4"><a href="sec-tidy-intro.html#cb144-4" aria-hidden="true"></a><span class="co">#&gt;   name    age</span></span>
-<span id="cb144-5"><a href="sec-tidy-intro.html#cb144-5" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt;</span></span>
-<span id="cb144-6"><a href="sec-tidy-intro.html#cb144-6" aria-hidden="true"></a><span class="co">#&gt; 1 Lars     23</span></span>
-<span id="cb144-7"><a href="sec-tidy-intro.html#cb144-7" aria-hidden="true"></a><span class="co">#&gt; 2 Susan    56</span></span>
-<span id="cb144-8"><a href="sec-tidy-intro.html#cb144-8" aria-hidden="true"></a><span class="co">#&gt; 3 Hans     45</span></span>
-<span id="cb144-9"><a href="sec-tidy-intro.html#cb144-9" aria-hidden="true"></a>tbl2 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>))</span>
-<span id="cb144-10"><a href="sec-tidy-intro.html#cb144-10" aria-hidden="true"></a>tbl2</span>
-<span id="cb144-11"><a href="sec-tidy-intro.html#cb144-11" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
-<span id="cb144-12"><a href="sec-tidy-intro.html#cb144-12" aria-hidden="true"></a><span class="co">#&gt;       x y         </span></span>
-<span id="cb144-13"><a href="sec-tidy-intro.html#cb144-13" aria-hidden="true"></a><span class="co">#&gt;   &lt;int&gt; &lt;list&gt;    </span></span>
-<span id="cb144-14"><a href="sec-tidy-intro.html#cb144-14" aria-hidden="true"></a><span class="co">#&gt; 1     1 &lt;int [5]&gt; </span></span>
-<span id="cb144-15"><a href="sec-tidy-intro.html#cb144-15" aria-hidden="true"></a><span class="co">#&gt; 2     2 &lt;int [10]&gt;</span></span>
-<span id="cb144-16"><a href="sec-tidy-intro.html#cb144-16" aria-hidden="true"></a><span class="co">#&gt; 3     3 &lt;int [20]&gt;</span></span>
-<span id="cb144-17"><a href="sec-tidy-intro.html#cb144-17" aria-hidden="true"></a>tbl3 &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(mtcars)</span>
-<span id="cb144-18"><a href="sec-tidy-intro.html#cb144-18" aria-hidden="true"></a>tbl3</span>
-<span id="cb144-19"><a href="sec-tidy-intro.html#cb144-19" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 33 x 12</span></span>
-<span id="cb144-20"><a href="sec-tidy-intro.html#cb144-20" aria-hidden="true"></a><span class="co">#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb col  </span></span>
-<span id="cb144-21"><a href="sec-tidy-intro.html#cb144-21" aria-hidden="true"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
-<span id="cb144-22"><a href="sec-tidy-intro.html#cb144-22" aria-hidden="true"></a><span class="co">#&gt;  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4 &lt;NA&gt; </span></span>
-<span id="cb144-23"><a href="sec-tidy-intro.html#cb144-23" aria-hidden="true"></a><span class="co">#&gt;  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4 green</span></span>
-<span id="cb144-24"><a href="sec-tidy-intro.html#cb144-24" aria-hidden="true"></a><span class="co">#&gt;  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1 blue </span></span>
-<span id="cb144-25"><a href="sec-tidy-intro.html#cb144-25" aria-hidden="true"></a><span class="co">#&gt;  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1 red  </span></span>
-<span id="cb144-26"><a href="sec-tidy-intro.html#cb144-26" aria-hidden="true"></a><span class="co">#&gt;  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2 &lt;NA&gt; </span></span>
-<span id="cb144-27"><a href="sec-tidy-intro.html#cb144-27" aria-hidden="true"></a><span class="co">#&gt;  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1 blue </span></span>
-<span id="cb144-28"><a href="sec-tidy-intro.html#cb144-28" aria-hidden="true"></a><span class="co">#&gt;  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4 green</span></span>
-<span id="cb144-29"><a href="sec-tidy-intro.html#cb144-29" aria-hidden="true"></a><span class="co">#&gt;  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2 blue </span></span>
-<span id="cb144-30"><a href="sec-tidy-intro.html#cb144-30" aria-hidden="true"></a><span class="co">#&gt;  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2 red  </span></span>
-<span id="cb144-31"><a href="sec-tidy-intro.html#cb144-31" aria-hidden="true"></a><span class="co">#&gt; 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4 red  </span></span>
-<span id="cb144-32"><a href="sec-tidy-intro.html#cb144-32" aria-hidden="true"></a><span class="co">#&gt; # … with 23 more rows</span></span>
-<span id="cb144-33"><a href="sec-tidy-intro.html#cb144-33" aria-hidden="true"></a>tbl4 &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
-<span id="cb144-34"><a href="sec-tidy-intro.html#cb144-34" aria-hidden="true"></a>  <span class="op">~</span>x, <span class="op">~</span>y, <span class="op">~</span>z,</span>
-<span id="cb144-35"><a href="sec-tidy-intro.html#cb144-35" aria-hidden="true"></a>  <span class="co">#--|--|----</span></span>
-<span id="cb144-36"><a href="sec-tidy-intro.html#cb144-36" aria-hidden="true"></a>  <span class="st">&quot;a&quot;</span>, <span class="dv">2</span>, <span class="fl">3.6</span>,</span>
-<span id="cb144-37"><a href="sec-tidy-intro.html#cb144-37" aria-hidden="true"></a>  <span class="st">&quot;b&quot;</span>, <span class="dv">1</span>, <span class="fl">8.5</span></span>
-<span id="cb144-38"><a href="sec-tidy-intro.html#cb144-38" aria-hidden="true"></a>)</span>
-<span id="cb144-39"><a href="sec-tidy-intro.html#cb144-39" aria-hidden="true"></a>tbl4</span>
-<span id="cb144-40"><a href="sec-tidy-intro.html#cb144-40" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 2 x 3</span></span>
-<span id="cb144-41"><a href="sec-tidy-intro.html#cb144-41" aria-hidden="true"></a><span class="co">#&gt;   x         y     z</span></span>
-<span id="cb144-42"><a href="sec-tidy-intro.html#cb144-42" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb144-43"><a href="sec-tidy-intro.html#cb144-43" aria-hidden="true"></a><span class="co">#&gt; 1 a         2   3.6</span></span>
-<span id="cb144-44"><a href="sec-tidy-intro.html#cb144-44" aria-hidden="true"></a><span class="co">#&gt; 2 b         1   8.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="sec-tidy-intro.html#cb162-1" aria-hidden="true"></a>tbl1 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Lars&quot;</span>, <span class="st">&quot;Susan&quot;</span>, <span class="st">&quot;Hans&quot;</span>), <span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">23</span>, <span class="dv">56</span>, <span class="dv">45</span>))</span>
+<span id="cb162-2"><a href="sec-tidy-intro.html#cb162-2" aria-hidden="true"></a>tbl1</span>
+<span id="cb162-3"><a href="sec-tidy-intro.html#cb162-3" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb162-4"><a href="sec-tidy-intro.html#cb162-4" aria-hidden="true"></a><span class="co">#&gt;   name    age</span></span>
+<span id="cb162-5"><a href="sec-tidy-intro.html#cb162-5" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt;</span></span>
+<span id="cb162-6"><a href="sec-tidy-intro.html#cb162-6" aria-hidden="true"></a><span class="co">#&gt; 1 Lars     23</span></span>
+<span id="cb162-7"><a href="sec-tidy-intro.html#cb162-7" aria-hidden="true"></a><span class="co">#&gt; 2 Susan    56</span></span>
+<span id="cb162-8"><a href="sec-tidy-intro.html#cb162-8" aria-hidden="true"></a><span class="co">#&gt; 3 Hans     45</span></span>
+<span id="cb162-9"><a href="sec-tidy-intro.html#cb162-9" aria-hidden="true"></a>tbl2 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>))</span>
+<span id="cb162-10"><a href="sec-tidy-intro.html#cb162-10" aria-hidden="true"></a>tbl2</span>
+<span id="cb162-11"><a href="sec-tidy-intro.html#cb162-11" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb162-12"><a href="sec-tidy-intro.html#cb162-12" aria-hidden="true"></a><span class="co">#&gt;       x y         </span></span>
+<span id="cb162-13"><a href="sec-tidy-intro.html#cb162-13" aria-hidden="true"></a><span class="co">#&gt;   &lt;int&gt; &lt;list&gt;    </span></span>
+<span id="cb162-14"><a href="sec-tidy-intro.html#cb162-14" aria-hidden="true"></a><span class="co">#&gt; 1     1 &lt;int [5]&gt; </span></span>
+<span id="cb162-15"><a href="sec-tidy-intro.html#cb162-15" aria-hidden="true"></a><span class="co">#&gt; 2     2 &lt;int [10]&gt;</span></span>
+<span id="cb162-16"><a href="sec-tidy-intro.html#cb162-16" aria-hidden="true"></a><span class="co">#&gt; 3     3 &lt;int [20]&gt;</span></span>
+<span id="cb162-17"><a href="sec-tidy-intro.html#cb162-17" aria-hidden="true"></a>tbl3 &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(mtcars)</span>
+<span id="cb162-18"><a href="sec-tidy-intro.html#cb162-18" aria-hidden="true"></a>tbl3</span>
+<span id="cb162-19"><a href="sec-tidy-intro.html#cb162-19" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 33 x 12</span></span>
+<span id="cb162-20"><a href="sec-tidy-intro.html#cb162-20" aria-hidden="true"></a><span class="co">#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb col  </span></span>
+<span id="cb162-21"><a href="sec-tidy-intro.html#cb162-21" aria-hidden="true"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
+<span id="cb162-22"><a href="sec-tidy-intro.html#cb162-22" aria-hidden="true"></a><span class="co">#&gt;  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4 &lt;NA&gt; </span></span>
+<span id="cb162-23"><a href="sec-tidy-intro.html#cb162-23" aria-hidden="true"></a><span class="co">#&gt;  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4 green</span></span>
+<span id="cb162-24"><a href="sec-tidy-intro.html#cb162-24" aria-hidden="true"></a><span class="co">#&gt;  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1 blue </span></span>
+<span id="cb162-25"><a href="sec-tidy-intro.html#cb162-25" aria-hidden="true"></a><span class="co">#&gt;  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1 red  </span></span>
+<span id="cb162-26"><a href="sec-tidy-intro.html#cb162-26" aria-hidden="true"></a><span class="co">#&gt;  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2 &lt;NA&gt; </span></span>
+<span id="cb162-27"><a href="sec-tidy-intro.html#cb162-27" aria-hidden="true"></a><span class="co">#&gt;  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1 blue </span></span>
+<span id="cb162-28"><a href="sec-tidy-intro.html#cb162-28" aria-hidden="true"></a><span class="co">#&gt;  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4 green</span></span>
+<span id="cb162-29"><a href="sec-tidy-intro.html#cb162-29" aria-hidden="true"></a><span class="co">#&gt;  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2 blue </span></span>
+<span id="cb162-30"><a href="sec-tidy-intro.html#cb162-30" aria-hidden="true"></a><span class="co">#&gt;  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2 red  </span></span>
+<span id="cb162-31"><a href="sec-tidy-intro.html#cb162-31" aria-hidden="true"></a><span class="co">#&gt; 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4 red  </span></span>
+<span id="cb162-32"><a href="sec-tidy-intro.html#cb162-32" aria-hidden="true"></a><span class="co">#&gt; # … with 23 more rows</span></span>
+<span id="cb162-33"><a href="sec-tidy-intro.html#cb162-33" aria-hidden="true"></a>tbl4 &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb162-34"><a href="sec-tidy-intro.html#cb162-34" aria-hidden="true"></a>  <span class="op">~</span>x, <span class="op">~</span>y, <span class="op">~</span>z,</span>
+<span id="cb162-35"><a href="sec-tidy-intro.html#cb162-35" aria-hidden="true"></a>  <span class="co">#--|--|----</span></span>
+<span id="cb162-36"><a href="sec-tidy-intro.html#cb162-36" aria-hidden="true"></a>  <span class="st">&quot;a&quot;</span>, <span class="dv">2</span>, <span class="fl">3.6</span>,</span>
+<span id="cb162-37"><a href="sec-tidy-intro.html#cb162-37" aria-hidden="true"></a>  <span class="st">&quot;b&quot;</span>, <span class="dv">1</span>, <span class="fl">8.5</span></span>
+<span id="cb162-38"><a href="sec-tidy-intro.html#cb162-38" aria-hidden="true"></a>)</span>
+<span id="cb162-39"><a href="sec-tidy-intro.html#cb162-39" aria-hidden="true"></a>tbl4</span>
+<span id="cb162-40"><a href="sec-tidy-intro.html#cb162-40" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 2 x 3</span></span>
+<span id="cb162-41"><a href="sec-tidy-intro.html#cb162-41" aria-hidden="true"></a><span class="co">#&gt;   x         y     z</span></span>
+<span id="cb162-42"><a href="sec-tidy-intro.html#cb162-42" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb162-43"><a href="sec-tidy-intro.html#cb162-43" aria-hidden="true"></a><span class="co">#&gt; 1 a         2   3.6</span></span>
+<span id="cb162-44"><a href="sec-tidy-intro.html#cb162-44" aria-hidden="true"></a><span class="co">#&gt; 2 b         1   8.5</span></span></code></pre></div>
 <p>Note that we can always coerce a data frame to a tibble (<code>tbl3</code>) or create it directly using <code>tibble</code>. Another way to create a tibble is with <code>tribble</code>. Here column headings are defined by formulas (i.e. they start with ~), and entries are separated by commas. This makes it possible to lay out small amounts of data in easy to read form.</p>
 <p>Tibbles have a refined print method that shows only the first 10 rows along with the number of columns that will fit on your screen. This makes it much easier to work with large data. In addition to its name, each column reports its type. Hence, your console is not overwhelmed with data. To see a full view of the data, you can use RStudio’s built-in data viewer:</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="sec-tidy-intro.html#cb145-1" aria-hidden="true"></a><span class="kw">View</span>(tbl3)</span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="sec-tidy-intro.html#cb163-1" aria-hidden="true"></a><span class="kw">View</span>(tbl3)</span></code></pre></div>
 </div>
 <div id="lp-tidy-intro" class="section level2" number="6.5">
 <h2><span class="header-section-number">6.5</span> Different learning paths</h2>
@@ -513,8 +513,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="exercise-your-first-r-markdown-exercise" class="section level3" number="6.7.1">
 <h3><span class="header-section-number">6.7.1</span> Exercise (your first R Markdown exercise)</h3>
 <p>Load the tfa package:</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="sec-tidy-intro.html#cb146-1" aria-hidden="true"></a><span class="co"># remotes::install_github(&quot;bss-osca/tfa/tfa-package&quot;)  # if not installed</span></span>
-<span id="cb146-2"><a href="sec-tidy-intro.html#cb146-2" aria-hidden="true"></a><span class="kw">library</span>(tfa)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="sec-tidy-intro.html#cb164-1" aria-hidden="true"></a><span class="co"># remotes::install_github(&quot;bss-osca/tfa/tfa-package&quot;)  # if not installed</span></span>
+<span id="cb164-2"><a href="sec-tidy-intro.html#cb164-2" aria-hidden="true"></a><span class="kw">library</span>(tfa)</span></code></pre></div>
 <p>The package contains templates for exercises etc. Go to <strong>File &gt; New File &gt; R Markdown…</strong>. In the pop-up box select <strong>From template</strong> in the left column and then <strong>TFA Exercise</strong>. Press <em>Ok</em> and a new R Markdown document will be opened.</p>
 <ol style="list-style-type: decimal">
 <li><p>Change the meta text (e.g. the title and add your name) in the yaml.</p></li>
