@@ -371,10 +371,8 @@ You have all been allocated into groups. During the course, you are expected to 
 
 *This exercise is done from the Console in RStudio (under Windows, [remember to have admin rights](#install-r)).*
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE, eval=FALSE}
 install.packages("devtools")
-', evalCode = FALSE)
 ```
 
    1) Install the package `devtools` using function `install.packages`. Note you can always get help/see documentation of a function by typing `?install.packages` or typing `install.packages` and press F1. 
@@ -392,10 +390,8 @@ You may also install packages from other repositories (e.g. GitHub):
    ?devtools::install_github     # we here use the namespace devtools to load only one function
    ```
 
-```{r, echo=FALSE}
-addSolution('
+```{r, echo=FALSE, eval=FALSE}
 devtools::install_github("bss-osca/tfa/tfa-package")
-', evalCode = FALSE)
 ```
 
    3) Install the package `tfa` from GitHub using path `bss-osca/tfa/tfa-package`.
@@ -422,58 +418,73 @@ mtcars %>% select(cyl, gear, hp, mpg) %>% filter(gear == 4 & cyl == 4)
 
 selects the columns related to cylinders, gears, horse power and miles, and then rows with cars having four cylinders and (operator `&`) gears. 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 mtcars %>% 
    select(mpg, hp, am, gear)
-')
+```
+```{r, hint=TRUE}
+mtcars %>% 
+   select(___, ___, ___, ___)
 ```
 
 1) Create a pipe that selects columns related to miles, horsepower, transmission and gears.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 mtcars %>% 
    select(mpg, hp, am, gear) %>% 
    filter(mpg < 20, gear == 4)
-')
+```
+```{r, hint=TRUE}
+mtcars %>% 
+   select(mpg, hp, am, gear) %>% 
+   filter(___, ___)
 ```
 
 2) Given the answer in 1), filter so cars have miles less than 20 and 4 gears.
 
-The "or" operator in R is `|`.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 mtcars %>% 
    select(mpg, hp, am, gear) %>% 
    filter(mpg < 20 | gear == 4)
-')
+```
+```{r, hint=TRUE}
+mtcars %>% 
+   select(mpg, hp, am, gear) %>% 
+   filter(___ | ___)
 ```
 
-3) Given the answer in 1), filter so cars have miles less than 20 or 4 gears.
+3) Given the answer in 1), filter so cars have miles less than 20 or 4 gears. The "or" operator in R is `|`.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 mtcars %>% 
    filter(mpg < 20, gear == 4) %>% 
    select(wt, vs) 
-')
+```
+```{r, hint=TRUE}
+mtcars %>% 
+   filter(mpg < 20, gear == 4) %>% 
+   select(___, ___) 
 ```
 
 4) Create a pipe that filters the cars having miles less than 20 and 4 gears and selects columns related to weight and engine.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+
+```{r, solution=TRUE}
 dat <- mtcars 
 dat <- filter(dat, mpg < 20, gear == 4) 
 dat <- select(dat, wt, vs) 
 dat
-')
+```
+```{r, hint=TRUE}
+dat <- mtcars 
+dat <- filter(dat, ___) 
+dat <- select(dat, ___) 
+dat
 ```
 
 5) Solve Question 4 without the pipe operator. 
@@ -490,7 +501,7 @@ When reading and writing to local files, your working directory becomes importan
 Set the working directory to the project directory using the menu: **Session > Set Working Directory > To Project Directory**. Now let us create some files:
 
 ```{r}
-dir.create("subfolder") 
+dir.create("subfolder", showWarnings = FALSE) 
 write_file("Some text in a file", path = "test1.txt")
 write_file("Some other text in a file", path = "subfolder/test2.txt")
 ```
@@ -504,26 +515,34 @@ read_file("test1.txt")
 ```
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 read_file("subfolder/test2.txt")
-')
+```
+```{r, hint=TRUE}
+read_file("subfolder/___")
 ```
 
 2) Read the file `test2.txt`.
 
+
+
 3) Set the working directory to `subfolder` using function `setwd`. Note that `setwd` supports relative paths. Check that you are in the right working directory using `getwd`. You may also have a look at the files in the directory using function `list.files`.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
-setwd("subfolder")  # Q3
+
+```{r, solution=TRUE}
+setwd("subfolder")  # done in Q3
 read_file("../test1.txt")
 read_file("test2.txt")
-')
+```
+```{r, hint=TRUE}
+setwd("subfolder")  # done in Q3
+read_file("../___")
+read_file("___")
 ```
 
 4) Read files `test1.txt` and `test2.txt`. Note that in relative paths `../` means going to the parent folder.  What is different compared to Question 2?
+
 
 ```{r, include=FALSE}
 setwd("..")
@@ -532,29 +551,30 @@ unlink("test1.txt")
 ```
 
 
+
 ### Exercise (vectors)
 
 *Solve this exercise using a script file.*
 
-
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 n <- 100
 n * (n+1) / 2
-')
 ```
 
 1) What is the sum of the first 100 positive integers? The formula for the sum of integers $1$ through $n$ is $n(n+1)/2$. Define $n=100$ and then use R to compute the sum of $1$ through $100$ using the formula. What is the sum?
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 n <- 1000
 n * (n+1) / 2
-')
 ```
 
 2) Now use the same formula to compute the sum of the integers from 1 through 1000.
+
+
+
+```{r, solution=TRUE, text="The answer is b)."}
+```
 
 3) Look at the result of typing the following code into R:
 
@@ -571,77 +591,80 @@ n * (n+1) / 2
    c. `seq` creates a random list and `sum` computes the sum of 1 through 1,000.
    d. `sum` always returns the same number.
 
-4) Run code
 
-```{r}
-set.seed(123)
-v <- sample.int(100,30)
-v
+```{r, solution=TRUE, text="Sample 30 integers in the range [1, 100]."}
 ```
 
+4) Run code. What does `sample.int` do?
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+   ```{r}
+   set.seed(123)
+   v <- sample.int(100,30)
+   v
+   ```
+
+
+```{r, solution=TRUE}
 sum(v)
 mean(v)
 sd(v)
-')
 ```
 
 5) What is the sum, mean, and standard deviation of `v`? 
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 v[c(1, 6, 4, 15)]
-')
+```
+```{r, hint=TRUE}
+v[c(1, ___, ___, ___)]
 ```
 
 6) Select elements 1, 6, 4, and 15 of `v`.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 v[v > 50]
-')
 ```
 
 7) Select elements with value above 50.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 v[v > 75 | v < 25]
-')
+```
+```{r, hint=TRUE}
+v[___ | ___]
 ```
 
 8) Select elements with value above 75 or below 25.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 v[v == 43]
-')
 ```
 
 9) Select elements with value 43.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 v[is.na(v)]
-')
+```
+```{r, hint=TRUE}
+v[is.na(___)]
 ```
 
 10) Select elements with value `NA`.
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+
+```{r, solution=TRUE}
 which(v > 75 | v < 25)
-')
+```
+```{r, hint=TRUE}
+which(___ | ___)
 ```
 
-11) Which elements have value above 75 or below 25? Hint: see the documentation of function `which`.
+11) Which elements have value above 75 or below 25? Hint: see the documentation of function `which` (`?which`).
 
 
 
@@ -661,92 +684,72 @@ m3 <- matrix(c(37, 8, 51, NA, 50, 97, 86, NA, 84, 46, 17, 62L), ncol = 3)
 1) What is the difference between the three matrices (think/discuss before running the code).
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 rowSums(m1, na.rm = T)
 colSums(m2, na.rm = T)
-')
 ```
 
 2) Calculate the row sums of `m1` and column sums of `m2` ignoring `NA` values. Hint: have a look at the documentation of `rowSums`.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 rbind(m1, c(1, 2, 3, 4))
-')
 ```
 
 3) Add row `c(1, 2, 3, 4)` as last row to `m1`. 
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 rbind(c(1, 2, 3, 4), m1)
-')
 ```
 
 4) Add row `c(1, 2, 3, 4)` as first row to `m1`. 
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 cbind(m3, c(1, 2, 3, 4))
-')
 ```
 
 5) Add column `c(1, 2, 3, 4)` as last column to `m3`.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 m1[2,4]
-')
 ```
 
 6) Select the element in row 2 and column 4 of `m1`. 
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 m1[2:3,1:2]
-')
 ```
 
 7) Select elements in rows 2-3 and columns 1-2 of `m1`. 
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 m1[3, c(1,3,4)]
-')
 ```
 
 8) Select elements in row 3 and columns 1, 3 and 4 of `m1`. 
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 m1[3,]
-')
 ```
 
 9) Select elements in row 3 of `m1`. 
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 m2[is.na(m2)]
-')
 ```
 
 10) Select all `NA` elements in `m2`. 
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 m2[m2 > 50]
-')
 ```
 
 11) Select all elements greater that 50 in `m2`. 
@@ -770,38 +773,32 @@ glimpse(mtcars)
 1) Use the `head` and `tail` functions to have a look at the data.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 mtcars[,4]
 mtcars[,"hp"]
 mtcars$hp
-')
 ```
 
 2) Select column `hp` using index (column 4), its name, and the `$` operator.
 
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 mtcars <- rbind(mtcars, 
    c(34, 3, 87, 112, 4.5, 1.515, 167, 1, 1, 5, 3))
 rownames(mtcars)[33] <- "Phantom XE"
-')
 ```
 
 3) Update `mtcars` by adding row `c(34, 3, 87, 112, 4.5, 1.515, 167, 1, 1, 5, 3)`. Name the row 'Phantom XE'.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 col <- c(NA, "green", "blue", "red", NA, "blue", "green", "blue", "red", "red", 
    "blue", "green", "blue", "blue", "green", "red", "red", NA, NA, "red", 
    "green", "red", "red", NA, "green", NA, "blue", "green", "green", "red", 
    "green", "blue", NA)
 mtcars <- cbind(mtcars, col)
 class(mtcars$col)
-')
 ```
 
 4) Update `mtcars` by adding column:
@@ -816,10 +813,8 @@ class(mtcars$col)
    What class is column `col`?
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 mtcars[mtcars$vs == 0,]
-')
 ```
 
 5) Select cars with a V-shaped engine.
@@ -849,30 +844,24 @@ y <- lst[[2]]
 y
 ```
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 class(x)
 class(y)
-')
 ```
 
 1) What is the class of the two objects `x` and `y`? What is the difference between using one or two brackets?
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 names(lst) <- c("age", "name", "male", "weight")
 lst
-')
 ```
 
 2) Add names *age, name, male and weight* to the 4 components of the list.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 lst$name
-')
 ```
 
 3) Extract the name component using the `$` operator.
@@ -887,10 +876,8 @@ lst
 ```
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 lst$name$last
-')
 ```
 
 4) Extract the last name component using the `$` operator.
@@ -927,59 +914,47 @@ str_detect(str2, "BA")  # detect a pattern
 ```
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 str_detect(str1, "Business")
 str_detect(str2, "Business")
-')
 ```
 
 1) Is `Business` (case sensitive) contained in `str1` and `str2`?
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 str5 <- str_replace(str2, "BA", "Business Analytics") 
-')
 ```
 
 2) Define a new string that replace `BA` with `Business Analytics` in `str2`
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 str5 <- str_remove(str5, " or as a set of methodologies that enable the creation of business value")
-')
 ```
 
 3) In the string from Question 2, remove ` or as a set of methodologies that enable the creation of business value`.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 str5 <- str_c(str5, "This course will focus on programming and descriptive analytics.", sep= " ")
-')
 ```
 
 4) In the string from Question 3, add `This course will focus on programming and descriptive analytics.`.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 str5 <- str_replace(str5, "analytics", "business analytics")
-')
 ```
 
 5) In the string from Question 4, replace `analytics` with `business analytics`.
 
 
-```{r, echo=FALSE, message=FALSE}
-addSolution('
+```{r, solution=TRUE}
 str_replace(str2, "BA", "Business Analytics") %>% 
    str_remove(" or as a set of methodologies that enable the creation of business value") %>% 
    str_c("This course will focus on programming and descriptive analytics.", sep= " ") %>% 
    str_replace("analytics", "business analytics")
-')
 ```
 
 6) Do all calculations in Question 2-5 using pipes.
