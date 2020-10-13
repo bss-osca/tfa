@@ -193,8 +193,7 @@ Document your functions using the Roxygen skeleton!
 
 *Solve this exercise using a script file.*
 
-```{r, echo=FALSE}
-addSolution("
+```{r, solution=TRUE}
 #' Computes the sum of the integers from 1 to n (inclusive).
 #'
 #' @param n Max value in the sum.
@@ -207,13 +206,26 @@ sum_n <- function(n) {
   return(sum(1:n))
 }
 sum_n(5000)
-")
+```
+```{r, hint=TRUE}
+#' Computes the sum of the integers from 1 to n (inclusive).
+#'
+#' @param n Max value in the sum.
+#'
+#' @return Sum of the integers from 1 to n.
+#'
+#' @examples
+#' sum_n(30)
+sum_n <- function(n) {
+  return(___)
+}
+sum_n(5000)
 ```
 
-1) Create a function `sum_n` that for any given value, say $n$, computes the sum of the integers from 1 to n (inclusive). Use the function to determine the sum of integers from 1 to 5000. Remember to document your function.
+1) Create a function `sum_n` that for any given value, say $n$, computes the sum of the integers from 1 to n (inclusive). Use the function to determine the sum of integers from 1 to 5000. Document your function too.
 
-```{r, echo=FALSE}
-addSolution("
+
+```{r, solution=TRUE}
 #' Computes the sum S_n = 1^2 + 2^2 + 3^2 + ... + n^2
 #'
 #' @param n Max input in sum.
@@ -223,24 +235,26 @@ compute_s_n <- function(n) {
   return(sum((1:n)^2))
 }
 compute_s_n(10)
-")
 ```
 
 2) Write a function `compute_s_n` that for any given $n$ computes the sum $S_n = 1^2 + 2^2 + 3^2 + \dots + n^2$. Report the value of the sum when $n=10$.
 
-```{r, echo=FALSE}
-addSolution("
+
+```{r, solution=TRUE, title="Solution 1"}
 s_n <- vector('numeric', 25)
 for (n in 1:25) {
   s_n[n] <- compute_s_n(n)
 }
 s_n
-")
 ```
-
-3) Define an empty numerical vector `s_n` of size 25 using `s_n <- vector("numeric", 25)` and store in the results of $S_1, S_2, \dots S_{25}$ using a for-loop.
-```{r, echo=FALSE}
-addSolution("
+```{r, hint=TRUE, title="Hint 1"}
+s_n <- vector('numeric', 25)
+for (n in 1:25) {
+  s_n[n] <- ___
+}
+s_n
+```
+```{r, solution=TRUE, title="Solution 2"}
 compute_s_n_alt <- function(n) {
   return(n*(n+1)*(2*n+1)/6)
 }
@@ -250,12 +264,27 @@ for (n in 1:25) {
     break
   }
 }
-")
 ```
-Confirm that the formula for the sum is $S_n= n(n+1)(2n+1)/6$ for $n = 1, \ldots, 25$.
+```{r, hint=TRUE, title="Hint 2"}
+compute_s_n_alt <- function(n) {
+  return(n*(n+1)*___)
+}
+for (n in 1:25) {
+  if (s_n[n] != ___) {
+    cat('Error!')
+    break
+  }
+}
+```
 
-```{r, echo=FALSE}
-addSolution("
+3) Define an empty numerical vector `s_n` of size 25 using `s_n <- vector("numeric", 25)` and store in the results of $S_1, S_2, \dots S_{25}$ using a for-loop. 
+   Confirm that the formula for the sum is $S_n= n(n+1)(2n+1)/6$ for $n = 1, \ldots, 25$.
+
+
+
+
+
+```{r, solution=TRUE}
 biggest <- function(a, b) {
   if (a > b) return(1)
   return(0)
@@ -263,39 +292,53 @@ biggest <- function(a, b) {
 biggest(3,4)
 biggest(3,3)
 biggest(8,2)
-")
+```
+```{r, hint=TRUE}
+biggest <- function(a, b) {
+  if (a > b) ___
+  return(0)
+}
 ```
 
 4) Write a function `biggest` which takes two integers as arguments.  Let the 
 function  return  1  if  the  first argument  is  larger  than  the second and return  0 
 otherwise. 
 
-```{r, echo=FALSE}
-addSolution("
+
+```{r, solution=TRUE}
 shipping_cost <- function(total) {
   return(0.1 * total)
 }
 shipping_cost(450)
-")
+```
+```{r, hint=TRUE}
+shipping_cost <- function(total) {
+  return(___)
+}
 ```
 
 5) Write a function that returns the shipping cost as 10% of the total cost of an 
 order (input argument).   
 
-```{r, echo=FALSE}
-addSolution("
+
+
+```{r, solution=TRUE}
 shipping_cost <- function(total, pct = 0.1) {
   return(pct * total)
 }
 shipping_cost(450)
 shipping_cost(450, pct = 0.2)
-")
+```
+```{r, hint=TRUE}
+shipping_cost <- function(total, pct = ___) {
+  ___
+}
 ```
 
 6) Given Question 5, rewrite the function so the percentage is an input argument with a default of 10%. 
 
-```{r, echo=FALSE}
-addSolution("
+
+```{r, solution=TRUE}
 shipping_cost <- function(total) {
   return(0.1 * total)
 }
@@ -304,13 +347,18 @@ gasoline_cost <- function(total) {
   return(shipping_cost(total) * 0.5)
 }
 gasoline_cost(450)
-")
+```
+```{r, hint=TRUE}
+gasoline_cost <- function(total) {
+  return(shipping_cost(___) * ___)
+}
 ```
 
 7) Given Question 5, the shipping cost can be split into parts. One part is gasoline which is 50% of the shipping cost. Write a function that has total cost an input argument and calculate the gasoline cost and use the function defined in Question 5 inside it.   
   
-```{r, echo=FALSE}
-addSolution("
+  
+  
+```{r, solution=TRUE}
 shipping_cost <- function(total, pct = 0.1) {
   return(pct * total)
 }
@@ -320,13 +368,18 @@ gasoline_cost <- function(total, ...) {
 }
 gasoline_cost(450)
 gasoline_cost(450, pct = 0.2)
-")
+```
+```{r, hint=TRUE}
+gasoline_cost <- function(total, ...) {
+  return(shipping_cost(___) * ___)
+}
 ```
 
 8) Given Question 6, the shipping cost can be split into parts. One part is gasoline which is 50% of the shipping cost. Write a function that has total cost a input argument and calculate the gasoline cost and use the function defined in Question 6 inside it. Hint: Use the `...` argument to pass arguments to `shipping_cost`.
 
-```{r, echo=FALSE}
-addSolution("
+
+
+```{r, solution=TRUE}
 shipping_cost <- function(total, pct = 0.1) {
   return(pct * total)
 }
@@ -341,16 +394,30 @@ costs <- function(total, ...) {
 }
 costs(450)
 costs(450, pct = 0.15)
-")
+```
+```{r, hint=TRUE}
+shipping_cost <- function(total, pct = 0.1) {
+  return(pct * total)
+}
+
+gasoline_cost <- function(total, ...) {
+  return(shipping_cost(total, ...) * 0.5)
+}
+
+costs <- function(total, ...) {
+  lst <- list(total = ___, shipping = ___, gasoline = ___)
+  return(lst)
+}
 ```
 
 9) Given Question 8, write a function `costs` that, given total cost, returns the total cost, shipping cost and gasoline cost.
 
   
+  
+  
 ### Exercise (scope)
 
-```{r, echo=FALSE}
-addSolution(text = "That value is still 3 since `x` defined inside the function is a local variable.")
+```{r, solution=TRUE, text = "That value is still 3 since `x` defined inside the function is a local variable."}
 ```
 
 1) After running the code below, what is the value of variable `x`?
@@ -364,8 +431,7 @@ my_func <- function(y){
 my_func(7)
 ```
 
-```{r, echo=FALSE}
-addSolution(text = "The code runs. But it is not good coding practice to call global variables inside a function (`x`). Instead `x` should have been an argument to the function.")
+```{r, solution=TRUE, text = "The code runs. But it is not good coding practice to call global variables inside a function (`x`). Instead `x` should have been an argument to the function."}
 ```
 
 2) Is there any problems with the following code?
@@ -378,8 +444,7 @@ my_func <- function(y){
 my_func(7)
 ```
 
-```{r, echo=FALSE}
-addSolution(text = "That value is still 3 since `my_func` has not been called yet.")
+```{r, solution=TRUE, text = "That value is still 3 since `my_func` has not been called yet."}
 ```
 
 3) Have a look at the documentation for operator `<<-` (run `?'<--'`). After running the code below, what is the value of variable `x`?
@@ -393,8 +458,7 @@ my_func <- function(y){
 }
 ```
 
-```{r, echo=FALSE}
-addSolution(text = "That value of `x` is 5 since `<<-` is used to look at the parent environment. The function call returns 11 since the `x` used is the local variable. In general avoid using `<<-` and give local variables different names compared to global ones.")
+```{r, solution=TRUE, text = "That value of `x` is 5 since `<<-` is used to look at the parent environment. The function call returns 11 since the `x` used is the local variable. In general avoid using `<<-` and give local variables different names compared to global ones."}
 ```
 
 4) After running the code below, what is the value of variable `x` and output of the function call?
@@ -485,8 +549,7 @@ Step 1: Call the greedy algorithm with the modified costs. Note that the total
         cost returned has to be modified a bit.
 ```
 
-```{r, echo=FALSE}
-addSolution("
+```{r, solution=TRUE}
 better <- function(startup, setup) {
   jobs <- nrow(setup)
   min_col_val <- apply(rbind(startup, setup), 2, min, na.rm = T)
@@ -499,7 +562,34 @@ better <- function(startup, setup) {
   return(lst)
 }
 better(startup_costs, setup_costs)
-")
+```
+```{r, hint=TRUE, title="Hint 2"}
+better <- function(startup, setup) {
+  jobs <- nrow(setup)
+  min_col_val <- apply(rbind(startup, setup), 2, min, na.rm = T)
+  startup <- startup - min_col_val
+  min_mat <- matrix(rep(min_col_val, jobs), 
+                    ncol = jobs, byrow = T)
+  setup <- setup - ___
+  lst <- greedy(startup, setup)
+  lst$cost <- lst$cost + sum(___)
+  return(lst)
+}
+better(startup_costs, setup_costs)
+```
+```{r, hint=TRUE, title="Hint 1"}
+better <- function(startup, setup) {
+  jobs <- nrow(setup)
+  min_col_val <- apply(___)
+  startup <- startup - ___
+  min_mat <- matrix(rep(min_col_val, jobs), 
+                    ncol = ___, byrow = T)
+  setup <- setup - ___
+  lst <- greedy(___, ___)
+  lst$cost <- lst$cost + ___
+  return(lst)
+}
+better(startup_costs, setup_costs)
 ```
 
 Implement a `better` function calculating a better strategy. Hint: to find the minimum column costs, you may use `apply(rbind(startup, setup), 2, min, na.rm = T)`.

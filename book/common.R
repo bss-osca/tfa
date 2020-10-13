@@ -64,38 +64,40 @@ opts_hooks$set(hint = function(options) {
 })
 
 knit_hooks$set(solution = function(before, options, envir) {
+  if (is.null(options$title)) options$title <- "Solution"
   if (before) {
     paste0('\n<div class="modal fade bs-example-modal-lg" id="', options$str_id, '" tabindex="-1" role="dialog" aria-labelledby="', options$str_id, '-title">',
            '<div class="modal-dialog modal-lg" role="document">',
            '<div class="modal-content">',
            '<div class="modal-header">',
            '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>',
-           '<h4 class="modal-title" id="', options$str_id, '-title">Solution</h4>',
+           '<h4 class="modal-title" id="', options$str_id, '-title">', options$title, '</h4>',
            '</div><div class="modal-body">\n')
   } else {
     text <- "\n"
     if (!is.null(options$text)) text <- paste0(text, markdown::renderMarkdown(text = options$text), '\n')
     paste0(text, '</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div>',
            '</div></div></div>',
-           '<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#', options$str_id, '">Solution</button>\n')
+           '<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#', options$str_id, '">', options$title, '</button>\n')
   }
 })
 
 knit_hooks$set(hint = function(before, options, envir) {
+  if (is.null(options$title)) options$title <- "Hint"
   if (before) {
     paste0('\n<div class="modal fade bs-example-modal-lg" id="', options$str_id, '" tabindex="-1" role="dialog" aria-labelledby="', options$str_id, '-title">',
            '<div class="modal-dialog modal-lg" role="document">',
            '<div class="modal-content">',
            '<div class="modal-header">',
            '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>',
-           '<h4 class="modal-title" id="', options$str_id, '-title">Hint</h4>',
+           '<h4 class="modal-title" id="', options$str_id, '-title">', options$title, '</h4>',
            '</div><div class="modal-body">\n')
   } else {
     text <- "\n"
     if (!is.null(options$text)) text <- paste0(text, markdown::renderMarkdown(text = options$text), '\n')
     paste0(text, '</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div>',
            '</div></div></div>',
-           '<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#', options$str_id, '">Hint</button>\n')
+           '<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#', options$str_id, '">', options$title,'</button>\n')
   }
 })
 
