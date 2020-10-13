@@ -170,6 +170,7 @@ mat
 Often you can replace nested loops with a single loop by using `expand_grid`:
 
 ```{r}
+library(tidyverse)  # load function expand_grid
 mat <- matrix(NA, nrow = 2, ncol = 3)
 ite <- expand_grid(i = 1:2, j=1:3)
 ite
@@ -288,21 +289,61 @@ Nested loops are possible in R. However, often they can be converted into a sing
 Consider vector:
 
 ```{r}
+library(tidyverse)
 x <- 1:15
 x
 ```
 
-```{r, echo=FALSE}
-addSolution('if_else(x < 7, as.integer(0), x)')
+```{r, solution=TRUE}
+if_else(x < 7, as.integer(0), x)
+```
+```{r, hint=TRUE}
+if_else(x < 7, as.integer(___), ___)
 ```
 
-4) Use the `if_else` function set elements with value below 7 to 0.
+4) Use the `if_else` function to set elements with value below 7 to 0.
 
-```{r, echo=FALSE}
-addSolution('if_else(x < 7 | x > 10, NA_integer_, x)')
+
+
+```{r, solution=TRUE}
+if_else(x < 7 | x > 10, NA_integer_, x)
+```
+```{r, hint=TRUE}
+if_else(___, NA_integer_, ___)
 ```
 
-5) Use the `if_else` function set elements with value below 7 or above 10 to `NA_integer_`.
+5) Use the `if_else` function to set elements with value below 7 or above 10 to `NA_integer_` (which is the NA/missing value of an integer).
+
+
+
+```{r, solution=TRUE}
+x <- sample(c(1:10,NA,5.5), 1)
+if (is.na(x)) {
+  y <- "missing"
+} else if (x %% 2 == 0) {
+  y <- "even"
+} else if (x %% 2 == 1) {
+  y <- "odd"
+} else if (x %% 1 > 0) {
+  y <- "decimal"
+} 
+x
+y
+```
+```{r, hint=TRUE}
+x <- sample(c(1:10,NA,5.5), 1)
+if (is.na(x)) {
+  y <- ___
+} else if (x %% 2 == 0) {
+  ___
+} else if (___) {
+  ___
+} else if (___) {
+  y <- "decimal"
+} 
+x
+y
+```
 
 6) Consider code
 
@@ -311,24 +352,7 @@ addSolution('if_else(x < 7 | x > 10, NA_integer_, x)')
    x
    ```
 
-   which generates a natural number from the vector `c(1:10,NA,5.5)`. 
-
-   ```{r, echo=FALSE}
-   addSolution('
-   x <- sample(c(1:10,NA,5.5), 1)
-   if (is.na(x)) {
-     y <- "missing"
-   } else if (x %% 2 == 0) {
-     y <- "even"
-   } else if (x %% 2 == 1) {
-     y <- "odd"
-   } else if (x %% 1 > 0) {
-     y <- "decimal"
-   } 
-   x
-   y
-   ')
-   ```
+   which generates a number from the vector `c(1:10,NA,5.5)`. 
 
    Write code which set object `y` equal to "even" if `x` is even, "odd" if `x` is odd, "decimal" if `x` has a decimal not zero and "missing" if `x` is `NA`. Hint: have a look at `?'%%'` (the modulo operator).
 
@@ -338,28 +362,45 @@ addSolution('if_else(x < 7 | x > 10, NA_integer_, x)')
 
 ### Exercise (loops)
 
-```{r, echo=FALSE}
-addSolution('x <- rep(NA,4)
+```{r, solution=TRUE}
+x <- rep(NA,4)
 for (i in 1:4) {
   x[i] <- 2 * i + 4
 }
-x')
+x
 ```
+```{r, hint=TRUE}
+x <- rep(NA,4)
+for (i in 1:4) {
+  x[i] <- ___
+}
+x
+```
+
 1) Using a `for` loop, create a vector having values $2i + 4$ given $i=1\ldots 4$.
 
-```{r, echo=FALSE}
-addSolution('
+
+
+```{r, solution=TRUE}
 i_val <- c(2, 5, 6, 12)
 x <- rep(NA, length(i_val))
 for (idx in 1:length(i_val)) {
   x[idx] <- 2 * i_val[idx] + 4
 }
-')
 ```
+```{r, hint=TRUE}
+i_val <- c(2, 5, 6, 12)
+x <- rep(NA, length(i_val))
+for (idx in 1:length(i_val)) {
+  x[idx] <- ___
+}
+```
+
 2) Using a `for` loop, create a vector having values $2i + 4$ given $i=2,5,6,12$.
 
-```{r, echo=FALSE}
-addSolution('
+
+
+```{r, solution=TRUE}
 i_val <- c(2, 5, 6, 12)
 x <- rep(NA, length(i_val))
 idx <- 1
@@ -367,25 +408,33 @@ while (idx < 5) {
   x[idx] <- 2 * i_val[idx] + 4
   idx <- idx + 1
 }
-')
 ```
+```{r, hint=TRUE}
+i_val <- c(2, 5, 6, 12)
+x <- rep(NA, length(i_val))
+idx <- 1
+while (idx < 5) {
+  x[idx] <- ___
+  idx <- ___
+}
+```
+
 3) Solve Question 2 using a `while` loop.
 
-```{r, echo=FALSE}
-addSolution('
+
+
+```{r, solution=TRUE}
 2 * 1:4 + 4             # Q1
 2* c(2, 5, 6, 12) + 4   # Q2
-')
 ```
+```{r, hint=TRUE}
+2 * ___ + 4             # Q1
+___   # Q2
+```
+
 4) Solve Questions 1 and 2 using a vectorized alternative. 
 
-```{r, echo=FALSE}
-addSolution('
-2 * 1:4 + 4             # Q1
-2* c(2, 5, 6, 12) + 4   # Q2
-')
-```
-5) Solve Questions 1 and 2 using a vectorized alternative. 
+
 
 
 ### Exercise (calculating distances) {#ex-dist}
@@ -393,7 +442,8 @@ addSolution('
 Consider zip codes in Jutland:
 
 ```{r}
-library(tfa)
+library(tidyverse)
+library(tfa)   # the course package devtools::install_github("bss-osca/tfa/tfa-package")
 zips
 ```
 
@@ -428,12 +478,11 @@ lst$statusDescription
 
 Note we call the Bing maps API with the two zip codes. A [json file](https://en.wikipedia.org/wiki/JSON) is returned and stored in a list. To get the average travel distance we access `travelDistance`. The status code should be 200 if the calculation returned is okay.
 
-```{r, echo=FALSE}
-addSolution('
+```{r, solution=TRUE}
 key <- "AlUJdApmvPe8y2_IMrC4j4x8fzytbD2M0SvlmpemL09ae_CWS6-IuNSgrAtXoyeP"
 for(i in 1:nrow(distanceMat)) {
    for(j in 1:ncol(distanceMat)) {
-      if (i>j) {distanceMat[i,j] <- distanceMat[j,i]; next}   # assume symetric distances
+      if (i>j) {distanceMat[i,j] <- distanceMat[j,i]; next}   # assume symmetric distances
       if (!is.na(distanceMat[i,j])) next   # value already calculated 
       if (i==j) {distanceMat[i,j] <- 0; next}
       
@@ -449,7 +498,27 @@ for(i in 1:nrow(distanceMat)) {
    }
 }
 distanceMat
-')
+```
+```{r, hint=TRUE}
+key <- "AlUJdApmvPe8y2_IMrC4j4x8fzytbD2M0SvlmpemL09ae_CWS6-IuNSgrAtXoyeP"
+for(i in 1:nrow(distanceMat)) {
+   for(j in 1:ncol(___)) {
+      if (i>j) {distanceMat[i,j] <- ___; next}   # assume symmetric distances
+      if (!is.na(distanceMat[i,j])) next   # value already calculated 
+      if (i==j) {distanceMat[i,j] <- ___; next}
+      
+      url <- str_c("http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=",
+                   dat$Zip[i], ",Denmark",
+                   "&wp.1=",
+                   dat$Zip[j], ",Denmark",
+                   "&avoid=minimizeTolls&key=", key)
+      lst <- jsonlite::fromJSON(url)
+      if (lst$statusCode == ___) {
+         distanceMat[i,j] <- ___
+      }
+   }
+}
+distanceMat
 ```
 
 Use nested for loops to fill `distanceMat` with distances. Assume that the distance from a to b is the same as from b to a. That is, you only have to call the API once for two zip codes. Use an if statement to check if the status code is okay.
@@ -457,8 +526,7 @@ Use nested for loops to fill `distanceMat` with distances. Assume that the dista
 
 ### Exercise (`expand_grid`)
 
-```{r, echo=FALSE}
-addSolution('
+```{r, solution=TRUE}
 ite <- expand_grid(i = c(1,5), j = 2:3)
 ite
 key <- "AlUJdApmvPe8y2_IMrC4j4x8fzytbD2M0SvlmpemL09ae_CWS6-IuNSgrAtXoyeP"
@@ -478,7 +546,27 @@ for (r in 1:nrow(ite)) { # iterate over rows
    }
 }
 distanceMat
-')
+```
+```{r, hint=TRUE}
+ite <- expand_grid(i = ___, j = ___)
+ite
+key <- "AlUJdApmvPe8y2_IMrC4j4x8fzytbD2M0SvlmpemL09ae_CWS6-IuNSgrAtXoyeP"
+for (r in 1:nrow(ite)) { # iterate over rows
+   i <- ite$i[r]
+   j <- ite$j[r]
+   if (i==j) {distanceMat[i,j] <- 0; next}
+   url <- str_c("http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=",
+                dat$Zip[i], ",Denmark",
+                "&wp.1=",
+                dat$Zip[j], ",Denmark",
+                "&avoid=minimizeTolls&key=", key)
+   lst <- jsonlite::fromJSON(url)
+   if (lst$statusCode == ___) {
+      distanceMat[i,j] <- lst$resourceSets$resources[[1]]$travelDistance
+      distanceMat[j,i] <- ___
+   }
+}
+distanceMat
 ```
 
 Consider the solution of Exercise \@ref(ex-dist) and assume that you only want to calculate the distance from rows 1 and 5 to rows 2 and 3 in `dat`. Modify the solution using `expand_grid` so only one loop is used.
