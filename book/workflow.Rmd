@@ -688,12 +688,19 @@ m3 <- matrix(c(37, 8, 51, NA, 50, 97, 86, NA, 84, 46, 17, 62L), ncol = 3)
 rowSums(m1, na.rm = T)
 colSums(m2, na.rm = T)
 ```
+```{r, hint=TRUE}
+rowSums(___, na.rm = ___)
+colSums(___, na.rm = ___)
+```
 
 2) Calculate the row sums of `m1` and column sums of `m2` ignoring `NA` values. Hint: have a look at the documentation of `rowSums`.
 
 
 ```{r, solution=TRUE}
 rbind(m1, c(1, 2, 3, 4))
+```
+```{r, hint=TRUE}
+rbind(___, ___)
 ```
 
 3) Add row `c(1, 2, 3, 4)` as last row to `m1`. 
@@ -702,12 +709,18 @@ rbind(m1, c(1, 2, 3, 4))
 ```{r, solution=TRUE}
 rbind(c(1, 2, 3, 4), m1)
 ```
+```{r, hint=TRUE}
+rbind(___, ___)
+```
 
 4) Add row `c(1, 2, 3, 4)` as first row to `m1`. 
 
 
 ```{r, solution=TRUE}
 cbind(m3, c(1, 2, 3, 4))
+```
+```{r, hint=TRUE}
+cbind(___, ___)
 ```
 
 5) Add column `c(1, 2, 3, 4)` as last column to `m3`.
@@ -723,12 +736,18 @@ m1[2,4]
 ```{r, solution=TRUE}
 m1[2:3,1:2]
 ```
+```{r, hint=TRUE}
+m1[2:3,___]
+```
 
 7) Select elements in rows 2-3 and columns 1-2 of `m1`. 
 
 
 ```{r, solution=TRUE}
 m1[3, c(1,3,4)]
+```
+```{r, hint=TRUE}
+m1[3,___]
 ```
 
 8) Select elements in row 3 and columns 1, 3 and 4 of `m1`. 
@@ -743,6 +762,9 @@ m1[3,]
 
 ```{r, solution=TRUE}
 m2[is.na(m2)]
+```
+```{r, hint=TRUE}
+m2[is.na(___)]
 ```
 
 10) Select all `NA` elements in `m2`. 
@@ -778,6 +800,11 @@ mtcars[,4]
 mtcars[,"hp"]
 mtcars$hp
 ```
+```{r, hint=TRUE}
+mtcars[,___]
+mtcars[,"___"]
+mtcars$___
+```
 
 2) Select column `hp` using index (column 4), its name, and the `$` operator.
 
@@ -787,6 +814,10 @@ mtcars$hp
 mtcars <- rbind(mtcars, 
    c(34, 3, 87, 112, 4.5, 1.515, 167, 1, 1, 5, 3))
 rownames(mtcars)[33] <- "Phantom XE"
+```
+```{r, hint=TRUE}
+mtcars <- rbind(mtcars, ___)
+rownames(mtcars)[___] <- "Phantom XE"
 ```
 
 3) Update `mtcars` by adding row `c(34, 3, 87, 112, 4.5, 1.515, 167, 1, 1, 5, 3)`. Name the row 'Phantom XE'.
@@ -799,6 +830,11 @@ col <- c(NA, "green", "blue", "red", NA, "blue", "green", "blue", "red", "red",
    "green", "blue", NA)
 mtcars <- cbind(mtcars, col)
 class(mtcars$col)
+```
+```{r, hint=TRUE}
+col <- c(NA, "green", ......)
+mtcars <- cbind(mtcars, ___)
+class(mtcars$___)
 ```
 
 4) Update `mtcars` by adding column:
@@ -813,8 +849,12 @@ class(mtcars$col)
    What class is column `col`?
 
 
+
 ```{r, solution=TRUE}
 mtcars[mtcars$vs == 0,]
+```
+```{r, hint=TRUE}
+mtcars[mtcars$___ == 0,]
 ```
 
 5) Select cars with a V-shaped engine.
@@ -844,9 +884,13 @@ y <- lst[[2]]
 y
 ```
 
-```{r, solution=TRUE}
+```{r, solution=TRUE, text=="One bracket always returns a list again."}
 class(x)
 class(y)
+```
+```{r, hint=TRUE}
+class(___)
+class(___)
 ```
 
 1) What is the class of the two objects `x` and `y`? What is the difference between using one or two brackets?
@@ -854,6 +898,10 @@ class(y)
 
 ```{r, solution=TRUE}
 names(lst) <- c("age", "name", "male", "weight")
+lst
+```
+```{r, hint=TRUE}
+names(lst) <- c("age", ___, ___, ___)
 lst
 ```
 
@@ -865,6 +913,7 @@ lst$name
 ```
 
 3) Extract the name component using the `$` operator.
+
 
 You can add/change/remove components using:
 
@@ -878,6 +927,9 @@ lst
 
 ```{r, solution=TRUE}
 lst$name$last
+```
+```{r, hint=TRUE}
+lst$name$___
 ```
 
 4) Extract the last name component using the `$` operator.
@@ -918,12 +970,20 @@ str_detect(str2, "BA")  # detect a pattern
 str_detect(str1, "Business")
 str_detect(str2, "Business")
 ```
+```{r, hint=TRUE}
+str_detect(str1, ___)
+str_detect(___, ___)
+```
 
 1) Is `Business` (case sensitive) contained in `str1` and `str2`?
 
 
 ```{r, solution=TRUE}
 str5 <- str_replace(str2, "BA", "Business Analytics") 
+str5
+```
+```{r, hint=TRUE}
+str5 <- str_replace(str2, ___, ___) 
 ```
 
 2) Define a new string that replace `BA` with `Business Analytics` in `str2`
@@ -931,6 +991,10 @@ str5 <- str_replace(str2, "BA", "Business Analytics")
 
 ```{r, solution=TRUE}
 str5 <- str_remove(str5, " or as a set of methodologies that enable the creation of business value")
+str5
+```
+```{r, hint=TRUE}
+str5 <- str_remove(str5, ___)
 ```
 
 3) In the string from Question 2, remove ` or as a set of methodologies that enable the creation of business value`.
@@ -938,6 +1002,10 @@ str5 <- str_remove(str5, " or as a set of methodologies that enable the creation
 
 ```{r, solution=TRUE}
 str5 <- str_c(str5, "This course will focus on programming and descriptive analytics.", sep= " ")
+str5
+```
+```{r, hint=TRUE}
+str5 <- str_c(str5, ___, sep= ___)
 ```
 
 4) In the string from Question 3, add `This course will focus on programming and descriptive analytics.`.
@@ -945,6 +1013,10 @@ str5 <- str_c(str5, "This course will focus on programming and descriptive analy
 
 ```{r, solution=TRUE}
 str5 <- str_replace(str5, "analytics", "business analytics")
+str5
+```
+```{r, hint=TRUE}
+str5 <- str_replace(str5, ___, ___)
 ```
 
 5) In the string from Question 4, replace `analytics` with `business analytics`.
@@ -955,6 +1027,12 @@ str_replace(str2, "BA", "Business Analytics") %>%
    str_remove(" or as a set of methodologies that enable the creation of business value") %>% 
    str_c("This course will focus on programming and descriptive analytics.", sep= " ") %>% 
    str_replace("analytics", "business analytics")
+```
+```{r, hint=TRUE}
+str_replace(str2, ___, ___) %>% 
+   str_remove(___) %>% 
+   str_c(___) %>% 
+   str_replace(___)
 ```
 
 6) Do all calculations in Question 2-5 using pipes.
