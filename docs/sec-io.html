@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 7 Importing and exporting data | Tools for Analytics (TFA)</title>
   <meta name="description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 7 Importing and exporting data | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2020-10-13" />
+<meta name="date" content="2020-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,7 +57,7 @@
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.15/datatables.js"></script>
+<script src="libs/datatables-binding-0.16/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
@@ -499,7 +499,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.2.2</span> Writing to CSV files</h3>
 <p>Given a tibble/data frame export it using <code>write_csv</code>:</p>
 <div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="sec-io.html#cb193-1" aria-hidden="true"></a>csv_file &lt;-<span class="st"> &quot;testing.csv&quot;</span></span>
-<span id="cb193-2"><a href="sec-io.html#cb193-2" aria-hidden="true"></a><span class="kw">write_csv</span>(dat, <span class="dt">path =</span> csv_file) </span></code></pre></div>
+<span id="cb193-2"><a href="sec-io.html#cb193-2" aria-hidden="true"></a><span class="kw">write_csv</span>(dat, <span class="dt">path =</span> csv_file) </span>
+<span id="cb193-3"><a href="sec-io.html#cb193-3" aria-hidden="true"></a><span class="co">#&gt; Warning: The `path` argument of `write_csv()` is deprecated as of readr 1.4.0.</span></span>
+<span id="cb193-4"><a href="sec-io.html#cb193-4" aria-hidden="true"></a><span class="co">#&gt; Please use the `file` argument instead.</span></span>
+<span id="cb193-5"><a href="sec-io.html#cb193-5" aria-hidden="true"></a><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
+<span id="cb193-6"><a href="sec-io.html#cb193-6" aria-hidden="true"></a><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></span></code></pre></div>
 <p>You can now always import the data again using <code>read_csv</code>:</p>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="sec-io.html#cb194-1" aria-hidden="true"></a><span class="kw">read_csv</span>(csv_file)</span>
 <span id="cb194-2"><a href="sec-io.html#cb194-2" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
