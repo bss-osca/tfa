@@ -53,6 +53,7 @@ z > 0   # vector comparison
 
 ```{r l3, eval=FALSE}
 z <- c(1, -1, 3)
+z > 0
 all(z > 0)
 any(z > 0)
 ```
@@ -151,10 +152,17 @@ while(x < 5) {
 
 ## Conditional Statements (vector of booleans)
 
-Use of `if_else` (a vectorized alternative)
+```{r, include=FALSE}
+options(width=45)
+```
 
+Use of `if_else` (a vectorized alternative)
+.midi[
+.pull-left[
 ```{r}
-library(tidyverse)
+library(tidyverse)   
+x <- c(-5:5, NA)
+
 ## using if and for
 res <- rep("", length(x))
 for (i in seq_along(x)) {
@@ -162,18 +170,28 @@ for (i in seq_along(x)) {
   else if (x[i] < 0) res[i] <- "negative"
   else res[i] <- "positive"
 }
-
-## using if_else
-x <- c(-5:5, NA)
-res <- if_else(x < 0, "negative (true)", "positive (false)", "missing (na)")
 res
+```
+]
+.pull-right[ 
+```{r}
+## using if_else
+res <- if_else(x < 0, 
+               "negative (true)", 
+               "positive (false)", 
+               "missing (na)")
+res
+```
+]
+]
+
+```{r, include=FALSE}
+options(width=80)
 ```
 
 ---
 
-## Loops
-
-Use `for` or `while`:
+## Loops (`for` or `while`)
 
 ```{r}
 v <- c(2,4,9,0)  # values we want to iterate over
@@ -181,15 +199,14 @@ res <- rep(NA,4) # vector to store results in
 for (idx in 1:length(v)) {
   res[idx] <- 6 * v[idx] + 9
 }
-res
+res   # equal 6*v + 9 
 
 x <- 1; res <- x
 while(x < 5) {
   x <- x + 1
   res <- res + x 
 }
-res
-sum(1:5)
+res   # equal sum(1:5)
 ```
 
 ---
@@ -237,27 +254,35 @@ This way of looping is a more flexible approach since you can nest more loops by
 ## Your Turn
 
 .your-turn[
-- Given a dice and a 52-card deck, use a for loop to write all the possible combinations as strings in the form `Dice = [value] and card = [value]`. Hint: `cat` can be used to concatenate the strings and start with vectors: 
-  ```{r}
-  dice <- 1:6
-  card_suit <- c("clubs", "diamonds", "hearts", "spades")
-  card_number <- c("ace", 2:10, "jack", "queen", "king")
-  ```
+- Given a dice and a 52-card deck, use a for loop to write all the possible combinations as strings in the form `Dice = [value] and card = [value]`. Hint (fill the missing):
+
+```{r, eval=FALSE}
+dice <- 1:6
+card_suit <- c("clubs", "diamonds", "hearts", "spades")
+card_number <- c("ace", 2:10, "jack", "queen", "king")
+ite <- expand_grid(Dice = dice, 
+                   Card_suit = ___, 
+                   ___)  
+for (r in 1:nrow(ite)) { # iterate over rows
+   cat("Dice = ", ___, " and card = ", ___, " (", ___, ").\n", sep="")
+}
+```
 ]
 
-
 ```{r echo=FALSE}
-countdown(minutes = 5, top = "0")
+countdown(minutes = 5)
 ```
 
-```{r, include=FALSE}
+???
+
+```{r, include=TRUE}
 library(tidyverse)
 dice <- 1:6
 card_suit <- c("clubs", "diamonds", "hearts", "spades")
 card_number <- c("ace", 2:10, "jack", "queen", "king")
 dat <- expand_grid(Dice = dice, Card_suit = card_suit, Card_number = card_number)
 for (r in 1:nrow(dat)) {
-  cat("Dice = ", dat$Dice[r], " and ", dat$Card_number[r], " (", dat$Card_suit[r], ").\n", sep="")
+  cat("Dice = ", dat$Dice[r], " and card = ", dat$Card_number[r], " (", dat$Card_suit[r], ").\n", sep="")
 } 
 ```
 
@@ -281,7 +306,7 @@ class: middle
 - Functions are often used to encapsulate a sequence of expressions that need to be executed numerous times, perhaps under slightly different conditions. 
 <!-- - In programming, functional programming is a programming paradigm, a style how code is written. Rather than repeating code, functions and control structures allow one to build code in blocks.  -->
 - Functions are (often) verbs, followed by what they will be applied to in parentheses.
-- Functions can be defined using the `function()` directive. 
+- Functions can be defined using the `function()` directive:
 ```{r}
 loop_output <- function(dat, rows = 1:2, cols = 2:3, ...) {
   ite <- expand_grid(r = rows, c = cols)
@@ -315,10 +340,11 @@ loop_output(mtcars, rows = c(3,1), cols = 6, sep = "")  # use the ... argument
 
 ---
 
-## Functions - Document your functions 
+## Functions - Document your functions
+
+Use **Code > Insert Roxygen skeleton** (Ctrl+Alt+Shift+R).
 
 ```{r}
-
 #' Loop through some values in a data frame
 #'
 #' @param dat A data frame
@@ -327,8 +353,6 @@ loop_output(mtcars, rows = c(3,1), cols = 6, sep = "")  # use the ... argument
 #' @param ... Arguments passed to `cat`.
 #'
 #' @return A string.
-#' @examples
-#' loop_output(mtcars, rows = c(3,1), cols = 6)
 loop_output <- function(dat, rows = 1:2, cols = 2:3, ...) {
   ite <- expand_grid(r = rows, c = cols)
   for (i in 1:nrow(ite)) {
@@ -347,14 +371,29 @@ loop_output <- function(dat, rows = 1:2, cols = 2:3, ...) {
 
 .your-turn[
 - Create a function that given some dice numbers and some cards from a 52-card deck (e.g. 1-spade), write out all the possible combinations as strings in the form `Dice = [value] and card = [value]`. 
-- Moreover, if the dice numbers contains the number 2, function must return true; otherwise, false.
+- Moreover, if the dice numbers contains the number 2, function must return true; otherwise, false. Hint:
+
+```r
+get_combinations <- function(dice, card) {
+  ite <- expand_grid(___)
+  found <- FALSE
+  for (i in 1:nrow(ite)) {
+    ___
+  } 
+  return(found)
+}
+get_combinations(dice = c(2,3), card = c("2-spade", "ace-dimond"))
+get_combinations(dice = c(3,1), card = c("10-heart", "king-dimond"))
+```
 ]
 
 ```{r echo=FALSE}
 countdown(minutes = 5)
 ```
 
-```{r, include=FALSE}
+???
+
+```{r, include=TRUE}
 get_combinations <- function(dice, card) {
   ite <- expand_grid(d = dice, c = card)
   found <- FALSE
@@ -368,6 +407,34 @@ get_combinations <- function(dice, card) {
 }
 get_combinations(dice = c(2,3), card = c("2-spade", "ace-dimond"))
 get_combinations(dice = c(3,1), card = c("10-heart", "king-dimond"))
+```
+
+---
+
+## Your Turn
+
+.your-turn[
+- Create a function that calculates the present value ($PV$) of a future value. The equation is: 
+$$PV = FV/(1+r)^n$$ where $FV$ is future value, $r$ is the interest rate, and $n$ is the number of periods. 
+- Input arguments must be $FV$, $r$, $n$ and a boolean `round` equal true if the output should be rounded to two decimals. 
+- The default interest rate is 0.1 (10%) and rounding is false by default.
+]
+
+```{r echo=FALSE}
+countdown(minutes = 5)
+```
+
+???
+
+```{r, include=TRUE}
+get_PV <- function(FV, r = 0.1, n, round = FALSE) {
+  PV <- FV/(1+r)^n
+  if (round) return(round(PV, 2))
+  return(PV)
+}
+get_PV(100, n = 7)
+get_PV(100, n = 7, round = TRUE)
+get_PV(100, n = 7, r = 0.5)
 ```
 
 
