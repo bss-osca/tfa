@@ -34,245 +34,6 @@ layout: true
 ---
 
 
-
-
-## The tidyverse package
-
-The [tidyverse][tidyverse-main-page] is a collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures. The main packages are loaded using `library(tidyverse)`. We focus on
-
-  * [readr][tidyverse-readr] provides a fast and friendly way to read rectangular data (like csv, tsv, and fwf). 
-  * [dplyr][tidyverse-dplyr] provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges.
-  * [ggplot2][tidyverse-ggplot2] is a system for declaratively creating graphics.
-  * [tidyr][tidyverse-tidyr] provides a set of functions that help you get to tidy data. Tidy data is data with a consistent form: in brief, every variable goes in a column, and every column is a variable. 
-  * [tibble][tidyverse-tibble] is a modern re-imagining of the data frame, keeping what time has proven to be effective, and throwing out what has not.
-
-Small introductions (with examples) to the packages are given on their documentation pages.
-
----
-
-## Writing reproducible reports
-
-  - Reproducible means that the results can be reproduced given access to the original data, software, and code. 
-  - In practice it may be hard to make your project totally reproducible. There are different levels of reproducibility.
-  - [Literate programming][wiki-literate-programming] a programming paradigm focusing on weaving code together with text as documentation. 
-  - Want to write reports containing both R code for importing data, wrangling and analysis with comments about the code, plots, analysis, results, etc. 
-  - Focus on [R Markdown][r-markdown]. In R Markdown documents you can weave R code together with text (written in Markdown) to produce rendered output in html, pdf or Word. 
-  - This may seem complicated at first. However, after setup, it makes life much easier, since don't have to copy/paste anymore.
- 
-Let us have a look at an example.
-
-???
-
-Open the Rmd file used for all examples.
-
----
-
-## Input and output
-
-  * For doing data driven analytics you first must import some data. That is, take data from a database, file, web API etc. and transform it into a data frame/table. 
-  * Two main types of data files. Information is either binary encoded or stored as text files. 
-  * Text files can be read by humans and any programming language. 
-  * Binary file formats cannot be read by humans but allows space-efficient data compression. Moreover they can be used to save non tabular data.
-  * CSV files contain delimiter separated values (e.g. `,`, `;` or `_`) in plain text and are often named using the file suffix `.csv`. 
-  * The [readxl][tidyverse-readxl] package can be used to read Excel files. Write to an Excel file  using the [openxlsx][pkg-openxlsx] package. 
-  * You can import and export to Google sheets using the [googlesheets4][tidyverse-googlesheets4] package. 
-  * Json is an open standard text file format, and data interchange format. It can be used to store non tabular data in text format. 
-
----
-
-class: middle
-
-## Examples
-
-Let us have a look at the examples in the [R Markdown file]().
-
----
-
-## Tidy data
-
-&gt;Happy families are all alike; every unhappy family is unhappy in its own way. 
-&gt;
-&gt;Leo Tolstoy
-
---
-
-.pull-left[
-**Characteristics of tidy data:**
-
-- Each variable forms a column.
-- Each observation forms a row.
-- Each type of observational unit forms a table.
-]
---
-.pull-right[
-**Characteristics of untidy data:**
-
-!@#$%^&amp;*()
-]
-
----
-
-.question[
-What makes this data not tidy?
-]
-
-&lt;br&gt;
-
-&lt;img src="img/hiv-est-prevalence-15-49.png" width="95%" style="display: block; margin: auto;" /&gt;
-
-.footnote[
-Source: [Gapminder, Estimated HIV prevalence among 15-49 year olds](https://www.gapminder.org/data)
-]
-
----
-
-## Summary tables 
-
-.question[
-Is each of the following a dataset or a summary table?
-]
-
-.midi[
-.pull-left[
-
-```
-## # A tibble: 87 x 3
-##   name           height  mass
-##   &lt;chr&gt;           &lt;int&gt; &lt;dbl&gt;
-## 1 Luke Skywalker    172    77
-## 2 C-3PO             167    75
-## 3 R2-D2              96    32
-## 4 Darth Vader       202   136
-## 5 Leia Organa       150    49
-## 6 Owen Lars         178   120
-## # ... with 81 more rows
-```
-]
-.pull-right[
-
-```
-## # A tibble: 3 x 2
-##   gender    avg_height
-##   &lt;chr&gt;          &lt;dbl&gt;
-## 1 feminine        165.
-## 2 masculine       177.
-## 3 &lt;NA&gt;            181.
-```
-]
-]
-
----
-
-## A grammar of data wrangling...
-
-... based on the concepts of functions as verbs that manipulate data frames
-
-.pull-left[
-&lt;img src="img/dplyr-part-of-tidyverse.png" width="80%" style="display: block; margin: auto;" /&gt;
-]
-.pull-right[
-.midi[
-- `select`: pick columns by name
-- `arrange`: reorder rows
-- `slice`: pick rows using index(es)
-- `filter`: pick rows matching criteria
-- `distinct`: filter for unique rows
-- `mutate`: add new variables
-- `summarise`: reduce variables to values
-- `group_by`: for grouped operations
-- ... (many more)
-]
-]
-
----
-
-## Rules of **dplyr** functions
-
-- First argument is *always* a data frame
-- Subsequent arguments say what to do with that data frame
-- Always return a data frame
-- Don't modify in place
-
----
-
-## Data: Hotel bookings
-
-- Data from two hotels: one resort and one city hotel
-- Observations: Each row represents a hotel booking
-- Goal for original data collection: Development of prediction models to classify a hotel booking's likelihood to be cancelled ([Antonia et al., 2019](https://www.sciencedirect.com/science/article/pii/S2352340918315191#bib5))
-- Featured in [TidyTuesday](https://github.com/rfordatascience/tidytuesday)!
-
-
-```r
-library(tidyverse)
-library(skimr)
-hotels &lt;- read_csv(system.file("extdata/hotels.csv", package = "tfa"))
-hotels
-```
-
-```
-## # A tibble: 119,390 x 32
-##   hotel is_canceled lead_time arrival_date_ye~ arrival_date_mo~ arrival_date_we~ arrival_date_da~
-##   &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;                       &lt;dbl&gt;            &lt;dbl&gt;
-## 1 Reso~           0       342             2015 July                           27                1
-## 2 Reso~           0       737             2015 July                           27                1
-## 3 Reso~           0         7             2015 July                           27                1
-## 4 Reso~           0        13             2015 July                           27                1
-## 5 Reso~           0        14             2015 July                           27                1
-## 6 Reso~           0        14             2015 July                           27                1
-## # ... with 119,384 more rows, and 25 more variables: stays_in_weekend_nights &lt;dbl&gt;,
-## #   stays_in_week_nights &lt;dbl&gt;, adults &lt;dbl&gt;, children &lt;dbl&gt;, babies &lt;dbl&gt;, meal &lt;chr&gt;,
-## #   country &lt;chr&gt;, market_segment &lt;chr&gt;, distribution_channel &lt;chr&gt;, is_repeated_guest &lt;dbl&gt;,
-## #   previous_cancellations &lt;dbl&gt;, previous_bookings_not_canceled &lt;dbl&gt;, reserved_room_type &lt;chr&gt;,
-## #   assigned_room_type &lt;chr&gt;, booking_changes &lt;dbl&gt;, deposit_type &lt;chr&gt;, agent &lt;chr&gt;,
-## #   company &lt;chr&gt;, days_in_waiting_list &lt;dbl&gt;, customer_type &lt;chr&gt;, adr &lt;dbl&gt;,
-## #   required_car_parking_spaces &lt;dbl&gt;, total_of_special_requests &lt;dbl&gt;, reservation_status &lt;chr&gt;,
-## #   reservation_status_date &lt;date&gt;
-```
-
----
-
-exclude: true
- 
-
-
-```r
-x &lt;- TRUE   # you may use x &lt;- T 
-y &lt;- FALSE  # you may use y &lt;- F
-x == y
-```
---
-
---
-
----
-
-exclude: true
-
-## Your Turn
-
-.your-turn[
-- Create a function that calculates the present value ($PV$) of a future value. The equation is: 
-`$$PV = FV/(1+r)^n$$` where `\(FV\)` is future value, `\(r\)` is the interest rate, and `\(n\)` is the number of periods. 
-- Input arguments must be `\(FV\)`, `\(r\)`, `\(n\)` and a boolean `round` equal true if the output should be rounded to two decimals. 
-- The default interest rate is 0.1 (10%) and rounding is false by default.
-]
-
-<div class="countdown" id="timer_5f8d7788" style="right:0;bottom:0;" data-warnwhen="0">
-<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
-</div>
-
-???
-
-
-
-
-
-
-
-
-
-
 [BSS]: https://bss.au.dk/en/
 
 [course-help]: https://blackboard.au.dk/webapps/discussionboard/do/forum?action=list_threads&amp;course_id=_139525_1&amp;forum_id=190010&amp;nav=discussion_board&amp;conf_id=_274569_1&amp;content_id=_2651740_1&amp;mode=view
@@ -390,6 +151,246 @@ exclude: true
 [wiki-literate-programming]: https://en.wikipedia.org/wiki/Literate_programming
 [wiki-csv]: https://en.wikipedia.org/wiki/Comma-separated_values
 [wiki-json]: https://en.wikipedia.org/wiki/JSON
+
+
+
+
+## The tidyverse package
+
+The [tidyverse][tidyverse-main-page] is a collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures. The main packages are loaded using `library(tidyverse)`. We focus on
+
+  * [readr][tidyverse-readr] provides a fast and friendly way to read rectangular data (like csv, tsv, and fwf). 
+  * [dplyr][tidyverse-dplyr] provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges.
+  * [ggplot2][tidyverse-ggplot2] is a system for declaratively creating graphics.
+  * [tidyr][tidyverse-tidyr] provides a set of functions that help you get to tidy data. Tidy data is data with a consistent form: in brief, every variable goes in a column, and every column is a variable. 
+  * [tibble][tidyverse-tibble] is a modern re-imagining of the data frame, keeping what time has proven to be effective, and throwing out what has not.
+
+Small introductions (with examples) to the packages are given on their documentation pages.
+
+---
+
+## Writing reproducible reports
+
+  - Reproducible means that the results can be reproduced given access to the original data, software, and code. 
+  - In practice it may be hard to make your project totally reproducible. There are different levels of reproducibility.
+  - [Literate programming][wiki-literate-programming] a programming paradigm focusing on weaving code together with text as documentation. 
+  - Want to write reports containing both R code for importing data, wrangling and analysis with comments about the code, plots, analysis, results, etc. 
+  - Focus on [R Markdown][r-markdown]. In R Markdown documents you can weave R code together with text (written in Markdown) to produce rendered output in html, pdf or Word. 
+  - This may seem complicated at first. However, after setup, it makes life much easier, since don't have to copy/paste anymore.
+
+---
+
+## Example 
+
+Let us have a look at an example:
+
+
+```r
+url &lt;- "https://raw.githubusercontent.com/bss-osca/tfa/master/slides/03-transform/03-transform_examples.Rmd"
+download.file(url, 
+              "03-transform_ex.Rmd",   # stores file in R working directory
+              mode="w")                # "w" means "write," and is used for text files
+```
+
+We will use this file throughout the lecture. 
+
+???
+
+Open the Rmd file used and render in different formats.
+
+---
+
+## Input and output
+
+  * For doing data driven analytics you first must import some data. That is, take data from a database, file, web API etc. and transform it into a data frame/table. 
+  * Two main types of data files. Information is either binary encoded or stored as text files. 
+  * Text files can be read by humans and any programming language. 
+  * Binary file formats cannot be read by humans but allows space-efficient data compression. Moreover they can be used to save non tabular data.
+  * CSV files contain delimiter separated values (e.g. `,`, `;` or `_`) in plain text and are often named using the file suffix `.csv`. 
+  * The [readxl][tidyverse-readxl] package can be used to read Excel files. Write to an Excel file  using the [openxlsx][pkg-openxlsx] package. 
+  * You can import and export to Google sheets using the [googlesheets4][tidyverse-googlesheets4] package. 
+  * Json is an open standard text file format, and data interchange format. It can be used to store non tabular data in text format. 
+
+---
+
+## Examples and code 
+
+Let us have a look at the examples in the downloaded [R Markdown file](https://github.com/bss-osca/tfa/blob/master/slides/03-transform/03-transform_examples.Rmd).
+
+---
+
+## Tidy data
+
+&gt;Happy families are all alike; every unhappy family is unhappy in its own way. 
+&gt;
+&gt;Leo Tolstoy
+
+--
+
+.pull-left[
+**Characteristics of tidy data:**
+
+- Each variable forms a column.
+- Each observation forms a row.
+- Each type of observational unit forms a table.
+]
+--
+.pull-right[
+**Characteristics of untidy data:**
+
+!@#$%^&amp;*()
+]
+
+---
+
+.question[
+What makes this data not tidy?
+]
+
+&lt;br&gt;
+
+&lt;img src="img/hiv-est-prevalence-15-49.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+.footnote[
+Source: [Gapminder, Estimated HIV prevalence among 15-49 year olds](https://www.gapminder.org/data)
+]
+
+---
+
+## Summary tables 
+
+.question[
+Is each of the following a dataset or a summary table?
+]
+
+.midi[
+.pull-left[
+
+```
+## # A tibble: 87 x 3
+##   name           height  mass
+##   &lt;chr&gt;           &lt;int&gt; &lt;dbl&gt;
+## 1 Luke Skywalker    172    77
+## 2 C-3PO             167    75
+## 3 R2-D2              96    32
+## 4 Darth Vader       202   136
+## 5 Leia Organa       150    49
+## 6 Owen Lars         178   120
+## # ... with 81 more rows
+```
+]
+.pull-right[
+
+```
+## # A tibble: 3 x 2
+##   gender    avg_height
+##   &lt;chr&gt;          &lt;dbl&gt;
+## 1 feminine        165.
+## 2 masculine       177.
+## 3 &lt;NA&gt;            181.
+```
+]
+]
+
+---
+
+## A grammar of data wrangling...
+
+... based on the concepts of functions as verbs that manipulate data frames
+
+.pull-left[
+&lt;img src="img/dplyr-part-of-tidyverse.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+.midi[
+- `select`: pick columns by name
+- `arrange`: reorder rows
+- `slice`: pick rows using index(es)
+- `filter`: pick rows matching criteria
+- `distinct`: filter for unique rows
+- `mutate`: add new variables
+- `summarise`: reduce variables to values
+- `group_by`: for grouped operations
+- ... (many more)
+]
+]
+
+---
+
+## Rules of **dplyr** functions
+
+- First argument is *always* a data frame
+- Subsequent arguments say what to do with that data frame
+- Always return a data frame
+
+---
+
+## Data: Hotel bookings
+
+- Data from two hotels: one resort and one city hotel
+- Observations: Each row represents a hotel booking
+&lt;!-- - Goal for original data collection: Development of prediction models to classify a hotel booking's likelihood to be cancelled ([Antonia et al., 2019](https://www.sciencedirect.com/science/article/pii/S2352340918315191#bib5)) --&gt;
+
+
+```
+## # A tibble: 119,390 x 32
+##   hotel is_canceled lead_time arrival_date_ye~ arrival_date_mo~ arrival_date_we~ arrival_date_da~
+##   &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;                       &lt;dbl&gt;            &lt;dbl&gt;
+## 1 Reso~           0       342             2015 July                           27                1
+## 2 Reso~           0       737             2015 July                           27                1
+## 3 Reso~           0         7             2015 July                           27                1
+## 4 Reso~           0        13             2015 July                           27                1
+## 5 Reso~           0        14             2015 July                           27                1
+## 6 Reso~           0        14             2015 July                           27                1
+## # ... with 119,384 more rows, and 25 more variables: stays_in_weekend_nights &lt;dbl&gt;,
+## #   stays_in_week_nights &lt;dbl&gt;, adults &lt;dbl&gt;, children &lt;dbl&gt;, babies &lt;dbl&gt;, meal &lt;chr&gt;,
+## #   country &lt;chr&gt;, market_segment &lt;chr&gt;, distribution_channel &lt;chr&gt;, is_repeated_guest &lt;dbl&gt;,
+## #   previous_cancellations &lt;dbl&gt;, previous_bookings_not_canceled &lt;dbl&gt;, reserved_room_type &lt;chr&gt;,
+## #   assigned_room_type &lt;chr&gt;, booking_changes &lt;dbl&gt;, deposit_type &lt;chr&gt;, agent &lt;chr&gt;,
+## #   company &lt;chr&gt;, days_in_waiting_list &lt;dbl&gt;, customer_type &lt;chr&gt;, adr &lt;dbl&gt;,
+## #   required_car_parking_spaces &lt;dbl&gt;, total_of_special_requests &lt;dbl&gt;, reservation_status &lt;chr&gt;,
+## #   reservation_status_date &lt;date&gt;
+```
+
+---
+
+## Examples and code 
+
+Let us have a look at the examples in the downloaded [R Markdown file](https://github.com/bss-osca/tfa/blob/master/slides/03-transform/03-transform_examples.Rmd).
+
+---
+
+exclude: true
+ 
+
+
+```r
+x &lt;- TRUE   # you may use x &lt;- T 
+y &lt;- FALSE  # you may use y &lt;- F
+x == y
+```
+--
+
+--
+
+---
+
+exclude: true
+
+## Your Turn
+
+.your-turn[
+- Create a function that calculates the present value ($PV$) of a future value. The equation is: 
+`$$PV = FV/(1+r)^n$$` where `\(FV\)` is future value, `\(r\)` is the interest rate, and `\(n\)` is the number of periods. 
+- Input arguments must be `\(FV\)`, `\(r\)`, `\(n\)` and a boolean `round` equal true if the output should be rounded to two decimals. 
+- The default interest rate is 0.1 (10%) and rounding is false by default.
+]
+
+<div class="countdown" id="timer_5f8ea58b" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+???
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

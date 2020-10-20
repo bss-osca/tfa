@@ -17,6 +17,9 @@ editor_options:
 ```{r, child = "../setup.Rmd", echo=FALSE}
 ```
 
+```{r links, child="../../book/links.md"}
+```
+
 ```{r packages, echo=FALSE, message=FALSE, warning=FALSE}
 # use xaringan::inf_mr(cast_from = "..") to preview
 library(tidyverse)
@@ -45,12 +48,25 @@ Small introductions (with examples) to the packages are given on their documenta
   - Want to write reports containing both R code for importing data, wrangling and analysis with comments about the code, plots, analysis, results, etc. 
   - Focus on [R Markdown][r-markdown]. In R Markdown documents you can weave R code together with text (written in Markdown) to produce rendered output in html, pdf or Word. 
   - This may seem complicated at first. However, after setup, it makes life much easier, since don't have to copy/paste anymore.
- 
-Let us have a look at an example.
+
+---
+
+## Example 
+
+Let us have a look at an example:
+
+```{r, eval=FALSE}
+url <- "https://raw.githubusercontent.com/bss-osca/tfa/master/slides/03-transform/03-transform_examples.Rmd"
+download.file(url, 
+              "03-transform_ex.Rmd",   # stores file in R working directory
+              mode="w")                # "w" means "write," and is used for text files
+```
+
+We will use this file throughout the lecture. 
 
 ???
 
-Open the Rmd file used for all examples.
+Open the Rmd file used and render in different formats.
 
 ---
 
@@ -67,11 +83,9 @@ Open the Rmd file used for all examples.
 
 ---
 
-class: middle
+## Examples and code 
 
-## Examples
-
-Let us have a look at the examples in the [R Markdown file]().
+Let us have a look at the examples in the downloaded [R Markdown file](https://github.com/bss-osca/tfa/blob/master/slides/03-transform/03-transform_examples.Rmd).
 
 ---
 
@@ -171,7 +185,6 @@ knitr::include_graphics("img/dplyr-part-of-tidyverse.png")
 - First argument is *always* a data frame
 - Subsequent arguments say what to do with that data frame
 - Always return a data frame
-- Don't modify in place
 
 ---
 
@@ -179,8 +192,7 @@ knitr::include_graphics("img/dplyr-part-of-tidyverse.png")
 
 - Data from two hotels: one resort and one city hotel
 - Observations: Each row represents a hotel booking
-- Goal for original data collection: Development of prediction models to classify a hotel booking's likelihood to be cancelled ([Antonia et al., 2019](https://www.sciencedirect.com/science/article/pii/S2352340918315191#bib5))
-- Featured in [TidyTuesday](https://github.com/rfordatascience/tidytuesday)!
+<!-- - Goal for original data collection: Development of prediction models to classify a hotel booking's likelihood to be cancelled ([Antonia et al., 2019](https://www.sciencedirect.com/science/article/pii/S2352340918315191#bib5)) -->
 
 ```{r, message=FALSE, echo=FALSE}
 library(tidyverse)
@@ -188,6 +200,12 @@ library(skimr)
 hotels <- read_csv(system.file("extdata/hotels.csv", package = "tfa"))
 hotels
 ```
+
+---
+
+## Examples and code 
+
+Let us have a look at the examples in the downloaded [R Markdown file](https://github.com/bss-osca/tfa/blob/master/slides/03-transform/03-transform_examples.Rmd).
 
 ---
 
@@ -243,7 +261,4 @@ file.copy(list.files(pattern = ".html"), "../../docs/slides/", overwrite = T)
 file.copy("../slides.css", "./libs/", overwrite = T)
 file.copy("libs", "../../docs/slides/", recursive = T)
 file.copy("img", "../../docs/slides/", recursive = T)
-```
-
-```{r links, child="../../book/links.md"}
 ```
