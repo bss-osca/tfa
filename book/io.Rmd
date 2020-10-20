@@ -349,15 +349,15 @@ url <- "https://api.statbank.dk/v1/data/FLYV41/CSV?lang=en&LUFTHAVN=*&Tid=*&Tran
 
    1) Use `cat(read_lines(url, n_max = 3), sep = "\n")` to have a look at the delimiter used.
    
-```{r, echo=FALSE}
-addSolution("
+   
+   
+```{r, solution=TRUE, eval=FALSE}
 url <- 'https://api.statbank.dk/v1/data/FLYV41/CSV?lang=en&LUFTHAVN=*&Tid=*&Transport=*'
 dat <- read_csv2(url)
 dat
-", evalCode = FALSE)
 ```
-   
    2) Import the csv file.
+   
    
    3) Try to retrieve information and get an overview over the data by running:
       ```{r, eval=FALSE}
@@ -368,18 +368,27 @@ dat
       ```
       Note the data returned is in json format, so we use `read_json` to read the data into a list.
       
-```{r, echo=FALSE}
-addSolution('
+      
+```{r, solution=TRUE, eval=FALSE}
 info <- function(tab_id) {
    url <- str_c("https://api.statbank.dk/v1/tableinfo/", tab_id, "?lang=en")
    lst <- read_json(url, simplifyVector = T) 
-   return(list(description = lst$description, unit = lst$unit, variables = lst$variables))
+   return(list(description = lst$description, unit = lst$unit, variables = lst$variables[,1:2]))
 }
 info("FLYV41")
-', evalCode = FALSE)
+```
+```{r, hint=TRUE, title = "Hint 2"}
+info <- function(tab_id) {
+   url <- str_c(___)
+   lst <- read_json(___) 
+   return(list(description = lst$___, unit = ___, ___))
+}
+info("FLYV41")
+```
+```{r, hint=TRUE, text = "You can modify the code in Question 3 to return only parts of the list.", title = "Hint 1"}
 ```
    
-   4) Create a function `info(tab_id)` that returns a list with components `description`, `unit` and `variables` from the information for a data set with table id `tab_id`. Hint you can modify the code in Question 3 to return only parts of the list.
+   4) Create a function `info(tab_id)` that returns a list with components `description`, `unit` and `variables` from the information for a data set with table id `tab_id`. 
       
    5) Information about all the data sets can be retrieved using:
       ```{r, eval=FALSE}
@@ -387,17 +396,17 @@ info("FLYV41")
       lst <- jsonlite::read_json(url, simplifyVector = T)
       View(lst)
       ```
-      Have a look at the row for FlYV41.
+      Have a look at the row for FLYV41.
+   
    
 
-```{r, echo=FALSE}
-addSolution('
+```{r, solution=TRUE, eval=FALSE}
 get_data <- function(tab_id, col_id = NULL) {
    url <- str_c("https://api.statbank.dk/v1/tableinfo/", tab_id, "?lang=en")
    lst <- read_json(url, simplifyVector = T) 
    cols <- lst$variables$id
    if (!is.null(col_id)) cols <- cols[col_id]
-   url <- str_c("https://api.statbank.dk/v1/data/", lst$id[i], "/CSV?lang=en&", str_c(cols, collapse = "=*&"), "=*") %>% 
+   url <- str_c("https://api.statbank.dk/v1/data/", tab_id, "/CSV?lang=en&", str_c(cols, collapse = "=*&"), "=*") %>% 
       URLencode()
    dat <- read_csv2(url)
    return(dat)
@@ -405,9 +414,21 @@ get_data <- function(tab_id, col_id = NULL) {
 get_data("FLYV41", 3)
 get_data("FLYV41", 1:2)
 get_data("FLYV41")
-', evalCode = FALSE)
 ```
-   
+```{r, hint=TRUE}
+get_data <- function(tab_id, col_id = NULL) {
+   url <- ___
+   lst <- ___
+   cols <- lst$variables$id
+   if (!is.null(col_id)) cols <- cols[___]
+   url <- ___
+   dat <- ___
+   return(dat)
+}
+get_data("FLYV41", 3)
+get_data("FLYV41", 1:2)
+get_data("FLYV41")
+```
    6) Given the information about variables in a data set we can construct the url to retrieve the data in csv format:
       ```{r}
       tab_id <- "FLYV41"
@@ -421,18 +442,17 @@ get_data("FLYV41")
       ```
       Create a function `get_data(tab_id, col_id)` that retrieve a data set.
       
-```{r, echo=FALSE}
-addSolution('
+      
+```{r, solution=TRUE, eval=FALSE}
 dat <- get_data("FOLK1A", c(2, 3, 5))
 dat
 write_csv(dat, "test.csv")
-', evalCode = FALSE)
 ```   
    
    7) Use the function `get_data` to retrieve data for `tab_id = "FOLK1A"` and `col_id = c(2, 3, 5)` and save it as a csv file with a comma as delimiter.
    
-```{r, echo=FALSE}
-addSolution('
+   
+```{r, solution=TRUE, eval=FALSE}
 library(openxlsx)
 write.xlsx(dat, "test.xlsx", sheetName = "FOLK1A") 
 
@@ -440,9 +460,16 @@ library(googlesheets4)
 gs <- gs4_create("test")
 write_sheet(dat, ss = gs, sheet = "FOLK1A")
 gs4_browse(gs)
-', evalCode = FALSE)
 ``` 
-   
+```{r, hint=TRUE}
+library(openxlsx)
+write.xlsx(___) 
+
+library(googlesheets4)
+gs <- gs4_create("test")
+write_sheet(___, ss = ___, sheet = "FOLK1A")
+gs4_browse(gs)
+``` 
    8) Save the data in an Excel file and a Google sheet.
 
 
