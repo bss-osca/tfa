@@ -402,300 +402,300 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="reading-an-unknown-csv-file" class="section level4" number="7.2.1.1">
 <h4><span class="header-section-number">7.2.1.1</span> Reading an unknown CSV file</h4>
 <p>For importing a CSV file properly you need to know the delimiter, if the files has headers and the encoding. If you are not sure, you may have a look on the file by opening it in a text editor or try to read some lines:</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="sec-io.html#cb187-1" aria-hidden="true"></a>csv_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/mtcars.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;readr&quot;</span>)  <span class="co"># csv file</span></span>
-<span id="cb187-2"><a href="sec-io.html#cb187-2" aria-hidden="true"></a>lines &lt;-<span class="st"> </span><span class="kw">read_lines</span>(csv_file, <span class="dt">n_max =</span> <span class="dv">3</span>)</span>
-<span id="cb187-3"><a href="sec-io.html#cb187-3" aria-hidden="true"></a>lines</span>
-<span id="cb187-4"><a href="sec-io.html#cb187-4" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;\&quot;mpg\&quot;,\&quot;cyl\&quot;,\&quot;disp\&quot;,\&quot;hp\&quot;,\&quot;drat\&quot;,\&quot;wt\&quot;,\&quot;qsec\&quot;,\&quot;vs\&quot;,\&quot;am\&quot;,\&quot;gear\&quot;,\&quot;carb\&quot;&quot;</span></span>
-<span id="cb187-5"><a href="sec-io.html#cb187-5" aria-hidden="true"></a><span class="co">#&gt; [2] &quot;21,6,160,110,3.9,2.62,16.46,0,1,4,4&quot;                                                     </span></span>
-<span id="cb187-6"><a href="sec-io.html#cb187-6" aria-hidden="true"></a><span class="co">#&gt; [3] &quot;21,6,160,110,3.9,2.875,17.02,0,1,4,4&quot;</span></span>
-<span id="cb187-7"><a href="sec-io.html#cb187-7" aria-hidden="true"></a><span class="kw">cat</span>(lines, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb187-8"><a href="sec-io.html#cb187-8" aria-hidden="true"></a><span class="co">#&gt; &quot;mpg&quot;,&quot;cyl&quot;,&quot;disp&quot;,&quot;hp&quot;,&quot;drat&quot;,&quot;wt&quot;,&quot;qsec&quot;,&quot;vs&quot;,&quot;am&quot;,&quot;gear&quot;,&quot;carb&quot;</span></span>
-<span id="cb187-9"><a href="sec-io.html#cb187-9" aria-hidden="true"></a><span class="co">#&gt; 21,6,160,110,3.9,2.62,16.46,0,1,4,4</span></span>
-<span id="cb187-10"><a href="sec-io.html#cb187-10" aria-hidden="true"></a><span class="co">#&gt; 21,6,160,110,3.9,2.875,17.02,0,1,4,4</span></span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="sec-io.html#cb191-1" aria-hidden="true"></a>csv_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/mtcars.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;readr&quot;</span>)  <span class="co"># csv file</span></span>
+<span id="cb191-2"><a href="sec-io.html#cb191-2" aria-hidden="true"></a>lines &lt;-<span class="st"> </span><span class="kw">read_lines</span>(csv_file, <span class="dt">n_max =</span> <span class="dv">3</span>)</span>
+<span id="cb191-3"><a href="sec-io.html#cb191-3" aria-hidden="true"></a>lines</span>
+<span id="cb191-4"><a href="sec-io.html#cb191-4" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;\&quot;mpg\&quot;,\&quot;cyl\&quot;,\&quot;disp\&quot;,\&quot;hp\&quot;,\&quot;drat\&quot;,\&quot;wt\&quot;,\&quot;qsec\&quot;,\&quot;vs\&quot;,\&quot;am\&quot;,\&quot;gear\&quot;,\&quot;carb\&quot;&quot;</span></span>
+<span id="cb191-5"><a href="sec-io.html#cb191-5" aria-hidden="true"></a><span class="co">#&gt; [2] &quot;21,6,160,110,3.9,2.62,16.46,0,1,4,4&quot;                                                     </span></span>
+<span id="cb191-6"><a href="sec-io.html#cb191-6" aria-hidden="true"></a><span class="co">#&gt; [3] &quot;21,6,160,110,3.9,2.875,17.02,0,1,4,4&quot;</span></span>
+<span id="cb191-7"><a href="sec-io.html#cb191-7" aria-hidden="true"></a><span class="kw">cat</span>(lines, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb191-8"><a href="sec-io.html#cb191-8" aria-hidden="true"></a><span class="co">#&gt; &quot;mpg&quot;,&quot;cyl&quot;,&quot;disp&quot;,&quot;hp&quot;,&quot;drat&quot;,&quot;wt&quot;,&quot;qsec&quot;,&quot;vs&quot;,&quot;am&quot;,&quot;gear&quot;,&quot;carb&quot;</span></span>
+<span id="cb191-9"><a href="sec-io.html#cb191-9" aria-hidden="true"></a><span class="co">#&gt; 21,6,160,110,3.9,2.62,16.46,0,1,4,4</span></span>
+<span id="cb191-10"><a href="sec-io.html#cb191-10" aria-hidden="true"></a><span class="co">#&gt; 21,6,160,110,3.9,2.875,17.02,0,1,4,4</span></span></code></pre></div>
 <p>It seems that the delimiter is a <code>,</code> and we may try to read the file using <code>read_csv</code>:</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="sec-io.html#cb188-1" aria-hidden="true"></a>dat &lt;-<span class="st"> </span><span class="kw">read_csv</span>(csv_file)</span>
-<span id="cb188-2"><a href="sec-io.html#cb188-2" aria-hidden="true"></a><span class="kw">head</span>(dat)</span>
-<span id="cb188-3"><a href="sec-io.html#cb188-3" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 6 x 11</span></span>
-<span id="cb188-4"><a href="sec-io.html#cb188-4" aria-hidden="true"></a><span class="co">#&gt;     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span></span>
-<span id="cb188-5"><a href="sec-io.html#cb188-5" aria-hidden="true"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb188-6"><a href="sec-io.html#cb188-6" aria-hidden="true"></a><span class="co">#&gt; 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4</span></span>
-<span id="cb188-7"><a href="sec-io.html#cb188-7" aria-hidden="true"></a><span class="co">#&gt; 2  21       6   160   110  3.9   2.88  17.0     0     1     4     4</span></span>
-<span id="cb188-8"><a href="sec-io.html#cb188-8" aria-hidden="true"></a><span class="co">#&gt; 3  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1</span></span>
-<span id="cb188-9"><a href="sec-io.html#cb188-9" aria-hidden="true"></a><span class="co">#&gt; 4  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1</span></span>
-<span id="cb188-10"><a href="sec-io.html#cb188-10" aria-hidden="true"></a><span class="co">#&gt; 5  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2</span></span>
-<span id="cb188-11"><a href="sec-io.html#cb188-11" aria-hidden="true"></a><span class="co">#&gt; 6  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1</span></span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="sec-io.html#cb192-1" aria-hidden="true"></a>dat &lt;-<span class="st"> </span><span class="kw">read_csv</span>(csv_file)</span>
+<span id="cb192-2"><a href="sec-io.html#cb192-2" aria-hidden="true"></a><span class="kw">head</span>(dat)</span>
+<span id="cb192-3"><a href="sec-io.html#cb192-3" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 6 x 11</span></span>
+<span id="cb192-4"><a href="sec-io.html#cb192-4" aria-hidden="true"></a><span class="co">#&gt;     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span></span>
+<span id="cb192-5"><a href="sec-io.html#cb192-5" aria-hidden="true"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb192-6"><a href="sec-io.html#cb192-6" aria-hidden="true"></a><span class="co">#&gt; 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4</span></span>
+<span id="cb192-7"><a href="sec-io.html#cb192-7" aria-hidden="true"></a><span class="co">#&gt; 2  21       6   160   110  3.9   2.88  17.0     0     1     4     4</span></span>
+<span id="cb192-8"><a href="sec-io.html#cb192-8" aria-hidden="true"></a><span class="co">#&gt; 3  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1</span></span>
+<span id="cb192-9"><a href="sec-io.html#cb192-9" aria-hidden="true"></a><span class="co">#&gt; 4  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1</span></span>
+<span id="cb192-10"><a href="sec-io.html#cb192-10" aria-hidden="true"></a><span class="co">#&gt; 5  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2</span></span>
+<span id="cb192-11"><a href="sec-io.html#cb192-11" aria-hidden="true"></a><span class="co">#&gt; 6  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1</span></span></code></pre></div>
 <p>Consider another example:</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="sec-io.html#cb189-1" aria-hidden="true"></a>csv_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/massey-rating.txt&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;readr&quot;</span>)</span>
-<span id="cb189-2"><a href="sec-io.html#cb189-2" aria-hidden="true"></a>lines &lt;-<span class="st"> </span><span class="kw">read_lines</span>(csv_file, <span class="dt">n_max =</span> <span class="dv">3</span>)</span>
-<span id="cb189-3"><a href="sec-io.html#cb189-3" aria-hidden="true"></a><span class="kw">cat</span>(lines, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb189-4"><a href="sec-io.html#cb189-4" aria-hidden="true"></a><span class="co">#&gt; UCC PAY LAZ KPK  RT   COF BIH DII ENG ACU Rank Team            Conf</span></span>
-<span id="cb189-5"><a href="sec-io.html#cb189-5" aria-hidden="true"></a><span class="co">#&gt;   1   1   1   1   1     1   1   1   1   1    1 Ohio St          B10 </span></span>
-<span id="cb189-6"><a href="sec-io.html#cb189-6" aria-hidden="true"></a><span class="co">#&gt;   2   2   2   2   2     2   2   2   4   2    2 Oregon           P12</span></span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="sec-io.html#cb193-1" aria-hidden="true"></a>csv_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/massey-rating.txt&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;readr&quot;</span>)</span>
+<span id="cb193-2"><a href="sec-io.html#cb193-2" aria-hidden="true"></a>lines &lt;-<span class="st"> </span><span class="kw">read_lines</span>(csv_file, <span class="dt">n_max =</span> <span class="dv">3</span>)</span>
+<span id="cb193-3"><a href="sec-io.html#cb193-3" aria-hidden="true"></a><span class="kw">cat</span>(lines, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb193-4"><a href="sec-io.html#cb193-4" aria-hidden="true"></a><span class="co">#&gt; UCC PAY LAZ KPK  RT   COF BIH DII ENG ACU Rank Team            Conf</span></span>
+<span id="cb193-5"><a href="sec-io.html#cb193-5" aria-hidden="true"></a><span class="co">#&gt;   1   1   1   1   1     1   1   1   1   1    1 Ohio St          B10 </span></span>
+<span id="cb193-6"><a href="sec-io.html#cb193-6" aria-hidden="true"></a><span class="co">#&gt;   2   2   2   2   2     2   2   2   4   2    2 Oregon           P12</span></span></code></pre></div>
 <p>Here it is harder to guess the delimiter. It could be a space or a tabulator. Let us try to read it assuming a space or tabulator</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="sec-io.html#cb190-1" aria-hidden="true"></a><span class="kw">read_tsv</span>(csv_file)                  <span class="co"># assume tabulator (\t)</span></span>
-<span id="cb190-2"><a href="sec-io.html#cb190-2" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 10 x 1</span></span>
-<span id="cb190-3"><a href="sec-io.html#cb190-3" aria-hidden="true"></a><span class="co">#&gt;    `UCC PAY LAZ KPK  RT   COF BIH DII ENG ACU Rank Team            Conf`</span></span>
-<span id="cb190-4"><a href="sec-io.html#cb190-4" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;                                                                </span></span>
-<span id="cb190-5"><a href="sec-io.html#cb190-5" aria-hidden="true"></a><span class="co">#&gt;  1 1   1   1   1   1     1   1   1   1   1    1 Ohio St          B10    </span></span>
-<span id="cb190-6"><a href="sec-io.html#cb190-6" aria-hidden="true"></a><span class="co">#&gt;  2 2   2   2   2   2     2   2   2   4   2    2 Oregon           P12    </span></span>
-<span id="cb190-7"><a href="sec-io.html#cb190-7" aria-hidden="true"></a><span class="co">#&gt;  3 3   4   3   4   3     4   3   4   2   3    3 Alabama          SEC    </span></span>
-<span id="cb190-8"><a href="sec-io.html#cb190-8" aria-hidden="true"></a><span class="co">#&gt;  4 4   3   4   3   4     3   5   3   3   4    4 TCU              B12    </span></span>
-<span id="cb190-9"><a href="sec-io.html#cb190-9" aria-hidden="true"></a><span class="co">#&gt;  5 6   6   6   5   5     7   6   5   6  11    5 Michigan St      B10    </span></span>
-<span id="cb190-10"><a href="sec-io.html#cb190-10" aria-hidden="true"></a><span class="co">#&gt;  6 7   7   7   6   7     6  11   8   7   8    6 Georgia          SEC    </span></span>
-<span id="cb190-11"><a href="sec-io.html#cb190-11" aria-hidden="true"></a><span class="co">#&gt;  7 5   5   5   7   6     8   4   6   5   5    7 Florida St       ACC    </span></span>
-<span id="cb190-12"><a href="sec-io.html#cb190-12" aria-hidden="true"></a><span class="co">#&gt;  8 8   8   9   9  10     5   7   7  10   7    8 Baylor           B12    </span></span>
-<span id="cb190-13"><a href="sec-io.html#cb190-13" aria-hidden="true"></a><span class="co">#&gt;  9 9  11   8  13  11    11  12   9  14   9    9 Georgia Tech     ACC    </span></span>
-<span id="cb190-14"><a href="sec-io.html#cb190-14" aria-hidden="true"></a><span class="co">#&gt; 10 13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC</span></span>
-<span id="cb190-15"><a href="sec-io.html#cb190-15" aria-hidden="true"></a><span class="kw">read_delim</span>(csv_file, <span class="dt">delim =</span> <span class="st">&quot; &quot;</span>, <span class="dt">trim_ws =</span> T)   <span class="co"># assume space</span></span>
-<span id="cb190-16"><a href="sec-io.html#cb190-16" aria-hidden="true"></a><span class="co">#&gt; Warning: 10 parsing failures.</span></span>
-<span id="cb190-17"><a href="sec-io.html#cb190-17" aria-hidden="true"></a><span class="co">#&gt; row col   expected     actual                                                               file</span></span>
-<span id="cb190-18"><a href="sec-io.html#cb190-18" aria-hidden="true"></a><span class="co">#&gt;   1  -- 13 columns 15 columns &#39;/Users/runner/work/_temp/Library/readr/extdata/massey-rating.txt&#39;</span></span>
-<span id="cb190-19"><a href="sec-io.html#cb190-19" aria-hidden="true"></a><span class="co">#&gt;   2  -- 13 columns 14 columns &#39;/Users/runner/work/_temp/Library/readr/extdata/massey-rating.txt&#39;</span></span>
-<span id="cb190-20"><a href="sec-io.html#cb190-20" aria-hidden="true"></a><span class="co">#&gt;   3  -- 13 columns 14 columns &#39;/Users/runner/work/_temp/Library/readr/extdata/massey-rating.txt&#39;</span></span>
-<span id="cb190-21"><a href="sec-io.html#cb190-21" aria-hidden="true"></a><span class="co">#&gt;   4  -- 13 columns 14 columns &#39;/Users/runner/work/_temp/Library/readr/extdata/massey-rating.txt&#39;</span></span>
-<span id="cb190-22"><a href="sec-io.html#cb190-22" aria-hidden="true"></a><span class="co">#&gt;   5  -- 13 columns 15 columns &#39;/Users/runner/work/_temp/Library/readr/extdata/massey-rating.txt&#39;</span></span>
-<span id="cb190-23"><a href="sec-io.html#cb190-23" aria-hidden="true"></a><span class="co">#&gt; ... ... .......... .......... ..................................................................</span></span>
-<span id="cb190-24"><a href="sec-io.html#cb190-24" aria-hidden="true"></a><span class="co">#&gt; See problems(...) for more details.</span></span>
-<span id="cb190-25"><a href="sec-io.html#cb190-25" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 10 x 13</span></span>
-<span id="cb190-26"><a href="sec-io.html#cb190-26" aria-hidden="true"></a><span class="co">#&gt;      UCC   PAY   LAZ   KPK    RT   COF   BIH   DII   ENG   ACU  Rank Team        Conf </span></span>
-<span id="cb190-27"><a href="sec-io.html#cb190-27" aria-hidden="true"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;</span></span>
-<span id="cb190-28"><a href="sec-io.html#cb190-28" aria-hidden="true"></a><span class="co">#&gt;  1     1     1     1     1     1     1     1     1     1     1     1 Ohio        St   </span></span>
-<span id="cb190-29"><a href="sec-io.html#cb190-29" aria-hidden="true"></a><span class="co">#&gt;  2     2     2     2     2     2     2     2     2     4     2     2 Oregon      P12  </span></span>
-<span id="cb190-30"><a href="sec-io.html#cb190-30" aria-hidden="true"></a><span class="co">#&gt;  3     3     4     3     4     3     4     3     4     2     3     3 Alabama     SEC  </span></span>
-<span id="cb190-31"><a href="sec-io.html#cb190-31" aria-hidden="true"></a><span class="co">#&gt;  4     4     3     4     3     4     3     5     3     3     4     4 TCU         B12  </span></span>
-<span id="cb190-32"><a href="sec-io.html#cb190-32" aria-hidden="true"></a><span class="co">#&gt;  5     6     6     6     5     5     7     6     5     6    11     5 Michigan    St   </span></span>
-<span id="cb190-33"><a href="sec-io.html#cb190-33" aria-hidden="true"></a><span class="co">#&gt;  6     7     7     7     6     7     6    11     8     7     8     6 Georgia     SEC  </span></span>
-<span id="cb190-34"><a href="sec-io.html#cb190-34" aria-hidden="true"></a><span class="co">#&gt;  7     5     5     5     7     6     8     4     6     5     5     7 Florida     St   </span></span>
-<span id="cb190-35"><a href="sec-io.html#cb190-35" aria-hidden="true"></a><span class="co">#&gt;  8     8     8     9     9    10     5     7     7    10     7     8 Baylor      B12  </span></span>
-<span id="cb190-36"><a href="sec-io.html#cb190-36" aria-hidden="true"></a><span class="co">#&gt;  9     9    11     8    13    11    11    12     9    14     9     9 Georgia     Tech </span></span>
-<span id="cb190-37"><a href="sec-io.html#cb190-37" aria-hidden="true"></a><span class="co">#&gt; 10    13    10    13    11     8     9    10    11     9    10    10 Mississippi SEC</span></span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="sec-io.html#cb194-1" aria-hidden="true"></a><span class="kw">read_tsv</span>(csv_file)                  <span class="co"># assume tabulator (\t)</span></span>
+<span id="cb194-2"><a href="sec-io.html#cb194-2" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 10 x 1</span></span>
+<span id="cb194-3"><a href="sec-io.html#cb194-3" aria-hidden="true"></a><span class="co">#&gt;    `UCC PAY LAZ KPK  RT   COF BIH DII ENG ACU Rank Team            Conf`</span></span>
+<span id="cb194-4"><a href="sec-io.html#cb194-4" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;                                                                </span></span>
+<span id="cb194-5"><a href="sec-io.html#cb194-5" aria-hidden="true"></a><span class="co">#&gt;  1 1   1   1   1   1     1   1   1   1   1    1 Ohio St          B10    </span></span>
+<span id="cb194-6"><a href="sec-io.html#cb194-6" aria-hidden="true"></a><span class="co">#&gt;  2 2   2   2   2   2     2   2   2   4   2    2 Oregon           P12    </span></span>
+<span id="cb194-7"><a href="sec-io.html#cb194-7" aria-hidden="true"></a><span class="co">#&gt;  3 3   4   3   4   3     4   3   4   2   3    3 Alabama          SEC    </span></span>
+<span id="cb194-8"><a href="sec-io.html#cb194-8" aria-hidden="true"></a><span class="co">#&gt;  4 4   3   4   3   4     3   5   3   3   4    4 TCU              B12    </span></span>
+<span id="cb194-9"><a href="sec-io.html#cb194-9" aria-hidden="true"></a><span class="co">#&gt;  5 6   6   6   5   5     7   6   5   6  11    5 Michigan St      B10    </span></span>
+<span id="cb194-10"><a href="sec-io.html#cb194-10" aria-hidden="true"></a><span class="co">#&gt;  6 7   7   7   6   7     6  11   8   7   8    6 Georgia          SEC    </span></span>
+<span id="cb194-11"><a href="sec-io.html#cb194-11" aria-hidden="true"></a><span class="co">#&gt;  7 5   5   5   7   6     8   4   6   5   5    7 Florida St       ACC    </span></span>
+<span id="cb194-12"><a href="sec-io.html#cb194-12" aria-hidden="true"></a><span class="co">#&gt;  8 8   8   9   9  10     5   7   7  10   7    8 Baylor           B12    </span></span>
+<span id="cb194-13"><a href="sec-io.html#cb194-13" aria-hidden="true"></a><span class="co">#&gt;  9 9  11   8  13  11    11  12   9  14   9    9 Georgia Tech     ACC    </span></span>
+<span id="cb194-14"><a href="sec-io.html#cb194-14" aria-hidden="true"></a><span class="co">#&gt; 10 13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC</span></span>
+<span id="cb194-15"><a href="sec-io.html#cb194-15" aria-hidden="true"></a><span class="kw">read_delim</span>(csv_file, <span class="dt">delim =</span> <span class="st">&quot; &quot;</span>, <span class="dt">trim_ws =</span> T)   <span class="co"># assume space</span></span>
+<span id="cb194-16"><a href="sec-io.html#cb194-16" aria-hidden="true"></a><span class="co">#&gt; Warning: 10 parsing failures.</span></span>
+<span id="cb194-17"><a href="sec-io.html#cb194-17" aria-hidden="true"></a><span class="co">#&gt; row col   expected     actual                                                               file</span></span>
+<span id="cb194-18"><a href="sec-io.html#cb194-18" aria-hidden="true"></a><span class="co">#&gt;   1  -- 13 columns 15 columns &#39;/Users/runner/work/_temp/Library/readr/extdata/massey-rating.txt&#39;</span></span>
+<span id="cb194-19"><a href="sec-io.html#cb194-19" aria-hidden="true"></a><span class="co">#&gt;   2  -- 13 columns 14 columns &#39;/Users/runner/work/_temp/Library/readr/extdata/massey-rating.txt&#39;</span></span>
+<span id="cb194-20"><a href="sec-io.html#cb194-20" aria-hidden="true"></a><span class="co">#&gt;   3  -- 13 columns 14 columns &#39;/Users/runner/work/_temp/Library/readr/extdata/massey-rating.txt&#39;</span></span>
+<span id="cb194-21"><a href="sec-io.html#cb194-21" aria-hidden="true"></a><span class="co">#&gt;   4  -- 13 columns 14 columns &#39;/Users/runner/work/_temp/Library/readr/extdata/massey-rating.txt&#39;</span></span>
+<span id="cb194-22"><a href="sec-io.html#cb194-22" aria-hidden="true"></a><span class="co">#&gt;   5  -- 13 columns 15 columns &#39;/Users/runner/work/_temp/Library/readr/extdata/massey-rating.txt&#39;</span></span>
+<span id="cb194-23"><a href="sec-io.html#cb194-23" aria-hidden="true"></a><span class="co">#&gt; ... ... .......... .......... ..................................................................</span></span>
+<span id="cb194-24"><a href="sec-io.html#cb194-24" aria-hidden="true"></a><span class="co">#&gt; See problems(...) for more details.</span></span>
+<span id="cb194-25"><a href="sec-io.html#cb194-25" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 10 x 13</span></span>
+<span id="cb194-26"><a href="sec-io.html#cb194-26" aria-hidden="true"></a><span class="co">#&gt;      UCC   PAY   LAZ   KPK    RT   COF   BIH   DII   ENG   ACU  Rank Team        Conf </span></span>
+<span id="cb194-27"><a href="sec-io.html#cb194-27" aria-hidden="true"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;</span></span>
+<span id="cb194-28"><a href="sec-io.html#cb194-28" aria-hidden="true"></a><span class="co">#&gt;  1     1     1     1     1     1     1     1     1     1     1     1 Ohio        St   </span></span>
+<span id="cb194-29"><a href="sec-io.html#cb194-29" aria-hidden="true"></a><span class="co">#&gt;  2     2     2     2     2     2     2     2     2     4     2     2 Oregon      P12  </span></span>
+<span id="cb194-30"><a href="sec-io.html#cb194-30" aria-hidden="true"></a><span class="co">#&gt;  3     3     4     3     4     3     4     3     4     2     3     3 Alabama     SEC  </span></span>
+<span id="cb194-31"><a href="sec-io.html#cb194-31" aria-hidden="true"></a><span class="co">#&gt;  4     4     3     4     3     4     3     5     3     3     4     4 TCU         B12  </span></span>
+<span id="cb194-32"><a href="sec-io.html#cb194-32" aria-hidden="true"></a><span class="co">#&gt;  5     6     6     6     5     5     7     6     5     6    11     5 Michigan    St   </span></span>
+<span id="cb194-33"><a href="sec-io.html#cb194-33" aria-hidden="true"></a><span class="co">#&gt;  6     7     7     7     6     7     6    11     8     7     8     6 Georgia     SEC  </span></span>
+<span id="cb194-34"><a href="sec-io.html#cb194-34" aria-hidden="true"></a><span class="co">#&gt;  7     5     5     5     7     6     8     4     6     5     5     7 Florida     St   </span></span>
+<span id="cb194-35"><a href="sec-io.html#cb194-35" aria-hidden="true"></a><span class="co">#&gt;  8     8     8     9     9    10     5     7     7    10     7     8 Baylor      B12  </span></span>
+<span id="cb194-36"><a href="sec-io.html#cb194-36" aria-hidden="true"></a><span class="co">#&gt;  9     9    11     8    13    11    11    12     9    14     9     9 Georgia     Tech </span></span>
+<span id="cb194-37"><a href="sec-io.html#cb194-37" aria-hidden="true"></a><span class="co">#&gt; 10    13    10    13    11     8     9    10    11     9    10    10 Mississippi SEC</span></span></code></pre></div>
 <p>The first function puts all data in one column. The second function worked even though we have some warnings.</p>
 <p>CSV files should always be saved using encoding UTF-8. However, sometimes you may have encoding problems when you read a file:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="sec-io.html#cb191-1" aria-hidden="true"></a>csv_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/persons.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tfa&quot;</span>)</span>
-<span id="cb191-2"><a href="sec-io.html#cb191-2" aria-hidden="true"></a><span class="kw">read_csv</span>(csv_file)</span>
-<span id="cb191-3"><a href="sec-io.html#cb191-3" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
-<span id="cb191-4"><a href="sec-io.html#cb191-4" aria-hidden="true"></a><span class="co">#&gt;   first    last        </span></span>
-<span id="cb191-5"><a href="sec-io.html#cb191-5" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;       </span></span>
-<span id="cb191-6"><a href="sec-io.html#cb191-6" aria-hidden="true"></a><span class="co">#&gt; 1 &quot;Hans&quot;   &quot;S\xf8gaard&quot;</span></span>
-<span id="cb191-7"><a href="sec-io.html#cb191-7" aria-hidden="true"></a><span class="co">#&gt; 2 &quot;\xc5ge&quot; &quot;\xd8kse&quot;   </span></span>
-<span id="cb191-8"><a href="sec-io.html#cb191-8" aria-hidden="true"></a><span class="co">#&gt; 3 &quot;Yvette&quot; &quot;L\xe6ske&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="sec-io.html#cb195-1" aria-hidden="true"></a>csv_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/persons.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tfa&quot;</span>)</span>
+<span id="cb195-2"><a href="sec-io.html#cb195-2" aria-hidden="true"></a><span class="kw">read_csv</span>(csv_file)</span>
+<span id="cb195-3"><a href="sec-io.html#cb195-3" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb195-4"><a href="sec-io.html#cb195-4" aria-hidden="true"></a><span class="co">#&gt;   first    last        </span></span>
+<span id="cb195-5"><a href="sec-io.html#cb195-5" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;       </span></span>
+<span id="cb195-6"><a href="sec-io.html#cb195-6" aria-hidden="true"></a><span class="co">#&gt; 1 &quot;Hans&quot;   &quot;S\xf8gaard&quot;</span></span>
+<span id="cb195-7"><a href="sec-io.html#cb195-7" aria-hidden="true"></a><span class="co">#&gt; 2 &quot;\xc5ge&quot; &quot;\xd8kse&quot;   </span></span>
+<span id="cb195-8"><a href="sec-io.html#cb195-8" aria-hidden="true"></a><span class="co">#&gt; 3 &quot;Yvette&quot; &quot;L\xe6ske&quot;</span></span></code></pre></div>
 <p>Note that some of the characters are not converted correctly. This is usually because the file encoding is not UTF-8. In this case try to guess the encoding using</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="sec-io.html#cb192-1" aria-hidden="true"></a><span class="kw">guess_encoding</span>(csv_file)</span>
-<span id="cb192-2"><a href="sec-io.html#cb192-2" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
-<span id="cb192-3"><a href="sec-io.html#cb192-3" aria-hidden="true"></a><span class="co">#&gt;   encoding   confidence</span></span>
-<span id="cb192-4"><a href="sec-io.html#cb192-4" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt;</span></span>
-<span id="cb192-5"><a href="sec-io.html#cb192-5" aria-hidden="true"></a><span class="co">#&gt; 1 ISO-8859-1       0.27</span></span>
-<span id="cb192-6"><a href="sec-io.html#cb192-6" aria-hidden="true"></a>dat &lt;-<span class="st"> </span><span class="kw">read_csv</span>(csv_file, <span class="dt">locale =</span> <span class="kw">locale</span>(<span class="dt">encoding =</span> <span class="st">&quot;ISO-8859-1&quot;</span>))</span>
-<span id="cb192-7"><a href="sec-io.html#cb192-7" aria-hidden="true"></a>dat</span>
-<span id="cb192-8"><a href="sec-io.html#cb192-8" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
-<span id="cb192-9"><a href="sec-io.html#cb192-9" aria-hidden="true"></a><span class="co">#&gt;   first  last   </span></span>
-<span id="cb192-10"><a href="sec-io.html#cb192-10" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  </span></span>
-<span id="cb192-11"><a href="sec-io.html#cb192-11" aria-hidden="true"></a><span class="co">#&gt; 1 Hans   Søgaard</span></span>
-<span id="cb192-12"><a href="sec-io.html#cb192-12" aria-hidden="true"></a><span class="co">#&gt; 2 Åge    Økse   </span></span>
-<span id="cb192-13"><a href="sec-io.html#cb192-13" aria-hidden="true"></a><span class="co">#&gt; 3 Yvette Læske</span></span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="sec-io.html#cb196-1" aria-hidden="true"></a><span class="kw">guess_encoding</span>(csv_file)</span>
+<span id="cb196-2"><a href="sec-io.html#cb196-2" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
+<span id="cb196-3"><a href="sec-io.html#cb196-3" aria-hidden="true"></a><span class="co">#&gt;   encoding   confidence</span></span>
+<span id="cb196-4"><a href="sec-io.html#cb196-4" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt;</span></span>
+<span id="cb196-5"><a href="sec-io.html#cb196-5" aria-hidden="true"></a><span class="co">#&gt; 1 ISO-8859-1       0.27</span></span>
+<span id="cb196-6"><a href="sec-io.html#cb196-6" aria-hidden="true"></a>dat &lt;-<span class="st"> </span><span class="kw">read_csv</span>(csv_file, <span class="dt">locale =</span> <span class="kw">locale</span>(<span class="dt">encoding =</span> <span class="st">&quot;ISO-8859-1&quot;</span>))</span>
+<span id="cb196-7"><a href="sec-io.html#cb196-7" aria-hidden="true"></a>dat</span>
+<span id="cb196-8"><a href="sec-io.html#cb196-8" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb196-9"><a href="sec-io.html#cb196-9" aria-hidden="true"></a><span class="co">#&gt;   first  last   </span></span>
+<span id="cb196-10"><a href="sec-io.html#cb196-10" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  </span></span>
+<span id="cb196-11"><a href="sec-io.html#cb196-11" aria-hidden="true"></a><span class="co">#&gt; 1 Hans   Søgaard</span></span>
+<span id="cb196-12"><a href="sec-io.html#cb196-12" aria-hidden="true"></a><span class="co">#&gt; 2 Åge    Økse   </span></span>
+<span id="cb196-13"><a href="sec-io.html#cb196-13" aria-hidden="true"></a><span class="co">#&gt; 3 Yvette Læske</span></span></code></pre></div>
 </div>
 </div>
 <div id="writing-to-csv-files" class="section level3" number="7.2.2">
 <h3><span class="header-section-number">7.2.2</span> Writing to CSV files</h3>
 <p>Given a tibble/data frame export it using <code>write_csv</code>:</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="sec-io.html#cb193-1" aria-hidden="true"></a>csv_file &lt;-<span class="st"> &quot;testing.csv&quot;</span></span>
-<span id="cb193-2"><a href="sec-io.html#cb193-2" aria-hidden="true"></a><span class="kw">write_csv</span>(dat, <span class="dt">path =</span> csv_file) </span>
-<span id="cb193-3"><a href="sec-io.html#cb193-3" aria-hidden="true"></a><span class="co">#&gt; Warning: The `path` argument of `write_csv()` is deprecated as of readr 1.4.0.</span></span>
-<span id="cb193-4"><a href="sec-io.html#cb193-4" aria-hidden="true"></a><span class="co">#&gt; Please use the `file` argument instead.</span></span>
-<span id="cb193-5"><a href="sec-io.html#cb193-5" aria-hidden="true"></a><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
-<span id="cb193-6"><a href="sec-io.html#cb193-6" aria-hidden="true"></a><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="sec-io.html#cb197-1" aria-hidden="true"></a>csv_file &lt;-<span class="st"> &quot;testing.csv&quot;</span></span>
+<span id="cb197-2"><a href="sec-io.html#cb197-2" aria-hidden="true"></a><span class="kw">write_csv</span>(dat, <span class="dt">path =</span> csv_file) </span>
+<span id="cb197-3"><a href="sec-io.html#cb197-3" aria-hidden="true"></a><span class="co">#&gt; Warning: The `path` argument of `write_csv()` is deprecated as of readr 1.4.0.</span></span>
+<span id="cb197-4"><a href="sec-io.html#cb197-4" aria-hidden="true"></a><span class="co">#&gt; Please use the `file` argument instead.</span></span>
+<span id="cb197-5"><a href="sec-io.html#cb197-5" aria-hidden="true"></a><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
+<span id="cb197-6"><a href="sec-io.html#cb197-6" aria-hidden="true"></a><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></span></code></pre></div>
 <p>You can now always import the data again using <code>read_csv</code>:</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="sec-io.html#cb194-1" aria-hidden="true"></a><span class="kw">read_csv</span>(csv_file)</span>
-<span id="cb194-2"><a href="sec-io.html#cb194-2" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
-<span id="cb194-3"><a href="sec-io.html#cb194-3" aria-hidden="true"></a><span class="co">#&gt;   first  last   </span></span>
-<span id="cb194-4"><a href="sec-io.html#cb194-4" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  </span></span>
-<span id="cb194-5"><a href="sec-io.html#cb194-5" aria-hidden="true"></a><span class="co">#&gt; 1 Hans   Søgaard</span></span>
-<span id="cb194-6"><a href="sec-io.html#cb194-6" aria-hidden="true"></a><span class="co">#&gt; 2 Åge    Økse   </span></span>
-<span id="cb194-7"><a href="sec-io.html#cb194-7" aria-hidden="true"></a><span class="co">#&gt; 3 Yvette Læske</span></span>
-<span id="cb194-8"><a href="sec-io.html#cb194-8" aria-hidden="true"></a><span class="kw">guess_encoding</span>(csv_file)</span>
-<span id="cb194-9"><a href="sec-io.html#cb194-9" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
-<span id="cb194-10"><a href="sec-io.html#cb194-10" aria-hidden="true"></a><span class="co">#&gt;   encoding     confidence</span></span>
-<span id="cb194-11"><a href="sec-io.html#cb194-11" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt;             &lt;dbl&gt;</span></span>
-<span id="cb194-12"><a href="sec-io.html#cb194-12" aria-hidden="true"></a><span class="co">#&gt; 1 UTF-8              1   </span></span>
-<span id="cb194-13"><a href="sec-io.html#cb194-13" aria-hidden="true"></a><span class="co">#&gt; 2 windows-1252       0.31</span></span>
-<span id="cb194-14"><a href="sec-io.html#cb194-14" aria-hidden="true"></a><span class="co">#&gt; 3 windows-1250       0.25</span></span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="sec-io.html#cb198-1" aria-hidden="true"></a><span class="kw">read_csv</span>(csv_file)</span>
+<span id="cb198-2"><a href="sec-io.html#cb198-2" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb198-3"><a href="sec-io.html#cb198-3" aria-hidden="true"></a><span class="co">#&gt;   first  last   </span></span>
+<span id="cb198-4"><a href="sec-io.html#cb198-4" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  </span></span>
+<span id="cb198-5"><a href="sec-io.html#cb198-5" aria-hidden="true"></a><span class="co">#&gt; 1 Hans   Søgaard</span></span>
+<span id="cb198-6"><a href="sec-io.html#cb198-6" aria-hidden="true"></a><span class="co">#&gt; 2 Åge    Økse   </span></span>
+<span id="cb198-7"><a href="sec-io.html#cb198-7" aria-hidden="true"></a><span class="co">#&gt; 3 Yvette Læske</span></span>
+<span id="cb198-8"><a href="sec-io.html#cb198-8" aria-hidden="true"></a><span class="kw">guess_encoding</span>(csv_file)</span>
+<span id="cb198-9"><a href="sec-io.html#cb198-9" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb198-10"><a href="sec-io.html#cb198-10" aria-hidden="true"></a><span class="co">#&gt;   encoding     confidence</span></span>
+<span id="cb198-11"><a href="sec-io.html#cb198-11" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt;             &lt;dbl&gt;</span></span>
+<span id="cb198-12"><a href="sec-io.html#cb198-12" aria-hidden="true"></a><span class="co">#&gt; 1 UTF-8              1   </span></span>
+<span id="cb198-13"><a href="sec-io.html#cb198-13" aria-hidden="true"></a><span class="co">#&gt; 2 windows-1252       0.31</span></span>
+<span id="cb198-14"><a href="sec-io.html#cb198-14" aria-hidden="true"></a><span class="co">#&gt; 3 windows-1250       0.25</span></span></code></pre></div>
 <p>Note that <code>write_csv</code> always save the file using encoding UTF-8.</p>
 <p>In a few cases you may need to save a CSV file that can be read by Excel. For this purpose use:</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="sec-io.html#cb195-1" aria-hidden="true"></a><span class="kw">write_excel_csv2</span>(dat, csv_file)</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="sec-io.html#cb199-1" aria-hidden="true"></a><span class="kw">write_excel_csv2</span>(dat, csv_file)</span></code></pre></div>
 <p>The CSV file can now be opened correctly in Excel.</p>
 </div>
 </div>
 <div id="excel" class="section level2" number="7.3">
 <h2><span class="header-section-number">7.3</span> Excel</h2>
 <p>There are different packages in R for reading and writing to Excel. We will use the <a href="https://readxl.tidyverse.org">readxl</a> package for reading Excel files which is a part of tidyverse. The package supports both the legacy <code>.xls</code> format and the modern xml-based <code>.xlsx</code> format. Let us use one of the example files provided by the package:</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="sec-io.html#cb196-1" aria-hidden="true"></a>xlsx_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/datasets.xlsx&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;readxl&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="sec-io.html#cb200-1" aria-hidden="true"></a>xlsx_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/datasets.xlsx&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;readxl&quot;</span>)</span></code></pre></div>
 <p>It is always a good idea to have a look at the file before you import from it. You can open it from R by using</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="sec-io.html#cb197-1" aria-hidden="true"></a><span class="kw">browseURL</span>(xlsx_file)</span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="sec-io.html#cb201-1" aria-hidden="true"></a><span class="kw">browseURL</span>(xlsx_file)</span></code></pre></div>
 <p>Data can be read using</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="sec-io.html#cb198-1" aria-hidden="true"></a><span class="kw">library</span>(readxl)</span>
-<span id="cb198-2"><a href="sec-io.html#cb198-2" aria-hidden="true"></a>xlsx &lt;-<span class="st"> </span><span class="kw">read_excel</span>(xlsx_file)   <span class="co"># reads the first sheet</span></span>
-<span id="cb198-3"><a href="sec-io.html#cb198-3" aria-hidden="true"></a>xlsx</span>
-<span id="cb198-4"><a href="sec-io.html#cb198-4" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 150 x 5</span></span>
-<span id="cb198-5"><a href="sec-io.html#cb198-5" aria-hidden="true"></a><span class="co">#&gt;    Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></span>
-<span id="cb198-6"><a href="sec-io.html#cb198-6" aria-hidden="true"></a><span class="co">#&gt;           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  </span></span>
-<span id="cb198-7"><a href="sec-io.html#cb198-7" aria-hidden="true"></a><span class="co">#&gt;  1          5.1         3.5          1.4         0.2 setosa </span></span>
-<span id="cb198-8"><a href="sec-io.html#cb198-8" aria-hidden="true"></a><span class="co">#&gt;  2          4.9         3            1.4         0.2 setosa </span></span>
-<span id="cb198-9"><a href="sec-io.html#cb198-9" aria-hidden="true"></a><span class="co">#&gt;  3          4.7         3.2          1.3         0.2 setosa </span></span>
-<span id="cb198-10"><a href="sec-io.html#cb198-10" aria-hidden="true"></a><span class="co">#&gt;  4          4.6         3.1          1.5         0.2 setosa </span></span>
-<span id="cb198-11"><a href="sec-io.html#cb198-11" aria-hidden="true"></a><span class="co">#&gt;  5          5           3.6          1.4         0.2 setosa </span></span>
-<span id="cb198-12"><a href="sec-io.html#cb198-12" aria-hidden="true"></a><span class="co">#&gt;  6          5.4         3.9          1.7         0.4 setosa </span></span>
-<span id="cb198-13"><a href="sec-io.html#cb198-13" aria-hidden="true"></a><span class="co">#&gt;  7          4.6         3.4          1.4         0.3 setosa </span></span>
-<span id="cb198-14"><a href="sec-io.html#cb198-14" aria-hidden="true"></a><span class="co">#&gt;  8          5           3.4          1.5         0.2 setosa </span></span>
-<span id="cb198-15"><a href="sec-io.html#cb198-15" aria-hidden="true"></a><span class="co">#&gt;  9          4.4         2.9          1.4         0.2 setosa </span></span>
-<span id="cb198-16"><a href="sec-io.html#cb198-16" aria-hidden="true"></a><span class="co">#&gt; 10          4.9         3.1          1.5         0.1 setosa </span></span>
-<span id="cb198-17"><a href="sec-io.html#cb198-17" aria-hidden="true"></a><span class="co">#&gt; # … with 140 more rows</span></span>
-<span id="cb198-18"><a href="sec-io.html#cb198-18" aria-hidden="true"></a>xlsx &lt;-<span class="st"> </span><span class="kw">read_excel</span>(xlsx_file, <span class="dt">sheet =</span> <span class="dv">2</span>)   <span class="co"># reads the second sheet</span></span>
-<span id="cb198-19"><a href="sec-io.html#cb198-19" aria-hidden="true"></a>xlsx</span>
-<span id="cb198-20"><a href="sec-io.html#cb198-20" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 32 x 11</span></span>
-<span id="cb198-21"><a href="sec-io.html#cb198-21" aria-hidden="true"></a><span class="co">#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span></span>
-<span id="cb198-22"><a href="sec-io.html#cb198-22" aria-hidden="true"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb198-23"><a href="sec-io.html#cb198-23" aria-hidden="true"></a><span class="co">#&gt;  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4</span></span>
-<span id="cb198-24"><a href="sec-io.html#cb198-24" aria-hidden="true"></a><span class="co">#&gt;  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4</span></span>
-<span id="cb198-25"><a href="sec-io.html#cb198-25" aria-hidden="true"></a><span class="co">#&gt;  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1</span></span>
-<span id="cb198-26"><a href="sec-io.html#cb198-26" aria-hidden="true"></a><span class="co">#&gt;  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1</span></span>
-<span id="cb198-27"><a href="sec-io.html#cb198-27" aria-hidden="true"></a><span class="co">#&gt;  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2</span></span>
-<span id="cb198-28"><a href="sec-io.html#cb198-28" aria-hidden="true"></a><span class="co">#&gt;  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1</span></span>
-<span id="cb198-29"><a href="sec-io.html#cb198-29" aria-hidden="true"></a><span class="co">#&gt;  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4</span></span>
-<span id="cb198-30"><a href="sec-io.html#cb198-30" aria-hidden="true"></a><span class="co">#&gt;  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2</span></span>
-<span id="cb198-31"><a href="sec-io.html#cb198-31" aria-hidden="true"></a><span class="co">#&gt;  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2</span></span>
-<span id="cb198-32"><a href="sec-io.html#cb198-32" aria-hidden="true"></a><span class="co">#&gt; 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4</span></span>
-<span id="cb198-33"><a href="sec-io.html#cb198-33" aria-hidden="true"></a><span class="co">#&gt; # … with 22 more rows</span></span>
-<span id="cb198-34"><a href="sec-io.html#cb198-34" aria-hidden="true"></a>xlsx &lt;-<span class="st"> </span><span class="kw">read_excel</span>(xlsx_file, <span class="dt">sheet =</span> <span class="st">&quot;quakes&quot;</span>)   <span class="co"># reads a named sheet</span></span>
-<span id="cb198-35"><a href="sec-io.html#cb198-35" aria-hidden="true"></a>xlsx</span>
-<span id="cb198-36"><a href="sec-io.html#cb198-36" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 1,000 x 5</span></span>
-<span id="cb198-37"><a href="sec-io.html#cb198-37" aria-hidden="true"></a><span class="co">#&gt;      lat  long depth   mag stations</span></span>
-<span id="cb198-38"><a href="sec-io.html#cb198-38" aria-hidden="true"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb198-39"><a href="sec-io.html#cb198-39" aria-hidden="true"></a><span class="co">#&gt;  1 -20.4  182.   562   4.8       41</span></span>
-<span id="cb198-40"><a href="sec-io.html#cb198-40" aria-hidden="true"></a><span class="co">#&gt;  2 -20.6  181.   650   4.2       15</span></span>
-<span id="cb198-41"><a href="sec-io.html#cb198-41" aria-hidden="true"></a><span class="co">#&gt;  3 -26    184.    42   5.4       43</span></span>
-<span id="cb198-42"><a href="sec-io.html#cb198-42" aria-hidden="true"></a><span class="co">#&gt;  4 -18.0  182.   626   4.1       19</span></span>
-<span id="cb198-43"><a href="sec-io.html#cb198-43" aria-hidden="true"></a><span class="co">#&gt;  5 -20.4  182.   649   4         11</span></span>
-<span id="cb198-44"><a href="sec-io.html#cb198-44" aria-hidden="true"></a><span class="co">#&gt;  6 -19.7  184.   195   4         12</span></span>
-<span id="cb198-45"><a href="sec-io.html#cb198-45" aria-hidden="true"></a><span class="co">#&gt;  7 -11.7  166.    82   4.8       43</span></span>
-<span id="cb198-46"><a href="sec-io.html#cb198-46" aria-hidden="true"></a><span class="co">#&gt;  8 -28.1  182.   194   4.4       15</span></span>
-<span id="cb198-47"><a href="sec-io.html#cb198-47" aria-hidden="true"></a><span class="co">#&gt;  9 -28.7  182.   211   4.7       35</span></span>
-<span id="cb198-48"><a href="sec-io.html#cb198-48" aria-hidden="true"></a><span class="co">#&gt; 10 -17.5  180.   622   4.3       19</span></span>
-<span id="cb198-49"><a href="sec-io.html#cb198-49" aria-hidden="true"></a><span class="co">#&gt; # … with 990 more rows</span></span>
-<span id="cb198-50"><a href="sec-io.html#cb198-50" aria-hidden="true"></a>xlsx &lt;-<span class="st"> </span><span class="kw">read_excel</span>(xlsx_file, <span class="dt">sheet =</span> <span class="st">&quot;mtcars&quot;</span>, <span class="dt">range =</span> <span class="st">&quot;A5:G11&quot;</span>, <span class="dt">col_names =</span> F)   <span class="co"># reads a range</span></span>
-<span id="cb198-51"><a href="sec-io.html#cb198-51" aria-hidden="true"></a><span class="kw">colnames</span>(xlsx) &lt;-<span class="st"> </span><span class="kw">read_excel</span>(xlsx_file, <span class="dt">sheet =</span> <span class="st">&quot;mtcars&quot;</span>, <span class="dt">range =</span> <span class="st">&quot;A1:G1&quot;</span>, <span class="dt">col_names =</span> F)   <span class="co"># reads the column names</span></span>
-<span id="cb198-52"><a href="sec-io.html#cb198-52" aria-hidden="true"></a>xlsx</span>
-<span id="cb198-53"><a href="sec-io.html#cb198-53" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 7 x 7</span></span>
-<span id="cb198-54"><a href="sec-io.html#cb198-54" aria-hidden="true"></a><span class="co">#&gt;     mpg   cyl  disp    hp  drat    wt  qsec</span></span>
-<span id="cb198-55"><a href="sec-io.html#cb198-55" aria-hidden="true"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb198-56"><a href="sec-io.html#cb198-56" aria-hidden="true"></a><span class="co">#&gt; 1  21.4     6  258    110  3.08  3.22  19.4</span></span>
-<span id="cb198-57"><a href="sec-io.html#cb198-57" aria-hidden="true"></a><span class="co">#&gt; 2  18.7     8  360    175  3.15  3.44  17.0</span></span>
-<span id="cb198-58"><a href="sec-io.html#cb198-58" aria-hidden="true"></a><span class="co">#&gt; 3  18.1     6  225    105  2.76  3.46  20.2</span></span>
-<span id="cb198-59"><a href="sec-io.html#cb198-59" aria-hidden="true"></a><span class="co">#&gt; 4  14.3     8  360    245  3.21  3.57  15.8</span></span>
-<span id="cb198-60"><a href="sec-io.html#cb198-60" aria-hidden="true"></a><span class="co">#&gt; 5  24.4     4  147.    62  3.69  3.19  20  </span></span>
-<span id="cb198-61"><a href="sec-io.html#cb198-61" aria-hidden="true"></a><span class="co">#&gt; 6  22.8     4  141.    95  3.92  3.15  22.9</span></span>
-<span id="cb198-62"><a href="sec-io.html#cb198-62" aria-hidden="true"></a><span class="co">#&gt; 7  19.2     6  168.   123  3.92  3.44  18.3</span></span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="sec-io.html#cb202-1" aria-hidden="true"></a><span class="kw">library</span>(readxl)</span>
+<span id="cb202-2"><a href="sec-io.html#cb202-2" aria-hidden="true"></a>xlsx &lt;-<span class="st"> </span><span class="kw">read_excel</span>(xlsx_file)   <span class="co"># reads the first sheet</span></span>
+<span id="cb202-3"><a href="sec-io.html#cb202-3" aria-hidden="true"></a>xlsx</span>
+<span id="cb202-4"><a href="sec-io.html#cb202-4" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 150 x 5</span></span>
+<span id="cb202-5"><a href="sec-io.html#cb202-5" aria-hidden="true"></a><span class="co">#&gt;    Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></span>
+<span id="cb202-6"><a href="sec-io.html#cb202-6" aria-hidden="true"></a><span class="co">#&gt;           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  </span></span>
+<span id="cb202-7"><a href="sec-io.html#cb202-7" aria-hidden="true"></a><span class="co">#&gt;  1          5.1         3.5          1.4         0.2 setosa </span></span>
+<span id="cb202-8"><a href="sec-io.html#cb202-8" aria-hidden="true"></a><span class="co">#&gt;  2          4.9         3            1.4         0.2 setosa </span></span>
+<span id="cb202-9"><a href="sec-io.html#cb202-9" aria-hidden="true"></a><span class="co">#&gt;  3          4.7         3.2          1.3         0.2 setosa </span></span>
+<span id="cb202-10"><a href="sec-io.html#cb202-10" aria-hidden="true"></a><span class="co">#&gt;  4          4.6         3.1          1.5         0.2 setosa </span></span>
+<span id="cb202-11"><a href="sec-io.html#cb202-11" aria-hidden="true"></a><span class="co">#&gt;  5          5           3.6          1.4         0.2 setosa </span></span>
+<span id="cb202-12"><a href="sec-io.html#cb202-12" aria-hidden="true"></a><span class="co">#&gt;  6          5.4         3.9          1.7         0.4 setosa </span></span>
+<span id="cb202-13"><a href="sec-io.html#cb202-13" aria-hidden="true"></a><span class="co">#&gt;  7          4.6         3.4          1.4         0.3 setosa </span></span>
+<span id="cb202-14"><a href="sec-io.html#cb202-14" aria-hidden="true"></a><span class="co">#&gt;  8          5           3.4          1.5         0.2 setosa </span></span>
+<span id="cb202-15"><a href="sec-io.html#cb202-15" aria-hidden="true"></a><span class="co">#&gt;  9          4.4         2.9          1.4         0.2 setosa </span></span>
+<span id="cb202-16"><a href="sec-io.html#cb202-16" aria-hidden="true"></a><span class="co">#&gt; 10          4.9         3.1          1.5         0.1 setosa </span></span>
+<span id="cb202-17"><a href="sec-io.html#cb202-17" aria-hidden="true"></a><span class="co">#&gt; # … with 140 more rows</span></span>
+<span id="cb202-18"><a href="sec-io.html#cb202-18" aria-hidden="true"></a>xlsx &lt;-<span class="st"> </span><span class="kw">read_excel</span>(xlsx_file, <span class="dt">sheet =</span> <span class="dv">2</span>)   <span class="co"># reads the second sheet</span></span>
+<span id="cb202-19"><a href="sec-io.html#cb202-19" aria-hidden="true"></a>xlsx</span>
+<span id="cb202-20"><a href="sec-io.html#cb202-20" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 32 x 11</span></span>
+<span id="cb202-21"><a href="sec-io.html#cb202-21" aria-hidden="true"></a><span class="co">#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span></span>
+<span id="cb202-22"><a href="sec-io.html#cb202-22" aria-hidden="true"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb202-23"><a href="sec-io.html#cb202-23" aria-hidden="true"></a><span class="co">#&gt;  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4</span></span>
+<span id="cb202-24"><a href="sec-io.html#cb202-24" aria-hidden="true"></a><span class="co">#&gt;  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4</span></span>
+<span id="cb202-25"><a href="sec-io.html#cb202-25" aria-hidden="true"></a><span class="co">#&gt;  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1</span></span>
+<span id="cb202-26"><a href="sec-io.html#cb202-26" aria-hidden="true"></a><span class="co">#&gt;  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1</span></span>
+<span id="cb202-27"><a href="sec-io.html#cb202-27" aria-hidden="true"></a><span class="co">#&gt;  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2</span></span>
+<span id="cb202-28"><a href="sec-io.html#cb202-28" aria-hidden="true"></a><span class="co">#&gt;  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1</span></span>
+<span id="cb202-29"><a href="sec-io.html#cb202-29" aria-hidden="true"></a><span class="co">#&gt;  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4</span></span>
+<span id="cb202-30"><a href="sec-io.html#cb202-30" aria-hidden="true"></a><span class="co">#&gt;  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2</span></span>
+<span id="cb202-31"><a href="sec-io.html#cb202-31" aria-hidden="true"></a><span class="co">#&gt;  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2</span></span>
+<span id="cb202-32"><a href="sec-io.html#cb202-32" aria-hidden="true"></a><span class="co">#&gt; 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4</span></span>
+<span id="cb202-33"><a href="sec-io.html#cb202-33" aria-hidden="true"></a><span class="co">#&gt; # … with 22 more rows</span></span>
+<span id="cb202-34"><a href="sec-io.html#cb202-34" aria-hidden="true"></a>xlsx &lt;-<span class="st"> </span><span class="kw">read_excel</span>(xlsx_file, <span class="dt">sheet =</span> <span class="st">&quot;quakes&quot;</span>)   <span class="co"># reads a named sheet</span></span>
+<span id="cb202-35"><a href="sec-io.html#cb202-35" aria-hidden="true"></a>xlsx</span>
+<span id="cb202-36"><a href="sec-io.html#cb202-36" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 1,000 x 5</span></span>
+<span id="cb202-37"><a href="sec-io.html#cb202-37" aria-hidden="true"></a><span class="co">#&gt;      lat  long depth   mag stations</span></span>
+<span id="cb202-38"><a href="sec-io.html#cb202-38" aria-hidden="true"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb202-39"><a href="sec-io.html#cb202-39" aria-hidden="true"></a><span class="co">#&gt;  1 -20.4  182.   562   4.8       41</span></span>
+<span id="cb202-40"><a href="sec-io.html#cb202-40" aria-hidden="true"></a><span class="co">#&gt;  2 -20.6  181.   650   4.2       15</span></span>
+<span id="cb202-41"><a href="sec-io.html#cb202-41" aria-hidden="true"></a><span class="co">#&gt;  3 -26    184.    42   5.4       43</span></span>
+<span id="cb202-42"><a href="sec-io.html#cb202-42" aria-hidden="true"></a><span class="co">#&gt;  4 -18.0  182.   626   4.1       19</span></span>
+<span id="cb202-43"><a href="sec-io.html#cb202-43" aria-hidden="true"></a><span class="co">#&gt;  5 -20.4  182.   649   4         11</span></span>
+<span id="cb202-44"><a href="sec-io.html#cb202-44" aria-hidden="true"></a><span class="co">#&gt;  6 -19.7  184.   195   4         12</span></span>
+<span id="cb202-45"><a href="sec-io.html#cb202-45" aria-hidden="true"></a><span class="co">#&gt;  7 -11.7  166.    82   4.8       43</span></span>
+<span id="cb202-46"><a href="sec-io.html#cb202-46" aria-hidden="true"></a><span class="co">#&gt;  8 -28.1  182.   194   4.4       15</span></span>
+<span id="cb202-47"><a href="sec-io.html#cb202-47" aria-hidden="true"></a><span class="co">#&gt;  9 -28.7  182.   211   4.7       35</span></span>
+<span id="cb202-48"><a href="sec-io.html#cb202-48" aria-hidden="true"></a><span class="co">#&gt; 10 -17.5  180.   622   4.3       19</span></span>
+<span id="cb202-49"><a href="sec-io.html#cb202-49" aria-hidden="true"></a><span class="co">#&gt; # … with 990 more rows</span></span>
+<span id="cb202-50"><a href="sec-io.html#cb202-50" aria-hidden="true"></a>xlsx &lt;-<span class="st"> </span><span class="kw">read_excel</span>(xlsx_file, <span class="dt">sheet =</span> <span class="st">&quot;mtcars&quot;</span>, <span class="dt">range =</span> <span class="st">&quot;A5:G11&quot;</span>, <span class="dt">col_names =</span> F)   <span class="co"># reads a range</span></span>
+<span id="cb202-51"><a href="sec-io.html#cb202-51" aria-hidden="true"></a><span class="kw">colnames</span>(xlsx) &lt;-<span class="st"> </span><span class="kw">read_excel</span>(xlsx_file, <span class="dt">sheet =</span> <span class="st">&quot;mtcars&quot;</span>, <span class="dt">range =</span> <span class="st">&quot;A1:G1&quot;</span>, <span class="dt">col_names =</span> F)   <span class="co"># reads the column names</span></span>
+<span id="cb202-52"><a href="sec-io.html#cb202-52" aria-hidden="true"></a>xlsx</span>
+<span id="cb202-53"><a href="sec-io.html#cb202-53" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 7 x 7</span></span>
+<span id="cb202-54"><a href="sec-io.html#cb202-54" aria-hidden="true"></a><span class="co">#&gt;     mpg   cyl  disp    hp  drat    wt  qsec</span></span>
+<span id="cb202-55"><a href="sec-io.html#cb202-55" aria-hidden="true"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb202-56"><a href="sec-io.html#cb202-56" aria-hidden="true"></a><span class="co">#&gt; 1  21.4     6  258    110  3.08  3.22  19.4</span></span>
+<span id="cb202-57"><a href="sec-io.html#cb202-57" aria-hidden="true"></a><span class="co">#&gt; 2  18.7     8  360    175  3.15  3.44  17.0</span></span>
+<span id="cb202-58"><a href="sec-io.html#cb202-58" aria-hidden="true"></a><span class="co">#&gt; 3  18.1     6  225    105  2.76  3.46  20.2</span></span>
+<span id="cb202-59"><a href="sec-io.html#cb202-59" aria-hidden="true"></a><span class="co">#&gt; 4  14.3     8  360    245  3.21  3.57  15.8</span></span>
+<span id="cb202-60"><a href="sec-io.html#cb202-60" aria-hidden="true"></a><span class="co">#&gt; 5  24.4     4  147.    62  3.69  3.19  20  </span></span>
+<span id="cb202-61"><a href="sec-io.html#cb202-61" aria-hidden="true"></a><span class="co">#&gt; 6  22.8     4  141.    95  3.92  3.15  22.9</span></span>
+<span id="cb202-62"><a href="sec-io.html#cb202-62" aria-hidden="true"></a><span class="co">#&gt; 7  19.2     6  168.   123  3.92  3.44  18.3</span></span></code></pre></div>
 <p>Writing to an Excel file can be done using the <a href="https://ycphs.github.io/openxlsx/index.html">openxlsx</a> package. To write to a new file use:</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="sec-io.html#cb199-1" aria-hidden="true"></a><span class="kw">library</span>(openxlsx)</span>
-<span id="cb199-2"><a href="sec-io.html#cb199-2" aria-hidden="true"></a>dat &lt;-<span class="st"> </span>trees   <span class="co"># test dataset</span></span>
-<span id="cb199-3"><a href="sec-io.html#cb199-3" aria-hidden="true"></a><span class="kw">head</span>(dat)</span>
-<span id="cb199-4"><a href="sec-io.html#cb199-4" aria-hidden="true"></a><span class="co">#&gt;   Girth Height Volume</span></span>
-<span id="cb199-5"><a href="sec-io.html#cb199-5" aria-hidden="true"></a><span class="co">#&gt; 1   8.3     70   10.3</span></span>
-<span id="cb199-6"><a href="sec-io.html#cb199-6" aria-hidden="true"></a><span class="co">#&gt; 2   8.6     65   10.3</span></span>
-<span id="cb199-7"><a href="sec-io.html#cb199-7" aria-hidden="true"></a><span class="co">#&gt; 3   8.8     63   10.2</span></span>
-<span id="cb199-8"><a href="sec-io.html#cb199-8" aria-hidden="true"></a><span class="co">#&gt; 4  10.5     72   16.4</span></span>
-<span id="cb199-9"><a href="sec-io.html#cb199-9" aria-hidden="true"></a><span class="co">#&gt; 5  10.7     81   18.8</span></span>
-<span id="cb199-10"><a href="sec-io.html#cb199-10" aria-hidden="true"></a><span class="co">#&gt; 6  10.8     83   19.7</span></span>
-<span id="cb199-11"><a href="sec-io.html#cb199-11" aria-hidden="true"></a><span class="kw">write.xlsx</span>(dat, <span class="st">&quot;test1.xlsx&quot;</span>, <span class="dt">sheetName =</span> <span class="st">&quot;trees&quot;</span>) <span class="co"># start at cell A1</span></span>
-<span id="cb199-12"><a href="sec-io.html#cb199-12" aria-hidden="true"></a><span class="kw">write.xlsx</span>(dat, <span class="st">&quot;test2.xlsx&quot;</span>, <span class="dt">sheetName =</span> <span class="st">&quot;trees&quot;</span>, <span class="dt">startCol =</span> <span class="st">&quot;C&quot;</span>, <span class="dt">startRow =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="sec-io.html#cb203-1" aria-hidden="true"></a><span class="kw">library</span>(openxlsx)</span>
+<span id="cb203-2"><a href="sec-io.html#cb203-2" aria-hidden="true"></a>dat &lt;-<span class="st"> </span>trees   <span class="co"># test dataset</span></span>
+<span id="cb203-3"><a href="sec-io.html#cb203-3" aria-hidden="true"></a><span class="kw">head</span>(dat)</span>
+<span id="cb203-4"><a href="sec-io.html#cb203-4" aria-hidden="true"></a><span class="co">#&gt;   Girth Height Volume</span></span>
+<span id="cb203-5"><a href="sec-io.html#cb203-5" aria-hidden="true"></a><span class="co">#&gt; 1   8.3     70   10.3</span></span>
+<span id="cb203-6"><a href="sec-io.html#cb203-6" aria-hidden="true"></a><span class="co">#&gt; 2   8.6     65   10.3</span></span>
+<span id="cb203-7"><a href="sec-io.html#cb203-7" aria-hidden="true"></a><span class="co">#&gt; 3   8.8     63   10.2</span></span>
+<span id="cb203-8"><a href="sec-io.html#cb203-8" aria-hidden="true"></a><span class="co">#&gt; 4  10.5     72   16.4</span></span>
+<span id="cb203-9"><a href="sec-io.html#cb203-9" aria-hidden="true"></a><span class="co">#&gt; 5  10.7     81   18.8</span></span>
+<span id="cb203-10"><a href="sec-io.html#cb203-10" aria-hidden="true"></a><span class="co">#&gt; 6  10.8     83   19.7</span></span>
+<span id="cb203-11"><a href="sec-io.html#cb203-11" aria-hidden="true"></a><span class="kw">write.xlsx</span>(dat, <span class="st">&quot;test1.xlsx&quot;</span>, <span class="dt">sheetName =</span> <span class="st">&quot;trees&quot;</span>) <span class="co"># start at cell A1</span></span>
+<span id="cb203-12"><a href="sec-io.html#cb203-12" aria-hidden="true"></a><span class="kw">write.xlsx</span>(dat, <span class="st">&quot;test2.xlsx&quot;</span>, <span class="dt">sheetName =</span> <span class="st">&quot;trees&quot;</span>, <span class="dt">startCol =</span> <span class="st">&quot;C&quot;</span>, <span class="dt">startRow =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p>If you want to append a sheet to a file use:</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="sec-io.html#cb200-1" aria-hidden="true"></a>xlsx_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/datasets.xlsx&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tfa&quot;</span>)</span>
-<span id="cb200-2"><a href="sec-io.html#cb200-2" aria-hidden="true"></a><span class="kw">file.copy</span>(xlsx_file, <span class="st">&quot;test.xlsx&quot;</span>)         <span class="co"># copy the file so can make some tests</span></span>
-<span id="cb200-3"><a href="sec-io.html#cb200-3" aria-hidden="true"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb200-4"><a href="sec-io.html#cb200-4" aria-hidden="true"></a>wb &lt;-<span class="st"> </span><span class="kw">loadWorkbook</span>(<span class="dt">file =</span> <span class="st">&quot;test.xlsx&quot;</span>)    <span class="co"># read the workbook</span></span>
-<span id="cb200-5"><a href="sec-io.html#cb200-5" aria-hidden="true"></a><span class="kw">addWorksheet</span>(<span class="dt">wb =</span> wb, <span class="dt">sheetName =</span> <span class="st">&quot;trees&quot;</span>)</span>
-<span id="cb200-6"><a href="sec-io.html#cb200-6" aria-hidden="true"></a><span class="kw">writeData</span>(wb, <span class="dt">sheet =</span> <span class="st">&quot;trees&quot;</span>, <span class="dt">x =</span> dat)</span>
-<span id="cb200-7"><a href="sec-io.html#cb200-7" aria-hidden="true"></a><span class="kw">saveWorkbook</span>(wb, <span class="dt">file =</span> <span class="st">&quot;test.xlsx&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="sec-io.html#cb204-1" aria-hidden="true"></a>xlsx_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/datasets.xlsx&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tfa&quot;</span>)</span>
+<span id="cb204-2"><a href="sec-io.html#cb204-2" aria-hidden="true"></a><span class="kw">file.copy</span>(xlsx_file, <span class="st">&quot;test.xlsx&quot;</span>)         <span class="co"># copy the file so can make some tests</span></span>
+<span id="cb204-3"><a href="sec-io.html#cb204-3" aria-hidden="true"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb204-4"><a href="sec-io.html#cb204-4" aria-hidden="true"></a>wb &lt;-<span class="st"> </span><span class="kw">loadWorkbook</span>(<span class="dt">file =</span> <span class="st">&quot;test.xlsx&quot;</span>)    <span class="co"># read the workbook</span></span>
+<span id="cb204-5"><a href="sec-io.html#cb204-5" aria-hidden="true"></a><span class="kw">addWorksheet</span>(<span class="dt">wb =</span> wb, <span class="dt">sheetName =</span> <span class="st">&quot;trees&quot;</span>)</span>
+<span id="cb204-6"><a href="sec-io.html#cb204-6" aria-hidden="true"></a><span class="kw">writeData</span>(wb, <span class="dt">sheet =</span> <span class="st">&quot;trees&quot;</span>, <span class="dt">x =</span> dat)</span>
+<span id="cb204-7"><a href="sec-io.html#cb204-7" aria-hidden="true"></a><span class="kw">saveWorkbook</span>(wb, <span class="dt">file =</span> <span class="st">&quot;test.xlsx&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="google-sheets" class="section level2" number="7.4">
 <h2><span class="header-section-number">7.4</span> Google Sheets</h2>
 <p>You can import and export to Google sheets using the <a href="https://googlesheets4.tidyverse.org/index.html">googlesheets4</a> package in tidyverse. To read and write data you in general need to be logged in as a Google user. The package will ask you when needed. However if you only want to read data from a public sheet you can use <code>gs4_deauth</code> to skip this:</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="sec-io.html#cb201-1" aria-hidden="true"></a><span class="kw">library</span>(googlesheets4)</span>
-<span id="cb201-2"><a href="sec-io.html#cb201-2" aria-hidden="true"></a><span class="kw">gs4_deauth</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="sec-io.html#cb205-1" aria-hidden="true"></a><span class="kw">library</span>(googlesheets4)</span>
+<span id="cb205-2"><a href="sec-io.html#cb205-2" aria-hidden="true"></a><span class="kw">gs4_deauth</span>()</span></code></pre></div>
 <p>To read data use:</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="sec-io.html#cb202-1" aria-hidden="true"></a>url &lt;-<span class="st"> &quot;https://docs.google.com/spreadsheets/d/1U6Cf_qEOhiR9AZqTqS3mbMF3zt2db48ZP5v3rkrAEJY/edit#gid=780868077&quot;</span></span>
-<span id="cb202-2"><a href="sec-io.html#cb202-2" aria-hidden="true"></a><span class="kw">read_sheet</span>(url)</span>
-<span id="cb202-3"><a href="sec-io.html#cb202-3" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 624 x 6</span></span>
-<span id="cb202-4"><a href="sec-io.html#cb202-4" aria-hidden="true"></a><span class="co">#&gt;    country continent  year lifeExp      pop gdpPercap</span></span>
-<span id="cb202-5"><a href="sec-io.html#cb202-5" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb202-6"><a href="sec-io.html#cb202-6" aria-hidden="true"></a><span class="co">#&gt;  1 Algeria Africa     1952    43.1  9279525     2449.</span></span>
-<span id="cb202-7"><a href="sec-io.html#cb202-7" aria-hidden="true"></a><span class="co">#&gt;  2 Algeria Africa     1957    45.7 10270856     3014.</span></span>
-<span id="cb202-8"><a href="sec-io.html#cb202-8" aria-hidden="true"></a><span class="co">#&gt;  3 Algeria Africa     1962    48.3 11000948     2551.</span></span>
-<span id="cb202-9"><a href="sec-io.html#cb202-9" aria-hidden="true"></a><span class="co">#&gt;  4 Algeria Africa     1967    51.4 12760499     3247.</span></span>
-<span id="cb202-10"><a href="sec-io.html#cb202-10" aria-hidden="true"></a><span class="co">#&gt;  5 Algeria Africa     1972    54.5 14760787     4183.</span></span>
-<span id="cb202-11"><a href="sec-io.html#cb202-11" aria-hidden="true"></a><span class="co">#&gt;  6 Algeria Africa     1977    58.0 17152804     4910.</span></span>
-<span id="cb202-12"><a href="sec-io.html#cb202-12" aria-hidden="true"></a><span class="co">#&gt;  7 Algeria Africa     1982    61.4 20033753     5745.</span></span>
-<span id="cb202-13"><a href="sec-io.html#cb202-13" aria-hidden="true"></a><span class="co">#&gt;  8 Algeria Africa     1987    65.8 23254956     5681.</span></span>
-<span id="cb202-14"><a href="sec-io.html#cb202-14" aria-hidden="true"></a><span class="co">#&gt;  9 Algeria Africa     1992    67.7 26298373     5023.</span></span>
-<span id="cb202-15"><a href="sec-io.html#cb202-15" aria-hidden="true"></a><span class="co">#&gt; 10 Algeria Africa     1997    69.2 29072015     4797.</span></span>
-<span id="cb202-16"><a href="sec-io.html#cb202-16" aria-hidden="true"></a><span class="co">#&gt; # … with 614 more rows</span></span>
-<span id="cb202-17"><a href="sec-io.html#cb202-17" aria-hidden="true"></a><span class="kw">read_sheet</span>(url, <span class="dt">sheet =</span> <span class="dv">3</span>)</span>
-<span id="cb202-18"><a href="sec-io.html#cb202-18" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 396 x 6</span></span>
-<span id="cb202-19"><a href="sec-io.html#cb202-19" aria-hidden="true"></a><span class="co">#&gt;    country     continent  year lifeExp      pop gdpPercap</span></span>
-<span id="cb202-20"><a href="sec-io.html#cb202-20" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb202-21"><a href="sec-io.html#cb202-21" aria-hidden="true"></a><span class="co">#&gt;  1 Afghanistan Asia       1952    28.8  8425333      779.</span></span>
-<span id="cb202-22"><a href="sec-io.html#cb202-22" aria-hidden="true"></a><span class="co">#&gt;  2 Afghanistan Asia       1957    30.3  9240934      821.</span></span>
-<span id="cb202-23"><a href="sec-io.html#cb202-23" aria-hidden="true"></a><span class="co">#&gt;  3 Afghanistan Asia       1962    32.0 10267083      853.</span></span>
-<span id="cb202-24"><a href="sec-io.html#cb202-24" aria-hidden="true"></a><span class="co">#&gt;  4 Afghanistan Asia       1967    34.0 11537966      836.</span></span>
-<span id="cb202-25"><a href="sec-io.html#cb202-25" aria-hidden="true"></a><span class="co">#&gt;  5 Afghanistan Asia       1972    36.1 13079460      740.</span></span>
-<span id="cb202-26"><a href="sec-io.html#cb202-26" aria-hidden="true"></a><span class="co">#&gt;  6 Afghanistan Asia       1977    38.4 14880372      786.</span></span>
-<span id="cb202-27"><a href="sec-io.html#cb202-27" aria-hidden="true"></a><span class="co">#&gt;  7 Afghanistan Asia       1982    39.9 12881816      978.</span></span>
-<span id="cb202-28"><a href="sec-io.html#cb202-28" aria-hidden="true"></a><span class="co">#&gt;  8 Afghanistan Asia       1987    40.8 13867957      852.</span></span>
-<span id="cb202-29"><a href="sec-io.html#cb202-29" aria-hidden="true"></a><span class="co">#&gt;  9 Afghanistan Asia       1992    41.7 16317921      649.</span></span>
-<span id="cb202-30"><a href="sec-io.html#cb202-30" aria-hidden="true"></a><span class="co">#&gt; 10 Afghanistan Asia       1997    41.8 22227415      635.</span></span>
-<span id="cb202-31"><a href="sec-io.html#cb202-31" aria-hidden="true"></a><span class="co">#&gt; # … with 386 more rows</span></span>
-<span id="cb202-32"><a href="sec-io.html#cb202-32" aria-hidden="true"></a><span class="kw">range_read</span>(url, <span class="dt">sheet =</span> <span class="dv">2</span>, <span class="dt">n_max =</span> <span class="dv">3</span>)</span>
-<span id="cb202-33"><a href="sec-io.html#cb202-33" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 6</span></span>
-<span id="cb202-34"><a href="sec-io.html#cb202-34" aria-hidden="true"></a><span class="co">#&gt;   country   continent  year lifeExp      pop gdpPercap</span></span>
-<span id="cb202-35"><a href="sec-io.html#cb202-35" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb202-36"><a href="sec-io.html#cb202-36" aria-hidden="true"></a><span class="co">#&gt; 1 Argentina Americas   1952    62.5 17876956     5911.</span></span>
-<span id="cb202-37"><a href="sec-io.html#cb202-37" aria-hidden="true"></a><span class="co">#&gt; 2 Argentina Americas   1957    64.4 19610538     6857.</span></span>
-<span id="cb202-38"><a href="sec-io.html#cb202-38" aria-hidden="true"></a><span class="co">#&gt; 3 Argentina Americas   1962    65.1 21283783     7133.</span></span>
-<span id="cb202-39"><a href="sec-io.html#cb202-39" aria-hidden="true"></a><span class="kw">range_read</span>(url, <span class="dt">range =</span> <span class="st">&quot;Africa!A5:C15&quot;</span>)</span>
-<span id="cb202-40"><a href="sec-io.html#cb202-40" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 10 x 3</span></span>
-<span id="cb202-41"><a href="sec-io.html#cb202-41" aria-hidden="true"></a><span class="co">#&gt;    Algeria Africa `1967`</span></span>
-<span id="cb202-42"><a href="sec-io.html#cb202-42" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt;</span></span>
-<span id="cb202-43"><a href="sec-io.html#cb202-43" aria-hidden="true"></a><span class="co">#&gt;  1 Algeria Africa   1972</span></span>
-<span id="cb202-44"><a href="sec-io.html#cb202-44" aria-hidden="true"></a><span class="co">#&gt;  2 Algeria Africa   1977</span></span>
-<span id="cb202-45"><a href="sec-io.html#cb202-45" aria-hidden="true"></a><span class="co">#&gt;  3 Algeria Africa   1982</span></span>
-<span id="cb202-46"><a href="sec-io.html#cb202-46" aria-hidden="true"></a><span class="co">#&gt;  4 Algeria Africa   1987</span></span>
-<span id="cb202-47"><a href="sec-io.html#cb202-47" aria-hidden="true"></a><span class="co">#&gt;  5 Algeria Africa   1992</span></span>
-<span id="cb202-48"><a href="sec-io.html#cb202-48" aria-hidden="true"></a><span class="co">#&gt;  6 Algeria Africa   1997</span></span>
-<span id="cb202-49"><a href="sec-io.html#cb202-49" aria-hidden="true"></a><span class="co">#&gt;  7 Algeria Africa   2002</span></span>
-<span id="cb202-50"><a href="sec-io.html#cb202-50" aria-hidden="true"></a><span class="co">#&gt;  8 Algeria Africa   2007</span></span>
-<span id="cb202-51"><a href="sec-io.html#cb202-51" aria-hidden="true"></a><span class="co">#&gt;  9 Angola  Africa   1952</span></span>
-<span id="cb202-52"><a href="sec-io.html#cb202-52" aria-hidden="true"></a><span class="co">#&gt; 10 Angola  Africa   1957</span></span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="sec-io.html#cb206-1" aria-hidden="true"></a>url &lt;-<span class="st"> &quot;https://docs.google.com/spreadsheets/d/1U6Cf_qEOhiR9AZqTqS3mbMF3zt2db48ZP5v3rkrAEJY/edit#gid=780868077&quot;</span></span>
+<span id="cb206-2"><a href="sec-io.html#cb206-2" aria-hidden="true"></a><span class="kw">read_sheet</span>(url)</span>
+<span id="cb206-3"><a href="sec-io.html#cb206-3" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 624 x 6</span></span>
+<span id="cb206-4"><a href="sec-io.html#cb206-4" aria-hidden="true"></a><span class="co">#&gt;    country continent  year lifeExp      pop gdpPercap</span></span>
+<span id="cb206-5"><a href="sec-io.html#cb206-5" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span id="cb206-6"><a href="sec-io.html#cb206-6" aria-hidden="true"></a><span class="co">#&gt;  1 Algeria Africa     1952    43.1  9279525     2449.</span></span>
+<span id="cb206-7"><a href="sec-io.html#cb206-7" aria-hidden="true"></a><span class="co">#&gt;  2 Algeria Africa     1957    45.7 10270856     3014.</span></span>
+<span id="cb206-8"><a href="sec-io.html#cb206-8" aria-hidden="true"></a><span class="co">#&gt;  3 Algeria Africa     1962    48.3 11000948     2551.</span></span>
+<span id="cb206-9"><a href="sec-io.html#cb206-9" aria-hidden="true"></a><span class="co">#&gt;  4 Algeria Africa     1967    51.4 12760499     3247.</span></span>
+<span id="cb206-10"><a href="sec-io.html#cb206-10" aria-hidden="true"></a><span class="co">#&gt;  5 Algeria Africa     1972    54.5 14760787     4183.</span></span>
+<span id="cb206-11"><a href="sec-io.html#cb206-11" aria-hidden="true"></a><span class="co">#&gt;  6 Algeria Africa     1977    58.0 17152804     4910.</span></span>
+<span id="cb206-12"><a href="sec-io.html#cb206-12" aria-hidden="true"></a><span class="co">#&gt;  7 Algeria Africa     1982    61.4 20033753     5745.</span></span>
+<span id="cb206-13"><a href="sec-io.html#cb206-13" aria-hidden="true"></a><span class="co">#&gt;  8 Algeria Africa     1987    65.8 23254956     5681.</span></span>
+<span id="cb206-14"><a href="sec-io.html#cb206-14" aria-hidden="true"></a><span class="co">#&gt;  9 Algeria Africa     1992    67.7 26298373     5023.</span></span>
+<span id="cb206-15"><a href="sec-io.html#cb206-15" aria-hidden="true"></a><span class="co">#&gt; 10 Algeria Africa     1997    69.2 29072015     4797.</span></span>
+<span id="cb206-16"><a href="sec-io.html#cb206-16" aria-hidden="true"></a><span class="co">#&gt; # … with 614 more rows</span></span>
+<span id="cb206-17"><a href="sec-io.html#cb206-17" aria-hidden="true"></a><span class="kw">read_sheet</span>(url, <span class="dt">sheet =</span> <span class="dv">3</span>)</span>
+<span id="cb206-18"><a href="sec-io.html#cb206-18" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 396 x 6</span></span>
+<span id="cb206-19"><a href="sec-io.html#cb206-19" aria-hidden="true"></a><span class="co">#&gt;    country     continent  year lifeExp      pop gdpPercap</span></span>
+<span id="cb206-20"><a href="sec-io.html#cb206-20" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span id="cb206-21"><a href="sec-io.html#cb206-21" aria-hidden="true"></a><span class="co">#&gt;  1 Afghanistan Asia       1952    28.8  8425333      779.</span></span>
+<span id="cb206-22"><a href="sec-io.html#cb206-22" aria-hidden="true"></a><span class="co">#&gt;  2 Afghanistan Asia       1957    30.3  9240934      821.</span></span>
+<span id="cb206-23"><a href="sec-io.html#cb206-23" aria-hidden="true"></a><span class="co">#&gt;  3 Afghanistan Asia       1962    32.0 10267083      853.</span></span>
+<span id="cb206-24"><a href="sec-io.html#cb206-24" aria-hidden="true"></a><span class="co">#&gt;  4 Afghanistan Asia       1967    34.0 11537966      836.</span></span>
+<span id="cb206-25"><a href="sec-io.html#cb206-25" aria-hidden="true"></a><span class="co">#&gt;  5 Afghanistan Asia       1972    36.1 13079460      740.</span></span>
+<span id="cb206-26"><a href="sec-io.html#cb206-26" aria-hidden="true"></a><span class="co">#&gt;  6 Afghanistan Asia       1977    38.4 14880372      786.</span></span>
+<span id="cb206-27"><a href="sec-io.html#cb206-27" aria-hidden="true"></a><span class="co">#&gt;  7 Afghanistan Asia       1982    39.9 12881816      978.</span></span>
+<span id="cb206-28"><a href="sec-io.html#cb206-28" aria-hidden="true"></a><span class="co">#&gt;  8 Afghanistan Asia       1987    40.8 13867957      852.</span></span>
+<span id="cb206-29"><a href="sec-io.html#cb206-29" aria-hidden="true"></a><span class="co">#&gt;  9 Afghanistan Asia       1992    41.7 16317921      649.</span></span>
+<span id="cb206-30"><a href="sec-io.html#cb206-30" aria-hidden="true"></a><span class="co">#&gt; 10 Afghanistan Asia       1997    41.8 22227415      635.</span></span>
+<span id="cb206-31"><a href="sec-io.html#cb206-31" aria-hidden="true"></a><span class="co">#&gt; # … with 386 more rows</span></span>
+<span id="cb206-32"><a href="sec-io.html#cb206-32" aria-hidden="true"></a><span class="kw">range_read</span>(url, <span class="dt">sheet =</span> <span class="dv">2</span>, <span class="dt">n_max =</span> <span class="dv">3</span>)</span>
+<span id="cb206-33"><a href="sec-io.html#cb206-33" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 3 x 6</span></span>
+<span id="cb206-34"><a href="sec-io.html#cb206-34" aria-hidden="true"></a><span class="co">#&gt;   country   continent  year lifeExp      pop gdpPercap</span></span>
+<span id="cb206-35"><a href="sec-io.html#cb206-35" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span id="cb206-36"><a href="sec-io.html#cb206-36" aria-hidden="true"></a><span class="co">#&gt; 1 Argentina Americas   1952    62.5 17876956     5911.</span></span>
+<span id="cb206-37"><a href="sec-io.html#cb206-37" aria-hidden="true"></a><span class="co">#&gt; 2 Argentina Americas   1957    64.4 19610538     6857.</span></span>
+<span id="cb206-38"><a href="sec-io.html#cb206-38" aria-hidden="true"></a><span class="co">#&gt; 3 Argentina Americas   1962    65.1 21283783     7133.</span></span>
+<span id="cb206-39"><a href="sec-io.html#cb206-39" aria-hidden="true"></a><span class="kw">range_read</span>(url, <span class="dt">range =</span> <span class="st">&quot;Africa!A5:C15&quot;</span>)</span>
+<span id="cb206-40"><a href="sec-io.html#cb206-40" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 10 x 3</span></span>
+<span id="cb206-41"><a href="sec-io.html#cb206-41" aria-hidden="true"></a><span class="co">#&gt;    Algeria Africa `1967`</span></span>
+<span id="cb206-42"><a href="sec-io.html#cb206-42" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt;</span></span>
+<span id="cb206-43"><a href="sec-io.html#cb206-43" aria-hidden="true"></a><span class="co">#&gt;  1 Algeria Africa   1972</span></span>
+<span id="cb206-44"><a href="sec-io.html#cb206-44" aria-hidden="true"></a><span class="co">#&gt;  2 Algeria Africa   1977</span></span>
+<span id="cb206-45"><a href="sec-io.html#cb206-45" aria-hidden="true"></a><span class="co">#&gt;  3 Algeria Africa   1982</span></span>
+<span id="cb206-46"><a href="sec-io.html#cb206-46" aria-hidden="true"></a><span class="co">#&gt;  4 Algeria Africa   1987</span></span>
+<span id="cb206-47"><a href="sec-io.html#cb206-47" aria-hidden="true"></a><span class="co">#&gt;  5 Algeria Africa   1992</span></span>
+<span id="cb206-48"><a href="sec-io.html#cb206-48" aria-hidden="true"></a><span class="co">#&gt;  6 Algeria Africa   1997</span></span>
+<span id="cb206-49"><a href="sec-io.html#cb206-49" aria-hidden="true"></a><span class="co">#&gt;  7 Algeria Africa   2002</span></span>
+<span id="cb206-50"><a href="sec-io.html#cb206-50" aria-hidden="true"></a><span class="co">#&gt;  8 Algeria Africa   2007</span></span>
+<span id="cb206-51"><a href="sec-io.html#cb206-51" aria-hidden="true"></a><span class="co">#&gt;  9 Angola  Africa   1952</span></span>
+<span id="cb206-52"><a href="sec-io.html#cb206-52" aria-hidden="true"></a><span class="co">#&gt; 10 Angola  Africa   1957</span></span></code></pre></div>
 <p>To write data to a new file use:</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="sec-io.html#cb203-1" aria-hidden="true"></a><span class="kw">gs4_auth</span>()</span>
-<span id="cb203-2"><a href="sec-io.html#cb203-2" aria-hidden="true"></a>gs &lt;-<span class="st"> </span><span class="kw">gs4_create</span>(<span class="st">&quot;test&quot;</span>, <span class="dt">sheets =</span> <span class="kw">c</span>(<span class="st">&quot;Sheet 1&quot;</span>, <span class="st">&quot;Sheet 2&quot;</span>))</span>
-<span id="cb203-3"><a href="sec-io.html#cb203-3" aria-hidden="true"></a><span class="kw">write_sheet</span>(dat, <span class="dt">ss =</span> gs)</span>
-<span id="cb203-4"><a href="sec-io.html#cb203-4" aria-hidden="true"></a><span class="kw">range_write</span>(gs, dat, <span class="dt">sheet =</span> <span class="st">&quot;Sheet 1&quot;</span>, <span class="dt">range =</span> <span class="st">&quot;C4&quot;</span>)</span>
-<span id="cb203-5"><a href="sec-io.html#cb203-5" aria-hidden="true"></a><span class="kw">gs4_browse</span>(gs)  <span class="co"># have a look at the file in a browser</span></span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="sec-io.html#cb207-1" aria-hidden="true"></a><span class="kw">gs4_auth</span>()</span>
+<span id="cb207-2"><a href="sec-io.html#cb207-2" aria-hidden="true"></a>gs &lt;-<span class="st"> </span><span class="kw">gs4_create</span>(<span class="st">&quot;test&quot;</span>, <span class="dt">sheets =</span> <span class="kw">c</span>(<span class="st">&quot;Sheet 1&quot;</span>, <span class="st">&quot;Sheet 2&quot;</span>))</span>
+<span id="cb207-3"><a href="sec-io.html#cb207-3" aria-hidden="true"></a><span class="kw">write_sheet</span>(dat, <span class="dt">ss =</span> gs)</span>
+<span id="cb207-4"><a href="sec-io.html#cb207-4" aria-hidden="true"></a><span class="kw">range_write</span>(gs, dat, <span class="dt">sheet =</span> <span class="st">&quot;Sheet 1&quot;</span>, <span class="dt">range =</span> <span class="st">&quot;C4&quot;</span>)</span>
+<span id="cb207-5"><a href="sec-io.html#cb207-5" aria-hidden="true"></a><span class="kw">gs4_browse</span>(gs)  <span class="co"># have a look at the file in a browser</span></span></code></pre></div>
 <p>To see the results have a look at your Google sheet <code>test</code> in your browser.</p>
 </div>
 <div id="text-files" class="section level2" number="7.5">
 <h2><span class="header-section-number">7.5</span> Text files</h2>
 <p>You can read and write to plain text files using the [readr][readr-web] package. However, mostly you want to write to a text file because you want to save some kind of log file when you run your script. Here <code>sink</code> is a excellent function to use. Since it redirects your R output. To see the output without messages, errors and warnings use:</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="sec-io.html#cb204-1" aria-hidden="true"></a><span class="kw">sink</span>(<span class="dt">file =</span> <span class="st">&quot;ex1.log&quot;</span>, <span class="dt">split =</span> <span class="ot">TRUE</span>)  <span class="co"># open the file for output</span></span>
-<span id="cb204-2"><a href="sec-io.html#cb204-2" aria-hidden="true"></a><span class="kw">cat</span>(<span class="st">&quot;This is a string</span><span class="ch">\n</span><span class="st">... and on a new line</span><span class="ch">\n\n</span><span class="st">&quot;</span>)</span>
-<span id="cb204-3"><a href="sec-io.html#cb204-3" aria-hidden="true"></a><span class="kw">print</span>(<span class="st">&quot;This is another string&quot;</span>)</span>
-<span id="cb204-4"><a href="sec-io.html#cb204-4" aria-hidden="true"></a><span class="kw">head</span>(mtcars)</span>
-<span id="cb204-5"><a href="sec-io.html#cb204-5" aria-hidden="true"></a><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>)</span>
-<span id="cb204-6"><a href="sec-io.html#cb204-6" aria-hidden="true"></a><span class="kw">message</span>(<span class="st">&quot;A message.&quot;</span>)</span>
-<span id="cb204-7"><a href="sec-io.html#cb204-7" aria-hidden="true"></a><span class="kw">warning</span>(<span class="st">&quot;A warning.&quot;</span>)</span>
-<span id="cb204-8"><a href="sec-io.html#cb204-8" aria-hidden="true"></a><span class="kw">rep</span>(<span class="dv">3</span>, f)  <span class="co"># a error</span></span>
-<span id="cb204-9"><a href="sec-io.html#cb204-9" aria-hidden="true"></a><span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Last line</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb204-10"><a href="sec-io.html#cb204-10" aria-hidden="true"></a><span class="kw">sink</span>()  <span class="co"># close the file again</span></span>
-<span id="cb204-11"><a href="sec-io.html#cb204-11" aria-hidden="true"></a><span class="co"># file.show(&quot;ex1.log&quot;)   # to view in external viewer</span></span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="sec-io.html#cb208-1" aria-hidden="true"></a><span class="kw">sink</span>(<span class="dt">file =</span> <span class="st">&quot;ex1.log&quot;</span>, <span class="dt">split =</span> <span class="ot">TRUE</span>)  <span class="co"># open the file for output</span></span>
+<span id="cb208-2"><a href="sec-io.html#cb208-2" aria-hidden="true"></a><span class="kw">cat</span>(<span class="st">&quot;This is a string</span><span class="ch">\n</span><span class="st">... and on a new line</span><span class="ch">\n\n</span><span class="st">&quot;</span>)</span>
+<span id="cb208-3"><a href="sec-io.html#cb208-3" aria-hidden="true"></a><span class="kw">print</span>(<span class="st">&quot;This is another string&quot;</span>)</span>
+<span id="cb208-4"><a href="sec-io.html#cb208-4" aria-hidden="true"></a><span class="kw">head</span>(mtcars)</span>
+<span id="cb208-5"><a href="sec-io.html#cb208-5" aria-hidden="true"></a><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>)</span>
+<span id="cb208-6"><a href="sec-io.html#cb208-6" aria-hidden="true"></a><span class="kw">message</span>(<span class="st">&quot;A message.&quot;</span>)</span>
+<span id="cb208-7"><a href="sec-io.html#cb208-7" aria-hidden="true"></a><span class="kw">warning</span>(<span class="st">&quot;A warning.&quot;</span>)</span>
+<span id="cb208-8"><a href="sec-io.html#cb208-8" aria-hidden="true"></a><span class="kw">rep</span>(<span class="dv">3</span>, f)  <span class="co"># a error</span></span>
+<span id="cb208-9"><a href="sec-io.html#cb208-9" aria-hidden="true"></a><span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Last line</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb208-10"><a href="sec-io.html#cb208-10" aria-hidden="true"></a><span class="kw">sink</span>()  <span class="co"># close the file again</span></span>
+<span id="cb208-11"><a href="sec-io.html#cb208-11" aria-hidden="true"></a><span class="co"># file.show(&quot;ex1.log&quot;)   # to view in external viewer</span></span></code></pre></div>
 <p>Let us have a look at the content of the file (run <code>cat(read_file("ex1.log"))</code>):</p>
 <pre><code>This is a string
 ... and on a new line
@@ -712,19 +712,19 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 
 Last line</code></pre>
 <p>Note that messages, errors and warnings are not included in the output. If you want to include it use:</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="sec-io.html#cb206-1" aria-hidden="true"></a>zz &lt;-<span class="st"> </span><span class="kw">file</span>(<span class="st">&quot;ex2.log&quot;</span>, <span class="dt">open =</span> <span class="st">&quot;wt&quot;</span>)</span>
-<span id="cb206-2"><a href="sec-io.html#cb206-2" aria-hidden="true"></a><span class="kw">sink</span>(zz, <span class="dt">type =</span> <span class="st">&quot;output&quot;</span>)   <span class="co"># open the file for output</span></span>
-<span id="cb206-3"><a href="sec-io.html#cb206-3" aria-hidden="true"></a><span class="kw">sink</span>(zz, <span class="dt">type =</span> <span class="st">&quot;message&quot;</span>)  <span class="co"># open the same file for messages, errors and warnings</span></span>
-<span id="cb206-4"><a href="sec-io.html#cb206-4" aria-hidden="true"></a><span class="kw">cat</span>(<span class="st">&quot;This is a string</span><span class="ch">\n</span><span class="st">... and on a new line</span><span class="ch">\n\n</span><span class="st">&quot;</span>)</span>
-<span id="cb206-5"><a href="sec-io.html#cb206-5" aria-hidden="true"></a><span class="kw">print</span>(<span class="st">&quot;This is another string&quot;</span>)</span>
-<span id="cb206-6"><a href="sec-io.html#cb206-6" aria-hidden="true"></a><span class="kw">head</span>(mtcars)</span>
-<span id="cb206-7"><a href="sec-io.html#cb206-7" aria-hidden="true"></a><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>)</span>
-<span id="cb206-8"><a href="sec-io.html#cb206-8" aria-hidden="true"></a><span class="kw">message</span>(<span class="st">&quot;A message.&quot;</span>)</span>
-<span id="cb206-9"><a href="sec-io.html#cb206-9" aria-hidden="true"></a><span class="kw">warning</span>(<span class="st">&quot;A warning.&quot;</span>)</span>
-<span id="cb206-10"><a href="sec-io.html#cb206-10" aria-hidden="true"></a><span class="kw">rep</span>(<span class="dv">3</span>, f)  <span class="co"># a error</span></span>
-<span id="cb206-11"><a href="sec-io.html#cb206-11" aria-hidden="true"></a><span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Last line</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb206-12"><a href="sec-io.html#cb206-12" aria-hidden="true"></a><span class="kw">sink</span>()  <span class="co"># close the file for output</span></span>
-<span id="cb206-13"><a href="sec-io.html#cb206-13" aria-hidden="true"></a><span class="kw">sink</span>()  <span class="co"># close the file for messages, errors and warnings</span></span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="sec-io.html#cb210-1" aria-hidden="true"></a>zz &lt;-<span class="st"> </span><span class="kw">file</span>(<span class="st">&quot;ex2.log&quot;</span>, <span class="dt">open =</span> <span class="st">&quot;wt&quot;</span>)</span>
+<span id="cb210-2"><a href="sec-io.html#cb210-2" aria-hidden="true"></a><span class="kw">sink</span>(zz, <span class="dt">type =</span> <span class="st">&quot;output&quot;</span>)   <span class="co"># open the file for output</span></span>
+<span id="cb210-3"><a href="sec-io.html#cb210-3" aria-hidden="true"></a><span class="kw">sink</span>(zz, <span class="dt">type =</span> <span class="st">&quot;message&quot;</span>)  <span class="co"># open the same file for messages, errors and warnings</span></span>
+<span id="cb210-4"><a href="sec-io.html#cb210-4" aria-hidden="true"></a><span class="kw">cat</span>(<span class="st">&quot;This is a string</span><span class="ch">\n</span><span class="st">... and on a new line</span><span class="ch">\n\n</span><span class="st">&quot;</span>)</span>
+<span id="cb210-5"><a href="sec-io.html#cb210-5" aria-hidden="true"></a><span class="kw">print</span>(<span class="st">&quot;This is another string&quot;</span>)</span>
+<span id="cb210-6"><a href="sec-io.html#cb210-6" aria-hidden="true"></a><span class="kw">head</span>(mtcars)</span>
+<span id="cb210-7"><a href="sec-io.html#cb210-7" aria-hidden="true"></a><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>)</span>
+<span id="cb210-8"><a href="sec-io.html#cb210-8" aria-hidden="true"></a><span class="kw">message</span>(<span class="st">&quot;A message.&quot;</span>)</span>
+<span id="cb210-9"><a href="sec-io.html#cb210-9" aria-hidden="true"></a><span class="kw">warning</span>(<span class="st">&quot;A warning.&quot;</span>)</span>
+<span id="cb210-10"><a href="sec-io.html#cb210-10" aria-hidden="true"></a><span class="kw">rep</span>(<span class="dv">3</span>, f)  <span class="co"># a error</span></span>
+<span id="cb210-11"><a href="sec-io.html#cb210-11" aria-hidden="true"></a><span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Last line</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb210-12"><a href="sec-io.html#cb210-12" aria-hidden="true"></a><span class="kw">sink</span>()  <span class="co"># close the file for output</span></span>
+<span id="cb210-13"><a href="sec-io.html#cb210-13" aria-hidden="true"></a><span class="kw">sink</span>()  <span class="co"># close the file for messages, errors and warnings</span></span></code></pre></div>
 <p>That is, we call sink two times. Let us have a look at the content of the file:</p>
 <pre><code>This is a string
 ... and on a new line
@@ -750,75 +750,75 @@ Last line</code></pre>
 <p>In general, we can differ between two main types of data/files. Information is either binary encoded (basically just 0’s and 1’s) or stored as text files. What we have considered so far is storing data in text files.</p>
 <p>Text files can be read by humans and computers alike. The great thing about plain text is their simplicity and their ease of use: any programming language can read a plain text file. Text files are good for storing tabular data but lacks type-safety, and has limited precision for numeric values. Binary file formats cannot be read by humans but allows space-efficient data compression. Furthermore, binary formats may be difficult to read and write using other programs.</p>
 <p>As most other programming languages, R comes with its own binary format. We will focus on the Rds data format which are optimised for speed and compression ratios. To save and read an R object use:</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="sec-io.html#cb208-1" aria-hidden="true"></a>dat &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="dt">y =</span> <span class="st">&quot;A string&quot;</span>, <span class="dt">z =</span> mtcars)</span>
-<span id="cb208-2"><a href="sec-io.html#cb208-2" aria-hidden="true"></a><span class="kw">saveRDS</span>(dat, <span class="dt">file =</span> <span class="st">&quot;test.rds&quot;</span>)</span>
-<span id="cb208-3"><a href="sec-io.html#cb208-3" aria-hidden="true"></a><span class="kw">readRDS</span>(<span class="st">&quot;test.rds&quot;</span>)</span>
-<span id="cb208-4"><a href="sec-io.html#cb208-4" aria-hidden="true"></a><span class="co">#&gt; $x</span></span>
-<span id="cb208-5"><a href="sec-io.html#cb208-5" aria-hidden="true"></a><span class="co">#&gt; [1] 2 5 6</span></span>
-<span id="cb208-6"><a href="sec-io.html#cb208-6" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb208-7"><a href="sec-io.html#cb208-7" aria-hidden="true"></a><span class="co">#&gt; $y</span></span>
-<span id="cb208-8"><a href="sec-io.html#cb208-8" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;A string&quot;</span></span>
-<span id="cb208-9"><a href="sec-io.html#cb208-9" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb208-10"><a href="sec-io.html#cb208-10" aria-hidden="true"></a><span class="co">#&gt; $z</span></span>
-<span id="cb208-11"><a href="sec-io.html#cb208-11" aria-hidden="true"></a><span class="co">#&gt;                      mpg cyl  disp  hp drat   wt  qsec vs am gear carb   col</span></span>
-<span id="cb208-12"><a href="sec-io.html#cb208-12" aria-hidden="true"></a><span class="co">#&gt; Mazda RX4           21.0   6 160.0 110 3.90 2.62  16.5  0  1    4    4  &lt;NA&gt;</span></span>
-<span id="cb208-13"><a href="sec-io.html#cb208-13" aria-hidden="true"></a><span class="co">#&gt; Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.88  17.0  0  1    4    4 green</span></span>
-<span id="cb208-14"><a href="sec-io.html#cb208-14" aria-hidden="true"></a><span class="co">#&gt; Datsun 710          22.8   4 108.0  93 3.85 2.32  18.6  1  1    4    1  blue</span></span>
-<span id="cb208-15"><a href="sec-io.html#cb208-15" aria-hidden="true"></a><span class="co">#&gt; Hornet 4 Drive      21.4   6 258.0 110 3.08 3.21  19.4  1  0    3    1   red</span></span>
-<span id="cb208-16"><a href="sec-io.html#cb208-16" aria-hidden="true"></a><span class="co">#&gt; Hornet Sportabout   18.7   8 360.0 175 3.15 3.44  17.0  0  0    3    2  &lt;NA&gt;</span></span>
-<span id="cb208-17"><a href="sec-io.html#cb208-17" aria-hidden="true"></a><span class="co">#&gt; Valiant             18.1   6 225.0 105 2.76 3.46  20.2  1  0    3    1  blue</span></span>
-<span id="cb208-18"><a href="sec-io.html#cb208-18" aria-hidden="true"></a><span class="co">#&gt; Duster 360          14.3   8 360.0 245 3.21 3.57  15.8  0  0    3    4 green</span></span>
-<span id="cb208-19"><a href="sec-io.html#cb208-19" aria-hidden="true"></a><span class="co">#&gt; Merc 240D           24.4   4 146.7  62 3.69 3.19  20.0  1  0    4    2  blue</span></span>
-<span id="cb208-20"><a href="sec-io.html#cb208-20" aria-hidden="true"></a><span class="co">#&gt; Merc 230            22.8   4 140.8  95 3.92 3.15  22.9  1  0    4    2   red</span></span>
-<span id="cb208-21"><a href="sec-io.html#cb208-21" aria-hidden="true"></a><span class="co">#&gt; Merc 280            19.2   6 167.6 123 3.92 3.44  18.3  1  0    4    4   red</span></span>
-<span id="cb208-22"><a href="sec-io.html#cb208-22" aria-hidden="true"></a><span class="co">#&gt; Merc 280C           17.8   6 167.6 123 3.92 3.44  18.9  1  0    4    4  blue</span></span>
-<span id="cb208-23"><a href="sec-io.html#cb208-23" aria-hidden="true"></a><span class="co">#&gt; Merc 450SE          16.4   8 275.8 180 3.07 4.07  17.4  0  0    3    3 green</span></span>
-<span id="cb208-24"><a href="sec-io.html#cb208-24" aria-hidden="true"></a><span class="co">#&gt; Merc 450SL          17.3   8 275.8 180 3.07 3.73  17.6  0  0    3    3  blue</span></span>
-<span id="cb208-25"><a href="sec-io.html#cb208-25" aria-hidden="true"></a><span class="co">#&gt; Merc 450SLC         15.2   8 275.8 180 3.07 3.78  18.0  0  0    3    3  blue</span></span>
-<span id="cb208-26"><a href="sec-io.html#cb208-26" aria-hidden="true"></a><span class="co">#&gt; Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.25  18.0  0  0    3    4 green</span></span>
-<span id="cb208-27"><a href="sec-io.html#cb208-27" aria-hidden="true"></a><span class="co">#&gt; Lincoln Continental 10.4   8 460.0 215 3.00 5.42  17.8  0  0    3    4   red</span></span>
-<span id="cb208-28"><a href="sec-io.html#cb208-28" aria-hidden="true"></a><span class="co">#&gt; Chrysler Imperial   14.7   8 440.0 230 3.23 5.34  17.4  0  0    3    4   red</span></span>
-<span id="cb208-29"><a href="sec-io.html#cb208-29" aria-hidden="true"></a><span class="co">#&gt; Fiat 128            32.4   4  78.7  66 4.08 2.20  19.5  1  1    4    1  &lt;NA&gt;</span></span>
-<span id="cb208-30"><a href="sec-io.html#cb208-30" aria-hidden="true"></a><span class="co">#&gt; Honda Civic         30.4   4  75.7  52 4.93 1.61  18.5  1  1    4    2  &lt;NA&gt;</span></span>
-<span id="cb208-31"><a href="sec-io.html#cb208-31" aria-hidden="true"></a><span class="co">#&gt; Toyota Corolla      33.9   4  71.1  65 4.22 1.83  19.9  1  1    4    1   red</span></span>
-<span id="cb208-32"><a href="sec-io.html#cb208-32" aria-hidden="true"></a><span class="co">#&gt; Toyota Corona       21.5   4 120.1  97 3.70 2.46  20.0  1  0    3    1 green</span></span>
-<span id="cb208-33"><a href="sec-io.html#cb208-33" aria-hidden="true"></a><span class="co">#&gt; Dodge Challenger    15.5   8 318.0 150 2.76 3.52  16.9  0  0    3    2   red</span></span>
-<span id="cb208-34"><a href="sec-io.html#cb208-34" aria-hidden="true"></a><span class="co">#&gt; AMC Javelin         15.2   8 304.0 150 3.15 3.44  17.3  0  0    3    2   red</span></span>
-<span id="cb208-35"><a href="sec-io.html#cb208-35" aria-hidden="true"></a><span class="co">#&gt; Camaro Z28          13.3   8 350.0 245 3.73 3.84  15.4  0  0    3    4  &lt;NA&gt;</span></span>
-<span id="cb208-36"><a href="sec-io.html#cb208-36" aria-hidden="true"></a><span class="co">#&gt; Pontiac Firebird    19.2   8 400.0 175 3.08 3.85  17.1  0  0    3    2 green</span></span>
-<span id="cb208-37"><a href="sec-io.html#cb208-37" aria-hidden="true"></a><span class="co">#&gt; Fiat X1-9           27.3   4  79.0  66 4.08 1.94  18.9  1  1    4    1  &lt;NA&gt;</span></span>
-<span id="cb208-38"><a href="sec-io.html#cb208-38" aria-hidden="true"></a><span class="co">#&gt; Porsche 914-2       26.0   4 120.3  91 4.43 2.14  16.7  0  1    5    2  blue</span></span>
-<span id="cb208-39"><a href="sec-io.html#cb208-39" aria-hidden="true"></a><span class="co">#&gt; Lotus Europa        30.4   4  95.1 113 3.77 1.51  16.9  1  1    5    2 green</span></span>
-<span id="cb208-40"><a href="sec-io.html#cb208-40" aria-hidden="true"></a><span class="co">#&gt; Ford Pantera L      15.8   8 351.0 264 4.22 3.17  14.5  0  1    5    4 green</span></span>
-<span id="cb208-41"><a href="sec-io.html#cb208-41" aria-hidden="true"></a><span class="co">#&gt; Ferrari Dino        19.7   6 145.0 175 3.62 2.77  15.5  0  1    5    6   red</span></span>
-<span id="cb208-42"><a href="sec-io.html#cb208-42" aria-hidden="true"></a><span class="co">#&gt; Maserati Bora       15.0   8 301.0 335 3.54 3.57  14.6  0  1    5    8 green</span></span>
-<span id="cb208-43"><a href="sec-io.html#cb208-43" aria-hidden="true"></a><span class="co">#&gt; Volvo 142E          21.4   4 121.0 109 4.11 2.78  18.6  1  1    4    2  blue</span></span>
-<span id="cb208-44"><a href="sec-io.html#cb208-44" aria-hidden="true"></a><span class="co">#&gt; Phantom XE          34.0   3  87.0 112 4.50 1.51 167.0  1  1    5    3  &lt;NA&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="sec-io.html#cb212-1" aria-hidden="true"></a>dat &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="dt">y =</span> <span class="st">&quot;A string&quot;</span>, <span class="dt">z =</span> mtcars)</span>
+<span id="cb212-2"><a href="sec-io.html#cb212-2" aria-hidden="true"></a><span class="kw">saveRDS</span>(dat, <span class="dt">file =</span> <span class="st">&quot;test.rds&quot;</span>)</span>
+<span id="cb212-3"><a href="sec-io.html#cb212-3" aria-hidden="true"></a><span class="kw">readRDS</span>(<span class="st">&quot;test.rds&quot;</span>)</span>
+<span id="cb212-4"><a href="sec-io.html#cb212-4" aria-hidden="true"></a><span class="co">#&gt; $x</span></span>
+<span id="cb212-5"><a href="sec-io.html#cb212-5" aria-hidden="true"></a><span class="co">#&gt; [1] 2 5 6</span></span>
+<span id="cb212-6"><a href="sec-io.html#cb212-6" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb212-7"><a href="sec-io.html#cb212-7" aria-hidden="true"></a><span class="co">#&gt; $y</span></span>
+<span id="cb212-8"><a href="sec-io.html#cb212-8" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;A string&quot;</span></span>
+<span id="cb212-9"><a href="sec-io.html#cb212-9" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb212-10"><a href="sec-io.html#cb212-10" aria-hidden="true"></a><span class="co">#&gt; $z</span></span>
+<span id="cb212-11"><a href="sec-io.html#cb212-11" aria-hidden="true"></a><span class="co">#&gt;                      mpg cyl  disp  hp drat   wt  qsec vs am gear carb   col</span></span>
+<span id="cb212-12"><a href="sec-io.html#cb212-12" aria-hidden="true"></a><span class="co">#&gt; Mazda RX4           21.0   6 160.0 110 3.90 2.62  16.5  0  1    4    4  &lt;NA&gt;</span></span>
+<span id="cb212-13"><a href="sec-io.html#cb212-13" aria-hidden="true"></a><span class="co">#&gt; Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.88  17.0  0  1    4    4 green</span></span>
+<span id="cb212-14"><a href="sec-io.html#cb212-14" aria-hidden="true"></a><span class="co">#&gt; Datsun 710          22.8   4 108.0  93 3.85 2.32  18.6  1  1    4    1  blue</span></span>
+<span id="cb212-15"><a href="sec-io.html#cb212-15" aria-hidden="true"></a><span class="co">#&gt; Hornet 4 Drive      21.4   6 258.0 110 3.08 3.21  19.4  1  0    3    1   red</span></span>
+<span id="cb212-16"><a href="sec-io.html#cb212-16" aria-hidden="true"></a><span class="co">#&gt; Hornet Sportabout   18.7   8 360.0 175 3.15 3.44  17.0  0  0    3    2  &lt;NA&gt;</span></span>
+<span id="cb212-17"><a href="sec-io.html#cb212-17" aria-hidden="true"></a><span class="co">#&gt; Valiant             18.1   6 225.0 105 2.76 3.46  20.2  1  0    3    1  blue</span></span>
+<span id="cb212-18"><a href="sec-io.html#cb212-18" aria-hidden="true"></a><span class="co">#&gt; Duster 360          14.3   8 360.0 245 3.21 3.57  15.8  0  0    3    4 green</span></span>
+<span id="cb212-19"><a href="sec-io.html#cb212-19" aria-hidden="true"></a><span class="co">#&gt; Merc 240D           24.4   4 146.7  62 3.69 3.19  20.0  1  0    4    2  blue</span></span>
+<span id="cb212-20"><a href="sec-io.html#cb212-20" aria-hidden="true"></a><span class="co">#&gt; Merc 230            22.8   4 140.8  95 3.92 3.15  22.9  1  0    4    2   red</span></span>
+<span id="cb212-21"><a href="sec-io.html#cb212-21" aria-hidden="true"></a><span class="co">#&gt; Merc 280            19.2   6 167.6 123 3.92 3.44  18.3  1  0    4    4   red</span></span>
+<span id="cb212-22"><a href="sec-io.html#cb212-22" aria-hidden="true"></a><span class="co">#&gt; Merc 280C           17.8   6 167.6 123 3.92 3.44  18.9  1  0    4    4  blue</span></span>
+<span id="cb212-23"><a href="sec-io.html#cb212-23" aria-hidden="true"></a><span class="co">#&gt; Merc 450SE          16.4   8 275.8 180 3.07 4.07  17.4  0  0    3    3 green</span></span>
+<span id="cb212-24"><a href="sec-io.html#cb212-24" aria-hidden="true"></a><span class="co">#&gt; Merc 450SL          17.3   8 275.8 180 3.07 3.73  17.6  0  0    3    3  blue</span></span>
+<span id="cb212-25"><a href="sec-io.html#cb212-25" aria-hidden="true"></a><span class="co">#&gt; Merc 450SLC         15.2   8 275.8 180 3.07 3.78  18.0  0  0    3    3  blue</span></span>
+<span id="cb212-26"><a href="sec-io.html#cb212-26" aria-hidden="true"></a><span class="co">#&gt; Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.25  18.0  0  0    3    4 green</span></span>
+<span id="cb212-27"><a href="sec-io.html#cb212-27" aria-hidden="true"></a><span class="co">#&gt; Lincoln Continental 10.4   8 460.0 215 3.00 5.42  17.8  0  0    3    4   red</span></span>
+<span id="cb212-28"><a href="sec-io.html#cb212-28" aria-hidden="true"></a><span class="co">#&gt; Chrysler Imperial   14.7   8 440.0 230 3.23 5.34  17.4  0  0    3    4   red</span></span>
+<span id="cb212-29"><a href="sec-io.html#cb212-29" aria-hidden="true"></a><span class="co">#&gt; Fiat 128            32.4   4  78.7  66 4.08 2.20  19.5  1  1    4    1  &lt;NA&gt;</span></span>
+<span id="cb212-30"><a href="sec-io.html#cb212-30" aria-hidden="true"></a><span class="co">#&gt; Honda Civic         30.4   4  75.7  52 4.93 1.61  18.5  1  1    4    2  &lt;NA&gt;</span></span>
+<span id="cb212-31"><a href="sec-io.html#cb212-31" aria-hidden="true"></a><span class="co">#&gt; Toyota Corolla      33.9   4  71.1  65 4.22 1.83  19.9  1  1    4    1   red</span></span>
+<span id="cb212-32"><a href="sec-io.html#cb212-32" aria-hidden="true"></a><span class="co">#&gt; Toyota Corona       21.5   4 120.1  97 3.70 2.46  20.0  1  0    3    1 green</span></span>
+<span id="cb212-33"><a href="sec-io.html#cb212-33" aria-hidden="true"></a><span class="co">#&gt; Dodge Challenger    15.5   8 318.0 150 2.76 3.52  16.9  0  0    3    2   red</span></span>
+<span id="cb212-34"><a href="sec-io.html#cb212-34" aria-hidden="true"></a><span class="co">#&gt; AMC Javelin         15.2   8 304.0 150 3.15 3.44  17.3  0  0    3    2   red</span></span>
+<span id="cb212-35"><a href="sec-io.html#cb212-35" aria-hidden="true"></a><span class="co">#&gt; Camaro Z28          13.3   8 350.0 245 3.73 3.84  15.4  0  0    3    4  &lt;NA&gt;</span></span>
+<span id="cb212-36"><a href="sec-io.html#cb212-36" aria-hidden="true"></a><span class="co">#&gt; Pontiac Firebird    19.2   8 400.0 175 3.08 3.85  17.1  0  0    3    2 green</span></span>
+<span id="cb212-37"><a href="sec-io.html#cb212-37" aria-hidden="true"></a><span class="co">#&gt; Fiat X1-9           27.3   4  79.0  66 4.08 1.94  18.9  1  1    4    1  &lt;NA&gt;</span></span>
+<span id="cb212-38"><a href="sec-io.html#cb212-38" aria-hidden="true"></a><span class="co">#&gt; Porsche 914-2       26.0   4 120.3  91 4.43 2.14  16.7  0  1    5    2  blue</span></span>
+<span id="cb212-39"><a href="sec-io.html#cb212-39" aria-hidden="true"></a><span class="co">#&gt; Lotus Europa        30.4   4  95.1 113 3.77 1.51  16.9  1  1    5    2 green</span></span>
+<span id="cb212-40"><a href="sec-io.html#cb212-40" aria-hidden="true"></a><span class="co">#&gt; Ford Pantera L      15.8   8 351.0 264 4.22 3.17  14.5  0  1    5    4 green</span></span>
+<span id="cb212-41"><a href="sec-io.html#cb212-41" aria-hidden="true"></a><span class="co">#&gt; Ferrari Dino        19.7   6 145.0 175 3.62 2.77  15.5  0  1    5    6   red</span></span>
+<span id="cb212-42"><a href="sec-io.html#cb212-42" aria-hidden="true"></a><span class="co">#&gt; Maserati Bora       15.0   8 301.0 335 3.54 3.57  14.6  0  1    5    8 green</span></span>
+<span id="cb212-43"><a href="sec-io.html#cb212-43" aria-hidden="true"></a><span class="co">#&gt; Volvo 142E          21.4   4 121.0 109 4.11 2.78  18.6  1  1    4    2  blue</span></span>
+<span id="cb212-44"><a href="sec-io.html#cb212-44" aria-hidden="true"></a><span class="co">#&gt; Phantom XE          34.0   3  87.0 112 4.50 1.51 167.0  1  1    5    3  &lt;NA&gt;</span></span></code></pre></div>
 <p>Note we here have saved a non tabular R object (a list).</p>
 </div>
 <div id="json" class="section level2" number="7.7">
 <h2><span class="header-section-number">7.7</span> Json</h2>
 <p><a href="https://en.wikipedia.org/wiki/JSON">JavaScript Object Notation</a> (json) is an open standard text file format, and data interchange format, that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and array data types. It can be used to store non tabular data in text format. It is often used for data-exchange in web-apis.</p>
 <p>Let us try to read and write to a json file using the <a href="https://cran.r-project.org/web/packages/jsonlite/index.html">jsonlite</a> package.</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="sec-io.html#cb209-1" aria-hidden="true"></a><span class="kw">library</span>(jsonlite)</span>
-<span id="cb209-2"><a href="sec-io.html#cb209-2" aria-hidden="true"></a>dat &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="dt">y =</span> <span class="st">&quot;A string&quot;</span>, <span class="dt">z =</span> <span class="kw">head</span>(mtcars))</span>
-<span id="cb209-3"><a href="sec-io.html#cb209-3" aria-hidden="true"></a><span class="kw">write_json</span>(dat, <span class="st">&quot;test.json&quot;</span>, <span class="dt">pretty =</span> T)</span>
-<span id="cb209-4"><a href="sec-io.html#cb209-4" aria-hidden="true"></a>lst &lt;-<span class="st"> </span><span class="kw">read_json</span>(<span class="st">&quot;test.json&quot;</span>, <span class="dt">simplifyDataFrame =</span> T, <span class="dt">simplifyVector =</span> T)</span>
-<span id="cb209-5"><a href="sec-io.html#cb209-5" aria-hidden="true"></a>lst</span>
-<span id="cb209-6"><a href="sec-io.html#cb209-6" aria-hidden="true"></a><span class="co">#&gt; $x</span></span>
-<span id="cb209-7"><a href="sec-io.html#cb209-7" aria-hidden="true"></a><span class="co">#&gt; [1] 2 5 6</span></span>
-<span id="cb209-8"><a href="sec-io.html#cb209-8" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb209-9"><a href="sec-io.html#cb209-9" aria-hidden="true"></a><span class="co">#&gt; $y</span></span>
-<span id="cb209-10"><a href="sec-io.html#cb209-10" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;A string&quot;</span></span>
-<span id="cb209-11"><a href="sec-io.html#cb209-11" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb209-12"><a href="sec-io.html#cb209-12" aria-hidden="true"></a><span class="co">#&gt; $z</span></span>
-<span id="cb209-13"><a href="sec-io.html#cb209-13" aria-hidden="true"></a><span class="co">#&gt;                    mpg cyl disp  hp drat   wt qsec vs am gear carb   col</span></span>
-<span id="cb209-14"><a href="sec-io.html#cb209-14" aria-hidden="true"></a><span class="co">#&gt; Mazda RX4         21.0   6  160 110 3.90 2.62 16.5  0  1    4    4  &lt;NA&gt;</span></span>
-<span id="cb209-15"><a href="sec-io.html#cb209-15" aria-hidden="true"></a><span class="co">#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.88 17.0  0  1    4    4 green</span></span>
-<span id="cb209-16"><a href="sec-io.html#cb209-16" aria-hidden="true"></a><span class="co">#&gt; Datsun 710        22.8   4  108  93 3.85 2.32 18.6  1  1    4    1  blue</span></span>
-<span id="cb209-17"><a href="sec-io.html#cb209-17" aria-hidden="true"></a><span class="co">#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.21 19.4  1  0    3    1   red</span></span>
-<span id="cb209-18"><a href="sec-io.html#cb209-18" aria-hidden="true"></a><span class="co">#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.44 17.0  0  0    3    2  &lt;NA&gt;</span></span>
-<span id="cb209-19"><a href="sec-io.html#cb209-19" aria-hidden="true"></a><span class="co">#&gt; Valiant           18.1   6  225 105 2.76 3.46 20.2  1  0    3    1  blue</span></span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="sec-io.html#cb213-1" aria-hidden="true"></a><span class="kw">library</span>(jsonlite)</span>
+<span id="cb213-2"><a href="sec-io.html#cb213-2" aria-hidden="true"></a>dat &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="dt">y =</span> <span class="st">&quot;A string&quot;</span>, <span class="dt">z =</span> <span class="kw">head</span>(mtcars))</span>
+<span id="cb213-3"><a href="sec-io.html#cb213-3" aria-hidden="true"></a><span class="kw">write_json</span>(dat, <span class="st">&quot;test.json&quot;</span>, <span class="dt">pretty =</span> T)</span>
+<span id="cb213-4"><a href="sec-io.html#cb213-4" aria-hidden="true"></a>lst &lt;-<span class="st"> </span><span class="kw">read_json</span>(<span class="st">&quot;test.json&quot;</span>, <span class="dt">simplifyDataFrame =</span> T, <span class="dt">simplifyVector =</span> T)</span>
+<span id="cb213-5"><a href="sec-io.html#cb213-5" aria-hidden="true"></a>lst</span>
+<span id="cb213-6"><a href="sec-io.html#cb213-6" aria-hidden="true"></a><span class="co">#&gt; $x</span></span>
+<span id="cb213-7"><a href="sec-io.html#cb213-7" aria-hidden="true"></a><span class="co">#&gt; [1] 2 5 6</span></span>
+<span id="cb213-8"><a href="sec-io.html#cb213-8" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb213-9"><a href="sec-io.html#cb213-9" aria-hidden="true"></a><span class="co">#&gt; $y</span></span>
+<span id="cb213-10"><a href="sec-io.html#cb213-10" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;A string&quot;</span></span>
+<span id="cb213-11"><a href="sec-io.html#cb213-11" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb213-12"><a href="sec-io.html#cb213-12" aria-hidden="true"></a><span class="co">#&gt; $z</span></span>
+<span id="cb213-13"><a href="sec-io.html#cb213-13" aria-hidden="true"></a><span class="co">#&gt;                    mpg cyl disp  hp drat   wt qsec vs am gear carb   col</span></span>
+<span id="cb213-14"><a href="sec-io.html#cb213-14" aria-hidden="true"></a><span class="co">#&gt; Mazda RX4         21.0   6  160 110 3.90 2.62 16.5  0  1    4    4  &lt;NA&gt;</span></span>
+<span id="cb213-15"><a href="sec-io.html#cb213-15" aria-hidden="true"></a><span class="co">#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.88 17.0  0  1    4    4 green</span></span>
+<span id="cb213-16"><a href="sec-io.html#cb213-16" aria-hidden="true"></a><span class="co">#&gt; Datsun 710        22.8   4  108  93 3.85 2.32 18.6  1  1    4    1  blue</span></span>
+<span id="cb213-17"><a href="sec-io.html#cb213-17" aria-hidden="true"></a><span class="co">#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.21 19.4  1  0    3    1   red</span></span>
+<span id="cb213-18"><a href="sec-io.html#cb213-18" aria-hidden="true"></a><span class="co">#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.44 17.0  0  0    3    2  &lt;NA&gt;</span></span>
+<span id="cb213-19"><a href="sec-io.html#cb213-19" aria-hidden="true"></a><span class="co">#&gt; Valiant           18.1   6  225 105 2.76 3.46 20.2  1  0    3    1  blue</span></span></code></pre></div>
 <p>The content of the json file look likes:</p>
 <pre><code>{
   &quot;x&quot;: [2, 5, 6],
@@ -947,165 +947,319 @@ Last line</code></pre>
 <h3><span class="header-section-number">7.10.1</span> Exercise (Statistikbanken)</h3>
 <p>Use the <em>exercise R markdown template</em> to solve this exercise (<strong>File &gt; New File &gt; R Markdown…</strong>, select <strong>From template</strong> and then <strong>TFA Exercise</strong>).</p>
 <p>You can use the <a href="https://api.statbank.dk/console">API</a> from <a href="https://www.statistikbanken.dk/">Statistikbanken</a> to download a lot of data sets. Let us consider airports in Denmark (data set with table id FLYV41):</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="sec-io.html#cb211-1" aria-hidden="true"></a>url &lt;-<span class="st"> &quot;https://api.statbank.dk/v1/data/FLYV41/CSV?lang=en&amp;LUFTHAVN=*&amp;Tid=*&amp;Transport=*&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="sec-io.html#cb215-1" aria-hidden="true"></a>url &lt;-<span class="st"> &quot;https://api.statbank.dk/v1/data/FLYV41/CSV?lang=en&amp;LUFTHAVN=*&amp;Tid=*&amp;Transport=*&quot;</span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Use <code>cat(read_lines(url, n_max = 3), sep = "\n")</code> to have a look at the delimiter used.</li>
 </ol>
-<div aria-labelledby="solution0-title" class="modal fade bs-example-modal-lg" id="solution0" role="dialog" tabindex="-1">
+<div id="mgaP7oim1Ab4hYHOfA6X" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mgaP7oim1Ab4hYHOfA6X-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution0-title">Solution</h4>
+<h4 class="modal-title" id="mgaP7oim1Ab4hYHOfA6X-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">url &lt;- &#39;https://api.statbank.dk/v1/data/FLYV41/CSV?lang=en&amp;LUFTHAVN=*&amp;Tid=*&amp;Transport=*&#39;
-dat &lt;- read_csv2(url)
-dat
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="sec-io.html#cb216-1" aria-hidden="true"></a>url &lt;-<span class="st"> &#39;https://api.statbank.dk/v1/data/FLYV41/CSV?lang=en&amp;LUFTHAVN=*&amp;Tid=*&amp;Transport=*&#39;</span></span>
+<span id="cb216-2"><a href="sec-io.html#cb216-2" aria-hidden="true"></a>dat &lt;-<span class="st"> </span><span class="kw">read_csv2</span>(url)</span>
+<span id="cb216-3"><a href="sec-io.html#cb216-3" aria-hidden="true"></a>dat</span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution0">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#mgaP7oim1Ab4hYHOfA6X">
+Solution
+</button>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Import the csv file.</p></li>
 <li><p>Try to retrieve information and get an overview over the data by running:</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="sec-io.html#cb212-1" aria-hidden="true"></a><span class="kw">library</span>(jsonlite)</span>
-<span id="cb212-2"><a href="sec-io.html#cb212-2" aria-hidden="true"></a>url &lt;-<span class="st"> &quot;https://api.statbank.dk/v1/tableinfo/FLYV41?lang=en&quot;</span></span>
-<span id="cb212-3"><a href="sec-io.html#cb212-3" aria-hidden="true"></a>lst &lt;-<span class="st"> </span><span class="kw">read_json</span>(url, <span class="dt">simplifyVector =</span> T)</span>
-<span id="cb212-4"><a href="sec-io.html#cb212-4" aria-hidden="true"></a><span class="kw">View</span>(lst)</span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="sec-io.html#cb217-1" aria-hidden="true"></a><span class="kw">library</span>(jsonlite)</span>
+<span id="cb217-2"><a href="sec-io.html#cb217-2" aria-hidden="true"></a>url &lt;-<span class="st"> &quot;https://api.statbank.dk/v1/tableinfo/FLYV41?lang=en&quot;</span></span>
+<span id="cb217-3"><a href="sec-io.html#cb217-3" aria-hidden="true"></a>lst &lt;-<span class="st"> </span><span class="kw">read_json</span>(url, <span class="dt">simplifyVector =</span> T)</span>
+<span id="cb217-4"><a href="sec-io.html#cb217-4" aria-hidden="true"></a><span class="kw">View</span>(lst)</span></code></pre></div>
 <p>Note the data returned is in json format, so we use <code>read_json</code> to read the data into a list.</p></li>
 </ol>
-<div aria-labelledby="solution1-title" class="modal fade bs-example-modal-lg" id="solution1" role="dialog" tabindex="-1">
+<div id="65dYIGdp3z1BKrBnrTeK" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="65dYIGdp3z1BKrBnrTeK-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution1-title">Solution</h4>
+<h4 class="modal-title" id="65dYIGdp3z1BKrBnrTeK-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">info &lt;- function(tab_id) {
-   url &lt;- str_c(&quot;https://api.statbank.dk/v1/tableinfo/&quot;, tab_id, &quot;?lang=en&quot;)
-   lst &lt;- read_json(url, simplifyVector = T) 
-   return(list(description = lst$description, unit = lst$unit, variables = lst$variables))
-}
-info(&quot;FLYV41&quot;)
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="sec-io.html#cb218-1" aria-hidden="true"></a>info &lt;-<span class="st"> </span><span class="cf">function</span>(tab_id) {</span>
+<span id="cb218-2"><a href="sec-io.html#cb218-2" aria-hidden="true"></a>   url &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;https://api.statbank.dk/v1/tableinfo/&quot;</span>, tab_id, <span class="st">&quot;?lang=en&quot;</span>)</span>
+<span id="cb218-3"><a href="sec-io.html#cb218-3" aria-hidden="true"></a>   lst &lt;-<span class="st"> </span><span class="kw">read_json</span>(url, <span class="dt">simplifyVector =</span> T) </span>
+<span id="cb218-4"><a href="sec-io.html#cb218-4" aria-hidden="true"></a>   <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">description =</span> lst<span class="op">$</span>description, <span class="dt">unit =</span> lst<span class="op">$</span>unit, <span class="dt">variables =</span> lst<span class="op">$</span>variables[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]))</span>
+<span id="cb218-5"><a href="sec-io.html#cb218-5" aria-hidden="true"></a>}</span>
+<span id="cb218-6"><a href="sec-io.html#cb218-6" aria-hidden="true"></a><span class="kw">info</span>(<span class="st">&quot;FLYV41&quot;</span>)</span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution1">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#65dYIGdp3z1BKrBnrTeK">
+Solution
+</button>
+<div id="SwF1xGe4yurQmIHzzTlK" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="SwF1xGe4yurQmIHzzTlK-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="SwF1xGe4yurQmIHzzTlK-title">
+Hint 2
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="sec-io.html#cb219-1" aria-hidden="true"></a>info &lt;-<span class="st"> </span><span class="cf">function</span>(tab_id) {</span>
+<span id="cb219-2"><a href="sec-io.html#cb219-2" aria-hidden="true"></a>   url &lt;-<span class="st"> </span><span class="kw">str_c</span>(___)</span>
+<span id="cb219-3"><a href="sec-io.html#cb219-3" aria-hidden="true"></a>   lst &lt;-<span class="st"> </span><span class="kw">read_json</span>(___) </span>
+<span id="cb219-4"><a href="sec-io.html#cb219-4" aria-hidden="true"></a>   <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">description =</span> lst<span class="op">$</span>___, <span class="dt">unit =</span> ___, ___))</span>
+<span id="cb219-5"><a href="sec-io.html#cb219-5" aria-hidden="true"></a>}</span>
+<span id="cb219-6"><a href="sec-io.html#cb219-6" aria-hidden="true"></a><span class="kw">info</span>(<span class="st">&quot;FLYV41&quot;</span>)</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#SwF1xGe4yurQmIHzzTlK">
+Hint 2
+</button>
+<div id="EcL3ygrS7g1At9GFJD1t" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="EcL3ygrS7g1At9GFJD1t-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="EcL3ygrS7g1At9GFJD1t-title">
+Hint 1
+</h4>
+</div>
+<div class="modal-body">
+<p>
+You can modify the code in Question 3 to return only parts of the list.
+</p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#EcL3ygrS7g1At9GFJD1t">
+Hint 1
+</button>
 <ol start="4" style="list-style-type: decimal">
-<li><p>Create a function <code>info(tab_id)</code> that returns a list with components <code>description</code>, <code>unit</code> and <code>variables</code> from the information for a data set with table id <code>tab_id</code>. Hint you can modify the code in Question 3 to return only parts of the list.</p></li>
+<li><p>Create a function <code>info(tab_id)</code> that returns a list with components <code>description</code>, <code>unit</code> and <code>variables</code> from the information for a data set with table id <code>tab_id</code>.</p></li>
 <li><p>Information about all the data sets can be retrieved using:</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="sec-io.html#cb213-1" aria-hidden="true"></a>url &lt;-<span class="st"> &quot;https://api.statbank.dk/v1/tables?lang=en&quot;</span></span>
-<span id="cb213-2"><a href="sec-io.html#cb213-2" aria-hidden="true"></a>lst &lt;-<span class="st"> </span>jsonlite<span class="op">::</span><span class="kw">read_json</span>(url, <span class="dt">simplifyVector =</span> T)</span>
-<span id="cb213-3"><a href="sec-io.html#cb213-3" aria-hidden="true"></a><span class="kw">View</span>(lst)</span></code></pre></div>
-<p>Have a look at the row for FlYV41.</p></li>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="sec-io.html#cb220-1" aria-hidden="true"></a>url &lt;-<span class="st"> &quot;https://api.statbank.dk/v1/tables?lang=en&quot;</span></span>
+<span id="cb220-2"><a href="sec-io.html#cb220-2" aria-hidden="true"></a>lst &lt;-<span class="st"> </span>jsonlite<span class="op">::</span><span class="kw">read_json</span>(url, <span class="dt">simplifyVector =</span> T)</span>
+<span id="cb220-3"><a href="sec-io.html#cb220-3" aria-hidden="true"></a><span class="kw">View</span>(lst)</span></code></pre></div>
+<p>Have a look at the row for FLYV41.</p></li>
 </ol>
-<div aria-labelledby="solution2-title" class="modal fade bs-example-modal-lg" id="solution2" role="dialog" tabindex="-1">
+<div id="xwSR3MtNVWAX6cXEtCQs" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="xwSR3MtNVWAX6cXEtCQs-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution2-title">Solution</h4>
+<h4 class="modal-title" id="xwSR3MtNVWAX6cXEtCQs-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">get_data &lt;- function(tab_id, col_id = NULL) {
-   url &lt;- str_c(&quot;https://api.statbank.dk/v1/tableinfo/&quot;, tab_id, &quot;?lang=en&quot;)
-   lst &lt;- read_json(url, simplifyVector = T) 
-   cols &lt;- lst$variables$id
-   if (!is.null(col_id)) cols &lt;- cols[col_id]
-   url &lt;- str_c(&quot;https://api.statbank.dk/v1/data/&quot;, lst$id[i], &quot;/CSV?lang=en&amp;&quot;, str_c(cols, collapse = &quot;=*&amp;&quot;), &quot;=*&quot;) %&gt;% 
-      URLencode()
-   dat &lt;- read_csv2(url)
-   return(dat)
-}
-get_data(&quot;FLYV41&quot;, 3)
-get_data(&quot;FLYV41&quot;, 1:2)
-get_data(&quot;FLYV41&quot;)
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="sec-io.html#cb221-1" aria-hidden="true"></a>get_data &lt;-<span class="st"> </span><span class="cf">function</span>(tab_id, <span class="dt">col_id =</span> <span class="ot">NULL</span>) {</span>
+<span id="cb221-2"><a href="sec-io.html#cb221-2" aria-hidden="true"></a>   url &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;https://api.statbank.dk/v1/tableinfo/&quot;</span>, tab_id, <span class="st">&quot;?lang=en&quot;</span>)</span>
+<span id="cb221-3"><a href="sec-io.html#cb221-3" aria-hidden="true"></a>   lst &lt;-<span class="st"> </span><span class="kw">read_json</span>(url, <span class="dt">simplifyVector =</span> T) </span>
+<span id="cb221-4"><a href="sec-io.html#cb221-4" aria-hidden="true"></a>   cols &lt;-<span class="st"> </span>lst<span class="op">$</span>variables<span class="op">$</span>id</span>
+<span id="cb221-5"><a href="sec-io.html#cb221-5" aria-hidden="true"></a>   <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(col_id)) cols &lt;-<span class="st"> </span>cols[col_id]</span>
+<span id="cb221-6"><a href="sec-io.html#cb221-6" aria-hidden="true"></a>   url &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;https://api.statbank.dk/v1/data/&quot;</span>, tab_id, <span class="st">&quot;/CSV?lang=en&amp;&quot;</span>, <span class="kw">str_c</span>(cols, <span class="dt">collapse =</span> <span class="st">&quot;=*&amp;&quot;</span>), <span class="st">&quot;=*&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb221-7"><a href="sec-io.html#cb221-7" aria-hidden="true"></a><span class="st">      </span><span class="kw">URLencode</span>()</span>
+<span id="cb221-8"><a href="sec-io.html#cb221-8" aria-hidden="true"></a>   dat &lt;-<span class="st"> </span><span class="kw">read_csv2</span>(url)</span>
+<span id="cb221-9"><a href="sec-io.html#cb221-9" aria-hidden="true"></a>   <span class="kw">return</span>(dat)</span>
+<span id="cb221-10"><a href="sec-io.html#cb221-10" aria-hidden="true"></a>}</span>
+<span id="cb221-11"><a href="sec-io.html#cb221-11" aria-hidden="true"></a><span class="kw">get_data</span>(<span class="st">&quot;FLYV41&quot;</span>, <span class="dv">3</span>)</span>
+<span id="cb221-12"><a href="sec-io.html#cb221-12" aria-hidden="true"></a><span class="kw">get_data</span>(<span class="st">&quot;FLYV41&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</span>
+<span id="cb221-13"><a href="sec-io.html#cb221-13" aria-hidden="true"></a><span class="kw">get_data</span>(<span class="st">&quot;FLYV41&quot;</span>)</span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution2">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#xwSR3MtNVWAX6cXEtCQs">
+Solution
+</button>
+<div id="EIscrTtAciBZfuKX0Mdb" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="EIscrTtAciBZfuKX0Mdb-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="EIscrTtAciBZfuKX0Mdb-title">
+Hint
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="sec-io.html#cb222-1" aria-hidden="true"></a>get_data &lt;-<span class="st"> </span><span class="cf">function</span>(tab_id, <span class="dt">col_id =</span> <span class="ot">NULL</span>) {</span>
+<span id="cb222-2"><a href="sec-io.html#cb222-2" aria-hidden="true"></a>   url &lt;-<span class="st"> </span>___</span>
+<span id="cb222-3"><a href="sec-io.html#cb222-3" aria-hidden="true"></a>   lst &lt;-<span class="st"> </span>___</span>
+<span id="cb222-4"><a href="sec-io.html#cb222-4" aria-hidden="true"></a>   cols &lt;-<span class="st"> </span>lst<span class="op">$</span>variables<span class="op">$</span>id</span>
+<span id="cb222-5"><a href="sec-io.html#cb222-5" aria-hidden="true"></a>   <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(col_id)) cols &lt;-<span class="st"> </span>cols[___]</span>
+<span id="cb222-6"><a href="sec-io.html#cb222-6" aria-hidden="true"></a>   url &lt;-<span class="st"> </span>___</span>
+<span id="cb222-7"><a href="sec-io.html#cb222-7" aria-hidden="true"></a>   dat &lt;-<span class="st"> </span>___</span>
+<span id="cb222-8"><a href="sec-io.html#cb222-8" aria-hidden="true"></a>   <span class="kw">return</span>(dat)</span>
+<span id="cb222-9"><a href="sec-io.html#cb222-9" aria-hidden="true"></a>}</span>
+<span id="cb222-10"><a href="sec-io.html#cb222-10" aria-hidden="true"></a><span class="kw">get_data</span>(<span class="st">&quot;FLYV41&quot;</span>, <span class="dv">3</span>)</span>
+<span id="cb222-11"><a href="sec-io.html#cb222-11" aria-hidden="true"></a><span class="kw">get_data</span>(<span class="st">&quot;FLYV41&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</span>
+<span id="cb222-12"><a href="sec-io.html#cb222-12" aria-hidden="true"></a><span class="kw">get_data</span>(<span class="st">&quot;FLYV41&quot;</span>)</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#EIscrTtAciBZfuKX0Mdb">
+Hint
+</button>
 <ol start="6" style="list-style-type: decimal">
 <li><p>Given the information about variables in a data set we can construct the url to retrieve the data in csv format:</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="sec-io.html#cb214-1" aria-hidden="true"></a>tab_id &lt;-<span class="st"> &quot;FLYV41&quot;</span></span>
-<span id="cb214-2"><a href="sec-io.html#cb214-2" aria-hidden="true"></a>url &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;https://api.statbank.dk/v1/tableinfo/&quot;</span>, tab_id, <span class="st">&quot;?lang=en&quot;</span>)</span>
-<span id="cb214-3"><a href="sec-io.html#cb214-3" aria-hidden="true"></a>lst &lt;-<span class="st"> </span><span class="kw">read_json</span>(url, <span class="dt">simplifyVector =</span> T) </span>
-<span id="cb214-4"><a href="sec-io.html#cb214-4" aria-hidden="true"></a>col_id &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)  <span class="co"># column ids in lst$variables$id</span></span>
-<span id="cb214-5"><a href="sec-io.html#cb214-5" aria-hidden="true"></a>cols &lt;-<span class="st"> </span>lst<span class="op">$</span>variables<span class="op">$</span>id[col_id]</span>
-<span id="cb214-6"><a href="sec-io.html#cb214-6" aria-hidden="true"></a>url &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;https://api.statbank.dk/v1/data/&quot;</span>, tab_id, <span class="st">&quot;/CSV?lang=en&amp;&quot;</span>, <span class="kw">str_c</span>(cols, <span class="dt">collapse =</span> <span class="st">&quot;=*&amp;&quot;</span>), <span class="st">&quot;=*&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb214-7"><a href="sec-io.html#cb214-7" aria-hidden="true"></a><span class="st">   </span><span class="kw">URLencode</span>()</span>
-<span id="cb214-8"><a href="sec-io.html#cb214-8" aria-hidden="true"></a>url</span>
-<span id="cb214-9"><a href="sec-io.html#cb214-9" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;https://api.statbank.dk/v1/data/FLYV41/CSV?lang=en&amp;LUFTHAVN=*&amp;Tid=*&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="sec-io.html#cb223-1" aria-hidden="true"></a>tab_id &lt;-<span class="st"> &quot;FLYV41&quot;</span></span>
+<span id="cb223-2"><a href="sec-io.html#cb223-2" aria-hidden="true"></a>url &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;https://api.statbank.dk/v1/tableinfo/&quot;</span>, tab_id, <span class="st">&quot;?lang=en&quot;</span>)</span>
+<span id="cb223-3"><a href="sec-io.html#cb223-3" aria-hidden="true"></a>lst &lt;-<span class="st"> </span><span class="kw">read_json</span>(url, <span class="dt">simplifyVector =</span> T) </span>
+<span id="cb223-4"><a href="sec-io.html#cb223-4" aria-hidden="true"></a>col_id &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)  <span class="co"># column ids in lst$variables$id</span></span>
+<span id="cb223-5"><a href="sec-io.html#cb223-5" aria-hidden="true"></a>cols &lt;-<span class="st"> </span>lst<span class="op">$</span>variables<span class="op">$</span>id[col_id]</span>
+<span id="cb223-6"><a href="sec-io.html#cb223-6" aria-hidden="true"></a>url &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;https://api.statbank.dk/v1/data/&quot;</span>, tab_id, <span class="st">&quot;/CSV?lang=en&amp;&quot;</span>, <span class="kw">str_c</span>(cols, <span class="dt">collapse =</span> <span class="st">&quot;=*&amp;&quot;</span>), <span class="st">&quot;=*&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb223-7"><a href="sec-io.html#cb223-7" aria-hidden="true"></a><span class="st">   </span><span class="kw">URLencode</span>()</span>
+<span id="cb223-8"><a href="sec-io.html#cb223-8" aria-hidden="true"></a>url</span>
+<span id="cb223-9"><a href="sec-io.html#cb223-9" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;https://api.statbank.dk/v1/data/FLYV41/CSV?lang=en&amp;LUFTHAVN=*&amp;Tid=*&quot;</span></span></code></pre></div>
 <p>Create a function <code>get_data(tab_id, col_id)</code> that retrieve a data set.</p></li>
 </ol>
-<div aria-labelledby="solution3-title" class="modal fade bs-example-modal-lg" id="solution3" role="dialog" tabindex="-1">
+<div id="o7fCahWMhTES4FY1Ddim" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="o7fCahWMhTES4FY1Ddim-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution3-title">Solution</h4>
+<h4 class="modal-title" id="o7fCahWMhTES4FY1Ddim-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">dat &lt;- get_data(&quot;FOLK1A&quot;, c(2, 3, 5))
-dat
-write_csv(dat, &quot;test.csv&quot;)
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="sec-io.html#cb224-1" aria-hidden="true"></a>dat &lt;-<span class="st"> </span><span class="kw">get_data</span>(<span class="st">&quot;FOLK1A&quot;</span>, <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>))</span>
+<span id="cb224-2"><a href="sec-io.html#cb224-2" aria-hidden="true"></a>dat</span>
+<span id="cb224-3"><a href="sec-io.html#cb224-3" aria-hidden="true"></a><span class="kw">write_csv</span>(dat, <span class="st">&quot;test.csv&quot;</span>)</span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution3">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#o7fCahWMhTES4FY1Ddim">
+Solution
+</button>
 <ol start="7" style="list-style-type: decimal">
 <li>Use the function <code>get_data</code> to retrieve data for <code>tab_id = "FOLK1A"</code> and <code>col_id = c(2, 3, 5)</code> and save it as a csv file with a comma as delimiter.</li>
 </ol>
-<div aria-labelledby="solution4-title" class="modal fade bs-example-modal-lg" id="solution4" role="dialog" tabindex="-1">
+<div id="46wvve9uvA4ZMSSmpHjU" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="46wvve9uvA4ZMSSmpHjU-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="solution4-title">Solution</h4>
+<h4 class="modal-title" id="46wvve9uvA4ZMSSmpHjU-title">
+Solution
+</h4>
 </div>
-<div class="modal-body"><pre><code class="r">library(openxlsx)
-write.xlsx(dat, &quot;test.xlsx&quot;, sheetName = &quot;FOLK1A&quot;) 
-
-library(googlesheets4)
-gs &lt;- gs4_create(&quot;test&quot;)
-write_sheet(dat, ss = gs, sheet = &quot;FOLK1A&quot;)
-gs4_browse(gs)
-</code></pre>
+<div class="modal-body">
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="sec-io.html#cb225-1" aria-hidden="true"></a><span class="kw">library</span>(openxlsx)</span>
+<span id="cb225-2"><a href="sec-io.html#cb225-2" aria-hidden="true"></a><span class="kw">write.xlsx</span>(dat, <span class="st">&quot;test.xlsx&quot;</span>, <span class="dt">sheetName =</span> <span class="st">&quot;FOLK1A&quot;</span>) </span>
+<span id="cb225-3"><a href="sec-io.html#cb225-3" aria-hidden="true"></a></span>
+<span id="cb225-4"><a href="sec-io.html#cb225-4" aria-hidden="true"></a><span class="kw">library</span>(googlesheets4)</span>
+<span id="cb225-5"><a href="sec-io.html#cb225-5" aria-hidden="true"></a>gs &lt;-<span class="st"> </span><span class="kw">gs4_create</span>(<span class="st">&quot;test&quot;</span>)</span>
+<span id="cb225-6"><a href="sec-io.html#cb225-6" aria-hidden="true"></a><span class="kw">write_sheet</span>(dat, <span class="dt">ss =</span> gs, <span class="dt">sheet =</span> <span class="st">&quot;FOLK1A&quot;</span>)</span>
+<span id="cb225-7"><a href="sec-io.html#cb225-7" aria-hidden="true"></a><span class="kw">gs4_browse</span>(gs)</span></code></pre></div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-default" data-dismiss="modal">Close</button>
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
 </div>
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#solution4">Solution</button>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#46wvve9uvA4ZMSSmpHjU">
+Solution
+</button>
+<div id="42EDQYiEtTGJfjZsPCTN" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="42EDQYiEtTGJfjZsPCTN-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="42EDQYiEtTGJfjZsPCTN-title">
+Hint
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="sec-io.html#cb226-1" aria-hidden="true"></a><span class="kw">library</span>(openxlsx)</span>
+<span id="cb226-2"><a href="sec-io.html#cb226-2" aria-hidden="true"></a><span class="kw">write.xlsx</span>(___) </span>
+<span id="cb226-3"><a href="sec-io.html#cb226-3" aria-hidden="true"></a></span>
+<span id="cb226-4"><a href="sec-io.html#cb226-4" aria-hidden="true"></a><span class="kw">library</span>(googlesheets4)</span>
+<span id="cb226-5"><a href="sec-io.html#cb226-5" aria-hidden="true"></a>gs &lt;-<span class="st"> </span><span class="kw">gs4_create</span>(<span class="st">&quot;test&quot;</span>)</span>
+<span id="cb226-6"><a href="sec-io.html#cb226-6" aria-hidden="true"></a><span class="kw">write_sheet</span>(___, <span class="dt">ss =</span> ___, <span class="dt">sheet =</span> <span class="st">&quot;FOLK1A&quot;</span>)</span>
+<span id="cb226-7"><a href="sec-io.html#cb226-7" aria-hidden="true"></a><span class="kw">gs4_browse</span>(gs)</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#42EDQYiEtTGJfjZsPCTN">
+Hint
+</button>
 <ol start="8" style="list-style-type: decimal">
 <li>Save the data in an Excel file and a Google sheet.</li>
 </ol>
