@@ -6,7 +6,8 @@ editor_options:
 ```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
 ```
 
-
+```{r links, child="links.md"}
+```
 
 # Importing and exporting data {#sec-io}
 
@@ -472,22 +473,267 @@ gs4_browse(gs)
 ``` 
    8) Save the data in an Excel file and a Google sheet.
 
-
+### Exercise (tuples in OPL)
    
+In the algebraic modeling language OPL (Optimization Programming Language) used by [IBM ILOG CPLEX Optimization Studio](https://www.ibm.com/products/ilog-cplex-optimization-studio), you can define tuples to contain various information. For example consider tuples defined as:
 
-   
+```java
+tuple nurse {
+  string name;
+  int experience;   // higest best
+}
+
+tuple shift {
+   string departmentName;
+   string day;
+   int startTime;
+   int endTime;
+}
+```
+
+A `nurse` tuple is then defined as `<"Anne", 11>` and a `shift` tuple as `<"Consultation", "Monday" 12, 18>.
+
+A set of tuples can be defined using:
+
+```java
+{nurse} Nurses = ...;
+{shift} Shifts = ...;
+```
+
+where the `...` operator means that the sets are read from a data text file:
+
+```java
+nurses = {
+   <"Anne", 11>, 
+   <"Bethanie", 4>, 
+   <"Betsy", 2>
+};
+
+shifts = {
+   <"Emergency", "Monday", 2, 8>,
+   <"Emergency", Monday 8 12 4 7>, 
+   <"Emergency", "Monday" 12 18 2 5> 
+};
+```
+
+You can now use the sets to define decision variables $x_{ns}$ equal one if nurse $n$ is assigned to shift $s$. 
+
+In this exercise we will try to generate the data text file given tibbles with data.
 
 
+```{r, solution=TRUE}
+file = "test.dat"
+write_lines("nurses = {", file)
+write_lines('   <"Anne", 11>', file, append = TRUE)
+write_lines('};', file, append = TRUE)
+cat(read_file("test.dat"))
+```
+```{r, hint=TRUE}
+file = "test.dat"
+write_lines("nurses = {", file)
+write_lines(___, ___, append = TRUE)
+write_lines(___, ___, append = TRUE)
+cat(read_file("test.dat"))  # to have a look 
+```
+1) Try to generate a text file named `test.dat` using function `write_lines` with content 
 
+   ```java 
+   nurses = {
+      <"Anne", 11>
+   };
+   ```
 
+Load datasets 
 
-```{r links, child="links.md"}
+```{r}
+remotes::install_github("bss-osca/tfa/tfa-package", dependencies = FALSE)
+library(tidyverse)
+nurses <- read_csv(system.file("extdata/nurses.csv", package = "tfa"))
+shifts <- read_csv(system.file("extdata/shifts.csv", package = "tfa"))
 ```
 
 
 
 
+```{r, solution=TRUE}
+nurses %>%
+   mutate(across(where(is.character), ~str_c('"', .x, '"'))) 
+```
+```{r, hint=TRUE, title="Hint 2"}
+nurses %>%
+   mutate(across(where(___), ~str_c('___', .x, '___'))) 
+```
+```{r, solution=TRUE, title="Hint 1"}
+v <- c("foo", "bar")
+str_c('"', v, '"')  # use of str_c to add "
+str_c(v, collapse = ", ") # collapsing a vector
+tbl <- tribble(
+   ~name, ~experience,
+   "Anne", 11,
+   "Bethanie", 4
+)
+tbl
+tbl %>% 
+   mutate(across(where(is.character), # use across to find all character columns
+                 ~str_c('(', .x, ')'))) # str_c is applied to each column where .x is the column values 
+```
+
+2) Transform all character columns in `nurses` so they start and end with `"`. Some hints are given in Hint 1. 
 
 
+```{r, solution=TRUE}
+nurses %>%
+   mutate(across(where(is.character), ~str_c('"', .x, '"'))) %>% 
+   unite("tuple", everything(), sep = ", ", remove = FALSE)
+```
+```{r, hint=TRUE}
+nurses %>%
+   mutate(across(where(is.character), ~str_c('"', .x, '"'))) %>% 
+   unite("tuple", everything(), sep = ___, remove = ___)
+```
+
+3) Unite all columns into a new column named `tuple` where each column is separated with `,`. Hint: have a look at the `unite` function. All columns can be selected using `everything()`.
+
+
+
+```{r, solution=TRUE}
+nurses %>%
+   mutate(across(where(is.character), ~str_c('"', .x, '"'))) %>% 
+   unite("tuple", everything(), sep = ", ", remove = FALSE) %>% 
+   mutate(tuple = str_c("<", tuple, ">"))
+```
+```{r, hint=TRUE}
+nurses %>%
+   mutate(across(where(is.character), ~str_c('"', .x, '"'))) %>% 
+   unite("tuple", everything(), sep = ", ", remove = FALSE) %>% 
+   mutate(tuple = str_c(___, tuple, ___))
+```
+
+4) Add `<` and `>` the start and end of the `tuple` column.
+
+
+
+```{r, solution=TRUE}
+nurses %>%
+   mutate(across(where(is.character), ~str_c('"', .x, '"'))) %>% 
+   unite("tuple", everything(), sep = ", ", remove = FALSE) %>% 
+   mutate(tuple = str_c("<", tuple, ">")) %>% 
+   pull(tuple) %>% 
+   str_c(collapse = ",\n")
+```
+```{r, hint=TRUE}
+nurses %>%
+   mutate(across(where(is.character), ~str_c('"', .x, '"'))) %>% 
+   unite("tuple", everything(), sep = ", ", remove = FALSE) %>% 
+   mutate(tuple = str_c("<", tuple, ">")) %>% 
+   pull(___) %>% 
+   str_c(___)
+```
+
+5) Extract the `tuple` column and transform it into a string with `collapse = ",\n"`.
+
+
+
+```{r, solution=TRUE}
+write_tuple <- function(dat, file) {
+   write_lines("nurses = {", file, sep = "\n   ")
+   tuples <- dat %>%
+      mutate(across(where(is.character), ~str_c('"', .x, '"'))) %>% 
+      unite("tuple", everything(), sep = ", ", remove = FALSE) %>% 
+      mutate(tuple = str_c("<", tuple, ">")) %>% 
+      pull(tuple) %>% 
+      str_c(collapse = ",\n   ")
+   write_lines(tuples, file, append = TRUE)
+   write_lines("};", file, append = TRUE)
+}
+file <- "test.dat"
+write_tuple(nurses, file)
+cat(read_file("test.dat"))  # to have a look 
+```
+```{r, hint=TRUE, title="Hint 2"}
+write_tuple <- function(dat, file) {
+   write_lines("nurses = {", file, sep = "\n   ")
+   tuples <- dat %>%
+      ___
+   write_lines(tuples, file, append = TRUE)
+   write_lines("};", file, append = TRUE)
+}
+file <- "test.dat"
+write_tuple(nurses, file)
+cat(read_file("test.dat"))  # to have a look 
+```
+```{r, hint=TRUE, title="Hint 1"}
+write_tuple <- function(dat, file) {
+   write_lines(___)
+   ___
+   write_lines("};", ___, ___)
+}
+file <- "test.dat"
+write_tuple(nurses, file)
+cat(read_file("test.dat"))  # to have a look 
+```
+
+6) Create a function `write_tuple` that takes nurses as input and write the tuples to a file.
+
+The name of an object can be extracted as a string using 
+
+```{r}
+deparse(substitute(nurses))
+```
+
+
+
+
+```{r, solution=TRUE}
+write_tuple <- function(dat, file) {
+   name <- deparse(substitute(dat))
+   write_lines(str_c(name, " = {"), file, sep = "\n   ")
+   tuples <- dat %>%
+      mutate(across(where(is.character), ~str_c('"', .x, '"'))) %>% 
+      unite("tuple", everything(), sep = ", ", remove = FALSE) %>% 
+      mutate(tuple = str_c("<", tuple, ">")) %>% 
+      pull(tuple) %>% 
+      str_c(collapse = ",\n   ")
+   write_lines(tuples, file, append = TRUE)
+   write_lines("};", file, append = TRUE)
+}
+file <- "test.dat"
+write_tuple(shifts, file)
+cat(read_file("test.dat"))  # to have a look 
+```
+
+7) Modify `write_tuple` so it works if `shifts` also are given as input.
+
+
+
+
+```{r, solution=TRUE}
+write_tuple <- function(dat, file, append = FALSE) {
+   name <- deparse(substitute(dat))
+   write_lines(str_c("\n", name, " = {"), file, sep = "\n   ", append = append)
+   tuples <- dat %>%
+      mutate(across(where(is.character), ~str_c('"', .x, '"'))) %>% 
+      unite("tuple", everything(), sep = ", ", remove = FALSE) %>% 
+      mutate(tuple = str_c("<", tuple, ">")) %>% 
+      pull(tuple) %>% 
+      str_c(collapse = ",\n   ")
+   write_lines(tuples, file, append = TRUE)
+   write_lines("};", file, append = TRUE)
+}
+```
+
+8) Modify `write_tuple` with a new input argument `append` which is false by default. If true, then then the file is not overwritten.
+
+
+
+
+```{r, solution=TRUE}
+file <- "test.dat"
+write_tuple(nurses, file)
+write_tuple(shifts, file, append = TRUE)
+cat(read_file("test.dat"))  # to have a look 
+```
+
+9) Write `nurses` and `shifts` to a single data file.
 
 
