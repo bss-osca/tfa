@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2020-10-20" />
+<meta name="date" content="2020-10-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -370,14 +370,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="sec-io" class="section level1" number="7">
 <h1><span class="header-section-number">Module 7</span> Importing and exporting data</h1>
-<p>For doing data driven analytics you first must <strong>import</strong> some data. That is, take data from a database, file, web API etc. and transform it into a data frame/table. Moreover, after processing data you often want to export or store some of the results. This module introduces you to different ways of importing and exporting data.</p>
+<p>For doing data driven analytics, you first must <strong>import</strong> some data. That is, take data from a database, file, web API etc. and transform it into a data frame/table. Moreover, after processing data, you often want to export or store some of the results. This module introduces you to different ways of importing and exporting data.</p>
 <div id="lo-io" class="section level2" number="7.1">
 <h2><span class="header-section-number">7.1</span> Learning outcomes</h2>
 <p>By the end of this module, you are expected to be able to:</p>
 <ul>
 <li>Import and export csv files in different formats.</li>
 <li>Import and export data from Excel.</li>
-<li>Import and export data from Google Sheets</li>
+<li>Import and export data from Google Sheets.</li>
 <li>Write to a text file.</li>
 <li>Save data using R’s native format.</li>
 <li>Read and write to a json file.</li>
@@ -389,7 +389,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="csv-files" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> CSV files</h2>
-<p><a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV files</a> contains <em>comma separated values</em> (csv) in plain text and are often named using the file suffix <code>.csv</code>. Each line of the file is a data record. Each record consists of one or more fields, separated by a common delimiter (e.g. <code>,</code>, <code>;</code> or <code>_</code>). The CSV file format is not fully standardized. Different delimiters may be used, fields may be surrounded by quotation marks, text may contain escape characters and the encoding of the file may not be known. Despite these problems CSV files are commonly used since they are easy to exchange and read.</p>
+<p><a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV files</a> contain <em>comma separated values</em> (csv) in plain text and are often named using the file suffix <code>.csv</code>. Each line of the file is a data record. Each record consists of one or more fields, separated by a common delimiter (e.g. <code>,</code>, <code>;</code> or <code>_</code>). The CSV file format is not fully standardized. Different delimiters may be used, fields may be surrounded by quotation marks, text may contain escape characters and the encoding of the file may not be known. Despite these problems, CSV files are commonly used since they are easy to exchange and read.</p>
 <p>We will use the [readr][readr-web] package for reading and writing. An overview over the functions can be seen in the <a href="https://rawgit.com/rstudio/cheatsheets/master/data-import.pdf">cheatsheet</a>.</p>
 <div id="reading-a-csv-file" class="section level3" number="7.2.1">
 <h3><span class="header-section-number">7.2.1</span> Reading a CSV file</h3>
@@ -401,7 +401,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="reading-an-unknown-csv-file" class="section level4" number="7.2.1.1">
 <h4><span class="header-section-number">7.2.1.1</span> Reading an unknown CSV file</h4>
-<p>For importing a CSV file properly you need to know the delimiter, if the files has headers and the encoding. If you are not sure, you may have a look on the file by opening it in a text editor or try to read some lines:</p>
+<p>For importing a CSV file properly, you need to know the delimiter, if the files has headers and the encoding. If you are not sure, you may have a look on the file by opening it in a text editor or try to read some lines:</p>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="sec-io.html#cb191-1" aria-hidden="true"></a>csv_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/mtcars.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;readr&quot;</span>)  <span class="co"># csv file</span></span>
 <span id="cb191-2"><a href="sec-io.html#cb191-2" aria-hidden="true"></a>lines &lt;-<span class="st"> </span><span class="kw">read_lines</span>(csv_file, <span class="dt">n_max =</span> <span class="dv">3</span>)</span>
 <span id="cb191-3"><a href="sec-io.html#cb191-3" aria-hidden="true"></a>lines</span>
@@ -431,7 +431,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb193-4"><a href="sec-io.html#cb193-4" aria-hidden="true"></a><span class="co">#&gt; UCC PAY LAZ KPK  RT   COF BIH DII ENG ACU Rank Team            Conf</span></span>
 <span id="cb193-5"><a href="sec-io.html#cb193-5" aria-hidden="true"></a><span class="co">#&gt;   1   1   1   1   1     1   1   1   1   1    1 Ohio St          B10 </span></span>
 <span id="cb193-6"><a href="sec-io.html#cb193-6" aria-hidden="true"></a><span class="co">#&gt;   2   2   2   2   2     2   2   2   4   2    2 Oregon           P12</span></span></code></pre></div>
-<p>Here it is harder to guess the delimiter. It could be a space or a tabulator. Let us try to read it assuming a space or tabulator</p>
+<p>Here it is harder to guess the delimiter. It could be a space or a tabulator. Let us try to read it assuming a space or tabulator:</p>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="sec-io.html#cb194-1" aria-hidden="true"></a><span class="kw">read_tsv</span>(csv_file)                  <span class="co"># assume tabulator (\t)</span></span>
 <span id="cb194-2"><a href="sec-io.html#cb194-2" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 10 x 1</span></span>
 <span id="cb194-3"><a href="sec-io.html#cb194-3" aria-hidden="true"></a><span class="co">#&gt;    `UCC PAY LAZ KPK  RT   COF BIH DII ENG ACU Rank Team            Conf`</span></span>
@@ -469,7 +469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb194-35"><a href="sec-io.html#cb194-35" aria-hidden="true"></a><span class="co">#&gt;  8     8     8     9     9    10     5     7     7    10     7     8 Baylor      B12  </span></span>
 <span id="cb194-36"><a href="sec-io.html#cb194-36" aria-hidden="true"></a><span class="co">#&gt;  9     9    11     8    13    11    11    12     9    14     9     9 Georgia     Tech </span></span>
 <span id="cb194-37"><a href="sec-io.html#cb194-37" aria-hidden="true"></a><span class="co">#&gt; 10    13    10    13    11     8     9    10    11     9    10    10 Mississippi SEC</span></span></code></pre></div>
-<p>The first function puts all data in one column. The second function worked even though we have some warnings.</p>
+<p>The first function puts all data in one column. The second function works even though we have some warnings.</p>
 <p>CSV files should always be saved using encoding UTF-8. However, sometimes you may have encoding problems when you read a file:</p>
 <div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="sec-io.html#cb195-1" aria-hidden="true"></a>csv_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/persons.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tfa&quot;</span>)</span>
 <span id="cb195-2"><a href="sec-io.html#cb195-2" aria-hidden="true"></a><span class="kw">read_csv</span>(csv_file)</span>
@@ -479,7 +479,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb195-6"><a href="sec-io.html#cb195-6" aria-hidden="true"></a><span class="co">#&gt; 1 &quot;Hans&quot;   &quot;S\xf8gaard&quot;</span></span>
 <span id="cb195-7"><a href="sec-io.html#cb195-7" aria-hidden="true"></a><span class="co">#&gt; 2 &quot;\xc5ge&quot; &quot;\xd8kse&quot;   </span></span>
 <span id="cb195-8"><a href="sec-io.html#cb195-8" aria-hidden="true"></a><span class="co">#&gt; 3 &quot;Yvette&quot; &quot;L\xe6ske&quot;</span></span></code></pre></div>
-<p>Note that some of the characters are not converted correctly. This is usually because the file encoding is not UTF-8. In this case try to guess the encoding using</p>
+<p>Note that some of the characters are not converted correctly. This is usually because the file encoding is not UTF-8. In this case, try to guess the encoding using:</p>
 <div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="sec-io.html#cb196-1" aria-hidden="true"></a><span class="kw">guess_encoding</span>(csv_file)</span>
 <span id="cb196-2"><a href="sec-io.html#cb196-2" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
 <span id="cb196-3"><a href="sec-io.html#cb196-3" aria-hidden="true"></a><span class="co">#&gt;   encoding   confidence</span></span>
@@ -519,8 +519,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb198-12"><a href="sec-io.html#cb198-12" aria-hidden="true"></a><span class="co">#&gt; 1 UTF-8              1   </span></span>
 <span id="cb198-13"><a href="sec-io.html#cb198-13" aria-hidden="true"></a><span class="co">#&gt; 2 windows-1252       0.31</span></span>
 <span id="cb198-14"><a href="sec-io.html#cb198-14" aria-hidden="true"></a><span class="co">#&gt; 3 windows-1250       0.25</span></span></code></pre></div>
-<p>Note that <code>write_csv</code> always save the file using encoding UTF-8.</p>
-<p>In a few cases you may need to save a CSV file that can be read by Excel. For this purpose use:</p>
+<p>Note that <code>write_csv</code> always saves the file using encoding UTF-8.</p>
+<p>In a few cases, you may need to save a CSV file that can be read by Excel. For this purpose use:</p>
 <div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="sec-io.html#cb199-1" aria-hidden="true"></a><span class="kw">write_excel_csv2</span>(dat, csv_file)</span></code></pre></div>
 <p>The CSV file can now be opened correctly in Excel.</p>
 </div>
@@ -529,9 +529,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">7.3</span> Excel</h2>
 <p>There are different packages in R for reading and writing to Excel. We will use the <a href="https://readxl.tidyverse.org">readxl</a> package for reading Excel files which is a part of tidyverse. The package supports both the legacy <code>.xls</code> format and the modern xml-based <code>.xlsx</code> format. Let us use one of the example files provided by the package:</p>
 <div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="sec-io.html#cb200-1" aria-hidden="true"></a>xlsx_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/datasets.xlsx&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;readxl&quot;</span>)</span></code></pre></div>
-<p>It is always a good idea to have a look at the file before you import from it. You can open it from R by using</p>
+<p>It is always a good idea to have a look at the file before you import from it. You can open it from R by using:</p>
 <div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="sec-io.html#cb201-1" aria-hidden="true"></a><span class="kw">browseURL</span>(xlsx_file)</span></code></pre></div>
-<p>Data can be read using</p>
+<p>Data can be read using:</p>
 <div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="sec-io.html#cb202-1" aria-hidden="true"></a><span class="kw">library</span>(readxl)</span>
 <span id="cb202-2"><a href="sec-io.html#cb202-2" aria-hidden="true"></a>xlsx &lt;-<span class="st"> </span><span class="kw">read_excel</span>(xlsx_file)   <span class="co"># reads the first sheet</span></span>
 <span id="cb202-3"><a href="sec-io.html#cb202-3" aria-hidden="true"></a>xlsx</span>
@@ -618,7 +618,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="google-sheets" class="section level2" number="7.4">
 <h2><span class="header-section-number">7.4</span> Google Sheets</h2>
-<p>You can import and export to Google sheets using the <a href="https://googlesheets4.tidyverse.org/index.html">googlesheets4</a> package in tidyverse. To read and write data you in general need to be logged in as a Google user. The package will ask you when needed. However if you only want to read data from a public sheet you can use <code>gs4_deauth</code> to skip this:</p>
+<p>You can import and export to Google sheets using the <a href="https://googlesheets4.tidyverse.org/index.html">googlesheets4</a> package in tidyverse. To read and write data, in general, you need to be logged in as a Google user. The package will ask you when needed. However, if you only want to read data from a public sheet, you can use <code>gs4_deauth</code> to skip this:</p>
 <div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="sec-io.html#cb205-1" aria-hidden="true"></a><span class="kw">library</span>(googlesheets4)</span>
 <span id="cb205-2"><a href="sec-io.html#cb205-2" aria-hidden="true"></a><span class="kw">gs4_deauth</span>()</span></code></pre></div>
 <p>To read data use:</p>
@@ -680,11 +680,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb207-3"><a href="sec-io.html#cb207-3" aria-hidden="true"></a><span class="kw">write_sheet</span>(dat, <span class="dt">ss =</span> gs)</span>
 <span id="cb207-4"><a href="sec-io.html#cb207-4" aria-hidden="true"></a><span class="kw">range_write</span>(gs, dat, <span class="dt">sheet =</span> <span class="st">&quot;Sheet 1&quot;</span>, <span class="dt">range =</span> <span class="st">&quot;C4&quot;</span>)</span>
 <span id="cb207-5"><a href="sec-io.html#cb207-5" aria-hidden="true"></a><span class="kw">gs4_browse</span>(gs)  <span class="co"># have a look at the file in a browser</span></span></code></pre></div>
-<p>To see the results have a look at your Google sheet <code>test</code> in your browser.</p>
+<p>To see the results, have a look at your Google sheet <code>test</code> in your browser.</p>
 </div>
 <div id="text-files" class="section level2" number="7.5">
 <h2><span class="header-section-number">7.5</span> Text files</h2>
-<p>You can read and write to plain text files using the [readr][readr-web] package. However, mostly you want to write to a text file because you want to save some kind of log file when you run your script. Here <code>sink</code> is a excellent function to use. Since it redirects your R output. To see the output without messages, errors and warnings use:</p>
+<p>You can read and write to plain text files using the <a href="https://readr.tidyverse.org/">readr</a> package. However, mostly you want to write to a text file because you want to save some kind of log file when you run your script. Here <code>sink</code> is an excellent function to use, since it redirects your R output. To see the output without messages, errors and warnings use:</p>
 <div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="sec-io.html#cb208-1" aria-hidden="true"></a><span class="kw">sink</span>(<span class="dt">file =</span> <span class="st">&quot;ex1.log&quot;</span>, <span class="dt">split =</span> <span class="ot">TRUE</span>)  <span class="co"># open the file for output</span></span>
 <span id="cb208-2"><a href="sec-io.html#cb208-2" aria-hidden="true"></a><span class="kw">cat</span>(<span class="st">&quot;This is a string</span><span class="ch">\n</span><span class="st">... and on a new line</span><span class="ch">\n\n</span><span class="st">&quot;</span>)</span>
 <span id="cb208-3"><a href="sec-io.html#cb208-3" aria-hidden="true"></a><span class="kw">print</span>(<span class="st">&quot;This is another string&quot;</span>)</span>
@@ -748,8 +748,8 @@ Last line</code></pre>
 <div id="rs-native-binary-format" class="section level2" number="7.6">
 <h2><span class="header-section-number">7.6</span> R’s native binary format</h2>
 <p>In general, we can differ between two main types of data/files. Information is either binary encoded (basically just 0’s and 1’s) or stored as text files. What we have considered so far is storing data in text files.</p>
-<p>Text files can be read by humans and computers alike. The great thing about plain text is their simplicity and their ease of use: any programming language can read a plain text file. Text files are good for storing tabular data but lacks type-safety, and has limited precision for numeric values. Binary file formats cannot be read by humans but allows space-efficient data compression. Furthermore, binary formats may be difficult to read and write using other programs.</p>
-<p>As most other programming languages, R comes with its own binary format. We will focus on the Rds data format which are optimised for speed and compression ratios. To save and read an R object use:</p>
+<p>Text files can be read by humans and computers alike. The great thing about plain text is their simplicity and their ease of use: any programming language can read a plain text file. Text files are good for storing tabular data but lacks type-safety, and has limited precision for numeric values. Binary file formats cannot be read by humans but allow space-efficient data compression. Furthermore, binary formats may be difficult to read and write using other programs.</p>
+<p>As most other programming languages, R comes with its own binary format. We will focus on the Rds data format which is optimized for speed and compression ratios. To save and read an R object use:</p>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="sec-io.html#cb212-1" aria-hidden="true"></a>dat &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="dt">y =</span> <span class="st">&quot;A string&quot;</span>, <span class="dt">z =</span> mtcars)</span>
 <span id="cb212-2"><a href="sec-io.html#cb212-2" aria-hidden="true"></a><span class="kw">saveRDS</span>(dat, <span class="dt">file =</span> <span class="st">&quot;test.rds&quot;</span>)</span>
 <span id="cb212-3"><a href="sec-io.html#cb212-3" aria-hidden="true"></a><span class="kw">readRDS</span>(<span class="st">&quot;test.rds&quot;</span>)</span>
