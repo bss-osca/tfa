@@ -10,7 +10,7 @@ editor_options:
 
 # Importing and exporting data {#sec-io}
 
-For doing data driven analytics you first must __import__ some data. That is, take data from a database, file, web API etc. and transform it into a data frame/table. Moreover, after processing data you often want to export or store some of the results. This module introduces you to different ways of importing and exporting data. 
+For doing data driven analytics, you first must __import__ some data. That is, take data from a database, file, web API etc. and transform it into a data frame/table. Moreover, after processing data, you often want to export or store some of the results. This module introduces you to different ways of importing and exporting data. 
 
 ## Learning outcomes {#lo-io}
 
@@ -18,7 +18,7 @@ By the end of this module, you are expected to be able to:
 
 * Import and export csv files in different formats.
 * Import and export data from Excel.
-* Import and export data from Google Sheets
+* Import and export data from Google Sheets.
 * Write to a text file.
 * Save data using R's native format.
 * Read and write to a json file.
@@ -31,7 +31,7 @@ By the end of this module, you are expected to be able to:
 
 ## CSV files
 
-[CSV files][wiki-csv] contains *comma separated values* (csv) in plain text and are often named using the file suffix `.csv`. Each line of the file is a data record. Each record consists of one or more fields, separated by a common delimiter (e.g. `,`, `;` or `_`). The CSV file format is not fully standardized. Different delimiters may be used, fields may be surrounded by quotation marks, text may contain escape characters and the encoding of the file may not be known. Despite these problems CSV files are commonly used since they are easy to exchange and read.
+[CSV files][wiki-csv] contain *comma separated values* (csv) in plain text and are often named using the file suffix `.csv`. Each line of the file is a data record. Each record consists of one or more fields, separated by a common delimiter (e.g. `,`, `;` or `_`). The CSV file format is not fully standardized. Different delimiters may be used, fields may be surrounded by quotation marks, text may contain escape characters and the encoding of the file may not be known. Despite these problems, CSV files are commonly used since they are easy to exchange and read.
 
 We will use the [readr][readr-web] package for reading and writing. An overview over the functions can be seen in the [cheatsheet][cheatsheet-readr].
 
@@ -46,7 +46,7 @@ In general use the following functions
 
 #### Reading an unknown CSV file
 
-For importing a CSV file properly you need to know the delimiter, if the files has headers and the encoding. If you are not sure, you may have a look on the file by opening it in a text editor or try to read some lines:  
+For importing a CSV file properly, you need to know the delimiter, if the files has headers and the encoding. If you are not sure, you may have a look on the file by opening it in a text editor or try to read some lines:  
 
 ```{r}
 csv_file <- system.file("extdata/mtcars.csv", package = "readr")  # csv file
@@ -68,14 +68,14 @@ lines <- read_lines(csv_file, n_max = 3)
 cat(lines, sep = "\n")
 ```
 
-Here it is harder to guess the delimiter. It could be a space or a tabulator. Let us try to read it assuming a space or tabulator
+Here it is harder to guess the delimiter. It could be a space or a tabulator. Let us try to read it assuming a space or tabulator:
 
 ```{r}
 read_tsv(csv_file)                  # assume tabulator (\t)
 read_delim(csv_file, delim = " ", trim_ws = T)   # assume space
 ```
 
-The first function puts all data in one column. The second function worked even though we have some warnings.
+The first function puts all data in one column. The second function works even though we have some warnings.
 
 CSV files should always be saved using encoding UTF-8. However, sometimes you may have encoding problems when you read a file:
 
@@ -84,7 +84,7 @@ csv_file <- system.file("extdata/persons.csv", package = "tfa")
 read_csv(csv_file)
 ```
 
-Note that some of the characters are not converted correctly. This is usually because the file encoding is not UTF-8. In this case try to guess the encoding using
+Note that some of the characters are not converted correctly. This is usually because the file encoding is not UTF-8. In this case, try to guess the encoding using:
 
 ```{r}
 guess_encoding(csv_file)
@@ -108,9 +108,9 @@ You can now always import the data again using `read_csv`:
 read_csv(csv_file)
 guess_encoding(csv_file)
 ```
-Note that `write_csv` always save the file using encoding UTF-8. 
+Note that `write_csv` always saves the file using encoding UTF-8. 
 
-In a few cases you may need to save a CSV file that can be read by Excel. For this purpose use:
+In a few cases, you may need to save a CSV file that can be read by Excel. For this purpose use:
 
 ```{r}
 write_excel_csv2(dat, csv_file)
@@ -127,13 +127,13 @@ There are different packages in R for reading and writing to Excel. We will use 
 xlsx_file <- system.file("extdata/datasets.xlsx", package = "readxl")
 ```
 
-It is always a good idea to have a look at the file before you import from it. You can open it from R by using 
+It is always a good idea to have a look at the file before you import from it. You can open it from R by using: 
 
 ```{r, eval=FALSE}
 browseURL(xlsx_file)
 ```
 
-Data can be read using
+Data can be read using:
 
 ```{r}
 library(readxl)
@@ -176,7 +176,7 @@ file.remove("test.xlsx", "test1.xlsx", "test2.xlsx")
 
 ## Google Sheets
 
-You can import and export to Google sheets using the [googlesheets4][tidyverse-googlesheets4] package in tidyverse. To read and write data you in general need to be logged in as a Google user. The package will ask you when needed. However if you only want to read data from a public sheet you can use `gs4_deauth` to skip this:
+You can import and export to Google sheets using the [googlesheets4][tidyverse-googlesheets4] package in tidyverse. To read and write data, in general, you need to be logged in as a Google user. The package will ask you when needed. However, if you only want to read data from a public sheet, you can use `gs4_deauth` to skip this:
 
 ```{r}
 library(googlesheets4)
@@ -203,12 +203,12 @@ range_write(gs, dat, sheet = "Sheet 1", range = "C4")
 gs4_browse(gs)  # have a look at the file in a browser
 ```
 
-To see the results have a look at your Google sheet `test` in your browser.
+To see the results, have a look at your Google sheet `test` in your browser.
 
 
 ## Text files
 
-You can read and write to plain text files using the [readr][readr-web] package. However, mostly you want to write to a text file because you want to save some kind of log file when you run your script. Here `sink` is a excellent function to use. Since it redirects your R output. To see the output without messages, errors and warnings use:
+You can read and write to plain text files using the [readr][tidyverse-readr] package. However, mostly you want to write to a text file because you want to save some kind of log file when you run your script. Here `sink` is an excellent function to use, since it redirects your R output. To see the output without messages, errors and warnings use:
 
 ```{r, error=TRUE, eval=FALSE}
 sink(file = "ex1.log", split = TRUE)  # open the file for output
@@ -259,9 +259,9 @@ cat(read_file("ex2.log"))
 
 In general, we can differ between two main types of data/files. Information is either binary encoded (basically just 0’s and 1’s) or stored as text files. What we have considered so far is storing data in text files. 
 
-Text files can be read by humans and computers alike. The great thing about plain text is their simplicity and their ease of use: any programming language can read a plain text file. Text files are good for storing tabular data but lacks type-safety, and has limited precision for numeric values. Binary file formats cannot be read by humans but allows space-efficient data compression. Furthermore, binary formats may be difficult to read and write using other programs.
+Text files can be read by humans and computers alike. The great thing about plain text is their simplicity and their ease of use: any programming language can read a plain text file. Text files are good for storing tabular data but lacks type-safety, and has limited precision for numeric values. Binary file formats cannot be read by humans but allow space-efficient data compression. Furthermore, binary formats may be difficult to read and write using other programs.
 
-As most other programming languages, R comes with its own binary format. We will focus on the Rds data format which are optimised for speed and compression ratios. To save and read an R object use:
+As most other programming languages, R comes with its own binary format. We will focus on the Rds data format which is optimized for speed and compression ratios. To save and read an R object use:
 
 ```{r}
 dat <- list(x = c(2, 5, 6), y = "A string", z = mtcars)
