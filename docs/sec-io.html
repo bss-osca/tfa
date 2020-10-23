@@ -274,6 +274,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.10" data-path="sec-io.html"><a href="sec-io.html#ex-io"><i class="fa fa-check"></i><b>7.10</b> Exercises</a>
 <ul>
 <li class="chapter" data-level="7.10.1" data-path="sec-io.html"><a href="sec-io.html#exercise-statistikbanken"><i class="fa fa-check"></i><b>7.10.1</b> Exercise (Statistikbanken)</a></li>
+<li class="chapter" data-level="7.10.2" data-path="sec-io.html"><a href="sec-io.html#exercise-tuples-in-opl"><i class="fa fa-check"></i><b>7.10.2</b> Exercise (tuples in OPL)</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="sec-transform.html"><a href="sec-transform.html"><i class="fa fa-check"></i><b>8</b> Transforming data</a>
@@ -1262,6 +1263,827 @@ Hint
 </button>
 <ol start="8" style="list-style-type: decimal">
 <li>Save the data in an Excel file and a Google sheet.</li>
+</ol>
+</div>
+<div id="exercise-tuples-in-opl" class="section level3" number="7.10.2">
+<h3><span class="header-section-number">7.10.2</span> Exercise (tuples in OPL)</h3>
+<p>In the algebraic modeling language OPL (Optimization Programming Language) used by <a href="https://www.ibm.com/products/ilog-cplex-optimization-studio">IBM ILOG CPLEX Optimization Studio</a>, you can define tuples to contain various information. For example consider tuples defined as:</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb227-1"><a href="sec-io.html#cb227-1" aria-hidden="true"></a>tuple nurse {</span>
+<span id="cb227-2"><a href="sec-io.html#cb227-2" aria-hidden="true"></a>  string name;</span>
+<span id="cb227-3"><a href="sec-io.html#cb227-3" aria-hidden="true"></a>  <span class="dt">int</span> experience;   <span class="co">// higest best</span></span>
+<span id="cb227-4"><a href="sec-io.html#cb227-4" aria-hidden="true"></a>}</span>
+<span id="cb227-5"><a href="sec-io.html#cb227-5" aria-hidden="true"></a></span>
+<span id="cb227-6"><a href="sec-io.html#cb227-6" aria-hidden="true"></a>tuple shift {</span>
+<span id="cb227-7"><a href="sec-io.html#cb227-7" aria-hidden="true"></a>   string departmentName;</span>
+<span id="cb227-8"><a href="sec-io.html#cb227-8" aria-hidden="true"></a>   string day;</span>
+<span id="cb227-9"><a href="sec-io.html#cb227-9" aria-hidden="true"></a>   <span class="dt">int</span> startTime;</span>
+<span id="cb227-10"><a href="sec-io.html#cb227-10" aria-hidden="true"></a>   <span class="dt">int</span> endTime;</span>
+<span id="cb227-11"><a href="sec-io.html#cb227-11" aria-hidden="true"></a>}</span></code></pre></div>
+<p>A <code>nurse</code> tuple is then defined as <code>&lt;"Anne", 11&gt;</code> and a <code>shift</code> tuple as `&lt;“Consultation”, “Monday” 12, 18&gt;.</p>
+<p>A set of tuples can be defined using:</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb228-1"><a href="sec-io.html#cb228-1" aria-hidden="true"></a>{nurse} Nurses = ...;</span>
+<span id="cb228-2"><a href="sec-io.html#cb228-2" aria-hidden="true"></a>{shift} Shifts = ...;</span></code></pre></div>
+<p>where the <code>...</code> operator means that the sets are read from a data text file:</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb229-1"><a href="sec-io.html#cb229-1" aria-hidden="true"></a>nurses = {</span>
+<span id="cb229-2"><a href="sec-io.html#cb229-2" aria-hidden="true"></a>   &lt;<span class="st">&quot;Anne&quot;</span>, <span class="dv">11</span>&gt;, </span>
+<span id="cb229-3"><a href="sec-io.html#cb229-3" aria-hidden="true"></a>   &lt;<span class="st">&quot;Bethanie&quot;</span>, <span class="dv">4</span>&gt;, </span>
+<span id="cb229-4"><a href="sec-io.html#cb229-4" aria-hidden="true"></a>   &lt;<span class="st">&quot;Betsy&quot;</span>, <span class="dv">2</span>&gt;</span>
+<span id="cb229-5"><a href="sec-io.html#cb229-5" aria-hidden="true"></a>};</span>
+<span id="cb229-6"><a href="sec-io.html#cb229-6" aria-hidden="true"></a></span>
+<span id="cb229-7"><a href="sec-io.html#cb229-7" aria-hidden="true"></a>shifts = {</span>
+<span id="cb229-8"><a href="sec-io.html#cb229-8" aria-hidden="true"></a>   &lt;<span class="st">&quot;Emergency&quot;</span>, <span class="st">&quot;Monday&quot;</span>, <span class="dv">2</span>, <span class="dv">8</span>&gt;,</span>
+<span id="cb229-9"><a href="sec-io.html#cb229-9" aria-hidden="true"></a>   &lt;<span class="st">&quot;Emergency&quot;</span>, Monday <span class="dv">8</span> <span class="dv">12</span> <span class="dv">4</span> <span class="dv">7</span>&gt;, </span>
+<span id="cb229-10"><a href="sec-io.html#cb229-10" aria-hidden="true"></a>   &lt;<span class="st">&quot;Emergency&quot;</span>, <span class="st">&quot;Monday&quot;</span> <span class="dv">12</span> <span class="dv">18</span> <span class="dv">2</span> <span class="dv">5</span>&gt; </span>
+<span id="cb229-11"><a href="sec-io.html#cb229-11" aria-hidden="true"></a>};</span></code></pre></div>
+<p>You can now use the sets to define decision variables <span class="math inline">\(x_{ns}\)</span> equal one if nurse <span class="math inline">\(n\)</span> is assigned to shift <span class="math inline">\(s\)</span>.</p>
+<p>In this exercise we will try to generate the data text file given tibbles with data.</p>
+<div id="FvS0wN0yNz8YnCiZ0FTv" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="FvS0wN0yNz8YnCiZ0FTv-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="FvS0wN0yNz8YnCiZ0FTv-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="sec-io.html#cb230-1" aria-hidden="true"></a>file =<span class="st"> &quot;test.dat&quot;</span></span>
+<span id="cb230-2"><a href="sec-io.html#cb230-2" aria-hidden="true"></a><span class="kw">write_lines</span>(<span class="st">&quot;nurses = {&quot;</span>, file)</span>
+<span id="cb230-3"><a href="sec-io.html#cb230-3" aria-hidden="true"></a><span class="kw">write_lines</span>(<span class="st">&#39;   &lt;&quot;Anne&quot;, 11&gt;&#39;</span>, file, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb230-4"><a href="sec-io.html#cb230-4" aria-hidden="true"></a><span class="kw">write_lines</span>(<span class="st">&#39;};&#39;</span>, file, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb230-5"><a href="sec-io.html#cb230-5" aria-hidden="true"></a><span class="kw">cat</span>(<span class="kw">read_file</span>(<span class="st">&quot;test.dat&quot;</span>))</span>
+<span id="cb230-6"><a href="sec-io.html#cb230-6" aria-hidden="true"></a><span class="co">#&gt; nurses = {</span></span>
+<span id="cb230-7"><a href="sec-io.html#cb230-7" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Anne&quot;, 11&gt;</span></span>
+<span id="cb230-8"><a href="sec-io.html#cb230-8" aria-hidden="true"></a><span class="co">#&gt; };</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#FvS0wN0yNz8YnCiZ0FTv">
+Solution
+</button>
+<div id="zDXetjbDunJEejSrfA0r" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="zDXetjbDunJEejSrfA0r-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="zDXetjbDunJEejSrfA0r-title">
+Hint
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="sec-io.html#cb231-1" aria-hidden="true"></a>file =<span class="st"> &quot;test.dat&quot;</span></span>
+<span id="cb231-2"><a href="sec-io.html#cb231-2" aria-hidden="true"></a><span class="kw">write_lines</span>(<span class="st">&quot;nurses = {&quot;</span>, file)</span>
+<span id="cb231-3"><a href="sec-io.html#cb231-3" aria-hidden="true"></a><span class="kw">write_lines</span>(___, ___, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb231-4"><a href="sec-io.html#cb231-4" aria-hidden="true"></a><span class="kw">write_lines</span>(___, ___, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb231-5"><a href="sec-io.html#cb231-5" aria-hidden="true"></a><span class="kw">cat</span>(<span class="kw">read_file</span>(<span class="st">&quot;test.dat&quot;</span>))  <span class="co"># to have a look </span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#zDXetjbDunJEejSrfA0r">
+Hint
+</button>
+<ol style="list-style-type: decimal">
+<li><p>Try to generate a text file named <code>test.dat</code> using function <code>write_lines</code> with content</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb232-1"><a href="sec-io.html#cb232-1" aria-hidden="true"></a>nurses = {</span>
+<span id="cb232-2"><a href="sec-io.html#cb232-2" aria-hidden="true"></a>   &lt;<span class="st">&quot;Anne&quot;</span>, <span class="dv">11</span>&gt;</span>
+<span id="cb232-3"><a href="sec-io.html#cb232-3" aria-hidden="true"></a>};</span></code></pre></div></li>
+</ol>
+<p>Load datasets</p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="sec-io.html#cb233-1" aria-hidden="true"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;bss-osca/tfa/tfa-package&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb233-2"><a href="sec-io.html#cb233-2" aria-hidden="true"></a><span class="co">#&gt;   </span></span>
+<span id="cb233-3"><a href="sec-io.html#cb233-3" aria-hidden="true"></a>   checking <span class="cf">for</span> file ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">24</span><span class="op">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="op">/</span>T<span class="op">/</span>RtmpB94Ecs<span class="op">/</span>remotes646d2bd7165c<span class="op">/</span>bss<span class="op">-</span>osca<span class="op">-</span>tfa<span class="op">-</span>ec3ad47<span class="op">/</span>tfa<span class="op">-</span>package<span class="op">/</span>DESCRIPTION’ ...</span>
+<span id="cb233-4"><a href="sec-io.html#cb233-4" aria-hidden="true"></a>  </span>
+<span id="cb233-5"><a href="sec-io.html#cb233-5" aria-hidden="true"></a>✔  checking <span class="cf">for</span> file ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">24</span><span class="op">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="op">/</span>T<span class="op">/</span>RtmpB94Ecs<span class="op">/</span>remotes646d2bd7165c<span class="op">/</span>bss<span class="op">-</span>osca<span class="op">-</span>tfa<span class="op">-</span>ec3ad47<span class="op">/</span>tfa<span class="op">-</span>package<span class="op">/</span>DESCRIPTION’</span>
+<span id="cb233-6"><a href="sec-io.html#cb233-6" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb233-7"><a href="sec-io.html#cb233-7" aria-hidden="true"></a>  </span>
+<span id="cb233-8"><a href="sec-io.html#cb233-8" aria-hidden="true"></a>─  preparing ‘tfa’<span class="op">:</span></span>
+<span id="cb233-9"><a href="sec-io.html#cb233-9" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb233-10"><a href="sec-io.html#cb233-10" aria-hidden="true"></a><span class="st">  </span></span>
+<span id="cb233-11"><a href="sec-io.html#cb233-11" aria-hidden="true"></a><span class="st">   </span>checking DESCRIPTION meta<span class="op">-</span>information ...</span>
+<span id="cb233-12"><a href="sec-io.html#cb233-12" aria-hidden="true"></a>  </span>
+<span id="cb233-13"><a href="sec-io.html#cb233-13" aria-hidden="true"></a>✔  checking DESCRIPTION meta<span class="op">-</span>information</span>
+<span id="cb233-14"><a href="sec-io.html#cb233-14" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb233-15"><a href="sec-io.html#cb233-15" aria-hidden="true"></a>  </span>
+<span id="cb233-16"><a href="sec-io.html#cb233-16" aria-hidden="true"></a>─  checking <span class="cf">for</span> LF line<span class="op">-</span>endings <span class="cf">in</span> source and make files and shell scripts</span>
+<span id="cb233-17"><a href="sec-io.html#cb233-17" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb233-18"><a href="sec-io.html#cb233-18" aria-hidden="true"></a>  </span>
+<span id="cb233-19"><a href="sec-io.html#cb233-19" aria-hidden="true"></a>─  checking <span class="cf">for</span> empty or unneeded directories</span>
+<span id="cb233-20"><a href="sec-io.html#cb233-20" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb233-21"><a href="sec-io.html#cb233-21" aria-hidden="true"></a>  </span>
+<span id="cb233-22"><a href="sec-io.html#cb233-22" aria-hidden="true"></a>─  building ‘tfa_<span class="dv">0</span>.<span class="dv">5</span>.<span class="fl">4.</span>tar.gz’</span>
+<span id="cb233-23"><a href="sec-io.html#cb233-23" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb233-24"><a href="sec-io.html#cb233-24" aria-hidden="true"></a>  </span>
+<span id="cb233-25"><a href="sec-io.html#cb233-25" aria-hidden="true"></a>   </span>
+<span id="cb233-26"><a href="sec-io.html#cb233-26" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb233-27"><a href="sec-io.html#cb233-27" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb233-28"><a href="sec-io.html#cb233-28" aria-hidden="true"></a>nurses &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/nurses.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tfa&quot;</span>))</span>
+<span id="cb233-29"><a href="sec-io.html#cb233-29" aria-hidden="true"></a>shifts &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/shifts.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tfa&quot;</span>))</span></code></pre></div>
+<div id="LZnL8lszeFdRCbyCQL26" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="LZnL8lszeFdRCbyCQL26-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="LZnL8lszeFdRCbyCQL26-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="sec-io.html#cb234-1" aria-hidden="true"></a>nurses <span class="op">%&gt;%</span></span>
+<span id="cb234-2"><a href="sec-io.html#cb234-2" aria-hidden="true"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.character), <span class="op">~</span><span class="kw">str_c</span>(<span class="st">&#39;&quot;&#39;</span>, .x, <span class="st">&#39;&quot;&#39;</span>))) </span>
+<span id="cb234-3"><a href="sec-io.html#cb234-3" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 32 x 2</span></span>
+<span id="cb234-4"><a href="sec-io.html#cb234-4" aria-hidden="true"></a><span class="co">#&gt;    name           experience</span></span>
+<span id="cb234-5"><a href="sec-io.html#cb234-5" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;               &lt;dbl&gt;</span></span>
+<span id="cb234-6"><a href="sec-io.html#cb234-6" aria-hidden="true"></a><span class="co">#&gt;  1 &quot;\&quot;Anne\&quot;&quot;             11</span></span>
+<span id="cb234-7"><a href="sec-io.html#cb234-7" aria-hidden="true"></a><span class="co">#&gt;  2 &quot;\&quot;Bethanie\&quot;&quot;          4</span></span>
+<span id="cb234-8"><a href="sec-io.html#cb234-8" aria-hidden="true"></a><span class="co">#&gt;  3 &quot;\&quot;Betsy\&quot;&quot;             2</span></span>
+<span id="cb234-9"><a href="sec-io.html#cb234-9" aria-hidden="true"></a><span class="co">#&gt;  4 &quot;\&quot;Cathy\&quot;&quot;             2</span></span>
+<span id="cb234-10"><a href="sec-io.html#cb234-10" aria-hidden="true"></a><span class="co">#&gt;  5 &quot;\&quot;Cecilia\&quot;&quot;           9</span></span>
+<span id="cb234-11"><a href="sec-io.html#cb234-11" aria-hidden="true"></a><span class="co">#&gt;  6 &quot;\&quot;Chris\&quot;&quot;            11</span></span>
+<span id="cb234-12"><a href="sec-io.html#cb234-12" aria-hidden="true"></a><span class="co">#&gt;  7 &quot;\&quot;Cindy\&quot;&quot;             5</span></span>
+<span id="cb234-13"><a href="sec-io.html#cb234-13" aria-hidden="true"></a><span class="co">#&gt;  8 &quot;\&quot;David\&quot;&quot;             1</span></span>
+<span id="cb234-14"><a href="sec-io.html#cb234-14" aria-hidden="true"></a><span class="co">#&gt;  9 &quot;\&quot;Debbie\&quot;&quot;            7</span></span>
+<span id="cb234-15"><a href="sec-io.html#cb234-15" aria-hidden="true"></a><span class="co">#&gt; 10 &quot;\&quot;Dee\&quot;&quot;               3</span></span>
+<span id="cb234-16"><a href="sec-io.html#cb234-16" aria-hidden="true"></a><span class="co">#&gt; # … with 22 more rows</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#LZnL8lszeFdRCbyCQL26">
+Solution
+</button>
+<div id="P21ANaKUkAqJEJmFv9Dc" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="P21ANaKUkAqJEJmFv9Dc-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="P21ANaKUkAqJEJmFv9Dc-title">
+Hint 2
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="sec-io.html#cb235-1" aria-hidden="true"></a>nurses <span class="op">%&gt;%</span></span>
+<span id="cb235-2"><a href="sec-io.html#cb235-2" aria-hidden="true"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(___), <span class="op">~</span><span class="kw">str_c</span>(<span class="st">&#39;___&#39;</span>, .x, <span class="st">&#39;___&#39;</span>))) </span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#P21ANaKUkAqJEJmFv9Dc">
+Hint 2
+</button>
+<div id="FhkGZuhqvIe8qfjJfSem" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="FhkGZuhqvIe8qfjJfSem-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="FhkGZuhqvIe8qfjJfSem-title">
+Hint 1
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="sec-io.html#cb236-1" aria-hidden="true"></a>v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>)</span>
+<span id="cb236-2"><a href="sec-io.html#cb236-2" aria-hidden="true"></a><span class="kw">str_c</span>(<span class="st">&#39;&quot;&#39;</span>, v, <span class="st">&#39;&quot;&#39;</span>)  <span class="co"># use of str_c to add &quot;</span></span>
+<span id="cb236-3"><a href="sec-io.html#cb236-3" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;\&quot;foo\&quot;&quot; &quot;\&quot;bar\&quot;&quot;</span></span>
+<span id="cb236-4"><a href="sec-io.html#cb236-4" aria-hidden="true"></a><span class="kw">str_c</span>(v, <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>) <span class="co"># collapsing a vector</span></span>
+<span id="cb236-5"><a href="sec-io.html#cb236-5" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;foo, bar&quot;</span></span>
+<span id="cb236-6"><a href="sec-io.html#cb236-6" aria-hidden="true"></a>tbl &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb236-7"><a href="sec-io.html#cb236-7" aria-hidden="true"></a>   <span class="op">~</span>name, <span class="op">~</span>experience,</span>
+<span id="cb236-8"><a href="sec-io.html#cb236-8" aria-hidden="true"></a>   <span class="st">&quot;Anne&quot;</span>, <span class="dv">11</span>,</span>
+<span id="cb236-9"><a href="sec-io.html#cb236-9" aria-hidden="true"></a>   <span class="st">&quot;Bethanie&quot;</span>, <span class="dv">4</span></span>
+<span id="cb236-10"><a href="sec-io.html#cb236-10" aria-hidden="true"></a>)</span>
+<span id="cb236-11"><a href="sec-io.html#cb236-11" aria-hidden="true"></a>tbl</span>
+<span id="cb236-12"><a href="sec-io.html#cb236-12" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 2 x 2</span></span>
+<span id="cb236-13"><a href="sec-io.html#cb236-13" aria-hidden="true"></a><span class="co">#&gt;   name     experience</span></span>
+<span id="cb236-14"><a href="sec-io.html#cb236-14" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt;</span></span>
+<span id="cb236-15"><a href="sec-io.html#cb236-15" aria-hidden="true"></a><span class="co">#&gt; 1 Anne             11</span></span>
+<span id="cb236-16"><a href="sec-io.html#cb236-16" aria-hidden="true"></a><span class="co">#&gt; 2 Bethanie          4</span></span>
+<span id="cb236-17"><a href="sec-io.html#cb236-17" aria-hidden="true"></a>tbl <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb236-18"><a href="sec-io.html#cb236-18" aria-hidden="true"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.character), <span class="co"># use across to find all character columns</span></span>
+<span id="cb236-19"><a href="sec-io.html#cb236-19" aria-hidden="true"></a>                 <span class="op">~</span><span class="kw">str_c</span>(<span class="st">&#39;(&#39;</span>, .x, <span class="st">&#39;)&#39;</span>))) <span class="co"># str_c is applied to each column where .x is the column values </span></span>
+<span id="cb236-20"><a href="sec-io.html#cb236-20" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 2 x 2</span></span>
+<span id="cb236-21"><a href="sec-io.html#cb236-21" aria-hidden="true"></a><span class="co">#&gt;   name       experience</span></span>
+<span id="cb236-22"><a href="sec-io.html#cb236-22" aria-hidden="true"></a><span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt;</span></span>
+<span id="cb236-23"><a href="sec-io.html#cb236-23" aria-hidden="true"></a><span class="co">#&gt; 1 (Anne)             11</span></span>
+<span id="cb236-24"><a href="sec-io.html#cb236-24" aria-hidden="true"></a><span class="co">#&gt; 2 (Bethanie)          4</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#FhkGZuhqvIe8qfjJfSem">
+Hint 1
+</button>
+<ol start="2" style="list-style-type: decimal">
+<li>Transform all character columns in <code>nurses</code> so they start and end with <code>"</code>. Some hints are given in Hint 1.</li>
+</ol>
+<div id="tW9G8EicSdWKldmBOxN4" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="tW9G8EicSdWKldmBOxN4-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="tW9G8EicSdWKldmBOxN4-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="sec-io.html#cb237-1" aria-hidden="true"></a>nurses <span class="op">%&gt;%</span></span>
+<span id="cb237-2"><a href="sec-io.html#cb237-2" aria-hidden="true"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.character), <span class="op">~</span><span class="kw">str_c</span>(<span class="st">&#39;&quot;&#39;</span>, .x, <span class="st">&#39;&quot;&#39;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb237-3"><a href="sec-io.html#cb237-3" aria-hidden="true"></a><span class="st">   </span><span class="kw">unite</span>(<span class="st">&quot;tuple&quot;</span>, <span class="kw">everything</span>(), <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>, <span class="dt">remove =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb237-4"><a href="sec-io.html#cb237-4" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 32 x 3</span></span>
+<span id="cb237-5"><a href="sec-io.html#cb237-5" aria-hidden="true"></a><span class="co">#&gt;    tuple             name           experience</span></span>
+<span id="cb237-6"><a href="sec-io.html#cb237-6" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;               &lt;dbl&gt;</span></span>
+<span id="cb237-7"><a href="sec-io.html#cb237-7" aria-hidden="true"></a><span class="co">#&gt;  1 &quot;\&quot;Anne\&quot;, 11&quot;    &quot;\&quot;Anne\&quot;&quot;             11</span></span>
+<span id="cb237-8"><a href="sec-io.html#cb237-8" aria-hidden="true"></a><span class="co">#&gt;  2 &quot;\&quot;Bethanie\&quot;, 4&quot; &quot;\&quot;Bethanie\&quot;&quot;          4</span></span>
+<span id="cb237-9"><a href="sec-io.html#cb237-9" aria-hidden="true"></a><span class="co">#&gt;  3 &quot;\&quot;Betsy\&quot;, 2&quot;    &quot;\&quot;Betsy\&quot;&quot;             2</span></span>
+<span id="cb237-10"><a href="sec-io.html#cb237-10" aria-hidden="true"></a><span class="co">#&gt;  4 &quot;\&quot;Cathy\&quot;, 2&quot;    &quot;\&quot;Cathy\&quot;&quot;             2</span></span>
+<span id="cb237-11"><a href="sec-io.html#cb237-11" aria-hidden="true"></a><span class="co">#&gt;  5 &quot;\&quot;Cecilia\&quot;, 9&quot;  &quot;\&quot;Cecilia\&quot;&quot;           9</span></span>
+<span id="cb237-12"><a href="sec-io.html#cb237-12" aria-hidden="true"></a><span class="co">#&gt;  6 &quot;\&quot;Chris\&quot;, 11&quot;   &quot;\&quot;Chris\&quot;&quot;            11</span></span>
+<span id="cb237-13"><a href="sec-io.html#cb237-13" aria-hidden="true"></a><span class="co">#&gt;  7 &quot;\&quot;Cindy\&quot;, 5&quot;    &quot;\&quot;Cindy\&quot;&quot;             5</span></span>
+<span id="cb237-14"><a href="sec-io.html#cb237-14" aria-hidden="true"></a><span class="co">#&gt;  8 &quot;\&quot;David\&quot;, 1&quot;    &quot;\&quot;David\&quot;&quot;             1</span></span>
+<span id="cb237-15"><a href="sec-io.html#cb237-15" aria-hidden="true"></a><span class="co">#&gt;  9 &quot;\&quot;Debbie\&quot;, 7&quot;   &quot;\&quot;Debbie\&quot;&quot;            7</span></span>
+<span id="cb237-16"><a href="sec-io.html#cb237-16" aria-hidden="true"></a><span class="co">#&gt; 10 &quot;\&quot;Dee\&quot;, 3&quot;      &quot;\&quot;Dee\&quot;&quot;               3</span></span>
+<span id="cb237-17"><a href="sec-io.html#cb237-17" aria-hidden="true"></a><span class="co">#&gt; # … with 22 more rows</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#tW9G8EicSdWKldmBOxN4">
+Solution
+</button>
+<div id="WwrYfVv5Umrto9jleuOx" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="WwrYfVv5Umrto9jleuOx-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="WwrYfVv5Umrto9jleuOx-title">
+Hint
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="sec-io.html#cb238-1" aria-hidden="true"></a>nurses <span class="op">%&gt;%</span></span>
+<span id="cb238-2"><a href="sec-io.html#cb238-2" aria-hidden="true"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.character), <span class="op">~</span><span class="kw">str_c</span>(<span class="st">&#39;&quot;&#39;</span>, .x, <span class="st">&#39;&quot;&#39;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb238-3"><a href="sec-io.html#cb238-3" aria-hidden="true"></a><span class="st">   </span><span class="kw">unite</span>(<span class="st">&quot;tuple&quot;</span>, <span class="kw">everything</span>(), <span class="dt">sep =</span> ___, <span class="dt">remove =</span> ___)</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#WwrYfVv5Umrto9jleuOx">
+Hint
+</button>
+<ol start="3" style="list-style-type: decimal">
+<li>Unite all columns into a new column named <code>tuple</code> where each column is separated with <code>,</code>. Hint: have a look at the <code>unite</code> function. All columns can be selected using <code>everything()</code>.</li>
+</ol>
+<div id="SCa9WPpYSBTEJrRQTp0J" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="SCa9WPpYSBTEJrRQTp0J-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="SCa9WPpYSBTEJrRQTp0J-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="sec-io.html#cb239-1" aria-hidden="true"></a>nurses <span class="op">%&gt;%</span></span>
+<span id="cb239-2"><a href="sec-io.html#cb239-2" aria-hidden="true"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.character), <span class="op">~</span><span class="kw">str_c</span>(<span class="st">&#39;&quot;&#39;</span>, .x, <span class="st">&#39;&quot;&#39;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb239-3"><a href="sec-io.html#cb239-3" aria-hidden="true"></a><span class="st">   </span><span class="kw">unite</span>(<span class="st">&quot;tuple&quot;</span>, <span class="kw">everything</span>(), <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>, <span class="dt">remove =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb239-4"><a href="sec-io.html#cb239-4" aria-hidden="true"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">tuple =</span> <span class="kw">str_c</span>(<span class="st">&quot;&lt;&quot;</span>, tuple, <span class="st">&quot;&gt;&quot;</span>))</span>
+<span id="cb239-5"><a href="sec-io.html#cb239-5" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 32 x 3</span></span>
+<span id="cb239-6"><a href="sec-io.html#cb239-6" aria-hidden="true"></a><span class="co">#&gt;    tuple               name           experience</span></span>
+<span id="cb239-7"><a href="sec-io.html#cb239-7" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;               &lt;chr&gt;               &lt;dbl&gt;</span></span>
+<span id="cb239-8"><a href="sec-io.html#cb239-8" aria-hidden="true"></a><span class="co">#&gt;  1 &quot;&lt;\&quot;Anne\&quot;, 11&gt;&quot;    &quot;\&quot;Anne\&quot;&quot;             11</span></span>
+<span id="cb239-9"><a href="sec-io.html#cb239-9" aria-hidden="true"></a><span class="co">#&gt;  2 &quot;&lt;\&quot;Bethanie\&quot;, 4&gt;&quot; &quot;\&quot;Bethanie\&quot;&quot;          4</span></span>
+<span id="cb239-10"><a href="sec-io.html#cb239-10" aria-hidden="true"></a><span class="co">#&gt;  3 &quot;&lt;\&quot;Betsy\&quot;, 2&gt;&quot;    &quot;\&quot;Betsy\&quot;&quot;             2</span></span>
+<span id="cb239-11"><a href="sec-io.html#cb239-11" aria-hidden="true"></a><span class="co">#&gt;  4 &quot;&lt;\&quot;Cathy\&quot;, 2&gt;&quot;    &quot;\&quot;Cathy\&quot;&quot;             2</span></span>
+<span id="cb239-12"><a href="sec-io.html#cb239-12" aria-hidden="true"></a><span class="co">#&gt;  5 &quot;&lt;\&quot;Cecilia\&quot;, 9&gt;&quot;  &quot;\&quot;Cecilia\&quot;&quot;           9</span></span>
+<span id="cb239-13"><a href="sec-io.html#cb239-13" aria-hidden="true"></a><span class="co">#&gt;  6 &quot;&lt;\&quot;Chris\&quot;, 11&gt;&quot;   &quot;\&quot;Chris\&quot;&quot;            11</span></span>
+<span id="cb239-14"><a href="sec-io.html#cb239-14" aria-hidden="true"></a><span class="co">#&gt;  7 &quot;&lt;\&quot;Cindy\&quot;, 5&gt;&quot;    &quot;\&quot;Cindy\&quot;&quot;             5</span></span>
+<span id="cb239-15"><a href="sec-io.html#cb239-15" aria-hidden="true"></a><span class="co">#&gt;  8 &quot;&lt;\&quot;David\&quot;, 1&gt;&quot;    &quot;\&quot;David\&quot;&quot;             1</span></span>
+<span id="cb239-16"><a href="sec-io.html#cb239-16" aria-hidden="true"></a><span class="co">#&gt;  9 &quot;&lt;\&quot;Debbie\&quot;, 7&gt;&quot;   &quot;\&quot;Debbie\&quot;&quot;            7</span></span>
+<span id="cb239-17"><a href="sec-io.html#cb239-17" aria-hidden="true"></a><span class="co">#&gt; 10 &quot;&lt;\&quot;Dee\&quot;, 3&gt;&quot;      &quot;\&quot;Dee\&quot;&quot;               3</span></span>
+<span id="cb239-18"><a href="sec-io.html#cb239-18" aria-hidden="true"></a><span class="co">#&gt; # … with 22 more rows</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#SCa9WPpYSBTEJrRQTp0J">
+Solution
+</button>
+<div id="5pTXOS7114Mlk6x8UZvo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="5pTXOS7114Mlk6x8UZvo-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="5pTXOS7114Mlk6x8UZvo-title">
+Hint
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="sec-io.html#cb240-1" aria-hidden="true"></a>nurses <span class="op">%&gt;%</span></span>
+<span id="cb240-2"><a href="sec-io.html#cb240-2" aria-hidden="true"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.character), <span class="op">~</span><span class="kw">str_c</span>(<span class="st">&#39;&quot;&#39;</span>, .x, <span class="st">&#39;&quot;&#39;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb240-3"><a href="sec-io.html#cb240-3" aria-hidden="true"></a><span class="st">   </span><span class="kw">unite</span>(<span class="st">&quot;tuple&quot;</span>, <span class="kw">everything</span>(), <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>, <span class="dt">remove =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb240-4"><a href="sec-io.html#cb240-4" aria-hidden="true"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">tuple =</span> <span class="kw">str_c</span>(___, tuple, ___))</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#5pTXOS7114Mlk6x8UZvo">
+Hint
+</button>
+<ol start="4" style="list-style-type: decimal">
+<li>Add <code>&lt;</code> and <code>&gt;</code> the start and end of the <code>tuple</code> column.</li>
+</ol>
+<div id="XNXnc6BqTmoIEcNs79dB" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="XNXnc6BqTmoIEcNs79dB-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="XNXnc6BqTmoIEcNs79dB-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="sec-io.html#cb241-1" aria-hidden="true"></a>nurses <span class="op">%&gt;%</span></span>
+<span id="cb241-2"><a href="sec-io.html#cb241-2" aria-hidden="true"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.character), <span class="op">~</span><span class="kw">str_c</span>(<span class="st">&#39;&quot;&#39;</span>, .x, <span class="st">&#39;&quot;&#39;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb241-3"><a href="sec-io.html#cb241-3" aria-hidden="true"></a><span class="st">   </span><span class="kw">unite</span>(<span class="st">&quot;tuple&quot;</span>, <span class="kw">everything</span>(), <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>, <span class="dt">remove =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb241-4"><a href="sec-io.html#cb241-4" aria-hidden="true"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">tuple =</span> <span class="kw">str_c</span>(<span class="st">&quot;&lt;&quot;</span>, tuple, <span class="st">&quot;&gt;&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb241-5"><a href="sec-io.html#cb241-5" aria-hidden="true"></a><span class="st">   </span><span class="kw">pull</span>(tuple) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb241-6"><a href="sec-io.html#cb241-6" aria-hidden="true"></a><span class="st">   </span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;,</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb241-7"><a href="sec-io.html#cb241-7" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;&lt;\&quot;Anne\&quot;, 11&gt;,\n&lt;\&quot;Bethanie\&quot;, 4&gt;,\n&lt;\&quot;Betsy\&quot;, 2&gt;,\n&lt;\&quot;Cathy\&quot;, 2&gt;,\n&lt;\&quot;Cecilia\&quot;, 9&gt;,\n&lt;\&quot;Chris\&quot;, 11&gt;,\n&lt;\&quot;Cindy\&quot;, 5&gt;,\n&lt;\&quot;David\&quot;, 1&gt;,\n&lt;\&quot;Debbie\&quot;, 7&gt;,\n&lt;\&quot;Dee\&quot;, 3&gt;,\n&lt;\&quot;Gloria\&quot;, 8&gt;,\n&lt;\&quot;Isabelle\&quot;, 3&gt;,\n&lt;\&quot;Jane\&quot;, 3&gt;,\n&lt;\&quot;Janelle\&quot;, 4&gt;,\n&lt;\&quot;Janice\&quot;, 2&gt;,\n&lt;\&quot;Jemma\&quot;, 2&gt;,\n&lt;\&quot;Joan\&quot;, 5&gt;,\n&lt;\&quot;Joyce\&quot;, 8&gt;,\n&lt;\&quot;Jude\&quot;, 4&gt;,\n&lt;\&quot;Julie\&quot;, 6&gt;,\n&lt;\&quot;Juliet\&quot;, 7&gt;,\n&lt;\&quot;Kate\&quot;, 5&gt;,\n&lt;\&quot;Nancy\&quot;, 8&gt;,\n&lt;\&quot;Nathalie\&quot;, 9&gt;,\n&lt;\&quot;Nicole\&quot;, 0&gt;,\n&lt;\&quot;Patricia\&quot;, 1&gt;,\n&lt;\&quot;Patrick\&quot;, 6&gt;,\n&lt;\&quot;Roberta\&quot;, 3&gt;,\n&lt;\&quot;Suzanne\&quot;, 5&gt;,\n&lt;\&quot;Vickie\&quot;, 7&gt;,\n&lt;\&quot;Wendie\&quot;, 5&gt;,\n&lt;\&quot;Zoe\&quot;, 8&gt;&quot;</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#XNXnc6BqTmoIEcNs79dB">
+Solution
+</button>
+<div id="fVjK6OXjAaUwu9JhlVEA" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="fVjK6OXjAaUwu9JhlVEA-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="fVjK6OXjAaUwu9JhlVEA-title">
+Hint
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="sec-io.html#cb242-1" aria-hidden="true"></a>nurses <span class="op">%&gt;%</span></span>
+<span id="cb242-2"><a href="sec-io.html#cb242-2" aria-hidden="true"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.character), <span class="op">~</span><span class="kw">str_c</span>(<span class="st">&#39;&quot;&#39;</span>, .x, <span class="st">&#39;&quot;&#39;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb242-3"><a href="sec-io.html#cb242-3" aria-hidden="true"></a><span class="st">   </span><span class="kw">unite</span>(<span class="st">&quot;tuple&quot;</span>, <span class="kw">everything</span>(), <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>, <span class="dt">remove =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb242-4"><a href="sec-io.html#cb242-4" aria-hidden="true"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">tuple =</span> <span class="kw">str_c</span>(<span class="st">&quot;&lt;&quot;</span>, tuple, <span class="st">&quot;&gt;&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb242-5"><a href="sec-io.html#cb242-5" aria-hidden="true"></a><span class="st">   </span><span class="kw">pull</span>(___) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb242-6"><a href="sec-io.html#cb242-6" aria-hidden="true"></a><span class="st">   </span><span class="kw">str_c</span>(___)</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#fVjK6OXjAaUwu9JhlVEA">
+Hint
+</button>
+<ol start="5" style="list-style-type: decimal">
+<li>Extract the <code>tuple</code> column and transform it into a string with <code>collapse = ",\n"</code>.</li>
+</ol>
+<div id="J2fkFS26tcdSHw1AynzG" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="J2fkFS26tcdSHw1AynzG-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="J2fkFS26tcdSHw1AynzG-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="sec-io.html#cb243-1" aria-hidden="true"></a>write_tuple &lt;-<span class="st"> </span><span class="cf">function</span>(dat, file) {</span>
+<span id="cb243-2"><a href="sec-io.html#cb243-2" aria-hidden="true"></a>   <span class="kw">write_lines</span>(<span class="st">&quot;nurses = {&quot;</span>, file, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">   &quot;</span>)</span>
+<span id="cb243-3"><a href="sec-io.html#cb243-3" aria-hidden="true"></a>   tuples &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span></span>
+<span id="cb243-4"><a href="sec-io.html#cb243-4" aria-hidden="true"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.character), <span class="op">~</span><span class="kw">str_c</span>(<span class="st">&#39;&quot;&#39;</span>, .x, <span class="st">&#39;&quot;&#39;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb243-5"><a href="sec-io.html#cb243-5" aria-hidden="true"></a><span class="st">      </span><span class="kw">unite</span>(<span class="st">&quot;tuple&quot;</span>, <span class="kw">everything</span>(), <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>, <span class="dt">remove =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb243-6"><a href="sec-io.html#cb243-6" aria-hidden="true"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">tuple =</span> <span class="kw">str_c</span>(<span class="st">&quot;&lt;&quot;</span>, tuple, <span class="st">&quot;&gt;&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb243-7"><a href="sec-io.html#cb243-7" aria-hidden="true"></a><span class="st">      </span><span class="kw">pull</span>(tuple) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb243-8"><a href="sec-io.html#cb243-8" aria-hidden="true"></a><span class="st">      </span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;,</span><span class="ch">\n</span><span class="st">   &quot;</span>)</span>
+<span id="cb243-9"><a href="sec-io.html#cb243-9" aria-hidden="true"></a>   <span class="kw">write_lines</span>(tuples, file, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb243-10"><a href="sec-io.html#cb243-10" aria-hidden="true"></a>   <span class="kw">write_lines</span>(<span class="st">&quot;};&quot;</span>, file, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb243-11"><a href="sec-io.html#cb243-11" aria-hidden="true"></a>}</span>
+<span id="cb243-12"><a href="sec-io.html#cb243-12" aria-hidden="true"></a>file &lt;-<span class="st"> &quot;test.dat&quot;</span></span>
+<span id="cb243-13"><a href="sec-io.html#cb243-13" aria-hidden="true"></a><span class="kw">write_tuple</span>(nurses, file)</span>
+<span id="cb243-14"><a href="sec-io.html#cb243-14" aria-hidden="true"></a><span class="kw">cat</span>(<span class="kw">read_file</span>(<span class="st">&quot;test.dat&quot;</span>))  <span class="co"># to have a look </span></span>
+<span id="cb243-15"><a href="sec-io.html#cb243-15" aria-hidden="true"></a><span class="co">#&gt; nurses = {</span></span>
+<span id="cb243-16"><a href="sec-io.html#cb243-16" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Anne&quot;, 11&gt;,</span></span>
+<span id="cb243-17"><a href="sec-io.html#cb243-17" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Bethanie&quot;, 4&gt;,</span></span>
+<span id="cb243-18"><a href="sec-io.html#cb243-18" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Betsy&quot;, 2&gt;,</span></span>
+<span id="cb243-19"><a href="sec-io.html#cb243-19" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Cathy&quot;, 2&gt;,</span></span>
+<span id="cb243-20"><a href="sec-io.html#cb243-20" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Cecilia&quot;, 9&gt;,</span></span>
+<span id="cb243-21"><a href="sec-io.html#cb243-21" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Chris&quot;, 11&gt;,</span></span>
+<span id="cb243-22"><a href="sec-io.html#cb243-22" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Cindy&quot;, 5&gt;,</span></span>
+<span id="cb243-23"><a href="sec-io.html#cb243-23" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;David&quot;, 1&gt;,</span></span>
+<span id="cb243-24"><a href="sec-io.html#cb243-24" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Debbie&quot;, 7&gt;,</span></span>
+<span id="cb243-25"><a href="sec-io.html#cb243-25" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Dee&quot;, 3&gt;,</span></span>
+<span id="cb243-26"><a href="sec-io.html#cb243-26" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Gloria&quot;, 8&gt;,</span></span>
+<span id="cb243-27"><a href="sec-io.html#cb243-27" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Isabelle&quot;, 3&gt;,</span></span>
+<span id="cb243-28"><a href="sec-io.html#cb243-28" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Jane&quot;, 3&gt;,</span></span>
+<span id="cb243-29"><a href="sec-io.html#cb243-29" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Janelle&quot;, 4&gt;,</span></span>
+<span id="cb243-30"><a href="sec-io.html#cb243-30" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Janice&quot;, 2&gt;,</span></span>
+<span id="cb243-31"><a href="sec-io.html#cb243-31" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Jemma&quot;, 2&gt;,</span></span>
+<span id="cb243-32"><a href="sec-io.html#cb243-32" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Joan&quot;, 5&gt;,</span></span>
+<span id="cb243-33"><a href="sec-io.html#cb243-33" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Joyce&quot;, 8&gt;,</span></span>
+<span id="cb243-34"><a href="sec-io.html#cb243-34" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Jude&quot;, 4&gt;,</span></span>
+<span id="cb243-35"><a href="sec-io.html#cb243-35" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Julie&quot;, 6&gt;,</span></span>
+<span id="cb243-36"><a href="sec-io.html#cb243-36" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Juliet&quot;, 7&gt;,</span></span>
+<span id="cb243-37"><a href="sec-io.html#cb243-37" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Kate&quot;, 5&gt;,</span></span>
+<span id="cb243-38"><a href="sec-io.html#cb243-38" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Nancy&quot;, 8&gt;,</span></span>
+<span id="cb243-39"><a href="sec-io.html#cb243-39" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Nathalie&quot;, 9&gt;,</span></span>
+<span id="cb243-40"><a href="sec-io.html#cb243-40" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Nicole&quot;, 0&gt;,</span></span>
+<span id="cb243-41"><a href="sec-io.html#cb243-41" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Patricia&quot;, 1&gt;,</span></span>
+<span id="cb243-42"><a href="sec-io.html#cb243-42" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Patrick&quot;, 6&gt;,</span></span>
+<span id="cb243-43"><a href="sec-io.html#cb243-43" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Roberta&quot;, 3&gt;,</span></span>
+<span id="cb243-44"><a href="sec-io.html#cb243-44" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Suzanne&quot;, 5&gt;,</span></span>
+<span id="cb243-45"><a href="sec-io.html#cb243-45" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Vickie&quot;, 7&gt;,</span></span>
+<span id="cb243-46"><a href="sec-io.html#cb243-46" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Wendie&quot;, 5&gt;,</span></span>
+<span id="cb243-47"><a href="sec-io.html#cb243-47" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Zoe&quot;, 8&gt;</span></span>
+<span id="cb243-48"><a href="sec-io.html#cb243-48" aria-hidden="true"></a><span class="co">#&gt; };</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#J2fkFS26tcdSHw1AynzG">
+Solution
+</button>
+<div id="a4nst0EbMh2eEGjBNgPX" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="a4nst0EbMh2eEGjBNgPX-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="a4nst0EbMh2eEGjBNgPX-title">
+Hint 2
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="sec-io.html#cb244-1" aria-hidden="true"></a>write_tuple &lt;-<span class="st"> </span><span class="cf">function</span>(dat, file) {</span>
+<span id="cb244-2"><a href="sec-io.html#cb244-2" aria-hidden="true"></a>   <span class="kw">write_lines</span>(<span class="st">&quot;nurses = {&quot;</span>, file, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">   &quot;</span>)</span>
+<span id="cb244-3"><a href="sec-io.html#cb244-3" aria-hidden="true"></a>   tuples &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span></span>
+<span id="cb244-4"><a href="sec-io.html#cb244-4" aria-hidden="true"></a><span class="st">      </span>___</span>
+<span id="cb244-5"><a href="sec-io.html#cb244-5" aria-hidden="true"></a>   <span class="kw">write_lines</span>(tuples, file, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb244-6"><a href="sec-io.html#cb244-6" aria-hidden="true"></a>   <span class="kw">write_lines</span>(<span class="st">&quot;};&quot;</span>, file, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb244-7"><a href="sec-io.html#cb244-7" aria-hidden="true"></a>}</span>
+<span id="cb244-8"><a href="sec-io.html#cb244-8" aria-hidden="true"></a>file &lt;-<span class="st"> &quot;test.dat&quot;</span></span>
+<span id="cb244-9"><a href="sec-io.html#cb244-9" aria-hidden="true"></a><span class="kw">write_tuple</span>(nurses, file)</span>
+<span id="cb244-10"><a href="sec-io.html#cb244-10" aria-hidden="true"></a><span class="kw">cat</span>(<span class="kw">read_file</span>(<span class="st">&quot;test.dat&quot;</span>))  <span class="co"># to have a look </span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#a4nst0EbMh2eEGjBNgPX">
+Hint 2
+</button>
+<div id="S71An841PqKRPLvvHjDw" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="S71An841PqKRPLvvHjDw-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="S71An841PqKRPLvvHjDw-title">
+Hint 1
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="sec-io.html#cb245-1" aria-hidden="true"></a>write_tuple &lt;-<span class="st"> </span><span class="cf">function</span>(dat, file) {</span>
+<span id="cb245-2"><a href="sec-io.html#cb245-2" aria-hidden="true"></a>   <span class="kw">write_lines</span>(___)</span>
+<span id="cb245-3"><a href="sec-io.html#cb245-3" aria-hidden="true"></a>   ___</span>
+<span id="cb245-4"><a href="sec-io.html#cb245-4" aria-hidden="true"></a>   <span class="kw">write_lines</span>(<span class="st">&quot;};&quot;</span>, ___, ___)</span>
+<span id="cb245-5"><a href="sec-io.html#cb245-5" aria-hidden="true"></a>}</span>
+<span id="cb245-6"><a href="sec-io.html#cb245-6" aria-hidden="true"></a>file &lt;-<span class="st"> &quot;test.dat&quot;</span></span>
+<span id="cb245-7"><a href="sec-io.html#cb245-7" aria-hidden="true"></a><span class="kw">write_tuple</span>(nurses, file)</span>
+<span id="cb245-8"><a href="sec-io.html#cb245-8" aria-hidden="true"></a><span class="kw">cat</span>(<span class="kw">read_file</span>(<span class="st">&quot;test.dat&quot;</span>))  <span class="co"># to have a look </span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#S71An841PqKRPLvvHjDw">
+Hint 1
+</button>
+<ol start="6" style="list-style-type: decimal">
+<li>Create a function <code>write_tuple</code> that takes nurses as input and write the tuples to a file.</li>
+</ol>
+<p>The name of an object can be extracted as a string using</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="sec-io.html#cb246-1" aria-hidden="true"></a><span class="kw">deparse</span>(<span class="kw">substitute</span>(nurses))</span>
+<span id="cb246-2"><a href="sec-io.html#cb246-2" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;nurses&quot;</span></span></code></pre></div>
+<div id="3zDJ7aezCoczRi4dDuor" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="3zDJ7aezCoczRi4dDuor-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="3zDJ7aezCoczRi4dDuor-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="sec-io.html#cb247-1" aria-hidden="true"></a>write_tuple &lt;-<span class="st"> </span><span class="cf">function</span>(dat, file) {</span>
+<span id="cb247-2"><a href="sec-io.html#cb247-2" aria-hidden="true"></a>   name &lt;-<span class="st"> </span><span class="kw">deparse</span>(<span class="kw">substitute</span>(dat))</span>
+<span id="cb247-3"><a href="sec-io.html#cb247-3" aria-hidden="true"></a>   <span class="kw">write_lines</span>(<span class="kw">str_c</span>(name, <span class="st">&quot; = {&quot;</span>), file, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">   &quot;</span>)</span>
+<span id="cb247-4"><a href="sec-io.html#cb247-4" aria-hidden="true"></a>   tuples &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span></span>
+<span id="cb247-5"><a href="sec-io.html#cb247-5" aria-hidden="true"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.character), <span class="op">~</span><span class="kw">str_c</span>(<span class="st">&#39;&quot;&#39;</span>, .x, <span class="st">&#39;&quot;&#39;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb247-6"><a href="sec-io.html#cb247-6" aria-hidden="true"></a><span class="st">      </span><span class="kw">unite</span>(<span class="st">&quot;tuple&quot;</span>, <span class="kw">everything</span>(), <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>, <span class="dt">remove =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb247-7"><a href="sec-io.html#cb247-7" aria-hidden="true"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">tuple =</span> <span class="kw">str_c</span>(<span class="st">&quot;&lt;&quot;</span>, tuple, <span class="st">&quot;&gt;&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb247-8"><a href="sec-io.html#cb247-8" aria-hidden="true"></a><span class="st">      </span><span class="kw">pull</span>(tuple) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb247-9"><a href="sec-io.html#cb247-9" aria-hidden="true"></a><span class="st">      </span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;,</span><span class="ch">\n</span><span class="st">   &quot;</span>)</span>
+<span id="cb247-10"><a href="sec-io.html#cb247-10" aria-hidden="true"></a>   <span class="kw">write_lines</span>(tuples, file, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb247-11"><a href="sec-io.html#cb247-11" aria-hidden="true"></a>   <span class="kw">write_lines</span>(<span class="st">&quot;};&quot;</span>, file, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb247-12"><a href="sec-io.html#cb247-12" aria-hidden="true"></a>}</span>
+<span id="cb247-13"><a href="sec-io.html#cb247-13" aria-hidden="true"></a>file &lt;-<span class="st"> &quot;test.dat&quot;</span></span>
+<span id="cb247-14"><a href="sec-io.html#cb247-14" aria-hidden="true"></a><span class="kw">write_tuple</span>(shifts, file)</span>
+<span id="cb247-15"><a href="sec-io.html#cb247-15" aria-hidden="true"></a><span class="kw">cat</span>(<span class="kw">read_file</span>(<span class="st">&quot;test.dat&quot;</span>))  <span class="co"># to have a look </span></span>
+<span id="cb247-16"><a href="sec-io.html#cb247-16" aria-hidden="true"></a><span class="co">#&gt; shifts = {</span></span>
+<span id="cb247-17"><a href="sec-io.html#cb247-17" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Monday&quot;, 2, 8&gt;,</span></span>
+<span id="cb247-18"><a href="sec-io.html#cb247-18" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Monday&quot;, 8, 12&gt;,</span></span>
+<span id="cb247-19"><a href="sec-io.html#cb247-19" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Monday&quot;, 12, 18&gt;,</span></span>
+<span id="cb247-20"><a href="sec-io.html#cb247-20" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Monday&quot;, 18, 2&gt;,</span></span>
+<span id="cb247-21"><a href="sec-io.html#cb247-21" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Monday&quot;, 8, 12&gt;,</span></span>
+<span id="cb247-22"><a href="sec-io.html#cb247-22" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Monday&quot;, 12, 18&gt;,</span></span>
+<span id="cb247-23"><a href="sec-io.html#cb247-23" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Tuesday&quot;, 8, 12&gt;,</span></span>
+<span id="cb247-24"><a href="sec-io.html#cb247-24" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Tuesday&quot;, 12, 18&gt;,</span></span>
+<span id="cb247-25"><a href="sec-io.html#cb247-25" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Tuesday&quot;, 18, 2&gt;,</span></span>
+<span id="cb247-26"><a href="sec-io.html#cb247-26" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Tuesday&quot;, 8, 12&gt;,</span></span>
+<span id="cb247-27"><a href="sec-io.html#cb247-27" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Tuesday&quot;, 12, 18&gt;,</span></span>
+<span id="cb247-28"><a href="sec-io.html#cb247-28" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Wednesday&quot;, 2, 8&gt;,</span></span>
+<span id="cb247-29"><a href="sec-io.html#cb247-29" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Wednesday&quot;, 8, 12&gt;,</span></span>
+<span id="cb247-30"><a href="sec-io.html#cb247-30" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Wednesday&quot;, 12, 18&gt;,</span></span>
+<span id="cb247-31"><a href="sec-io.html#cb247-31" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Wednesday&quot;, 18, 2&gt;,</span></span>
+<span id="cb247-32"><a href="sec-io.html#cb247-32" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Wednesday&quot;, 8, 12&gt;,</span></span>
+<span id="cb247-33"><a href="sec-io.html#cb247-33" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Wednesday&quot;, 12, 18&gt;,</span></span>
+<span id="cb247-34"><a href="sec-io.html#cb247-34" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Thursday&quot;, 2, 8&gt;,</span></span>
+<span id="cb247-35"><a href="sec-io.html#cb247-35" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Thursday&quot;, 8, 12&gt;,</span></span>
+<span id="cb247-36"><a href="sec-io.html#cb247-36" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Thursday&quot;, 12, 18&gt;,</span></span>
+<span id="cb247-37"><a href="sec-io.html#cb247-37" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Thursday&quot;, 18, 2&gt;,</span></span>
+<span id="cb247-38"><a href="sec-io.html#cb247-38" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Thursday&quot;, 8, 12&gt;,</span></span>
+<span id="cb247-39"><a href="sec-io.html#cb247-39" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Thursday&quot;, 12, 18&gt;,</span></span>
+<span id="cb247-40"><a href="sec-io.html#cb247-40" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Friday&quot;, 2, 8&gt;,</span></span>
+<span id="cb247-41"><a href="sec-io.html#cb247-41" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Friday&quot;, 8, 12&gt;,</span></span>
+<span id="cb247-42"><a href="sec-io.html#cb247-42" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Friday&quot;, 12, 18&gt;,</span></span>
+<span id="cb247-43"><a href="sec-io.html#cb247-43" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Friday&quot;, 18, 2&gt;,</span></span>
+<span id="cb247-44"><a href="sec-io.html#cb247-44" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Friday&quot;, 8, 12&gt;,</span></span>
+<span id="cb247-45"><a href="sec-io.html#cb247-45" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Friday&quot;, 12, 18&gt;,</span></span>
+<span id="cb247-46"><a href="sec-io.html#cb247-46" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Saturday&quot;, 2, 12&gt;,</span></span>
+<span id="cb247-47"><a href="sec-io.html#cb247-47" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Saturday&quot;, 12, 20&gt;,</span></span>
+<span id="cb247-48"><a href="sec-io.html#cb247-48" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Saturday&quot;, 20, 2&gt;,</span></span>
+<span id="cb247-49"><a href="sec-io.html#cb247-49" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Sunday&quot;, 2, 12&gt;,</span></span>
+<span id="cb247-50"><a href="sec-io.html#cb247-50" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Sunday&quot;, 12, 20&gt;,</span></span>
+<span id="cb247-51"><a href="sec-io.html#cb247-51" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Sunday&quot;, 20, 2&gt;</span></span>
+<span id="cb247-52"><a href="sec-io.html#cb247-52" aria-hidden="true"></a><span class="co">#&gt; };</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#3zDJ7aezCoczRi4dDuor">
+Solution
+</button>
+<ol start="7" style="list-style-type: decimal">
+<li>Modify <code>write_tuple</code> so it works if <code>shifts</code> also are given as input.</li>
+</ol>
+<div id="oPyUUL4uDIeZy6XusumA" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="oPyUUL4uDIeZy6XusumA-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="oPyUUL4uDIeZy6XusumA-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="sec-io.html#cb248-1" aria-hidden="true"></a>write_tuple &lt;-<span class="st"> </span><span class="cf">function</span>(dat, file, <span class="dt">append =</span> <span class="ot">FALSE</span>) {</span>
+<span id="cb248-2"><a href="sec-io.html#cb248-2" aria-hidden="true"></a>   name &lt;-<span class="st"> </span><span class="kw">deparse</span>(<span class="kw">substitute</span>(dat))</span>
+<span id="cb248-3"><a href="sec-io.html#cb248-3" aria-hidden="true"></a>   <span class="kw">write_lines</span>(<span class="kw">str_c</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, name, <span class="st">&quot; = {&quot;</span>), file, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">   &quot;</span>, <span class="dt">append =</span> append)</span>
+<span id="cb248-4"><a href="sec-io.html#cb248-4" aria-hidden="true"></a>   tuples &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span></span>
+<span id="cb248-5"><a href="sec-io.html#cb248-5" aria-hidden="true"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.character), <span class="op">~</span><span class="kw">str_c</span>(<span class="st">&#39;&quot;&#39;</span>, .x, <span class="st">&#39;&quot;&#39;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb248-6"><a href="sec-io.html#cb248-6" aria-hidden="true"></a><span class="st">      </span><span class="kw">unite</span>(<span class="st">&quot;tuple&quot;</span>, <span class="kw">everything</span>(), <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>, <span class="dt">remove =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb248-7"><a href="sec-io.html#cb248-7" aria-hidden="true"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">tuple =</span> <span class="kw">str_c</span>(<span class="st">&quot;&lt;&quot;</span>, tuple, <span class="st">&quot;&gt;&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb248-8"><a href="sec-io.html#cb248-8" aria-hidden="true"></a><span class="st">      </span><span class="kw">pull</span>(tuple) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb248-9"><a href="sec-io.html#cb248-9" aria-hidden="true"></a><span class="st">      </span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;,</span><span class="ch">\n</span><span class="st">   &quot;</span>)</span>
+<span id="cb248-10"><a href="sec-io.html#cb248-10" aria-hidden="true"></a>   <span class="kw">write_lines</span>(tuples, file, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb248-11"><a href="sec-io.html#cb248-11" aria-hidden="true"></a>   <span class="kw">write_lines</span>(<span class="st">&quot;};&quot;</span>, file, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb248-12"><a href="sec-io.html#cb248-12" aria-hidden="true"></a>}</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#oPyUUL4uDIeZy6XusumA">
+Solution
+</button>
+<ol start="8" style="list-style-type: decimal">
+<li>Modify <code>write_tuple</code> with a new input argument <code>append</code> which is false by default. If true, then then the file is not overwritten.</li>
+</ol>
+<div id="77QmuQoTglgqJB50tn46" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="77QmuQoTglgqJB50tn46-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="77QmuQoTglgqJB50tn46-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="sec-io.html#cb249-1" aria-hidden="true"></a>file &lt;-<span class="st"> &quot;test.dat&quot;</span></span>
+<span id="cb249-2"><a href="sec-io.html#cb249-2" aria-hidden="true"></a><span class="kw">write_tuple</span>(nurses, file)</span>
+<span id="cb249-3"><a href="sec-io.html#cb249-3" aria-hidden="true"></a><span class="kw">write_tuple</span>(shifts, file, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb249-4"><a href="sec-io.html#cb249-4" aria-hidden="true"></a><span class="kw">cat</span>(<span class="kw">read_file</span>(<span class="st">&quot;test.dat&quot;</span>))  <span class="co"># to have a look </span></span>
+<span id="cb249-5"><a href="sec-io.html#cb249-5" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb249-6"><a href="sec-io.html#cb249-6" aria-hidden="true"></a><span class="co">#&gt; nurses = {</span></span>
+<span id="cb249-7"><a href="sec-io.html#cb249-7" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Anne&quot;, 11&gt;,</span></span>
+<span id="cb249-8"><a href="sec-io.html#cb249-8" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Bethanie&quot;, 4&gt;,</span></span>
+<span id="cb249-9"><a href="sec-io.html#cb249-9" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Betsy&quot;, 2&gt;,</span></span>
+<span id="cb249-10"><a href="sec-io.html#cb249-10" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Cathy&quot;, 2&gt;,</span></span>
+<span id="cb249-11"><a href="sec-io.html#cb249-11" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Cecilia&quot;, 9&gt;,</span></span>
+<span id="cb249-12"><a href="sec-io.html#cb249-12" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Chris&quot;, 11&gt;,</span></span>
+<span id="cb249-13"><a href="sec-io.html#cb249-13" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Cindy&quot;, 5&gt;,</span></span>
+<span id="cb249-14"><a href="sec-io.html#cb249-14" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;David&quot;, 1&gt;,</span></span>
+<span id="cb249-15"><a href="sec-io.html#cb249-15" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Debbie&quot;, 7&gt;,</span></span>
+<span id="cb249-16"><a href="sec-io.html#cb249-16" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Dee&quot;, 3&gt;,</span></span>
+<span id="cb249-17"><a href="sec-io.html#cb249-17" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Gloria&quot;, 8&gt;,</span></span>
+<span id="cb249-18"><a href="sec-io.html#cb249-18" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Isabelle&quot;, 3&gt;,</span></span>
+<span id="cb249-19"><a href="sec-io.html#cb249-19" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Jane&quot;, 3&gt;,</span></span>
+<span id="cb249-20"><a href="sec-io.html#cb249-20" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Janelle&quot;, 4&gt;,</span></span>
+<span id="cb249-21"><a href="sec-io.html#cb249-21" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Janice&quot;, 2&gt;,</span></span>
+<span id="cb249-22"><a href="sec-io.html#cb249-22" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Jemma&quot;, 2&gt;,</span></span>
+<span id="cb249-23"><a href="sec-io.html#cb249-23" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Joan&quot;, 5&gt;,</span></span>
+<span id="cb249-24"><a href="sec-io.html#cb249-24" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Joyce&quot;, 8&gt;,</span></span>
+<span id="cb249-25"><a href="sec-io.html#cb249-25" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Jude&quot;, 4&gt;,</span></span>
+<span id="cb249-26"><a href="sec-io.html#cb249-26" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Julie&quot;, 6&gt;,</span></span>
+<span id="cb249-27"><a href="sec-io.html#cb249-27" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Juliet&quot;, 7&gt;,</span></span>
+<span id="cb249-28"><a href="sec-io.html#cb249-28" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Kate&quot;, 5&gt;,</span></span>
+<span id="cb249-29"><a href="sec-io.html#cb249-29" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Nancy&quot;, 8&gt;,</span></span>
+<span id="cb249-30"><a href="sec-io.html#cb249-30" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Nathalie&quot;, 9&gt;,</span></span>
+<span id="cb249-31"><a href="sec-io.html#cb249-31" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Nicole&quot;, 0&gt;,</span></span>
+<span id="cb249-32"><a href="sec-io.html#cb249-32" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Patricia&quot;, 1&gt;,</span></span>
+<span id="cb249-33"><a href="sec-io.html#cb249-33" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Patrick&quot;, 6&gt;,</span></span>
+<span id="cb249-34"><a href="sec-io.html#cb249-34" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Roberta&quot;, 3&gt;,</span></span>
+<span id="cb249-35"><a href="sec-io.html#cb249-35" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Suzanne&quot;, 5&gt;,</span></span>
+<span id="cb249-36"><a href="sec-io.html#cb249-36" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Vickie&quot;, 7&gt;,</span></span>
+<span id="cb249-37"><a href="sec-io.html#cb249-37" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Wendie&quot;, 5&gt;,</span></span>
+<span id="cb249-38"><a href="sec-io.html#cb249-38" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Zoe&quot;, 8&gt;</span></span>
+<span id="cb249-39"><a href="sec-io.html#cb249-39" aria-hidden="true"></a><span class="co">#&gt; };</span></span>
+<span id="cb249-40"><a href="sec-io.html#cb249-40" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb249-41"><a href="sec-io.html#cb249-41" aria-hidden="true"></a><span class="co">#&gt; shifts = {</span></span>
+<span id="cb249-42"><a href="sec-io.html#cb249-42" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Monday&quot;, 2, 8&gt;,</span></span>
+<span id="cb249-43"><a href="sec-io.html#cb249-43" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Monday&quot;, 8, 12&gt;,</span></span>
+<span id="cb249-44"><a href="sec-io.html#cb249-44" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Monday&quot;, 12, 18&gt;,</span></span>
+<span id="cb249-45"><a href="sec-io.html#cb249-45" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Monday&quot;, 18, 2&gt;,</span></span>
+<span id="cb249-46"><a href="sec-io.html#cb249-46" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Monday&quot;, 8, 12&gt;,</span></span>
+<span id="cb249-47"><a href="sec-io.html#cb249-47" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Monday&quot;, 12, 18&gt;,</span></span>
+<span id="cb249-48"><a href="sec-io.html#cb249-48" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Tuesday&quot;, 8, 12&gt;,</span></span>
+<span id="cb249-49"><a href="sec-io.html#cb249-49" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Tuesday&quot;, 12, 18&gt;,</span></span>
+<span id="cb249-50"><a href="sec-io.html#cb249-50" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Tuesday&quot;, 18, 2&gt;,</span></span>
+<span id="cb249-51"><a href="sec-io.html#cb249-51" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Tuesday&quot;, 8, 12&gt;,</span></span>
+<span id="cb249-52"><a href="sec-io.html#cb249-52" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Tuesday&quot;, 12, 18&gt;,</span></span>
+<span id="cb249-53"><a href="sec-io.html#cb249-53" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Wednesday&quot;, 2, 8&gt;,</span></span>
+<span id="cb249-54"><a href="sec-io.html#cb249-54" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Wednesday&quot;, 8, 12&gt;,</span></span>
+<span id="cb249-55"><a href="sec-io.html#cb249-55" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Wednesday&quot;, 12, 18&gt;,</span></span>
+<span id="cb249-56"><a href="sec-io.html#cb249-56" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Wednesday&quot;, 18, 2&gt;,</span></span>
+<span id="cb249-57"><a href="sec-io.html#cb249-57" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Wednesday&quot;, 8, 12&gt;,</span></span>
+<span id="cb249-58"><a href="sec-io.html#cb249-58" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Wednesday&quot;, 12, 18&gt;,</span></span>
+<span id="cb249-59"><a href="sec-io.html#cb249-59" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Thursday&quot;, 2, 8&gt;,</span></span>
+<span id="cb249-60"><a href="sec-io.html#cb249-60" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Thursday&quot;, 8, 12&gt;,</span></span>
+<span id="cb249-61"><a href="sec-io.html#cb249-61" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Thursday&quot;, 12, 18&gt;,</span></span>
+<span id="cb249-62"><a href="sec-io.html#cb249-62" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Thursday&quot;, 18, 2&gt;,</span></span>
+<span id="cb249-63"><a href="sec-io.html#cb249-63" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Thursday&quot;, 8, 12&gt;,</span></span>
+<span id="cb249-64"><a href="sec-io.html#cb249-64" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Thursday&quot;, 12, 18&gt;,</span></span>
+<span id="cb249-65"><a href="sec-io.html#cb249-65" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Friday&quot;, 2, 8&gt;,</span></span>
+<span id="cb249-66"><a href="sec-io.html#cb249-66" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Friday&quot;, 8, 12&gt;,</span></span>
+<span id="cb249-67"><a href="sec-io.html#cb249-67" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Friday&quot;, 12, 18&gt;,</span></span>
+<span id="cb249-68"><a href="sec-io.html#cb249-68" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Friday&quot;, 18, 2&gt;,</span></span>
+<span id="cb249-69"><a href="sec-io.html#cb249-69" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Friday&quot;, 8, 12&gt;,</span></span>
+<span id="cb249-70"><a href="sec-io.html#cb249-70" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Consultation&quot;, &quot;Friday&quot;, 12, 18&gt;,</span></span>
+<span id="cb249-71"><a href="sec-io.html#cb249-71" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Saturday&quot;, 2, 12&gt;,</span></span>
+<span id="cb249-72"><a href="sec-io.html#cb249-72" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Saturday&quot;, 12, 20&gt;,</span></span>
+<span id="cb249-73"><a href="sec-io.html#cb249-73" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Saturday&quot;, 20, 2&gt;,</span></span>
+<span id="cb249-74"><a href="sec-io.html#cb249-74" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Sunday&quot;, 2, 12&gt;,</span></span>
+<span id="cb249-75"><a href="sec-io.html#cb249-75" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Sunday&quot;, 12, 20&gt;,</span></span>
+<span id="cb249-76"><a href="sec-io.html#cb249-76" aria-hidden="true"></a><span class="co">#&gt;    &lt;&quot;Emergency&quot;, &quot;Sunday&quot;, 20, 2&gt;</span></span>
+<span id="cb249-77"><a href="sec-io.html#cb249-77" aria-hidden="true"></a><span class="co">#&gt; };</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#77QmuQoTglgqJB50tn46">
+Solution
+</button>
+<ol start="9" style="list-style-type: decimal">
+<li>Write <code>nurses</code> and <code>shifts</code> to a single data file.</li>
 </ol>
 
 </div>
