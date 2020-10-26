@@ -4,6 +4,8 @@
     <title>Programming</title>
     <meta charset="utf-8" />
     <meta name="author" content="Lars Relund Nielsen" />
+    <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+    <script src="libs/anchor-sections/anchor-sections.js"></script>
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <link href="libs/countdown/countdown.css" rel="stylesheet" />
@@ -103,7 +105,7 @@ all(x &gt; -100)
 ```
 ]
 
-<div class="countdown" id="timer_5f86c288" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_5f96a44b" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -224,7 +226,15 @@ x &lt;- c(-5:5, NA)
 
 ## using if and for
 res &lt;- rep("", length(x))
-for (i in seq_along(x)) {
+res
+```
+
+```
+##  [1] "" "" "" "" "" "" "" "" "" "" "" ""
+```
+
+```r
+for (i in 1:length(x)) {
   if (is.na(x[i])) res[i] &lt;- "missing"
   else if (x[i] &lt; 0) res[i] &lt;- "negative"
   else res[i] &lt;- "positive"
@@ -270,7 +280,7 @@ res
 
 ```r
 v &lt;- c(2,4,9,0)  # values we want to iterate over
-res &lt;- rep(NA,4) # vector to store results in
+res &lt;- rep(NA, length(v)) # vector to store results in
 for (idx in 1:length(v)) {
   res[idx] &lt;- 6 * v[idx] + 9
 }
@@ -369,7 +379,7 @@ for (r in 1:nrow(ite)) { # iterate over rows
 ```
 ]
 
-<div class="countdown" id="timer_5f86c12d" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_5f96a4a3" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -811,7 +821,7 @@ Use **Code &gt; Insert Roxygen skeleton** (Ctrl+Alt+Shift+R).
 ```r
 #' Loop through some values in a data frame
 #'
-#' @param dat A data frame
+#' @param dat A data frame.
 #' @param rows Rows to loop through.
 #' @param cols Columns to loop through.
 #' @param ... Arguments passed to `cat`.
@@ -851,7 +861,7 @@ get_combinations(dice = c(3,1), card = c("10-heart", "king-dimond"))
 ```
 ]
 
-<div class="countdown" id="timer_5f86c3df" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_5f96a275" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -904,13 +914,13 @@ get_combinations(dice = c(3,1), card = c("10-heart", "king-dimond"))
 ## Your Turn
 
 .your-turn[
-- Create a function that calculates the present value ($PV$) of a future value. The equation is: 
+- Create a function that calculates the present value (PV) of a future value. The equation is: 
 `$$PV = FV/(1+r)^n$$` where `\(FV\)` is future value, `\(r\)` is the interest rate, and `\(n\)` is the number of periods. 
 - Input arguments must be `\(FV\)`, `\(r\)`, `\(n\)` and a boolean `round` equal true if the output should be rounded to two decimals. 
 - The default interest rate is 0.1 (10%) and rounding is false by default.
 ]
 
-<div class="countdown" id="timer_5f86c454" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_5f96a519" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 

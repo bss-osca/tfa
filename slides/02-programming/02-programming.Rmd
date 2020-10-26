@@ -165,7 +165,8 @@ x <- c(-5:5, NA)
 
 ## using if and for
 res <- rep("", length(x))
-for (i in seq_along(x)) {
+res
+for (i in 1:length(x)) {
   if (is.na(x[i])) res[i] <- "missing"
   else if (x[i] < 0) res[i] <- "negative"
   else res[i] <- "positive"
@@ -195,7 +196,7 @@ options(width=80)
 
 ```{r}
 v <- c(2,4,9,0)  # values we want to iterate over
-res <- rep(NA,4) # vector to store results in
+res <- rep(NA, length(v)) # vector to store results in
 for (idx in 1:length(v)) {
   res[idx] <- 6 * v[idx] + 9
 }
@@ -347,7 +348,7 @@ Use **Code > Insert Roxygen skeleton** (Ctrl+Alt+Shift+R).
 ```{r}
 #' Loop through some values in a data frame
 #'
-#' @param dat A data frame
+#' @param dat A data frame.
 #' @param rows Rows to loop through.
 #' @param cols Columns to loop through.
 #' @param ... Arguments passed to `cat`.
@@ -388,7 +389,7 @@ get_combinations(dice = c(3,1), card = c("10-heart", "king-dimond"))
 ]
 
 ```{r echo=FALSE}
-countdown(minutes = 5)
+countdown(minutes = 5, top = "0")
 ```
 
 ???
@@ -414,7 +415,7 @@ get_combinations(dice = c(3,1), card = c("10-heart", "king-dimond"))
 ## Your Turn
 
 .your-turn[
-- Create a function that calculates the present value ($PV$) of a future value. The equation is: 
+- Create a function that calculates the present value (PV) of a future value. The equation is: 
 $$PV = FV/(1+r)^n$$ where $FV$ is future value, $r$ is the interest rate, and $n$ is the number of periods. 
 - Input arguments must be $FV$, $r$, $n$ and a boolean `round` equal true if the output should be rounded to two decimals. 
 - The default interest rate is 0.1 (10%) and rounding is false by default.
