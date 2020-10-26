@@ -21,3 +21,17 @@
 #' @examples
 #' profit
 "profit"
+
+#' World population
+#'
+#' A dataset containing with populations for each country 1800-2100.
+#'
+#' @format A data frame with 376 rows and 2 variables:
+#'
+#'   * **Zip** Zip code.
+#'   * **Area** Name of area.
+#'
+#' @source Gapminder project (http://gapm.io/dl_pop).
+#' @examples
+#' world_pop
+"world_pop"
