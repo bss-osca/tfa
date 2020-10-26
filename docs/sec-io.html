@@ -33,7 +33,7 @@
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="sec-tidy-intro.html"/>
 <link rel="next" href="sec-transform.html"/>
-<script src="libs/header-attrs-2.4/header-attrs.js"></script>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <link href="libs/font-awesome-5.3.1/css/all.min.css" rel="stylesheet" />
 <link href="libs/font-awesome-5.3.1/css/v4-shims.min.css" rel="stylesheet" />
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
@@ -1281,8 +1283,8 @@ Hint
 <span id="cb227-11"><a href="sec-io.html#cb227-11" aria-hidden="true"></a>}</span></code></pre></div>
 <p>A <code>nurse</code> tuple is then defined as <code>&lt;"Anne", 11&gt;</code> and a <code>shift</code> tuple as `&lt;“Consultation”, “Monday” 12, 18&gt;.</p>
 <p>A set of tuples can be defined using:</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb228-1"><a href="sec-io.html#cb228-1" aria-hidden="true"></a>{nurse} Nurses = ...;</span>
-<span id="cb228-2"><a href="sec-io.html#cb228-2" aria-hidden="true"></a>{shift} Shifts = ...;</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb228-1"><a href="sec-io.html#cb228-1" aria-hidden="true"></a>{nurse} nurses = ...;</span>
+<span id="cb228-2"><a href="sec-io.html#cb228-2" aria-hidden="true"></a>{shift} shifts = ...;</span></code></pre></div>
 <p>where the <code>...</code> operator means that the sets are read from a data text file:</p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb229-1"><a href="sec-io.html#cb229-1" aria-hidden="true"></a>nurses = {</span>
 <span id="cb229-2"><a href="sec-io.html#cb229-2" aria-hidden="true"></a>   &lt;<span class="st">&quot;Anne&quot;</span>, <span class="dv">11</span>&gt;, </span>
@@ -1367,9 +1369,9 @@ Hint
 <p>Load datasets</p>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="sec-io.html#cb233-1" aria-hidden="true"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;bss-osca/tfa/tfa-package&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb233-2"><a href="sec-io.html#cb233-2" aria-hidden="true"></a><span class="co">#&gt;   </span></span>
-<span id="cb233-3"><a href="sec-io.html#cb233-3" aria-hidden="true"></a>   checking <span class="cf">for</span> file ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">24</span><span class="op">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="op">/</span>T<span class="op">/</span>RtmpsMI5RO<span class="op">/</span>remotes68307ab41702<span class="op">/</span>bss<span class="op">-</span>osca<span class="op">-</span>tfa<span class="op">-</span>cbc1ab4<span class="op">/</span>tfa<span class="op">-</span>package<span class="op">/</span>DESCRIPTION’ ...</span>
+<span id="cb233-3"><a href="sec-io.html#cb233-3" aria-hidden="true"></a>   checking <span class="cf">for</span> file ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">24</span><span class="op">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="op">/</span>T<span class="op">/</span>RtmpauCFv5<span class="op">/</span>remotes6801121d6567<span class="op">/</span>bss<span class="op">-</span>osca<span class="op">-</span>tfa<span class="op">-</span>7689ef0<span class="op">/</span>tfa<span class="op">-</span>package<span class="op">/</span>DESCRIPTION’ ...</span>
 <span id="cb233-4"><a href="sec-io.html#cb233-4" aria-hidden="true"></a>  </span>
-<span id="cb233-5"><a href="sec-io.html#cb233-5" aria-hidden="true"></a>✔  checking <span class="cf">for</span> file ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">24</span><span class="op">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="op">/</span>T<span class="op">/</span>RtmpsMI5RO<span class="op">/</span>remotes68307ab41702<span class="op">/</span>bss<span class="op">-</span>osca<span class="op">-</span>tfa<span class="op">-</span>cbc1ab4<span class="op">/</span>tfa<span class="op">-</span>package<span class="op">/</span>DESCRIPTION’ (405ms)</span>
+<span id="cb233-5"><a href="sec-io.html#cb233-5" aria-hidden="true"></a>✔  checking <span class="cf">for</span> file ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">24</span><span class="op">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="op">/</span>T<span class="op">/</span>RtmpauCFv5<span class="op">/</span>remotes6801121d6567<span class="op">/</span>bss<span class="op">-</span>osca<span class="op">-</span>tfa<span class="op">-</span>7689ef0<span class="op">/</span>tfa<span class="op">-</span>package<span class="op">/</span>DESCRIPTION’</span>
 <span id="cb233-6"><a href="sec-io.html#cb233-6" aria-hidden="true"></a><span class="co">#&gt; </span></span>
 <span id="cb233-7"><a href="sec-io.html#cb233-7" aria-hidden="true"></a>  </span>
 <span id="cb233-8"><a href="sec-io.html#cb233-8" aria-hidden="true"></a>─  preparing ‘tfa’<span class="op">:</span></span>
@@ -1940,7 +1942,7 @@ Close
 Solution
 </button>
 <ol start="7" style="list-style-type: decimal">
-<li>Modify <code>write_tuple</code> so it works if <code>shifts</code> also are given as input.</li>
+<li>Modify <code>write_tuple</code> so it works if <code>shifts</code> are given as input instead of nurses.</li>
 </ol>
 <div id="oPyUUL4uDIeZy6XusumA" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="oPyUUL4uDIeZy6XusumA-title">
 <div class="modal-dialog modal-lg" role="document">
