@@ -879,25 +879,59 @@ First load the following packages:
 library(coronavirus) 
 library(tidyverse)
 library(lubridate)   # package for handling dates
-# library(glue)
-# library(scales)
-# library(ggrepel)
-# library(DT)
+```
+
+The data frame called `coronavirus` in the coronavirus package provides a daily summary of the Corona virus (COVID-19) cases by country. Each row in the data frame represents a country (or, where relevant, state/province). Note that the data provided in this package provides daily number of deaths, confirmed cases, and recovered cases. We calculate the total number of cases per day, cumulative numbers and days since first record: 
+
+```{r}
+dat <- coronavirus %>%
+  group_by(country, date, type) %>% 
+  summarise(tot_cases = sum(cases)) %>%
+  group_by(country, type) %>% 
+  arrange(date) %>%
+  mutate(cumulative_cases = cumsum(tot_cases)) %>%
+  ungroup() %>%
+  mutate(
+    days_elapsed = as.numeric(date - min(date)),
+    year = year(date)
+  ) %>% print()
 ```
 
 
-<!-- - **tidyverse** for data wrangling and visualization -->
-<!-- - **glue** package for constructing text strings -->
-<!-- - **scales** package for formatting axis labels -->
-<!-- - **ggrepel** package for pretty printing of country labels -->
 
-<!-- We will make use of the **DT** package for interactive display of tabular output in the Appendix. -->
+```{r, solution=TRUE}
+dat %>% 
+  group_by(date, type) %>% 
+  summarise(tot_cases = sum(tot_cases)) %>% print() %>% 
+  ggplot(aes(x = date, y = tot_cases)) +
+  geom_col() + 
+  facet_grid(rows = vars(type), scales = "free") +
+  labs(
+    title = "Number of Covid 19 cases per day",
+    y = "cases"
+  )
+```
+```{r, hint=TRUE, title="Hint 2"}
+dat %>% 
+  group_by(date, type) %>% 
+  summarise(tot_cases = sum(tot_cases)) %>% print() %>% 
+  ggplot(aes(x = ___, y = ___)) +
+  geom_col() + 
+  facet_grid(rows = vars(___), scales = "___") +
+  labs(
+    title = "___",
+    y = "___"
+  )
+```
+```{r, hint=TRUE, title="Hint 1", text="Note you must aggegrate the numbers for the countries."}
+dat %>% 
+  group_by(date, ___) %>% 
+  summarise(tot_cases = sum(___)) 
+```
+  1) Calculate and plot the number of confirmed, death and recovered cases per day given date using `facet_grid` and `geom_col`.
+  
 
-
-
-The data frame called `coronavirus` in the coronavirus package provides a daily summary of the Corona virus (COVID-19) cases by country. Each row in the data frame represents a country (or, where relevant, state/province). Note that the data provided in this package provides daily number of deaths, confirmed cases, and recovered cases. For this report, we will focus on the deaths. 
-
-We will start by making our selection for the countries we want to explore.
+Consider the following set of countries:
 
 ```{r}
 countries <- c(
@@ -909,140 +943,106 @@ countries <- c(
 )
 ```
 
-In the following code chunk we filter the data frame for deaths in the countries we specified above and calculate cumulative number of deaths. We will only visualize data since 10th confirmed death. 
-
-```{r prep-country-data}
-country_data <- coronavirus %>%
-  # filter for deaths in countries of interest
-  filter(
-    type == "death",
-    country %in% countries
-  ) %>%
-  # calculate number of total cases for each country and date
-  group_by(country, date) %>%
-  summarise(tot_cases = sum(cases)) %>%
-  # arrange by date in ascending order
-  arrange(date) %>%
-  # record daily cumulative cases as cumulative_cases
-  mutate(cumulative_cases = cumsum(tot_cases)) %>%
-  # only use days since the 10th confirmed death
-  filter(cumulative_cases > 9) %>%
-  # record days elapsed, end date, and end label
-  mutate(
-    days_elapsed = as.numeric(date - min(date))
-  ) %>%
-  # ungroup
-  ungroup()
-```
-
-We also need to take a note of the "as of date" for the data so that we can properly label our visualization.
-
-```{r, eval=FALSE}
-as_of_date <- country_data %>% 
-  summarise(max(date)) %>% 
-  pull()
-
-as_of_date_formatted <- glue("{wday(as_of_date, label = TRUE)}, {month(as_of_date, label = TRUE)} {day(as_of_date)}, {year(as_of_date)}")
-```
 
 
 
-
-
-The following visualization shows the number of cumulative cases vs. days elapsed since the 10th confirmed death in each country. The time span plotted for each country varies since some countries started seeing (and reporting) deaths from COVID-19 much later than others.
-
-```{r visualise, warning=FALSE}
-ggplot(data = country_data,
-       mapping = aes(x = days_elapsed, 
-                     y = cumulative_cases, 
-                     color = country)) +
-  # represent cumulative cases with lines
-  geom_line(size = 0.7, alpha = 0.8) +
-  # add points to line endings
-  # geom_point(data = country_data %>% filter(end_date)) +
-  # add country labels, nudged above the lines
-  # geom_label_repel(nudge_y = 1, direction = "y", hjust = 1) + 
-  # turn off legend
-  # guides(color = FALSE) +
-  # use pretty colors
-  # scale_color_viridis_d() +
-  # better formatting for y-axis
-  # scale_y_continuous(labels = label_comma()) +
-  # use minimal theme
-  # theme_minimal() +
+```{r, solution=TRUE}
+dat %>% 
+  filter(type == "death", country %in% countries) %>% 
+  ggplot(aes(x = days_elapsed, 
+             y = cumulative_cases, 
+             color = country)) +
+  geom_line() +
   theme(legend.position = "bottom") +
-  # customize labels
   labs(
-    x = "Days since 10th confirmed death",
+    x = str_c("Days since ", min(dat$date)),
     y = "Cumulative number of deaths",
-    title = "Cumulative deaths from COVID-19, selected countries",
-    # subtitle = glue("Data as of", as_of_date_formatted, .sep = " "),
+    title = "Cumulative deaths from COVID-19, selected countries"
   )
-  
+```
+```{r, hint=TRUE, title="Hint 2"}
+dat %>% 
+  filter(type == "death", country %in% countries) %>% 
+  ggplot(aes(x = ___, 
+             y = ___, 
+             color = ___)) +
+  geom_line() +
+  theme(legend.position = "bottom") +
+  labs(
+    x = str_c("Days since ", min(dat$date)),
+    y = "___",
+    title = "Cumulative deaths from COVID-19, selected countries"
+  )
+```
+```{r, hint=TRUE, title="Hint 1", text="First you have to filter type and country"}
+dat %>% 
+  filter(type == "___", country %in% ___) %>% 
+```
+2) Plot a lineplot of the cumulative number of deaths as a function of days elapsed for the selected countries. Use country as color aesthetic. 
 
-ggplot(data = country_data,
-       mapping = aes(x = date, 
-                     y = cumulative_cases, 
-                     color = country)) +
-  # represent cumulative cases with lines
-  geom_line(size = 0.7, alpha = 0.8) 
 
-dat <- coronavirus %>%
+Since the countries have different population sizes we would like to calculate some numbers relative to the population size. First we need population sizes for each country. They are given in the dataset `world_pop` in the _tfa_ package:
+
+```{r}
+world_pop <- tfa::world_pop %>%
   filter(country %in% countries) %>% 
-  group_by(country, date, type) %>% 
-  summarise(tot_cases = sum(cases)) %>%
-  group_by(country, type) %>% 
-  arrange(date) %>%
-  mutate(cumulative_cases = cumsum(tot_cases)) %>%
-  ungroup() %>%
-  mutate(
-    days_elapsed = as.numeric(date - min(date)),
-    year = year(date)
-  ) %>%
-  as_tibble() 
+  print()
+```
 
-# download.file("http://gapm.io/dl_pop", destfile = "test_pop1800_2100.xlsx")
-world_pop = readxl::read_xlsx("test_pop1800_2100.xlsx", sheet = 7)
-world_pop <- world_pop %>% 
-  select(-geo, -indicator) %>% 
-  rename(country = name) %>% 
-  mutate(country = case_when(
-      country == "United States" ~ "US",
-      TRUE ~ country)) %>% 
-  pivot_longer(!country, 
-               names_to = "year", 
-               values_to = "pop", 
-               names_transform = list(year = as.integer))
+We can join the datasets using:
 
+```{r}
 dat <- dat %>% 
-  left_join(world_pop)
+  filter(country %in% countries) %>% 
+  left_join(world_pop) %>% 
+  print()
+any(is.na(dat))  # check if any missing values
+```
 
+
+
+```{r, solution=TRUE}
+dat <- dat %>% 
+  mutate(tot_cases_pop = 100000 * tot_cases/pop)
+```
+3) Calculate `tot_cases_pop` as number of cases per 100000 inhabitants. That is, total cases divided by population and multiplied by 100000.
+
+
+
+```{r, solution=TRUE, warning=FALSE}
 dat %>% 
-  ggplot(aes(x = date, y = cumulative_cases, color = country)) +
-  geom_line(size = 0.7, alpha = 0.8) +
-  facet_grid(rows = vars(type), scales = "free")
-
-dat %>%
-  ggplot(aes(x = date, y = tot_cases, color = country, linetype = type)) +
-  geom_line(size = 0.7, alpha = 0.8)
-
-dat %>% filter(date >= now() - days(14), country == "Denmark", type == "confirmed") %>% 
-  ggplot(aes(x = date, y = tot_cases, color = country, fill = type)) +
-  geom_col(size = 0.7, alpha = 0.8)
-
-dat %>% filter(date >= now() - days(21), type == "confirmed", !(country %in% c("US", "China"))) %>% 
-  ggplot(aes(x = date, y = tot_cases, fill = country)) +
-  geom_col(position = position_dodge2())
-
-
-dat %>% 
-  mutate(tot_cases_pop = tot_cases/pop) %>% 
-  filter(date >= now() - days(21), type == "confirmed", !(country %in% c("US", "China"))) %>% 
+  filter(date >= today() - days(21), type == "confirmed") %>% 
   ggplot(aes(x = date, y = tot_cases_pop, fill = country)) +
   geom_col(position = position_dodge2())
+
 ```
+```{r, hint=TRUE, title="Hint 2"}
+dat %>% 
+  filter(date >= today() - days(21), type == ___) %>% 
+  ggplot(aes(x = date, y = ___, fill = ___)) +
+  geom_col(position = position_dodge2())
+```
+```{r, solution=TRUE, title="Hint 1", warning=FALSE}
+# Use this to find date 21 days ago
+today() - days(21)
+```
+4) Plot the number of confirmed cases per 100000 inhabitants for the last 21 days. Use country as fill aesthetic.
 
 
+
+```{r, solution=TRUE, warning=FALSE}
+dat %>% 
+  filter(date >= today() - days(14), country == "Denmark", type == "confirmed") %>% 
+  ggplot(aes(x = date, y = tot_cases_pop)) +
+  geom_col()
+```
+```{r, hint=TRUE}
+dat %>% 
+  filter(date >= ___, country == ___, type == ___) %>% 
+  ggplot(aes(x = date, y = tot_cases_pop)) +
+  geom_col()
+```
+5) Plot the number of confirmed cases per 100000 inhabitants in Denmark for the last 14 days.
 
 
 
