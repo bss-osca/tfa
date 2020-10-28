@@ -24,6 +24,7 @@ By the end of this module, you are expected to:
 * Explain the idea behind aesthetics such as color, fill and line type.
 * Add geometries to a plot such as a histogram, a boxplot, a barplot, a scatter plot and a line.
 * Understand how themes can be used to modify the overall look of a plot.
+* Combine multiple plots into a single graphic.
 * Save plots as variables and different image files.
 
 The learning outcomes relate to the [overall learning goals](#lg-course) number 7, 11-14 and 18 of the course.
@@ -35,46 +36,83 @@ The learning outcomes relate to the [overall learning goals](#lg-course) number 
 
 ## Introduction to data visualization
 
-[ggplot2][tidyverse-ggplot2] is a plotting package that makes it simple to create complex plots from data in a data frame. It provides an interface for specifying what variables to plot, how they are displayed, and general visual properties. Hence only minimal changes are needed if the underlying data change or if we decide to change from a bar plot to a scatterplot. 
+The package [ggplot2][tidyverse-ggplot2] is a plotting package that makes it simple to create complex plots from data in a data frame. It provides an interface for specifying what variables to plot, how they are displayed, and general visual properties. Hence only minimal changes are needed if the underlying data change or if we decide to change from a bar plot to a scatterplot. 
 
 The package implements the grammar of graphics, a coherent system for describing and building layered plots. A plot is built step by step by adding new layers. Adding layers in this fashion allows for extensive flexibility and customization of plots.
 
 An excellent introduction to data visualization using [ggplot2][tidyverse-ggplot2] is given in the interactive DataCamp course [Introduction to data visualization with ggplot2][datacamp-r-ggplot2-intro]. Please complete the course before continuing. 
 
-## A note on piping and layering
-
-- The `%>%` operator in **dplyr** functions is called the pipe operator. This means you "pipe" the output of the previous line of code as the first input of the next line of code.
-
---
-- The `+` operator in **ggplot2** functions is used for "layering". This means you create the plot in layers, separated by `+`.
-
-[datacamp-r-ggplot2-intermediate]
-
-<!-- In the examples above, we have seen some of the components that make up a plot: -->
-<!-- • data and aesthetic mappings, -->
-<!-- • geometric objects, -->
-<!-- • scales, and -->
-<!-- • facet specification. -->
-<!-- We have also touched on two other components: -->
-<!-- • statistical transformations, and -->
-<!-- • the coordinate system. -->
-<!-- Together, the data, mappings, statistical transformation, and geometric object form a layer. -->
-<!-- A plot may have multiple layers, for example, when we overlay a scatterplot with a -->
-<!-- smoothed line. -->
-<!-- To be precise, the layered grammar defines the components of a plot as: -->
-<!-- • a default dataset and set of mappings from variables to aesthetics, -->
-<!-- • one or more layers, with each layer having one geometric object, one statistical transformation, one position adjustment, and optionally, one dataset and set of aesthetic -->
-<!-- mappings, -->
-<!-- • one scale for each aesthetic mapping used, -->
-<!-- • a coordinate system, -->
-<!-- • the facet specification. -->
-<!-- These high-level components are quite similar to those of Wilkinson’s grammar, as -->
-<!-- shown in Figure 4. In both grammars, the components are independent, meaning that we -->
-
-<!-- DataCamp courses chapters in [datacamp-r-tidyverse]  -->
+Note that there is a difference between using the pipe `%>%` operator which passes the output of the previous line of code as the first input of the next line of code and the `+` operator used between **ggplot2** functions for "layering". That is, you create the plot in layers, separated by `+`.
 
 
-<!-- ## [Other sections] -->
+## Combining plots into one using _patchwork_
+
+You can combine separate ggplots into the same graphic using the _patchwork_ package. You can install _patchwork_ from CRAN using `install.packages('patchwork')`. 
+
+The usage is simple. Plots in two rows: 
+
+```{r}
+library(ggplot2)
+library(patchwork)
+p1 <- ggplot(mtcars) + geom_point(aes(mpg, disp))
+p2 <- ggplot(mtcars) + geom_boxplot(aes(gear, disp, group = gear))
+p1 + p2
+```
+
+The package provides rich support for arbitrarily complex layouts. Code for nesting three 
+plots on top of a third:
+
+```{r, message=FALSE}
+p3 <- ggplot(mtcars) + geom_smooth(aes(disp, qsec))
+p4 <- ggplot(mtcars) + geom_bar(aes(carb))
+(p1 | p2 | p3) /
+      p4
+```
+
+For further examples see the [documentation pages](https://patchwork.data-imaginist.com/).
+
+
+## Saving graphics
+
+In general when you do anlytics using R Markdown, there is no need to save your graphics. This is done automatically. However, in a few cases you may need to save you graphics in different formats. Let us consider a simple plot:
+
+```{r}
+library(tidyverse)
+p <- ggplot(mpg, aes(displ, hwy, colour = class)) + 
+  geom_point()
+p  # print it out
+```
+
+To save the plot as a bitmap image (png, jpeg etc) have a look at the documentation (`?png`). Let us try to save the plot as a png file.
+
+```{r}
+png("test1.png")  # open png device for writing 
+p
+dev.off()        # close device
+png("test2.png", width = 1200, height = 600)   # use other output width and height in px
+p
+dev.off()
+png("test3.png", width = 1200, height = 900)   # save a patchwork plot
+(p1 | p2 | p3) /
+      p4
+dev.off()
+# browseURL("test1.png")  # to have a look at the file
+# browseURL("test3.png")  # to have a look at the file
+```
+
+To save the plot as a pdf use
+
+```{r}
+pdf("test1.pdf")  # open pdf device for writing 
+p
+dev.off()        # close device
+# browseURL("test1.pdf")  # to have a look at the file
+```
+
+If you use LaTeX you may use the _tikzDevice_ package to save plots as TikZ.
+
+
+
 
 ## Different learning paths {#lp-r-plot}
 
@@ -84,11 +122,28 @@ An excellent introduction to data visualization using [ggplot2][tidyverse-ggplot
 * A short introduction is given in [Chapter 3](https://r4ds.had.co.nz/data-visualisation.html) in @r4ds.
 * The 'Data visualization with ggplot2' cheatsheet is very useful. Find the newest version in RStudio **Help > Cheatsheets**.
 * A good place to see examples are on the [main reference page](https://ggplot2.tidyverse.org/reference/index.html). Follow the link to the function of interest and have a look at the examples.
-
+* Further advanded possibilities for ggplot2 are given in the interactive DataCamp course [Intermediate Data Visualization with ggplot2][datacamp-r-ggplot2-intermediate].
 
 ## Recap {#rc-r-plot}
 
-[Summary of learning]
+* The tidyverse package [ggplot2][tidyverse-ggplot2] is an R package for producing data visualizations. It is based on the Grammar of Graphics by @gramma. 
+* The grammar of graphics is a coherent system for describing and building layered plots.
+  - Graphics are made by grammatical elements such as data, aesthetics, geometries, scales, facets and themes.
+  - Plots are made though aesthetic mappings. That is, variables are mapped to x or y position using aesthetics attributes such as color, shape, or size.
+  - A plot is built step by step by adding new layers. Adding layers in this fashion allows for extensive flexibility and customization of plots.
+  - Together, the data, aesthetic mappings, and geometric object form a layer.
+  - A plot may have multiple layers, for example, when we overlay a scatterplot with a smoothed line.
+* Aesthetics are add in `ggplot` using the `aes` function or alternatively in `geom_` functions.
+* Geometries (e.g. a boxplot or line) are added to a plot using the `geom_` functions.
+* Themes can be applied to the plot using the `theme_` functions and control all the non-data ink used to modify the overall look of a plot.
+* Separate ggplots can be combined into the same graphic using the _patchwork_ package. 
+* Save plots as variables and different image files using the device functions such as `png` and `pdf`.
+  
+  
+* The pipe `%>%` operator is used to "pipe" the output of the previous line of code as the first input of the next line of code.
+* The `+` operator in **ggplot2** functions is used for "layering". This means you create the plot in layers, separated by `+`.
+
+
 
 ## Exercises {#ex-r-plot}
 
@@ -862,9 +917,7 @@ profit %>%
 
 
 
-### Exercise (COVID-19)
-
-<!-- https://raw.githubusercontent.com/rstudio-education/datascience-box/master/course-materials/application-exercises/ae-01b-covid/covid.Rmd -->
+### Exercise (COVID-19) {#ex-covid19}
 
 Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
 
