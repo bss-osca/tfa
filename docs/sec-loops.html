@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2020-10-27" />
+<meta name="date" content="2020-10-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -297,14 +297,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="9.1" data-path="sec-plot.html"><a href="sec-plot.html#lo-plot"><i class="fa fa-check"></i><b>9.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="9.2" data-path="sec-plot.html"><a href="sec-plot.html#introduction-to-data-visualization"><i class="fa fa-check"></i><b>9.2</b> Introduction to data visualization</a></li>
-<li class="chapter" data-level="9.3" data-path="sec-plot.html"><a href="sec-plot.html#a-note-on-piping-and-layering"><i class="fa fa-check"></i><b>9.3</b> A note on piping and layering</a></li>
-<li class="chapter" data-level="9.4" data-path="sec-plot.html"><a href="sec-plot.html#lp-r-plot"><i class="fa fa-check"></i><b>9.4</b> Different learning paths</a></li>
-<li class="chapter" data-level="9.5" data-path="sec-plot.html"><a href="sec-plot.html#rc-r-plot"><i class="fa fa-check"></i><b>9.5</b> Recap</a></li>
-<li class="chapter" data-level="9.6" data-path="sec-plot.html"><a href="sec-plot.html#ex-r-plot"><i class="fa fa-check"></i><b>9.6</b> Exercises</a>
+<li class="chapter" data-level="9.3" data-path="sec-plot.html"><a href="sec-plot.html#combining-plots-into-one-using-patchwork"><i class="fa fa-check"></i><b>9.3</b> Combining plots into one using <em>patchwork</em></a></li>
+<li class="chapter" data-level="9.4" data-path="sec-plot.html"><a href="sec-plot.html#saving-graphics"><i class="fa fa-check"></i><b>9.4</b> Saving graphics</a></li>
+<li class="chapter" data-level="9.5" data-path="sec-plot.html"><a href="sec-plot.html#lp-r-plot"><i class="fa fa-check"></i><b>9.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="9.6" data-path="sec-plot.html"><a href="sec-plot.html#rc-r-plot"><i class="fa fa-check"></i><b>9.6</b> Recap</a></li>
+<li class="chapter" data-level="9.7" data-path="sec-plot.html"><a href="sec-plot.html#ex-r-plot"><i class="fa fa-check"></i><b>9.7</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="9.6.1" data-path="sec-plot.html"><a href="sec-plot.html#ex-gapminder2"><i class="fa fa-check"></i><b>9.6.1</b> Exercise (gapminder)</a></li>
-<li class="chapter" data-level="9.6.2" data-path="sec-plot.html"><a href="sec-plot.html#ex-profit2"><i class="fa fa-check"></i><b>9.6.2</b> Exercise (profit)</a></li>
-<li class="chapter" data-level="9.6.3" data-path="sec-plot.html"><a href="sec-plot.html#exercise-covid-19"><i class="fa fa-check"></i><b>9.6.3</b> Exercise (COVID-19)</a></li>
+<li class="chapter" data-level="9.7.1" data-path="sec-plot.html"><a href="sec-plot.html#ex-gapminder2"><i class="fa fa-check"></i><b>9.7.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="9.7.2" data-path="sec-plot.html"><a href="sec-plot.html#ex-profit2"><i class="fa fa-check"></i><b>9.7.2</b> Exercise (profit)</a></li>
+<li class="chapter" data-level="9.7.3" data-path="sec-plot.html"><a href="sec-plot.html#ex-covid19"><i class="fa fa-check"></i><b>9.7.3</b> Exercise (COVID-19)</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>10</b> Spartial data and maps</a>
@@ -1141,7 +1142,7 @@ Hint
 <span id="cb142-8"><a href="sec-loops.html#cb142-8" aria-hidden="true"></a>lst &lt;-<span class="st"> </span>jsonlite<span class="op">::</span><span class="kw">fromJSON</span>(url)</span>
 <span id="cb142-9"><a href="sec-loops.html#cb142-9" aria-hidden="true"></a>dist &lt;-<span class="st"> </span>lst<span class="op">$</span>resourceSets<span class="op">$</span>resources[[<span class="dv">1</span>]]<span class="op">$</span>travelDistance</span>
 <span id="cb142-10"><a href="sec-loops.html#cb142-10" aria-hidden="true"></a>dist</span>
-<span id="cb142-11"><a href="sec-loops.html#cb142-11" aria-hidden="true"></a><span class="co">#&gt; [1] 139</span></span>
+<span id="cb142-11"><a href="sec-loops.html#cb142-11" aria-hidden="true"></a><span class="co">#&gt; [1] 136</span></span>
 <span id="cb142-12"><a href="sec-loops.html#cb142-12" aria-hidden="true"></a>lst<span class="op">$</span>statusCode</span>
 <span id="cb142-13"><a href="sec-loops.html#cb142-13" aria-hidden="true"></a><span class="co">#&gt; [1] 200</span></span>
 <span id="cb142-14"><a href="sec-loops.html#cb142-14" aria-hidden="true"></a>lst<span class="op">$</span>statusDescription</span>
@@ -1179,11 +1180,11 @@ Solution
 <span id="cb143-18"><a href="sec-loops.html#cb143-18" aria-hidden="true"></a>}</span>
 <span id="cb143-19"><a href="sec-loops.html#cb143-19" aria-hidden="true"></a>distanceMat</span>
 <span id="cb143-20"><a href="sec-loops.html#cb143-20" aria-hidden="true"></a><span class="co">#&gt;                    5320 Agedrup 6753 Agerb\xe6k 6534 Agerskov 8961 Alling\xe5bro 6051 Almind</span></span>
-<span id="cb143-21"><a href="sec-loops.html#cb143-21" aria-hidden="true"></a><span class="co">#&gt; 5320 Agedrup                0.0           138.8         142.4                214        87.3</span></span>
-<span id="cb143-22"><a href="sec-loops.html#cb143-22" aria-hidden="true"></a><span class="co">#&gt; 6753 Agerb\xe6k           138.8             0.0         107.0                180        61.3</span></span>
-<span id="cb143-23"><a href="sec-loops.html#cb143-23" aria-hidden="true"></a><span class="co">#&gt; 6534 Agerskov             142.4           107.0           0.0                204        65.5</span></span>
-<span id="cb143-24"><a href="sec-loops.html#cb143-24" aria-hidden="true"></a><span class="co">#&gt; 8961 Alling\xe5bro        214.0           180.4         204.3                  0       149.2</span></span>
-<span id="cb143-25"><a href="sec-loops.html#cb143-25" aria-hidden="true"></a><span class="co">#&gt; 6051 Almind                87.3            61.3          65.5                149         0.0</span></span></code></pre></div>
+<span id="cb143-21"><a href="sec-loops.html#cb143-21" aria-hidden="true"></a><span class="co">#&gt; 5320 Agedrup                0.0           135.9         139.5                211        84.4</span></span>
+<span id="cb143-22"><a href="sec-loops.html#cb143-22" aria-hidden="true"></a><span class="co">#&gt; 6753 Agerb\xe6k           135.9             0.0          81.4                180        62.0</span></span>
+<span id="cb143-23"><a href="sec-loops.html#cb143-23" aria-hidden="true"></a><span class="co">#&gt; 6534 Agerskov             139.5            81.4           0.0                204        65.5</span></span>
+<span id="cb143-24"><a href="sec-loops.html#cb143-24" aria-hidden="true"></a><span class="co">#&gt; 8961 Alling\xe5bro        211.1           180.4         204.3                  0       149.2</span></span>
+<span id="cb143-25"><a href="sec-loops.html#cb143-25" aria-hidden="true"></a><span class="co">#&gt; 6051 Almind                84.4            62.0          65.5                149         0.0</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1282,11 +1283,11 @@ Solution
 <span id="cb145-25"><a href="sec-loops.html#cb145-25" aria-hidden="true"></a>}</span>
 <span id="cb145-26"><a href="sec-loops.html#cb145-26" aria-hidden="true"></a>distanceMat</span>
 <span id="cb145-27"><a href="sec-loops.html#cb145-27" aria-hidden="true"></a><span class="co">#&gt;                    5320 Agedrup 6753 Agerb\xe6k 6534 Agerskov 8961 Alling\xe5bro 6051 Almind</span></span>
-<span id="cb145-28"><a href="sec-loops.html#cb145-28" aria-hidden="true"></a><span class="co">#&gt; 5320 Agedrup                0.0           138.8         142.4                214        87.3</span></span>
-<span id="cb145-29"><a href="sec-loops.html#cb145-29" aria-hidden="true"></a><span class="co">#&gt; 6753 Agerb\xe6k           138.8             0.0         107.0                180        60.4</span></span>
-<span id="cb145-30"><a href="sec-loops.html#cb145-30" aria-hidden="true"></a><span class="co">#&gt; 6534 Agerskov             142.4           107.0           0.0                204        64.1</span></span>
-<span id="cb145-31"><a href="sec-loops.html#cb145-31" aria-hidden="true"></a><span class="co">#&gt; 8961 Alling\xe5bro        214.0           180.4         204.3                  0       149.2</span></span>
-<span id="cb145-32"><a href="sec-loops.html#cb145-32" aria-hidden="true"></a><span class="co">#&gt; 6051 Almind                87.3            60.4          64.1                149         0.0</span></span></code></pre></div>
+<span id="cb145-28"><a href="sec-loops.html#cb145-28" aria-hidden="true"></a><span class="co">#&gt; 5320 Agedrup                0.0           135.9         139.5                211        84.4</span></span>
+<span id="cb145-29"><a href="sec-loops.html#cb145-29" aria-hidden="true"></a><span class="co">#&gt; 6753 Agerb\xe6k           135.9             0.0          81.4                180        60.4</span></span>
+<span id="cb145-30"><a href="sec-loops.html#cb145-30" aria-hidden="true"></a><span class="co">#&gt; 6534 Agerskov             139.5            81.4           0.0                204        64.1</span></span>
+<span id="cb145-31"><a href="sec-loops.html#cb145-31" aria-hidden="true"></a><span class="co">#&gt; 8961 Alling\xe5bro        211.1           180.4         204.3                  0       149.2</span></span>
+<span id="cb145-32"><a href="sec-loops.html#cb145-32" aria-hidden="true"></a><span class="co">#&gt; 6051 Almind                84.4            60.4          64.1                149         0.0</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
