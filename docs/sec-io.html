@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2020-10-27" />
+<meta name="date" content="2020-10-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -297,14 +297,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="9.1" data-path="sec-plot.html"><a href="sec-plot.html#lo-plot"><i class="fa fa-check"></i><b>9.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="9.2" data-path="sec-plot.html"><a href="sec-plot.html#introduction-to-data-visualization"><i class="fa fa-check"></i><b>9.2</b> Introduction to data visualization</a></li>
-<li class="chapter" data-level="9.3" data-path="sec-plot.html"><a href="sec-plot.html#a-note-on-piping-and-layering"><i class="fa fa-check"></i><b>9.3</b> A note on piping and layering</a></li>
-<li class="chapter" data-level="9.4" data-path="sec-plot.html"><a href="sec-plot.html#lp-r-plot"><i class="fa fa-check"></i><b>9.4</b> Different learning paths</a></li>
-<li class="chapter" data-level="9.5" data-path="sec-plot.html"><a href="sec-plot.html#rc-r-plot"><i class="fa fa-check"></i><b>9.5</b> Recap</a></li>
-<li class="chapter" data-level="9.6" data-path="sec-plot.html"><a href="sec-plot.html#ex-r-plot"><i class="fa fa-check"></i><b>9.6</b> Exercises</a>
+<li class="chapter" data-level="9.3" data-path="sec-plot.html"><a href="sec-plot.html#combining-plots-into-one-using-patchwork"><i class="fa fa-check"></i><b>9.3</b> Combining plots into one using <em>patchwork</em></a></li>
+<li class="chapter" data-level="9.4" data-path="sec-plot.html"><a href="sec-plot.html#saving-graphics"><i class="fa fa-check"></i><b>9.4</b> Saving graphics</a></li>
+<li class="chapter" data-level="9.5" data-path="sec-plot.html"><a href="sec-plot.html#lp-r-plot"><i class="fa fa-check"></i><b>9.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="9.6" data-path="sec-plot.html"><a href="sec-plot.html#rc-r-plot"><i class="fa fa-check"></i><b>9.6</b> Recap</a></li>
+<li class="chapter" data-level="9.7" data-path="sec-plot.html"><a href="sec-plot.html#ex-r-plot"><i class="fa fa-check"></i><b>9.7</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="9.6.1" data-path="sec-plot.html"><a href="sec-plot.html#ex-gapminder2"><i class="fa fa-check"></i><b>9.6.1</b> Exercise (gapminder)</a></li>
-<li class="chapter" data-level="9.6.2" data-path="sec-plot.html"><a href="sec-plot.html#ex-profit2"><i class="fa fa-check"></i><b>9.6.2</b> Exercise (profit)</a></li>
-<li class="chapter" data-level="9.6.3" data-path="sec-plot.html"><a href="sec-plot.html#exercise-covid-19"><i class="fa fa-check"></i><b>9.6.3</b> Exercise (COVID-19)</a></li>
+<li class="chapter" data-level="9.7.1" data-path="sec-plot.html"><a href="sec-plot.html#ex-gapminder2"><i class="fa fa-check"></i><b>9.7.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="9.7.2" data-path="sec-plot.html"><a href="sec-plot.html#ex-profit2"><i class="fa fa-check"></i><b>9.7.2</b> Exercise (profit)</a></li>
+<li class="chapter" data-level="9.7.3" data-path="sec-plot.html"><a href="sec-plot.html#ex-covid19"><i class="fa fa-check"></i><b>9.7.3</b> Exercise (COVID-19)</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>10</b> Spartial data and maps</a>
@@ -1324,33 +1325,29 @@ Hint
 <p>Load datasets</p>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="sec-io.html#cb233-1" aria-hidden="true"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;bss-osca/tfa/tfa-package&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb233-2"><a href="sec-io.html#cb233-2" aria-hidden="true"></a><span class="co">#&gt;   </span></span>
-<span id="cb233-3"><a href="sec-io.html#cb233-3" aria-hidden="true"></a>   checking <span class="cf">for</span> file ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">24</span><span class="op">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="op">/</span>T<span class="op">/</span>RtmpiVBfmI<span class="op">/</span>remotes669023b1dea8<span class="op">/</span>bss<span class="op">-</span>osca<span class="op">-</span>tfa<span class="op">-</span>cb96dee<span class="op">/</span>tfa<span class="op">-</span>package<span class="op">/</span>DESCRIPTION’ ...</span>
+<span id="cb233-3"><a href="sec-io.html#cb233-3" aria-hidden="true"></a>   checking <span class="cf">for</span> file ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">24</span><span class="op">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="op">/</span>T<span class="op">/</span>RtmpVAlbZS<span class="op">/</span>remotes645d4251742d<span class="op">/</span>bss<span class="op">-</span>osca<span class="op">-</span>tfa<span class="op">-</span>dff9b53<span class="op">/</span>tfa<span class="op">-</span>package<span class="op">/</span>DESCRIPTION’ ...</span>
 <span id="cb233-4"><a href="sec-io.html#cb233-4" aria-hidden="true"></a>  </span>
-<span id="cb233-5"><a href="sec-io.html#cb233-5" aria-hidden="true"></a>✔  checking <span class="cf">for</span> file ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">24</span><span class="op">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="op">/</span>T<span class="op">/</span>RtmpiVBfmI<span class="op">/</span>remotes669023b1dea8<span class="op">/</span>bss<span class="op">-</span>osca<span class="op">-</span>tfa<span class="op">-</span>cb96dee<span class="op">/</span>tfa<span class="op">-</span>package<span class="op">/</span>DESCRIPTION’ (514ms)</span>
+<span id="cb233-5"><a href="sec-io.html#cb233-5" aria-hidden="true"></a>✔  checking <span class="cf">for</span> file ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">24</span><span class="op">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="op">/</span>T<span class="op">/</span>RtmpVAlbZS<span class="op">/</span>remotes645d4251742d<span class="op">/</span>bss<span class="op">-</span>osca<span class="op">-</span>tfa<span class="op">-</span>dff9b53<span class="op">/</span>tfa<span class="op">-</span>package<span class="op">/</span>DESCRIPTION’</span>
 <span id="cb233-6"><a href="sec-io.html#cb233-6" aria-hidden="true"></a><span class="co">#&gt; </span></span>
 <span id="cb233-7"><a href="sec-io.html#cb233-7" aria-hidden="true"></a>  </span>
 <span id="cb233-8"><a href="sec-io.html#cb233-8" aria-hidden="true"></a>─  preparing ‘tfa’<span class="op">:</span></span>
-<span id="cb233-9"><a href="sec-io.html#cb233-9" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb233-9"><a href="sec-io.html#cb233-9" aria-hidden="true"></a><span class="co">#&gt;    checking DESCRIPTION meta-information ...</span></span>
 <span id="cb233-10"><a href="sec-io.html#cb233-10" aria-hidden="true"></a><span class="st">  </span></span>
-<span id="cb233-11"><a href="sec-io.html#cb233-11" aria-hidden="true"></a><span class="st">   </span>checking DESCRIPTION meta<span class="op">-</span>information ...</span>
-<span id="cb233-12"><a href="sec-io.html#cb233-12" aria-hidden="true"></a>  </span>
-<span id="cb233-13"><a href="sec-io.html#cb233-13" aria-hidden="true"></a>✔  checking DESCRIPTION meta<span class="op">-</span>information</span>
-<span id="cb233-14"><a href="sec-io.html#cb233-14" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb233-15"><a href="sec-io.html#cb233-15" aria-hidden="true"></a>  </span>
-<span id="cb233-16"><a href="sec-io.html#cb233-16" aria-hidden="true"></a>─  checking <span class="cf">for</span> LF line<span class="op">-</span>endings <span class="cf">in</span> source and make files and shell scripts</span>
-<span id="cb233-17"><a href="sec-io.html#cb233-17" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb233-18"><a href="sec-io.html#cb233-18" aria-hidden="true"></a>  </span>
-<span id="cb233-19"><a href="sec-io.html#cb233-19" aria-hidden="true"></a>─  checking <span class="cf">for</span> empty or unneeded directories</span>
-<span id="cb233-20"><a href="sec-io.html#cb233-20" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb233-21"><a href="sec-io.html#cb233-21" aria-hidden="true"></a>  </span>
-<span id="cb233-22"><a href="sec-io.html#cb233-22" aria-hidden="true"></a>─  building ‘tfa_<span class="dv">0</span>.<span class="dv">5</span>.<span class="fl">4.</span>tar.gz’</span>
-<span id="cb233-23"><a href="sec-io.html#cb233-23" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb233-24"><a href="sec-io.html#cb233-24" aria-hidden="true"></a>  </span>
-<span id="cb233-25"><a href="sec-io.html#cb233-25" aria-hidden="true"></a>   </span>
-<span id="cb233-26"><a href="sec-io.html#cb233-26" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb233-27"><a href="sec-io.html#cb233-27" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb233-28"><a href="sec-io.html#cb233-28" aria-hidden="true"></a>nurses &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/nurses.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tfa&quot;</span>))</span>
-<span id="cb233-29"><a href="sec-io.html#cb233-29" aria-hidden="true"></a>shifts &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/shifts.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tfa&quot;</span>))</span></code></pre></div>
+<span id="cb233-11"><a href="sec-io.html#cb233-11" aria-hidden="true"></a>✔  checking DESCRIPTION meta<span class="op">-</span>information</span>
+<span id="cb233-12"><a href="sec-io.html#cb233-12" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb233-13"><a href="sec-io.html#cb233-13" aria-hidden="true"></a>  </span>
+<span id="cb233-14"><a href="sec-io.html#cb233-14" aria-hidden="true"></a>─  checking <span class="cf">for</span> LF line<span class="op">-</span>endings <span class="cf">in</span> source and make files and shell scripts</span>
+<span id="cb233-15"><a href="sec-io.html#cb233-15" aria-hidden="true"></a><span class="co">#&gt; ─  checking for empty or unneeded directories</span></span>
+<span id="cb233-16"><a href="sec-io.html#cb233-16" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb233-17"><a href="sec-io.html#cb233-17" aria-hidden="true"></a>  </span>
+<span id="cb233-18"><a href="sec-io.html#cb233-18" aria-hidden="true"></a>─  building ‘tfa_<span class="dv">0</span>.<span class="dv">5</span>.<span class="fl">4.</span>tar.gz’</span>
+<span id="cb233-19"><a href="sec-io.html#cb233-19" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb233-20"><a href="sec-io.html#cb233-20" aria-hidden="true"></a>  </span>
+<span id="cb233-21"><a href="sec-io.html#cb233-21" aria-hidden="true"></a>   </span>
+<span id="cb233-22"><a href="sec-io.html#cb233-22" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb233-23"><a href="sec-io.html#cb233-23" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb233-24"><a href="sec-io.html#cb233-24" aria-hidden="true"></a>nurses &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/nurses.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tfa&quot;</span>))</span>
+<span id="cb233-25"><a href="sec-io.html#cb233-25" aria-hidden="true"></a>shifts &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/shifts.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tfa&quot;</span>))</span></code></pre></div>
 <div id="LZnL8lszeFdRCbyCQL26" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="LZnL8lszeFdRCbyCQL26-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
