@@ -1092,23 +1092,24 @@ Hint
 <div id="ex-dist" class="section level3" number="4.6.3">
 <h3><span class="header-section-number">4.6.3</span> Exercise (calculating distances)</h3>
 <p>Consider zip codes in Jutland:</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="sec-loops.html#cb140-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb140-2"><a href="sec-loops.html#cb140-2" aria-hidden="true"></a><span class="kw">library</span>(tfa)   <span class="co"># the course package devtools::install_github(&quot;bss-osca/tfa/tfa-package&quot;)</span></span>
-<span id="cb140-3"><a href="sec-loops.html#cb140-3" aria-hidden="true"></a>zips</span>
-<span id="cb140-4"><a href="sec-loops.html#cb140-4" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 376 x 2</span></span>
-<span id="cb140-5"><a href="sec-loops.html#cb140-5" aria-hidden="true"></a><span class="co">#&gt;      Zip Area           </span></span>
-<span id="cb140-6"><a href="sec-loops.html#cb140-6" aria-hidden="true"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;          </span></span>
-<span id="cb140-7"><a href="sec-loops.html#cb140-7" aria-hidden="true"></a><span class="co">#&gt;  1  5320 &quot;Agedrup&quot;      </span></span>
-<span id="cb140-8"><a href="sec-loops.html#cb140-8" aria-hidden="true"></a><span class="co">#&gt;  2  6753 &quot;Agerb\xe6k&quot;   </span></span>
-<span id="cb140-9"><a href="sec-loops.html#cb140-9" aria-hidden="true"></a><span class="co">#&gt;  3  6534 &quot;Agerskov&quot;     </span></span>
-<span id="cb140-10"><a href="sec-loops.html#cb140-10" aria-hidden="true"></a><span class="co">#&gt;  4  8961 &quot;Alling\xe5bro&quot;</span></span>
-<span id="cb140-11"><a href="sec-loops.html#cb140-11" aria-hidden="true"></a><span class="co">#&gt;  5  6051 &quot;Almind&quot;       </span></span>
-<span id="cb140-12"><a href="sec-loops.html#cb140-12" aria-hidden="true"></a><span class="co">#&gt;  6  8592 &quot;Anholt&quot;       </span></span>
-<span id="cb140-13"><a href="sec-loops.html#cb140-13" aria-hidden="true"></a><span class="co">#&gt;  7  8643 &quot;Ans By&quot;       </span></span>
-<span id="cb140-14"><a href="sec-loops.html#cb140-14" aria-hidden="true"></a><span class="co">#&gt;  8  6823 &quot;Ansager&quot;      </span></span>
-<span id="cb140-15"><a href="sec-loops.html#cb140-15" aria-hidden="true"></a><span class="co">#&gt;  9  9510 &quot;Arden&quot;        </span></span>
-<span id="cb140-16"><a href="sec-loops.html#cb140-16" aria-hidden="true"></a><span class="co">#&gt; 10  5466 &quot;Asperup&quot;      </span></span>
-<span id="cb140-17"><a href="sec-loops.html#cb140-17" aria-hidden="true"></a><span class="co">#&gt; # … with 366 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="sec-loops.html#cb140-1" aria-hidden="true"></a><span class="co"># remotes::install_github(&quot;bss-osca/tfa/tfa-package&quot;, upgrade = FALSE)  # run to upgrade</span></span>
+<span id="cb140-2"><a href="sec-loops.html#cb140-2" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb140-3"><a href="sec-loops.html#cb140-3" aria-hidden="true"></a><span class="kw">library</span>(tfa)   </span>
+<span id="cb140-4"><a href="sec-loops.html#cb140-4" aria-hidden="true"></a>zips</span>
+<span id="cb140-5"><a href="sec-loops.html#cb140-5" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 376 x 2</span></span>
+<span id="cb140-6"><a href="sec-loops.html#cb140-6" aria-hidden="true"></a><span class="co">#&gt;      Zip Area           </span></span>
+<span id="cb140-7"><a href="sec-loops.html#cb140-7" aria-hidden="true"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;          </span></span>
+<span id="cb140-8"><a href="sec-loops.html#cb140-8" aria-hidden="true"></a><span class="co">#&gt;  1  5320 &quot;Agedrup&quot;      </span></span>
+<span id="cb140-9"><a href="sec-loops.html#cb140-9" aria-hidden="true"></a><span class="co">#&gt;  2  6753 &quot;Agerb\xe6k&quot;   </span></span>
+<span id="cb140-10"><a href="sec-loops.html#cb140-10" aria-hidden="true"></a><span class="co">#&gt;  3  6534 &quot;Agerskov&quot;     </span></span>
+<span id="cb140-11"><a href="sec-loops.html#cb140-11" aria-hidden="true"></a><span class="co">#&gt;  4  8961 &quot;Alling\xe5bro&quot;</span></span>
+<span id="cb140-12"><a href="sec-loops.html#cb140-12" aria-hidden="true"></a><span class="co">#&gt;  5  6051 &quot;Almind&quot;       </span></span>
+<span id="cb140-13"><a href="sec-loops.html#cb140-13" aria-hidden="true"></a><span class="co">#&gt;  6  8592 &quot;Anholt&quot;       </span></span>
+<span id="cb140-14"><a href="sec-loops.html#cb140-14" aria-hidden="true"></a><span class="co">#&gt;  7  8643 &quot;Ans By&quot;       </span></span>
+<span id="cb140-15"><a href="sec-loops.html#cb140-15" aria-hidden="true"></a><span class="co">#&gt;  8  6823 &quot;Ansager&quot;      </span></span>
+<span id="cb140-16"><a href="sec-loops.html#cb140-16" aria-hidden="true"></a><span class="co">#&gt;  9  9510 &quot;Arden&quot;        </span></span>
+<span id="cb140-17"><a href="sec-loops.html#cb140-17" aria-hidden="true"></a><span class="co">#&gt; 10  5466 &quot;Asperup&quot;      </span></span>
+<span id="cb140-18"><a href="sec-loops.html#cb140-18" aria-hidden="true"></a><span class="co">#&gt; # … with 366 more rows</span></span></code></pre></div>
 <p>We want to calculate distances between a subset of zip areas:</p>
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="sec-loops.html#cb141-1" aria-hidden="true"></a>idx &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></span>
 <span id="cb141-2"><a href="sec-loops.html#cb141-2" aria-hidden="true"></a>dat &lt;-<span class="st"> </span>zips[idx,]</span>
