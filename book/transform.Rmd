@@ -11,21 +11,21 @@ editor_options:
 
 # Transforming data {#sec-transform}
 
-In this module we consider transformation of data. In general raw data may be messy and need to be structured in a __tidy__ way. Tidying your data means storing it in a structured form suitable for analysis. This is done using a tibble (data frame) where each column is a variable, and each row is an observation. Tidy data is important because the consistent structure lets you focus your struggle on questions about the data. 
+In this module, we consider transformation of data. In general raw data may be messy and need to be structured in a __tidy__ way. Tidying your data means storing it in a structured form suitable for analysis. This is done using a tibble (data frame) where each column is a variable, and each row is an observation. Tidy data is important because the consistent structure lets you focus your struggle on questions about the data. 
 
-Given a raw data set the first step is to clean it and and transform it to a tidy format. Given tidy data, you next often need to __transform__ it. Transformation includes narrowing in on observations of interest (e.g. only observations from a specific year or warehouse), creating new variables based on existing variables (like the cost of using the machine that day given idle time). Together, tidying and transforming are called __wrangling__, because it can be a hard process to get your data in the right form.
+Given a raw dataset the first step is to clean it and and transform it to a tidy format. Given tidy data, you next often need to __transform__ it. Transformation includes narrowing in on observations of interest (e.g. only observations from a specific year or warehouse), creating new variables based on existing variables (like the cost of using the machine that day given idle time). Together, tidying and transforming are called __wrangling__, because it can be a hard process to get your data in the right form.
 
-In this chapter you will learn how to work with tibbles using the [dplyr package][tidyverse-dplyr] which is a part of the [tidyverse][tidyverse-main-page]. 
+In this chapter, you will learn how to work with tibbles using the [dplyr package][tidyverse-dplyr] which is a part of the [tidyverse][tidyverse-main-page]. 
 
 ## Learning outcomes {#lo-transform}
 
 By the end of this module, you are expected to be able to:
 
 * Describe what tidy and wangling is.
-* Apply the most common string functions
-* Apply tidy operations to data 
-* Transform data
-* Clean data
+* Apply the most common string functions.
+* Apply tidy operations to data.
+* Transform data.
+* Clean data.
 
 The learning outcomes relate to the [overall learning goals](#lg-course) number 7, 11-14 and 18 of the course.
 
@@ -54,7 +54,7 @@ An excellent introduction on how to transform data using the tidyverse is given 
 
 `r strLPath`
 
-* Roger Peng provide a good video giving an [Introduction to the dplyr R package][video-dplyr]. 
+* Roger Peng provides a good video giving an [Introduction to the dplyr R package][video-dplyr]. 
 * [Chapter 12](https://bookdown.org/rdpeng/rprogdatascience/managing-data-frames-with-the-dplyr-package.html) in @rdpeng provides a nice introduction to dplyr. 
 * An alternative interactive DataCamp course is [Working with Data in the Tidyverse][datacamp-r-dplyr-bakeoff] which may be good to take if you need more training.
 * The 'Data transformation with dplyr' cheatsheet is very useful. Find the newest version in RStudio **Help > Cheatsheets**.
@@ -62,7 +62,7 @@ An excellent introduction on how to transform data using the tidyverse is given 
 
 ## Recap {#rc-transform}
 
-* We considers transformation tidy data where data are stored using a tibble (data frame) where each column is a variable, and each row is an observation/case.
+* We consider transformation of tidy data where data are stored using a tibble (data frame) where each column is a variable, and each row is an observation/case.
 
 * Tidy data is important because the consistent structure lets you focus your struggle on questions about the data. 
 
@@ -70,31 +70,31 @@ An excellent introduction on how to transform data using the tidyverse is given 
 
 * Tidying and transforming are called wrangling, because it can be a hard process to get your data in the right form.
 
-* The package dplyr provide a consistent set of verbs that help you solve the most common data manipulation challenges:
+* The package dplyr provides a consistent set of verbs that helps you solve the most common data manipulation challenges:
    - The `filter` function chooses rows (cases/observations) that meet a specific criteria. 
    - The `select` function chooses columns (variables) based on their names.
    - The `arrange` function reorders the rows. 
-   - The `transmute` function adds/modify columns (variables) and drops existing ones.
-   - The `mutate` function adds/modify columns (variables).
-   - The `group_by` function group variables for groupwise operations.
-   - The `ungroup` function remove the current grouping.
-   - The `count` function count rows based on a grouping. 
+   - The `transmute` function adds/modifies columns (variables) and drops existing ones.
+   - The `mutate` function adds/modifies columns (variables).
+   - The `group_by` function groups variables for groupwise operations.
+   - The `ungroup` function removes the current grouping.
+   - The `count` function counts rows based on a grouping. 
    - The `summarise` function reduces multiple values down to a single summary.
    - The `distinct` function selects unique/distinct rows.
-   - The `pull` function can be use to extract columns as vectors (it is similar to $).
+   - The `pull` function can be used to extract columns as vectors (it is similar to $).
    
 * Some nice to know functions to use inside e.g. `summarise` or `mutate` are
-   - The `n()` function count the number of rows in a group.
-   - The `n_distinct` count the number of unique rows in a group.
+   - The `n()` function counts the number of rows in a group.
+   - The `n_distinct` counts the number of unique rows in a group.
    - The `first` function considers the first row in a group (remember to order it as needed).
-   - The `slice_min` and `slice_max` functions selects rows with highest or lowest values of a variable.
+   - The `slice_min` and `slice_max` functions select rows with highest or lowest values of a variable.
    - The `across` function makes it easy to apply the same transformation to multiple columns.
    
 * Use `print(n = Inf)` in a pipe to print all rows.
 
 * Use the pipe operator `%>%` to connect operations.  
 
-* Use functions `glimpse`, `tail`, `head`, `View` to have look at the data.
+* Use functions `glimpse`, `tail`, `head`, `View` to have look a at the data.
 
 * The `skim` function in the skimr package provides an approach to summary statistics.
 
@@ -273,7 +273,7 @@ mean_dk <- gapminder %>%
   mean()
 ``` 
 
-   (@) Use `mutate` to calculate GDP per capita relative to mean GDP per capita in Denmark over the whole period (`gdpPercap` divided by the mean of Danish `gdpPercap`). Have a look at the calculated data. Does the numbers seems reasonable? I perceive Denmark to be a "high GDP" country, so I predict that the distribution of `gdpPercapRel` is located below 1, possibly even well below. 
+   (@) Use `mutate` to calculate GDP per capita relative to mean GDP per capita in Denmark over the whole period (`gdpPercap` divided by the mean of Danish `gdpPercap`). Have a look at the calculated data. Does the numbers seem reasonable? I perceive Denmark to be a "high GDP" country, so I predict that the distribution of `gdpPercapRel` is located below 1, possibly even well below. 
 
 
 
@@ -322,7 +322,7 @@ gapminder %>%
   select(-pop)
 ``` 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b) remove `pop`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b) remove `pop`,
   
 
 ```{r, solution=TRUE}
@@ -342,7 +342,7 @@ gapminder %>%
   summarize(n = n())
 ```  
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a) number of observations per continent
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a) number of observations per continent,
      
 
 ```{r, solution=TRUE}
@@ -370,7 +370,7 @@ gapminder %>%
   summarize(min_lifeExp = min(lifeExp), max_lifeExp = max(lifeExp))
 ``` 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d) minimum and maximum life expectancies seen by year in Asia 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d) minimum and maximum life expectancies seen by year in Asia.
 
       
 
@@ -391,7 +391,7 @@ gapminder %>%
   filter(year < 1963)                   # just for nice printing
 ``` 
 
-  (@) Sometimes you don't want to collapse the $n$ rows for each group into one row. That is, you don't want to use `summarize` but `mutate` within your groups. Try to make a new variable that is the years of life expectancy gained (lost) relative to 1952, for each individual country. 
+  (@) Sometimes you do not want to collapse the $n$ rows for each group into one row. That is, you don't want to use `summarize` but `mutate` within your groups. Try to make a new variable that is the years of life expectancy gained (lost) relative to 1952, for each individual country. 
       
       
 
@@ -426,7 +426,7 @@ gapminder %>%
 
 Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
 
-The package babynames contains the dataset `babynames` provided by the USA social security administration. For each year from 1880 to 2017, the number of children of each sex given each name. All names with more than 5 uses are given (source: http://www.ssa.gov/oact/babynames/limits.html).
+The package babynames contains the dataset `babynames` provided by the U.S Social Security Administration. For each year from 1880 to 2017, the number of children of each sex given each name. All names with more than 5 uses are given (source: http://www.ssa.gov/oact/babynames/limits.html).
 
 Install it using 
 
@@ -461,14 +461,14 @@ babynames %>%
   filter(prop >= 0.08)
 ```   
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a) All of the names where prop is greater than or equal to 0.08  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a) all of the names where prop is greater than or equal to 0.08,
 
 ```{r, solution=TRUE}
 babynames %>% 
   filter(name == "Sea")
 ```       
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b) All of the children named "Sea" 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b) all of the children named "Sea".
 
 
 
@@ -479,7 +479,7 @@ babynames %>%
   filter(name == "Sue", sex == "M")
 ``` 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a) _Boys_ named Sue,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a) _boys_ named Sue,
 
 
 ```{r, solution=TRUE}
@@ -487,7 +487,7 @@ babynames %>%
   filter(year == 1880, n == 5 | n == 6)
 ``` 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b) Names that were used by exactly 5 or 6 children in 1880,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b) names that were used by exactly 5 or 6 children in 1880,
 
 
 ```{r, solution=TRUE}
@@ -495,7 +495,7 @@ babynames %>%
   filter(name %in% c("Acura", "Lexus", "Yugo"))
 ``` 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c) Names that are one of Acura, Lexus, or Yugo.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c) names that are one of Acura, Lexus, or Yugo.
       
 
 ```{r, solution=TRUE}
@@ -519,7 +519,7 @@ babynames %>%
   arrange(desc(___)) 
 ``` 
 
-  5) Write a sequence of functions that filters babynames to just the girls that were born in 2017, then selects the `name` and `n` columns, then, arranges the results so that the most popular names are near the top.
+  5) Write a sequence of functions that filters babynames to just the girls that were born in 2017, then select the `name` and `n` columns, then arrange the results so that the most popular names are near the top.
 
 
 ```{r, solution=TRUE}
@@ -584,7 +584,7 @@ babynames %>%
   arrange(year, sex, desc(prop))
 ``` 
 
-  10) Column `prop` denote the proportion given year and sex. Use `mutate()` and `min_rank()` to rank each row in babynames from _largest_ `prop` to lowest `prop` given year and sex. What happens if you do the same using the `n` column?
+  10) Column `prop` denotes the proportion given year and sex. Use `mutate()` and `min_rank()` to rank each row in babynames from _largest_ `prop` to lowest `prop` given year and sex. What happens if you do the same using the `n` column?
 
 
 ```{r, solution=TRUE}
@@ -666,13 +666,13 @@ profit <- read_csv(path)
 skim(profit)
 ```
 
-Note that it seems that the dataset need to be cleaned. All columns are strings (some should be numbers) and there seems to be missing values. You may start by having a view of the dataset using
+Note that it seems that the dataset need to be cleaned. All columns are strings (some should be numbers) and there seems to be missing values. You may start by having a view of the dataset using:
 
 ```r
 View(profit)
 ```
 
-First focus on column `Quarter` which currently has `r profit %>% distinct(Quarter) %>% nrow()` distinct values
+First focus on column `Quarter` which currently has `r profit %>% distinct(Quarter) %>% nrow()` distinct values:
 
 ```{r}
 profit %>% distinct(Quarter)
@@ -695,7 +695,7 @@ profit %>% distinct(Quarter)
 
   1) Use `mutate`, `str_remove` and `as.numeric` to convert the column to a numeric by removing all 'q' and 'Q' values.
 
-Let us look at the next columns
+Let us look at the next columns:
 
 ```{r}
 profit %>% distinct(Channel) %>% pull()
@@ -704,7 +704,7 @@ profit %>% distinct(Country) %>% pull()
 profit %>% distinct(`Product Line`) %>% pull()
 ```
 
-These seems to be okay. The last columns should be numbers. Let us consider `Revenue`. 
+These seem to be okay. The last columns should be numbers. Let us consider `Revenue`. 
 
 ```{r}
 profit %>% distinct(Revenue) %>% pull() %>% head(n = 100)
@@ -721,7 +721,7 @@ na_values <- profit %>%
 na_values
 ```
 
-The expression is a bit complex. Let us break it up. Function `fixed` just return the fixed string '$'. This is necessary since the dollar sign have a special meaning in regular expressions (beyond the scope here). Function `str_starts` check if the string starts with a dollar sign. We use the logical negation (NOT) to find the complementary set. 
+The expression is a bit complex. Let us break it up. Function `fixed` just returns the fixed string '$'. This is necessary since the dollar sign has a special meaning in regular expressions (beyond the scope here). Function `str_starts` checks if the string starts with a dollar sign. We use the logical negation (NOT) to find the complementary set. 
 
 Note that different strings have been used to indicate `NA` values (`r na_values`). Let us first use a single value to indicate `NA` (a question mark):
 ```{r}
@@ -786,7 +786,7 @@ profit <- read_csv(path) %>%
 skim(profit)
 ```
 
-  4) Write one pipe that do all the cleaning
+  4) Write one pipe that does all the cleaning.
   
 
 
@@ -804,7 +804,7 @@ profit <- profit %>%
 profit %>% filter(Diff == 1, is.na(Profit_calc))  # check
 ```
 
-  5) Validate that revenue - product costs - customer service cost equals profit. If you see small rounding errors (less than or equal 1) then recalculate the profit.
+  5) Validate that revenue - product costs - customer service cost equals profit. If you see small rounding errors (less than or equal one) then recalculate the profit.
 
 
 
@@ -878,7 +878,7 @@ profit %>%
   slice_max(Profit, n = 2)
 ```
 
-  8) Find the two best customers with highest profit in each quarter. Is the results the same as in Question 7?
+  8) Find the two best customers with highest profit in each quarter. Is the result the same as in Question 7?
 
 
 
@@ -938,7 +938,7 @@ profit %>%
   count(`Customer ID`)
 ```
 
-  10) Is there rows with the same customer in different countries?
+  10) Are there rows with the same customer in different countries?
   
 
 
@@ -1001,7 +1001,7 @@ profit %>%
             profit_decrease = ___)
 ```
 
-  13) Assume that customer service cost increase with 5%. How will that affect the profit for each product line?
+  13) Assume that customer service cost increases with 5%. How will that affect the profit for each product line?
   
 ```{r}
 rm(profit)
