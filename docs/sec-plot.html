@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2020-10-29" />
+<meta name="date" content="2020-11-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="sec-transform.html"/>
-<link rel="next" href="sec-maps.html"/>
+<link rel="next" href="sec-project.html"/>
 <script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -308,16 +308,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.7.3" data-path="sec-plot.html"><a href="sec-plot.html#ex-covid19"><i class="fa fa-check"></i><b>9.7.3</b> Exercise (COVID-19)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>10</b> Spartial data and maps</a>
-<ul>
-<li class="chapter" data-level="10.1" data-path="sec-maps.html"><a href="sec-maps.html#lo-maps"><i class="fa fa-check"></i><b>10.1</b> Learning outcomes</a></li>
-</ul></li>
 <li class="part"><span><b>V R project in groups</b></span></li>
-<li class="chapter" data-level="11" data-path="sec-project.html"><a href="sec-project.html"><i class="fa fa-check"></i><b>11</b> Mandatory R project</a>
+<li class="chapter" data-level="10" data-path="sec-project.html"><a href="sec-project.html"><i class="fa fa-check"></i><b>10</b> Mandatory R project</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="sec-project.html"><a href="sec-project.html#lo-project"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="10.1" data-path="sec-project.html"><a href="sec-project.html#lo-project"><i class="fa fa-check"></i><b>10.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="10.2" data-path="sec-project.html"><a href="sec-project.html#r-project"><i class="fa fa-check"></i><b>10.2</b> R project</a></li>
 </ul></li>
 <li class="part"><span><b>VI Extra</b></span></li>
+<li class="chapter" data-level="11" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>11</b> Spartial data and maps</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="sec-maps.html"><a href="sec-maps.html#lo-maps"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
+</ul></li>
 <li class="chapter" data-level="12" data-path="sec-r-excel.html"><a href="sec-r-excel.html"><i class="fa fa-check"></i><b>12</b> Using R in Excel and Excel in R</a></li>
 <li class="chapter" data-level="13" data-path="sec-opl.html"><a href="sec-opl.html"><i class="fa fa-check"></i><b>13</b> Run an OPL model from R</a></li>
 <li class="chapter" data-level="14" data-path="sec-simulation.html"><a href="sec-simulation.html"><i class="fa fa-check"></i><b>14</b> Simulation in R</a></li>
@@ -857,8 +858,7 @@ Solution
 <div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="sec-plot.html#cb347-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb347-2"><a href="sec-plot.html#cb347-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(continent <span class="op">==</span><span class="st"> &quot;Asia&quot;</span>) <span class="op">%&gt;%</span></span>
 <span id="cb347-3"><a href="sec-plot.html#cb347-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(fertility, life_expectancy, <span class="dt">col =</span> year)) <span class="op">+</span></span>
-<span id="cb347-4"><a href="sec-plot.html#cb347-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>()  </span>
-<span id="cb347-5"><a href="sec-plot.html#cb347-5" aria-hidden="true"></a><span class="co">#&gt; Warning: Removed 47 rows containing missing values (geom_point).</span></span></code></pre></div>
+<span id="cb347-4"><a href="sec-plot.html#cb347-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>()  </span></code></pre></div>
 <p><img src="TFA_files/figure-html/unnamed-chunk-357-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
@@ -929,8 +929,7 @@ Solution
 <div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="sec-plot.html#cb350-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb350-2"><a href="sec-plot.html#cb350-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> &quot;United States&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb350-3"><a href="sec-plot.html#cb350-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, fertility)) <span class="op">+</span></span>
-<span id="cb350-4"><a href="sec-plot.html#cb350-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>()</span>
-<span id="cb350-5"><a href="sec-plot.html#cb350-5" aria-hidden="true"></a><span class="co">#&gt; Warning: Removed 1 row(s) containing missing values (geom_path).</span></span></code></pre></div>
+<span id="cb350-4"><a href="sec-plot.html#cb350-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
 <p><img src="TFA_files/figure-html/unnamed-chunk-359-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
@@ -962,8 +961,7 @@ Solution
 <div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="sec-plot.html#cb351-1" aria-hidden="true"></a>countries &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;South Korea&quot;</span>, <span class="st">&quot;Germany&quot;</span>)</span>
 <span id="cb351-2"><a href="sec-plot.html#cb351-2" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(country <span class="op">%in%</span><span class="st"> </span>countries) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb351-3"><a href="sec-plot.html#cb351-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, fertility, <span class="dt">col =</span> country)) <span class="op">+</span></span>
-<span id="cb351-4"><a href="sec-plot.html#cb351-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>() </span>
-<span id="cb351-5"><a href="sec-plot.html#cb351-5" aria-hidden="true"></a><span class="co">#&gt; Warning: Removed 2 row(s) containing missing values (geom_path).</span></span></code></pre></div>
+<span id="cb351-4"><a href="sec-plot.html#cb351-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>() </span></code></pre></div>
 <img src="TFA_files/figure-html/unnamed-chunk-360-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 The plot clearly shows how South Korea's fertility rate dropped drastically during the 1960s and 1970s, and by 1990 had a similar rate to that of Germany.
@@ -1457,7 +1455,7 @@ We used a series of histograms and boxplots to see this. Let us now shift to den
 <span id="cb370-4"><a href="sec-plot.html#cb370-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb370-5"><a href="sec-plot.html#cb370-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">trans =</span> <span class="st">&quot;log2&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb370-6"><a href="sec-plot.html#cb370-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> <span class="kw">vars</span>(year))</span></code></pre></div>
-<p><img src="TFA_files/figure-html/income-smooth-density-by-year-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/income-smooth-density-by-year-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>In the 1970 plot, we see two clear modes: poor and rich countries. In 2010, it appears that some of the poor countries have shifted towards the right, closing the gap.</p>
 <p>The next message we need to convey is that the reason for this change in distribution is that several poor countries became richer, rather than some rich countries becoming poorer. To do this, we can assign a color to the groups we identified during data exploration.</p>
 <div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="sec-plot.html#cb371-1" aria-hidden="true"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -3239,7 +3237,7 @@ Hint 1
 <div class="modal-body">
 <div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="sec-plot.html#cb413-1" aria-hidden="true"></a><span class="co"># Use this to find date 21 days ago</span></span>
 <span id="cb413-2"><a href="sec-plot.html#cb413-2" aria-hidden="true"></a><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">days</span>(<span class="dv">21</span>)</span>
-<span id="cb413-3"><a href="sec-plot.html#cb413-3" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;2020-10-08&quot;</span></span></code></pre></div>
+<span id="cb413-3"><a href="sec-plot.html#cb413-3" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;2020-10-12&quot;</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -3319,6 +3317,9 @@ Hint
 </div>
 </div>
 </div>
+
+
+
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-stat545">
@@ -3337,7 +3338,7 @@ Hint
         </div>
       </div>
 <a href="sec-transform.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="sec-maps.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="sec-project.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
