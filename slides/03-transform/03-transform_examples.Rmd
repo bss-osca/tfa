@@ -2,8 +2,12 @@
 title: "IO, tidy and transform"
 author: "Lars Relund Nielsen"
 date: "`r Sys.Date()`"
-output: html_document
+output:
+  html_document: default
+  word_document: default
 repository_url: https://github.com/bss-osca/tfa/blob/master/slides/03-transform/03-transform_examples.Rmd
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -23,7 +27,6 @@ Help links:
 
 - For Markdown basics see **Help > Markdown Quick Reference** in RStudio.
 - For R Markdown basics see the **Help > Cheatsheets > R Markdown Cheat Sheet** in RStudio.
-- Learn more about he Distill format for R Markdown at <https://rstudio.github.io/distill>.
 - To see the possible options for R chunks see <https://yihui.org/knitr/options/>.
 
 You may download the [source on GitHub](https://github.com/bss-osca/tfa/blob/master/slides/03-transform/03-transform_examples.Rmd) using 
@@ -43,7 +46,7 @@ We load the following packages:
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
-devtools::install_github("bss-osca/tfa/tfa-package", dependencies = FALSE)  # so have the latest version
+# devtools::install_github("bss-osca/tfa/tfa-package", dependencies = FALSE)  # so have the latest version
 library(tfa)
 ```
 
@@ -111,7 +114,7 @@ skim(hotels)
 # or use View(hotels) to see a spreadsheet-style data viewer
 ```
 
-A definition of all variables/columns is given in the [Data dictionary] section at the end, though you don't need to familiarize yourself with all variables.
+A definition of all variables/columns is given in the [Data dictionary](#data-dir) section at the end, though you don't need to familiarize yourself with all variables.
 
 
 Let us try different functions:
@@ -121,7 +124,7 @@ Let us try different functions:
 View only the `lead_time` type (number of days between booking and arrival date):
 
 ```{r}
-hotels %>% select(lead_time)
+hotels %>% select(lead_time) 
 ```
 
 Note that 
@@ -129,7 +132,7 @@ Note that
    - The function is a verb: `select()`
    - We use the pipe operator (Ctrl+Shift+M). `hotels` is passed as the first argument to `select`
    - We select the column with name `lead_time`
-   - The result is a data frame with 119,300 and 1 column: --dplyr functions always 
+   - The result is a data frame with 119,300 and 1 column: dplyr functions always 
    expect a data frame and always yield a data frame.
 
 ### Select multiple columns
@@ -150,7 +153,7 @@ hotels %>%
 ```
 
 
-## The pipe operator
+### The pipe operator
 
 Note that we use the pipe `%>%` operator. This means you "pipe" the output of the previous line of code as the first input of the next line of code. To give an example think about the following sequence of actions: find key, 
 unlock car, start car, drive to work, park. Expressed as a set of nested functions in R pseudocode this would look like:
@@ -214,7 +217,7 @@ Columns that ends with "type":
 #   select(___) 
 ```
 
-Columns that contains with "date":
+Columns that contains "date":
 
 ```{r}
 # Your turn: finish the code 
@@ -240,7 +243,9 @@ hotels %>%
 ```
 
 
-### `slice` for certain row numbers
+### `slice` for certain rows
+
+Use `slice` to extract certain rows.
 
 First five:
 
@@ -267,6 +272,8 @@ hotels %>%
 
 
 ### `filter` a subset of rows 
+
+Use `filter` to find a subset of the rows.
 
 Bookings in City Hotel:
 
@@ -312,7 +319,7 @@ hotels %>%
 
 Are people traveling on a whim? Let's see... 
 
-Fill in the blanks for filtering for hotel bookings where the guest is **not** 
+Fill in the blanks for filtering hotel bookings where the guest is **not** 
 from the US (`country` code `"USA"`) and the `lead_time` is less than 1 day.
 
 ```{r}
@@ -365,6 +372,8 @@ hotels %>%
   arrange(market_segment)
 ```
 
+
+
 ```{r}
 hotels %>% 
   distinct(hotel, market_segment) %>% 
@@ -375,7 +384,6 @@ hotels %>%
 
 
 ### `count` to create frequency tables
-
 
 ```{r}
 # alphabetical order by default
@@ -540,7 +548,7 @@ the room.
 
 
 
-## Data dictionary
+## Data dictionary {#data-dir}
 
 Below is the full data dictionary. Note that it is long (there are lots of 
 variables in the data), but we will be using a limited set of the variables 
