@@ -377,18 +377,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="sec-transform" class="section level1" number="8">
 <h1><span class="header-section-number">Module 8</span> Transforming data</h1>
-<p>In this module we consider transformation of data. In general raw data may be messy and need to be structured in a <strong>tidy</strong> way. Tidying your data means storing it in a structured form suitable for analysis. This is done using a tibble (data frame) where each column is a variable, and each row is an observation. Tidy data is important because the consistent structure lets you focus your struggle on questions about the data.</p>
-<p>Given a raw data set the first step is to clean it and and transform it to a tidy format. Given tidy data, you next often need to <strong>transform</strong> it. Transformation includes narrowing in on observations of interest (e.g. only observations from a specific year or warehouse), creating new variables based on existing variables (like the cost of using the machine that day given idle time). Together, tidying and transforming are called <strong>wrangling</strong>, because it can be a hard process to get your data in the right form.</p>
-<p>In this chapter you will learn how to work with tibbles using the <a href="https://dplyr.tidyverse.org/">dplyr package</a> which is a part of the <a href="https://www.tidyverse.org">tidyverse</a>.</p>
+<p>In this module, we consider transformation of data. In general raw data may be messy and need to be structured in a <strong>tidy</strong> way. Tidying your data means storing it in a structured form suitable for analysis. This is done using a tibble (data frame) where each column is a variable, and each row is an observation. Tidy data is important because the consistent structure lets you focus your struggle on questions about the data.</p>
+<p>Given a raw dataset the first step is to clean it and and transform it to a tidy format. Given tidy data, you next often need to <strong>transform</strong> it. Transformation includes narrowing in on observations of interest (e.g. only observations from a specific year or warehouse), creating new variables based on existing variables (like the cost of using the machine that day given idle time). Together, tidying and transforming are called <strong>wrangling</strong>, because it can be a hard process to get your data in the right form.</p>
+<p>In this chapter, you will learn how to work with tibbles using the <a href="https://dplyr.tidyverse.org/">dplyr package</a> which is a part of the <a href="https://www.tidyverse.org">tidyverse</a>.</p>
 <div id="lo-transform" class="section level2" number="8.1">
 <h2><span class="header-section-number">8.1</span> Learning outcomes</h2>
 <p>By the end of this module, you are expected to be able to:</p>
 <ul>
 <li>Describe what tidy and wangling is.</li>
-<li>Apply the most common string functions</li>
-<li>Apply tidy operations to data</li>
-<li>Transform data</li>
-<li>Clean data</li>
+<li>Apply the most common string functions.</li>
+<li>Apply tidy operations to data.</li>
+<li>Transform data.</li>
+<li>Clean data.</li>
 </ul>
 <p>The learning outcomes relate to the <a href="lg-course.html#lg-course">overall learning goals</a> number 7, 11-14 and 18 of the course.</p>
 <!-- SOLO increasing: identify · memorise · name · do simple procedure · collect data · -->
@@ -409,7 +409,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.3</span> Different learning paths</h2>
 <p>We are all different and you may like different learning styles compared to others. You may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be useful for you.</p>
 <ul>
-<li>Roger Peng provide a good video giving an <a href="https://www.youtube.com/watch?v=aywFompr1F4">Introduction to the dplyr R package</a>.</li>
+<li>Roger Peng provides a good video giving an <a href="https://www.youtube.com/watch?v=aywFompr1F4">Introduction to the dplyr R package</a>.</li>
 <li><a href="https://bookdown.org/rdpeng/rprogdatascience/managing-data-frames-with-the-dplyr-package.html">Chapter 12</a> in <span class="citation">Peng (<a href="#ref-rdpeng" role="doc-biblioref">2018</a>)</span> provides a nice introduction to dplyr.</li>
 <li>An alternative interactive DataCamp course is <a href="https://learn.datacamp.com/courses/working-with-data-in-the-tidyverse">Working with Data in the Tidyverse</a> which may be good to take if you need more training.</li>
 <li>The ‘Data transformation with dplyr’ cheatsheet is very useful. Find the newest version in RStudio <strong>Help &gt; Cheatsheets</strong>.</li>
@@ -418,35 +418,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="rc-transform" class="section level2" number="8.4">
 <h2><span class="header-section-number">8.4</span> Recap</h2>
 <ul>
-<li><p>We considers transformation tidy data where data are stored using a tibble (data frame) where each column is a variable, and each row is an observation/case.</p></li>
+<li><p>We consider transformation of tidy data where data are stored using a tibble (data frame) where each column is a variable, and each row is an observation/case.</p></li>
 <li><p>Tidy data is important because the consistent structure lets you focus your struggle on questions about the data.</p></li>
 <li><p>Transformation includes narrowing in on observations of interest (e.g. only observations from a specific year or warehouse), creating new variables based on existing variables (like the cost of using the machine that day given idle time).</p></li>
 <li><p>Tidying and transforming are called wrangling, because it can be a hard process to get your data in the right form.</p></li>
-<li><p>The package dplyr provide a consistent set of verbs that help you solve the most common data manipulation challenges:</p>
+<li><p>The package dplyr provides a consistent set of verbs that helps you solve the most common data manipulation challenges:</p>
 <ul>
 <li>The <code>filter</code> function chooses rows (cases/observations) that meet a specific criteria.</li>
 <li>The <code>select</code> function chooses columns (variables) based on their names.</li>
 <li>The <code>arrange</code> function reorders the rows.</li>
-<li>The <code>transmute</code> function adds/modify columns (variables) and drops existing ones.</li>
-<li>The <code>mutate</code> function adds/modify columns (variables).</li>
-<li>The <code>group_by</code> function group variables for groupwise operations.</li>
-<li>The <code>ungroup</code> function remove the current grouping.</li>
-<li>The <code>count</code> function count rows based on a grouping.</li>
+<li>The <code>transmute</code> function adds/modifies columns (variables) and drops existing ones.</li>
+<li>The <code>mutate</code> function adds/modifies columns (variables).</li>
+<li>The <code>group_by</code> function groups variables for groupwise operations.</li>
+<li>The <code>ungroup</code> function removes the current grouping.</li>
+<li>The <code>count</code> function counts rows based on a grouping.</li>
 <li>The <code>summarise</code> function reduces multiple values down to a single summary.</li>
 <li>The <code>distinct</code> function selects unique/distinct rows.</li>
-<li>The <code>pull</code> function can be use to extract columns as vectors (it is similar to $).</li>
+<li>The <code>pull</code> function can be used to extract columns as vectors (it is similar to $).</li>
 </ul></li>
 <li><p>Some nice to know functions to use inside e.g. <code>summarise</code> or <code>mutate</code> are</p>
 <ul>
-<li>The <code>n()</code> function count the number of rows in a group.</li>
-<li>The <code>n_distinct</code> count the number of unique rows in a group.</li>
+<li>The <code>n()</code> function counts the number of rows in a group.</li>
+<li>The <code>n_distinct</code> counts the number of unique rows in a group.</li>
 <li>The <code>first</code> function considers the first row in a group (remember to order it as needed).</li>
-<li>The <code>slice_min</code> and <code>slice_max</code> functions selects rows with highest or lowest values of a variable.</li>
+<li>The <code>slice_min</code> and <code>slice_max</code> functions select rows with highest or lowest values of a variable.</li>
 <li>The <code>across</code> function makes it easy to apply the same transformation to multiple columns.</li>
 </ul></li>
 <li><p>Use <code>print(n = Inf)</code> in a pipe to print all rows.</p></li>
 <li><p>Use the pipe operator <code>%&gt;%</code> to connect operations.</p></li>
-<li><p>Use functions <code>glimpse</code>, <code>tail</code>, <code>head</code>, <code>View</code> to have look at the data.</p></li>
+<li><p>Use functions <code>glimpse</code>, <code>tail</code>, <code>head</code>, <code>View</code> to have look a at the data.</p></li>
 <li><p>The <code>skim</code> function in the skimr package provides an approach to summary statistics.</p></li>
 <li><p>Use <code>as.character</code>, <code>as.numeric</code>, etc. to convert data to a different type.</p></li>
 <li><p>Use <code>nrow</code> and <code>ncol</code> functions to get the number of rows and columns of the data.</p></li>
@@ -1108,7 +1108,7 @@ Close
 Hint 1
 </button>
 <ol start="8" class="example" style="list-style-type: decimal">
-<li><p>Use <code>mutate</code> to calculate GDP per capita relative to mean GDP per capita in Denmark over the whole period (<code>gdpPercap</code> divided by the mean of Danish <code>gdpPercap</code>). Have a look at the calculated data. Does the numbers seems reasonable? I perceive Denmark to be a “high GDP” country, so I predict that the distribution of <code>gdpPercapRel</code> is located below 1, possibly even well below.</p></li>
+<li><p>Use <code>mutate</code> to calculate GDP per capita relative to mean GDP per capita in Denmark over the whole period (<code>gdpPercap</code> divided by the mean of Danish <code>gdpPercap</code>). Have a look at the calculated data. Does the numbers seem reasonable? I perceive Denmark to be a “high GDP” country, so I predict that the distribution of <code>gdpPercapRel</code> is located below 1, possibly even well below.</p></li>
 <li><p>Use <code>arrange</code> to order</p></li>
 </ol>
 <div id="Z5wjTBjc33SBUyDi9Wp7" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Z5wjTBjc33SBUyDi9Wp7-title">
@@ -1320,7 +1320,7 @@ Close
 <button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#DBb2EpI0x5kp0qYLKd7J">
 Solution
 </button>
-<p>        b) remove <code>pop</code></p>
+<p>        b) remove <code>pop</code>,</p>
 <div id="alYgNuyl0WnCNXkKKQHc" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="alYgNuyl0WnCNXkKKQHc-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -1400,7 +1400,7 @@ Close
 <button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#2bP2zcqOxNo0s4oagiHf">
 Solution
 </button>
-<p>        a) number of observations per continent</p>
+<p>        a) number of observations per continent,</p>
 <div id="IZ3LUWoVqaXcIZzvlqvb" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="IZ3LUWoVqaXcIZzvlqvb-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -1516,7 +1516,7 @@ Close
 <button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#QLLIuHroBEfT69JbwQv6">
 Solution
 </button>
-<p>        d) minimum and maximum life expectancies seen by year in Asia</p>
+<p>        d) minimum and maximum life expectancies seen by year in Asia.</p>
 <div id="rGHA167Cp0Nu0JQYvWjc" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="rGHA167Cp0Nu0JQYvWjc-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -1596,7 +1596,7 @@ Close
 Hint
 </button>
 <ol start="12" class="example" style="list-style-type: decimal">
-<li>Sometimes you don’t want to collapse the <span class="math inline">\(n\)</span> rows for each group into one row. That is, you don’t want to use <code>summarize</code> but <code>mutate</code> within your groups. Try to make a new variable that is the years of life expectancy gained (lost) relative to 1952, for each individual country.</li>
+<li>Sometimes you do not want to collapse the <span class="math inline">\(n\)</span> rows for each group into one row. That is, you don’t want to use <code>summarize</code> but <code>mutate</code> within your groups. Try to make a new variable that is the years of life expectancy gained (lost) relative to 1952, for each individual country.</li>
 </ol>
 <div id="FWK6qcq7fbwZIvqQUlFo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="FWK6qcq7fbwZIvqQUlFo-title">
 <div class="modal-dialog modal-lg" role="document">
@@ -1682,7 +1682,7 @@ Hint
 <div id="ex-babynames1" class="section level3" number="8.5.2">
 <h3><span class="header-section-number">8.5.2</span> Exercise (babynames)</h3>
 <p>Use the <em>exercise R markdown template</em> to solve this exercise (<strong>File &gt; New File &gt; R Markdown…</strong>, select <strong>From template</strong> and then <strong>TFA Exercise</strong>).</p>
-<p>The package babynames contains the dataset <code>babynames</code> provided by the USA social security administration. For each year from 1880 to 2017, the number of children of each sex given each name. All names with more than 5 uses are given (source: <a href="http://www.ssa.gov/oact/babynames/limits.html" class="uri">http://www.ssa.gov/oact/babynames/limits.html</a>).</p>
+<p>The package babynames contains the dataset <code>babynames</code> provided by the U.S Social Security Administration. For each year from 1880 to 2017, the number of children of each sex given each name. All names with more than 5 uses are given (source: <a href="http://www.ssa.gov/oact/babynames/limits.html" class="uri">http://www.ssa.gov/oact/babynames/limits.html</a>).</p>
 <p>Install it using</p>
 <div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="sec-transform.html#cb282-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">&quot;babynames&quot;</span>)</span></code></pre></div>
 <p>We will use the skimr package to get an overview over <code>babynames</code>:</p>
@@ -1893,7 +1893,7 @@ Close
 <button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#KggHIQNuXbVVQDJE0DyQ">
 Solution
 </button>
-<p>        a) All of the names where prop is greater than or equal to 0.08</p>
+<p>        a) all of the names where prop is greater than or equal to 0.08,</p>
 <div id="xF8YQrucqHt88ZzX7Ame" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="xF8YQrucqHt88ZzX7Ame-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -1927,7 +1927,7 @@ Close
 <button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#xF8YQrucqHt88ZzX7Ame">
 Solution
 </button>
-<p>        b) All of the children named “Sea”</p>
+<p>        b) all of the children named “Sea”.</p>
 <ol start="3" style="list-style-type: decimal">
 <li>Use Boolean operators to return only the rows that contain:</li>
 </ol>
@@ -1971,7 +1971,7 @@ Close
 <button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#YkLOLc9FwzX2biaWL47M">
 Solution
 </button>
-<p>        a) <em>Boys</em> named Sue,</p>
+<p>        a) <em>boys</em> named Sue,</p>
 <div id="bE1J4F8M8ZXAwc4BfuoR" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="bE1J4F8M8ZXAwc4BfuoR-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -2012,7 +2012,7 @@ Close
 <button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#bE1J4F8M8ZXAwc4BfuoR">
 Solution
 </button>
-<p>        b) Names that were used by exactly 5 or 6 children in 1880,</p>
+<p>        b) names that were used by exactly 5 or 6 children in 1880,</p>
 <div id="9ATOnlOdPMcxTcHPRHys" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="9ATOnlOdPMcxTcHPRHys-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -2053,7 +2053,7 @@ Close
 <button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#9ATOnlOdPMcxTcHPRHys">
 Solution
 </button>
-<p>        c) Names that are one of Acura, Lexus, or Yugo.</p>
+<p>        c) names that are one of Acura, Lexus, or Yugo.</p>
 <div id="ohB36qMmudc4EPoNRZ80" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ohB36qMmudc4EPoNRZ80-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -2156,7 +2156,7 @@ Close
 Hint
 </button>
 <ol start="5" style="list-style-type: decimal">
-<li>Write a sequence of functions that filters babynames to just the girls that were born in 2017, then selects the <code>name</code> and <code>n</code> columns, then, arranges the results so that the most popular names are near the top.</li>
+<li>Write a sequence of functions that filters babynames to just the girls that were born in 2017, then select the <code>name</code> and <code>n</code> columns, then arrange the results so that the most popular names are near the top.</li>
 </ol>
 <div id="1jvRhoUqU1RTbRJfbyAy" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="1jvRhoUqU1RTbRJfbyAy-title">
 <div class="modal-dialog modal-lg" role="document">
@@ -2456,7 +2456,7 @@ Close
 Hint
 </button>
 <ol start="10" style="list-style-type: decimal">
-<li>Column <code>prop</code> denote the proportion given year and sex. Use <code>mutate()</code> and <code>min_rank()</code> to rank each row in babynames from <em>largest</em> <code>prop</code> to lowest <code>prop</code> given year and sex. What happens if you do the same using the <code>n</code> column?</li>
+<li>Column <code>prop</code> denotes the proportion given year and sex. Use <code>mutate()</code> and <code>min_rank()</code> to rank each row in babynames from <em>largest</em> <code>prop</code> to lowest <code>prop</code> given year and sex. What happens if you do the same using the <code>n</code> column?</li>
 </ol>
 <div id="mUUGvgiHax2VrHMu4VQ9" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mUUGvgiHax2VrHMu4VQ9-title">
 <div class="modal-dialog modal-lg" role="document">
@@ -2662,9 +2662,9 @@ Solution
 </tr>
 </tbody>
 </table>
-<p>Note that it seems that the dataset need to be cleaned. All columns are strings (some should be numbers) and there seems to be missing values. You may start by having a view of the dataset using</p>
+<p>Note that it seems that the dataset need to be cleaned. All columns are strings (some should be numbers) and there seems to be missing values. You may start by having a view of the dataset using:</p>
 <div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="sec-transform.html#cb303-1" aria-hidden="true"></a><span class="kw">View</span>(profit)</span></code></pre></div>
-<p>First focus on column <code>Quarter</code> which currently has 12 distinct values</p>
+<p>First focus on column <code>Quarter</code> which currently has 12 distinct values:</p>
 <div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="sec-transform.html#cb304-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(Quarter)</span>
 <span id="cb304-2"><a href="sec-transform.html#cb304-2" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 12 x 1</span></span>
 <span id="cb304-3"><a href="sec-transform.html#cb304-3" aria-hidden="true"></a><span class="co">#&gt;    Quarter</span></span>
@@ -2747,7 +2747,7 @@ Hint
 <ol style="list-style-type: decimal">
 <li>Use <code>mutate</code>, <code>str_remove</code> and <code>as.numeric</code> to convert the column to a numeric by removing all ‘q’ and ‘Q’ values.</li>
 </ol>
-<p>Let us look at the next columns</p>
+<p>Let us look at the next columns:</p>
 <div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="sec-transform.html#cb307-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(Channel) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>()</span>
 <span id="cb307-2"><a href="sec-transform.html#cb307-2" aria-hidden="true"></a><span class="co">#&gt;  [1] &quot;ATM&quot; &quot;BRH&quot; &quot;INT&quot; &quot;MAL&quot; &quot;EML&quot; &quot;CCT&quot; &quot;TEL&quot; &quot;MOP&quot; &quot;DSA&quot; &quot;EVE&quot;</span></span>
 <span id="cb307-3"><a href="sec-transform.html#cb307-3" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(<span class="st">`</span><span class="dt">Customer ID</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>()</span>
@@ -2767,7 +2767,7 @@ Hint
 <span id="cb307-17"><a href="sec-transform.html#cb307-17" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(<span class="st">`</span><span class="dt">Product Line</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>()</span>
 <span id="cb307-18"><a href="sec-transform.html#cb307-18" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Credit Products&quot;           &quot;Deposit Products&quot;          &quot;Revolving Credit Products&quot;</span></span>
 <span id="cb307-19"><a href="sec-transform.html#cb307-19" aria-hidden="true"></a><span class="co">#&gt; [4] &quot;Other Products&quot;            &quot;Third Party Products&quot;      &quot;Fee Based Products&quot;</span></span></code></pre></div>
-<p>These seems to be okay. The last columns should be numbers. Let us consider <code>Revenue</code>.</p>
+<p>These seem to be okay. The last columns should be numbers. Let us consider <code>Revenue</code>.</p>
 <div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="sec-transform.html#cb308-1" aria-hidden="true"></a>profit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(Revenue) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dt">n =</span> <span class="dv">100</span>)</span>
 <span id="cb308-2"><a href="sec-transform.html#cb308-2" aria-hidden="true"></a><span class="co">#&gt;   [1] &quot;$ 6044&quot;  &quot;$ 4686&quot;  &quot;$ 6063&quot;  &quot;$ 4682&quot;  &quot;$ 6320&quot;  &quot;$ 2993&quot;  &quot;$ 3355&quot;  &quot;$ 5716&quot;  &quot;$ 3347&quot; </span></span>
 <span id="cb308-3"><a href="sec-transform.html#cb308-3" aria-hidden="true"></a><span class="co">#&gt;  [10] &quot;$ 2624&quot;  &quot;$ 3629&quot;  &quot;$ 5612&quot;  &quot;$ 4618&quot;  &quot;$ 2080&quot;  &quot;$ 2788&quot;  &quot;$ 2829&quot;  &quot;$ 2898&quot;  &quot;$ 5232&quot; </span></span>
@@ -2803,7 +2803,7 @@ Hint
 <span id="cb309-19"><a href="sec-transform.html#cb309-19" aria-hidden="true"></a><span class="st">  </span><span class="kw">pull</span>(Revenue)</span>
 <span id="cb309-20"><a href="sec-transform.html#cb309-20" aria-hidden="true"></a>na_values</span>
 <span id="cb309-21"><a href="sec-transform.html#cb309-21" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;Unknown&quot; &quot;?&quot;       &quot;unknown&quot;</span></span></code></pre></div>
-<p>The expression is a bit complex. Let us break it up. Function <code>fixed</code> just return the fixed string ‘$’. This is necessary since the dollar sign have a special meaning in regular expressions (beyond the scope here). Function <code>str_starts</code> check if the string starts with a dollar sign. We use the logical negation (NOT) to find the complementary set.</p>
+<p>The expression is a bit complex. Let us break it up. Function <code>fixed</code> just returns the fixed string ‘$’. This is necessary since the dollar sign has a special meaning in regular expressions (beyond the scope here). Function <code>str_starts</code> checks if the string starts with a dollar sign. We use the logical negation (NOT) to find the complementary set.</p>
 <p>Note that different strings have been used to indicate <code>NA</code> values (Unknown, ?, unknown). Let us first use a single value to indicate <code>NA</code> (a question mark):</p>
 <div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="sec-transform.html#cb310-1" aria-hidden="true"></a>profit &lt;-<span class="st"> </span>profit <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb310-2"><a href="sec-transform.html#cb310-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Revenue =</span> <span class="kw">str_replace_all</span>(Revenue, <span class="kw">c</span>(<span class="st">&quot;unknown&quot;</span> =<span class="st"> &quot;?&quot;</span>, <span class="st">&quot;Unknown&quot;</span> =<span class="st"> &quot;?&quot;</span>)))</span></code></pre></div>
@@ -3131,7 +3131,7 @@ Close
 Solution
 </button>
 <ol start="4" style="list-style-type: decimal">
-<li>Write one pipe that do all the cleaning</li>
+<li>Write one pipe that does all the cleaning.</li>
 </ol>
 <div id="tDZ2X6k6ClQXsjkb6pjs" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="tDZ2X6k6ClQXsjkb6pjs-title">
 <div class="modal-dialog modal-lg" role="document">
@@ -3194,7 +3194,7 @@ Close
 Hint
 </button>
 <ol start="5" style="list-style-type: decimal">
-<li>Validate that revenue - product costs - customer service cost equals profit. If you see small rounding errors (less than or equal 1) then recalculate the profit.</li>
+<li>Validate that revenue - product costs - customer service cost equals profit. If you see small rounding errors (less than or equal one) then recalculate the profit.</li>
 </ol>
 <div id="nLF0NbLAzGY8gRMNPpul" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="nLF0NbLAzGY8gRMNPpul-title">
 <div class="modal-dialog modal-lg" role="document">
@@ -3437,7 +3437,7 @@ Close
 Hint
 </button>
 <ol start="8" style="list-style-type: decimal">
-<li>Find the two best customers with highest profit in each quarter. Is the results the same as in Question 7?</li>
+<li>Find the two best customers with highest profit in each quarter. Is the result the same as in Question 7?</li>
 </ol>
 <div id="Gz2FGwyjHPClkUfklbOf" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Gz2FGwyjHPClkUfklbOf-title">
 <div class="modal-dialog modal-lg" role="document">
@@ -3599,7 +3599,7 @@ Close
 Solution
 </button>
 <ol start="10" style="list-style-type: decimal">
-<li>Is there rows with the same customer in different countries?</li>
+<li>Are there rows with the same customer in different countries?</li>
 </ol>
 <div id="YcT8szrqNcW2kq3tNhig" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="YcT8szrqNcW2kq3tNhig-title">
 <div class="modal-dialog modal-lg" role="document">
@@ -3795,7 +3795,7 @@ Close
 Hint
 </button>
 <ol start="13" style="list-style-type: decimal">
-<li>Assume that customer service cost increase with 5%. How will that affect the profit for each product line?</li>
+<li>Assume that customer service cost increases with 5%. How will that affect the profit for each product line?</li>
 </ol>
 <div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="sec-transform.html#cb333-1" aria-hidden="true"></a><span class="kw">rm</span>(profit)</span></code></pre></div>
 
