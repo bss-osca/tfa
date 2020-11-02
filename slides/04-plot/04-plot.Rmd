@@ -1,0 +1,136 @@
+---
+title: "Visualization using ggplot2"
+author: "Lars Relund Nielsen"
+output:
+  xaringan::moon_reader:
+    css: "./libs/slides.css"
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+      highlightStyle: solarized-light
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, child = "../setup.Rmd", echo=FALSE}
+```
+
+```{r links, child="../../book/links.md"}
+```
+
+```{r packages, echo=FALSE, message=FALSE, warning=FALSE}
+# use xaringan::inf_mr(cast_from = "..") to preview
+library(tidyverse)
+```
+
+## Data visualization
+
+> *"The simple graph has brought more information to the data analyst's mind than any other device." --- John Tukey*
+
+- Data visualization is the creation and study of the visual representation of data.
+- There are many tools for visualizing data (R is one of them), and many approaches/systems within R for making data visualizations (**ggplot2** is one of them, and that's what we're going to use).
+
+---
+
+## ggplot2 a part of tidyverse
+
+.pull-left[
+```{r echo=FALSE, out.width="80%"}
+knitr::include_graphics("img/ggplot2-part-of-tidyverse.png")
+```
+] 
+.pull-right[ 
+- **ggplot2** is tidyverse's data visualization package - The `gg` in "ggplot2" stands for Grammar of Graphics 
+- It is inspired by the book **Grammar of Graphics** by Leland Wilkinson
+]
+
+---
+
+## Grammar of Graphics
+
+A grammar of graphics is a tool that enables us to concisely describe the components of a graphic
+
+```{r echo=FALSE, out.width="70%"}
+knitr::include_graphics("img/grammar-of-graphics.png")
+```
+
+.footnote[ Source: [BloggoType](http://bloggotype.blogspot.com/2016/08/holiday-notes2-grammar-of-graphics.html)]
+
+
+
+---
+
+## An example
+
+```{r out.width="70%"}
+ggplot(data = starwars, mapping = aes(x = height, y = mass)) +
+  geom_point() +
+  labs(title = "Mass vs. height of Starwars characters",
+       x = "Height (cm)", y = "Weight (kg)")
+```
+
+---
+
+.question[ 
+- What are the functions doing?
+- What is the dataset being plotted?
+- Which variable is on the x-axis and which variable is on the y-axis?
+- What does the warning mean?
+]
+
+```{r eval=FALSE}
+ggplot(data = starwars, mapping = aes(x = height, y = mass)) +
+  geom_point() +
+  labs(
+    title = "Mass vs. height of Starwars characters",
+    x = "Height (cm)", 
+    y = "Weight (kg)"
+    )
+```
+
+    ## Warning: Removed 28 rows containing missing values (geom_point).
+
+---
+
+## Hello ggplot2!
+
+- `ggplot()` is the main function in ggplot2
+- Plots are constructed in layers
+- Structure of the code for plots can be summarized as
+
+```{r eval = FALSE}
+ggplot(data = [dataset], 
+       mapping = aes(x = [x-variable], y = [y-variable])) +
+   geom_xxx() +
+   other options
+```
+
+- To use ggplot2 functions, first load tidyverse
+
+```{r}
+library(tidyverse)
+```
+
+- For help with the ggplot2, see [ggplot2.tidyverse.org](http://ggplot2.tidyverse.org/)
+
+---
+
+
+class: middle
+
+# Visualizing Star Wars
+
+Let us consider the R markdown document.
+
+
+
+
+
+```{r copy to docs, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../../docs/slides/", overwrite = T)
+file.copy("../slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../../docs/slides/", recursive = T)
+file.copy("img", "../../docs/slides/", recursive = T)
+```
