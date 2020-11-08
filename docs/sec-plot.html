@@ -2843,36 +2843,47 @@ Hint
 <p>Countries around the world are responding to an outbreak of respiratory illness caused by a novel corona virus, COVID-19. The outbreak first started in Wuhan, China, but cases have been identified in a growing number of other locations internationally, including the United States. In this report we explore how the trajectory of the cumulative deaths in a number of countries.</p>
 <p>The data come from the <a href="https://github.com/RamiKrispin/coronavirus"><strong>coronavirus</strong> package</a>, which pulls data from the Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Corona virus repository. The corona virus package provides a tidy format dataset of the 2019 Novel Corona virus COVID-19 (2019-nCoV) epidemic. The package is available on GitHub <a href="https://github.com/RamiKrispin/coronavirus">here</a> and is updated daily.</p>
 <p>First load the following packages:</p>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="sec-plot.html#cb400-1" aria-hidden="true"></a><span class="co"># devtools::install_github(&quot;RamiKrispin/coronavirus&quot;, dependencies = FALSE)</span></span>
-<span id="cb400-2"><a href="sec-plot.html#cb400-2" aria-hidden="true"></a><span class="kw">library</span>(coronavirus) </span>
-<span id="cb400-3"><a href="sec-plot.html#cb400-3" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb400-4"><a href="sec-plot.html#cb400-4" aria-hidden="true"></a><span class="kw">library</span>(lubridate)   <span class="co"># package for handling dates</span></span></code></pre></div>
-<p>The data frame called <code>coronavirus</code> in the coronavirus package provides a daily summary of the Corona virus (COVID-19) cases by country. Each row in the data frame represents a country (or, where relevant, state/province). Note that the data provided in this package provides daily number of deaths, confirmed cases, and recovered cases. We calculate the total number of cases per day, cumulative numbers and days since first record:</p>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="sec-plot.html#cb401-1" aria-hidden="true"></a>dat &lt;-<span class="st"> </span>coronavirus <span class="op">%&gt;%</span></span>
-<span id="cb401-2"><a href="sec-plot.html#cb401-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(country, date, type) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb401-3"><a href="sec-plot.html#cb401-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tot_cases =</span> <span class="kw">sum</span>(cases)) <span class="op">%&gt;%</span></span>
-<span id="cb401-4"><a href="sec-plot.html#cb401-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(country, type) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb401-5"><a href="sec-plot.html#cb401-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">arrange</span>(date) <span class="op">%&gt;%</span></span>
-<span id="cb401-6"><a href="sec-plot.html#cb401-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cumulative_cases =</span> <span class="kw">cumsum</span>(tot_cases)) <span class="op">%&gt;%</span></span>
-<span id="cb401-7"><a href="sec-plot.html#cb401-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
-<span id="cb401-8"><a href="sec-plot.html#cb401-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb401-9"><a href="sec-plot.html#cb401-9" aria-hidden="true"></a>    <span class="dt">days_elapsed =</span> <span class="kw">as.numeric</span>(date <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(date)),</span>
-<span id="cb401-10"><a href="sec-plot.html#cb401-10" aria-hidden="true"></a>    <span class="dt">year =</span> <span class="kw">year</span>(date)</span>
-<span id="cb401-11"><a href="sec-plot.html#cb401-11" aria-hidden="true"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()</span>
-<span id="cb401-12"><a href="sec-plot.html#cb401-12" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 157,626 x 7</span></span>
-<span id="cb401-13"><a href="sec-plot.html#cb401-13" aria-hidden="true"></a><span class="co">#&gt;    country     date       type      tot_cases cumulative_cases days_elapsed  year</span></span>
-<span id="cb401-14"><a href="sec-plot.html#cb401-14" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;date&gt;     &lt;chr&gt;         &lt;int&gt;            &lt;int&gt;        &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb401-15"><a href="sec-plot.html#cb401-15" aria-hidden="true"></a><span class="co">#&gt;  1 Afghanistan 2020-01-22 confirmed         0                0            0  2020</span></span>
-<span id="cb401-16"><a href="sec-plot.html#cb401-16" aria-hidden="true"></a><span class="co">#&gt;  2 Afghanistan 2020-01-22 death             0                0            0  2020</span></span>
-<span id="cb401-17"><a href="sec-plot.html#cb401-17" aria-hidden="true"></a><span class="co">#&gt;  3 Afghanistan 2020-01-22 recovered         0                0            0  2020</span></span>
-<span id="cb401-18"><a href="sec-plot.html#cb401-18" aria-hidden="true"></a><span class="co">#&gt;  4 Albania     2020-01-22 confirmed         0                0            0  2020</span></span>
-<span id="cb401-19"><a href="sec-plot.html#cb401-19" aria-hidden="true"></a><span class="co">#&gt;  5 Albania     2020-01-22 death             0                0            0  2020</span></span>
-<span id="cb401-20"><a href="sec-plot.html#cb401-20" aria-hidden="true"></a><span class="co">#&gt;  6 Albania     2020-01-22 recovered         0                0            0  2020</span></span>
-<span id="cb401-21"><a href="sec-plot.html#cb401-21" aria-hidden="true"></a><span class="co">#&gt;  7 Algeria     2020-01-22 confirmed         0                0            0  2020</span></span>
-<span id="cb401-22"><a href="sec-plot.html#cb401-22" aria-hidden="true"></a><span class="co">#&gt;  8 Algeria     2020-01-22 death             0                0            0  2020</span></span>
-<span id="cb401-23"><a href="sec-plot.html#cb401-23" aria-hidden="true"></a><span class="co">#&gt;  9 Algeria     2020-01-22 recovered         0                0            0  2020</span></span>
-<span id="cb401-24"><a href="sec-plot.html#cb401-24" aria-hidden="true"></a><span class="co">#&gt; 10 Andorra     2020-01-22 confirmed         0                0            0  2020</span></span>
-<span id="cb401-25"><a href="sec-plot.html#cb401-25" aria-hidden="true"></a><span class="co">#&gt; # … with 157,616 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="sec-plot.html#cb400-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb400-2"><a href="sec-plot.html#cb400-2" aria-hidden="true"></a><span class="kw">library</span>(lubridate)   <span class="co"># package for handling dates</span></span></code></pre></div>
+<p>The data frame called <code>coronavirus</code> in the coronavirus package provides a daily summary of the Corona virus (COVID-19) cases by country. Each row in the data frame represents a country (or, where relevant, state/province). Note that the data provided in this package provides daily number of deaths, confirmed cases, and recovered cases. Since we just need the dataset we load it using <code>read_csv</code>:</p>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="sec-plot.html#cb401-1" aria-hidden="true"></a>coronavirus &lt;-<span class="st"> </span><span class="kw">read_csv</span>(</span>
+<span id="cb401-2"><a href="sec-plot.html#cb401-2" aria-hidden="true"></a>  <span class="st">&quot;https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv&quot;</span>, </span>
+<span id="cb401-3"><a href="sec-plot.html#cb401-3" aria-hidden="true"></a>  <span class="dt">col_types =</span> <span class="kw">cols</span>(</span>
+<span id="cb401-4"><a href="sec-plot.html#cb401-4" aria-hidden="true"></a>    <span class="dt">date =</span> <span class="kw">col_date</span>(<span class="dt">format =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb401-5"><a href="sec-plot.html#cb401-5" aria-hidden="true"></a>    <span class="dt">province =</span> <span class="kw">col_character</span>(),</span>
+<span id="cb401-6"><a href="sec-plot.html#cb401-6" aria-hidden="true"></a>    <span class="dt">country =</span> <span class="kw">col_character</span>(),</span>
+<span id="cb401-7"><a href="sec-plot.html#cb401-7" aria-hidden="true"></a>    <span class="dt">lat =</span> <span class="kw">col_double</span>(),</span>
+<span id="cb401-8"><a href="sec-plot.html#cb401-8" aria-hidden="true"></a>    <span class="dt">long =</span> <span class="kw">col_double</span>(),</span>
+<span id="cb401-9"><a href="sec-plot.html#cb401-9" aria-hidden="true"></a>    <span class="dt">type =</span> <span class="kw">col_character</span>(),</span>
+<span id="cb401-10"><a href="sec-plot.html#cb401-10" aria-hidden="true"></a>    <span class="dt">cases =</span> <span class="kw">col_double</span>()</span>
+<span id="cb401-11"><a href="sec-plot.html#cb401-11" aria-hidden="true"></a>  )</span>
+<span id="cb401-12"><a href="sec-plot.html#cb401-12" aria-hidden="true"></a>)</span></code></pre></div>
+<p>We calculate the total number of cases per day, cumulative numbers and days since first record:</p>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="sec-plot.html#cb402-1" aria-hidden="true"></a>dat &lt;-<span class="st"> </span>coronavirus <span class="op">%&gt;%</span></span>
+<span id="cb402-2"><a href="sec-plot.html#cb402-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(country, date, type) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb402-3"><a href="sec-plot.html#cb402-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tot_cases =</span> <span class="kw">sum</span>(cases)) <span class="op">%&gt;%</span></span>
+<span id="cb402-4"><a href="sec-plot.html#cb402-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(country, type) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb402-5"><a href="sec-plot.html#cb402-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">arrange</span>(date) <span class="op">%&gt;%</span></span>
+<span id="cb402-6"><a href="sec-plot.html#cb402-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cumulative_cases =</span> <span class="kw">cumsum</span>(tot_cases)) <span class="op">%&gt;%</span></span>
+<span id="cb402-7"><a href="sec-plot.html#cb402-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
+<span id="cb402-8"><a href="sec-plot.html#cb402-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb402-9"><a href="sec-plot.html#cb402-9" aria-hidden="true"></a>    <span class="dt">days_elapsed =</span> <span class="kw">as.numeric</span>(date <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(date)),</span>
+<span id="cb402-10"><a href="sec-plot.html#cb402-10" aria-hidden="true"></a>    <span class="dt">year =</span> <span class="kw">year</span>(date)</span>
+<span id="cb402-11"><a href="sec-plot.html#cb402-11" aria-hidden="true"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()</span>
+<span id="cb402-12"><a href="sec-plot.html#cb402-12" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 165,870 x 7</span></span>
+<span id="cb402-13"><a href="sec-plot.html#cb402-13" aria-hidden="true"></a><span class="co">#&gt;    country     date       type      tot_cases cumulative_cases days_elapsed  year</span></span>
+<span id="cb402-14"><a href="sec-plot.html#cb402-14" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb402-15"><a href="sec-plot.html#cb402-15" aria-hidden="true"></a><span class="co">#&gt;  1 Afghanistan 2020-01-22 confirmed         0                0            0  2020</span></span>
+<span id="cb402-16"><a href="sec-plot.html#cb402-16" aria-hidden="true"></a><span class="co">#&gt;  2 Afghanistan 2020-01-22 death             0                0            0  2020</span></span>
+<span id="cb402-17"><a href="sec-plot.html#cb402-17" aria-hidden="true"></a><span class="co">#&gt;  3 Afghanistan 2020-01-22 recovered         0                0            0  2020</span></span>
+<span id="cb402-18"><a href="sec-plot.html#cb402-18" aria-hidden="true"></a><span class="co">#&gt;  4 Albania     2020-01-22 confirmed         0                0            0  2020</span></span>
+<span id="cb402-19"><a href="sec-plot.html#cb402-19" aria-hidden="true"></a><span class="co">#&gt;  5 Albania     2020-01-22 death             0                0            0  2020</span></span>
+<span id="cb402-20"><a href="sec-plot.html#cb402-20" aria-hidden="true"></a><span class="co">#&gt;  6 Albania     2020-01-22 recovered         0                0            0  2020</span></span>
+<span id="cb402-21"><a href="sec-plot.html#cb402-21" aria-hidden="true"></a><span class="co">#&gt;  7 Algeria     2020-01-22 confirmed         0                0            0  2020</span></span>
+<span id="cb402-22"><a href="sec-plot.html#cb402-22" aria-hidden="true"></a><span class="co">#&gt;  8 Algeria     2020-01-22 death             0                0            0  2020</span></span>
+<span id="cb402-23"><a href="sec-plot.html#cb402-23" aria-hidden="true"></a><span class="co">#&gt;  9 Algeria     2020-01-22 recovered         0                0            0  2020</span></span>
+<span id="cb402-24"><a href="sec-plot.html#cb402-24" aria-hidden="true"></a><span class="co">#&gt; 10 Andorra     2020-01-22 confirmed         0                0            0  2020</span></span>
+<span id="cb402-25"><a href="sec-plot.html#cb402-25" aria-hidden="true"></a><span class="co">#&gt; # … with 165,860 more rows</span></span></code></pre></div>
 <div id="HN6F2TKDkFPh78zyl1yl" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="HN6F2TKDkFPh78zyl1yl-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -2885,32 +2896,32 @@ Solution
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="sec-plot.html#cb402-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb402-2"><a href="sec-plot.html#cb402-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(date, type) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb402-3"><a href="sec-plot.html#cb402-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tot_cases =</span> <span class="kw">sum</span>(tot_cases)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb402-4"><a href="sec-plot.html#cb402-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> tot_cases)) <span class="op">+</span></span>
-<span id="cb402-5"><a href="sec-plot.html#cb402-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb402-6"><a href="sec-plot.html#cb402-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">rows =</span> <span class="kw">vars</span>(type), <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></span>
-<span id="cb402-7"><a href="sec-plot.html#cb402-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(</span>
-<span id="cb402-8"><a href="sec-plot.html#cb402-8" aria-hidden="true"></a>    <span class="dt">title =</span> <span class="st">&quot;Number of Covid 19 cases per day&quot;</span>,</span>
-<span id="cb402-9"><a href="sec-plot.html#cb402-9" aria-hidden="true"></a>    <span class="dt">y =</span> <span class="st">&quot;cases&quot;</span></span>
-<span id="cb402-10"><a href="sec-plot.html#cb402-10" aria-hidden="true"></a>  )</span>
-<span id="cb402-11"><a href="sec-plot.html#cb402-11" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 834 x 3</span></span>
-<span id="cb402-12"><a href="sec-plot.html#cb402-12" aria-hidden="true"></a><span class="co">#&gt; # Groups:   date [278]</span></span>
-<span id="cb402-13"><a href="sec-plot.html#cb402-13" aria-hidden="true"></a><span class="co">#&gt;    date       type      tot_cases</span></span>
-<span id="cb402-14"><a href="sec-plot.html#cb402-14" aria-hidden="true"></a><span class="co">#&gt;    &lt;date&gt;     &lt;chr&gt;         &lt;int&gt;</span></span>
-<span id="cb402-15"><a href="sec-plot.html#cb402-15" aria-hidden="true"></a><span class="co">#&gt;  1 2020-01-22 confirmed       555</span></span>
-<span id="cb402-16"><a href="sec-plot.html#cb402-16" aria-hidden="true"></a><span class="co">#&gt;  2 2020-01-22 death            17</span></span>
-<span id="cb402-17"><a href="sec-plot.html#cb402-17" aria-hidden="true"></a><span class="co">#&gt;  3 2020-01-22 recovered        28</span></span>
-<span id="cb402-18"><a href="sec-plot.html#cb402-18" aria-hidden="true"></a><span class="co">#&gt;  4 2020-01-23 confirmed        99</span></span>
-<span id="cb402-19"><a href="sec-plot.html#cb402-19" aria-hidden="true"></a><span class="co">#&gt;  5 2020-01-23 death             1</span></span>
-<span id="cb402-20"><a href="sec-plot.html#cb402-20" aria-hidden="true"></a><span class="co">#&gt;  6 2020-01-23 recovered         2</span></span>
-<span id="cb402-21"><a href="sec-plot.html#cb402-21" aria-hidden="true"></a><span class="co">#&gt;  7 2020-01-24 confirmed       287</span></span>
-<span id="cb402-22"><a href="sec-plot.html#cb402-22" aria-hidden="true"></a><span class="co">#&gt;  8 2020-01-24 death             8</span></span>
-<span id="cb402-23"><a href="sec-plot.html#cb402-23" aria-hidden="true"></a><span class="co">#&gt;  9 2020-01-24 recovered         6</span></span>
-<span id="cb402-24"><a href="sec-plot.html#cb402-24" aria-hidden="true"></a><span class="co">#&gt; 10 2020-01-25 confirmed       493</span></span>
-<span id="cb402-25"><a href="sec-plot.html#cb402-25" aria-hidden="true"></a><span class="co">#&gt; # … with 824 more rows</span></span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-410-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="sec-plot.html#cb403-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb403-2"><a href="sec-plot.html#cb403-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(date, type) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb403-3"><a href="sec-plot.html#cb403-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tot_cases =</span> <span class="kw">sum</span>(tot_cases)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb403-4"><a href="sec-plot.html#cb403-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> tot_cases)) <span class="op">+</span></span>
+<span id="cb403-5"><a href="sec-plot.html#cb403-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb403-6"><a href="sec-plot.html#cb403-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">rows =</span> <span class="kw">vars</span>(type), <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></span>
+<span id="cb403-7"><a href="sec-plot.html#cb403-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(</span>
+<span id="cb403-8"><a href="sec-plot.html#cb403-8" aria-hidden="true"></a>    <span class="dt">title =</span> <span class="st">&quot;Number of Covid 19 cases per day&quot;</span>,</span>
+<span id="cb403-9"><a href="sec-plot.html#cb403-9" aria-hidden="true"></a>    <span class="dt">y =</span> <span class="st">&quot;cases&quot;</span></span>
+<span id="cb403-10"><a href="sec-plot.html#cb403-10" aria-hidden="true"></a>  )</span>
+<span id="cb403-11"><a href="sec-plot.html#cb403-11" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 873 x 3</span></span>
+<span id="cb403-12"><a href="sec-plot.html#cb403-12" aria-hidden="true"></a><span class="co">#&gt; # Groups:   date [291]</span></span>
+<span id="cb403-13"><a href="sec-plot.html#cb403-13" aria-hidden="true"></a><span class="co">#&gt;    date       type      tot_cases</span></span>
+<span id="cb403-14"><a href="sec-plot.html#cb403-14" aria-hidden="true"></a><span class="co">#&gt;    &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt;</span></span>
+<span id="cb403-15"><a href="sec-plot.html#cb403-15" aria-hidden="true"></a><span class="co">#&gt;  1 2020-01-22 confirmed       555</span></span>
+<span id="cb403-16"><a href="sec-plot.html#cb403-16" aria-hidden="true"></a><span class="co">#&gt;  2 2020-01-22 death            17</span></span>
+<span id="cb403-17"><a href="sec-plot.html#cb403-17" aria-hidden="true"></a><span class="co">#&gt;  3 2020-01-22 recovered        28</span></span>
+<span id="cb403-18"><a href="sec-plot.html#cb403-18" aria-hidden="true"></a><span class="co">#&gt;  4 2020-01-23 confirmed        99</span></span>
+<span id="cb403-19"><a href="sec-plot.html#cb403-19" aria-hidden="true"></a><span class="co">#&gt;  5 2020-01-23 death             1</span></span>
+<span id="cb403-20"><a href="sec-plot.html#cb403-20" aria-hidden="true"></a><span class="co">#&gt;  6 2020-01-23 recovered         2</span></span>
+<span id="cb403-21"><a href="sec-plot.html#cb403-21" aria-hidden="true"></a><span class="co">#&gt;  7 2020-01-24 confirmed       287</span></span>
+<span id="cb403-22"><a href="sec-plot.html#cb403-22" aria-hidden="true"></a><span class="co">#&gt;  8 2020-01-24 death             8</span></span>
+<span id="cb403-23"><a href="sec-plot.html#cb403-23" aria-hidden="true"></a><span class="co">#&gt;  9 2020-01-24 recovered         6</span></span>
+<span id="cb403-24"><a href="sec-plot.html#cb403-24" aria-hidden="true"></a><span class="co">#&gt; 10 2020-01-25 confirmed       493</span></span>
+<span id="cb403-25"><a href="sec-plot.html#cb403-25" aria-hidden="true"></a><span class="co">#&gt; # … with 863 more rows</span></span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-411-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2935,16 +2946,16 @@ Hint 2
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="sec-plot.html#cb403-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb403-2"><a href="sec-plot.html#cb403-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(date, type) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb403-3"><a href="sec-plot.html#cb403-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tot_cases =</span> <span class="kw">sum</span>(tot_cases)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb403-4"><a href="sec-plot.html#cb403-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ___, <span class="dt">y =</span> ___)) <span class="op">+</span></span>
-<span id="cb403-5"><a href="sec-plot.html#cb403-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb403-6"><a href="sec-plot.html#cb403-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">rows =</span> <span class="kw">vars</span>(___), <span class="dt">scales =</span> <span class="st">&quot;___&quot;</span>) <span class="op">+</span></span>
-<span id="cb403-7"><a href="sec-plot.html#cb403-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(</span>
-<span id="cb403-8"><a href="sec-plot.html#cb403-8" aria-hidden="true"></a>    <span class="dt">title =</span> <span class="st">&quot;___&quot;</span>,</span>
-<span id="cb403-9"><a href="sec-plot.html#cb403-9" aria-hidden="true"></a>    <span class="dt">y =</span> <span class="st">&quot;___&quot;</span></span>
-<span id="cb403-10"><a href="sec-plot.html#cb403-10" aria-hidden="true"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="sec-plot.html#cb404-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb404-2"><a href="sec-plot.html#cb404-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(date, type) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb404-3"><a href="sec-plot.html#cb404-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tot_cases =</span> <span class="kw">sum</span>(tot_cases)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb404-4"><a href="sec-plot.html#cb404-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ___, <span class="dt">y =</span> ___)) <span class="op">+</span></span>
+<span id="cb404-5"><a href="sec-plot.html#cb404-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb404-6"><a href="sec-plot.html#cb404-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">rows =</span> <span class="kw">vars</span>(___), <span class="dt">scales =</span> <span class="st">&quot;___&quot;</span>) <span class="op">+</span></span>
+<span id="cb404-7"><a href="sec-plot.html#cb404-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(</span>
+<span id="cb404-8"><a href="sec-plot.html#cb404-8" aria-hidden="true"></a>    <span class="dt">title =</span> <span class="st">&quot;___&quot;</span>,</span>
+<span id="cb404-9"><a href="sec-plot.html#cb404-9" aria-hidden="true"></a>    <span class="dt">y =</span> <span class="st">&quot;___&quot;</span></span>
+<span id="cb404-10"><a href="sec-plot.html#cb404-10" aria-hidden="true"></a>  )</span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2969,9 +2980,9 @@ Hint 1
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="sec-plot.html#cb404-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb404-2"><a href="sec-plot.html#cb404-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(date, ___) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb404-3"><a href="sec-plot.html#cb404-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tot_cases =</span> <span class="kw">sum</span>(___)) </span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="sec-plot.html#cb405-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb405-2"><a href="sec-plot.html#cb405-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(date, ___) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb405-3"><a href="sec-plot.html#cb405-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tot_cases =</span> <span class="kw">sum</span>(___)) </span></code></pre></div>
 <p>
 Note you must aggegrate the numbers for the countries.
 </p>
@@ -2991,13 +3002,13 @@ Hint 1
 <li>Calculate and plot the number of confirmed, death and recovered cases per day given date using <code>facet_grid</code> and <code>geom_col</code>.</li>
 </ol>
 <p>Consider the following set of countries:</p>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="sec-plot.html#cb405-1" aria-hidden="true"></a>countries &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
-<span id="cb405-2"><a href="sec-plot.html#cb405-2" aria-hidden="true"></a>  <span class="st">&quot;China&quot;</span>,</span>
-<span id="cb405-3"><a href="sec-plot.html#cb405-3" aria-hidden="true"></a>  <span class="st">&quot;France&quot;</span>,</span>
-<span id="cb405-4"><a href="sec-plot.html#cb405-4" aria-hidden="true"></a>  <span class="st">&quot;Denmark&quot;</span>,</span>
-<span id="cb405-5"><a href="sec-plot.html#cb405-5" aria-hidden="true"></a>  <span class="st">&quot;US&quot;</span>,</span>
-<span id="cb405-6"><a href="sec-plot.html#cb405-6" aria-hidden="true"></a>  <span class="st">&quot;Italy&quot;</span></span>
-<span id="cb405-7"><a href="sec-plot.html#cb405-7" aria-hidden="true"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="sec-plot.html#cb406-1" aria-hidden="true"></a>countries &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
+<span id="cb406-2"><a href="sec-plot.html#cb406-2" aria-hidden="true"></a>  <span class="st">&quot;China&quot;</span>,</span>
+<span id="cb406-3"><a href="sec-plot.html#cb406-3" aria-hidden="true"></a>  <span class="st">&quot;France&quot;</span>,</span>
+<span id="cb406-4"><a href="sec-plot.html#cb406-4" aria-hidden="true"></a>  <span class="st">&quot;Denmark&quot;</span>,</span>
+<span id="cb406-5"><a href="sec-plot.html#cb406-5" aria-hidden="true"></a>  <span class="st">&quot;US&quot;</span>,</span>
+<span id="cb406-6"><a href="sec-plot.html#cb406-6" aria-hidden="true"></a>  <span class="st">&quot;Italy&quot;</span></span>
+<span id="cb406-7"><a href="sec-plot.html#cb406-7" aria-hidden="true"></a>)</span></code></pre></div>
 <div id="nbxB0NlZA5s9dRvb4WgU" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="nbxB0NlZA5s9dRvb4WgU-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -3010,19 +3021,19 @@ Solution
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="sec-plot.html#cb406-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb406-2"><a href="sec-plot.html#cb406-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;death&quot;</span>, country <span class="op">%in%</span><span class="st"> </span>countries) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb406-3"><a href="sec-plot.html#cb406-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> days_elapsed, </span>
-<span id="cb406-4"><a href="sec-plot.html#cb406-4" aria-hidden="true"></a>             <span class="dt">y =</span> cumulative_cases, </span>
-<span id="cb406-5"><a href="sec-plot.html#cb406-5" aria-hidden="true"></a>             <span class="dt">color =</span> country)) <span class="op">+</span></span>
-<span id="cb406-6"><a href="sec-plot.html#cb406-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb406-7"><a href="sec-plot.html#cb406-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span></span>
-<span id="cb406-8"><a href="sec-plot.html#cb406-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(</span>
-<span id="cb406-9"><a href="sec-plot.html#cb406-9" aria-hidden="true"></a>    <span class="dt">x =</span> <span class="kw">str_c</span>(<span class="st">&quot;Days since &quot;</span>, <span class="kw">min</span>(dat<span class="op">$</span>date)),</span>
-<span id="cb406-10"><a href="sec-plot.html#cb406-10" aria-hidden="true"></a>    <span class="dt">y =</span> <span class="st">&quot;Cumulative number of deaths&quot;</span>,</span>
-<span id="cb406-11"><a href="sec-plot.html#cb406-11" aria-hidden="true"></a>    <span class="dt">title =</span> <span class="st">&quot;Cumulative deaths from COVID-19, selected countries&quot;</span></span>
-<span id="cb406-12"><a href="sec-plot.html#cb406-12" aria-hidden="true"></a>  )</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-414-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="sec-plot.html#cb407-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb407-2"><a href="sec-plot.html#cb407-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;death&quot;</span>, country <span class="op">%in%</span><span class="st"> </span>countries) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb407-3"><a href="sec-plot.html#cb407-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> days_elapsed, </span>
+<span id="cb407-4"><a href="sec-plot.html#cb407-4" aria-hidden="true"></a>             <span class="dt">y =</span> cumulative_cases, </span>
+<span id="cb407-5"><a href="sec-plot.html#cb407-5" aria-hidden="true"></a>             <span class="dt">color =</span> country)) <span class="op">+</span></span>
+<span id="cb407-6"><a href="sec-plot.html#cb407-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb407-7"><a href="sec-plot.html#cb407-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span></span>
+<span id="cb407-8"><a href="sec-plot.html#cb407-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(</span>
+<span id="cb407-9"><a href="sec-plot.html#cb407-9" aria-hidden="true"></a>    <span class="dt">x =</span> <span class="kw">str_c</span>(<span class="st">&quot;Days since &quot;</span>, <span class="kw">min</span>(dat<span class="op">$</span>date)),</span>
+<span id="cb407-10"><a href="sec-plot.html#cb407-10" aria-hidden="true"></a>    <span class="dt">y =</span> <span class="st">&quot;Cumulative number of deaths&quot;</span>,</span>
+<span id="cb407-11"><a href="sec-plot.html#cb407-11" aria-hidden="true"></a>    <span class="dt">title =</span> <span class="st">&quot;Cumulative deaths from COVID-19, selected countries&quot;</span></span>
+<span id="cb407-12"><a href="sec-plot.html#cb407-12" aria-hidden="true"></a>  )</span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-415-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -3047,18 +3058,18 @@ Hint 2
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="sec-plot.html#cb407-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb407-2"><a href="sec-plot.html#cb407-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;death&quot;</span>, country <span class="op">%in%</span><span class="st"> </span>countries) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb407-3"><a href="sec-plot.html#cb407-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ___, </span>
-<span id="cb407-4"><a href="sec-plot.html#cb407-4" aria-hidden="true"></a>             <span class="dt">y =</span> ___, </span>
-<span id="cb407-5"><a href="sec-plot.html#cb407-5" aria-hidden="true"></a>             <span class="dt">color =</span> ___)) <span class="op">+</span></span>
-<span id="cb407-6"><a href="sec-plot.html#cb407-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb407-7"><a href="sec-plot.html#cb407-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span></span>
-<span id="cb407-8"><a href="sec-plot.html#cb407-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(</span>
-<span id="cb407-9"><a href="sec-plot.html#cb407-9" aria-hidden="true"></a>    <span class="dt">x =</span> <span class="kw">str_c</span>(<span class="st">&quot;Days since &quot;</span>, <span class="kw">min</span>(dat<span class="op">$</span>date)),</span>
-<span id="cb407-10"><a href="sec-plot.html#cb407-10" aria-hidden="true"></a>    <span class="dt">y =</span> <span class="st">&quot;___&quot;</span>,</span>
-<span id="cb407-11"><a href="sec-plot.html#cb407-11" aria-hidden="true"></a>    <span class="dt">title =</span> <span class="st">&quot;Cumulative deaths from COVID-19, selected countries&quot;</span></span>
-<span id="cb407-12"><a href="sec-plot.html#cb407-12" aria-hidden="true"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="sec-plot.html#cb408-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb408-2"><a href="sec-plot.html#cb408-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;death&quot;</span>, country <span class="op">%in%</span><span class="st"> </span>countries) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb408-3"><a href="sec-plot.html#cb408-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ___, </span>
+<span id="cb408-4"><a href="sec-plot.html#cb408-4" aria-hidden="true"></a>             <span class="dt">y =</span> ___, </span>
+<span id="cb408-5"><a href="sec-plot.html#cb408-5" aria-hidden="true"></a>             <span class="dt">color =</span> ___)) <span class="op">+</span></span>
+<span id="cb408-6"><a href="sec-plot.html#cb408-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb408-7"><a href="sec-plot.html#cb408-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span></span>
+<span id="cb408-8"><a href="sec-plot.html#cb408-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(</span>
+<span id="cb408-9"><a href="sec-plot.html#cb408-9" aria-hidden="true"></a>    <span class="dt">x =</span> <span class="kw">str_c</span>(<span class="st">&quot;Days since &quot;</span>, <span class="kw">min</span>(dat<span class="op">$</span>date)),</span>
+<span id="cb408-10"><a href="sec-plot.html#cb408-10" aria-hidden="true"></a>    <span class="dt">y =</span> <span class="st">&quot;___&quot;</span>,</span>
+<span id="cb408-11"><a href="sec-plot.html#cb408-11" aria-hidden="true"></a>    <span class="dt">title =</span> <span class="st">&quot;Cumulative deaths from COVID-19, selected countries&quot;</span></span>
+<span id="cb408-12"><a href="sec-plot.html#cb408-12" aria-hidden="true"></a>  )</span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -3083,8 +3094,8 @@ Hint 1
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="sec-plot.html#cb408-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb408-2"><a href="sec-plot.html#cb408-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;___&quot;</span>, country <span class="op">%in%</span><span class="st"> </span>___) <span class="op">%&gt;%</span><span class="st"> </span></span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="sec-plot.html#cb409-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb409-2"><a href="sec-plot.html#cb409-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;___&quot;</span>, country <span class="op">%in%</span><span class="st"> </span>___) <span class="op">%&gt;%</span><span class="st"> </span></span></code></pre></div>
 <p>
 First you have to filter type and country
 </p>
@@ -3104,44 +3115,44 @@ Hint 1
 <li>Plot a lineplot of the cumulative number of deaths as a function of days elapsed for the selected countries. Use country as color aesthetic.</li>
 </ol>
 <p>Since the countries have different population sizes we would like to calculate some numbers relative to the population size. First we need population sizes for each country. They are given in the dataset <code>world_pop</code> in the <em>tfa</em> package:</p>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="sec-plot.html#cb409-1" aria-hidden="true"></a>world_pop &lt;-<span class="st"> </span>tfa<span class="op">::</span>world_pop <span class="op">%&gt;%</span></span>
-<span id="cb409-2"><a href="sec-plot.html#cb409-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(country <span class="op">%in%</span><span class="st"> </span>countries) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb409-3"><a href="sec-plot.html#cb409-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">print</span>()</span>
-<span id="cb409-4"><a href="sec-plot.html#cb409-4" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 1,505 x 3</span></span>
-<span id="cb409-5"><a href="sec-plot.html#cb409-5" aria-hidden="true"></a><span class="co">#&gt;    country  year       pop</span></span>
-<span id="cb409-6"><a href="sec-plot.html#cb409-6" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb409-7"><a href="sec-plot.html#cb409-7" aria-hidden="true"></a><span class="co">#&gt;  1 China    1800 321675013</span></span>
-<span id="cb409-8"><a href="sec-plot.html#cb409-8" aria-hidden="true"></a><span class="co">#&gt;  2 China    1801 324408862</span></span>
-<span id="cb409-9"><a href="sec-plot.html#cb409-9" aria-hidden="true"></a><span class="co">#&gt;  3 China    1802 327165946</span></span>
-<span id="cb409-10"><a href="sec-plot.html#cb409-10" aria-hidden="true"></a><span class="co">#&gt;  4 China    1803 329946461</span></span>
-<span id="cb409-11"><a href="sec-plot.html#cb409-11" aria-hidden="true"></a><span class="co">#&gt;  5 China    1804 332750607</span></span>
-<span id="cb409-12"><a href="sec-plot.html#cb409-12" aria-hidden="true"></a><span class="co">#&gt;  6 China    1805 335578586</span></span>
-<span id="cb409-13"><a href="sec-plot.html#cb409-13" aria-hidden="true"></a><span class="co">#&gt;  7 China    1806 338430598</span></span>
-<span id="cb409-14"><a href="sec-plot.html#cb409-14" aria-hidden="true"></a><span class="co">#&gt;  8 China    1807 341306850</span></span>
-<span id="cb409-15"><a href="sec-plot.html#cb409-15" aria-hidden="true"></a><span class="co">#&gt;  9 China    1808 344207546</span></span>
-<span id="cb409-16"><a href="sec-plot.html#cb409-16" aria-hidden="true"></a><span class="co">#&gt; 10 China    1809 347132894</span></span>
-<span id="cb409-17"><a href="sec-plot.html#cb409-17" aria-hidden="true"></a><span class="co">#&gt; # … with 1,495 more rows</span></span></code></pre></div>
-<p>We can join the datasets using:</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="sec-plot.html#cb410-1" aria-hidden="true"></a>dat &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="sec-plot.html#cb410-1" aria-hidden="true"></a>world_pop &lt;-<span class="st"> </span>tfa<span class="op">::</span>world_pop <span class="op">%&gt;%</span></span>
 <span id="cb410-2"><a href="sec-plot.html#cb410-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(country <span class="op">%in%</span><span class="st"> </span>countries) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb410-3"><a href="sec-plot.html#cb410-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">left_join</span>(world_pop) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb410-4"><a href="sec-plot.html#cb410-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">print</span>()</span>
-<span id="cb410-5"><a href="sec-plot.html#cb410-5" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 4,170 x 8</span></span>
-<span id="cb410-6"><a href="sec-plot.html#cb410-6" aria-hidden="true"></a><span class="co">#&gt;    country date       type      tot_cases cumulative_cases days_elapsed  year        pop</span></span>
-<span id="cb410-7"><a href="sec-plot.html#cb410-7" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;         &lt;int&gt;            &lt;int&gt;        &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span id="cb410-8"><a href="sec-plot.html#cb410-8" aria-hidden="true"></a><span class="co">#&gt;  1 China   2020-01-22 confirmed       548              548            0  2020 1424548266</span></span>
-<span id="cb410-9"><a href="sec-plot.html#cb410-9" aria-hidden="true"></a><span class="co">#&gt;  2 China   2020-01-22 death            17               17            0  2020 1424548266</span></span>
-<span id="cb410-10"><a href="sec-plot.html#cb410-10" aria-hidden="true"></a><span class="co">#&gt;  3 China   2020-01-22 recovered        28               28            0  2020 1424548266</span></span>
-<span id="cb410-11"><a href="sec-plot.html#cb410-11" aria-hidden="true"></a><span class="co">#&gt;  4 Denmark 2020-01-22 confirmed         0                0            0  2020    5796800</span></span>
-<span id="cb410-12"><a href="sec-plot.html#cb410-12" aria-hidden="true"></a><span class="co">#&gt;  5 Denmark 2020-01-22 death             0                0            0  2020    5796800</span></span>
-<span id="cb410-13"><a href="sec-plot.html#cb410-13" aria-hidden="true"></a><span class="co">#&gt;  6 Denmark 2020-01-22 recovered         0                0            0  2020    5796800</span></span>
-<span id="cb410-14"><a href="sec-plot.html#cb410-14" aria-hidden="true"></a><span class="co">#&gt;  7 France  2020-01-22 confirmed         0                0            0  2020   65721165</span></span>
-<span id="cb410-15"><a href="sec-plot.html#cb410-15" aria-hidden="true"></a><span class="co">#&gt;  8 France  2020-01-22 death             0                0            0  2020   65721165</span></span>
-<span id="cb410-16"><a href="sec-plot.html#cb410-16" aria-hidden="true"></a><span class="co">#&gt;  9 France  2020-01-22 recovered         0                0            0  2020   65721165</span></span>
-<span id="cb410-17"><a href="sec-plot.html#cb410-17" aria-hidden="true"></a><span class="co">#&gt; 10 Italy   2020-01-22 confirmed         0                0            0  2020   59132073</span></span>
-<span id="cb410-18"><a href="sec-plot.html#cb410-18" aria-hidden="true"></a><span class="co">#&gt; # … with 4,160 more rows</span></span>
-<span id="cb410-19"><a href="sec-plot.html#cb410-19" aria-hidden="true"></a><span class="kw">any</span>(<span class="kw">is.na</span>(dat))  <span class="co"># check if any missing values</span></span>
-<span id="cb410-20"><a href="sec-plot.html#cb410-20" aria-hidden="true"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
+<span id="cb410-3"><a href="sec-plot.html#cb410-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">print</span>()</span>
+<span id="cb410-4"><a href="sec-plot.html#cb410-4" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 1,505 x 3</span></span>
+<span id="cb410-5"><a href="sec-plot.html#cb410-5" aria-hidden="true"></a><span class="co">#&gt;    country  year       pop</span></span>
+<span id="cb410-6"><a href="sec-plot.html#cb410-6" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span id="cb410-7"><a href="sec-plot.html#cb410-7" aria-hidden="true"></a><span class="co">#&gt;  1 China    1800 321675013</span></span>
+<span id="cb410-8"><a href="sec-plot.html#cb410-8" aria-hidden="true"></a><span class="co">#&gt;  2 China    1801 324408862</span></span>
+<span id="cb410-9"><a href="sec-plot.html#cb410-9" aria-hidden="true"></a><span class="co">#&gt;  3 China    1802 327165946</span></span>
+<span id="cb410-10"><a href="sec-plot.html#cb410-10" aria-hidden="true"></a><span class="co">#&gt;  4 China    1803 329946461</span></span>
+<span id="cb410-11"><a href="sec-plot.html#cb410-11" aria-hidden="true"></a><span class="co">#&gt;  5 China    1804 332750607</span></span>
+<span id="cb410-12"><a href="sec-plot.html#cb410-12" aria-hidden="true"></a><span class="co">#&gt;  6 China    1805 335578586</span></span>
+<span id="cb410-13"><a href="sec-plot.html#cb410-13" aria-hidden="true"></a><span class="co">#&gt;  7 China    1806 338430598</span></span>
+<span id="cb410-14"><a href="sec-plot.html#cb410-14" aria-hidden="true"></a><span class="co">#&gt;  8 China    1807 341306850</span></span>
+<span id="cb410-15"><a href="sec-plot.html#cb410-15" aria-hidden="true"></a><span class="co">#&gt;  9 China    1808 344207546</span></span>
+<span id="cb410-16"><a href="sec-plot.html#cb410-16" aria-hidden="true"></a><span class="co">#&gt; 10 China    1809 347132894</span></span>
+<span id="cb410-17"><a href="sec-plot.html#cb410-17" aria-hidden="true"></a><span class="co">#&gt; # … with 1,495 more rows</span></span></code></pre></div>
+<p>We can join the datasets using:</p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="sec-plot.html#cb411-1" aria-hidden="true"></a>dat &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb411-2"><a href="sec-plot.html#cb411-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(country <span class="op">%in%</span><span class="st"> </span>countries) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb411-3"><a href="sec-plot.html#cb411-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">left_join</span>(world_pop) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb411-4"><a href="sec-plot.html#cb411-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">print</span>()</span>
+<span id="cb411-5"><a href="sec-plot.html#cb411-5" aria-hidden="true"></a><span class="co">#&gt; # A tibble: 4,365 x 8</span></span>
+<span id="cb411-6"><a href="sec-plot.html#cb411-6" aria-hidden="true"></a><span class="co">#&gt;    country date       type      tot_cases cumulative_cases days_elapsed  year        pop</span></span>
+<span id="cb411-7"><a href="sec-plot.html#cb411-7" aria-hidden="true"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;</span></span>
+<span id="cb411-8"><a href="sec-plot.html#cb411-8" aria-hidden="true"></a><span class="co">#&gt;  1 China   2020-01-22 confirmed       548              548            0  2020 1424548266</span></span>
+<span id="cb411-9"><a href="sec-plot.html#cb411-9" aria-hidden="true"></a><span class="co">#&gt;  2 China   2020-01-22 death            17               17            0  2020 1424548266</span></span>
+<span id="cb411-10"><a href="sec-plot.html#cb411-10" aria-hidden="true"></a><span class="co">#&gt;  3 China   2020-01-22 recovered        28               28            0  2020 1424548266</span></span>
+<span id="cb411-11"><a href="sec-plot.html#cb411-11" aria-hidden="true"></a><span class="co">#&gt;  4 Denmark 2020-01-22 confirmed         0                0            0  2020    5796800</span></span>
+<span id="cb411-12"><a href="sec-plot.html#cb411-12" aria-hidden="true"></a><span class="co">#&gt;  5 Denmark 2020-01-22 death             0                0            0  2020    5796800</span></span>
+<span id="cb411-13"><a href="sec-plot.html#cb411-13" aria-hidden="true"></a><span class="co">#&gt;  6 Denmark 2020-01-22 recovered         0                0            0  2020    5796800</span></span>
+<span id="cb411-14"><a href="sec-plot.html#cb411-14" aria-hidden="true"></a><span class="co">#&gt;  7 France  2020-01-22 confirmed         0                0            0  2020   65721165</span></span>
+<span id="cb411-15"><a href="sec-plot.html#cb411-15" aria-hidden="true"></a><span class="co">#&gt;  8 France  2020-01-22 death             0                0            0  2020   65721165</span></span>
+<span id="cb411-16"><a href="sec-plot.html#cb411-16" aria-hidden="true"></a><span class="co">#&gt;  9 France  2020-01-22 recovered         0                0            0  2020   65721165</span></span>
+<span id="cb411-17"><a href="sec-plot.html#cb411-17" aria-hidden="true"></a><span class="co">#&gt; 10 Italy   2020-01-22 confirmed         0                0            0  2020   59132073</span></span>
+<span id="cb411-18"><a href="sec-plot.html#cb411-18" aria-hidden="true"></a><span class="co">#&gt; # … with 4,355 more rows</span></span>
+<span id="cb411-19"><a href="sec-plot.html#cb411-19" aria-hidden="true"></a><span class="kw">any</span>(<span class="kw">is.na</span>(dat))  <span class="co"># check if any missing values</span></span>
+<span id="cb411-20"><a href="sec-plot.html#cb411-20" aria-hidden="true"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
 <div id="EnRAAyWWgmgs8GtLvKeW" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="EnRAAyWWgmgs8GtLvKeW-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -3154,8 +3165,8 @@ Solution
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="sec-plot.html#cb411-1" aria-hidden="true"></a>dat &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb411-2"><a href="sec-plot.html#cb411-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">tot_cases_pop =</span> <span class="dv">100000</span> <span class="op">*</span><span class="st"> </span>tot_cases<span class="op">/</span>pop)</span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="sec-plot.html#cb412-1" aria-hidden="true"></a>dat &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb412-2"><a href="sec-plot.html#cb412-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">tot_cases_pop =</span> <span class="dv">100000</span> <span class="op">*</span><span class="st"> </span>tot_cases<span class="op">/</span>pop)</span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -3183,11 +3194,11 @@ Solution
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="sec-plot.html#cb412-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb412-2"><a href="sec-plot.html#cb412-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(date <span class="op">&gt;=</span><span class="st"> </span><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">days</span>(<span class="dv">21</span>), type <span class="op">==</span><span class="st"> &quot;confirmed&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb412-3"><a href="sec-plot.html#cb412-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> tot_cases_pop, <span class="dt">fill =</span> country)) <span class="op">+</span></span>
-<span id="cb412-4"><a href="sec-plot.html#cb412-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">position =</span> <span class="kw">position_dodge2</span>())</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-420-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="sec-plot.html#cb413-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb413-2"><a href="sec-plot.html#cb413-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(date <span class="op">&gt;=</span><span class="st"> </span><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">days</span>(<span class="dv">21</span>), type <span class="op">==</span><span class="st"> &quot;confirmed&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb413-3"><a href="sec-plot.html#cb413-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> tot_cases_pop, <span class="dt">fill =</span> country)) <span class="op">+</span></span>
+<span id="cb413-4"><a href="sec-plot.html#cb413-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">position =</span> <span class="kw">position_dodge2</span>())</span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-421-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -3212,10 +3223,10 @@ Hint 2
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="sec-plot.html#cb413-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb413-2"><a href="sec-plot.html#cb413-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(date <span class="op">&gt;=</span><span class="st"> </span><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">days</span>(<span class="dv">21</span>), type <span class="op">==</span><span class="st"> </span>___) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb413-3"><a href="sec-plot.html#cb413-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> ___, <span class="dt">fill =</span> ___)) <span class="op">+</span></span>
-<span id="cb413-4"><a href="sec-plot.html#cb413-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">position =</span> <span class="kw">position_dodge2</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="sec-plot.html#cb414-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb414-2"><a href="sec-plot.html#cb414-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(date <span class="op">&gt;=</span><span class="st"> </span><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">days</span>(<span class="dv">21</span>), type <span class="op">==</span><span class="st"> </span>___) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb414-3"><a href="sec-plot.html#cb414-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> ___, <span class="dt">fill =</span> ___)) <span class="op">+</span></span>
+<span id="cb414-4"><a href="sec-plot.html#cb414-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">position =</span> <span class="kw">position_dodge2</span>())</span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -3240,9 +3251,9 @@ Hint 1
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="sec-plot.html#cb414-1" aria-hidden="true"></a><span class="co"># Use this to find date 21 days ago</span></span>
-<span id="cb414-2"><a href="sec-plot.html#cb414-2" aria-hidden="true"></a><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">days</span>(<span class="dv">21</span>)</span>
-<span id="cb414-3"><a href="sec-plot.html#cb414-3" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;2020-10-18&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="sec-plot.html#cb415-1" aria-hidden="true"></a><span class="co"># Use this to find date 21 days ago</span></span>
+<span id="cb415-2"><a href="sec-plot.html#cb415-2" aria-hidden="true"></a><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">days</span>(<span class="dv">21</span>)</span>
+<span id="cb415-3"><a href="sec-plot.html#cb415-3" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;2020-10-18&quot;</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -3270,11 +3281,11 @@ Solution
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="sec-plot.html#cb415-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb415-2"><a href="sec-plot.html#cb415-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(date <span class="op">&gt;=</span><span class="st"> </span><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">days</span>(<span class="dv">14</span>), country <span class="op">==</span><span class="st"> &quot;Denmark&quot;</span>, type <span class="op">==</span><span class="st"> &quot;confirmed&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb415-3"><a href="sec-plot.html#cb415-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> tot_cases_pop)) <span class="op">+</span></span>
-<span id="cb415-4"><a href="sec-plot.html#cb415-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>()</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-423-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="sec-plot.html#cb416-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb416-2"><a href="sec-plot.html#cb416-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(date <span class="op">&gt;=</span><span class="st"> </span><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">days</span>(<span class="dv">14</span>), country <span class="op">==</span><span class="st"> &quot;Denmark&quot;</span>, type <span class="op">==</span><span class="st"> &quot;confirmed&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb416-3"><a href="sec-plot.html#cb416-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> tot_cases_pop)) <span class="op">+</span></span>
+<span id="cb416-4"><a href="sec-plot.html#cb416-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>()</span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-424-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -3299,10 +3310,10 @@ Hint
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="sec-plot.html#cb416-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb416-2"><a href="sec-plot.html#cb416-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(date <span class="op">&gt;=</span><span class="st"> </span>___, country <span class="op">==</span><span class="st"> </span>___, type <span class="op">==</span><span class="st"> </span>___) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb416-3"><a href="sec-plot.html#cb416-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> tot_cases_pop)) <span class="op">+</span></span>
-<span id="cb416-4"><a href="sec-plot.html#cb416-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="sec-plot.html#cb417-1" aria-hidden="true"></a>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb417-2"><a href="sec-plot.html#cb417-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(date <span class="op">&gt;=</span><span class="st"> </span>___, country <span class="op">==</span><span class="st"> </span>___, type <span class="op">==</span><span class="st"> </span>___) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb417-3"><a href="sec-plot.html#cb417-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> tot_cases_pop)) <span class="op">+</span></span>
+<span id="cb417-4"><a href="sec-plot.html#cb417-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_col</span>()</span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
