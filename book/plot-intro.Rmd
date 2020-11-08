@@ -929,13 +929,29 @@ The data come from the [**coronavirus** package](https://github.com/RamiKrispin/
 First load the following packages:
 
 ```{r, warning=FALSE, message=FALSE}
-# devtools::install_github("RamiKrispin/coronavirus", dependencies = FALSE)
-library(coronavirus) 
 library(tidyverse)
 library(lubridate)   # package for handling dates
 ```
 
-The data frame called `coronavirus` in the coronavirus package provides a daily summary of the Corona virus (COVID-19) cases by country. Each row in the data frame represents a country (or, where relevant, state/province). Note that the data provided in this package provides daily number of deaths, confirmed cases, and recovered cases. We calculate the total number of cases per day, cumulative numbers and days since first record: 
+The data frame called `coronavirus` in the coronavirus package provides a daily summary of the Corona virus (COVID-19) cases by country. Each row in the data frame represents a country (or, where relevant, state/province). Note that the data provided in this package provides daily number of deaths, confirmed cases, and recovered cases. Since we just need the dataset we load it using `read_csv`:
+
+```{r}
+coronavirus <- read_csv(
+  "https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv", 
+  col_types = cols(
+    date = col_date(format = ""),
+    province = col_character(),
+    country = col_character(),
+    lat = col_double(),
+    long = col_double(),
+    type = col_character(),
+    cases = col_double()
+  )
+)
+
+```
+
+We calculate the total number of cases per day, cumulative numbers and days since first record: 
 
 ```{r}
 dat <- coronavirus %>%
