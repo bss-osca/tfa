@@ -636,9 +636,9 @@ p + geom_density(alpha = 0.2, bw = 0.75)
   14) To get densities smoother, use `bw = 0.75` argument so that the same bandwidth is used in each density. Comment on the plot.
 
 
-As a final point, we note that in these distributions weigh every country the same. So if most of the population is improving, but living in a very large country, such as China, we might not appreciate this. We can actually weight the smooth densities using the `weight` mapping argument. First we modify the dataset:
+As a final point, we note that in these distributions weigh every country the same. So if most of the population is improving, but living in a very large country, such as China, we might not appreciate this. We can actually weight the smooth densities using the `weight` mapping argument. We modify the dataset:
 
-```{r income-smooth-density-counts-by-region-year-weighted, warning=FALSE, echo=FALSE}
+```{r}
 gapminder <- gapminder %>% 
   filter(year %in% years & country %in% country_list) %>%
   group_by(year) %>%
