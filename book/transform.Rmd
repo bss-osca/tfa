@@ -50,6 +50,83 @@ An excellent introduction on how to transform data using the tidyverse is given 
 <!-- https://learn.datacamp.com/courses/introduction-to-the-tidyverse -->
 
 
+## Mutating joins
+
+Mutating joins allow you to combine variables from multiple tables. There are four types of mutating join, which differ in their behavior when a match is not found. We'll illustrate each with a simple example:
+
+```{r}
+df1 <- tibble(x = c(1, 2), y = 2:1)
+df2 <- tibble(x = c(3, 1), a = 10, b = "a")
+df1
+df2
+```
+
+Note that column `x` is present in both tables and used when joining them.
+
+  * `inner_join(df1, df2)` only includes observations that match in both `df1` and `df2`.
+    
+    ```{r}
+    df1 %>% 
+      inner_join(df2) 
+    ```
+    
+  * `left_join(df1, df2)` includes all observations in `df1`, regardless of whether
+    they match or not. This is the most commonly used join because it ensures 
+    that you don't lose observations from your primary table.
+  
+    ```{r}
+    df1 %>% 
+      left_join(df2)
+    ```
+  
+  * `right_join(df1, df2)` includes all observations in `df2`. It's equivalent to 
+    `left_join(df2, df1)`, but the columns and rows will be ordered differently.
+  
+    ```{r}
+    df1 %>% 
+      right_join(df2)
+    df2 %>% 
+      left_join(df1)
+    ```
+
+  * `full_join()` includes all observations from `df1` and `df2`.
+
+    ```{r}
+    df1 %>% 
+      full_join(df2)
+    ```
+
+The left, right and full joins are collectively know as __outer joins__. When a row doesn't match in an outer join, the new variables are filled in with missing values.
+
+While mutating joins are primarily used to add new variables, they can also generate new observations. If a match is not unique, a join will add all possible combinations (the Cartesian product) of the matching observations:
+
+```{r}
+df1 <- tibble(x = c(1, 1, 2), y = 1:3)
+df2 <- tibble(x = c(1, 1, 2), z = c("a", "b", "a"))
+df1 %>% 
+  left_join(df2)
+```
+
+Filtering joins match observations in the same way as mutating joins, but affect the observations, not the variables. There are two types:
+
+* `semi_join(df1, df2)` __keeps__ all observations in `df1` that have a match in `df2`.
+* `anti_join(df1, df2)` __drops__ all observations in `df1` that have a match in `df2`.
+
+These are most useful for diagnosing join mismatches. If you're worried about what observations your joins will match, start with a `semi_join()` or `anti_join()`. `semi_join()` and `anti_join()` never duplicate; they only remove observations. 
+
+```{r}
+df1 <- tibble(x = c(1, 1, 3, 4), y = 1:4)
+df2 <- tibble(x = c(1, 1, 2), z = c("a", "b", "a"))
+
+# Four rows to start with:
+df1 %>% nrow()
+# And we get four rows after the join
+df1 %>% inner_join(df2, by = "x") %>% nrow()
+# But only two rows actually match
+df1 %>% semi_join(df2, by = "x") %>% nrow()
+```
+
+
 ## Different learning paths {#lp-transform}
 
 `r strLPath`
