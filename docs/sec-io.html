@@ -283,13 +283,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1" data-path="sec-transform.html"><a href="sec-transform.html#lo-transform"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="8.2" data-path="sec-transform.html"><a href="sec-transform.html#working-with-data-in-the-tidyverse"><i class="fa fa-check"></i><b>8.2</b> Working with data in the tidyverse</a></li>
-<li class="chapter" data-level="8.3" data-path="sec-transform.html"><a href="sec-transform.html#lp-transform"><i class="fa fa-check"></i><b>8.3</b> Different learning paths</a></li>
-<li class="chapter" data-level="8.4" data-path="sec-transform.html"><a href="sec-transform.html#rc-transform"><i class="fa fa-check"></i><b>8.4</b> Recap</a></li>
-<li class="chapter" data-level="8.5" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>8.5</b> Exercises</a>
+<li class="chapter" data-level="8.3" data-path="sec-transform.html"><a href="sec-transform.html#mutating-joins"><i class="fa fa-check"></i><b>8.3</b> Mutating joins</a></li>
+<li class="chapter" data-level="8.4" data-path="sec-transform.html"><a href="sec-transform.html#lp-transform"><i class="fa fa-check"></i><b>8.4</b> Different learning paths</a></li>
+<li class="chapter" data-level="8.5" data-path="sec-transform.html"><a href="sec-transform.html#rc-transform"><i class="fa fa-check"></i><b>8.5</b> Recap</a></li>
+<li class="chapter" data-level="8.6" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>8.6</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="8.5.1" data-path="sec-transform.html"><a href="sec-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>8.5.1</b> Exercise (gapminder)</a></li>
-<li class="chapter" data-level="8.5.2" data-path="sec-transform.html"><a href="sec-transform.html#ex-babynames1"><i class="fa fa-check"></i><b>8.5.2</b> Exercise (babynames)</a></li>
-<li class="chapter" data-level="8.5.3" data-path="sec-transform.html"><a href="sec-transform.html#ex-profit1"><i class="fa fa-check"></i><b>8.5.3</b> Exercise (profit)</a></li>
+<li class="chapter" data-level="8.6.1" data-path="sec-transform.html"><a href="sec-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>8.6.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="8.6.2" data-path="sec-transform.html"><a href="sec-transform.html#ex-babynames1"><i class="fa fa-check"></i><b>8.6.2</b> Exercise (babynames)</a></li>
+<li class="chapter" data-level="8.6.3" data-path="sec-transform.html"><a href="sec-transform.html#ex-profit1"><i class="fa fa-check"></i><b>8.6.3</b> Exercise (profit)</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>IV Visualization</b></span></li>
@@ -1313,9 +1314,9 @@ Hint
 <p>Load datasets</p>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="sec-io.html#cb233-1" aria-hidden="true"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;bss-osca/tfa/tfa-package&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb233-2"><a href="sec-io.html#cb233-2" aria-hidden="true"></a><span class="co">#&gt;   </span></span>
-<span id="cb233-3"><a href="sec-io.html#cb233-3" aria-hidden="true"></a>   checking <span class="cf">for</span> file ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">24</span><span class="op">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="op">/</span>T<span class="op">/</span>RtmpWPKyqS<span class="op">/</span>remotes669e56f6ee22<span class="op">/</span>bss<span class="op">-</span>osca<span class="op">-</span>tfa<span class="op">-</span>db39f99<span class="op">/</span>tfa<span class="op">-</span>package<span class="op">/</span>DESCRIPTION’ ...</span>
+<span id="cb233-3"><a href="sec-io.html#cb233-3" aria-hidden="true"></a>   checking <span class="cf">for</span> file ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">24</span><span class="op">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="op">/</span>T<span class="op">/</span>RtmpRcXXoF<span class="op">/</span>remotes68df5a42aea1<span class="op">/</span>bss<span class="op">-</span>osca<span class="op">-</span>tfa<span class="op">-</span>ea1286f<span class="op">/</span>tfa<span class="op">-</span>package<span class="op">/</span>DESCRIPTION’ ...</span>
 <span id="cb233-4"><a href="sec-io.html#cb233-4" aria-hidden="true"></a>  </span>
-<span id="cb233-5"><a href="sec-io.html#cb233-5" aria-hidden="true"></a>✔  checking <span class="cf">for</span> file ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">24</span><span class="op">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="op">/</span>T<span class="op">/</span>RtmpWPKyqS<span class="op">/</span>remotes669e56f6ee22<span class="op">/</span>bss<span class="op">-</span>osca<span class="op">-</span>tfa<span class="op">-</span>db39f99<span class="op">/</span>tfa<span class="op">-</span>package<span class="op">/</span>DESCRIPTION’</span>
+<span id="cb233-5"><a href="sec-io.html#cb233-5" aria-hidden="true"></a>✔  checking <span class="cf">for</span> file ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">24</span><span class="op">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="op">/</span>T<span class="op">/</span>RtmpRcXXoF<span class="op">/</span>remotes68df5a42aea1<span class="op">/</span>bss<span class="op">-</span>osca<span class="op">-</span>tfa<span class="op">-</span>ea1286f<span class="op">/</span>tfa<span class="op">-</span>package<span class="op">/</span>DESCRIPTION’</span>
 <span id="cb233-6"><a href="sec-io.html#cb233-6" aria-hidden="true"></a><span class="co">#&gt; </span></span>
 <span id="cb233-7"><a href="sec-io.html#cb233-7" aria-hidden="true"></a>  </span>
 <span id="cb233-8"><a href="sec-io.html#cb233-8" aria-hidden="true"></a>─  preparing ‘tfa’<span class="op">:</span></span>
