@@ -721,6 +721,16 @@ profit %>%
   summarise(Profit = sum(Profit)) %>% 
   ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
   geom_col()
+
+# Alternatively you can reorder the data frame before calling ggplot
+profit %>% 
+  group_by(`Product Line`) %>% 
+  summarise(Profit = sum(Profit)) %>% 
+  arrange(Profit) %>% 
+  mutate(`Product Line` = factor(`Product Line`, levels = `Product Line`, ordered = TRUE)) %>% 
+  ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
+  geom_col() + 
+  labs(title = "Total profit for each product line") 
 ``` 
 ```{r, hint=TRUE, title="Hint 2"}
 profit %>% 
@@ -739,16 +749,6 @@ c) Plot profit for each product line where product line is reordered based on to
 profit %>% 
   group_by(`Product Line`) %>% 
   summarise(Profit = sum(Profit)) %>% 
-  ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
-  geom_col() + 
-  labs(title = "Total profit for each product line") 
-
-# Alternatively you can reorder the data frame before calling ggplot
-profit %>% 
-  group_by(`Product Line`) %>% 
-  summarise(Profit = sum(Profit)) %>% 
-  arrange(Profit) %>% 
-  mutate(`Product Line` = factor(`Product Line`, levels = `Product Line`, ordered = TRUE)) %>% 
   ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
   geom_col() + 
   labs(title = "Total profit for each product line") 
