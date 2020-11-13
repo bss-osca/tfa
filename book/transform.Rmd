@@ -1085,4 +1085,180 @@ rm(profit)
 ```
 
 
+### Exercise (fisheries) {#ex-fish}
+
+Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
+
+The dataset called `fisheries` contains world fisheries harvest for 2005. The tonnage from capture and aquaculture is listed by country.
+
+You need the `tidyverse` package as usual:
+
+```{r}
+library(tidyverse)
+```
+
+We load the needed datasets:
+
+```{r}
+fisheries <- read_csv("https://raw.githubusercontent.com/rstudio-education/datascience-box/master/course-materials/application-exercises/ae-05-fisheries-datajoins/data/fisheries.csv")
+fisheries
+continents <- read_csv("https://raw.githubusercontent.com/rstudio-education/datascience-box/master/course-materials/application-exercises/ae-05-fisheries-datajoins/data/continents.csv")
+continents
+```
+
+Some mean statistics:
+
+```{r }
+fisheries %>%
+  summarise(across(is.numeric, mean, na.rm = TRUE))
+```
+
+
+
+```{r, solution=TRUE}
+fisheries %>% 
+  anti_join(continents)      # countries not belonging to a continent
+fisheries <- fisheries %>% 
+  print() %>% 
+  left_join(continents) %>% 
+  print()
+fisheries %>% filter(is.na(continent))   # same result - countries not belonging to a continent
+```
+```{r, hint=TRUE, title="Hint 2"}
+fisheries %>% 
+  anti_join(___)      # countries not belonging to a continent
+fisheries <- fisheries %>% 
+  print() %>% 
+  left_join(___) %>% 
+  print()
+fisheries %>% 
+  filter(is.na(___))   # same result - countries not belonging to a continent
+```
+```{r, hint=TRUE, title="Hint 1", text="You could use `anti_join` to find missing values. Use `left_join` to join the datasets."}
+```
+
+1) Use a mutating join to add a continent column to the `fisheries` dataset. Are there some countries which do not belong to a continent? 
+
+
+
+```{r, solution=TRUE}
+fisheries <- fisheries %>%
+  filter(total > 100000)
+```
+```{r, hint=TRUE}
+fisheries <- ___ %>%
+  filter(___)
+```
+
+2) Filter out countries whose total harvest was less than 100,000 tons.
+
+
+
+```{r, solution=TRUE}
+fisheries %>% filter(is.na(continent))
+fisheries <- fisheries %>%
+  mutate(continent = case_when(
+    country == "Democratic Republic of the Congo" ~ "Africa",
+    country == "Hong Kong"                        ~ "Asia",
+    country == "Myanmar"                          ~ "Asia",
+    TRUE                                          ~ continent
+    )
+  )
+fisheries %>% filter(is.na(continent))
+```
+```{r, hint=TRUE}
+fisheries %>% filter(is.na(continent))
+fisheries <- ___ %>%
+  mutate(continent = case_when(
+    country == ___ ~ "Africa",
+    country == ___ ~ "Asia",
+    country == ___ ~ "Asia",
+    TRUE           ~ continent
+    )
+  )
+fisheries %>% filter(is.na(continent))
+```
+
+3) If still any countries not belonging to a continent then add them to the closest continent.
+
+
+
+```{r, solution=TRUE, text="The percentage of fish harvest done using aquaculture."}
+fisheries <- fisheries %>% 
+  mutate(aquaculture_perc = aquaculture / total)
+```
+```{r, hint=TRUE}
+fisheries <- ___ %>% 
+  mutate(___)
+```
+
+4) Add column `aquaculture_perc = aquaculture / total` and explain the variable.
+
+
+
+
+```{r, solution=TRUE}
+fisheries %>%                 
+  group_by(continent) %>%                      
+  summarize(mean_ap = mean(aquaculture_perc))           
+```
+```{r, hint=TRUE}
+fisheries %>%                  # start with the fisheries data frame
+  ___ %>%                      # group by continent
+  ___(mean_ap = ___)           # calculate mean aquaculture
+```
+
+5) Calculate the mean aquaculture percentage (we'll call it `mean_ap` for short) for continents in the fisheries data.
+
+
+
+```{r, solution=TRUE}
+fisheries_summary_continent <- fisheries %>%                 
+  group_by(continent) %>%                      
+  summarize(mean_ap = mean(aquaculture_perc), min_ap = min(aquaculture_perc), max_ap = max(aquaculture_perc)) %>% 
+  print()
+```
+```{r, hint=TRUE}
+fisheries_summary_continent <- fisheries %>%    # start with the fisheries data frame
+  ___ %>%                                       # group by continent
+  ___(mean_ap = ___, min_ap = ___, ___)         # calculate mean aquaculture
+```
+
+6) Now expand your calculations to also calculate the minimum and maximum 
+aquaculture percentage for continents in the fisheries data and store the summary table in a data frame called `fisheries_summary_continent`. 
+
+
+
+```{r, solution=TRUE}
+fisheries_summary_continent %>%      
+  arrange(desc(mean_ap))                             
+```
+```{r, hint=TRUE}
+fisheries_summary_continent %>%      # start with the fisheries_summary_continent data frame
+  ___                                # order in descending order of mean_ap
+```
+
+7) Take the `fisheries_summary_continent` data frame and order the results in descending 
+order of mean aquaculture percentage.
+
+
+
+```{r, solution=TRUE, text="An example plot"}
+ggplot(fisheries_summary_continent, 
+       aes(y = reorder(continent, mean_ap), x = mean_ap)) +
+  geom_col() +
+  labs(
+    x = "",
+    y = "",
+    title = "Average share of aquaculture by continent",
+    subtitle = "out of total fisheries harvest",
+    caption = "Source: bit.ly/2VrawTt"
+  ) 
+```
+
+8) If you already have read the module about visualizations, then try to make some relevant plots.
+
+
+
+
 
