@@ -1,0 +1,117 @@
+---
+title: "Mutating and filtering joins"
+author: "Lars Relund Nielsen"
+date: "`r Sys.Date()`"
+repository_url: https://github.com/bss-osca/tfa/blob/master/slides/05-joins/05-joins_examples.Rmd
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+if (interactive()) setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # set working dir to current file location
+knitr::opts_chunk$set(echo = TRUE, 
+                      cache = TRUE, autodep = TRUE)
+options(width = 100)  # set output width
+knitr::opts_chunk$set(echo = TRUE, 
+                      fig.align = "center",
+                      message = FALSE)
+```
+
+## Setup
+
+```{r}
+library(tidyverse)
+band_members
+band_instruments
+band_instruments2
+```
+
+
+## Mutating joins
+
+Mutating joins allow you to combine variables from multiple tables. There are different types of joins. We will consider:
+
+- `inner_join()`: all rows from x where there are matching values in y, return 
+all combination of multiple matches in the case of multiple matches
+- `left_join()`: all rows from x
+- `right_join()`: all rows from y
+- `full_join()`: all rows from both x and y
+
+While mutating joins are primarily used to add new variables, they can also generate new observations. If a match is not unique, a join will add all possible combinations (the Cartesian product) of the matching observations.
+
+
+### `inner_join()`
+
+```{r}
+band_members %>% 
+  inner_join(band_instruments)
+```
+
+
+### `left_join()`
+
+
+```{r}
+band_members %>% 
+  left_join(band_instruments)
+```
+
+### `right_join()`
+
+
+```{r}
+band_members %>%
+  right_join(band_instruments)
+```
+
+
+### `full_join()`
+
+
+```{r}
+band_members %>% 
+  full_join(band_instruments)
+```
+
+
+## Filtering joins
+
+Filtering joins match observations in the same way as mutating joins, but affect the observations, not the variables. There are two types:
+
+- `semi_join()`: all rows from x where there are matching values in y, keeping just columns from x.
+- `anti_join()`: return all rows from x where there are not matching values in y, never duplicate rows of x
+ 
+These are most useful for diagnosing join mismatches. If you're worried about what observations your joins will match, start with a `semi_join()` or `anti_join()`. `semi_join()` and `anti_join()` never duplicate; they only remove observations. 
+
+
+### `semi_join()`
+
+
+```{r}
+band_members %>% 
+  semi_join(band_instruments)
+```
+
+
+### `anti_join()`
+
+
+```{r}
+band_members %>% 
+  anti_join(band_instruments)
+```
+
+
+## What if column names are not the same?
+
+Use the `by`argument:
+
+```{r}
+band_members
+band_instruments2
+band_members %>% 
+  full_join(
+    band_instruments2, 
+    by = c("name" = "artist"))
+```
+]

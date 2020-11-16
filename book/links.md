@@ -78,6 +78,7 @@
 [slides-m4-5]: https://bss-osca.github.io/tfa/slides/02-programming.html
 [slides-m6-8]: https://bss-osca.github.io/tfa/slides/03-transform.html
 [slides-m9]: https://bss-osca.github.io/tfa/slides/04-plot.html
+[slides-m83]: https://bss-osca.github.io/tfa/slides/05-joins.html
 
 [tidyverse-main-page]: https://www.tidyverse.org
 [tidyverse-packages]: https://www.tidyverse.org/packages/
