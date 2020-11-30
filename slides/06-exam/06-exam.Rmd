@@ -1,0 +1,102 @@
+---
+title: "Tools for Analytics - Exam"
+author: "Lars Relund Nielsen and Sanne Wøhlk"
+output:
+  xaringan::moon_reader:
+    css: "./libs/slides.css"
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+      highlightStyle: solarized-light
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, child = "../setup.Rmd", echo=FALSE}
+```
+
+```{r links, child="../../book/links.md"}
+```
+
+```{r packages, echo=FALSE, message=FALSE, warning=FALSE}
+if (interactive()) setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # set working dir to current file location
+# use xaringan::inf_mr(cast_from = "..") to preview
+library(tidyverse)
+library(knitr)
+```
+
+## Pratical information
+
+* A six hour written exam about all the topics.
+* Approx. the same weight on each part of the course (VBA and R part).
+* Please note that the weights on each assignment are only guideline weights, and they only provide information regarding the relative weight of the assignments. The final 
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("img/student_vs_prof.gif")
+```
+---
+
+## Pratical information
+
+* The exam is open book, open internet, closed other people. 
+  - You may use any online or book-based resource you would like, but you must include citations for any code that you use (directly or indirectly). 
+  - You may not consult with anyone else during this exam. 
+* This assignment has one appendix available for download from WISEflow. The file is a zip file containing the files you may need during the exam.
+* If you find that some information is missing in the assignments, you may make the necessary assumptions and clearly specify these.
+* Handing in: You must hand in a set of files (`.Rmd`, `.xlsm` and `.html`) as “Appendix material”. Due to the system, you must also upload an empty pdf-document named `yourFlowId.pdf`.
+
+
+---
+
+## Specific for the R part
+
+* Your R code must be written up in an R Markdown (Rmd) file named `yourFlowId.Rmd`. Moreover, also hand in the rendered/knitted html file.
+* Your file must include your code and a (brief) comment for each question. For example, “The three companies with smallest profit are …” or “The plot shows that …”.
+* An R markdown template file is given in the appendix that you may use as a starting point.
+* Your R code will be tested using R 4.0.3. As operating system Windows will be used.
+* You may load and use the following packages:
+
+  ```{r}
+  library(tidyverse)
+  library(skimr)
+  ```
+---
+
+## Specific for the VBA part
+
+* Your VBA code should be contained in a single Excel file named `yourFlowId.xlsm`.
+* Do not protect your code with password or turn it into an Add-In.
+* Your VBA code will be tested using Excel 2016. As operating system Windows will be used.
+
+---
+
+## How to prepare for the exam
+
+.pull-left[ 
+The best way prepare for the exam is to redo all the exercises:
+
+* Hide your previous solution.
+* Solve the exercise. If you have problems recap the stuff that you don't understand in the curriculum and have a look in the hidden solution.
+* Repeat until you can solve the exercise without help.
+]
+.pull-right[ 
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("img/time.jpg")
+```
+]
+
+---
+
+class: center middle
+
+# We wish you good luck at the exam!
+
+
+```{r copy to docs, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../../docs/slides/", overwrite = T)
+file.copy("../slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../../docs/slides/", recursive = T)
+file.copy("img", "../../docs/slides/", recursive = T)
+```
