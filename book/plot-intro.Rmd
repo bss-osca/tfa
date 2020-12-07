@@ -13,7 +13,7 @@ editor_options:
 
 # Data visualization using ggplot {#sec-plot}
 
-This module considers visualization of your data using the [ggplot2][tidyverse-ggplot2] package which is a part of [tidyverse][tidyverse-main-page]. R has several systems for making plots, but ggplot2 is one of the most elegant and most versatile. Using ggplot2 you can do more faster by learning one system and applying it in many places.
+This module considers visualization of your data using the [ggplot2][tidyverse-ggplot2] package which is a part of [tidyverse][tidyverse-main-page]. R has several systems for making plots, but ggplot2 is one of the most elegant and most versatile. Using ggplot2 you can make plots faster by learning one system and applying it in many different plot types.
 
 ## Learning outcomes {#lo-plot}
 
@@ -21,8 +21,8 @@ By the end of this module, you are expected to:
 
 * Know how to create basic plots using ggplot.
 * Formulate the ideas behind the grammar of graphics.
-* Explain the idea behind aesthetics such as color, fill and line type.
-* Add geometries to a plot such as a histogram, a boxplot, a barplot, a scatter plot and a line.
+* Explain the idea behind aesthetics such as color, fill, and line type.
+* Add geometries to a plot such as a histogram, a boxplot, a barplot, a scatter plot, and a line.
 * Understand how themes can be used to modify the overall look of a plot.
 * Combine multiple plots into a single graphic.
 * Save plots as variables and different image files.
@@ -36,7 +36,7 @@ The learning outcomes relate to the [overall learning goals](#lg-course) number 
 
 ## Introduction to data visualization
 
-The package [ggplot2][tidyverse-ggplot2] is a plotting package that makes it simple to create complex plots from data in a data frame. It provides an interface for specifying what variables to plot, how they are displayed, and general visual properties. Hence only minimal changes are needed if the underlying data change or if we decide to change from a bar plot to a scatterplot. 
+The package [ggplot2][tidyverse-ggplot2] is a plotting package that makes it simple to create complex plots from data in a data frame. It provides an interface for specifying which variables to plot, how they are displayed, and general visual properties. Hence, only minimal changes are needed, if the underlying data change or if we decide to change from a bar plot to a scatterplot. 
 
 The package implements the grammar of graphics, a coherent system for describing and building layered plots. A plot is built step by step by adding new layers. Adding layers in this fashion allows for extensive flexibility and customization of plots.
 
@@ -74,7 +74,7 @@ For further examples see the [documentation pages](https://patchwork.data-imagin
 
 ## Saving graphics
 
-In general when you do anlytics using R Markdown, there is no need to save your graphics. This is done automatically. However, in a few cases you may need to save you graphics in different formats. Let us consider a simple plot:
+In general, when you do anlytics using R Markdown, there is no need to save your graphics. This is done automatically. However, in a few cases you may need to save you graphics in different formats. Let us consider a simple plot:
 
 ```{r}
 library(tidyverse)
@@ -128,7 +128,7 @@ If you use LaTeX you may use the _tikzDevice_ package to save plots as TikZ.
 
 * The tidyverse package [ggplot2][tidyverse-ggplot2] is an R package for producing data visualizations. It is based on the Grammar of Graphics by @gramma. 
 * The grammar of graphics is a coherent system for describing and building layered plots.
-  - Graphics are made by grammatical elements such as data, aesthetics, geometries, scales, facets and themes.
+  - Graphics are made by grammatical elements such as data, aesthetics, geometries, scales, facets, and themes.
   - Plots are made though aesthetic mappings. That is, variables are mapped to x or y position using aesthetics attributes such as color, shape, or size.
   - A plot is built step by step by adding new layers. Adding layers in this fashion allows for extensive flexibility and customization of plots.
   - Together, the data, aesthetic mappings, and geometric object form a layer.
@@ -153,7 +153,7 @@ If you use LaTeX you may use the _tikzDevice_ package to save plots as TikZ.
 
 ### Exercise (gapminder) {#ex-gapminder2}
 
-Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
+Use the *exercise R Markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
 
 In this exercise, we will demonstrate how relatively simple ggplot2 code can create insightful and aesthetically pleasing plots. As motivation we will create plots that help us better understand trends in world health and economics. 
 
@@ -216,9 +216,9 @@ We see that the European countries on this list have higher child mortality rate
 
 
 
-#### The west vs the developing world {-}
+#### The west vs. the developing world {-}
 
-There is a preconceived notion that the world is divided into two groups: the western world (Western Europe and North America), characterized by long life spans and small families, versus the developing world (Africa, Asia, and Latin America) characterized by short life spans and large families. But do the data support this dichotomous view?
+There is a preconceived notion that the world is divided into two groups: the Western world (Western Europe and North America), characterized by long life spans and small families, versus the developing world (Africa, Asia, and Latin America) characterized by short life spans and large families. But do the data support this dichotomous view?
 
 
 ```{r, solution=TRUE, text = "Most points fall into two distinct categories:\n\n1. Life expectancy around 70 years and 3 or fewer children per family.\n2. Life expectancy lower than 65 years and more than 5 children per family.\n3. Countries are from the regions we expect."}
@@ -273,7 +273,7 @@ gapminder %>%
   facet_wrap(___) 
 ``` 
    
-   3) To explore the transformation through the years, make a plot for years 1962, 1970, 1980, 1990, 2000 and 2012 considering Europe and Asia. How has Asia transformed through the years compared to Europe? Since we consider many years, we will not want all the plots on the same row. Instead, we will want to use multiple rows and columns. The function `facet_wrap` permits us to do this by automatically wrapping the series of plots.
+   3) To explore the transformation through the years, make a plot for the years 1962, 1970, 1980, 1990, 2000, and 2012 considering Europe and Asia. How has Asia transformed through the years compared to Europe? Since we consider many years, we will not want all the plots on the same row. Instead, we will want to use multiple rows and columns. The function `facet_wrap` permits us to do this by automatically wrapping the series of plots.
       
   
 <div class = "box">
@@ -306,12 +306,12 @@ gapminder %>%
   geom_point() 
 ``` 
 
-  4) Illustrate the transformation for Asia using a single plot where use year as color aesthetic. 
+  4) Illustrate the transformation for Asia using a single plot where year is used as color aesthetic. 
 
 
 #### Time series plots {-}
 
-The visualizations above effectively illustrate that data no longer supports the western versus developing world view. Once we see these plots, new questions emerge. For example, which countries are improving more and which ones less? Was the improvement constant during the last 50 years or was it more accelerated during certain periods? For a closer look that may help answer these questions, we introduce _time series plots_.
+The visualizations above effectively illustrate that data no longer supports the Western versus developing world view. Once we see these plots, new questions emerge. For example, which countries are improving more and which ones less? Was the improvement constant during the last 50 years or was it more accelerated during certain periods? For a closer look that may help answer these questions, we introduce _time series plots_.
 
 Time series plots have time in the x-axis and an outcome or measurement of interest on the y-axis. For example, here is a trend plot of United States fertility rates:
 
@@ -368,14 +368,14 @@ gapminder %>%
 
 We now shift our attention to the second question related to the commonly held notion that wealth distribution across the world has become worse during the last decades. When general audiences are asked if poor countries have become poorer and rich countries become richer, the majority answers yes. By using stratification, histograms, smooth densities, and boxplots, we will be able to understand if this is in fact the case. First we learn how transformations can sometimes help provide more informative summaries and plots.
 
-The `gapminder` data table includes a column with the countries' gross domestic product (GDP). GDP measures the market value of goods and services produced by a country in a year. The GDP per person is often used as a rough summary of a country's wealth. Here we divide this quantity by 365 to obtain the more interpretable measure _dollars per day_.  Using current US dollars as a unit, a person surviving on an income of less than $2 a day is defined to be living in _absolute poverty_. We add this variable to the data table:
+The `gapminder` data table includes a column with the countries' gross domestic product (GDP). GDP measures the market value of goods and services produced by a country in a year. The GDP per person is often used as a rough summary of a country's wealth. Here we divide this quantity by 365 to obtain the more interpretable measure _dollars per day_.  Using current U.S. dollars as a unit, a person surviving on an income of less than $2 a day, is defined to be living in _absolute poverty_. We add this variable to the data table:
 
 ```{r}
 gapminder <- gapminder %>%  
   mutate(dollars_per_day = gdp/population/365)
 ```
 
-The GDP values are adjusted for inflation and represent current US dollars, so these values are meant to be comparable across the years. Of course, these are country averages and within each country there is much variability. All the graphs and insights described below relate to country averages and not to individuals.
+The GDP values are adjusted for inflation and represent current U.S. dollar, so these values are meant to be comparable across the years. Of course, these are country averages and within each country there is much variability. All the graphs and insights described below relate to country averages and not to individuals.
 
 Here is a histogram of per day incomes from 1970:
 
@@ -456,7 +456,7 @@ gapminder %>%
 
   9) Make a histogram of `dollars_per_day` from 1970 using a log2 scale on the x-axis. Compare it to the plot from Question 8. _Hint: you can use the `scale_x_continuous` function with `trans = "log2"`._
 
-The histograms in Question 8 and 9 have two _bumps_: one at about 4 and another at about 32. In statistics these bumps are sometimes referred to as _modes_. The mode of a distribution is the value with the highest frequency. The mode of the normal distribution is the average. When a distribution, like the one above, doesn't monotonically decrease from the mode, we call the locations where it goes up and down again _local modes_ and say that the distribution has _multiple modes_ indicating different distributions for different groups.
+The histograms in Questions 8 and 9 have two _bumps_: one at about 4 and another at about 32. In statistics these bumps are sometimes referred to as _modes_. The mode of a distribution is the value with the highest frequency. The mode of the normal distribution is the average. When a distribution, like the one above, does not monotonically decrease from the mode, we call the locations where it goes up and down again _local modes_ and say that the distribution has _multiple modes_ indicating different distributions for different groups.
 
 The histogram above suggests that the 1970 country income distribution has two modes: one at about 2 dollars per day (1 in the log 2 scale) and another at about 32 dollars per day (5 in the log 2 scale). However, the histogram does not show us if the two groups of countries are _west_ versus the _rest_. Let us create the `group` column:
 
@@ -582,7 +582,7 @@ gapminder %>%
 
 
 The previous data exploration suggested that the income gap between rich and poor countries has narrowed considerably during the last 40 years. 
-We used a series of histograms and boxplots to see this. Let us now shift to density plots. Let's start by noting that density plots for income distribution in `r past_year` and `r present_year` deliver the message that the gap is closing:
+We used a series of histograms and boxplots to see this. Let us now shift to density plots. Let us start by noting that density plots for income distribution in `r past_year` and `r present_year` deliver the message that the gap is closing:
 
 ```{r income-smooth-density-by-year}
 gapminder %>% 
@@ -636,7 +636,7 @@ p + geom_density(alpha = 0.2, bw = 0.75)
   14) To get densities smoother, use `bw = 0.75` argument so that the same bandwidth is used in each density. Comment on the plot.
 
 
-As a final point, we note that in these distributions weigh every country the same. So if most of the population is improving, but living in a very large country, such as China, we might not appreciate this. We can actually weight the smooth densities using the `weight` mapping argument. We modify the dataset:
+As a final point, we note that in these distributions the weight of every country is the same. So if most of the population is improving, but living in a very large country, such as China, we might not appreciate this. We can actually weight the smooth densities using the `weight` mapping argument. We modify the dataset:
 
 ```{r}
 gapminder <- gapminder %>% 
@@ -671,7 +671,7 @@ gapminder %>%
 
 ### Exercise (profit) {#ex-profit2}
 
-Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
+Use the *exercise R Markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
 
 Consider the dataset profit (provided by the tfa package) containing quarterly financial records for each costumer, product, etc.:
 
@@ -930,7 +930,7 @@ profit %>%
 
 ### Exercise (COVID-19) {#ex-covid19}
 
-Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
+Use the *exercise R Markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
 
 Countries around the world are responding to an outbreak of respiratory illness caused by a novel corona virus, COVID-19. The outbreak first started in Wuhan, China, but cases have been identified in a growing number of other locations internationally, including the United States. In this report we explore how the trajectory of the cumulative deaths in a number of countries.
 
@@ -1061,7 +1061,7 @@ dat %>%
 2) Plot a lineplot of the cumulative number of deaths as a function of days elapsed for the selected countries. Use country as color aesthetic. 
 
 
-Since the countries have different population sizes we would like to calculate some numbers relative to the population size. First we need population sizes for each country. They are given in the dataset `world_pop` in the _tfa_ package:
+Since the countries have different population sizes, we would like to calculate some numbers relative to the population size. First we need population sizes for each country. They are given in the dataset `world_pop` in the _tfa_ package:
 
 ```{r}
 world_pop <- tfa::world_pop %>%
@@ -1129,11 +1129,11 @@ dat %>%
 
 ### Exercise (Lego and sales) {#ex-lego}
 
-Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
+Use the *exercise R Markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
 
-Consider (simulated) data of Lego sales in 2018 for a sample of customers who bought legos in the US. The dataset is called `lego_sales`. You can find descriptions of each of the variables in the help file for the dataset, which you can access by running `?lego_sales` in your Console.
+Consider (simulated) data of Lego sales in 2018 for a sample of customers who bought legos in the U.S. The dataset is called `lego_sales`. You can find descriptions of each of the variables in the help file for the dataset, which you can access by running `?lego_sales` in your Console.
 
-You need the `tidyverse` package as usual and the *dsbox* package for the data.
+You need the _tidyverse_ package as usual and the *dsbox* package for the data.
 
 ```{r}
 library(tidyverse)
@@ -1162,14 +1162,14 @@ following categories: "18 and under", "19 - 25", "26 - 35", "36 - 50", "51 and o
 ```{r, hint=TRUE, text="You may need to consider quantity of purchases."}
 ```
 
-5) Which age group has purchased the highest number of lego sets. 
+5) Which age group has purchased the highest number of Lego sets. 
 
 
 
 ```{r, hint=TRUE, text="*Hint:* You will need to consider quantity of purchases as well as price of lego sets."}
 ```
 
-6) Which age group has spent the most money on legos?
+6) Which age group has spent the most money on Legos?
 
 7) Come up with a question you want to answer using these data, and write it down. 
 Then, create a data visualization that answers the question, and explain how 
