@@ -1096,14 +1096,15 @@ You need the `tidyverse` package as usual:
 
 ```{r}
 library(tidyverse)
+#remotes::install_github("bss-osca/tfa/tfa-package", upgrade = FALSE)     
 ```
 
 We load the needed datasets:
 
 ```{r}
-fisheries <- read_csv("https://raw.githubusercontent.com/rstudio-education/datascience-box/master/course-materials/application-exercises/ae-05-fisheries-datajoins/data/fisheries.csv")
+fisheries <- read_csv(system.file("extdata/fisheries.csv", package = "tfa"))
 fisheries
-continents <- read_csv("https://raw.githubusercontent.com/rstudio-education/datascience-box/master/course-materials/application-exercises/ae-05-fisheries-datajoins/data/continents.csv")
+continents <- read_csv(system.file("extdata/continents.csv", package = "tfa"))
 continents
 ```
 
@@ -1111,7 +1112,7 @@ Some mean statistics:
 
 ```{r }
 fisheries %>%
-  summarise(across(is.numeric, mean, na.rm = TRUE))
+  summarise(across(where(is.numeric), mean, na.rm = TRUE))
 ```
 
 
