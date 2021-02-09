@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2020-12-22" />
+<meta name="date" content="2021-02-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -94,6 +94,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -421,11 +422,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4>macOS</h4>
 <p><strong>Option 1</strong> (<em>highly recommended</em>): Install the Xcode command line tools (<strong>not all of Xcode</strong>), which includes Git.</p>
 <p>Go to the shell and enter one of these commands to elicit an offer to install developer command line tools:</p>
-<div class="sourceCode" id="cb444"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb444-1"><a href="groups.html#cb444-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> --version</span>
+<div class="sourceCode" id="cb444"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb444-1"><a href="groups.html#cb444-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span>
 <span id="cb444-2"><a href="groups.html#cb444-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config</span></code></pre></div>
 <p>Accept the offer! Click on “Install.”</p>
 <p>Here’s another way to request this installation, more directly:</p>
-<div class="sourceCode" id="cb445"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb445-1"><a href="groups.html#cb445-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xcode-select</span> --install</span></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb445-1"><a href="groups.html#cb445-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xcode-select</span> <span class="at">--install</span></span></code></pre></div>
 <p>We just happen to find this Git-based trigger apropos.</p>
 <p>Note also that, after upgrading macOS, you might need to re-do the above and/or re-agree to the Xcode license agreement. We have seen this cause the RStudio Git pane to disappear on a system where it was previously working. Use commands like those above to tickle Xcode into prompting you for what it needs, then restart RStudio.</p>
 <p><strong>Option 2</strong> (<em>recommended</em>): Install Git from here: <a href="http://git-scm.com/downloads" class="uri">http://git-scm.com/downloads</a>.</p>
@@ -535,8 +536,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Why? Establish this habit for the future! If you make changes to the repo in the browser or from another machine or (one day) a collaborator has pushed, you will be happier if you pull those changes in before you attempt to push.</p>
 <p>Click the blue “Pull” button in the “Git” tab in RStudio. I doubt anything will happen, i.e. you’ll get the message “Already up-to-date.” This is just to establish a habit.</p>
 <p>Click the green “Push” button to send your local changes to GitHub. You should see some message along these lines.</p>
-<div class="sourceCode" id="cb450"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb450-1"><a href="groups.html#cb450-1" aria-hidden="true" tabindex="-1"></a>[<span class="ex">master</span> dc671f0] blah</span>
-<span id="cb450-2"><a href="groups.html#cb450-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">3</span> files changed, 22 insertions(+)</span>
+<div class="sourceCode" id="cb450"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb450-1"><a href="groups.html#cb450-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[master</span> dc671f0] blah</span>
+<span id="cb450-2"><a href="groups.html#cb450-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">3</span> files changed, 22 insertions<span class="er">(</span><span class="ex">+</span><span class="kw">)</span></span>
 <span id="cb450-3"><a href="groups.html#cb450-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">create</span> mode 100644 .gitignore</span>
 <span id="cb450-4"><a href="groups.html#cb450-4" aria-hidden="true" tabindex="-1"></a> <span class="ex">create</span> mode 100644 myrepo.Rproj</span></code></pre></div>
 <p><strong>Step 5</strong>: Confirm the local change propagated to the GitHub remote</p>
