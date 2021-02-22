@@ -20,8 +20,8 @@ jobs:
 
       - name: Create and populate .Renviron file
         run: |
-          echo BING_MAPS_KEY="${{ secrets.BING_MAPS_KEY }}" >> ~/.Renviron
-          echo GGMAP_GOOGLE_API_KEY="{{ secrets.GGMAP_GOOGLE_API_KEY }}" >> ~/.Renviron
+          echo BING_MAPS_KEY=${{ secrets.BING_MAPS_KEY }} >> ~/.Renviron
+          echo GGMAP_GOOGLE_API_KEY={{ secrets.GGMAP_GOOGLE_API_KEY }} >> ~/.Renviron
 
       - name: Setup R
         uses: r-lib/actions/setup-r@master
