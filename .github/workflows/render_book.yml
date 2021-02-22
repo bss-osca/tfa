@@ -18,6 +18,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
+      - name: Create and populate .Renviron file
+        run: |
+          echo BING_MAPS_KEY=${{ secrets.BING_MAPS_KEY }} >> ~/.Renviron
+          echo GGMAP_GOOGLE_API_KEY={{ secrets.GGMAP_GOOGLE_API_KEY }} >> ~/.Renviron
+          shell: bash
+
       - name: Setup R
         uses: r-lib/actions/setup-r@master
 
