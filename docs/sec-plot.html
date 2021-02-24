@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2021-02-09" />
+<meta name="date" content="2021-02-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="sec-transform.html"/>
 <link rel="next" href="sec-project.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -56,6 +56,17 @@
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script>
+<link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
+<script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.17/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -317,9 +328,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.2" data-path="sec-project.html"><a href="sec-project.html#r-project"><i class="fa fa-check"></i><b>10.2</b> R project</a></li>
 </ul></li>
 <li class="part"><span><b>VI Extra</b></span></li>
-<li class="chapter" data-level="11" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>11</b> Spartial data and maps</a>
+<li class="chapter" data-level="11" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>11</b> Spatial data and maps</a>
 <ul>
 <li class="chapter" data-level="11.1" data-path="sec-maps.html"><a href="sec-maps.html#lo-maps"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="11.2" data-path="sec-maps.html"><a href="sec-maps.html#sec-map-api-key"><i class="fa fa-check"></i><b>11.2</b> Services for obtatining spatial data</a></li>
+<li class="chapter" data-level="11.3" data-path="sec-maps.html"><a href="sec-maps.html#calculating-distances"><i class="fa fa-check"></i><b>11.3</b> Calculating distances</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps"><i class="fa fa-check"></i><b>11.3.1</b> Using Google Maps</a></li>
+<li class="chapter" data-level="11.3.2" data-path="sec-maps.html"><a href="sec-maps.html#using-bing-maps"><i class="fa fa-check"></i><b>11.3.2</b> Using Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="sec-maps.html"><a href="sec-maps.html#geocoding-and-reverse-geocoding"><i class="fa fa-check"></i><b>11.4</b> Geocoding and reverse geocoding</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps-1"><i class="fa fa-check"></i><b>11.4.1</b> Using Google maps</a></li>
+<li class="chapter" data-level="11.4.2" data-path="sec-maps.html"><a href="sec-maps.html#use-bing-maps"><i class="fa fa-check"></i><b>11.4.2</b> Use Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="sec-maps.html"><a href="sec-maps.html#adding-markers-and-routes-to-a-map"><i class="fa fa-check"></i><b>11.5</b> Adding markers and routes to a map</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="sec-r-excel.html"><a href="sec-r-excel.html"><i class="fa fa-check"></i><b>12</b> Using R in Excel and Excel in R</a></li>
 <li class="chapter" data-level="13" data-path="sec-opl.html"><a href="sec-opl.html"><i class="fa fa-check"></i><b>13</b> Run an OPL model from R</a></li>
@@ -1588,15 +1611,15 @@ Hint
 <span id="cb402-4"><a href="sec-plot.html#cb402-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(profit)</span>
 <span id="cb402-5"><a href="sec-plot.html#cb402-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 24,546</span></span>
 <span id="cb402-6"><a href="sec-plot.html#cb402-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 9</span></span>
-<span id="cb402-7"><a href="sec-plot.html#cb402-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ Quarter                 &lt;dbl&gt; 3, 1, 4, 1, 4, 3, 4, 3, 4, 1, 1, 3, 3, 3, 2, 2, 1, 2, 3, 2, 2, 2,…</span></span>
-<span id="cb402-8"><a href="sec-plot.html#cb402-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ Channel                 &lt;chr&gt; &quot;ATM&quot;, &quot;ATM&quot;, &quot;ATM&quot;, &quot;ATM&quot;, &quot;ATM&quot;, &quot;BRH&quot;, &quot;BRH&quot;, &quot;ATM&quot;, &quot;BRH&quot;, &quot;B…</span></span>
-<span id="cb402-9"><a href="sec-plot.html#cb402-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ `Customer ID`           &lt;chr&gt; &quot;FRT&quot;, &quot;MRT&quot;, &quot;PBI&quot;, &quot;PBI&quot;, &quot;MRT&quot;, &quot;MAM&quot;, &quot;PBI&quot;, &quot;FRT&quot;, &quot;PBI&quot;, &quot;P…</span></span>
-<span id="cb402-10"><a href="sec-plot.html#cb402-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ Country                 &lt;chr&gt; &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;U…</span></span>
-<span id="cb402-11"><a href="sec-plot.html#cb402-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ `Product Line`          &lt;chr&gt; &quot;Credit Products&quot;, &quot;Credit Products&quot;, &quot;Deposit Products&quot;, &quot;Deposi…</span></span>
-<span id="cb402-12"><a href="sec-plot.html#cb402-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ Revenue                 &lt;dbl&gt; 6044, 4686, 6063, 4682, 6320, 2993, 3355, 5716, 3347, 2624, 3629,…</span></span>
-<span id="cb402-13"><a href="sec-plot.html#cb402-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ `Product Cost`          &lt;dbl&gt; 3998, 3229, 7440, 6127, 7913, 1034, 4355, 5617, 4229, 1960, 4650,…</span></span>
-<span id="cb402-14"><a href="sec-plot.html#cb402-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ `Customer Service Cost` &lt;dbl&gt; 413, 643, 1842, 1118, 1854, 242, 1027, 876, 425, 264, 700, 1482, …</span></span>
-<span id="cb402-15"><a href="sec-plot.html#cb402-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ Profit                  &lt;dbl&gt; 1633, 815, -3219, -2563, -3447, 1718, -2027, -777, -1307, 401, -1…</span></span>
+<span id="cb402-7"><a href="sec-plot.html#cb402-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ Quarter                 &lt;dbl&gt; 3, 1, 4, 1, 4, 3, 4, 3, 4, 1, 1, 3, 3, 3, 2, 2, 1, 2, 3, 2, 2, 2, …</span></span>
+<span id="cb402-8"><a href="sec-plot.html#cb402-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ Channel                 &lt;chr&gt; &quot;ATM&quot;, &quot;ATM&quot;, &quot;ATM&quot;, &quot;ATM&quot;, &quot;ATM&quot;, &quot;BRH&quot;, &quot;BRH&quot;, &quot;ATM&quot;, &quot;BRH&quot;, &quot;BR…</span></span>
+<span id="cb402-9"><a href="sec-plot.html#cb402-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ `Customer ID`           &lt;chr&gt; &quot;FRT&quot;, &quot;MRT&quot;, &quot;PBI&quot;, &quot;PBI&quot;, &quot;MRT&quot;, &quot;MAM&quot;, &quot;PBI&quot;, &quot;FRT&quot;, &quot;PBI&quot;, &quot;PB…</span></span>
+<span id="cb402-10"><a href="sec-plot.html#cb402-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ Country                 &lt;chr&gt; &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;US…</span></span>
+<span id="cb402-11"><a href="sec-plot.html#cb402-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ `Product Line`          &lt;chr&gt; &quot;Credit Products&quot;, &quot;Credit Products&quot;, &quot;Deposit Products&quot;, &quot;Deposit…</span></span>
+<span id="cb402-12"><a href="sec-plot.html#cb402-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ Revenue                 &lt;dbl&gt; 6044, 4686, 6063, 4682, 6320, 2993, 3355, 5716, 3347, 2624, 3629, …</span></span>
+<span id="cb402-13"><a href="sec-plot.html#cb402-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ `Product Cost`          &lt;dbl&gt; 3998, 3229, 7440, 6127, 7913, 1034, 4355, 5617, 4229, 1960, 4650, …</span></span>
+<span id="cb402-14"><a href="sec-plot.html#cb402-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ `Customer Service Cost` &lt;dbl&gt; 413, 643, 1842, 1118, 1854, 242, 1027, 876, 425, 264, 700, 1482, 4…</span></span>
+<span id="cb402-15"><a href="sec-plot.html#cb402-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ Profit                  &lt;dbl&gt; 1633, 815, -3219, -2563, -3447, 1718, -2027, -777, -1307, 401, -17…</span></span>
 <span id="cb402-16"><a href="sec-plot.html#cb402-16" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(profit)</span></code></pre></div>
 <table style="width: auto;" class="table table-condensed">
 <caption>
@@ -2881,7 +2904,7 @@ Hint
 <span id="cb427-9"><a href="sec-plot.html#cb427-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">days_elapsed =</span> <span class="fu">as.numeric</span>(date <span class="sc">-</span> <span class="fu">min</span>(date)),</span>
 <span id="cb427-10"><a href="sec-plot.html#cb427-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">year</span>(date)</span>
 <span id="cb427-11"><a href="sec-plot.html#cb427-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span>
-<span id="cb427-12"><a href="sec-plot.html#cb427-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 221,184 x 7</span></span>
+<span id="cb427-12"><a href="sec-plot.html#cb427-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 229,824 x 7</span></span>
 <span id="cb427-13"><a href="sec-plot.html#cb427-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country     date       type      tot_cases cumulative_cases days_elapsed  year</span></span>
 <span id="cb427-14"><a href="sec-plot.html#cb427-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span id="cb427-15"><a href="sec-plot.html#cb427-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghanistan 2020-01-22 confirmed         0                0            0  2020</span></span>
@@ -2894,7 +2917,7 @@ Hint
 <span id="cb427-22"><a href="sec-plot.html#cb427-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Algeria     2020-01-22 death             0                0            0  2020</span></span>
 <span id="cb427-23"><a href="sec-plot.html#cb427-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Algeria     2020-01-22 recovered         0                0            0  2020</span></span>
 <span id="cb427-24"><a href="sec-plot.html#cb427-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Andorra     2020-01-22 confirmed         0                0            0  2020</span></span>
-<span id="cb427-25"><a href="sec-plot.html#cb427-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 221,174 more rows</span></span></code></pre></div>
+<span id="cb427-25"><a href="sec-plot.html#cb427-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 229,814 more rows</span></span></code></pre></div>
 <div id="ogy8RUXSAiuHlv0VGSPp" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ogy8RUXSAiuHlv0VGSPp-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -2917,8 +2940,8 @@ Solution
 <span id="cb428-8"><a href="sec-plot.html#cb428-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Number of Covid 19 cases per day&quot;</span>,</span>
 <span id="cb428-9"><a href="sec-plot.html#cb428-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;cases&quot;</span></span>
 <span id="cb428-10"><a href="sec-plot.html#cb428-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb428-11"><a href="sec-plot.html#cb428-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,152 x 3</span></span>
-<span id="cb428-12"><a href="sec-plot.html#cb428-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   date [384]</span></span>
+<span id="cb428-11"><a href="sec-plot.html#cb428-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,197 x 3</span></span>
+<span id="cb428-12"><a href="sec-plot.html#cb428-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   date [399]</span></span>
 <span id="cb428-13"><a href="sec-plot.html#cb428-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    date       type      tot_cases</span></span>
 <span id="cb428-14"><a href="sec-plot.html#cb428-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt;</span></span>
 <span id="cb428-15"><a href="sec-plot.html#cb428-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2020-01-22 confirmed       557</span></span>
@@ -2931,7 +2954,7 @@ Solution
 <span id="cb428-22"><a href="sec-plot.html#cb428-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2020-01-24 death             8</span></span>
 <span id="cb428-23"><a href="sec-plot.html#cb428-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2020-01-24 recovered         7</span></span>
 <span id="cb428-24"><a href="sec-plot.html#cb428-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2020-01-25 confirmed       492</span></span>
-<span id="cb428-25"><a href="sec-plot.html#cb428-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,142 more rows</span></span></code></pre></div>
+<span id="cb428-25"><a href="sec-plot.html#cb428-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,187 more rows</span></span></code></pre></div>
 <p><img src="TFA_files/figure-html/unnamed-chunk-437-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
@@ -3148,7 +3171,7 @@ Hint 1
 <span id="cb436-2"><a href="sec-plot.html#cb436-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">%in%</span> countries) <span class="sc">%&gt;%</span> </span>
 <span id="cb436-3"><a href="sec-plot.html#cb436-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(world_pop) <span class="sc">%&gt;%</span> </span>
 <span id="cb436-4"><a href="sec-plot.html#cb436-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
-<span id="cb436-5"><a href="sec-plot.html#cb436-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5,760 x 8</span></span>
+<span id="cb436-5"><a href="sec-plot.html#cb436-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5,985 x 8</span></span>
 <span id="cb436-6"><a href="sec-plot.html#cb436-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country date       type      tot_cases cumulative_cases days_elapsed  year        pop</span></span>
 <span id="cb436-7"><a href="sec-plot.html#cb436-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;</span></span>
 <span id="cb436-8"><a href="sec-plot.html#cb436-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 China   2020-01-22 confirmed       548              548            0  2020 1424548266</span></span>
@@ -3161,7 +3184,7 @@ Hint 1
 <span id="cb436-15"><a href="sec-plot.html#cb436-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 France  2020-01-22 death             0                0            0  2020   65721165</span></span>
 <span id="cb436-16"><a href="sec-plot.html#cb436-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 France  2020-01-22 recovered         0                0            0  2020   65721165</span></span>
 <span id="cb436-17"><a href="sec-plot.html#cb436-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Italy   2020-01-22 confirmed         0                0            0  2020   59132073</span></span>
-<span id="cb436-18"><a href="sec-plot.html#cb436-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 5,750 more rows</span></span>
+<span id="cb436-18"><a href="sec-plot.html#cb436-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 5,975 more rows</span></span>
 <span id="cb436-19"><a href="sec-plot.html#cb436-19" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(dat))  <span class="co"># check if any missing values</span></span>
 <span id="cb436-20"><a href="sec-plot.html#cb436-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
 <div id="jtY8uO8tRQPJ8nqBSF5l" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="jtY8uO8tRQPJ8nqBSF5l-title">
@@ -3264,7 +3287,7 @@ Hint 1
 <div class="modal-body">
 <div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="sec-plot.html#cb440-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use this to find date 21 days ago</span></span>
 <span id="cb440-2"><a href="sec-plot.html#cb440-2" aria-hidden="true" tabindex="-1"></a><span class="fu">today</span>() <span class="sc">-</span> <span class="fu">days</span>(<span class="dv">21</span>)</span>
-<span id="cb440-3"><a href="sec-plot.html#cb440-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2021-01-19&quot;</span></span></code></pre></div>
+<span id="cb440-3"><a href="sec-plot.html#cb440-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2021-02-03&quot;</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
