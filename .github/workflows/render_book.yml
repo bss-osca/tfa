@@ -22,7 +22,10 @@ jobs:
         shell: bash
         run: |
           echo BING_MAPS_API_KEY="$BING_MAPS_API_KEY" >> ~/.Renviron
-          echo GGMAP_GOOGLE_API_KEY="$GGMAP_GOOGLE_API_KEY" >> ~/.Renviron
+          echo GGMAP_GOOGLE_API_KEY="${{ secrets.GGMAP_GOOGLE_API_KEY }}" >> ~/.Renviron
+
+      - name: Test printing your secret (Remove this step in production)
+        run: cat $BING_MAPS_API_KEY
 
       - name: Setup R
         uses: r-lib/actions/setup-r@master

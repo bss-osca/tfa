@@ -331,139 +331,6 @@ dat
 ```
 
 
-
-
-<!-- DataCamp courses -->
-
-
-<!-- ## Different learning paths -->
-
-<!-- `r strLPath` -->
-
-<!-- * Suggestion 1  -->
-<!-- * Suggestion 2 -->
-
-
-<!-- ## Recap -->
-
-<!-- [Summary of learning] -->
-
-<!-- ## Exercises -->
-
-
-<!-- ## Resources -->
-
-<!-- [Links to further resources] -->
-
-
-
-
-
-
-<!-- Usefull stuff: 
-
-Icons:
-`r addIcon("file-code", attrib = list(class = "fa-pull-right fa-5x iconStyle1"))`
-`r addIcon("code", attrib = list(class = "fa-pull-right fa-5x iconStyle1"))`
-`r addIcon("external-link-alt", attrib = list(class = "fa-pull-right fa-5x iconStyle1"))`
-
-
-
-Task/checklist box:
-<div class = "boxTask">
-`r addIcon("tasks", attrib = list(class = "fa-pull-right fa-5x iconStyle1"))`
-
-   * dasf
-   * fsa
-   * 324
-</div>
-
-
-
-Exercise box:
-<div class = "boxExercise">
-`r addIcon("laptop-code", attrib = list(class = "fa-pull-right fa-5x iconStyle1"))`  
-
-**Exercise 1**
-asdf asdlfkj sdfklj fsdjka æ
-
-   1. sdf
-   2. edasf
-
-**Exercise 2**
-asdfav sdaf sdhj sdjkahdf jkhasdkjæsdfh asjf
-
-   1. sdf
-   2. sdf
-</div>
-
-
-
-Numbered exercises with hints:
-## Exercises
-
-Exercises are numbered using [module number].[section number].[exercise number]. 
-
-### Exercise (install packages)
-
-This exercise is done from the Console in RStudio. 
-
-   1) Install the package `devtools` using function `install.packages`. Note you can always get help/see documentation by typing `?install.packages` or typing `install.packages` and press F1. 
-   
-You now have install the package from the default repository ([CRAN][cran]). You may also install packages from other repositories (e.g. GitHub)
-   
-   1) Have a look at the documentation for function `install_github` in the package `devtools`. This can be done in different ways:
-   
-```r
-library(devtools)    # we here load all the functions in devtools 
-?install_github
-
-?devtools::install_github     # we here use the namespace devtools to load only one function
-```
-
-   1) Install the package `tfa` from github using path ``
-
-```{r}
-# filter the flights table to include only United and
-# American flights
-
-```
-
-```{r}
-{
-sink("tmp.md")
-cat('
-Vi tester
-```r
-cat("hello")
-cat("world")
-```')
-sink()
-}
-bs_modal(id = "hint", title = "Hint", 
-         body = includeMarkdown("tmp.md"))
-```
-
-```{r}
-bs_button("Hint") %>%
-  bs_attach_modal(id_modal = "hint")
-```
-
-### Exercise
-
-[Add text]
-
-### Exercise ()
-
-[Add text]
-
-### Exercise (string management)
-
-
-
-
--->
-
 ## Adding markers and routes to a map
 
 [Leaflet](http://leafletjs.com) is an open-source JavaScript library for interactive maps. It’s used by websites ranging from The New York Times and The Washington Post to GitHub and Flickr, as well as GIS specialists like OpenStreetMap, Mapbox, and CartoDB. The [leaflet](https://rstudio.github.io/leaflet/) package makes it easy to create Leaflet maps from R.
@@ -536,17 +403,17 @@ m %>% addFlows(datLines$FromLon, datLines$FromLat, datLines$ToLon, datLines$ToLa
 Let us define a function for adding routes:
 
 ```{r}
-add_route <- function(dat = NULL, route, flow = 1, solution = 1) {
+add_route <- function(dat = NULL, route, solution = 1) {
    route_id = if_else(is.null(dat), 1, max(dat$RouteId) + 1)
    tmp <- tibble(From = route[1:(length(route)-1)], To = route[2:length(route)])
-   tmp <- tmp %>% mutate(Flow = flow, Sol = solution, RouteId = route_id)
+   tmp <- tmp %>% mutate(Sol = solution, RouteId = route_id)
    dat <- bind_rows(dat, tmp)
 }
 
 datLines <- add_route(route = c(2, 5, 1, 2)) %>% 
-   add_route(route = c(2, 4, 3, 2), flow = 2) %>% 
-   add_route(route = c(2, 3, 1, 2), flow = 2, solution = 2) %>% 
-   add_route(route = c(2, 5, 4, 2), flow = 1, solution = 2)
+   add_route(route = c(2, 4, 3, 2)) %>% 
+   add_route(route = c(2, 3, 1, 2), solution = 2) %>% 
+   add_route(route = c(2, 5, 4, 2), solution = 2)
 datLines <- left_join(datLines, dat %>% select(-Shop, -Address), by = c("From" = "Id")) %>% 
    rename("FromLat" = "lat", "FromLon" = "lon") %>% 
    left_join(dat %>% select(-Shop, -Address), by = c("To" = "Id")) %>% 
@@ -565,14 +432,41 @@ m %>% addFlows(datP$FromLon, datP$FromLat, datP$ToLon, datP$ToLat,
                opacity = 0.5, popup = popupArgs(labels = "Route"))
 ```
 
-A map with both solutions:
+A map with Solution 2:
 
 ```{r}
-datP <- datLines
+col_pal <- rainbow(max(datLines$RouteId))
+datP <- datLines %>% filter(Sol == 2)
 m %>% addFlows(datP$FromLon, datP$FromLat, datP$ToLon, datP$ToLat,
-               flow = datP$Sol, maxThickness = 2, color = col_pal[datP$Sol],
-               opacity = 0.75, popup = popupArgs(labels = "Solution"))
+               flow = datP$RouteId, maxThickness = 2, color = col_pal[datP$RouteId],
+               opacity = 0.5, popup = popupArgs(labels = "Route"))
 ```
+
+An interactive map with both solutions:
+
+```{r}
+mm <- m
+res <- map(1:nrow(datLines), function(i) {
+   tmp <- tibble(lat = c(datLines$FromLat[i], datLines$ToLat[i]), lon = c(datLines$FromLon[i], datLines$ToLon[i]))
+   mm <<- mm %>% addPolylines(lng = ~lon, lat = ~lat, 
+                              color = col_pal[datLines$Sol[i]], group = datLines$group[i],
+                              data = tmp, weight = 2, label = datLines$group[i])
+   return(invisible(NULL))
+})
+mm <- mm %>% 
+  # Layer control
+  addLayersControl(
+    baseGroups = c("Map", "Satelite"),
+    overlayGroups = unique(datLines$group),
+    options = layersControlOptions(collapsed = FALSE)
+  ) %>% 
+  hideGroup(unique(datLines$group)) %>% 
+  showGroup("Solution 1")
+mm
+```
+
+Note unfortunately arrows cannot be shown in this case.
+
 
 
 
