@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2021-02-09" />
+<meta name="date" content="2021-02-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="sec-install.html"/>
 <link rel="next" href="sec-loops.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -56,6 +56,17 @@
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script>
+<link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
+<script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.17/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -317,9 +328,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.2" data-path="sec-project.html"><a href="sec-project.html#r-project"><i class="fa fa-check"></i><b>10.2</b> R project</a></li>
 </ul></li>
 <li class="part"><span><b>VI Extra</b></span></li>
-<li class="chapter" data-level="11" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>11</b> Spartial data and maps</a>
+<li class="chapter" data-level="11" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>11</b> Spatial data and maps</a>
 <ul>
 <li class="chapter" data-level="11.1" data-path="sec-maps.html"><a href="sec-maps.html#lo-maps"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="11.2" data-path="sec-maps.html"><a href="sec-maps.html#sec-map-api-key"><i class="fa fa-check"></i><b>11.2</b> Services for obtatining spatial data</a></li>
+<li class="chapter" data-level="11.3" data-path="sec-maps.html"><a href="sec-maps.html#calculating-distances"><i class="fa fa-check"></i><b>11.3</b> Calculating distances</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps"><i class="fa fa-check"></i><b>11.3.1</b> Using Google Maps</a></li>
+<li class="chapter" data-level="11.3.2" data-path="sec-maps.html"><a href="sec-maps.html#using-bing-maps"><i class="fa fa-check"></i><b>11.3.2</b> Using Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="sec-maps.html"><a href="sec-maps.html#geocoding-and-reverse-geocoding"><i class="fa fa-check"></i><b>11.4</b> Geocoding and reverse geocoding</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps-1"><i class="fa fa-check"></i><b>11.4.1</b> Using Google maps</a></li>
+<li class="chapter" data-level="11.4.2" data-path="sec-maps.html"><a href="sec-maps.html#use-bing-maps"><i class="fa fa-check"></i><b>11.4.2</b> Use Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="sec-maps.html"><a href="sec-maps.html#adding-markers-and-routes-to-a-map"><i class="fa fa-check"></i><b>11.5</b> Adding markers and routes to a map</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="sec-r-excel.html"><a href="sec-r-excel.html"><i class="fa fa-check"></i><b>12</b> Using R in Excel and Excel in R</a></li>
 <li class="chapter" data-level="13" data-path="sec-opl.html"><a href="sec-opl.html"><i class="fa fa-check"></i><b>13</b> Run an OPL model from R</a></li>
@@ -635,14 +658,14 @@ thisIsCamelCase      # you start each word with a capital letter</code></pre>
 <div id="exercise-install-packages" class="section level3" number="3.10.2">
 <h3><span class="header-section-number">3.10.2</span> Exercise (install packages)</h3>
 <p><em>This exercise is done from the Console in RStudio (under Windows, <a href="sec-install.html#install-r">remember to have admin rights</a>).</em></p>
-<div id="xveDOGUFUIaejaKZeMQA" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="xveDOGUFUIaejaKZeMQA-title">
+<div id="xgOqM4NLauvCeBq6ke5j" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="xgOqM4NLauvCeBq6ke5j-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="xveDOGUFUIaejaKZeMQA-title">
+<h4 class="modal-title" id="xgOqM4NLauvCeBq6ke5j-title">
 Solution
 </h4>
 </div>
@@ -657,7 +680,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#xveDOGUFUIaejaKZeMQA">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#xgOqM4NLauvCeBq6ke5j">
 Solution
 </button>
 <ol style="list-style-type: decimal">
@@ -695,14 +718,14 @@ Solution
 <span id="cb27-10"><a href="sec-r-basics.html#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fiat X1-9        4    4  66 27.3</span></span>
 <span id="cb27-11"><a href="sec-r-basics.html#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Volvo 142E       4    4 109 21.4</span></span></code></pre></div>
 <p>selects the columns related to cylinders, gears, horse power and miles, and then rows with cars having four cylinders and (operator <code>&amp;</code>) gears.</p>
-<div id="l1huE4Rc7jvjtxCqS52H" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="l1huE4Rc7jvjtxCqS52H-title">
+<div id="taLPi5wMcFTo0Iqiaru4" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="taLPi5wMcFTo0Iqiaru4-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="l1huE4Rc7jvjtxCqS52H-title">
+<h4 class="modal-title" id="taLPi5wMcFTo0Iqiaru4-title">
 Solution
 </h4>
 </div>
@@ -751,17 +774,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#l1huE4Rc7jvjtxCqS52H">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#taLPi5wMcFTo0Iqiaru4">
 Solution
 </button>
-<div id="JfCs2XA2eEzMh2Bc9sr1" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="JfCs2XA2eEzMh2Bc9sr1-title">
+<div id="v5XjO6hYif2XgGU5QDO0" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="v5XjO6hYif2XgGU5QDO0-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="JfCs2XA2eEzMh2Bc9sr1-title">
+<h4 class="modal-title" id="v5XjO6hYif2XgGU5QDO0-title">
 Hint
 </h4>
 </div>
@@ -777,20 +800,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#JfCs2XA2eEzMh2Bc9sr1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#v5XjO6hYif2XgGU5QDO0">
 Hint
 </button>
 <ol style="list-style-type: decimal">
 <li>Create a pipe that selects columns related to miles, horsepower, transmission and gears.</li>
 </ol>
-<div id="yEtojpC3WDBNm0rVW4Ek" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="yEtojpC3WDBNm0rVW4Ek-title">
+<div id="G9SBEDPbgf5BFHnjdi1z" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="G9SBEDPbgf5BFHnjdi1z-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="yEtojpC3WDBNm0rVW4Ek-title">
+<h4 class="modal-title" id="G9SBEDPbgf5BFHnjdi1z-title">
 Solution
 </h4>
 </div>
@@ -810,17 +833,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#yEtojpC3WDBNm0rVW4Ek">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#G9SBEDPbgf5BFHnjdi1z">
 Solution
 </button>
-<div id="maPyNjePA6FQuhZftPh2" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="maPyNjePA6FQuhZftPh2-title">
+<div id="lV7W4SzEakgkFKphx4wI" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="lV7W4SzEakgkFKphx4wI-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="maPyNjePA6FQuhZftPh2-title">
+<h4 class="modal-title" id="lV7W4SzEakgkFKphx4wI-title">
 Hint
 </h4>
 </div>
@@ -837,20 +860,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#maPyNjePA6FQuhZftPh2">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#lV7W4SzEakgkFKphx4wI">
 Hint
 </button>
 <ol start="2" style="list-style-type: decimal">
 <li>Given the answer in 1), filter so cars have miles less than 20 and 4 gears.</li>
 </ol>
-<div id="b6qIP7qHoEyX23j6YtwU" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="b6qIP7qHoEyX23j6YtwU-title">
+<div id="v0pFpQWtK9HBua5SN5zY" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="v0pFpQWtK9HBua5SN5zY-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="b6qIP7qHoEyX23j6YtwU-title">
+<h4 class="modal-title" id="v0pFpQWtK9HBua5SN5zY-title">
 Solution
 </h4>
 </div>
@@ -896,17 +919,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#b6qIP7qHoEyX23j6YtwU">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#v0pFpQWtK9HBua5SN5zY">
 Solution
 </button>
-<div id="KgmJ2ZZ7a0laWmhV7gCn" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="KgmJ2ZZ7a0laWmhV7gCn-title">
+<div id="MnP3NvetLDvwpueCzDfX" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="MnP3NvetLDvwpueCzDfX-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="KgmJ2ZZ7a0laWmhV7gCn-title">
+<h4 class="modal-title" id="MnP3NvetLDvwpueCzDfX-title">
 Hint
 </h4>
 </div>
@@ -923,20 +946,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#KgmJ2ZZ7a0laWmhV7gCn">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#MnP3NvetLDvwpueCzDfX">
 Hint
 </button>
 <ol start="3" style="list-style-type: decimal">
 <li>Given the answer in 1), filter so cars have miles less than 20 or 4 gears. The “or” operator in R is <code>|</code>.</li>
 </ol>
-<div id="GFLJYjSosl16G2L8h1al" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="GFLJYjSosl16G2L8h1al-title">
+<div id="3pbxQHaLDLImmVfrLaBj" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="3pbxQHaLDLImmVfrLaBj-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="GFLJYjSosl16G2L8h1al-title">
+<h4 class="modal-title" id="3pbxQHaLDLImmVfrLaBj-title">
 Solution
 </h4>
 </div>
@@ -956,17 +979,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#GFLJYjSosl16G2L8h1al">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#3pbxQHaLDLImmVfrLaBj">
 Solution
 </button>
-<div id="0gHS8Xfymp3FMNF4t3vG" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="0gHS8Xfymp3FMNF4t3vG-title">
+<div id="byNueqZBzI8hSSTyXFqR" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="byNueqZBzI8hSSTyXFqR-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="0gHS8Xfymp3FMNF4t3vG-title">
+<h4 class="modal-title" id="byNueqZBzI8hSSTyXFqR-title">
 Hint
 </h4>
 </div>
@@ -983,20 +1006,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#0gHS8Xfymp3FMNF4t3vG">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#byNueqZBzI8hSSTyXFqR">
 Hint
 </button>
 <ol start="4" style="list-style-type: decimal">
 <li>Create a pipe that filters the cars having miles less than 20 and 4 gears and selects columns related to weight and engine.</li>
 </ol>
-<div id="xSD296gktF0dKyZVA1Uu" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="xSD296gktF0dKyZVA1Uu-title">
+<div id="T2pMhCbNzkLeqSV5rPkL" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="T2pMhCbNzkLeqSV5rPkL-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="xSD296gktF0dKyZVA1Uu-title">
+<h4 class="modal-title" id="T2pMhCbNzkLeqSV5rPkL-title">
 Solution
 </h4>
 </div>
@@ -1017,17 +1040,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#xSD296gktF0dKyZVA1Uu">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#T2pMhCbNzkLeqSV5rPkL">
 Solution
 </button>
-<div id="iayIPMgJpuj7OZ3quYcD" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="iayIPMgJpuj7OZ3quYcD-title">
+<div id="NUuw7Uk1UmWsTwP4RD2k" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="NUuw7Uk1UmWsTwP4RD2k-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="iayIPMgJpuj7OZ3quYcD-title">
+<h4 class="modal-title" id="NUuw7Uk1UmWsTwP4RD2k-title">
 Hint
 </h4>
 </div>
@@ -1045,7 +1068,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#iayIPMgJpuj7OZ3quYcD">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#NUuw7Uk1UmWsTwP4RD2k">
 Hint
 </button>
 <ol start="5" style="list-style-type: decimal">
@@ -1066,14 +1089,14 @@ Hint
 <p>We can read the file again using:</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="sec-r-basics.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_file</span>(<span class="st">&quot;test1.txt&quot;</span>)</span>
 <span id="cb39-2"><a href="sec-r-basics.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Some text in a file&quot;</span></span></code></pre></div>
-<div id="RXQbWKHpOIJwkTPESwUA" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="RXQbWKHpOIJwkTPESwUA-title">
+<div id="JB7U0H8a2p67qjFJ4zHU" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="JB7U0H8a2p67qjFJ4zHU-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="RXQbWKHpOIJwkTPESwUA-title">
+<h4 class="modal-title" id="JB7U0H8a2p67qjFJ4zHU-title">
 Solution
 </h4>
 </div>
@@ -1089,17 +1112,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#RXQbWKHpOIJwkTPESwUA">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#JB7U0H8a2p67qjFJ4zHU">
 Solution
 </button>
-<div id="DfOXkbNKptCJesWS6wN1" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="DfOXkbNKptCJesWS6wN1-title">
+<div id="5X2ONXRyA1uuJDSuOMtq" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="5X2ONXRyA1uuJDSuOMtq-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="DfOXkbNKptCJesWS6wN1-title">
+<h4 class="modal-title" id="5X2ONXRyA1uuJDSuOMtq-title">
 Hint
 </h4>
 </div>
@@ -1114,21 +1137,21 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#DfOXkbNKptCJesWS6wN1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#5X2ONXRyA1uuJDSuOMtq">
 Hint
 </button>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Read the file <code>test2.txt</code>.</p></li>
 <li><p>Set the working directory to <code>subfolder</code> using function <code>setwd</code>. Note that <code>setwd</code> supports relative paths. Check that you are in the right working directory using <code>getwd</code>. You may also have a look at the files in the directory using function <code>list.files</code>.</p></li>
 </ol>
-<div id="V2peVB99XxjEdSTgMVQm" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="V2peVB99XxjEdSTgMVQm-title">
+<div id="G13mOgzbPCZgjGl9LK42" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="G13mOgzbPCZgjGl9LK42-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="V2peVB99XxjEdSTgMVQm-title">
+<h4 class="modal-title" id="G13mOgzbPCZgjGl9LK42-title">
 Solution
 </h4>
 </div>
@@ -1147,17 +1170,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#V2peVB99XxjEdSTgMVQm">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#G13mOgzbPCZgjGl9LK42">
 Solution
 </button>
-<div id="s8cmmZkfpJC8DmmRPGWh" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="s8cmmZkfpJC8DmmRPGWh-title">
+<div id="TaTKvZgrd3ALLrWgumI9" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="TaTKvZgrd3ALLrWgumI9-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="s8cmmZkfpJC8DmmRPGWh-title">
+<h4 class="modal-title" id="TaTKvZgrd3ALLrWgumI9-title">
 Hint
 </h4>
 </div>
@@ -1174,7 +1197,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#s8cmmZkfpJC8DmmRPGWh">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#TaTKvZgrd3ALLrWgumI9">
 Hint
 </button>
 <ol start="4" style="list-style-type: decimal">
@@ -1184,14 +1207,14 @@ Hint
 <div id="exercise-vectors" class="section level3" number="3.10.5">
 <h3><span class="header-section-number">3.10.5</span> Exercise (vectors)</h3>
 <p><em>Solve this exercise using a script file.</em></p>
-<div id="cWswuOjc6zLFk2TJ7unH" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="cWswuOjc6zLFk2TJ7unH-title">
+<div id="UXXp38xeAVglhN7x7Hrg" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="UXXp38xeAVglhN7x7Hrg-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="cWswuOjc6zLFk2TJ7unH-title">
+<h4 class="modal-title" id="UXXp38xeAVglhN7x7Hrg-title">
 Solution
 </h4>
 </div>
@@ -1208,20 +1231,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#cWswuOjc6zLFk2TJ7unH">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#UXXp38xeAVglhN7x7Hrg">
 Solution
 </button>
 <ol style="list-style-type: decimal">
 <li>What is the sum of the first 100 positive integers? The formula for the sum of integers <span class="math inline">\(1\)</span> through <span class="math inline">\(n\)</span> is <span class="math inline">\(n(n+1)/2\)</span>. Define <span class="math inline">\(n=100\)</span> and then use R to compute the sum of <span class="math inline">\(1\)</span> through <span class="math inline">\(100\)</span> using the formula. What is the sum?</li>
 </ol>
-<div id="5lW4I6EzZ7jQtSuveuoy" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="5lW4I6EzZ7jQtSuveuoy-title">
+<div id="yZEAXwJYHZHvnb4uYyMl" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="yZEAXwJYHZHvnb4uYyMl-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="5lW4I6EzZ7jQtSuveuoy-title">
+<h4 class="modal-title" id="yZEAXwJYHZHvnb4uYyMl-title">
 Solution
 </h4>
 </div>
@@ -1238,20 +1261,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#5lW4I6EzZ7jQtSuveuoy">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#yZEAXwJYHZHvnb4uYyMl">
 Solution
 </button>
 <ol start="2" style="list-style-type: decimal">
 <li>Now use the same formula to compute the sum of the integers from 1 through 1000.</li>
 </ol>
-<div id="PZ02e1Bj8Hq7hpca92KW" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="PZ02e1Bj8Hq7hpca92KW-title">
+<div id="qIpSVsoBXK7h3cQ0mNYK" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="qIpSVsoBXK7h3cQ0mNYK-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="PZ02e1Bj8Hq7hpca92KW-title">
+<h4 class="modal-title" id="qIpSVsoBXK7h3cQ0mNYK-title">
 Solution
 </h4>
 </div>
@@ -1268,7 +1291,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#PZ02e1Bj8Hq7hpca92KW">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#qIpSVsoBXK7h3cQ0mNYK">
 Solution
 </button>
 <ol start="3" style="list-style-type: decimal">
@@ -1284,14 +1307,14 @@ Solution
 <li><code>sum</code> always returns the same number.</li>
 </ol></li>
 </ol>
-<div id="coW6o8GHib8DMfSeJx0z" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="coW6o8GHib8DMfSeJx0z-title">
+<div id="1GKwwW3ZhehgYqoNTYaD" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="1GKwwW3ZhehgYqoNTYaD-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="coW6o8GHib8DMfSeJx0z-title">
+<h4 class="modal-title" id="1GKwwW3ZhehgYqoNTYaD-title">
 Solution
 </h4>
 </div>
@@ -1308,7 +1331,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#coW6o8GHib8DMfSeJx0z">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#1GKwwW3ZhehgYqoNTYaD">
 Solution
 </button>
 <ol start="4" style="list-style-type: decimal">
