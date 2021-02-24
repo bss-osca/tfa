@@ -51,10 +51,10 @@ If you use Bing Maps you can obtain an API key [here](https://www.bingmapsportal
 
 ```{r, eval=FALSE}
 usethis::edit_r_environ()  # opens the .Renviron file
-Sys.setenv(BING_MAPS_KEY=[your key]) # so you don't have to restart R
+Sys.setenv(BING_MAPS_API_KEY=[your key]) # so you don't have to restart R
 ```
 
-Add the line `BING_MAPS_KEY=[your key]` and save the file. 
+Add the line `BING_MAPS_API_KEY=[your key]` and save the file. 
 
 Note your API keys is private and unique to you, so be careful not to share it online!
 
@@ -170,7 +170,7 @@ bing_mapdist <- function(from, to, mode = "driving", optimize = "time") {
       url <- 
          str_c("http://dev.virtualearth.net/REST/V1/Routes/", mode, "?wp.0=", from_to_df$from[r], "&wp.1=", from_to_df$to[r], 
                "&optimize=", optimize, "&ra=excludeItinerary&rpo=None&ig=false&du=km", 
-               "&avoid=minimizeTolls&key=", Sys.getenv("BING_MAPS_KEY"))
+               "&avoid=minimizeTolls&key=", Sys.getenv("BING_MAPS_API_KEY"))
       url <- URLencode(url)
       lst <- fromJSON(url)
       if (lst$statusCode != 200) return(tibble(km = NA, seconds = NA, mode = NA))
@@ -269,7 +269,7 @@ To get the coordinates of an address we define the `bing_geocode` function:
 bing_geocode <- function(address) {
    dat <- map_dfr(address, function(s) {
       url <- str_c("http://dev.virtualearth.net/REST/v1/Locations?q=", 
-                   s, "&key=", Sys.getenv("BING_MAPS_KEY"))
+                   s, "&key=", Sys.getenv("BING_MAPS_API_KEY"))
       url <- URLencode(url)
       lst <- fromJSON(url)
       if (lst$statusCode != 200) return(tibble(lon = NA, lat = NA))
@@ -308,7 +308,7 @@ To reverse geocode use the `bing_revgeocode` function:
 bing_revgeocode <- function(coordinates) {
    url <- str_c("http://dev.virtualearth.net/REST/v1/Locations/", 
                 coordinates[2], ",", coordinates[1],
-                "?key=", Sys.getenv("BING_MAPS_KEY"))
+                "?key=", Sys.getenv("BING_MAPS_API_KEY"))
    url <- URLencode(url)
    lst <- fromJSON(url)
    if (lst$statusCode != 200) return(NA)
@@ -464,10 +464,118 @@ bs_button("Hint") %>%
 
 -->
 
-## Leaflet maps
+## Adding markers and routes to a map
 
 [Leaflet](http://leafletjs.com) is an open-source JavaScript library for interactive maps. It’s used by websites ranging from The New York Times and The Washington Post to GitHub and Flickr, as well as GIS specialists like OpenStreetMap, Mapbox, and CartoDB. The [leaflet](https://rstudio.github.io/leaflet/) package makes it easy to create Leaflet maps from R.
 
-Note Leaflet is open-source and free so you do not need an API key for making maps. If you would like to use Google maps instead then have a look at the [googleway](http://symbolixau.github.io/googleway/) package instead.
+Note Leaflet is open-source and free so you do not need an API key for making maps. If you would like to use Google maps instead then have a look at the [googleway](http://symbolixau.github.io/googleway/) package instead. 
+
+First let us create a map with two base layers
+
+```{r}
+library(leaflet)
+m <- leaflet() %>% 
+   # Base maps
+   addTiles(group = "Map") %>%
+   addProviderTiles('Esri.WorldImagery', group = "Satelite") %>% 
+   addProviderTiles("CartoDB.PositronOnlyLabels", group = "Map") %>% 
+   # Center and zoom
+   setView(10.2, 56.2,  zoom = 7) %>% 
+   # Layer control
+   addLayersControl(
+    baseGroups = c("Map", "Satelite"),
+    options = layersControlOptions(collapsed = TRUE)
+   ) 
+ m
+```
+
+Next, let us add the places:
+
+```{r}
+dat <- tibble::tribble(
+      ~Id,              ~Shop,                                        ~Address,
+       1L,    "Bilka Esbjerg",          "Stormgade 157, 6715 Esbjerg, Denmark",
+       2L,    "Bilka Herning",              "Golfvej 5, 7400 Herning, Denmark",
+       3L,   "Bilka Hillerød",     "Slotsarkaderne 26, 3400 Hillerød, Denmark",
+       4L,   "Bilka Hjørring",  "A.F Heidemannsvej 20, 9800 Hjørring, Denmark",
+       5L,  "Bilka Holstebro",         "Nyholmvej 20, 7500 Holstebro, Denmark",
+      )
+dat <- dat %>% mutate_geocode(Address)
+m <- m %>% 
+   addMarkers(~lon, ~lat, popup = ~Address, label = ~str_c(Id, "  - ", Shop), data = dat)
+m
+```
+
+To add a line between a set of points use the `addPolylines` function:
+
+```{r}
+routeIds <- c(2, 5, 1, 2)
+route <- dat[routeIds,] 
+m %>% addPolylines(lng = ~lon, lat = ~lat, data = route, weight = 2, label = "Route 1")
+```
+
+A more advanced setup is to use the `addFlows` function from the [leaflet.minicharts](https://github.com/rte-antares-rpackage/leaflet.minicharts) package. First let us define some lines:
+
+```{r}
+datLines <- tibble(FromId = c(2, 5, 1, 2, 4, 3), ToId = c(5, 1, 2, 4, 3, 2))
+datLines <- left_join(datLines, dat %>% select(-Shop, -Address), by = c("FromId" = "Id")) %>% 
+   rename("FromLat" = "lat", "FromLon" = "lon") %>% 
+   left_join(dat %>% select(-Shop, -Address), by = c("ToId" = "Id")) %>% 
+   rename("ToLat" = "lat", "ToLon" = "lon")
+datLines
+```
+
+Note we have a from/to pair in each row. We add the lines to the map:
+
+```{r}
+library(leaflet.minicharts)
+m %>% addFlows(datLines$FromLon, datLines$FromLat, datLines$ToLon, datLines$ToLat,
+               flow = 1, maxFlow = 20, opacity = 0.5, popup = popupArgs(noPopup = TRUE))
+```
+
+Let us define a function for adding routes:
+
+```{r}
+add_route <- function(dat = NULL, route, flow = 1, solution = 1) {
+   route_id = if_else(is.null(dat), 1, max(dat$RouteId) + 1)
+   tmp <- tibble(From = route[1:(length(route)-1)], To = route[2:length(route)])
+   tmp <- tmp %>% mutate(Flow = flow, Sol = solution, RouteId = route_id)
+   dat <- bind_rows(dat, tmp)
+}
+
+datLines <- add_route(route = c(2, 5, 1, 2)) %>% 
+   add_route(route = c(2, 4, 3, 2), flow = 2) %>% 
+   add_route(route = c(2, 3, 1, 2), flow = 2, solution = 2) %>% 
+   add_route(route = c(2, 5, 4, 2), flow = 1, solution = 2)
+datLines <- left_join(datLines, dat %>% select(-Shop, -Address), by = c("From" = "Id")) %>% 
+   rename("FromLat" = "lat", "FromLon" = "lon") %>% 
+   left_join(dat %>% select(-Shop, -Address), by = c("To" = "Id")) %>% 
+   rename("ToLat" = "lat", "ToLon" = "lon") %>% 
+   mutate(group = str_c("Solution ", Sol))
+datLines
+```
+
+A map with Solution 1:
+
+```{r}
+col_pal <- rainbow(max(datLines$RouteId))
+datP <- datLines %>% filter(Sol == 1)
+m %>% addFlows(datP$FromLon, datP$FromLat, datP$ToLon, datP$ToLat,
+               flow = datP$RouteId, maxThickness = 2, color = col_pal[datP$RouteId],
+               opacity = 0.5, popup = popupArgs(labels = "Route"))
+```
+
+A map with both solutions:
+
+```{r}
+datP <- datLines
+m %>% addFlows(datP$FromLon, datP$FromLat, datP$ToLon, datP$ToLat,
+               flow = datP$Sol, maxThickness = 2, color = col_pal[datP$Sol],
+               opacity = 0.75, popup = popupArgs(labels = "Solution"))
+```
+
+
+
+
 
 

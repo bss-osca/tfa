@@ -11,7 +11,7 @@ jobs:
     runs-on: macOS-latest
     env:
       RGL_USE_NULL: true
-      BING_MAPS_KEY: ${{ secrets.BING_MAPS_KEY }}
+      BING_MAPS_API_KEY: ${{ secrets.BING_MAPS_KEY }}
       GGMAP_GOOGLE_API_KEY: ${{ secrets.GGMAP_GOOGLE_API_KEY }}
       GITHUB_PAT: ${{ secrets.TFA }}
     steps:
@@ -19,8 +19,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create and populate .Renviron file
+        shell: bash
         run: |
-          echo BING_MAPS_KEY="$BING_MAPS_KEY" >> ~/.Renviron
+          echo BING_MAPS_API_KEY="$BING_MAPS_API_KEY" >> ~/.Renviron
           echo GGMAP_GOOGLE_API_KEY="$GGMAP_GOOGLE_API_KEY" >> ~/.Renviron
 
       - name: Setup R
