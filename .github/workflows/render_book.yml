@@ -12,7 +12,7 @@ jobs:
     env:
       RGL_USE_NULL: true
       BING_MAPS_API_KEY: ${{ secrets.BING_MAPS_KEY }}
-      GGMAP_GOOGLE_API_KEY: ${{ secrets.GGMAP_GOOGLE_API_KEY }}
+      GGMAP_GOOGLE_API_KEY: ${{ secrets.GGMAP_GOOGLE_KEY }}
       GITHUB_PAT: ${{ secrets.TFA }}
     steps:
       - name: Checkout repo
@@ -22,7 +22,7 @@ jobs:
         shell: bash
         run: |
           echo BING_MAPS_API_KEY="$BING_MAPS_API_KEY" >> ~/.Renviron
-          echo GGMAP_GOOGLE_API_KEY="${{ secrets.GGMAP_GOOGLE_API_KEY }}" >> ~/.Renviron
+          echo GGMAP_GOOGLE_API_KEY="$GGMAP_GOOGLE_API_KEY" >> ~/.Renviron
 
       - name: Test printing your secret (Remove this step in production)
         shell: bash
