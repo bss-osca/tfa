@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2021-02-25" />
+<meta name="date" content="2021-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -482,7 +482,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb448-3"><a href="sec-maps.html#cb448-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 9</span></span>
 <span id="cb448-4"><a href="sec-maps.html#cb448-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   from                        to                          m    km miles seconds minutes hours mode  </span></span>
 <span id="cb448-5"><a href="sec-maps.html#cb448-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                       &lt;chr&gt;                   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; </span></span>
-<span id="cb448-6"><a href="sec-maps.html#cb448-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjer… Golfvej 5, 7400 Hernin… 85634  85.6  53.2    4460    74.3  1.24 drivi…</span></span></code></pre></div>
+<span id="cb448-6"><a href="sec-maps.html#cb448-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjer… Golfvej 5, 7400 Hernin… 85634  85.6  53.2    4463    74.4  1.24 drivi…</span></span></code></pre></div>
 <p>Note Google returns results for the fastest path between the two points. Let us try to define a function which calculate all the distances:</p>
 <div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="sec-maps.html#cb449-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Calculate the distance matrix in long format.</span></span>
 <span id="cb449-2"><a href="sec-maps.html#cb449-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
@@ -504,15 +504,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb449-18"><a href="sec-maps.html#cb449-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 x 11</span></span>
 <span id="cb449-19"><a href="sec-maps.html#cb449-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    id_from id_to from               to                     m    km miles seconds minutes hours mode </span></span>
 <span id="cb449-20"><a href="sec-maps.html#cb449-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      &lt;int&gt; &lt;int&gt; &lt;chr&gt;              &lt;chr&gt;              &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
-<span id="cb449-21"><a href="sec-maps.html#cb449-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1       1     2 Stormgade 157, 67… Golfvej 5, 7400 …  85634  85.6  53.2    4460    74.3 1.24  driv…</span></span>
-<span id="cb449-22"><a href="sec-maps.html#cb449-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2       1     3 Stormgade 157, 67… Slotsarkaderne 2… 321103 321.  200.    11750   196.  3.26  driv…</span></span>
-<span id="cb449-23"><a href="sec-maps.html#cb449-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3       1     4 Stormgade 157, 67… A.F Heidemannsve… 322287 322.  200.    11266   188.  3.13  driv…</span></span>
-<span id="cb449-24"><a href="sec-maps.html#cb449-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4       1     5 Stormgade 157, 67… Nyholmvej 20, 75… 103934 104.   64.6    5344    89.1 1.48  driv…</span></span>
+<span id="cb449-21"><a href="sec-maps.html#cb449-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1       1     2 Stormgade 157, 67… Golfvej 5, 7400 …  85634  85.6  53.2    4463    74.4 1.24  driv…</span></span>
+<span id="cb449-22"><a href="sec-maps.html#cb449-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2       1     3 Stormgade 157, 67… Slotsarkaderne 2… 321103 321.  200.    11751   196.  3.26  driv…</span></span>
+<span id="cb449-23"><a href="sec-maps.html#cb449-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3       1     4 Stormgade 157, 67… A.F Heidemannsve… 322287 322.  200.    11271   188.  3.13  driv…</span></span>
+<span id="cb449-24"><a href="sec-maps.html#cb449-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4       1     5 Stormgade 157, 67… Nyholmvej 20, 75… 103934 104.   64.6    5347    89.1 1.49  driv…</span></span>
 <span id="cb449-25"><a href="sec-maps.html#cb449-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5       2     3 Golfvej 5, 7400 H… Slotsarkaderne 2… 332507 333.  207.    12044   201.  3.35  driv…</span></span>
 <span id="cb449-26"><a href="sec-maps.html#cb449-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6       2     4 Golfvej 5, 7400 H… A.F Heidemannsve… 178249 178.  111.     7966   133.  2.21  driv…</span></span>
-<span id="cb449-27"><a href="sec-maps.html#cb449-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7       2     5 Golfvej 5, 7400 H… Nyholmvej 20, 75…  44024  44.0  27.4    1879    31.3 0.522 driv…</span></span>
+<span id="cb449-27"><a href="sec-maps.html#cb449-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7       2     5 Golfvej 5, 7400 H… Nyholmvej 20, 75…  44023  44.0  27.4    1879    31.3 0.522 driv…</span></span>
 <span id="cb449-28"><a href="sec-maps.html#cb449-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8       3     4 Slotsarkaderne 26… A.F Heidemannsve… 354285 354.  220.    17087   285.  4.75  driv…</span></span>
-<span id="cb449-29"><a href="sec-maps.html#cb449-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9       3     5 Slotsarkaderne 26… Nyholmvej 20, 75… 374692 375.  233.    13630   227.  3.79  driv…</span></span>
+<span id="cb449-29"><a href="sec-maps.html#cb449-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9       3     5 Slotsarkaderne 26… Nyholmvej 20, 75… 374691 375.  233.    13630   227.  3.79  driv…</span></span>
 <span id="cb449-30"><a href="sec-maps.html#cb449-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10       4     5 A.F Heidemannsvej… Nyholmvej 20, 75… 181259 181.  113.     7879   131.  2.19  driv…</span></span></code></pre></div>
 <p>Note that only the calculated distances are returned. If you want to have the whole distance matrix we define function:</p>
 <div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="sec-maps.html#cb450-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Convert the data frame returned from calling a `___calc_distances` function to a distance matrix.</span></span>
@@ -542,11 +542,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb450-25"><a href="sec-maps.html#cb450-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 103.9  44.0  375  181    0</span></span>
 <span id="cb450-26"><a href="sec-maps.html#cb450-26" aria-hidden="true" tabindex="-1"></a><span class="fu">as_dist_matrix</span>(datDistGoo, <span class="st">&quot;seconds&quot;</span>)  <span class="co"># travel time in seconds </span></span>
 <span id="cb450-27"><a href="sec-maps.html#cb450-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       [,1]  [,2]  [,3]  [,4]  [,5]</span></span>
-<span id="cb450-28"><a href="sec-maps.html#cb450-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]     0  4460 11750 11266  5344</span></span>
-<span id="cb450-29"><a href="sec-maps.html#cb450-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]  4460     0 12044  7966  1879</span></span>
-<span id="cb450-30"><a href="sec-maps.html#cb450-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 11750 12044     0 17087 13630</span></span>
-<span id="cb450-31"><a href="sec-maps.html#cb450-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 11266  7966 17087     0  7879</span></span>
-<span id="cb450-32"><a href="sec-maps.html#cb450-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,]  5344  1879 13630  7879     0</span></span></code></pre></div>
+<span id="cb450-28"><a href="sec-maps.html#cb450-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]     0  4463 11751 11271  5347</span></span>
+<span id="cb450-29"><a href="sec-maps.html#cb450-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]  4463     0 12044  7966  1879</span></span>
+<span id="cb450-30"><a href="sec-maps.html#cb450-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 11751 12044     0 17087 13630</span></span>
+<span id="cb450-31"><a href="sec-maps.html#cb450-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 11271  7966 17087     0  7879</span></span>
+<span id="cb450-32"><a href="sec-maps.html#cb450-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,]  5347  1879 13630  7879     0</span></span></code></pre></div>
 </div>
 <div id="using-bing-maps" class="section level3" number="11.3.2">
 <h3><span class="header-section-number">11.3.2</span> Using Bing Maps</h3>
@@ -585,14 +585,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb451-32"><a href="sec-maps.html#cb451-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 5</span></span>
 <span id="cb451-33"><a href="sec-maps.html#cb451-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   from                               to                                            km seconds mode  </span></span>
 <span id="cb451-34"><a href="sec-maps.html#cb451-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                              &lt;chr&gt;                                      &lt;dbl&gt;   &lt;int&gt; &lt;chr&gt; </span></span>
-<span id="cb451-35"><a href="sec-maps.html#cb451-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjerg, Denm… A.F Heidemannsvej 20, 9800 Hjørring, Denm…  322.   10126 Drivi…</span></span>
+<span id="cb451-35"><a href="sec-maps.html#cb451-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjerg, Denm… A.F Heidemannsvej 20, 9800 Hjørring, Denm…  322.   10123 Drivi…</span></span>
 <span id="cb451-36"><a href="sec-maps.html#cb451-36" aria-hidden="true" tabindex="-1"></a><span class="fu">bing_mapdist</span>(<span class="at">from =</span> <span class="st">&quot;Stormgade 157, 6715 Esbjerg, Denmark&quot;</span>, </span>
 <span id="cb451-37"><a href="sec-maps.html#cb451-37" aria-hidden="true" tabindex="-1"></a>             <span class="at">to =</span> <span class="st">&quot;A.F Heidemannsvej 20, 9800 Hjørring, Denmark&quot;</span>, </span>
 <span id="cb451-38"><a href="sec-maps.html#cb451-38" aria-hidden="true" tabindex="-1"></a>             <span class="at">optimize =</span> <span class="st">&quot;distance&quot;</span>)</span>
 <span id="cb451-39"><a href="sec-maps.html#cb451-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 5</span></span>
 <span id="cb451-40"><a href="sec-maps.html#cb451-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   from                               to                                            km seconds mode  </span></span>
 <span id="cb451-41"><a href="sec-maps.html#cb451-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                              &lt;chr&gt;                                      &lt;dbl&gt;   &lt;int&gt; &lt;chr&gt; </span></span>
-<span id="cb451-42"><a href="sec-maps.html#cb451-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjerg, Denm… A.F Heidemannsvej 20, 9800 Hjørring, Denm…  257.   14384 Drivi…</span></span></code></pre></div>
+<span id="cb451-42"><a href="sec-maps.html#cb451-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjerg, Denm… A.F Heidemannsvej 20, 9800 Hjørring, Denm…  257.   14395 Drivi…</span></span></code></pre></div>
 <p>Note we here can get both the shortest and fastest path between two points. Next, we use the <code>bing_mapdist</code> function for calculating distances:</p>
 <div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="sec-maps.html#cb452-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Calculate the distance matrix in long format.</span></span>
 <span id="cb452-2"><a href="sec-maps.html#cb452-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
@@ -614,38 +614,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb452-18"><a href="sec-maps.html#cb452-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 x 7</span></span>
 <span id="cb452-19"><a href="sec-maps.html#cb452-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    id_from id_to from                            to                                km seconds mode  </span></span>
 <span id="cb452-20"><a href="sec-maps.html#cb452-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      &lt;int&gt; &lt;int&gt; &lt;chr&gt;                           &lt;chr&gt;                          &lt;dbl&gt;   &lt;int&gt; &lt;chr&gt; </span></span>
-<span id="cb452-21"><a href="sec-maps.html#cb452-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1       1     2 Stormgade 157, 6715 Esbjerg, D… Golfvej 5, 7400 Herning, Denm…  87.8    4808 Drivi…</span></span>
-<span id="cb452-22"><a href="sec-maps.html#cb452-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2       1     3 Stormgade 157, 6715 Esbjerg, D… Slotsarkaderne 26, 3400 Hille… 322     10527 Drivi…</span></span>
-<span id="cb452-23"><a href="sec-maps.html#cb452-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3       1     4 Stormgade 157, 6715 Esbjerg, D… A.F Heidemannsvej 20, 9800 Hj… 322.    10126 Drivi…</span></span>
-<span id="cb452-24"><a href="sec-maps.html#cb452-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4       1     5 Stormgade 157, 6715 Esbjerg, D… Nyholmvej 20, 7500 Holstebro,… 114.     5994 Drivi…</span></span>
-<span id="cb452-25"><a href="sec-maps.html#cb452-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5       2     3 Golfvej 5, 7400 Herning, Denma… Slotsarkaderne 26, 3400 Hille… 333.    10662 Drivi…</span></span>
-<span id="cb452-26"><a href="sec-maps.html#cb452-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6       2     4 Golfvej 5, 7400 Herning, Denma… A.F Heidemannsvej 20, 9800 Hj… 187.     8039 Drivi…</span></span>
-<span id="cb452-27"><a href="sec-maps.html#cb452-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7       2     5 Golfvej 5, 7400 Herning, Denma… Nyholmvej 20, 7500 Holstebro,…  44.2    1725 Drivi…</span></span>
-<span id="cb452-28"><a href="sec-maps.html#cb452-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8       3     4 Slotsarkaderne 26, 3400 Hiller… A.F Heidemannsvej 20, 9800 Hj… 397.    17183 Drivi…</span></span>
-<span id="cb452-29"><a href="sec-maps.html#cb452-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9       3     5 Slotsarkaderne 26, 3400 Hiller… Nyholmvej 20, 7500 Holstebro,… 375.    12222 Drivi…</span></span>
-<span id="cb452-30"><a href="sec-maps.html#cb452-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10       4     5 A.F Heidemannsvej 20, 9800 Hjø… Nyholmvej 20, 7500 Holstebro,… 190.     8304 Drivi…</span></span></code></pre></div>
+<span id="cb452-21"><a href="sec-maps.html#cb452-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1       1     2 Stormgade 157, 6715 Esbjerg, D… Golfvej 5, 7400 Herning, Denm…  87.8    4810 Drivi…</span></span>
+<span id="cb452-22"><a href="sec-maps.html#cb452-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2       1     3 Stormgade 157, 6715 Esbjerg, D… Slotsarkaderne 26, 3400 Hille… 322.    10556 Drivi…</span></span>
+<span id="cb452-23"><a href="sec-maps.html#cb452-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3       1     4 Stormgade 157, 6715 Esbjerg, D… A.F Heidemannsvej 20, 9800 Hj… 322.    10123 Drivi…</span></span>
+<span id="cb452-24"><a href="sec-maps.html#cb452-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4       1     5 Stormgade 157, 6715 Esbjerg, D… Nyholmvej 20, 7500 Holstebro,… 114.     6009 Drivi…</span></span>
+<span id="cb452-25"><a href="sec-maps.html#cb452-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5       2     3 Golfvej 5, 7400 Herning, Denma… Slotsarkaderne 26, 3400 Hille… 333.    10693 Drivi…</span></span>
+<span id="cb452-26"><a href="sec-maps.html#cb452-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6       2     4 Golfvej 5, 7400 Herning, Denma… A.F Heidemannsvej 20, 9800 Hj… 187.     8052 Drivi…</span></span>
+<span id="cb452-27"><a href="sec-maps.html#cb452-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7       2     5 Golfvej 5, 7400 Herning, Denma… Nyholmvej 20, 7500 Holstebro,…  44.2    1726 Drivi…</span></span>
+<span id="cb452-28"><a href="sec-maps.html#cb452-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8       3     4 Slotsarkaderne 26, 3400 Hiller… A.F Heidemannsvej 20, 9800 Hj… 397.    17195 Drivi…</span></span>
+<span id="cb452-29"><a href="sec-maps.html#cb452-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9       3     5 Slotsarkaderne 26, 3400 Hiller… Nyholmvej 20, 7500 Holstebro,… 375.    12252 Drivi…</span></span>
+<span id="cb452-30"><a href="sec-maps.html#cb452-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10       4     5 A.F Heidemannsvej 20, 9800 Hjø… Nyholmvej 20, 7500 Holstebro,… 190.     8302 Drivi…</span></span></code></pre></div>
 <p>Note in general results from the API services are based on a set of assumptions and hence the results from different services may not be the same. You may use the different services to check if the distances are correct, by checking the results from different services:</p>
 <div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="sec-maps.html#cb453-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Difference in minutes</span></span>
 <span id="cb453-2"><a href="sec-maps.html#cb453-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span>(<span class="fu">as_dist_matrix</span>(datDistGoo, <span class="st">&quot;seconds&quot;</span>) <span class="sc">-</span> <span class="fu">as_dist_matrix</span>(datDistBing, <span class="st">&quot;seconds&quot;</span>))<span class="sc">/</span><span class="dv">60</span></span>
-<span id="cb453-3"><a href="sec-maps.html#cb453-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      [,1]  [,2] [,3]  [,4]  [,5]</span></span>
-<span id="cb453-4"><a href="sec-maps.html#cb453-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]  0.0  5.80 20.4 19.00 10.83</span></span>
-<span id="cb453-5"><a href="sec-maps.html#cb453-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]  5.8  0.00 23.0  1.22  2.57</span></span>
-<span id="cb453-6"><a href="sec-maps.html#cb453-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 20.4 23.03  0.0  1.60 23.47</span></span>
-<span id="cb453-7"><a href="sec-maps.html#cb453-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 19.0  1.22  1.6  0.00  7.08</span></span>
-<span id="cb453-8"><a href="sec-maps.html#cb453-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 10.8  2.57 23.5  7.08  0.00</span></span>
+<span id="cb453-3"><a href="sec-maps.html#cb453-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       [,1]  [,2] [,3]  [,4]  [,5]</span></span>
+<span id="cb453-4"><a href="sec-maps.html#cb453-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]  0.00  5.78 19.9 19.13 11.03</span></span>
+<span id="cb453-5"><a href="sec-maps.html#cb453-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]  5.78  0.00 22.5  1.43  2.55</span></span>
+<span id="cb453-6"><a href="sec-maps.html#cb453-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 19.92 22.52  0.0  1.80 22.97</span></span>
+<span id="cb453-7"><a href="sec-maps.html#cb453-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 19.13  1.43  1.8  0.00  7.05</span></span>
+<span id="cb453-8"><a href="sec-maps.html#cb453-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 11.03  2.55 23.0  7.05  0.00</span></span>
 <span id="cb453-9"><a href="sec-maps.html#cb453-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Km from 1 to 3</span></span>
 <span id="cb453-10"><a href="sec-maps.html#cb453-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mapdist</span>(<span class="at">from =</span> <span class="st">&quot;Stormgade 157, 6715 Esbjerg, Denmark&quot;</span>, </span>
 <span id="cb453-11"><a href="sec-maps.html#cb453-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">to =</span> <span class="st">&quot;Slotsarkaderne 26, 3400 Hillerød, Denmark&quot;</span>)</span>
 <span id="cb453-12"><a href="sec-maps.html#cb453-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 9</span></span>
 <span id="cb453-13"><a href="sec-maps.html#cb453-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   from                    to                              m    km miles seconds minutes hours mode  </span></span>
 <span id="cb453-14"><a href="sec-maps.html#cb453-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                   &lt;chr&gt;                       &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; </span></span>
-<span id="cb453-15"><a href="sec-maps.html#cb453-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Es… Slotsarkaderne 26, 3400 H… 321103  321.  200.   11750    196.  3.26 drivi…</span></span>
+<span id="cb453-15"><a href="sec-maps.html#cb453-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Es… Slotsarkaderne 26, 3400 H… 321103  321.  200.   11751    196.  3.26 drivi…</span></span>
 <span id="cb453-16"><a href="sec-maps.html#cb453-16" aria-hidden="true" tabindex="-1"></a><span class="fu">bing_mapdist</span>(<span class="at">from =</span> <span class="st">&quot;Stormgade 157, 6715 Esbjerg, Denmark&quot;</span>, </span>
 <span id="cb453-17"><a href="sec-maps.html#cb453-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">to =</span> <span class="st">&quot;Slotsarkaderne 26, 3400 Hillerød, Denmark&quot;</span>)</span>
 <span id="cb453-18"><a href="sec-maps.html#cb453-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 5</span></span>
 <span id="cb453-19"><a href="sec-maps.html#cb453-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   from                                 to                                          km seconds mode  </span></span>
-<span id="cb453-20"><a href="sec-maps.html#cb453-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                                &lt;chr&gt;                                    &lt;int&gt;   &lt;int&gt; &lt;chr&gt; </span></span>
-<span id="cb453-21"><a href="sec-maps.html#cb453-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjerg, Denmark Slotsarkaderne 26, 3400 Hillerød, Denma…   322   10527 Drivi…</span></span></code></pre></div>
+<span id="cb453-20"><a href="sec-maps.html#cb453-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                                &lt;chr&gt;                                    &lt;dbl&gt;   &lt;int&gt; &lt;chr&gt; </span></span>
+<span id="cb453-21"><a href="sec-maps.html#cb453-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjerg, Denmark Slotsarkaderne 26, 3400 Hillerød, Denma…  322.   10556 Drivi…</span></span></code></pre></div>
 </div>
 </div>
 <div id="geocoding-and-reverse-geocoding" class="section level2" number="11.4">
