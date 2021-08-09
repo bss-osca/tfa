@@ -225,7 +225,7 @@ filter(gapminder, year == 1962) %>%
   geom_point() 
 ``` 
 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 filter(gapminder, year == ___) %>%
   ggplot( aes(___, ___, color = ___)) +
   geom_point() 
@@ -242,7 +242,7 @@ filter(gapminder, year %in% c(1962, 2012)) %>%
   facet_grid(cols = vars(year))
 ``` 
 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 filter(gapminder, ___ %in% c(1962, 2012)) %>%
   ggplot(aes(___, ___, col = ___)) +
   geom_point() +
@@ -263,7 +263,7 @@ gapminder %>%
   facet_wrap(vars(year)) 
 ``` 
 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 gapminder %>% 
   filter(year %in% ___ & continent %in% ___) %>%
   ggplot(aes(___)) +
@@ -297,7 +297,7 @@ gapminder %>%
   ggplot(aes(fertility, life_expectancy, col = year)) +
   geom_point()  
 ``` 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 gapminder %>% 
   filter(___) %>%
   ggplot(aes(___)) +
@@ -342,7 +342,7 @@ gapminder %>% filter(country %in% countries) %>%
   geom_line() 
 ``` 
 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 gapminder %>% filter(country %in% ___) %>% 
   ggplot(aes(year, fertility, col = ___)) +
   geom_line()
@@ -478,7 +478,7 @@ gapminder %>%
   scale_x_continuous(trans = "log2")
 ``` 
 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 gapminder %>% 
   filter(year == past_year & !is.na(gdp)) %>%
   ggplot(aes(dollars_per_day)) + 
@@ -501,7 +501,7 @@ gapminder %>%
   geom_point()
 ``` 
 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 gapminder %>% 
   filter(year == past_year & !is.na(gdp)) %>%
   ggplot(aes(group, dollars_per_day)) +
@@ -543,7 +543,7 @@ gapminder %>%
   facet_grid(year ~ group)
 ``` 
 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 gapminder %>% 
   filter(year %in% ___ & country %in% ___) %>%
   ggplot(aes(dollars_per_day)) +
@@ -564,7 +564,7 @@ gapminder %>%
   scale_y_continuous(trans = "log2") 
 ``` 
 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 gapminder %>% 
   filter(year %in% years & country %in% country_list) %>%
   mutate(year = factor(___)) %>%
@@ -654,7 +654,7 @@ gapminder %>%
   facet_grid(cols = vars(year))
 ``` 
 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 gapminder %>% 
   ggplot(aes(dollars_per_day, fill = group, weight = ___)) +
   scale_x_continuous(trans = "log2", limit = c(0.125, 300)) + 
@@ -687,7 +687,7 @@ skim(profit)
 profit <- profit %>%
   mutate(across(where(is.character), as.factor))
 ``` 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 profit <- profit %>%
   mutate(across(where(is.___), as.___))
 ``` 
@@ -702,7 +702,7 @@ profit %>%
   ggplot(aes(x = `Product Line`, y = Profit)) +
   geom_col()
 ``` 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 profit %>% 
   group_by(___) %>% 
   summarise(Profit = sum(___)) %>% 
@@ -730,14 +730,14 @@ profit %>%
   geom_col() + 
   labs(title = "Total profit for each product line") 
 ``` 
-```{r, hint=TRUE, title="Hint 2"}
+```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
 profit %>% 
   group_by(`Product Line`) %>% 
   summarise(Profit = sum(Profit)) %>% 
   ggplot(aes(x = reorder(___), y = Profit)) +
   geom_col()
 ``` 
-```{r, hint=TRUE, title="Hint 1", text="See the last section on this [webpage](https://sebastiansauer.github.io/ordering-bars/)."}
+```{r, hint=TRUE, eval=FALSE, title="Hint 1", text="See the last section on this [webpage](https://sebastiansauer.github.io/ordering-bars/)."}
 ``` 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 c) Plot profit for each product line where product line is reordered based on total profit.
@@ -751,7 +751,7 @@ profit %>%
   geom_col() + 
   labs(title = "Total profit for each product line") 
 ``` 
-```{r, hint=TRUE, text="Try to google 'ggplot add title'."}
+```{r, hint=TRUE, eval=FALSE, text="Try to google 'ggplot add title'."}
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 d) Add a title to the plot using `labs`.
@@ -767,7 +767,7 @@ profit %>%
   xlab("Product line") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ``` 
-```{r, hint=TRUE, text="Try to google 'ggplot2 rotate axis labels'."}
+```{r, hint=TRUE, eval=FALSE, text="Try to google 'ggplot2 rotate axis labels'."}
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 e) Rotate the x-axis labels 90 degrees.
@@ -780,7 +780,7 @@ dat <- profit %>%
 dat %>% slice_min(Profit)
 dat %>% slice_max(Profit)
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 dat <- profit %>% 
   group_by(`Product Line`) %>% 
   summarise(Profit = sum(Profit)) 
@@ -803,7 +803,7 @@ profit %>%
   xlab("Product Line") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ``` 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 profit %>% 
   group_by(`Product Line`, ___) %>% 
   summarise(Profit = sum(Profit)) %>% 
@@ -825,7 +825,7 @@ profit %>%
   labs(title = "Profit for each product line") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ``` 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 profit %>% 
   ggplot(aes(y = ___, x = ___)) +
   geom_boxplot() +
@@ -845,7 +845,7 @@ profit %>%
   labs(title = "Total profit for each customer") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ``` 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 profit %>% 
   group_by(___) %>% 
   summarise(Profit = sum(___)) %>% 
@@ -867,7 +867,7 @@ profit %>%
   labs(title = "Mean profit for each customer") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ``` 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 profit %>% 
   group_by(`Customer ID`) %>% 
   summarise(Profit = ___) %>% 
@@ -890,7 +890,7 @@ profit %>%
   xlab("Customer") + ylab("Transactions") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ``` 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 profit %>% 
   group_by(`Customer ID`) %>% 
   summarise(ctr = ___, `Total Profit` = sum(___)) %>% 
@@ -911,7 +911,7 @@ profit %>%
   labs(title = "Profit for each customer") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 profit %>% 
   ggplot(aes(y = ___, x = ___)) +
   geom_boxplot() +
@@ -989,7 +989,7 @@ dat %>%
     y = "cases"
   )
 ```
-```{r, hint=TRUE, title="Hint 2"}
+```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
 dat %>% 
   group_by(date, type) %>% 
   summarise(tot_cases = sum(tot_cases)) %>% print() %>% 
@@ -1001,7 +1001,7 @@ dat %>%
     y = "___"
   )
 ```
-```{r, hint=TRUE, title="Hint 1", text="Note you must aggegrate the numbers for the countries."}
+```{r, hint=TRUE, eval=FALSE, title="Hint 1", text="Note you must aggegrate the numbers for the countries."}
 dat %>% 
   group_by(date, ___) %>% 
   summarise(tot_cases = sum(___)) 
@@ -1038,7 +1038,7 @@ dat %>%
     title = "Cumulative deaths from COVID-19, selected countries"
   )
 ```
-```{r, hint=TRUE, title="Hint 2"}
+```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
 dat %>% 
   filter(type == "death", country %in% countries) %>% 
   ggplot(aes(x = ___, 
@@ -1052,7 +1052,7 @@ dat %>%
     title = "Cumulative deaths from COVID-19, selected countries"
   )
 ```
-```{r, hint=TRUE, title="Hint 1", text="First you have to filter type and country"}
+```{r, hint=TRUE, eval=FALSE, title="Hint 1", text="First you have to filter type and country"}
 dat %>% 
   filter(type == "___", country %in% ___) %>% 
 ```
@@ -1095,7 +1095,7 @@ dat %>%
   geom_col(position = position_dodge2())
 
 ```
-```{r, hint=TRUE, title="Hint 2"}
+```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
 dat %>% 
   filter(date >= today() - days(21), type == ___) %>% 
   ggplot(aes(x = date, y = ___, fill = ___)) +
@@ -1115,7 +1115,7 @@ dat %>%
   ggplot(aes(x = date, y = tot_cases_pop)) +
   geom_col()
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 dat %>% 
   filter(date >= ___, country == ___, type == ___) %>% 
   ggplot(aes(x = date, y = tot_cases_pop)) +
@@ -1149,7 +1149,7 @@ Answer the following questions using a table with numbers and try to visualize i
 
 
 
-```{r, hint=TRUE, text="Use the `case_when()` function."}
+```{r, hint=TRUE, eval=FALSE, text="Use the `case_when()` function."}
 ```
 
 4) Create a new variable called `age_group` and group the ages into the 
@@ -1157,14 +1157,14 @@ following categories: "18 and under", "19 - 25", "26 - 35", "36 - 50", "51 and o
 
 
 
-```{r, hint=TRUE, text="You may need to consider quantity of purchases."}
+```{r, hint=TRUE, eval=FALSE, text="You may need to consider quantity of purchases."}
 ```
 
 5) Which age group has purchased the highest number of Lego sets. 
 
 
 
-```{r, hint=TRUE, text="*Hint:* You will need to consider quantity of purchases as well as price of Lego sets."}
+```{r, hint=TRUE, eval=FALSE, text="*Hint:* You will need to consider quantity of purchases as well as price of Lego sets."}
 ```
 
 6) Which age group has spent the most money on Legos?

@@ -111,7 +111,7 @@ goo_calc_distances <- function(address, mode = "driving", symmetric = TRUE) {
    datDist <- datDist %>% filter(id_from != id_to)
    if (symmetric) datDist <- datDist %>% filter(id_from < id_to)
    datDist <- datDist %>% mutate(from = address[id_from], to = address[id_to])
-   res <- mapdist(datDist %>% select(from, to), mode = mode)
+   res <- mapdist(from = datDist %>% pull(from), to = datDist %>% pull(to), mode = mode)
    return(left_join(datDist, res, by = c("from", "to")))
 }
 datDistGoo <- goo_calc_distances(dat$Address)

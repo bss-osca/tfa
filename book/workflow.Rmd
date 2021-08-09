@@ -8,6 +8,16 @@ editor_options:
 
 # R basics and workflows {#sec-r-basics}
 
+## Learning path diagramme {-}
+
+```{r, echo=FALSE, out.width="100%", fig.asp=NA}
+g <- create_learning_path(
+   url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
+   sheet = "workflow", 
+   x_legend = 6.6, y_legend = 5.15)
+render_graph(g)
+```
+
 ## Learning outcomes {#lo-r-basics}
 
 By the end of this module, you are expected to have:
@@ -18,6 +28,7 @@ By the end of this module, you are expected to have:
 * Solved your first exercises.
 
 The learning outcomes relate to the [overall learning goals](#lg-course) number 2, 5, 6, 8, 11, 13 and 15 of the course.
+
 
 
 ## Working with R at the command line in RStudio
@@ -422,7 +433,7 @@ selects the columns related to cylinders, gears, horse power and miles, and then
 mtcars %>% 
    select(mpg, hp, am, gear)
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 mtcars %>% 
    select(___, ___, ___, ___)
 ```
@@ -435,7 +446,7 @@ mtcars %>%
    select(mpg, hp, am, gear) %>% 
    filter(mpg < 20, gear == 4)
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 mtcars %>% 
    select(mpg, hp, am, gear) %>% 
    filter(___, ___)
@@ -450,7 +461,7 @@ mtcars %>%
    select(mpg, hp, am, gear) %>% 
    filter(mpg < 20 | gear == 4)
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 mtcars %>% 
    select(mpg, hp, am, gear) %>% 
    filter(___ | ___)
@@ -464,7 +475,7 @@ mtcars %>%
    filter(mpg < 20, gear == 4) %>% 
    select(wt, vs) 
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 mtcars %>% 
    filter(mpg < 20, gear == 4) %>% 
    select(___, ___) 
@@ -480,7 +491,7 @@ dat <- filter(dat, mpg < 20, gear == 4)
 dat <- select(dat, wt, vs) 
 dat
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 dat <- mtcars 
 dat <- filter(dat, ___) 
 dat <- select(dat, ___) 
@@ -518,7 +529,7 @@ read_file("test1.txt")
 ```{r, solution=TRUE}
 read_file("subfolder/test2.txt")
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 read_file("subfolder/___")
 ```
 
@@ -535,7 +546,7 @@ setwd("subfolder")  # done in Q3
 read_file("../test1.txt")
 read_file("test2.txt")
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 setwd("subfolder")  # done in Q3
 read_file("../___")
 read_file("___")
@@ -616,7 +627,7 @@ sd(v)
 ```{r, solution=TRUE}
 v[c(1, 6, 4, 15)]
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 v[c(1, ___, ___, ___)]
 ```
 
@@ -633,7 +644,7 @@ v[v > 50]
 ```{r, solution=TRUE}
 v[v > 75 | v < 25]
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 v[___ | ___]
 ```
 
@@ -650,7 +661,7 @@ v[v == 43]
 ```{r, solution=TRUE}
 v[is.na(v)]
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 v[is.na(___)]
 ```
 
@@ -660,7 +671,7 @@ v[is.na(___)]
 ```{r, solution=TRUE}
 which(v > 75 | v < 25)
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 which(___ | ___)
 ```
 
@@ -688,7 +699,7 @@ m3 <- matrix(c(37, 8, 51, NA, 50, 97, 86, NA, 84, 46, 17, 62L), ncol = 3)
 rowSums(m1, na.rm = T)
 colSums(m2, na.rm = T)
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 rowSums(___, na.rm = ___)
 colSums(___, na.rm = ___)
 ```
@@ -699,7 +710,7 @@ colSums(___, na.rm = ___)
 ```{r, solution=TRUE}
 rbind(m1, c(1, 2, 3, 4))
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 rbind(___, ___)
 ```
 
@@ -709,7 +720,7 @@ rbind(___, ___)
 ```{r, solution=TRUE}
 rbind(c(1, 2, 3, 4), m1)
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 rbind(___, ___)
 ```
 
@@ -719,7 +730,7 @@ rbind(___, ___)
 ```{r, solution=TRUE}
 cbind(m3, c(1, 2, 3, 4))
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 cbind(___, ___)
 ```
 
@@ -736,7 +747,7 @@ m1[2,4]
 ```{r, solution=TRUE}
 m1[2:3,1:2]
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 m1[2:3,___]
 ```
 
@@ -746,7 +757,7 @@ m1[2:3,___]
 ```{r, solution=TRUE}
 m1[3, c(1,3,4)]
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 m1[3,___]
 ```
 
@@ -763,7 +774,7 @@ m1[3,]
 ```{r, solution=TRUE}
 m2[is.na(m2)]
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 m2[is.na(___)]
 ```
 
@@ -800,7 +811,7 @@ mtcars[,4]
 mtcars[,"hp"]
 mtcars$hp
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 mtcars[,___]
 mtcars[,"___"]
 mtcars$___
@@ -815,7 +826,7 @@ mtcars <- rbind(mtcars,
    c(34, 3, 87, 112, 4.5, 1.515, 167, 1, 1, 5, 3))
 rownames(mtcars)[33] <- "Phantom XE"
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 mtcars <- rbind(mtcars, ___)
 rownames(mtcars)[___] <- "Phantom XE"
 ```
@@ -831,7 +842,7 @@ col <- c(NA, "green", "blue", "red", NA, "blue", "green", "blue", "red", "red",
 mtcars <- cbind(mtcars, col)
 class(mtcars$col)
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 col <- c(NA, "green", ......)
 mtcars <- cbind(mtcars, ___)
 class(mtcars$___)
@@ -853,7 +864,7 @@ class(mtcars$___)
 ```{r, solution=TRUE}
 mtcars[mtcars$vs == 0,]
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 mtcars[mtcars$___ == 0,]
 ```
 
@@ -888,7 +899,7 @@ y
 class(x)
 class(y)
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 class(___)
 class(___)
 ```
@@ -900,7 +911,7 @@ class(___)
 names(lst) <- c("age", "name", "male", "weight")
 lst
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 names(lst) <- c("age", ___, ___, ___)
 lst
 ```
@@ -928,7 +939,7 @@ lst
 ```{r, solution=TRUE}
 lst$name$last
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 lst$name$___
 ```
 
@@ -970,7 +981,7 @@ str_detect(str2, "BA")  # detect a pattern
 str_detect(str1, "Business")
 str_detect(str2, "Business")
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 str_detect(str1, ___)
 str_detect(___, ___)
 ```
@@ -982,7 +993,7 @@ str_detect(___, ___)
 str5 <- str_replace(str2, "BA", "Business Analytics") 
 str5
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 str5 <- str_replace(str2, ___, ___) 
 ```
 
@@ -993,7 +1004,7 @@ str5 <- str_replace(str2, ___, ___)
 str5 <- str_remove(str5, " or as a set of methodologies that enable the creation of business value")
 str5
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 str5 <- str_remove(str5, ___)
 ```
 
@@ -1004,7 +1015,7 @@ str5 <- str_remove(str5, ___)
 str5 <- str_c(str5, "This course will focus on programming and descriptive analytics.", sep= " ")
 str5
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 str5 <- str_c(str5, ___, sep= ___)
 ```
 
@@ -1015,7 +1026,7 @@ str5 <- str_c(str5, ___, sep= ___)
 str5 <- str_replace(str5, "analytics", "business analytics")
 str5
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 str5 <- str_replace(str5, ___, ___)
 ```
 
@@ -1028,7 +1039,7 @@ str_replace(str2, "BA", "Business Analytics") %>%
    str_c("This course will focus on programming and descriptive analytics.", sep= " ") %>% 
    str_replace("analytics", "business analytics")
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 str_replace(str2, ___, ___) %>% 
    str_remove(___) %>% 
    str_c(___) %>% 

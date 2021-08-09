@@ -245,7 +245,7 @@ gapminder %>%
   pull(continent) %>% 
   as.character()
 ```   
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE, eval=FALSE}
 gapminder %>% 
   distinct(___) %>% 
   pull(___) %>% 
@@ -308,7 +308,7 @@ gapminder %>%
    # print(n=Inf) %>%   # if want to see the intermediate results
    select(continent, country, gdpPercap) # %>% print(n=Inf)
 ```   
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE, eval=FALSE}
 gapminder %>% 
    filter((gdpPercap > ___ & continent == ___) | (___)) %>% 
    # print(n=Inf) %>%   # if want to see the intermediate results
@@ -340,11 +340,11 @@ mean_dk <- gapminder %>%
 dat <- gapminder %>% 
   mutate(gdpPercapRel = gdpPercap/mean_dk)
 ```  
-```{r, title = "Hint 2", hint=TRUE}
+```{r, title = "Hint 2", hint=TRUE, eval=FALSE, eval=FALSE}
 dat <- gapminder %>% 
   mutate(gdpPercapRel = ___)
 ``` 
-```{r, title = "Hint 1", hint=TRUE, text = "First you must calculate the mean of Danish `gdpPercap` and next use that to add a new column `gdpPercapRel`."}
+```{r, title = "Hint 1", hint=TRUE, eval=FALSE, eval=FALSE, text = "First you must calculate the mean of Danish `gdpPercap` and next use that to add a new column `gdpPercapRel`."}
 mean_dk <- gapminder %>% 
   filter(country == "Denmark") %>% 
   pull(___) %>% 
@@ -460,7 +460,7 @@ gapminder %>%
   mutate(lifeExp_gain = lifeExp - first(lifeExp)) %>%       
   filter(year < 1963)                   # just for nice printing
 ``` 
-```{r, hint=TRUE, text = "The `first` function may be helpful to extract the first value from a vector in each group."}
+```{r, hint=TRUE, eval=FALSE, eval=FALSE, text = "The `first` function may be helpful to extract the first value from a vector in each group."}
 gapminder %>% 
   group_by(country) %>%                 # group by country
   select(country, year, lifeExp) %>%    # select relevant columns
@@ -483,7 +483,7 @@ gapminder %>%
   slice_min(worst_le_delta) %>%
   arrange(worst_le_delta)
 ``` 
-```{r, hint=TRUE, text = "The `lag` function is useful to select the value in the previous row. Positive values of `le_delta` means lifeExp went up, negative means it went down. Break the code into pieces, starting at the top, and inspect the intermediate results. These commands are built up gradually, with lots of errors and refinements along the way."}
+```{r, hint=TRUE, eval=FALSE, eval=FALSE, text = "The `lag` function is useful to select the value in the previous row. Positive values of `le_delta` means lifeExp went up, negative means it went down. Break the code into pieces, starting at the top, and inspect the intermediate results. These commands are built up gradually, with lots of errors and refinements along the way."}
 gapminder %>%
   select(country, year, continent, lifeExp) %>%             # select relevant columns
   group_by(continent, country) %>%                          # group
@@ -590,7 +590,7 @@ babynames %>%
   select(name, n) %>% 
   arrange(desc(n)) 
 ```  
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 babynames %>% 
   filter(___) %>% 
   select(name, n) %>% 
@@ -615,7 +615,7 @@ babynames %>%
   filter(name == "Khaleesi") %>% 
   summarise(total = sum(n), first = min(year))
 ```  
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 babynames ___ 
   filter(____) ___
   ____(total = ___, first = ___)
@@ -630,7 +630,7 @@ babynames %>%
   summarize(total = sum(n)) %>% 
   arrange(desc(total))
 ```  
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 babynames %>%
   _______(name, sex) %>% 
   _______(total = _____(n)) %>% 
@@ -655,7 +655,7 @@ babynames %>%
   mutate(rank = min_rank(desc(n))) %>% 
   arrange(year, sex, desc(prop))
 ```  
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 babynames %>% 
   group_by(___, ___) %>% 
   ___(rank = ___(desc(___))) %>% 
@@ -765,7 +765,7 @@ profit <- profit %>%
 profit %>% distinct(Quarter)
 
 ``` 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 profit <- profit %>%  
   mutate(Quarter = str_remove(___, "q") %>% str_remove(___) %>% as.numeric())
 profit %>% distinct(Quarter)
@@ -844,7 +844,7 @@ profit <- profit %>%
   mutate(across(Revenue:Profit, ~str_remove(.x, fixed("$ ")) %>% as.numeric() )) 
 profit
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 profit <- read_csv(path) %>% 
   mutate(across(___:___, ~str_replace_all(.x, c("unknown" = "?", "Unknown" = "?")) )) %>% 
   mutate(across(___:___, ~na_if(.x, "?") )) %>% 
@@ -875,7 +875,7 @@ profit <- profit %>%
   mutate(Profit = if_else(Diff > 0 & Diff <= 1, Profit_calc, Profit, missing = Profit) ) 
 profit %>% filter(Diff == 1, is.na(Profit_calc))  # check
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 profit <- profit %>% 
   mutate(Profit_calc = Revenue - `Product Cost` - `Customer Service Cost`, Diff = abs(___)) %>%  
   mutate(Profit = if_else(Diff > 0 & Diff <= 1, ___, Profit, Profit) ) 
@@ -907,7 +907,7 @@ profit %>%
   mutate(c_na = sum(is.na(c_across(Revenue:Profit)))) %>% 
   filter(c_na > 0)
 ```
-```{r, hint=TRUE, text = "You can check you calculations using your code from Question 5.", title = "Hint 2"}
+```{r, hint=TRUE, eval=FALSE, text = "You can check you calculations using your code from Question 5.", title = "Hint 2"}
 profit <- profit %>% 
   rowwise() %>% 
   mutate(c_na = sum(is.na(c_across(Revenue:Profit)))) %>% 
@@ -916,7 +916,7 @@ profit <- profit %>%
          `Customer Service Cost` = if_else(is.na(___) & c_na == 1, ___, `Customer Service Cost`)) %>% 
   select(Quarter:Profit)
 ```
-```{r, hint=TRUE, text = "Recall that profit = revenue - product costs - customer service cost; that is, if a single value of these are missing then the value can be calculated using the other ones.", title = "Hint 1"}
+```{r, hint=TRUE, eval=FALSE, text = "Recall that profit = revenue - product costs - customer service cost; that is, if a single value of these are missing then the value can be calculated using the other ones.", title = "Hint 1"}
 # To find the number of missing values (`NA`) you can create a new column 
 # counting the number of missing values:
 profit <- profit %>% 
@@ -949,7 +949,7 @@ profit %>%
   summarise(Profit = sum(Profit)) %>% 
   slice_max(Profit, n = 2)
 ```
-```{r, hint=TRUE, message=FALSE}
+```{r, hint=TRUE, eval=FALSE, message=FALSE}
 profit %>% 
   group_by(___, `Customer ID`) %>% 
   summarise(Profit = ___) %>% 
@@ -996,7 +996,7 @@ max_profit <- map_df(
   )
 max_profit 
 ```
-```{r, hint=TRUE, message=FALSE}
+```{r, hint=TRUE, eval=FALSE, message=FALSE}
 profit %>% 
   group_by(___) %>% 
   summarise(Profit = ___) %>% 
@@ -1043,7 +1043,7 @@ profit %>%
   summarise(cost = sum(`Product Cost`)) %>% 
   slice_min(cost)
 ```
-```{r, hint=TRUE , message=FALSE}
+```{r, hint=TRUE, eval=FALSE , message=FALSE}
 profit %>% 
   group_by(`Product Line`) %>% 
   summarise(cost = sum(___)) %>% 
@@ -1069,7 +1069,7 @@ profit %>%
             cust_cost_new = sum(cust_cost_new), profit_new = sum(profit_new),
             profit_decrease = profit_new - profit)
 ```
-```{r, hint=TRUE, message=FALSE}
+```{r, hint=TRUE, eval=FALSE, message=FALSE}
 profit %>%
   mutate(cust_cost_new = ___ * 1.05, 
          profit_new = ___) %>% 
@@ -1126,7 +1126,7 @@ fisheries <- fisheries %>%
   print()
 fisheries %>% filter(is.na(continent))   # same result - countries not belonging to a continent
 ```
-```{r, hint=TRUE, title="Hint 2"}
+```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
 fisheries %>% 
   anti_join(___)      # countries not belonging to a continent
 fisheries <- fisheries %>% 
@@ -1136,7 +1136,7 @@ fisheries <- fisheries %>%
 fisheries %>% 
   filter(is.na(___))   # same result - countries not belonging to a continent
 ```
-```{r, hint=TRUE, title="Hint 1", text="You could use `anti_join` to find missing values. Use `left_join` to join the datasets."}
+```{r, hint=TRUE, eval=FALSE, title="Hint 1", text="You could use `anti_join` to find missing values. Use `left_join` to join the datasets."}
 ```
 
 1) Use a mutating join to add a continent column to the `fisheries` dataset. Are there some countries which do not belong to a continent? 
@@ -1147,7 +1147,7 @@ fisheries %>%
 fisheries <- fisheries %>%
   filter(total > 100000)
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 fisheries <- ___ %>%
   filter(___)
 ```
@@ -1168,7 +1168,7 @@ fisheries <- fisheries %>%
   )
 fisheries %>% filter(is.na(continent))
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 fisheries %>% filter(is.na(continent))
 fisheries <- ___ %>%
   mutate(continent = case_when(
@@ -1189,7 +1189,7 @@ fisheries %>% filter(is.na(continent))
 fisheries <- fisheries %>% 
   mutate(aquaculture_perc = aquaculture / total)
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 fisheries <- ___ %>% 
   mutate(___)
 ```
@@ -1204,7 +1204,7 @@ fisheries %>%
   group_by(continent) %>%                      
   summarize(mean_ap = mean(aquaculture_perc))           
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 fisheries %>%                  # start with the fisheries data frame
   ___ %>%                      # group by continent
   ___(mean_ap = ___)           # calculate mean aquaculture
@@ -1220,7 +1220,7 @@ fisheries_summary_continent <- fisheries %>%
   summarize(mean_ap = mean(aquaculture_perc), min_ap = min(aquaculture_perc), max_ap = max(aquaculture_perc)) %>% 
   print()
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 fisheries_summary_continent <- fisheries %>%    # start with the fisheries data frame
   ___ %>%                                       # group by continent
   ___(mean_ap = ___, min_ap = ___, ___)         # calculate mean aquaculture
@@ -1235,7 +1235,7 @@ aquaculture percentage for continents in the fisheries data and store the summar
 fisheries_summary_continent %>%      
   arrange(desc(mean_ap))                             
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 fisheries_summary_continent %>%      # start with the fisheries_summary_continent data frame
   ___                                # order in descending order of mean_ap
 ```

@@ -4,8 +4,13 @@ library(tidyverse)
 library(bsplus)
 library(htmltools)
 library(knitr)
+# To install igraph on OSX you may have to run 'brew unlink suite-sparse', install igraph and finally 'brew link suite-sparse' to re-enable.
+library(igraph)
+library(DiagrammeR)
+library(googlesheets4)
 library(conflicted)
 conflict_prefer("filter", "dplyr")
+conflict_prefer("select", "dplyr")
 conflict_prefer("lag", "dplyr")
 
 knitr::opts_chunk$set(
@@ -199,4 +204,85 @@ addSolution <- function(code = "", text = "", title = "Solution", evalCode = TRU
   tagList(bs_modal(id = id, title = title, body = includeMarkdown("tmp.md"), size = "large"),
           bs_button(title, style="float:right", button_size = "extra-small") %>%
             bs_attach_modal(id_modal = id))
+}
+
+
+
+add_graph_legend <- function(graph, x, y) {
+  graph %>%
+    add_node(
+      label = c("", "Color:", "mandatory", "alternative", "extra", "Shape:", "non-interactive", "interactive"),
+      node_data =
+        node_aes(x = c(x+2.4, x-0.23, x, x+1, x+2, x+3.5-0.3, x+3.5, x+4.75),
+                 y = c(y-0.34, y, rep(y-0.4, 3), y, rep(y-0.4, 2)),
+                 fontcolor = c("white", "black", rep("white", 3), "black", "white", "white"),
+                 fontsize = 9,
+                 shape = c("rect", "none", rep("rect", 3), "none", "rect", "egg"),
+                 fillcolor = c(NA, "none", "DarkSeaGreen4", "DarkOrange4", "PeachPuff3", "none", rep("Grey40", 2)),
+                 width = c(6, rep(0.8, 4), rep(1,3)),
+                 height = c(1, 0, NA, NA, NA, 0, NA, NA),
+                 penwidth = c(0.5, 0, 2, 2, 2, 0, 2, 2),
+                 tooltip = c("", "",
+                             "Mandatory syllabus.",
+                             "Alternative syllabus if you prefer another learning style.",
+                             "Extra learning if you are interested (not part of syllabus).",
+                             "",
+                             "Non-interactive learning content (e.g. reading).",
+                             "Interactive learning content (tutorial, exercises etc.).")
+        ))
+}
+
+create_learning_path <- function(url, sheet, x_legend = 0, y_legend = 0) {
+  # gs4_deauth()
+  dat <- read_sheet(url, sheet = sheet, col_types = "iccccccdd")
+  dat <- dat %>%
+    mutate(link_to = map(link_to, ~rlang::parse_quo(str_c("c(", .x, ")"), env = baseenv()))) %>%
+    mutate(link_to = map(link_to, ~rlang::eval_tidy(.x))) %>%
+    mutate(link_to = map(link_to, ~tibble(to = .x)))
+  nodes <- dat %>%
+    select(-link_to)
+  edges <- dat %>%
+    select(from = id, to = link_to) %>%
+    unnest(cols = to) %>%
+    filter(!is.na(to))
+  edges <-
+    create_edge_df(
+      from = edges$from,
+      to =   edges$to)
+  graph <-
+    create_graph(nodes_df = nodes, edges_df = edges) %>%
+    mutate_node_attrs(
+      style = "filled",
+      fixedsize = FALSE,
+      fontsize = 11,
+      fontcolor = "white",
+      penwidth = 2,
+      fontname = "Helvetica-bold",
+      shape = case_when(
+        type == "reading" ~ "rect",
+        type == "tutorial" ~ "egg",
+        type == "exercises" ~ "egg",
+        type == "recap" ~ "rect",
+        type == "video" ~ "rect",
+        TRUE ~ "oval"),
+      emo = case_when(
+        type == "reading" ~ "📖 ",
+        type == "recap" ~ "📖 ",
+        type == "tutorial" ~ "💡 ",
+        type == "exercises" ~ "💻 ",
+        type == "video" ~ "🎬 ",
+        TRUE ~ ""),
+      label = str_c(emo, "", label),
+      fillcolor = case_when(
+        type1 == "alternative" ~ "DarkOrange4",
+        type1 == "mandatory" ~ "DarkSeaGreen4",
+        type1 == "extra" ~ "PeachPuff3",
+        TRUE ~ "#F4A261")
+    ) %>%
+    mutate_edge_attrs(
+      color = "black",
+      alpha = 0.5,
+      arrowhead = "vee") %>%
+    add_graph_legend(x_legend, y_legend)
+  return(graph)
 }

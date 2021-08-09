@@ -378,7 +378,7 @@ info <- function(tab_id) {
 }
 info("FLYV41")
 ```
-```{r, hint=TRUE, title = "Hint 2"}
+```{r, hint=TRUE, eval=FALSE, title = "Hint 2"}
 info <- function(tab_id) {
    url <- str_c(___)
    lst <- read_json(___) 
@@ -386,7 +386,7 @@ info <- function(tab_id) {
 }
 info("FLYV41")
 ```
-```{r, hint=TRUE, text = "You can modify the code in Question 3 to return only parts of the list.", title = "Hint 1"}
+```{r, hint=TRUE, eval=FALSE, text = "You can modify the code in Question 3 to return only parts of the list.", title = "Hint 1"}
 ```
    
    4) Create a function `info(tab_id)` that returns a list with components `description`, `unit` and `variables` from the information for a data set with table id `tab_id`. 
@@ -416,7 +416,7 @@ get_data("FLYV41", 3)
 get_data("FLYV41", 1:2)
 get_data("FLYV41")
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 get_data <- function(tab_id, col_id = NULL) {
    url <- ___
    lst <- ___
@@ -462,7 +462,7 @@ gs <- gs4_create("test")
 write_sheet(dat, ss = gs, sheet = "FOLK1A")
 gs4_browse(gs)
 ``` 
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 library(openxlsx)
 write.xlsx(___) 
 
@@ -528,7 +528,7 @@ write_lines('   <"Anne", 11>', file, append = TRUE)
 write_lines('};', file, append = TRUE)
 cat(read_file("test.dat"))
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 file = "test.dat"
 write_lines("nurses = {", file)
 write_lines(___, ___, append = TRUE)
@@ -559,7 +559,7 @@ shifts <- read_csv(system.file("extdata/shifts.csv", package = "tfa"))
 nurses %>%
    mutate(across(where(is.character), ~str_c('"', .x, '"'))) 
 ```
-```{r, hint=TRUE, title="Hint 2"}
+```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
 nurses %>%
    mutate(across(where(___), ~str_c('___', .x, '___'))) 
 ```
@@ -586,7 +586,7 @@ nurses %>%
    mutate(across(where(is.character), ~str_c('"', .x, '"'))) %>% 
    unite("tuple", everything(), sep = ", ", remove = FALSE)
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 nurses %>%
    mutate(across(where(is.character), ~str_c('"', .x, '"'))) %>% 
    unite("tuple", everything(), sep = ___, remove = ___)
@@ -602,7 +602,7 @@ nurses %>%
    unite("tuple", everything(), sep = ", ", remove = FALSE) %>% 
    mutate(tuple = str_c("<", tuple, ">"))
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 nurses %>%
    mutate(across(where(is.character), ~str_c('"', .x, '"'))) %>% 
    unite("tuple", everything(), sep = ", ", remove = FALSE) %>% 
@@ -621,7 +621,7 @@ nurses %>%
    pull(tuple) %>% 
    str_c(collapse = ",\n")
 ```
-```{r, hint=TRUE}
+```{r, hint=TRUE, eval=FALSE}
 nurses %>%
    mutate(across(where(is.character), ~str_c('"', .x, '"'))) %>% 
    unite("tuple", everything(), sep = ", ", remove = FALSE) %>% 
@@ -650,7 +650,7 @@ file <- "test.dat"
 write_tuple(nurses, file)
 cat(read_file("test.dat"))  # to have a look 
 ```
-```{r, hint=TRUE, title="Hint 2"}
+```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
 write_tuple <- function(dat, file) {
    write_lines("nurses = {", file, sep = "\n   ")
    tuples <- dat %>%
@@ -662,7 +662,7 @@ file <- "test.dat"
 write_tuple(nurses, file)
 cat(read_file("test.dat"))  # to have a look 
 ```
-```{r, hint=TRUE, title="Hint 1"}
+```{r, hint=TRUE, eval=FALSE, title="Hint 1"}
 write_tuple <- function(dat, file) {
    write_lines(___)
    ___
