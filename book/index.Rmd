@@ -1,6 +1,6 @@
 --- 
 title: "Tools for Analytics (TFA)"
-subtitle: "Course notes R part"
+subtitle: "Course notes"
 author: 
 - Lars Relund Nielsen
 knit: "bookdown::render_book"
@@ -12,7 +12,7 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-description: "Course notes for the 'Tools for Analytics' course (R part)"
+description: "Course notes for the 'Tools for Analytics' course"
 favicon: assets/favicon.ico
 date: "`r Sys.Date()`"
 editor_options: 
@@ -20,7 +20,7 @@ editor_options:
 ---
 
 
-# Introduction {#sec-intro}
+# Introduction to the book {#sec-intro}
 
 ```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
 ```
@@ -37,7 +37,7 @@ library(bsplus)
 ```
 
 
-This site/book contains course notes for the R part of the course "Tools for Analytics" held at [Aarhus BSS][BSS]. The notes show what we will be doing in each week. The course is an introductory course at the [Operations and Supply Chain Analytics programme][osca-programme] and intended to give knowledge about IT tools for Analytics. You can expect the book to be updated when the course runs. The date listed above is the last time this guide was updated.
+This site/book contains course notes for the course "Tools for Analytics" held at [Aarhus BSS][BSS]. The book show the learning path for each week and contain. The course is an introductory course at the [Operations and Supply Chain Analytics programme][osca-programme] and intended to give knowledge about IT tools for Analytics. You can expect the book to be updated when the course runs. The date listed above is the last time the book was updated.
 
 Since the amount of available data has increased extensively in many companies, there is a need for analysts with the ability to do tasks within Analytics. For instance, extract relevant data and perform valid quantitative analysis. Clearly, it is also important that the analyst can communicate the results of the analysis to their surroundings. This requires for the analyst to be particularly qualified in handling IT based tools beyond e.g. basic Excel. 
 
@@ -52,19 +52,21 @@ knitr::include_graphics("img/process.png")
 ```
 
 For doing data driven analytics you first must __import__ your data. That is, take data from a database, file, web API etc. and transform it into a data frame/table. In general raw data may be messy and need to be structured in a __tidy__ way. Tidying your data means storing it in a structured form suitable for analysis. In brief, when your data is __tidy__, each column is a variable, and each row is an observation. Tidy data is important because the consistent structure lets you focus your struggle on questions about the data. 
-Once you have tidy data, a common first step is to __transform__ it. Transformation includes narrowing in on observations of interest (e.g. only observations from a specific year or warehouse), creating new variables based on existing variables (like the cost of using the machine that day given idle time). Together, tidying and transforming are called __wrangling__, because 
+Once you have tidy data, a common first step is to __transform__ it. Transformation includes narrowing in on observations of interest (e.g. only observations from a specific year or warehouse), creating new variables based on existing variables (e.g. the cost of using the machine that day given idle time). Together, tidying and transforming are called __wrangling__, because 
 it can be a hard process to get your data in the right form.
 
 The next step is to do a simple __exploration__ of you data such as calculating a set of summary statistics (like counts, means or KPIs). A good way to get an overview over your data is by __visualization__. A good visualisation will show you things that you did not expect, raise new questions about the data or confirm your hypothesis. A good visualization might also hint that you're asking the wrong question, or you need to collect different data. Exploration and visualization are descriptive analytics and used to answer questions such as: What happened? How many, how often, where? Where exactly is the problem? What actions are needed?
 __Models__ are complementary tools to visualization. Once you have made your questions sufficiently precise, you can use a model to answer them. A model is a description of a system using mathematical concepts and a simplification of the real system. That is, the results of a model are based on a set of assumptions. Models for statistical analysis, forecasting, system behavior are predictive analytics and answer questions like: Why is this happening? What if these trends continue? What will happen next? Models for prescriptive analytics use optimization and other decision modeling techniques to suggest decision options with the goal of improving business performance and answer questions like: What is the best that can happen?
 
-Exploration, visualization and modeling may be seen as different steps which can be used for __analyzing__ the data and answer the overall questions. This part of the course will focus on the different steps except modeling. 
+Exploration, visualization and modeling may be seen as different steps which can be used for __analyzing__ the data and answer the overall questions. This course will focus on the two first steps. 
 
 Given an analysis, __communication__ is an absolutely critical part. It does not matter how well your models and visualization have led you to understand the data unless you can also communicate your results to decision makers. 
 
-Note that analytics is not a one-way process, it is common that you several times have to tidy and transform your data, explore and visualize based on the results of a model, rerun the model based on the given feedback on your communication with the decision makers etc. Common connections are visualized using directed arrows in Figure \@ref(fig:process). 
+Note that analytics is not a one-way process, it is common that you several times have to tidy and transform your data, explore and visualize based on the results of a model, rerun the model based on feedback from the decision makers etc. Common connections are visualized using directed arrows in Figure \@ref(fig:process). 
 
-Surrounding the process is __programming__. Programming is the Swiss army knife you use during parts of the process. An introduction to programming is given in the first part of the course using VBA in Excel. We will cover programming using R in this part of the course.
+Surrounding the process is __programming__. Programming is the Swiss army knife you use during parts of the process. An introduction to programming is given using both VBA in Excel and the programming language and free software environment [R].
+
+
 
 
 ## How this book is organized
