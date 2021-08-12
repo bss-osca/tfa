@@ -234,7 +234,7 @@ add_graph_legend <- function(graph, x, y) {
 }
 
 create_learning_path <- function(url, sheet, x_legend = 0, y_legend = 0, margin_node = 0.2) {
-  # gs4_deauth()
+  gs4_deauth()
   dat <- read_sheet(url, sheet = sheet, col_types = "iccccccdd")
   dat <- dat %>%
     mutate(link_to = map(link_to, ~rlang::parse_quo(str_c("c(", .x, ")"), env = baseenv()))) %>%
@@ -288,3 +288,5 @@ create_learning_path <- function(url, sheet, x_legend = 0, y_legend = 0, margin_
     add_graph_legend(x_legend, y_legend)
   return(graph)
 }
+
+
