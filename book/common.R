@@ -1,6 +1,7 @@
 ## Common code relevant for all chapters
 
 library(tidyverse)
+options(dplyr.summarise.inform = FALSE)
 library(bsplus)
 library(htmltools)
 library(knitr)
@@ -232,7 +233,7 @@ add_graph_legend <- function(graph, x, y) {
         ))
 }
 
-create_learning_path <- function(url, sheet, x_legend = 0, y_legend = 0) {
+create_learning_path <- function(url, sheet, x_legend = 0, y_legend = 0, margin_node = 0.2) {
   # gs4_deauth()
   dat <- read_sheet(url, sheet = sheet, col_types = "iccccccdd")
   dat <- dat %>%
@@ -273,6 +274,7 @@ create_learning_path <- function(url, sheet, x_legend = 0, y_legend = 0) {
         type == "video" ~ "🎬 ",
         TRUE ~ ""),
       label = str_c(emo, "", label),
+      margin = margin_node,
       fillcolor = case_when(
         type1 == "alternative" ~ "DarkOrange4",
         type1 == "mandatory" ~ "DarkSeaGreen4",

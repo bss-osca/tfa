@@ -1,6 +1,6 @@
 [BSS]: https://bss.au.dk/en/
 
-[course-help]: https://blackboard.au.dk/webapps/discussionboard/do/forum?action=list_threads&course_id=_139525_1&forum_id=190010&nav=discussion_board&conf_id=_274569_1&content_id=_2651740_1&mode=view
+[course-help]: https://github.com/bss-osca/tfa/issues
 [cran]: https://cloud.r-project.org
 [cheatsheet-readr]: https://rawgit.com/rstudio/cheatsheets/master/data-import.pdf
 [course-welcome-to-the-tidyverse]: https://github.com/rstudio-education/welcome-to-the-tidyverse
