@@ -4,27 +4,27 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 7 Importing and exporting data | Tools for Analytics (TFA)</title>
-  <meta name="description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <title>Module 15 Importing and exporting data | Tools for Analytics (TFA)</title>
+  <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 7 Importing and exporting data | Tools for Analytics (TFA)" />
+  <meta property="og:title" content="Module 15 Importing and exporting data | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://bss-osca.github.io/tfa/" />
-  <meta property="og:image" content="https://bss-osca.github.io/tfa/assets/logo.png" />
-  <meta property="og:description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
+  <meta property="og:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
+  <meta property="og:description" content="Course notes for the ‘Tools for Analytics’ course" />
   <meta name="github-repo" content="bss-osca/tfa" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 7 Importing and exporting data | Tools for Analytics (TFA)" />
+  <meta name="twitter:title" content="Module 15 Importing and exporting data | Tools for Analytics (TFA)" />
   
-  <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
-  <meta name="twitter:image" content="https://bss-osca.github.io/tfa/assets/logo.png" />
+  <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course" />
+  <meta name="twitter:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
 
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2021-03-10" />
+<meta name="date" content="2021-08-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="sec-tidy-intro.html"/>
 <link rel="next" href="sec-transform.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,11 +51,16 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
 <link href="libs/font-awesome-5.3.1/css/all.min.css" rel="stylesheet" />
 <link href="libs/font-awesome-5.3.1/css/v4-shims.min.css" rel="stylesheet" />
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -68,7 +73,7 @@
 <link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
 <script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.17/datatables.js"></script>
+<script src="libs/datatables-binding-0.18/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
@@ -164,6 +169,29 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 <link rel="stylesheet" href="assets/style.css" type="text/css" />
 </head>
 
@@ -180,173 +208,219 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="toc-logo"><a href="./"><img src="img/logo.png"></a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction to the book</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#how-this-book-is-organized"><i class="fa fa-check"></i><b>1.1</b> How this book is organized</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#ack"><i class="fa fa-check"></i><b>1.2</b> Acknowledgements</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#lo-intro"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#purpose"><i class="fa fa-check"></i><b>1.2</b> Purpose for the book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#r-vs-vba"><i class="fa fa-check"></i><b>1.3</b> R vs Excel/VBA</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#computer"><i class="fa fa-check"></i><b>1.4</b> How a computer works</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#organization"><i class="fa fa-check"></i><b>1.5</b> How this book is organized</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#ack"><i class="fa fa-check"></i><b>1.6</b> Acknowledgements</a></li>
 </ul></li>
-<li class="part"><span><b>I Getting started</b></span></li>
-<li class="chapter" data-level="2" data-path="sec-install.html"><a href="sec-install.html"><i class="fa fa-check"></i><b>2</b> Install R and RStudio</a>
+<li class="part"><span><b>I Getting started with VBA</b></span></li>
+<li class="chapter" data-level="2" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html"><i class="fa fa-check"></i><b>2</b> A introduction to VBA</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="sec-install.html"><a href="sec-install.html#lo-install"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="2.2" data-path="sec-install.html"><a href="sec-install.html#install-r"><i class="fa fa-check"></i><b>2.2</b> Install R and RStudio</a></li>
-<li class="chapter" data-level="2.3" data-path="sec-install.html"><a href="sec-install.html#test-your-installation"><i class="fa fa-check"></i><b>2.3</b> Test your installation</a></li>
-<li class="chapter" data-level="2.4" data-path="sec-install.html"><a href="sec-install.html#add-on-packages"><i class="fa fa-check"></i><b>2.4</b> Add-on packages</a></li>
-<li class="chapter" data-level="2.5" data-path="sec-install.html"><a href="sec-install.html#lp-install"><i class="fa fa-check"></i><b>2.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="2.1" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#lo-vba-intro"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="2.2" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#vba-what"><i class="fa fa-check"></i><b>2.2</b> What is VBA</a></li>
+<li class="chapter" data-level="2.3" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#vba-hello"><i class="fa fa-check"></i><b>2.3</b> Your first program</a></li>
+<li class="chapter" data-level="2.4" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#vba-macro"><i class="fa fa-check"></i><b>2.4</b> The macro recorder</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="sec-r-basics.html"><a href="sec-r-basics.html"><i class="fa fa-check"></i><b>3</b> R basics and workflows</a>
+<li class="chapter" data-level="3" data-path="test.html"><a href="test.html"><i class="fa fa-check"></i><b>3</b> Test</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lo-r-basics"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="3.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-with-r-at-the-command-line-in-rstudio"><i class="fa fa-check"></i><b>3.2</b> Working with R at the command line in RStudio</a></li>
-<li class="chapter" data-level="3.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#your-first-datacamp-course"><i class="fa fa-check"></i><b>3.3</b> Your first DataCamp course</a></li>
-<li class="chapter" data-level="3.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#pipes"><i class="fa fa-check"></i><b>3.4</b> Pipes</a></li>
-<li class="chapter" data-level="3.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rprojs"><i class="fa fa-check"></i><b>3.5</b> RStudio projects</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#storing-your-code-in-a-script-file"><i class="fa fa-check"></i><b>3.5.1</b> Storing your code in a script file</a></li>
+<li class="chapter" data-level="3.1" data-path="test.html"><a href="test.html#learning-outcomes"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="3.2" data-path="test.html"><a href="test.html#different-learning-paths"><i class="fa fa-check"></i><b>3.2</b> Different learning paths</a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#global-options"><i class="fa fa-check"></i><b>3.6</b> Global options</a></li>
-<li class="chapter" data-level="3.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-directory"><i class="fa fa-check"></i><b>3.7</b> Working directory</a></li>
-<li class="chapter" data-level="3.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lp-r-basics"><i class="fa fa-check"></i><b>3.8</b> Different learning paths</a></li>
-<li class="chapter" data-level="3.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rc-r-basics"><i class="fa fa-check"></i><b>3.9</b> Recap</a></li>
-<li class="chapter" data-level="3.10" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-r-basics"><i class="fa fa-check"></i><b>3.10</b> Exercises</a>
+<li class="part"><span><b>II Programming in VBA</b></span></li>
+<li class="chapter" data-level="4" data-path="data-types-varables.html"><a href="data-types-varables.html"><i class="fa fa-check"></i><b>4</b> Data types - Varables</a>
 <ul>
-<li class="chapter" data-level="3.10.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-group-work"><i class="fa fa-check"></i><b>3.10.1</b> Exercise (group work)</a></li>
-<li class="chapter" data-level="3.10.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-install-packages"><i class="fa fa-check"></i><b>3.10.2</b> Exercise (install packages)</a></li>
-<li class="chapter" data-level="3.10.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-piping"><i class="fa fa-check"></i><b>3.10.3</b> Exercise (piping)</a></li>
-<li class="chapter" data-level="3.10.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-working-dir"><i class="fa fa-check"></i><b>3.10.4</b> Exercise (working dir)</a></li>
-<li class="chapter" data-level="3.10.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-vectors"><i class="fa fa-check"></i><b>3.10.5</b> Exercise (vectors)</a></li>
-<li class="chapter" data-level="3.10.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-matrices"><i class="fa fa-check"></i><b>3.10.6</b> Exercise (matrices)</a></li>
-<li class="chapter" data-level="3.10.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-data-frames"><i class="fa fa-check"></i><b>3.10.7</b> Exercise (data frames)</a></li>
-<li class="chapter" data-level="3.10.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-lists"><i class="fa fa-check"></i><b>3.10.8</b> Exercise (lists)</a></li>
-<li class="chapter" data-level="3.10.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-strings"><i class="fa fa-check"></i><b>3.10.9</b> Exercise (string management)</a></li>
+<li class="chapter" data-level="4.1" data-path="data-types-varables.html"><a href="data-types-varables.html#learning-outcomes-1"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="procedures-and-functions.html"><a href="procedures-and-functions.html"><i class="fa fa-check"></i><b>5</b> Procedures and functions</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="procedures-and-functions.html"><a href="procedures-and-functions.html#learning-outcomes-2"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
 </ul></li>
-<li class="part"><span><b>II Programming in R</b></span></li>
-<li class="chapter" data-level="4" data-path="sec-loops.html"><a href="sec-loops.html"><i class="fa fa-check"></i><b>4</b> Loops and conditionals</a>
+<li class="chapter" data-level="6" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html"><i class="fa fa-check"></i><b>6</b> Loops and conditionals</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="sec-loops.html"><a href="sec-loops.html#lo-loops"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="4.2" data-path="sec-loops.html"><a href="sec-loops.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>4.2</b> Conditionals and control flow</a></li>
-<li class="chapter" data-level="4.3" data-path="sec-loops.html"><a href="sec-loops.html#loops"><i class="fa fa-check"></i><b>4.3</b> Loops</a></li>
-<li class="chapter" data-level="4.4" data-path="sec-loops.html"><a href="sec-loops.html#lp-loops"><i class="fa fa-check"></i><b>4.4</b> Different learning paths</a></li>
-<li class="chapter" data-level="4.5" data-path="sec-loops.html"><a href="sec-loops.html#rc-loops"><i class="fa fa-check"></i><b>4.5</b> Recap</a></li>
-<li class="chapter" data-level="4.6" data-path="sec-loops.html"><a href="sec-loops.html#ex-loops"><i class="fa fa-check"></i><b>4.6</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="4.6.1" data-path="sec-loops.html"><a href="sec-loops.html#exercise-conditional-expressions"><i class="fa fa-check"></i><b>4.6.1</b> Exercise (conditional expressions)</a></li>
-<li class="chapter" data-level="4.6.2" data-path="sec-loops.html"><a href="sec-loops.html#exercise-loops"><i class="fa fa-check"></i><b>4.6.2</b> Exercise (loops)</a></li>
-<li class="chapter" data-level="4.6.3" data-path="sec-loops.html"><a href="sec-loops.html#ex-dist"><i class="fa fa-check"></i><b>4.6.3</b> Exercise (calculating distances)</a></li>
-<li class="chapter" data-level="4.6.4" data-path="sec-loops.html"><a href="sec-loops.html#exercise-expand_grid"><i class="fa fa-check"></i><b>4.6.4</b> Exercise (<code>expand_grid</code>)</a></li>
+<li class="chapter" data-level="6.1" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html#learning-outcomes-3"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="object-model.html"><a href="object-model.html"><i class="fa fa-check"></i><b>7</b> Object model</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="object-model.html"><a href="object-model.html#learning-outcomes-4"><i class="fa fa-check"></i><b>7.1</b> Learning outcomes</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="sec-functions.html"><a href="sec-functions.html"><i class="fa fa-check"></i><b>5</b> Functions</a>
+<li class="part"><span><b>III Randomization in VBA</b></span></li>
+<li class="chapter" data-level="8" data-path="generating-random-values.html"><a href="generating-random-values.html"><i class="fa fa-check"></i><b>8</b> Generating random values</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="sec-functions.html"><a href="sec-functions.html#lo-functions"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="5.2" data-path="sec-functions.html"><a href="sec-functions.html#datacamp-course"><i class="fa fa-check"></i><b>5.2</b> DataCamp course</a></li>
-<li class="chapter" data-level="5.3" data-path="sec-functions.html"><a href="sec-functions.html#functions-returning-multiple-objects"><i class="fa fa-check"></i><b>5.3</b> Functions returning multiple objects</a></li>
-<li class="chapter" data-level="5.4" data-path="sec-functions.html"><a href="sec-functions.html#the-...-argument"><i class="fa fa-check"></i><b>5.4</b> The <code>...</code> argument</a></li>
-<li class="chapter" data-level="5.5" data-path="sec-functions.html"><a href="sec-functions.html#documenting-your-functions"><i class="fa fa-check"></i><b>5.5</b> Documenting your functions</a></li>
-<li class="chapter" data-level="5.6" data-path="sec-functions.html"><a href="sec-functions.html#lp-functions"><i class="fa fa-check"></i><b>5.6</b> Different learning paths</a></li>
-<li class="chapter" data-level="5.7" data-path="sec-functions.html"><a href="sec-functions.html#rc-functions"><i class="fa fa-check"></i><b>5.7</b> Recap</a></li>
-<li class="chapter" data-level="5.8" data-path="sec-functions.html"><a href="sec-functions.html#ex-functions"><i class="fa fa-check"></i><b>5.8</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="5.8.1" data-path="sec-functions.html"><a href="sec-functions.html#exercise-defining-functions"><i class="fa fa-check"></i><b>5.8.1</b> Exercise (defining functions)</a></li>
-<li class="chapter" data-level="5.8.2" data-path="sec-functions.html"><a href="sec-functions.html#exercise-scope"><i class="fa fa-check"></i><b>5.8.2</b> Exercise (scope)</a></li>
-<li class="chapter" data-level="5.8.3" data-path="sec-functions.html"><a href="sec-functions.html#exercise-job-sequencing"><i class="fa fa-check"></i><b>5.8.3</b> Exercise (job sequencing)</a></li>
+<li class="chapter" data-level="8.1" data-path="generating-random-values.html"><a href="generating-random-values.html#learning-outcomes-5"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
 </ul></li>
+<li class="part"><span><b>IV Extra topics in VBA</b></span></li>
+<li class="chapter" data-level="9" data-path="file-management.html"><a href="file-management.html"><i class="fa fa-check"></i><b>9</b> File management</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="file-management.html"><a href="file-management.html#learning-outcomes-6"><i class="fa fa-check"></i><b>9.1</b> Learning outcomes</a></li>
 </ul></li>
-<li class="part"><span><b>III IO, tidy and transform</b></span></li>
-<li class="chapter" data-level="6" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html"><i class="fa fa-check"></i><b>6</b> Introduction to tidyverse and R Markdown</a>
+<li class="part"><span><b>V Getting started in R</b></span></li>
+<li class="chapter" data-level="10" data-path="sec-install.html"><a href="sec-install.html"><i class="fa fa-check"></i><b>10</b> Install R and RStudio</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lo-tidy-intro"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="6.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#the-tidyverse-package"><i class="fa fa-check"></i><b>6.2</b> The tidyverse package</a></li>
-<li class="chapter" data-level="6.3" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#writing-reproducible-reports"><i class="fa fa-check"></i><b>6.3</b> Writing reproducible reports</a></li>
-<li class="chapter" data-level="6.4" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#tibbles"><i class="fa fa-check"></i><b>6.4</b> Tibbles</a></li>
-<li class="chapter" data-level="6.5" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lp-tidy-intro"><i class="fa fa-check"></i><b>6.5</b> Different learning paths</a></li>
-<li class="chapter" data-level="6.6" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#rc-tidy-intro"><i class="fa fa-check"></i><b>6.6</b> Recap</a></li>
-<li class="chapter" data-level="6.7" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#ex-tidy-intro"><i class="fa fa-check"></i><b>6.7</b> Exercises</a>
+<li class="chapter" data-level="10.1" data-path="sec-install.html"><a href="sec-install.html#lo-install"><i class="fa fa-check"></i><b>10.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="10.2" data-path="sec-install.html"><a href="sec-install.html#install-r"><i class="fa fa-check"></i><b>10.2</b> Install R and RStudio</a></li>
+<li class="chapter" data-level="10.3" data-path="sec-install.html"><a href="sec-install.html#test-your-installation"><i class="fa fa-check"></i><b>10.3</b> Test your installation</a></li>
+<li class="chapter" data-level="10.4" data-path="sec-install.html"><a href="sec-install.html#add-on-packages"><i class="fa fa-check"></i><b>10.4</b> Add-on packages</a></li>
+<li class="chapter" data-level="10.5" data-path="sec-install.html"><a href="sec-install.html#lp-install"><i class="fa fa-check"></i><b>10.5</b> Different learning paths</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="sec-r-basics.html"><a href="sec-r-basics.html"><i class="fa fa-check"></i><b>11</b> R basics and workflows</a>
 <ul>
-<li class="chapter" data-level="6.7.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-your-first-r-markdown-exercise"><i class="fa fa-check"></i><b>6.7.1</b> Exercise (your first R Markdown exercise)</a></li>
-<li class="chapter" data-level="6.7.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-tibbles"><i class="fa fa-check"></i><b>6.7.2</b> Exercise (tibbles)</a></li>
+<li class="chapter" data-level="" data-path="sec-r-basics.html"><a href="sec-r-basics.html#learning-path-diagramme"><i class="fa fa-check"></i>Learning path diagramme</a></li>
+<li class="chapter" data-level="11.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lo-r-basics"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="11.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-with-r-at-the-command-line-in-rstudio"><i class="fa fa-check"></i><b>11.2</b> Working with R at the command line in RStudio</a></li>
+<li class="chapter" data-level="11.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#your-first-datacamp-course"><i class="fa fa-check"></i><b>11.3</b> Your first DataCamp course</a></li>
+<li class="chapter" data-level="11.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#pipes"><i class="fa fa-check"></i><b>11.4</b> Pipes</a></li>
+<li class="chapter" data-level="11.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rprojs"><i class="fa fa-check"></i><b>11.5</b> RStudio projects</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#storing-your-code-in-a-script-file"><i class="fa fa-check"></i><b>11.5.1</b> Storing your code in a script file</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#global-options"><i class="fa fa-check"></i><b>11.6</b> Global options</a></li>
+<li class="chapter" data-level="11.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-directory"><i class="fa fa-check"></i><b>11.7</b> Working directory</a></li>
+<li class="chapter" data-level="11.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lp-r-basics"><i class="fa fa-check"></i><b>11.8</b> Different learning paths</a></li>
+<li class="chapter" data-level="11.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rc-r-basics"><i class="fa fa-check"></i><b>11.9</b> Recap</a></li>
+<li class="chapter" data-level="11.10" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-r-basics"><i class="fa fa-check"></i><b>11.10</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="11.10.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-group-work"><i class="fa fa-check"></i><b>11.10.1</b> Exercise (group work)</a></li>
+<li class="chapter" data-level="11.10.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-install-packages"><i class="fa fa-check"></i><b>11.10.2</b> Exercise (install packages)</a></li>
+<li class="chapter" data-level="11.10.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-piping"><i class="fa fa-check"></i><b>11.10.3</b> Exercise (piping)</a></li>
+<li class="chapter" data-level="11.10.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-working-dir"><i class="fa fa-check"></i><b>11.10.4</b> Exercise (working dir)</a></li>
+<li class="chapter" data-level="11.10.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-vectors"><i class="fa fa-check"></i><b>11.10.5</b> Exercise (vectors)</a></li>
+<li class="chapter" data-level="11.10.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-matrices"><i class="fa fa-check"></i><b>11.10.6</b> Exercise (matrices)</a></li>
+<li class="chapter" data-level="11.10.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-data-frames"><i class="fa fa-check"></i><b>11.10.7</b> Exercise (data frames)</a></li>
+<li class="chapter" data-level="11.10.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-lists"><i class="fa fa-check"></i><b>11.10.8</b> Exercise (lists)</a></li>
+<li class="chapter" data-level="11.10.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-strings"><i class="fa fa-check"></i><b>11.10.9</b> Exercise (string management)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sec-io.html"><a href="sec-io.html"><i class="fa fa-check"></i><b>7</b> Importing and exporting data</a>
+<li class="part"><span><b>VI Programming in R</b></span></li>
+<li class="chapter" data-level="12" data-path="sec-loops.html"><a href="sec-loops.html"><i class="fa fa-check"></i><b>12</b> Loops and conditionals</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="sec-io.html"><a href="sec-io.html#lo-io"><i class="fa fa-check"></i><b>7.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="7.2" data-path="sec-io.html"><a href="sec-io.html#csv-files"><i class="fa fa-check"></i><b>7.2</b> CSV files</a>
+<li class="chapter" data-level="" data-path="sec-loops.html"><a href="sec-loops.html#learning-path-diagramme-1"><i class="fa fa-check"></i>Learning path diagramme</a></li>
+<li class="chapter" data-level="12.1" data-path="sec-loops.html"><a href="sec-loops.html#lo-loops"><i class="fa fa-check"></i><b>12.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="12.2" data-path="sec-loops.html"><a href="sec-loops.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>12.2</b> Conditionals and control flow</a></li>
+<li class="chapter" data-level="12.3" data-path="sec-loops.html"><a href="sec-loops.html#loops"><i class="fa fa-check"></i><b>12.3</b> Loops</a></li>
+<li class="chapter" data-level="12.4" data-path="sec-loops.html"><a href="sec-loops.html#lp-loops"><i class="fa fa-check"></i><b>12.4</b> Different learning paths</a></li>
+<li class="chapter" data-level="12.5" data-path="sec-loops.html"><a href="sec-loops.html#rc-loops"><i class="fa fa-check"></i><b>12.5</b> Recap</a></li>
+<li class="chapter" data-level="12.6" data-path="sec-loops.html"><a href="sec-loops.html#ex-loops"><i class="fa fa-check"></i><b>12.6</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="sec-io.html"><a href="sec-io.html#reading-a-csv-file"><i class="fa fa-check"></i><b>7.2.1</b> Reading a CSV file</a></li>
-<li class="chapter" data-level="7.2.2" data-path="sec-io.html"><a href="sec-io.html#writing-to-csv-files"><i class="fa fa-check"></i><b>7.2.2</b> Writing to CSV files</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="sec-io.html"><a href="sec-io.html#excel"><i class="fa fa-check"></i><b>7.3</b> Excel</a></li>
-<li class="chapter" data-level="7.4" data-path="sec-io.html"><a href="sec-io.html#google-sheets"><i class="fa fa-check"></i><b>7.4</b> Google Sheets</a></li>
-<li class="chapter" data-level="7.5" data-path="sec-io.html"><a href="sec-io.html#text-files"><i class="fa fa-check"></i><b>7.5</b> Text files</a></li>
-<li class="chapter" data-level="7.6" data-path="sec-io.html"><a href="sec-io.html#rs-native-binary-format"><i class="fa fa-check"></i><b>7.6</b> R’s native binary format</a></li>
-<li class="chapter" data-level="7.7" data-path="sec-io.html"><a href="sec-io.html#json"><i class="fa fa-check"></i><b>7.7</b> Json</a></li>
-<li class="chapter" data-level="7.8" data-path="sec-io.html"><a href="sec-io.html#lp-io"><i class="fa fa-check"></i><b>7.8</b> Different learning paths</a></li>
-<li class="chapter" data-level="7.9" data-path="sec-io.html"><a href="sec-io.html#rc-io"><i class="fa fa-check"></i><b>7.9</b> Recap</a></li>
-<li class="chapter" data-level="7.10" data-path="sec-io.html"><a href="sec-io.html#ex-io"><i class="fa fa-check"></i><b>7.10</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="7.10.1" data-path="sec-io.html"><a href="sec-io.html#exercise-statistikbanken"><i class="fa fa-check"></i><b>7.10.1</b> Exercise (Statistikbanken)</a></li>
-<li class="chapter" data-level="7.10.2" data-path="sec-io.html"><a href="sec-io.html#exercise-tuples-in-opl"><i class="fa fa-check"></i><b>7.10.2</b> Exercise (tuples in OPL)</a></li>
+<li class="chapter" data-level="12.6.1" data-path="sec-loops.html"><a href="sec-loops.html#exercise-conditional-expressions"><i class="fa fa-check"></i><b>12.6.1</b> Exercise (conditional expressions)</a></li>
+<li class="chapter" data-level="12.6.2" data-path="sec-loops.html"><a href="sec-loops.html#exercise-loops"><i class="fa fa-check"></i><b>12.6.2</b> Exercise (loops)</a></li>
+<li class="chapter" data-level="12.6.3" data-path="sec-loops.html"><a href="sec-loops.html#ex-dist"><i class="fa fa-check"></i><b>12.6.3</b> Exercise (calculating distances)</a></li>
+<li class="chapter" data-level="12.6.4" data-path="sec-loops.html"><a href="sec-loops.html#exercise-expand_grid"><i class="fa fa-check"></i><b>12.6.4</b> Exercise (<code>expand_grid</code>)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="sec-transform.html"><a href="sec-transform.html"><i class="fa fa-check"></i><b>8</b> Transforming data</a>
+<li class="chapter" data-level="13" data-path="sec-functions.html"><a href="sec-functions.html"><i class="fa fa-check"></i><b>13</b> Functions</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="sec-transform.html"><a href="sec-transform.html#lo-transform"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="8.2" data-path="sec-transform.html"><a href="sec-transform.html#working-with-data-in-the-tidyverse"><i class="fa fa-check"></i><b>8.2</b> Working with data in the tidyverse</a></li>
-<li class="chapter" data-level="8.3" data-path="sec-transform.html"><a href="sec-transform.html#mutating-and-filtering-joins"><i class="fa fa-check"></i><b>8.3</b> Mutating and filtering joins</a></li>
-<li class="chapter" data-level="8.4" data-path="sec-transform.html"><a href="sec-transform.html#lp-transform"><i class="fa fa-check"></i><b>8.4</b> Different learning paths</a></li>
-<li class="chapter" data-level="8.5" data-path="sec-transform.html"><a href="sec-transform.html#rc-transform"><i class="fa fa-check"></i><b>8.5</b> Recap</a></li>
-<li class="chapter" data-level="8.6" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>8.6</b> Exercises</a>
+<li class="chapter" data-level="13.1" data-path="sec-functions.html"><a href="sec-functions.html#lo-functions"><i class="fa fa-check"></i><b>13.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="13.2" data-path="sec-functions.html"><a href="sec-functions.html#datacamp-course"><i class="fa fa-check"></i><b>13.2</b> DataCamp course</a></li>
+<li class="chapter" data-level="13.3" data-path="sec-functions.html"><a href="sec-functions.html#functions-returning-multiple-objects"><i class="fa fa-check"></i><b>13.3</b> Functions returning multiple objects</a></li>
+<li class="chapter" data-level="13.4" data-path="sec-functions.html"><a href="sec-functions.html#the-...-argument"><i class="fa fa-check"></i><b>13.4</b> The <code>...</code> argument</a></li>
+<li class="chapter" data-level="13.5" data-path="sec-functions.html"><a href="sec-functions.html#documenting-your-functions"><i class="fa fa-check"></i><b>13.5</b> Documenting your functions</a></li>
+<li class="chapter" data-level="13.6" data-path="sec-functions.html"><a href="sec-functions.html#lp-functions"><i class="fa fa-check"></i><b>13.6</b> Different learning paths</a></li>
+<li class="chapter" data-level="13.7" data-path="sec-functions.html"><a href="sec-functions.html#rc-functions"><i class="fa fa-check"></i><b>13.7</b> Recap</a></li>
+<li class="chapter" data-level="13.8" data-path="sec-functions.html"><a href="sec-functions.html#ex-functions"><i class="fa fa-check"></i><b>13.8</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="sec-transform.html"><a href="sec-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>8.6.1</b> Exercise (gapminder)</a></li>
-<li class="chapter" data-level="8.6.2" data-path="sec-transform.html"><a href="sec-transform.html#ex-babynames1"><i class="fa fa-check"></i><b>8.6.2</b> Exercise (babynames)</a></li>
-<li class="chapter" data-level="8.6.3" data-path="sec-transform.html"><a href="sec-transform.html#ex-profit1"><i class="fa fa-check"></i><b>8.6.3</b> Exercise (profit)</a></li>
-<li class="chapter" data-level="8.6.4" data-path="sec-transform.html"><a href="sec-transform.html#ex-fish"><i class="fa fa-check"></i><b>8.6.4</b> Exercise (fisheries)</a></li>
+<li class="chapter" data-level="13.8.1" data-path="sec-functions.html"><a href="sec-functions.html#exercise-defining-functions"><i class="fa fa-check"></i><b>13.8.1</b> Exercise (defining functions)</a></li>
+<li class="chapter" data-level="13.8.2" data-path="sec-functions.html"><a href="sec-functions.html#exercise-scope"><i class="fa fa-check"></i><b>13.8.2</b> Exercise (scope)</a></li>
+<li class="chapter" data-level="13.8.3" data-path="sec-functions.html"><a href="sec-functions.html#exercise-job-sequencing"><i class="fa fa-check"></i><b>13.8.3</b> Exercise (job sequencing)</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>IV Visualization</b></span></li>
-<li class="chapter" data-level="9" data-path="sec-plot.html"><a href="sec-plot.html"><i class="fa fa-check"></i><b>9</b> Data visualization using ggplot</a>
+<li class="part"><span><b>VII IO, tidy and transform</b></span></li>
+<li class="chapter" data-level="14" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html"><i class="fa fa-check"></i><b>14</b> Introduction to tidyverse and R Markdown</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="sec-plot.html"><a href="sec-plot.html#lo-plot"><i class="fa fa-check"></i><b>9.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="9.2" data-path="sec-plot.html"><a href="sec-plot.html#introduction-to-data-visualization"><i class="fa fa-check"></i><b>9.2</b> Introduction to data visualization</a></li>
-<li class="chapter" data-level="9.3" data-path="sec-plot.html"><a href="sec-plot.html#combining-plots-into-one-using-patchwork"><i class="fa fa-check"></i><b>9.3</b> Combining plots into one using <em>patchwork</em></a></li>
-<li class="chapter" data-level="9.4" data-path="sec-plot.html"><a href="sec-plot.html#saving-graphics"><i class="fa fa-check"></i><b>9.4</b> Saving graphics</a></li>
-<li class="chapter" data-level="9.5" data-path="sec-plot.html"><a href="sec-plot.html#lp-r-plot"><i class="fa fa-check"></i><b>9.5</b> Different learning paths</a></li>
-<li class="chapter" data-level="9.6" data-path="sec-plot.html"><a href="sec-plot.html#rc-r-plot"><i class="fa fa-check"></i><b>9.6</b> Recap</a></li>
-<li class="chapter" data-level="9.7" data-path="sec-plot.html"><a href="sec-plot.html#ex-r-plot"><i class="fa fa-check"></i><b>9.7</b> Exercises</a>
+<li class="chapter" data-level="14.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lo-tidy-intro"><i class="fa fa-check"></i><b>14.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="14.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#the-tidyverse-package"><i class="fa fa-check"></i><b>14.2</b> The tidyverse package</a></li>
+<li class="chapter" data-level="14.3" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#writing-reproducible-reports"><i class="fa fa-check"></i><b>14.3</b> Writing reproducible reports</a></li>
+<li class="chapter" data-level="14.4" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#tibbles"><i class="fa fa-check"></i><b>14.4</b> Tibbles</a></li>
+<li class="chapter" data-level="14.5" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lp-tidy-intro"><i class="fa fa-check"></i><b>14.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="14.6" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#rc-tidy-intro"><i class="fa fa-check"></i><b>14.6</b> Recap</a></li>
+<li class="chapter" data-level="14.7" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#ex-tidy-intro"><i class="fa fa-check"></i><b>14.7</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="9.7.1" data-path="sec-plot.html"><a href="sec-plot.html#ex-gapminder2"><i class="fa fa-check"></i><b>9.7.1</b> Exercise (gapminder)</a></li>
-<li class="chapter" data-level="9.7.2" data-path="sec-plot.html"><a href="sec-plot.html#ex-profit2"><i class="fa fa-check"></i><b>9.7.2</b> Exercise (profit)</a></li>
-<li class="chapter" data-level="9.7.3" data-path="sec-plot.html"><a href="sec-plot.html#ex-covid19"><i class="fa fa-check"></i><b>9.7.3</b> Exercise (COVID-19)</a></li>
-<li class="chapter" data-level="9.7.4" data-path="sec-plot.html"><a href="sec-plot.html#ex-lego"><i class="fa fa-check"></i><b>9.7.4</b> Exercise (Lego and sales)</a></li>
+<li class="chapter" data-level="14.7.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-your-first-r-markdown-exercise"><i class="fa fa-check"></i><b>14.7.1</b> Exercise (your first R Markdown exercise)</a></li>
+<li class="chapter" data-level="14.7.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-tibbles"><i class="fa fa-check"></i><b>14.7.2</b> Exercise (tibbles)</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>V R project in groups</b></span></li>
-<li class="chapter" data-level="10" data-path="sec-project.html"><a href="sec-project.html"><i class="fa fa-check"></i><b>10</b> Mandatory R project</a>
+<li class="chapter" data-level="15" data-path="sec-io.html"><a href="sec-io.html"><i class="fa fa-check"></i><b>15</b> Importing and exporting data</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="sec-project.html"><a href="sec-project.html#lo-project"><i class="fa fa-check"></i><b>10.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="10.2" data-path="sec-project.html"><a href="sec-project.html#r-project"><i class="fa fa-check"></i><b>10.2</b> R project</a></li>
-</ul></li>
-<li class="part"><span><b>VI Extra</b></span></li>
-<li class="chapter" data-level="11" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>11</b> Spatial data and maps</a>
+<li class="chapter" data-level="15.1" data-path="sec-io.html"><a href="sec-io.html#lo-io"><i class="fa fa-check"></i><b>15.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="15.2" data-path="sec-io.html"><a href="sec-io.html#csv-files"><i class="fa fa-check"></i><b>15.2</b> CSV files</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="sec-maps.html"><a href="sec-maps.html#lo-maps"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="11.2" data-path="sec-maps.html"><a href="sec-maps.html#sec-map-api-key"><i class="fa fa-check"></i><b>11.2</b> Services for obtatining spatial data</a></li>
-<li class="chapter" data-level="11.3" data-path="sec-maps.html"><a href="sec-maps.html#calculating-distances"><i class="fa fa-check"></i><b>11.3</b> Calculating distances</a>
+<li class="chapter" data-level="15.2.1" data-path="sec-io.html"><a href="sec-io.html#reading-a-csv-file"><i class="fa fa-check"></i><b>15.2.1</b> Reading a CSV file</a></li>
+<li class="chapter" data-level="15.2.2" data-path="sec-io.html"><a href="sec-io.html#writing-to-csv-files"><i class="fa fa-check"></i><b>15.2.2</b> Writing to CSV files</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="sec-io.html"><a href="sec-io.html#excel"><i class="fa fa-check"></i><b>15.3</b> Excel</a></li>
+<li class="chapter" data-level="15.4" data-path="sec-io.html"><a href="sec-io.html#google-sheets"><i class="fa fa-check"></i><b>15.4</b> Google Sheets</a></li>
+<li class="chapter" data-level="15.5" data-path="sec-io.html"><a href="sec-io.html#text-files"><i class="fa fa-check"></i><b>15.5</b> Text files</a></li>
+<li class="chapter" data-level="15.6" data-path="sec-io.html"><a href="sec-io.html#rs-native-binary-format"><i class="fa fa-check"></i><b>15.6</b> R’s native binary format</a></li>
+<li class="chapter" data-level="15.7" data-path="sec-io.html"><a href="sec-io.html#json"><i class="fa fa-check"></i><b>15.7</b> Json</a></li>
+<li class="chapter" data-level="15.8" data-path="sec-io.html"><a href="sec-io.html#lp-io"><i class="fa fa-check"></i><b>15.8</b> Different learning paths</a></li>
+<li class="chapter" data-level="15.9" data-path="sec-io.html"><a href="sec-io.html#rc-io"><i class="fa fa-check"></i><b>15.9</b> Recap</a></li>
+<li class="chapter" data-level="15.10" data-path="sec-io.html"><a href="sec-io.html#ex-io"><i class="fa fa-check"></i><b>15.10</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="11.3.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps"><i class="fa fa-check"></i><b>11.3.1</b> Using Google Maps</a></li>
-<li class="chapter" data-level="11.3.2" data-path="sec-maps.html"><a href="sec-maps.html#using-bing-maps"><i class="fa fa-check"></i><b>11.3.2</b> Using Bing Maps</a></li>
+<li class="chapter" data-level="15.10.1" data-path="sec-io.html"><a href="sec-io.html#exercise-statistikbanken"><i class="fa fa-check"></i><b>15.10.1</b> Exercise (Statistikbanken)</a></li>
+<li class="chapter" data-level="15.10.2" data-path="sec-io.html"><a href="sec-io.html#exercise-tuples-in-opl"><i class="fa fa-check"></i><b>15.10.2</b> Exercise (tuples in OPL)</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="sec-maps.html"><a href="sec-maps.html#geocoding-and-reverse-geocoding"><i class="fa fa-check"></i><b>11.4</b> Geocoding and reverse geocoding</a>
+</ul></li>
+<li class="chapter" data-level="16" data-path="sec-transform.html"><a href="sec-transform.html"><i class="fa fa-check"></i><b>16</b> Transforming data</a>
 <ul>
-<li class="chapter" data-level="11.4.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps-1"><i class="fa fa-check"></i><b>11.4.1</b> Using Google maps</a></li>
-<li class="chapter" data-level="11.4.2" data-path="sec-maps.html"><a href="sec-maps.html#use-bing-maps"><i class="fa fa-check"></i><b>11.4.2</b> Use Bing Maps</a></li>
+<li class="chapter" data-level="16.1" data-path="sec-transform.html"><a href="sec-transform.html#lo-transform"><i class="fa fa-check"></i><b>16.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="16.2" data-path="sec-transform.html"><a href="sec-transform.html#working-with-data-in-the-tidyverse"><i class="fa fa-check"></i><b>16.2</b> Working with data in the tidyverse</a></li>
+<li class="chapter" data-level="16.3" data-path="sec-transform.html"><a href="sec-transform.html#mutating-and-filtering-joins"><i class="fa fa-check"></i><b>16.3</b> Mutating and filtering joins</a></li>
+<li class="chapter" data-level="16.4" data-path="sec-transform.html"><a href="sec-transform.html#lp-transform"><i class="fa fa-check"></i><b>16.4</b> Different learning paths</a></li>
+<li class="chapter" data-level="16.5" data-path="sec-transform.html"><a href="sec-transform.html#rc-transform"><i class="fa fa-check"></i><b>16.5</b> Recap</a></li>
+<li class="chapter" data-level="16.6" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>16.6</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="16.6.1" data-path="sec-transform.html"><a href="sec-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>16.6.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="16.6.2" data-path="sec-transform.html"><a href="sec-transform.html#ex-babynames1"><i class="fa fa-check"></i><b>16.6.2</b> Exercise (babynames)</a></li>
+<li class="chapter" data-level="16.6.3" data-path="sec-transform.html"><a href="sec-transform.html#ex-profit1"><i class="fa fa-check"></i><b>16.6.3</b> Exercise (profit)</a></li>
+<li class="chapter" data-level="16.6.4" data-path="sec-transform.html"><a href="sec-transform.html#ex-fish"><i class="fa fa-check"></i><b>16.6.4</b> Exercise (fisheries)</a></li>
 </ul></li>
-<li class="chapter" data-level="11.5" data-path="sec-maps.html"><a href="sec-maps.html#adding-markers-and-routes-to-a-map"><i class="fa fa-check"></i><b>11.5</b> Adding markers and routes to a map</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="sec-r-excel.html"><a href="sec-r-excel.html"><i class="fa fa-check"></i><b>12</b> Using R in Excel and Excel in R</a></li>
-<li class="chapter" data-level="13" data-path="sec-opl.html"><a href="sec-opl.html"><i class="fa fa-check"></i><b>13</b> Run an OPL model from R</a></li>
-<li class="chapter" data-level="14" data-path="sec-simulation.html"><a href="sec-simulation.html"><i class="fa fa-check"></i><b>14</b> Simulation in R</a></li>
+<li class="part"><span><b>VIII Visualization</b></span></li>
+<li class="chapter" data-level="17" data-path="sec-plot.html"><a href="sec-plot.html"><i class="fa fa-check"></i><b>17</b> Data visualization using ggplot</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sec-plot.html"><a href="sec-plot.html#lo-plot"><i class="fa fa-check"></i><b>17.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="17.2" data-path="sec-plot.html"><a href="sec-plot.html#introduction-to-data-visualization"><i class="fa fa-check"></i><b>17.2</b> Introduction to data visualization</a></li>
+<li class="chapter" data-level="17.3" data-path="sec-plot.html"><a href="sec-plot.html#combining-plots-into-one-using-patchwork"><i class="fa fa-check"></i><b>17.3</b> Combining plots into one using <em>patchwork</em></a></li>
+<li class="chapter" data-level="17.4" data-path="sec-plot.html"><a href="sec-plot.html#saving-graphics"><i class="fa fa-check"></i><b>17.4</b> Saving graphics</a></li>
+<li class="chapter" data-level="17.5" data-path="sec-plot.html"><a href="sec-plot.html#lp-r-plot"><i class="fa fa-check"></i><b>17.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="17.6" data-path="sec-plot.html"><a href="sec-plot.html#rc-r-plot"><i class="fa fa-check"></i><b>17.6</b> Recap</a></li>
+<li class="chapter" data-level="17.7" data-path="sec-plot.html"><a href="sec-plot.html#ex-r-plot"><i class="fa fa-check"></i><b>17.7</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="17.7.1" data-path="sec-plot.html"><a href="sec-plot.html#ex-gapminder2"><i class="fa fa-check"></i><b>17.7.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="17.7.2" data-path="sec-plot.html"><a href="sec-plot.html#ex-profit2"><i class="fa fa-check"></i><b>17.7.2</b> Exercise (profit)</a></li>
+<li class="chapter" data-level="17.7.3" data-path="sec-plot.html"><a href="sec-plot.html#ex-covid19"><i class="fa fa-check"></i><b>17.7.3</b> Exercise (COVID-19)</a></li>
+<li class="chapter" data-level="17.7.4" data-path="sec-plot.html"><a href="sec-plot.html#ex-lego"><i class="fa fa-check"></i><b>17.7.4</b> Exercise (Lego and sales)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IX R project in groups</b></span></li>
+<li class="chapter" data-level="18" data-path="sec-project.html"><a href="sec-project.html"><i class="fa fa-check"></i><b>18</b> Mandatory R project</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sec-project.html"><a href="sec-project.html#lo-project"><i class="fa fa-check"></i><b>18.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="18.2" data-path="sec-project.html"><a href="sec-project.html#r-project"><i class="fa fa-check"></i><b>18.2</b> R project</a></li>
+</ul></li>
+<li class="part"><span><b>X Extra</b></span></li>
+<li class="chapter" data-level="19" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>19</b> Spatial data and maps</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="sec-maps.html"><a href="sec-maps.html#lo-maps"><i class="fa fa-check"></i><b>19.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="19.2" data-path="sec-maps.html"><a href="sec-maps.html#sec-map-api-key"><i class="fa fa-check"></i><b>19.2</b> Services for obtatining spatial data</a></li>
+<li class="chapter" data-level="19.3" data-path="sec-maps.html"><a href="sec-maps.html#calculating-distances"><i class="fa fa-check"></i><b>19.3</b> Calculating distances</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps"><i class="fa fa-check"></i><b>19.3.1</b> Using Google Maps</a></li>
+<li class="chapter" data-level="19.3.2" data-path="sec-maps.html"><a href="sec-maps.html#using-bing-maps"><i class="fa fa-check"></i><b>19.3.2</b> Using Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="sec-maps.html"><a href="sec-maps.html#geocoding-and-reverse-geocoding"><i class="fa fa-check"></i><b>19.4</b> Geocoding and reverse geocoding</a>
+<ul>
+<li class="chapter" data-level="19.4.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps-1"><i class="fa fa-check"></i><b>19.4.1</b> Using Google maps</a></li>
+<li class="chapter" data-level="19.4.2" data-path="sec-maps.html"><a href="sec-maps.html#use-bing-maps"><i class="fa fa-check"></i><b>19.4.2</b> Use Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="19.5" data-path="sec-maps.html"><a href="sec-maps.html#adding-markers-and-routes-to-a-map"><i class="fa fa-check"></i><b>19.5</b> Adding markers and routes to a map</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="sec-r-excel.html"><a href="sec-r-excel.html"><i class="fa fa-check"></i><b>20</b> Using R in Excel and Excel in R</a></li>
+<li class="chapter" data-level="21" data-path="sec-opl.html"><a href="sec-opl.html"><i class="fa fa-check"></i><b>21</b> Run an OPL model from R</a></li>
+<li class="chapter" data-level="22" data-path="sec-simulation.html"><a href="sec-simulation.html"><i class="fa fa-check"></i><b>22</b> Simulation in R</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="groups.html"><a href="groups.html"><i class="fa fa-check"></i><b>A</b> Working in groups</a>
 <ul>
@@ -360,14 +434,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="B" data-path="annotate.html"><a href="annotate.html"><i class="fa fa-check"></i><b>B</b> Annotate the course notes</a></li>
-<li class="chapter" data-level="C" data-path="help.html"><a href="help.html"><i class="fa fa-check"></i><b>C</b> Getting help</a>
-<ul>
-<li class="chapter" data-level="" data-path="help.html"><a href="help.html#study-café"><i class="fa fa-check"></i>Study café</a>
-<ul>
-<li class="chapter" data-level="" data-path="help.html"><a href="help.html#need-help---ask-a-question"><i class="fa fa-check"></i>Need help - ask a question</a></li>
-<li class="chapter" data-level="" data-path="help.html"><a href="help.html#current-queue"><i class="fa fa-check"></i>Current queue</a></li>
-</ul></li>
-</ul></li>
+<li class="chapter" data-level="C" data-path="help.html"><a href="help.html"><i class="fa fa-check"></i><b>C</b> Getting help</a></li>
 <li class="chapter" data-level="D" data-path="slides.html"><a href="slides.html"><i class="fa fa-check"></i><b>D</b> Slides</a></li>
 <li class="chapter" data-level="E" data-path="lg-course.html"><a href="lg-course.html"><i class="fa fa-check"></i><b>E</b> Learning goals</a></li>
 <li class="chapter" data-level="F" data-path="sec-ba.html"><a href="sec-ba.html"><i class="fa fa-check"></i><b>F</b> Business Analytics</a></li>
@@ -400,11 +467,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="sec-io" class="section level1" number="7">
-<h1><span class="header-section-number">Module 7</span> Importing and exporting data</h1>
+<div id="sec-io" class="section level1" number="15">
+<h1><span class="header-section-number">Module 15</span> Importing and exporting data</h1>
 <p>For doing data driven analytics, you first must <strong>import</strong> some data. That is, take data from a database, file, web API etc. and transform it into a data frame/table. Moreover, after processing data, you often want to export or store some of the results. This module introduces you to different ways of importing and exporting data.</p>
-<div id="lo-io" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> Learning outcomes</h2>
+<div id="lo-io" class="section level2" number="15.1">
+<h2><span class="header-section-number">15.1</span> Learning outcomes</h2>
 <p>By the end of this module, you are expected to be able to:</p>
 <ul>
 <li>Import and export csv files in different formats.</li>
@@ -419,20 +486,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
 <!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
 </div>
-<div id="csv-files" class="section level2" number="7.2">
-<h2><span class="header-section-number">7.2</span> CSV files</h2>
+<div id="csv-files" class="section level2" number="15.2">
+<h2><span class="header-section-number">15.2</span> CSV files</h2>
 <p><a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV files</a> contain <em>comma separated values</em> (csv) in plain text and are often named using the file suffix <code>.csv</code>. Each line of the file is a data record. Each record consists of one or more fields, separated by a common delimiter (e.g. <code>,</code>, <code>;</code> or <code>_</code>). The CSV file format is not fully standardized. Different delimiters may be used, fields may be surrounded by quotation marks, text may contain escape characters and the encoding of the file may not be known. Despite these problems, CSV files are commonly used since they are easy to exchange and read.</p>
 <p>We will use the <a href="https://readr.tidyverse.org/">readr</a> package for reading and writing. An overview over the functions can be seen in the <a href="https://rawgit.com/rstudio/cheatsheets/master/data-import.pdf">cheatsheet</a>.</p>
-<div id="reading-a-csv-file" class="section level3" number="7.2.1">
-<h3><span class="header-section-number">7.2.1</span> Reading a CSV file</h3>
+<div id="reading-a-csv-file" class="section level3" number="15.2.1">
+<h3><span class="header-section-number">15.2.1</span> Reading a CSV file</h3>
 <p>In general use the following functions</p>
 <ul>
 <li><code>read_csv</code>: Read a file with delimiter <code>,</code>.</li>
 <li><code>read_csv2</code>: Read a file with delimiter <code>;</code>.</li>
 <li><code>read_delim</code>: Read a file with a delimiter set by you.</li>
 </ul>
-<div id="reading-an-unknown-csv-file" class="section level4" number="7.2.1.1">
-<h4><span class="header-section-number">7.2.1.1</span> Reading an unknown CSV file</h4>
+<div id="reading-an-unknown-csv-file" class="section level4" number="15.2.1.1">
+<h4><span class="header-section-number">15.2.1.1</span> Reading an unknown CSV file</h4>
 <p>For importing a CSV file properly, you need to know the delimiter, if the files has headers and the encoding. If you are not sure, you may have a look on the file by opening it in a text editor or try to read some lines:</p>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="sec-io.html#cb191-1" aria-hidden="true" tabindex="-1"></a>csv_file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata/mtcars.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;readr&quot;</span>)  <span class="co"># csv file</span></span>
 <span id="cb191-2"><a href="sec-io.html#cb191-2" aria-hidden="true" tabindex="-1"></a>lines <span class="ot">&lt;-</span> <span class="fu">read_lines</span>(csv_file, <span class="at">n_max =</span> <span class="dv">3</span>)</span>
@@ -447,7 +514,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>It seems that the delimiter is a <code>,</code> and we may try to read the file using <code>read_csv</code>:</p>
 <div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="sec-io.html#cb192-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(csv_file)</span>
 <span id="cb192-2"><a href="sec-io.html#cb192-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span>
-<span id="cb192-3"><a href="sec-io.html#cb192-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 11</span></span>
+<span id="cb192-3"><a href="sec-io.html#cb192-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 11</span></span>
 <span id="cb192-4"><a href="sec-io.html#cb192-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span></span>
 <span id="cb192-5"><a href="sec-io.html#cb192-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span id="cb192-6"><a href="sec-io.html#cb192-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4</span></span>
@@ -465,7 +532,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb193-6"><a href="sec-io.html#cb193-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   2   2   2   2   2     2   2   2   4   2    2 Oregon           P12</span></span></code></pre></div>
 <p>Here it is harder to guess the delimiter. It could be a space or a tabulator. Let us try to read it assuming a space or tabulator:</p>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="sec-io.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_tsv</span>(csv_file)                  <span class="co"># assume tabulator (\t)</span></span>
-<span id="cb194-2"><a href="sec-io.html#cb194-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 x 1</span></span>
+<span id="cb194-2"><a href="sec-io.html#cb194-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 1</span></span>
 <span id="cb194-3"><a href="sec-io.html#cb194-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    `UCC PAY LAZ KPK  RT   COF BIH DII ENG ACU Rank Team            Conf`</span></span>
 <span id="cb194-4"><a href="sec-io.html#cb194-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                                                                </span></span>
 <span id="cb194-5"><a href="sec-io.html#cb194-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 1   1   1   1   1     1   1   1   1   1    1 Ohio St          B10    </span></span>
@@ -479,24 +546,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb194-13"><a href="sec-io.html#cb194-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 9  11   8  13  11    11  12   9  14   9    9 Georgia Tech     ACC    </span></span>
 <span id="cb194-14"><a href="sec-io.html#cb194-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC</span></span>
 <span id="cb194-15"><a href="sec-io.html#cb194-15" aria-hidden="true" tabindex="-1"></a><span class="fu">read_delim</span>(csv_file, <span class="at">delim =</span> <span class="st">&quot; &quot;</span>, <span class="at">trim_ws =</span> T)   <span class="co"># assume space</span></span>
-<span id="cb194-16"><a href="sec-io.html#cb194-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 x 13</span></span>
-<span id="cb194-17"><a href="sec-io.html#cb194-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      UCC   PAY   LAZ   KPK    RT   COF   BIH   DII   ENG   ACU  Rank Team        Conf </span></span>
-<span id="cb194-18"><a href="sec-io.html#cb194-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;</span></span>
-<span id="cb194-19"><a href="sec-io.html#cb194-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1     1     1     1     1     1     1     1     1     1     1     1 Ohio        St   </span></span>
-<span id="cb194-20"><a href="sec-io.html#cb194-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2     2     2     2     2     2     2     2     2     4     2     2 Oregon      P12  </span></span>
-<span id="cb194-21"><a href="sec-io.html#cb194-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3     3     4     3     4     3     4     3     4     2     3     3 Alabama     SEC  </span></span>
-<span id="cb194-22"><a href="sec-io.html#cb194-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4     4     3     4     3     4     3     5     3     3     4     4 TCU         B12  </span></span>
-<span id="cb194-23"><a href="sec-io.html#cb194-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5     6     6     6     5     5     7     6     5     6    11     5 Michigan    St   </span></span>
-<span id="cb194-24"><a href="sec-io.html#cb194-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6     7     7     7     6     7     6    11     8     7     8     6 Georgia     SEC  </span></span>
-<span id="cb194-25"><a href="sec-io.html#cb194-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7     5     5     5     7     6     8     4     6     5     5     7 Florida     St   </span></span>
-<span id="cb194-26"><a href="sec-io.html#cb194-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8     8     8     9     9    10     5     7     7    10     7     8 Baylor      B12  </span></span>
-<span id="cb194-27"><a href="sec-io.html#cb194-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9     9    11     8    13    11    11    12     9    14     9     9 Georgia     Tech </span></span>
-<span id="cb194-28"><a href="sec-io.html#cb194-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    13    10    13    11     8     9    10    11     9    10    10 Mississippi SEC</span></span></code></pre></div>
+<span id="cb194-16"><a href="sec-io.html#cb194-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 27</span></span>
+<span id="cb194-17"><a href="sec-io.html#cb194-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    UCC     PAY   LAZ   KPK  ...5    RT ...7   ...8   COF   BIH   DII   ENG ACU    Rank  Team ...16</span></span>
+<span id="cb194-18"><a href="sec-io.html#cb194-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb194-19"><a href="sec-io.html#cb194-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 NA       NA     1    NA    NA     1 NA       NA     1    NA    NA     1 NA       NA     1    NA</span></span>
+<span id="cb194-20"><a href="sec-io.html#cb194-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 NA       NA     2    NA    NA     2 NA       NA     2    NA    NA     2 NA       NA     2    NA</span></span>
+<span id="cb194-21"><a href="sec-io.html#cb194-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 NA       NA     3    NA    NA     4 NA       NA     3    NA    NA     4 NA       NA     3    NA</span></span>
+<span id="cb194-22"><a href="sec-io.html#cb194-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 NA       NA     4    NA    NA     3 NA       NA     4    NA    NA     3 NA       NA     4    NA</span></span>
+<span id="cb194-23"><a href="sec-io.html#cb194-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 NA       NA     6    NA    NA     6 NA       NA     6    NA    NA     5 NA       NA     5    NA</span></span>
+<span id="cb194-24"><a href="sec-io.html#cb194-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 NA       NA     7    NA    NA     7 NA       NA     7    NA    NA     6 NA       NA     7    NA</span></span>
+<span id="cb194-25"><a href="sec-io.html#cb194-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 NA       NA     5    NA    NA     5 NA       NA     5    NA    NA     7 NA       NA     6    NA</span></span>
+<span id="cb194-26"><a href="sec-io.html#cb194-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 NA       NA     8    NA    NA     8 NA       NA     9    NA    NA     9 NA       10    NA    NA</span></span>
+<span id="cb194-27"><a href="sec-io.html#cb194-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 NA       NA     9    NA    11    NA NA        8    NA    13    NA    11 NA       NA    NA    11</span></span>
+<span id="cb194-28"><a href="sec-io.html#cb194-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 NA       13    NA    10    NA    13 NA       11    NA    NA     8    NA NA       NA    NA     9</span></span>
+<span id="cb194-29"><a href="sec-io.html#cb194-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 11 more variables: ...17 &lt;lgl&gt;, ...18 &lt;dbl&gt;, ...19 &lt;dbl&gt;, ...20 &lt;dbl&gt;, ...21 &lt;dbl&gt;,</span></span>
+<span id="cb194-30"><a href="sec-io.html#cb194-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   ...22 &lt;dbl&gt;, ...23 &lt;dbl&gt;, ...24 &lt;lgl&gt;, ...25 &lt;dbl&gt;, ...26 &lt;dbl&gt;, Conf &lt;chr&gt;</span></span></code></pre></div>
 <p>The first function puts all data in one column. The second function works even though we have some warnings.</p>
 <p>CSV files should always be saved using encoding UTF-8. However, sometimes you may have encoding problems when you read a file:</p>
 <div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="sec-io.html#cb195-1" aria-hidden="true" tabindex="-1"></a>csv_file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata/persons.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tfa&quot;</span>)</span>
 <span id="cb195-2"><a href="sec-io.html#cb195-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(csv_file)</span>
-<span id="cb195-3"><a href="sec-io.html#cb195-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb195-3"><a href="sec-io.html#cb195-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
 <span id="cb195-4"><a href="sec-io.html#cb195-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   first    last        </span></span>
 <span id="cb195-5"><a href="sec-io.html#cb195-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;       </span></span>
 <span id="cb195-6"><a href="sec-io.html#cb195-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 &quot;Hans&quot;   &quot;S\xf8gaard&quot;</span></span>
@@ -504,13 +573,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb195-8"><a href="sec-io.html#cb195-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 &quot;Yvette&quot; &quot;L\xe6ske&quot;</span></span></code></pre></div>
 <p>Note that some of the characters are not converted correctly. This is usually because the file encoding is not UTF-8. In this case, try to guess the encoding using:</p>
 <div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="sec-io.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_encoding</span>(csv_file)</span>
-<span id="cb196-2"><a href="sec-io.html#cb196-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
+<span id="cb196-2"><a href="sec-io.html#cb196-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
 <span id="cb196-3"><a href="sec-io.html#cb196-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   encoding   confidence</span></span>
 <span id="cb196-4"><a href="sec-io.html#cb196-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt;</span></span>
 <span id="cb196-5"><a href="sec-io.html#cb196-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 ISO-8859-1       0.27</span></span>
 <span id="cb196-6"><a href="sec-io.html#cb196-6" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(csv_file, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;ISO-8859-1&quot;</span>))</span>
 <span id="cb196-7"><a href="sec-io.html#cb196-7" aria-hidden="true" tabindex="-1"></a>dat</span>
-<span id="cb196-8"><a href="sec-io.html#cb196-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb196-8"><a href="sec-io.html#cb196-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
 <span id="cb196-9"><a href="sec-io.html#cb196-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   first  last   </span></span>
 <span id="cb196-10"><a href="sec-io.html#cb196-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  </span></span>
 <span id="cb196-11"><a href="sec-io.html#cb196-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Hans   Søgaard</span></span>
@@ -518,21 +587,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb196-13"><a href="sec-io.html#cb196-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Yvette Læske</span></span></code></pre></div>
 </div>
 </div>
-<div id="writing-to-csv-files" class="section level3" number="7.2.2">
-<h3><span class="header-section-number">7.2.2</span> Writing to CSV files</h3>
+<div id="writing-to-csv-files" class="section level3" number="15.2.2">
+<h3><span class="header-section-number">15.2.2</span> Writing to CSV files</h3>
 <p>Given a tibble/data frame export it using <code>write_csv</code>:</p>
 <div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="sec-io.html#cb197-1" aria-hidden="true" tabindex="-1"></a>csv_file <span class="ot">&lt;-</span> <span class="st">&quot;testing.csv&quot;</span></span>
 <span id="cb197-2"><a href="sec-io.html#cb197-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(dat, <span class="at">path =</span> csv_file) </span></code></pre></div>
 <p>You can now always import the data again using <code>read_csv</code>:</p>
 <div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="sec-io.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(csv_file)</span>
-<span id="cb198-2"><a href="sec-io.html#cb198-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb198-2"><a href="sec-io.html#cb198-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
 <span id="cb198-3"><a href="sec-io.html#cb198-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   first  last   </span></span>
 <span id="cb198-4"><a href="sec-io.html#cb198-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  </span></span>
 <span id="cb198-5"><a href="sec-io.html#cb198-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Hans   Søgaard</span></span>
 <span id="cb198-6"><a href="sec-io.html#cb198-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Åge    Økse   </span></span>
 <span id="cb198-7"><a href="sec-io.html#cb198-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Yvette Læske</span></span>
 <span id="cb198-8"><a href="sec-io.html#cb198-8" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_encoding</span>(csv_file)</span>
-<span id="cb198-9"><a href="sec-io.html#cb198-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb198-9"><a href="sec-io.html#cb198-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
 <span id="cb198-10"><a href="sec-io.html#cb198-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   encoding     confidence</span></span>
 <span id="cb198-11"><a href="sec-io.html#cb198-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;             &lt;dbl&gt;</span></span>
 <span id="cb198-12"><a href="sec-io.html#cb198-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 UTF-8              1   </span></span>
@@ -544,8 +613,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The CSV file can now be opened correctly in Excel.</p>
 </div>
 </div>
-<div id="excel" class="section level2" number="7.3">
-<h2><span class="header-section-number">7.3</span> Excel</h2>
+<div id="excel" class="section level2" number="15.3">
+<h2><span class="header-section-number">15.3</span> Excel</h2>
 <p>There are different packages in R for reading and writing to Excel. We will use the <a href="https://readxl.tidyverse.org">readxl</a> package for reading Excel files which is a part of tidyverse. The package supports both the legacy <code>.xls</code> format and the modern xml-based <code>.xlsx</code> format. Let us use one of the example files provided by the package:</p>
 <div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="sec-io.html#cb200-1" aria-hidden="true" tabindex="-1"></a>xlsx_file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata/datasets.xlsx&quot;</span>, <span class="at">package =</span> <span class="st">&quot;readxl&quot;</span>)</span></code></pre></div>
 <p>It is always a good idea to have a look at the file before you import from it. You can open it from R by using:</p>
@@ -554,7 +623,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="sec-io.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb202-2"><a href="sec-io.html#cb202-2" aria-hidden="true" tabindex="-1"></a>xlsx <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(xlsx_file)   <span class="co"># reads the first sheet</span></span>
 <span id="cb202-3"><a href="sec-io.html#cb202-3" aria-hidden="true" tabindex="-1"></a>xlsx</span>
-<span id="cb202-4"><a href="sec-io.html#cb202-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 150 x 5</span></span>
+<span id="cb202-4"><a href="sec-io.html#cb202-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 150 × 5</span></span>
 <span id="cb202-5"><a href="sec-io.html#cb202-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></span>
 <span id="cb202-6"><a href="sec-io.html#cb202-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  </span></span>
 <span id="cb202-7"><a href="sec-io.html#cb202-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1          5.1         3.5          1.4         0.2 setosa </span></span>
@@ -570,7 +639,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb202-17"><a href="sec-io.html#cb202-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 140 more rows</span></span>
 <span id="cb202-18"><a href="sec-io.html#cb202-18" aria-hidden="true" tabindex="-1"></a>xlsx <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(xlsx_file, <span class="at">sheet =</span> <span class="dv">2</span>)   <span class="co"># reads the second sheet</span></span>
 <span id="cb202-19"><a href="sec-io.html#cb202-19" aria-hidden="true" tabindex="-1"></a>xlsx</span>
-<span id="cb202-20"><a href="sec-io.html#cb202-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 32 x 11</span></span>
+<span id="cb202-20"><a href="sec-io.html#cb202-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 32 × 11</span></span>
 <span id="cb202-21"><a href="sec-io.html#cb202-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span></span>
 <span id="cb202-22"><a href="sec-io.html#cb202-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span id="cb202-23"><a href="sec-io.html#cb202-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4</span></span>
@@ -586,7 +655,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb202-33"><a href="sec-io.html#cb202-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 22 more rows</span></span>
 <span id="cb202-34"><a href="sec-io.html#cb202-34" aria-hidden="true" tabindex="-1"></a>xlsx <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(xlsx_file, <span class="at">sheet =</span> <span class="st">&quot;quakes&quot;</span>)   <span class="co"># reads a named sheet</span></span>
 <span id="cb202-35"><a href="sec-io.html#cb202-35" aria-hidden="true" tabindex="-1"></a>xlsx</span>
-<span id="cb202-36"><a href="sec-io.html#cb202-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,000 x 5</span></span>
+<span id="cb202-36"><a href="sec-io.html#cb202-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,000 × 5</span></span>
 <span id="cb202-37"><a href="sec-io.html#cb202-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      lat  long depth   mag stations</span></span>
 <span id="cb202-38"><a href="sec-io.html#cb202-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span></span>
 <span id="cb202-39"><a href="sec-io.html#cb202-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 -20.4  182.   562   4.8       41</span></span>
@@ -603,7 +672,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb202-50"><a href="sec-io.html#cb202-50" aria-hidden="true" tabindex="-1"></a>xlsx <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(xlsx_file, <span class="at">sheet =</span> <span class="st">&quot;mtcars&quot;</span>, <span class="at">range =</span> <span class="st">&quot;A5:G11&quot;</span>, <span class="at">col_names =</span> F)   <span class="co"># reads a range</span></span>
 <span id="cb202-51"><a href="sec-io.html#cb202-51" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(xlsx) <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(xlsx_file, <span class="at">sheet =</span> <span class="st">&quot;mtcars&quot;</span>, <span class="at">range =</span> <span class="st">&quot;A1:G1&quot;</span>, <span class="at">col_names =</span> F)   <span class="co"># reads the column names</span></span>
 <span id="cb202-52"><a href="sec-io.html#cb202-52" aria-hidden="true" tabindex="-1"></a>xlsx</span>
-<span id="cb202-53"><a href="sec-io.html#cb202-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 7 x 7</span></span>
+<span id="cb202-53"><a href="sec-io.html#cb202-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 7 × 7</span></span>
 <span id="cb202-54"><a href="sec-io.html#cb202-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     mpg   cyl  disp    hp  drat    wt  qsec</span></span>
 <span id="cb202-55"><a href="sec-io.html#cb202-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span id="cb202-56"><a href="sec-io.html#cb202-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  21.4     6  258    110  3.08  3.22  19.4</span></span>
@@ -635,8 +704,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb204-6"><a href="sec-io.html#cb204-6" aria-hidden="true" tabindex="-1"></a><span class="fu">writeData</span>(wb, <span class="at">sheet =</span> <span class="st">&quot;trees&quot;</span>, <span class="at">x =</span> dat)</span>
 <span id="cb204-7"><a href="sec-io.html#cb204-7" aria-hidden="true" tabindex="-1"></a><span class="fu">saveWorkbook</span>(wb, <span class="at">file =</span> <span class="st">&quot;test.xlsx&quot;</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 </div>
-<div id="google-sheets" class="section level2" number="7.4">
-<h2><span class="header-section-number">7.4</span> Google Sheets</h2>
+<div id="google-sheets" class="section level2" number="15.4">
+<h2><span class="header-section-number">15.4</span> Google Sheets</h2>
 <p>You can import and export to Google sheets using the <a href="https://googlesheets4.tidyverse.org/index.html">googlesheets4</a> package in tidyverse. To read and write data, in general, you need to be logged in as a Google user. The package will ask you when needed. However, if you only want to read data from a public sheet, you can use <code>gs4_deauth</code> to skip this:</p>
 <div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="sec-io.html#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googlesheets4)</span>
 <span id="cb205-2"><a href="sec-io.html#cb205-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gs4_deauth</span>()</span></code></pre></div>
@@ -654,8 +723,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb207-5"><a href="sec-io.html#cb207-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gs4_browse</span>(gs)  <span class="co"># have a look at the file in a browser</span></span></code></pre></div>
 <p>To see the results, have a look at your Google sheet <code>test</code> in your browser.</p>
 </div>
-<div id="text-files" class="section level2" number="7.5">
-<h2><span class="header-section-number">7.5</span> Text files</h2>
+<div id="text-files" class="section level2" number="15.5">
+<h2><span class="header-section-number">15.5</span> Text files</h2>
 <p>You can read and write to plain text files using the <a href="https://readr.tidyverse.org/">readr</a> package. However, mostly you want to write to a text file because you want to save some kind of log file when you run your script. Here <code>sink</code> is an excellent function to use, since it redirects your R output. To see the output without messages, errors and warnings use:</p>
 <div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="sec-io.html#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sink</span>(<span class="at">file =</span> <span class="st">&quot;ex1.log&quot;</span>, <span class="at">split =</span> <span class="cn">TRUE</span>)  <span class="co"># open the file for output</span></span>
 <span id="cb208-2"><a href="sec-io.html#cb208-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;This is a string</span><span class="sc">\n</span><span class="st">... and on a new line</span><span class="sc">\n\n</span><span class="st">&quot;</span>)</span>
@@ -717,8 +786,8 @@ Fejl: objekt &#39;f&#39; blev ikke fundet
 
 Last line</code></pre>
 </div>
-<div id="rs-native-binary-format" class="section level2" number="7.6">
-<h2><span class="header-section-number">7.6</span> R’s native binary format</h2>
+<div id="rs-native-binary-format" class="section level2" number="15.6">
+<h2><span class="header-section-number">15.6</span> R’s native binary format</h2>
 <p>In general, we can differ between two main types of data/files. Information is either binary encoded (basically just 0’s and 1’s) or stored as text files. What we have considered so far is storing data in text files.</p>
 <p>Text files can be read by humans and computers alike. The great thing about plain text is their simplicity and their ease of use: any programming language can read a plain text file. Text files are good for storing tabular data but lacks type-safety, and has limited precision for numeric values. Binary file formats cannot be read by humans but allow space-efficient data compression. Furthermore, binary formats may be difficult to read and write using other programs.</p>
 <p>As most other programming languages, R comes with its own binary format. We will focus on the Rds data format which is optimized for speed and compression ratios. To save and read an R object use:</p>
@@ -768,8 +837,8 @@ Last line</code></pre>
 <span id="cb212-44"><a href="sec-io.html#cb212-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Phantom XE          34.0   3  87.0 112 4.50 1.51 167.0  1  1    5    3  &lt;NA&gt;</span></span></code></pre></div>
 <p>Note we here have saved a non tabular R object (a list).</p>
 </div>
-<div id="json" class="section level2" number="7.7">
-<h2><span class="header-section-number">7.7</span> Json</h2>
+<div id="json" class="section level2" number="15.7">
+<h2><span class="header-section-number">15.7</span> Json</h2>
 <p><a href="https://en.wikipedia.org/wiki/JSON">JavaScript Object Notation</a> (json) is an open standard text file format, and data interchange format, that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and array data types. It can be used to store non tabular data in text format. It is often used for data-exchange in web-apis.</p>
 <p>Let us try to read and write to a json file using the <a href="https://cran.r-project.org/web/packages/jsonlite/index.html">jsonlite</a> package.</p>
 <div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="sec-io.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
@@ -887,15 +956,15 @@ Last line</code></pre>
   ]
 }</code></pre>
 </div>
-<div id="lp-io" class="section level2" number="7.8">
-<h2><span class="header-section-number">7.8</span> Different learning paths</h2>
+<div id="lp-io" class="section level2" number="15.8">
+<h2><span class="header-section-number">15.8</span> Different learning paths</h2>
 <p>We are all different and you may like different learning styles compared to others. You may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be useful for you. Note these suggestions are not a part of syllabus!</p>
 <ul>
-<li><a href="https://rafalab.github.io/dsbook/importing-data.html">Chapter 5</a> in <span class="citation"><a href="colophon.html#ref-dsbook" role="doc-biblioref">Irizarry</a> (<a href="colophon.html#ref-dsbook" role="doc-biblioref">2020</a>)</span> gives an alternative introduction to importing data.</li>
+<li><a href="https://rafalab.github.io/dsbook/importing-data.html">Chapter 5</a> in <span class="citation">Irizarry (<a href="#ref-dsbook" role="doc-biblioref">2020</a>)</span> gives an alternative introduction to importing data.</li>
 </ul>
 </div>
-<div id="rc-io" class="section level2" number="7.9">
-<h2><span class="header-section-number">7.9</span> Recap</h2>
+<div id="rc-io" class="section level2" number="15.9">
+<h2><span class="header-section-number">15.9</span> Recap</h2>
 <ul>
 <li><p>For doing data driven analytics you first must import some data. That is, take data from a database, file, web API etc. and transform it into a data frame/table.</p></li>
 <li><p>CSV files contain delimiter separated values in plain text and are often named using the file suffix <code>.csv</code>.</p></li>
@@ -912,25 +981,25 @@ Last line</code></pre>
 <li><p>Json is an open standard text file format, and data interchange format. It can be used to store non tabular data in text format. It is often used for data-exchange in web-api’s.</p></li>
 </ul>
 </div>
-<div id="ex-io" class="section level2" number="7.10">
-<h2><span class="header-section-number">7.10</span> Exercises</h2>
+<div id="ex-io" class="section level2" number="15.10">
+<h2><span class="header-section-number">15.10</span> Exercises</h2>
 <p>Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the <a href="help.html#help">help page</a>. Solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up to early. Put some effort into finding a solution!</p>
-<div id="exercise-statistikbanken" class="section level3" number="7.10.1">
-<h3><span class="header-section-number">7.10.1</span> Exercise (Statistikbanken)</h3>
+<div id="exercise-statistikbanken" class="section level3" number="15.10.1">
+<h3><span class="header-section-number">15.10.1</span> Exercise (Statistikbanken)</h3>
 <p>Use the <em>exercise R markdown template</em> to solve this exercise (<strong>File &gt; New File &gt; R Markdown…</strong>, select <strong>From template</strong> and then <strong>TFA Exercise</strong>).</p>
 <p>You can use the <a href="https://api.statbank.dk/console">API</a> from <a href="https://www.statistikbanken.dk/">Statistikbanken</a> to download a lot of data sets. Let us consider airports in Denmark (data set with table id FLYV41):</p>
 <div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="sec-io.html#cb215-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://api.statbank.dk/v1/data/FLYV41/CSV?lang=en&amp;LUFTHAVN=*&amp;Tid=*&amp;Transport=*&quot;</span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Use <code>cat(read_lines(url, n_max = 3), sep = "\n")</code> to have a look at the delimiter used.</li>
 </ol>
-<div id="mgaP7oim1Ab4hYHOfA6X" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mgaP7oim1Ab4hYHOfA6X-title">
+<div id="y7dhaz2zkR9RBQo3Kq2n" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="y7dhaz2zkR9RBQo3Kq2n-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="mgaP7oim1Ab4hYHOfA6X-title">
+<h4 class="modal-title" id="y7dhaz2zkR9RBQo3Kq2n-title">
 Solution
 </h4>
 </div>
@@ -947,7 +1016,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#mgaP7oim1Ab4hYHOfA6X">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#y7dhaz2zkR9RBQo3Kq2n">
 Solution
 </button>
 <ol start="2" style="list-style-type: decimal">
@@ -959,14 +1028,14 @@ Solution
 <span id="cb217-4"><a href="sec-io.html#cb217-4" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(lst)</span></code></pre></div>
 <p>Note the data returned is in json format, so we use <code>read_json</code> to read the data into a list.</p></li>
 </ol>
-<div id="65dYIGdp3z1BKrBnrTeK" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="65dYIGdp3z1BKrBnrTeK-title">
+<div id="xe0Si1qkGkfAfvqmgaP7" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="xe0Si1qkGkfAfvqmgaP7-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="65dYIGdp3z1BKrBnrTeK-title">
+<h4 class="modal-title" id="xe0Si1qkGkfAfvqmgaP7-title">
 Solution
 </h4>
 </div>
@@ -986,17 +1055,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#65dYIGdp3z1BKrBnrTeK">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#xe0Si1qkGkfAfvqmgaP7">
 Solution
 </button>
-<div id="SwF1xGe4yurQmIHzzTlK" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="SwF1xGe4yurQmIHzzTlK-title">
+<div id="oim1Ab4hYHOfA6X65dYI" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="oim1Ab4hYHOfA6X65dYI-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="SwF1xGe4yurQmIHzzTlK-title">
+<h4 class="modal-title" id="oim1Ab4hYHOfA6X65dYI-title">
 Hint 2
 </h4>
 </div>
@@ -1016,17 +1085,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#SwF1xGe4yurQmIHzzTlK">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#oim1Ab4hYHOfA6X65dYI">
 Hint 2
 </button>
-<div id="EcL3ygrS7g1At9GFJD1t" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="EcL3ygrS7g1At9GFJD1t-title">
+<div id="Gdp3z1BKrBnrTeKSwF1x" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Gdp3z1BKrBnrTeKSwF1x-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="EcL3ygrS7g1At9GFJD1t-title">
+<h4 class="modal-title" id="Gdp3z1BKrBnrTeKSwF1x-title">
 Hint 1
 </h4>
 </div>
@@ -1043,7 +1112,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#EcL3ygrS7g1At9GFJD1t">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Gdp3z1BKrBnrTeKSwF1x">
 Hint 1
 </button>
 <ol start="4" style="list-style-type: decimal">
@@ -1054,14 +1123,14 @@ Hint 1
 <span id="cb220-3"><a href="sec-io.html#cb220-3" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(lst)</span></code></pre></div>
 <p>Have a look at the row for FLYV41.</p></li>
 </ol>
-<div id="xwSR3MtNVWAX6cXEtCQs" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="xwSR3MtNVWAX6cXEtCQs-title">
+<div id="Ge4yurQmIHzzTlKEcL3y" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Ge4yurQmIHzzTlKEcL3y-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="xwSR3MtNVWAX6cXEtCQs-title">
+<h4 class="modal-title" id="Ge4yurQmIHzzTlKEcL3y-title">
 Solution
 </h4>
 </div>
@@ -1088,17 +1157,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#xwSR3MtNVWAX6cXEtCQs">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Ge4yurQmIHzzTlKEcL3y">
 Solution
 </button>
-<div id="EIscrTtAciBZfuKX0Mdb" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="EIscrTtAciBZfuKX0Mdb-title">
+<div id="grS7g1At9GFJD1txwSR3" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="grS7g1At9GFJD1txwSR3-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="EIscrTtAciBZfuKX0Mdb-title">
+<h4 class="modal-title" id="grS7g1At9GFJD1txwSR3-title">
 Hint
 </h4>
 </div>
@@ -1124,7 +1193,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#EIscrTtAciBZfuKX0Mdb">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#grS7g1At9GFJD1txwSR3">
 Hint
 </button>
 <ol start="6" style="list-style-type: decimal">
@@ -1140,14 +1209,14 @@ Hint
 <span id="cb223-9"><a href="sec-io.html#cb223-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;https://api.statbank.dk/v1/data/FLYV41/CSV?lang=en&amp;LUFTHAVN=*&amp;Tid=*&quot;</span></span></code></pre></div>
 <p>Create a function <code>get_data(tab_id, col_id)</code> that retrieve a data set.</p></li>
 </ol>
-<div id="o7fCahWMhTES4FY1Ddim" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="o7fCahWMhTES4FY1Ddim-title">
+<div id="MtNVWAX6cXEtCQsEIscr" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="MtNVWAX6cXEtCQsEIscr-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="o7fCahWMhTES4FY1Ddim-title">
+<h4 class="modal-title" id="MtNVWAX6cXEtCQsEIscr-title">
 Solution
 </h4>
 </div>
@@ -1164,20 +1233,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#o7fCahWMhTES4FY1Ddim">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#MtNVWAX6cXEtCQsEIscr">
 Solution
 </button>
 <ol start="7" style="list-style-type: decimal">
 <li>Use the function <code>get_data</code> to retrieve data for <code>tab_id = "FOLK1A"</code> and <code>col_id = c(2, 3, 5)</code> and save it as a csv file with a comma as delimiter.</li>
 </ol>
-<div id="46wvve9uvA4ZMSSmpHjU" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="46wvve9uvA4ZMSSmpHjU-title">
+<div id="TtAciBZfuKX0Mdbo7fCa" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="TtAciBZfuKX0Mdbo7fCa-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="46wvve9uvA4ZMSSmpHjU-title">
+<h4 class="modal-title" id="TtAciBZfuKX0Mdbo7fCa-title">
 Solution
 </h4>
 </div>
@@ -1198,17 +1267,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#46wvve9uvA4ZMSSmpHjU">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#TtAciBZfuKX0Mdbo7fCa">
 Solution
 </button>
-<div id="42EDQYiEtTGJfjZsPCTN" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="42EDQYiEtTGJfjZsPCTN-title">
+<div id="hWMhTES4FY1Ddim46wvv" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="hWMhTES4FY1Ddim46wvv-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="42EDQYiEtTGJfjZsPCTN-title">
+<h4 class="modal-title" id="hWMhTES4FY1Ddim46wvv-title">
 Hint
 </h4>
 </div>
@@ -1229,15 +1298,15 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#42EDQYiEtTGJfjZsPCTN">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#hWMhTES4FY1Ddim46wvv">
 Hint
 </button>
 <ol start="8" style="list-style-type: decimal">
 <li>Save the data in an Excel file and a Google sheet.</li>
 </ol>
 </div>
-<div id="exercise-tuples-in-opl" class="section level3" number="7.10.2">
-<h3><span class="header-section-number">7.10.2</span> Exercise (tuples in OPL)</h3>
+<div id="exercise-tuples-in-opl" class="section level3" number="15.10.2">
+<h3><span class="header-section-number">15.10.2</span> Exercise (tuples in OPL)</h3>
 <p>In the algebraic modeling language OPL (Optimization Programming Language) used by <a href="https://www.ibm.com/products/ilog-cplex-optimization-studio">IBM ILOG CPLEX Optimization Studio</a>, you can define tuples to contain various information. For example consider tuples defined as:</p>
 <div class="sourceCode" id="cb227"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb227-1"><a href="sec-io.html#cb227-1" aria-hidden="true" tabindex="-1"></a>tuple nurse <span class="op">{</span></span>
 <span id="cb227-2"><a href="sec-io.html#cb227-2" aria-hidden="true" tabindex="-1"></a>  string name<span class="op">;</span></span>
@@ -1250,7 +1319,7 @@ Hint
 <span id="cb227-9"><a href="sec-io.html#cb227-9" aria-hidden="true" tabindex="-1"></a>   <span class="dt">int</span> startTime<span class="op">;</span></span>
 <span id="cb227-10"><a href="sec-io.html#cb227-10" aria-hidden="true" tabindex="-1"></a>   <span class="dt">int</span> endTime<span class="op">;</span></span>
 <span id="cb227-11"><a href="sec-io.html#cb227-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>A <code>nurse</code> tuple is then defined as <code>&lt;"Anne", 11&gt;</code> and a <code>shift</code> tuple as `&lt;“Consultation,” “Monday” 12, 18&gt;.</p>
+<p>A <code>nurse</code> tuple is then defined as <code>&lt;"Anne", 11&gt;</code> and a <code>shift</code> tuple as `&lt;“Consultation”, “Monday” 12, 18&gt;.</p>
 <p>A set of tuples can be defined using:</p>
 <div class="sourceCode" id="cb228"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb228-1"><a href="sec-io.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="op">{</span>nurse<span class="op">}</span> nurses <span class="op">=</span> <span class="kw">...</span><span class="op">;</span></span>
 <span id="cb228-2"><a href="sec-io.html#cb228-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span>shift<span class="op">}</span> shifts <span class="op">=</span> <span class="kw">...</span><span class="op">;</span></span></code></pre></div>
@@ -1268,14 +1337,14 @@ Hint
 <span id="cb229-11"><a href="sec-io.html#cb229-11" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
 <p>You can now use the sets to define decision variables <span class="math inline">\(x_{ns}\)</span> equal one if nurse <span class="math inline">\(n\)</span> is assigned to shift <span class="math inline">\(s\)</span>.</p>
 <p>In this exercise we will try to generate the data text file given tibbles with data.</p>
-<div id="FvS0wN0yNz8YnCiZ0FTv" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="FvS0wN0yNz8YnCiZ0FTv-title">
+<div id="e9uvA4ZMSSmpHjU42EDQ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="e9uvA4ZMSSmpHjU42EDQ-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="FvS0wN0yNz8YnCiZ0FTv-title">
+<h4 class="modal-title" id="e9uvA4ZMSSmpHjU42EDQ-title">
 Solution
 </h4>
 </div>
@@ -1297,17 +1366,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#FvS0wN0yNz8YnCiZ0FTv">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#e9uvA4ZMSSmpHjU42EDQ">
 Solution
 </button>
-<div id="zDXetjbDunJEejSrfA0r" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="zDXetjbDunJEejSrfA0r-title">
+<div id="YiEtTGJfjZsPCTNFvS0w" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="YiEtTGJfjZsPCTNFvS0w-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="zDXetjbDunJEejSrfA0r-title">
+<h4 class="modal-title" id="YiEtTGJfjZsPCTNFvS0w-title">
 Hint
 </h4>
 </div>
@@ -1326,7 +1395,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#zDXetjbDunJEejSrfA0r">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#YiEtTGJfjZsPCTNFvS0w">
 Hint
 </button>
 <ol style="list-style-type: decimal">
@@ -1338,9 +1407,9 @@ Hint
 <p>Load datasets</p>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="sec-io.html#cb233-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;bss-osca/tfa/tfa-package&quot;</span>, <span class="at">dependencies =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb233-2"><a href="sec-io.html#cb233-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   </span></span>
-<span id="cb233-3"><a href="sec-io.html#cb233-3" aria-hidden="true" tabindex="-1"></a>   checking <span class="cf">for</span> file ‘<span class="sc">/</span>private<span class="sc">/</span>var<span class="sc">/</span>folders<span class="sc">/</span><span class="dv">24</span><span class="sc">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="sc">/</span>T<span class="sc">/</span>RtmpnlOHFT<span class="sc">/</span>remotes7fe34465bdda<span class="sc">/</span>bss<span class="sc">-</span>osca<span class="sc">-</span>tfa<span class="sc">-</span>f9d66bb<span class="sc">/</span>tfa<span class="sc">-</span>package<span class="sc">/</span>DESCRIPTION’ ...</span>
+<span id="cb233-3"><a href="sec-io.html#cb233-3" aria-hidden="true" tabindex="-1"></a>   checking <span class="cf">for</span> file ‘<span class="sc">/</span>private<span class="sc">/</span>var<span class="sc">/</span>folders<span class="sc">/</span><span class="dv">24</span><span class="sc">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="sc">/</span>T<span class="sc">/</span>RtmpIIeNkt<span class="sc">/</span>remotes894c6b0116b3<span class="sc">/</span>bss<span class="sc">-</span>osca<span class="sc">-</span>tfa<span class="sc">-</span>fc0d8ab<span class="sc">/</span>tfa<span class="sc">-</span>package<span class="sc">/</span>DESCRIPTION’ ...</span>
 <span id="cb233-4"><a href="sec-io.html#cb233-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb233-5"><a href="sec-io.html#cb233-5" aria-hidden="true" tabindex="-1"></a>✔  checking <span class="cf">for</span> file ‘<span class="sc">/</span>private<span class="sc">/</span>var<span class="sc">/</span>folders<span class="sc">/</span><span class="dv">24</span><span class="sc">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="sc">/</span>T<span class="sc">/</span>RtmpnlOHFT<span class="sc">/</span>remotes7fe34465bdda<span class="sc">/</span>bss<span class="sc">-</span>osca<span class="sc">-</span>tfa<span class="sc">-</span>f9d66bb<span class="sc">/</span>tfa<span class="sc">-</span>package<span class="sc">/</span>DESCRIPTION’</span>
+<span id="cb233-5"><a href="sec-io.html#cb233-5" aria-hidden="true" tabindex="-1"></a>✔  checking <span class="cf">for</span> file ‘<span class="sc">/</span>private<span class="sc">/</span>var<span class="sc">/</span>folders<span class="sc">/</span><span class="dv">24</span><span class="sc">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="sc">/</span>T<span class="sc">/</span>RtmpIIeNkt<span class="sc">/</span>remotes894c6b0116b3<span class="sc">/</span>bss<span class="sc">-</span>osca<span class="sc">-</span>tfa<span class="sc">-</span>fc0d8ab<span class="sc">/</span>tfa<span class="sc">-</span>package<span class="sc">/</span>DESCRIPTION’</span>
 <span id="cb233-6"><a href="sec-io.html#cb233-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb233-7"><a href="sec-io.html#cb233-7" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb233-8"><a href="sec-io.html#cb233-8" aria-hidden="true" tabindex="-1"></a>─  preparing ‘tfa’<span class="sc">:</span></span>
@@ -1355,31 +1424,29 @@ Hint
 <span id="cb233-17"><a href="sec-io.html#cb233-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb233-18"><a href="sec-io.html#cb233-18" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb233-19"><a href="sec-io.html#cb233-19" aria-hidden="true" tabindex="-1"></a>─  checking <span class="cf">for</span> empty or unneeded directories</span>
-<span id="cb233-20"><a href="sec-io.html#cb233-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb233-21"><a href="sec-io.html#cb233-21" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb233-22"><a href="sec-io.html#cb233-22" aria-hidden="true" tabindex="-1"></a>─  building ‘tfa_0.<span class="dv">5</span>.<span class="fl">4.</span>tar.gz’</span>
-<span id="cb233-23"><a href="sec-io.html#cb233-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb233-24"><a href="sec-io.html#cb233-24" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb233-25"><a href="sec-io.html#cb233-25" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb233-26"><a href="sec-io.html#cb233-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb233-27"><a href="sec-io.html#cb233-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb233-28"><a href="sec-io.html#cb233-28" aria-hidden="true" tabindex="-1"></a>nurses <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/nurses.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tfa&quot;</span>))</span>
-<span id="cb233-29"><a href="sec-io.html#cb233-29" aria-hidden="true" tabindex="-1"></a>shifts <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/shifts.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tfa&quot;</span>))</span></code></pre></div>
-<div id="LZnL8lszeFdRCbyCQL26" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="LZnL8lszeFdRCbyCQL26-title">
+<span id="cb233-20"><a href="sec-io.html#cb233-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ─  building ‘tfa_0.5.4.tar.gz’</span></span>
+<span id="cb233-21"><a href="sec-io.html#cb233-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb233-22"><a href="sec-io.html#cb233-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb233-23"><a href="sec-io.html#cb233-23" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb233-24"><a href="sec-io.html#cb233-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb233-25"><a href="sec-io.html#cb233-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb233-26"><a href="sec-io.html#cb233-26" aria-hidden="true" tabindex="-1"></a>nurses <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/nurses.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tfa&quot;</span>))</span>
+<span id="cb233-27"><a href="sec-io.html#cb233-27" aria-hidden="true" tabindex="-1"></a>shifts <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/shifts.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tfa&quot;</span>))</span></code></pre></div>
+<div id="vzDXetjbDunJEejSrfA0" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="vzDXetjbDunJEejSrfA0-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="LZnL8lszeFdRCbyCQL26-title">
+<h4 class="modal-title" id="vzDXetjbDunJEejSrfA0-title">
 Solution
 </h4>
 </div>
 <div class="modal-body">
 <div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="sec-io.html#cb234-1" aria-hidden="true" tabindex="-1"></a>nurses <span class="sc">%&gt;%</span></span>
 <span id="cb234-2"><a href="sec-io.html#cb234-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), <span class="sc">~</span><span class="fu">str_c</span>(<span class="st">&#39;&quot;&#39;</span>, .x, <span class="st">&#39;&quot;&#39;</span>))) </span>
-<span id="cb234-3"><a href="sec-io.html#cb234-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 32 x 2</span></span>
+<span id="cb234-3"><a href="sec-io.html#cb234-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 32 × 2</span></span>
 <span id="cb234-4"><a href="sec-io.html#cb234-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    name           experience</span></span>
 <span id="cb234-5"><a href="sec-io.html#cb234-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;               &lt;dbl&gt;</span></span>
 <span id="cb234-6"><a href="sec-io.html#cb234-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 &quot;\&quot;Anne\&quot;&quot;             11</span></span>
@@ -1402,17 +1469,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#LZnL8lszeFdRCbyCQL26">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#vzDXetjbDunJEejSrfA0">
 Solution
 </button>
-<div id="P21ANaKUkAqJEJmFv9Dc" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="P21ANaKUkAqJEJmFv9Dc-title">
+<div id="r6JQcLZpKNbU6qRknO0k" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="r6JQcLZpKNbU6qRknO0k-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="P21ANaKUkAqJEJmFv9Dc-title">
+<h4 class="modal-title" id="r6JQcLZpKNbU6qRknO0k-title">
 Hint 2
 </h4>
 </div>
@@ -1428,17 +1495,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#P21ANaKUkAqJEJmFv9Dc">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#r6JQcLZpKNbU6qRknO0k">
 Hint 2
 </button>
-<div id="FhkGZuhqvIe8qfjJfSem" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="FhkGZuhqvIe8qfjJfSem-title">
+<div id="4W7f3nfF930pG3LZnL8l" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="4W7f3nfF930pG3LZnL8l-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="FhkGZuhqvIe8qfjJfSem-title">
+<h4 class="modal-title" id="4W7f3nfF930pG3LZnL8l-title">
 Hint 1
 </h4>
 </div>
@@ -1454,7 +1521,7 @@ Hint 1
 <span id="cb236-9"><a href="sec-io.html#cb236-9" aria-hidden="true" tabindex="-1"></a>   <span class="st">&quot;Bethanie&quot;</span>, <span class="dv">4</span></span>
 <span id="cb236-10"><a href="sec-io.html#cb236-10" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb236-11"><a href="sec-io.html#cb236-11" aria-hidden="true" tabindex="-1"></a>tbl</span>
-<span id="cb236-12"><a href="sec-io.html#cb236-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 x 2</span></span>
+<span id="cb236-12"><a href="sec-io.html#cb236-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
 <span id="cb236-13"><a href="sec-io.html#cb236-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   name     experience</span></span>
 <span id="cb236-14"><a href="sec-io.html#cb236-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt;</span></span>
 <span id="cb236-15"><a href="sec-io.html#cb236-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Anne             11</span></span>
@@ -1462,7 +1529,7 @@ Hint 1
 <span id="cb236-17"><a href="sec-io.html#cb236-17" aria-hidden="true" tabindex="-1"></a>tbl <span class="sc">%&gt;%</span> </span>
 <span id="cb236-18"><a href="sec-io.html#cb236-18" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), <span class="co"># use across to find all character columns</span></span>
 <span id="cb236-19"><a href="sec-io.html#cb236-19" aria-hidden="true" tabindex="-1"></a>                 <span class="sc">~</span><span class="fu">str_c</span>(<span class="st">&#39;(&#39;</span>, .x, <span class="st">&#39;)&#39;</span>))) <span class="co"># str_c is applied to each column where .x is the column values </span></span>
-<span id="cb236-20"><a href="sec-io.html#cb236-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 x 2</span></span>
+<span id="cb236-20"><a href="sec-io.html#cb236-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
 <span id="cb236-21"><a href="sec-io.html#cb236-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   name       experience</span></span>
 <span id="cb236-22"><a href="sec-io.html#cb236-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt;</span></span>
 <span id="cb236-23"><a href="sec-io.html#cb236-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 (Anne)             11</span></span>
@@ -1476,20 +1543,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#FhkGZuhqvIe8qfjJfSem">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#4W7f3nfF930pG3LZnL8l">
 Hint 1
 </button>
 <ol start="2" style="list-style-type: decimal">
 <li>Transform all character columns in <code>nurses</code> so they start and end with <code>"</code>. Some hints are given in Hint 1.</li>
 </ol>
-<div id="tW9G8EicSdWKldmBOxN4" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="tW9G8EicSdWKldmBOxN4-title">
+<div id="szeFdRCbyCQL26P21ANa" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="szeFdRCbyCQL26P21ANa-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="tW9G8EicSdWKldmBOxN4-title">
+<h4 class="modal-title" id="szeFdRCbyCQL26P21ANa-title">
 Solution
 </h4>
 </div>
@@ -1497,7 +1564,7 @@ Solution
 <div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="sec-io.html#cb237-1" aria-hidden="true" tabindex="-1"></a>nurses <span class="sc">%&gt;%</span></span>
 <span id="cb237-2"><a href="sec-io.html#cb237-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), <span class="sc">~</span><span class="fu">str_c</span>(<span class="st">&#39;&quot;&#39;</span>, .x, <span class="st">&#39;&quot;&#39;</span>))) <span class="sc">%&gt;%</span> </span>
 <span id="cb237-3"><a href="sec-io.html#cb237-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">unite</span>(<span class="st">&quot;tuple&quot;</span>, <span class="fu">everything</span>(), <span class="at">sep =</span> <span class="st">&quot;, &quot;</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb237-4"><a href="sec-io.html#cb237-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 32 x 3</span></span>
+<span id="cb237-4"><a href="sec-io.html#cb237-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 32 × 3</span></span>
 <span id="cb237-5"><a href="sec-io.html#cb237-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    tuple             name           experience</span></span>
 <span id="cb237-6"><a href="sec-io.html#cb237-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;               &lt;dbl&gt;</span></span>
 <span id="cb237-7"><a href="sec-io.html#cb237-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 &quot;\&quot;Anne\&quot;, 11&quot;    &quot;\&quot;Anne\&quot;&quot;             11</span></span>
@@ -1520,17 +1587,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#tW9G8EicSdWKldmBOxN4">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#szeFdRCbyCQL26P21ANa">
 Solution
 </button>
-<div id="WwrYfVv5Umrto9jleuOx" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="WwrYfVv5Umrto9jleuOx-title">
+<div id="KUkAqJEJmFv9DcFhkGZu" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="KUkAqJEJmFv9DcFhkGZu-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="WwrYfVv5Umrto9jleuOx-title">
+<h4 class="modal-title" id="KUkAqJEJmFv9DcFhkGZu-title">
 Hint
 </h4>
 </div>
@@ -1547,20 +1614,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#WwrYfVv5Umrto9jleuOx">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#KUkAqJEJmFv9DcFhkGZu">
 Hint
 </button>
 <ol start="3" style="list-style-type: decimal">
 <li>Unite all columns into a new column named <code>tuple</code> where each column is separated with <code>,</code>. Hint: have a look at the <code>unite</code> function. All columns can be selected using <code>everything()</code>.</li>
 </ol>
-<div id="SCa9WPpYSBTEJrRQTp0J" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="SCa9WPpYSBTEJrRQTp0J-title">
+<div id="hqvIe8qfjJfSemtW9G8E" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="hqvIe8qfjJfSemtW9G8E-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="SCa9WPpYSBTEJrRQTp0J-title">
+<h4 class="modal-title" id="hqvIe8qfjJfSemtW9G8E-title">
 Solution
 </h4>
 </div>
@@ -1569,7 +1636,7 @@ Solution
 <span id="cb239-2"><a href="sec-io.html#cb239-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), <span class="sc">~</span><span class="fu">str_c</span>(<span class="st">&#39;&quot;&#39;</span>, .x, <span class="st">&#39;&quot;&#39;</span>))) <span class="sc">%&gt;%</span> </span>
 <span id="cb239-3"><a href="sec-io.html#cb239-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">unite</span>(<span class="st">&quot;tuple&quot;</span>, <span class="fu">everything</span>(), <span class="at">sep =</span> <span class="st">&quot;, &quot;</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb239-4"><a href="sec-io.html#cb239-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">tuple =</span> <span class="fu">str_c</span>(<span class="st">&quot;&lt;&quot;</span>, tuple, <span class="st">&quot;&gt;&quot;</span>))</span>
-<span id="cb239-5"><a href="sec-io.html#cb239-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 32 x 3</span></span>
+<span id="cb239-5"><a href="sec-io.html#cb239-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 32 × 3</span></span>
 <span id="cb239-6"><a href="sec-io.html#cb239-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    tuple               name           experience</span></span>
 <span id="cb239-7"><a href="sec-io.html#cb239-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;               &lt;chr&gt;               &lt;dbl&gt;</span></span>
 <span id="cb239-8"><a href="sec-io.html#cb239-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 &quot;&lt;\&quot;Anne\&quot;, 11&gt;&quot;    &quot;\&quot;Anne\&quot;&quot;             11</span></span>
@@ -1592,17 +1659,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#SCa9WPpYSBTEJrRQTp0J">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#hqvIe8qfjJfSemtW9G8E">
 Solution
 </button>
-<div id="5pTXOS7114Mlk6x8UZvo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="5pTXOS7114Mlk6x8UZvo-title">
+<div id="icSdWKldmBOxN4WwrYfV" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="icSdWKldmBOxN4WwrYfV-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="5pTXOS7114Mlk6x8UZvo-title">
+<h4 class="modal-title" id="icSdWKldmBOxN4WwrYfV-title">
 Hint
 </h4>
 </div>
@@ -1620,20 +1687,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#5pTXOS7114Mlk6x8UZvo">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#icSdWKldmBOxN4WwrYfV">
 Hint
 </button>
 <ol start="4" style="list-style-type: decimal">
 <li>Add <code>&lt;</code> and <code>&gt;</code> the start and end of the <code>tuple</code> column.</li>
 </ol>
-<div id="XNXnc6BqTmoIEcNs79dB" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="XNXnc6BqTmoIEcNs79dB-title">
+<div id="v5Umrto9jleuOxSCa9WP" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="v5Umrto9jleuOxSCa9WP-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="XNXnc6BqTmoIEcNs79dB-title">
+<h4 class="modal-title" id="v5Umrto9jleuOxSCa9WP-title">
 Solution
 </h4>
 </div>
@@ -1654,17 +1721,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#XNXnc6BqTmoIEcNs79dB">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#v5Umrto9jleuOxSCa9WP">
 Solution
 </button>
-<div id="fVjK6OXjAaUwu9JhlVEA" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="fVjK6OXjAaUwu9JhlVEA-title">
+<div id="pYSBTEJrRQTp0J5pTXOS" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="pYSBTEJrRQTp0J5pTXOS-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="fVjK6OXjAaUwu9JhlVEA-title">
+<h4 class="modal-title" id="pYSBTEJrRQTp0J5pTXOS-title">
 Hint
 </h4>
 </div>
@@ -1684,20 +1751,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#fVjK6OXjAaUwu9JhlVEA">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#pYSBTEJrRQTp0J5pTXOS">
 Hint
 </button>
 <ol start="5" style="list-style-type: decimal">
 <li>Extract the <code>tuple</code> column and transform it into a string with <code>collapse = ",\n"</code>.</li>
 </ol>
-<div id="J2fkFS26tcdSHw1AynzG" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="J2fkFS26tcdSHw1AynzG-title">
+<div id="7114Mlk6x8UZvoXNXnc6" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="7114Mlk6x8UZvoXNXnc6-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="J2fkFS26tcdSHw1AynzG-title">
+<h4 class="modal-title" id="7114Mlk6x8UZvoXNXnc6-title">
 Solution
 </h4>
 </div>
@@ -1759,17 +1826,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#J2fkFS26tcdSHw1AynzG">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#7114Mlk6x8UZvoXNXnc6">
 Solution
 </button>
-<div id="a4nst0EbMh2eEGjBNgPX" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="a4nst0EbMh2eEGjBNgPX-title">
+<div id="BqTmoIEcNs79dBfVjK6O" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="BqTmoIEcNs79dBfVjK6O-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="a4nst0EbMh2eEGjBNgPX-title">
+<h4 class="modal-title" id="BqTmoIEcNs79dBfVjK6O-title">
 Hint 2
 </h4>
 </div>
@@ -1793,17 +1860,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#a4nst0EbMh2eEGjBNgPX">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#BqTmoIEcNs79dBfVjK6O">
 Hint 2
 </button>
-<div id="S71An841PqKRPLvvHjDw" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="S71An841PqKRPLvvHjDw-title">
+<div id="XjAaUwu9JhlVEAJ2fkFS" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="XjAaUwu9JhlVEAJ2fkFS-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="S71An841PqKRPLvvHjDw-title">
+<h4 class="modal-title" id="XjAaUwu9JhlVEAJ2fkFS-title">
 Hint 1
 </h4>
 </div>
@@ -1825,7 +1892,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#S71An841PqKRPLvvHjDw">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#XjAaUwu9JhlVEAJ2fkFS">
 Hint 1
 </button>
 <ol start="6" style="list-style-type: decimal">
@@ -1834,14 +1901,14 @@ Hint 1
 <p>The name of an object can be extracted as a string using</p>
 <div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="sec-io.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deparse</span>(<span class="fu">substitute</span>(nurses))</span>
 <span id="cb246-2"><a href="sec-io.html#cb246-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;nurses&quot;</span></span></code></pre></div>
-<div id="3zDJ7aezCoczRi4dDuor" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="3zDJ7aezCoczRi4dDuor-title">
+<div id="26tcdSHw1AynzGa4nst0" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="26tcdSHw1AynzGa4nst0-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="3zDJ7aezCoczRi4dDuor-title">
+<h4 class="modal-title" id="26tcdSHw1AynzGa4nst0-title">
 Solution
 </h4>
 </div>
@@ -1907,20 +1974,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#3zDJ7aezCoczRi4dDuor">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#26tcdSHw1AynzGa4nst0">
 Solution
 </button>
 <ol start="7" style="list-style-type: decimal">
 <li>Modify <code>write_tuple</code> so it works if <code>shifts</code> are given as input instead of nurses.</li>
 </ol>
-<div id="oPyUUL4uDIeZy6XusumA" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="oPyUUL4uDIeZy6XusumA-title">
+<div id="EbMh2eEGjBNgPXS71An8" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="EbMh2eEGjBNgPXS71An8-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="oPyUUL4uDIeZy6XusumA-title">
+<h4 class="modal-title" id="EbMh2eEGjBNgPXS71An8-title">
 Solution
 </h4>
 </div>
@@ -1946,20 +2013,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#oPyUUL4uDIeZy6XusumA">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#EbMh2eEGjBNgPXS71An8">
 Solution
 </button>
 <ol start="8" style="list-style-type: decimal">
 <li>Modify <code>write_tuple</code> with a new input argument <code>append</code> which is false by default. If true, then then the file is not overwritten.</li>
 </ol>
-<div id="77QmuQoTglgqJB50tn46" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="77QmuQoTglgqJB50tn46-title">
+<div id="41PqKRPLvvHjDw3zDJ7a" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="41PqKRPLvvHjDw3zDJ7a-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="77QmuQoTglgqJB50tn46-title">
+<h4 class="modal-title" id="41PqKRPLvvHjDw3zDJ7a-title">
 Solution
 </h4>
 </div>
@@ -2050,7 +2117,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#77QmuQoTglgqJB50tn46">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#41PqKRPLvvHjDw3zDJ7a">
 Solution
 </button>
 <ol start="9" style="list-style-type: decimal">
@@ -2058,6 +2125,12 @@ Solution
 </ol>
 
 </div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-dsbook" class="csl-entry">
+Irizarry, R. A. 2020. <em>Introduction to Data Science - Data Analysis and Prediction Algorithms with r</em>. <a href="https://rafalab.github.io/dsbook/">https://rafalab.github.io/dsbook/</a>.
 </div>
 </div>
             </section>
@@ -2088,7 +2161,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/bss-osca/tfa/edit/master/book/io.Rmd",
+"link": "https://github.com/bss-osca/tfa/edit/master/book/07-02_r-io.Rmd",
 "text": "Edit"
 },
 "history": {

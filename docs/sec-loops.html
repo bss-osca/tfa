@@ -4,27 +4,27 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 4 Loops and conditionals | Tools for Analytics (TFA)</title>
-  <meta name="description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <title>Module 12 Loops and conditionals | Tools for Analytics (TFA)</title>
+  <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 4 Loops and conditionals | Tools for Analytics (TFA)" />
+  <meta property="og:title" content="Module 12 Loops and conditionals | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://bss-osca.github.io/tfa/" />
-  <meta property="og:image" content="https://bss-osca.github.io/tfa/assets/logo.png" />
-  <meta property="og:description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
+  <meta property="og:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
+  <meta property="og:description" content="Course notes for the ‘Tools for Analytics’ course" />
   <meta name="github-repo" content="bss-osca/tfa" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 4 Loops and conditionals | Tools for Analytics (TFA)" />
+  <meta name="twitter:title" content="Module 12 Loops and conditionals | Tools for Analytics (TFA)" />
   
-  <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
-  <meta name="twitter:image" content="https://bss-osca.github.io/tfa/assets/logo.png" />
+  <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course" />
+  <meta name="twitter:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
 
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2021-03-10" />
+<meta name="date" content="2021-08-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="sec-r-basics.html"/>
 <link rel="next" href="sec-functions.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,11 +51,16 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
 <link href="libs/font-awesome-5.3.1/css/all.min.css" rel="stylesheet" />
 <link href="libs/font-awesome-5.3.1/css/v4-shims.min.css" rel="stylesheet" />
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -68,7 +73,7 @@
 <link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
 <script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.17/datatables.js"></script>
+<script src="libs/datatables-binding-0.18/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
@@ -164,6 +169,29 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 <link rel="stylesheet" href="assets/style.css" type="text/css" />
 </head>
 
@@ -180,173 +208,219 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="toc-logo"><a href="./"><img src="img/logo.png"></a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction to the book</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#how-this-book-is-organized"><i class="fa fa-check"></i><b>1.1</b> How this book is organized</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#ack"><i class="fa fa-check"></i><b>1.2</b> Acknowledgements</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#lo-intro"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#purpose"><i class="fa fa-check"></i><b>1.2</b> Purpose for the book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#r-vs-vba"><i class="fa fa-check"></i><b>1.3</b> R vs Excel/VBA</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#computer"><i class="fa fa-check"></i><b>1.4</b> How a computer works</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#organization"><i class="fa fa-check"></i><b>1.5</b> How this book is organized</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#ack"><i class="fa fa-check"></i><b>1.6</b> Acknowledgements</a></li>
 </ul></li>
-<li class="part"><span><b>I Getting started</b></span></li>
-<li class="chapter" data-level="2" data-path="sec-install.html"><a href="sec-install.html"><i class="fa fa-check"></i><b>2</b> Install R and RStudio</a>
+<li class="part"><span><b>I Getting started with VBA</b></span></li>
+<li class="chapter" data-level="2" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html"><i class="fa fa-check"></i><b>2</b> A introduction to VBA</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="sec-install.html"><a href="sec-install.html#lo-install"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="2.2" data-path="sec-install.html"><a href="sec-install.html#install-r"><i class="fa fa-check"></i><b>2.2</b> Install R and RStudio</a></li>
-<li class="chapter" data-level="2.3" data-path="sec-install.html"><a href="sec-install.html#test-your-installation"><i class="fa fa-check"></i><b>2.3</b> Test your installation</a></li>
-<li class="chapter" data-level="2.4" data-path="sec-install.html"><a href="sec-install.html#add-on-packages"><i class="fa fa-check"></i><b>2.4</b> Add-on packages</a></li>
-<li class="chapter" data-level="2.5" data-path="sec-install.html"><a href="sec-install.html#lp-install"><i class="fa fa-check"></i><b>2.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="2.1" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#lo-vba-intro"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="2.2" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#vba-what"><i class="fa fa-check"></i><b>2.2</b> What is VBA</a></li>
+<li class="chapter" data-level="2.3" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#vba-hello"><i class="fa fa-check"></i><b>2.3</b> Your first program</a></li>
+<li class="chapter" data-level="2.4" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#vba-macro"><i class="fa fa-check"></i><b>2.4</b> The macro recorder</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="sec-r-basics.html"><a href="sec-r-basics.html"><i class="fa fa-check"></i><b>3</b> R basics and workflows</a>
+<li class="chapter" data-level="3" data-path="test.html"><a href="test.html"><i class="fa fa-check"></i><b>3</b> Test</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lo-r-basics"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="3.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-with-r-at-the-command-line-in-rstudio"><i class="fa fa-check"></i><b>3.2</b> Working with R at the command line in RStudio</a></li>
-<li class="chapter" data-level="3.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#your-first-datacamp-course"><i class="fa fa-check"></i><b>3.3</b> Your first DataCamp course</a></li>
-<li class="chapter" data-level="3.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#pipes"><i class="fa fa-check"></i><b>3.4</b> Pipes</a></li>
-<li class="chapter" data-level="3.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rprojs"><i class="fa fa-check"></i><b>3.5</b> RStudio projects</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#storing-your-code-in-a-script-file"><i class="fa fa-check"></i><b>3.5.1</b> Storing your code in a script file</a></li>
+<li class="chapter" data-level="3.1" data-path="test.html"><a href="test.html#learning-outcomes"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="3.2" data-path="test.html"><a href="test.html#different-learning-paths"><i class="fa fa-check"></i><b>3.2</b> Different learning paths</a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#global-options"><i class="fa fa-check"></i><b>3.6</b> Global options</a></li>
-<li class="chapter" data-level="3.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-directory"><i class="fa fa-check"></i><b>3.7</b> Working directory</a></li>
-<li class="chapter" data-level="3.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lp-r-basics"><i class="fa fa-check"></i><b>3.8</b> Different learning paths</a></li>
-<li class="chapter" data-level="3.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rc-r-basics"><i class="fa fa-check"></i><b>3.9</b> Recap</a></li>
-<li class="chapter" data-level="3.10" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-r-basics"><i class="fa fa-check"></i><b>3.10</b> Exercises</a>
+<li class="part"><span><b>II Programming in VBA</b></span></li>
+<li class="chapter" data-level="4" data-path="data-types-varables.html"><a href="data-types-varables.html"><i class="fa fa-check"></i><b>4</b> Data types - Varables</a>
 <ul>
-<li class="chapter" data-level="3.10.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-group-work"><i class="fa fa-check"></i><b>3.10.1</b> Exercise (group work)</a></li>
-<li class="chapter" data-level="3.10.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-install-packages"><i class="fa fa-check"></i><b>3.10.2</b> Exercise (install packages)</a></li>
-<li class="chapter" data-level="3.10.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-piping"><i class="fa fa-check"></i><b>3.10.3</b> Exercise (piping)</a></li>
-<li class="chapter" data-level="3.10.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-working-dir"><i class="fa fa-check"></i><b>3.10.4</b> Exercise (working dir)</a></li>
-<li class="chapter" data-level="3.10.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-vectors"><i class="fa fa-check"></i><b>3.10.5</b> Exercise (vectors)</a></li>
-<li class="chapter" data-level="3.10.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-matrices"><i class="fa fa-check"></i><b>3.10.6</b> Exercise (matrices)</a></li>
-<li class="chapter" data-level="3.10.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-data-frames"><i class="fa fa-check"></i><b>3.10.7</b> Exercise (data frames)</a></li>
-<li class="chapter" data-level="3.10.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-lists"><i class="fa fa-check"></i><b>3.10.8</b> Exercise (lists)</a></li>
-<li class="chapter" data-level="3.10.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-strings"><i class="fa fa-check"></i><b>3.10.9</b> Exercise (string management)</a></li>
+<li class="chapter" data-level="4.1" data-path="data-types-varables.html"><a href="data-types-varables.html#learning-outcomes-1"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="procedures-and-functions.html"><a href="procedures-and-functions.html"><i class="fa fa-check"></i><b>5</b> Procedures and functions</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="procedures-and-functions.html"><a href="procedures-and-functions.html#learning-outcomes-2"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
 </ul></li>
-<li class="part"><span><b>II Programming in R</b></span></li>
-<li class="chapter" data-level="4" data-path="sec-loops.html"><a href="sec-loops.html"><i class="fa fa-check"></i><b>4</b> Loops and conditionals</a>
+<li class="chapter" data-level="6" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html"><i class="fa fa-check"></i><b>6</b> Loops and conditionals</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="sec-loops.html"><a href="sec-loops.html#lo-loops"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="4.2" data-path="sec-loops.html"><a href="sec-loops.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>4.2</b> Conditionals and control flow</a></li>
-<li class="chapter" data-level="4.3" data-path="sec-loops.html"><a href="sec-loops.html#loops"><i class="fa fa-check"></i><b>4.3</b> Loops</a></li>
-<li class="chapter" data-level="4.4" data-path="sec-loops.html"><a href="sec-loops.html#lp-loops"><i class="fa fa-check"></i><b>4.4</b> Different learning paths</a></li>
-<li class="chapter" data-level="4.5" data-path="sec-loops.html"><a href="sec-loops.html#rc-loops"><i class="fa fa-check"></i><b>4.5</b> Recap</a></li>
-<li class="chapter" data-level="4.6" data-path="sec-loops.html"><a href="sec-loops.html#ex-loops"><i class="fa fa-check"></i><b>4.6</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="4.6.1" data-path="sec-loops.html"><a href="sec-loops.html#exercise-conditional-expressions"><i class="fa fa-check"></i><b>4.6.1</b> Exercise (conditional expressions)</a></li>
-<li class="chapter" data-level="4.6.2" data-path="sec-loops.html"><a href="sec-loops.html#exercise-loops"><i class="fa fa-check"></i><b>4.6.2</b> Exercise (loops)</a></li>
-<li class="chapter" data-level="4.6.3" data-path="sec-loops.html"><a href="sec-loops.html#ex-dist"><i class="fa fa-check"></i><b>4.6.3</b> Exercise (calculating distances)</a></li>
-<li class="chapter" data-level="4.6.4" data-path="sec-loops.html"><a href="sec-loops.html#exercise-expand_grid"><i class="fa fa-check"></i><b>4.6.4</b> Exercise (<code>expand_grid</code>)</a></li>
+<li class="chapter" data-level="6.1" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html#learning-outcomes-3"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="object-model.html"><a href="object-model.html"><i class="fa fa-check"></i><b>7</b> Object model</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="object-model.html"><a href="object-model.html#learning-outcomes-4"><i class="fa fa-check"></i><b>7.1</b> Learning outcomes</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="sec-functions.html"><a href="sec-functions.html"><i class="fa fa-check"></i><b>5</b> Functions</a>
+<li class="part"><span><b>III Randomization in VBA</b></span></li>
+<li class="chapter" data-level="8" data-path="generating-random-values.html"><a href="generating-random-values.html"><i class="fa fa-check"></i><b>8</b> Generating random values</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="sec-functions.html"><a href="sec-functions.html#lo-functions"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="5.2" data-path="sec-functions.html"><a href="sec-functions.html#datacamp-course"><i class="fa fa-check"></i><b>5.2</b> DataCamp course</a></li>
-<li class="chapter" data-level="5.3" data-path="sec-functions.html"><a href="sec-functions.html#functions-returning-multiple-objects"><i class="fa fa-check"></i><b>5.3</b> Functions returning multiple objects</a></li>
-<li class="chapter" data-level="5.4" data-path="sec-functions.html"><a href="sec-functions.html#the-...-argument"><i class="fa fa-check"></i><b>5.4</b> The <code>...</code> argument</a></li>
-<li class="chapter" data-level="5.5" data-path="sec-functions.html"><a href="sec-functions.html#documenting-your-functions"><i class="fa fa-check"></i><b>5.5</b> Documenting your functions</a></li>
-<li class="chapter" data-level="5.6" data-path="sec-functions.html"><a href="sec-functions.html#lp-functions"><i class="fa fa-check"></i><b>5.6</b> Different learning paths</a></li>
-<li class="chapter" data-level="5.7" data-path="sec-functions.html"><a href="sec-functions.html#rc-functions"><i class="fa fa-check"></i><b>5.7</b> Recap</a></li>
-<li class="chapter" data-level="5.8" data-path="sec-functions.html"><a href="sec-functions.html#ex-functions"><i class="fa fa-check"></i><b>5.8</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="5.8.1" data-path="sec-functions.html"><a href="sec-functions.html#exercise-defining-functions"><i class="fa fa-check"></i><b>5.8.1</b> Exercise (defining functions)</a></li>
-<li class="chapter" data-level="5.8.2" data-path="sec-functions.html"><a href="sec-functions.html#exercise-scope"><i class="fa fa-check"></i><b>5.8.2</b> Exercise (scope)</a></li>
-<li class="chapter" data-level="5.8.3" data-path="sec-functions.html"><a href="sec-functions.html#exercise-job-sequencing"><i class="fa fa-check"></i><b>5.8.3</b> Exercise (job sequencing)</a></li>
+<li class="chapter" data-level="8.1" data-path="generating-random-values.html"><a href="generating-random-values.html#learning-outcomes-5"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
 </ul></li>
+<li class="part"><span><b>IV Extra topics in VBA</b></span></li>
+<li class="chapter" data-level="9" data-path="file-management.html"><a href="file-management.html"><i class="fa fa-check"></i><b>9</b> File management</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="file-management.html"><a href="file-management.html#learning-outcomes-6"><i class="fa fa-check"></i><b>9.1</b> Learning outcomes</a></li>
 </ul></li>
-<li class="part"><span><b>III IO, tidy and transform</b></span></li>
-<li class="chapter" data-level="6" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html"><i class="fa fa-check"></i><b>6</b> Introduction to tidyverse and R Markdown</a>
+<li class="part"><span><b>V Getting started in R</b></span></li>
+<li class="chapter" data-level="10" data-path="sec-install.html"><a href="sec-install.html"><i class="fa fa-check"></i><b>10</b> Install R and RStudio</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lo-tidy-intro"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="6.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#the-tidyverse-package"><i class="fa fa-check"></i><b>6.2</b> The tidyverse package</a></li>
-<li class="chapter" data-level="6.3" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#writing-reproducible-reports"><i class="fa fa-check"></i><b>6.3</b> Writing reproducible reports</a></li>
-<li class="chapter" data-level="6.4" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#tibbles"><i class="fa fa-check"></i><b>6.4</b> Tibbles</a></li>
-<li class="chapter" data-level="6.5" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lp-tidy-intro"><i class="fa fa-check"></i><b>6.5</b> Different learning paths</a></li>
-<li class="chapter" data-level="6.6" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#rc-tidy-intro"><i class="fa fa-check"></i><b>6.6</b> Recap</a></li>
-<li class="chapter" data-level="6.7" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#ex-tidy-intro"><i class="fa fa-check"></i><b>6.7</b> Exercises</a>
+<li class="chapter" data-level="10.1" data-path="sec-install.html"><a href="sec-install.html#lo-install"><i class="fa fa-check"></i><b>10.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="10.2" data-path="sec-install.html"><a href="sec-install.html#install-r"><i class="fa fa-check"></i><b>10.2</b> Install R and RStudio</a></li>
+<li class="chapter" data-level="10.3" data-path="sec-install.html"><a href="sec-install.html#test-your-installation"><i class="fa fa-check"></i><b>10.3</b> Test your installation</a></li>
+<li class="chapter" data-level="10.4" data-path="sec-install.html"><a href="sec-install.html#add-on-packages"><i class="fa fa-check"></i><b>10.4</b> Add-on packages</a></li>
+<li class="chapter" data-level="10.5" data-path="sec-install.html"><a href="sec-install.html#lp-install"><i class="fa fa-check"></i><b>10.5</b> Different learning paths</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="sec-r-basics.html"><a href="sec-r-basics.html"><i class="fa fa-check"></i><b>11</b> R basics and workflows</a>
 <ul>
-<li class="chapter" data-level="6.7.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-your-first-r-markdown-exercise"><i class="fa fa-check"></i><b>6.7.1</b> Exercise (your first R Markdown exercise)</a></li>
-<li class="chapter" data-level="6.7.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-tibbles"><i class="fa fa-check"></i><b>6.7.2</b> Exercise (tibbles)</a></li>
+<li class="chapter" data-level="" data-path="sec-r-basics.html"><a href="sec-r-basics.html#learning-path-diagramme"><i class="fa fa-check"></i>Learning path diagramme</a></li>
+<li class="chapter" data-level="11.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lo-r-basics"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="11.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-with-r-at-the-command-line-in-rstudio"><i class="fa fa-check"></i><b>11.2</b> Working with R at the command line in RStudio</a></li>
+<li class="chapter" data-level="11.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#your-first-datacamp-course"><i class="fa fa-check"></i><b>11.3</b> Your first DataCamp course</a></li>
+<li class="chapter" data-level="11.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#pipes"><i class="fa fa-check"></i><b>11.4</b> Pipes</a></li>
+<li class="chapter" data-level="11.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rprojs"><i class="fa fa-check"></i><b>11.5</b> RStudio projects</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#storing-your-code-in-a-script-file"><i class="fa fa-check"></i><b>11.5.1</b> Storing your code in a script file</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#global-options"><i class="fa fa-check"></i><b>11.6</b> Global options</a></li>
+<li class="chapter" data-level="11.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-directory"><i class="fa fa-check"></i><b>11.7</b> Working directory</a></li>
+<li class="chapter" data-level="11.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lp-r-basics"><i class="fa fa-check"></i><b>11.8</b> Different learning paths</a></li>
+<li class="chapter" data-level="11.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rc-r-basics"><i class="fa fa-check"></i><b>11.9</b> Recap</a></li>
+<li class="chapter" data-level="11.10" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-r-basics"><i class="fa fa-check"></i><b>11.10</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="11.10.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-group-work"><i class="fa fa-check"></i><b>11.10.1</b> Exercise (group work)</a></li>
+<li class="chapter" data-level="11.10.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-install-packages"><i class="fa fa-check"></i><b>11.10.2</b> Exercise (install packages)</a></li>
+<li class="chapter" data-level="11.10.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-piping"><i class="fa fa-check"></i><b>11.10.3</b> Exercise (piping)</a></li>
+<li class="chapter" data-level="11.10.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-working-dir"><i class="fa fa-check"></i><b>11.10.4</b> Exercise (working dir)</a></li>
+<li class="chapter" data-level="11.10.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-vectors"><i class="fa fa-check"></i><b>11.10.5</b> Exercise (vectors)</a></li>
+<li class="chapter" data-level="11.10.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-matrices"><i class="fa fa-check"></i><b>11.10.6</b> Exercise (matrices)</a></li>
+<li class="chapter" data-level="11.10.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-data-frames"><i class="fa fa-check"></i><b>11.10.7</b> Exercise (data frames)</a></li>
+<li class="chapter" data-level="11.10.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-lists"><i class="fa fa-check"></i><b>11.10.8</b> Exercise (lists)</a></li>
+<li class="chapter" data-level="11.10.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-strings"><i class="fa fa-check"></i><b>11.10.9</b> Exercise (string management)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sec-io.html"><a href="sec-io.html"><i class="fa fa-check"></i><b>7</b> Importing and exporting data</a>
+<li class="part"><span><b>VI Programming in R</b></span></li>
+<li class="chapter" data-level="12" data-path="sec-loops.html"><a href="sec-loops.html"><i class="fa fa-check"></i><b>12</b> Loops and conditionals</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="sec-io.html"><a href="sec-io.html#lo-io"><i class="fa fa-check"></i><b>7.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="7.2" data-path="sec-io.html"><a href="sec-io.html#csv-files"><i class="fa fa-check"></i><b>7.2</b> CSV files</a>
+<li class="chapter" data-level="" data-path="sec-loops.html"><a href="sec-loops.html#learning-path-diagramme-1"><i class="fa fa-check"></i>Learning path diagramme</a></li>
+<li class="chapter" data-level="12.1" data-path="sec-loops.html"><a href="sec-loops.html#lo-loops"><i class="fa fa-check"></i><b>12.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="12.2" data-path="sec-loops.html"><a href="sec-loops.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>12.2</b> Conditionals and control flow</a></li>
+<li class="chapter" data-level="12.3" data-path="sec-loops.html"><a href="sec-loops.html#loops"><i class="fa fa-check"></i><b>12.3</b> Loops</a></li>
+<li class="chapter" data-level="12.4" data-path="sec-loops.html"><a href="sec-loops.html#lp-loops"><i class="fa fa-check"></i><b>12.4</b> Different learning paths</a></li>
+<li class="chapter" data-level="12.5" data-path="sec-loops.html"><a href="sec-loops.html#rc-loops"><i class="fa fa-check"></i><b>12.5</b> Recap</a></li>
+<li class="chapter" data-level="12.6" data-path="sec-loops.html"><a href="sec-loops.html#ex-loops"><i class="fa fa-check"></i><b>12.6</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="sec-io.html"><a href="sec-io.html#reading-a-csv-file"><i class="fa fa-check"></i><b>7.2.1</b> Reading a CSV file</a></li>
-<li class="chapter" data-level="7.2.2" data-path="sec-io.html"><a href="sec-io.html#writing-to-csv-files"><i class="fa fa-check"></i><b>7.2.2</b> Writing to CSV files</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="sec-io.html"><a href="sec-io.html#excel"><i class="fa fa-check"></i><b>7.3</b> Excel</a></li>
-<li class="chapter" data-level="7.4" data-path="sec-io.html"><a href="sec-io.html#google-sheets"><i class="fa fa-check"></i><b>7.4</b> Google Sheets</a></li>
-<li class="chapter" data-level="7.5" data-path="sec-io.html"><a href="sec-io.html#text-files"><i class="fa fa-check"></i><b>7.5</b> Text files</a></li>
-<li class="chapter" data-level="7.6" data-path="sec-io.html"><a href="sec-io.html#rs-native-binary-format"><i class="fa fa-check"></i><b>7.6</b> R’s native binary format</a></li>
-<li class="chapter" data-level="7.7" data-path="sec-io.html"><a href="sec-io.html#json"><i class="fa fa-check"></i><b>7.7</b> Json</a></li>
-<li class="chapter" data-level="7.8" data-path="sec-io.html"><a href="sec-io.html#lp-io"><i class="fa fa-check"></i><b>7.8</b> Different learning paths</a></li>
-<li class="chapter" data-level="7.9" data-path="sec-io.html"><a href="sec-io.html#rc-io"><i class="fa fa-check"></i><b>7.9</b> Recap</a></li>
-<li class="chapter" data-level="7.10" data-path="sec-io.html"><a href="sec-io.html#ex-io"><i class="fa fa-check"></i><b>7.10</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="7.10.1" data-path="sec-io.html"><a href="sec-io.html#exercise-statistikbanken"><i class="fa fa-check"></i><b>7.10.1</b> Exercise (Statistikbanken)</a></li>
-<li class="chapter" data-level="7.10.2" data-path="sec-io.html"><a href="sec-io.html#exercise-tuples-in-opl"><i class="fa fa-check"></i><b>7.10.2</b> Exercise (tuples in OPL)</a></li>
+<li class="chapter" data-level="12.6.1" data-path="sec-loops.html"><a href="sec-loops.html#exercise-conditional-expressions"><i class="fa fa-check"></i><b>12.6.1</b> Exercise (conditional expressions)</a></li>
+<li class="chapter" data-level="12.6.2" data-path="sec-loops.html"><a href="sec-loops.html#exercise-loops"><i class="fa fa-check"></i><b>12.6.2</b> Exercise (loops)</a></li>
+<li class="chapter" data-level="12.6.3" data-path="sec-loops.html"><a href="sec-loops.html#ex-dist"><i class="fa fa-check"></i><b>12.6.3</b> Exercise (calculating distances)</a></li>
+<li class="chapter" data-level="12.6.4" data-path="sec-loops.html"><a href="sec-loops.html#exercise-expand_grid"><i class="fa fa-check"></i><b>12.6.4</b> Exercise (<code>expand_grid</code>)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="sec-transform.html"><a href="sec-transform.html"><i class="fa fa-check"></i><b>8</b> Transforming data</a>
+<li class="chapter" data-level="13" data-path="sec-functions.html"><a href="sec-functions.html"><i class="fa fa-check"></i><b>13</b> Functions</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="sec-transform.html"><a href="sec-transform.html#lo-transform"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="8.2" data-path="sec-transform.html"><a href="sec-transform.html#working-with-data-in-the-tidyverse"><i class="fa fa-check"></i><b>8.2</b> Working with data in the tidyverse</a></li>
-<li class="chapter" data-level="8.3" data-path="sec-transform.html"><a href="sec-transform.html#mutating-and-filtering-joins"><i class="fa fa-check"></i><b>8.3</b> Mutating and filtering joins</a></li>
-<li class="chapter" data-level="8.4" data-path="sec-transform.html"><a href="sec-transform.html#lp-transform"><i class="fa fa-check"></i><b>8.4</b> Different learning paths</a></li>
-<li class="chapter" data-level="8.5" data-path="sec-transform.html"><a href="sec-transform.html#rc-transform"><i class="fa fa-check"></i><b>8.5</b> Recap</a></li>
-<li class="chapter" data-level="8.6" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>8.6</b> Exercises</a>
+<li class="chapter" data-level="13.1" data-path="sec-functions.html"><a href="sec-functions.html#lo-functions"><i class="fa fa-check"></i><b>13.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="13.2" data-path="sec-functions.html"><a href="sec-functions.html#datacamp-course"><i class="fa fa-check"></i><b>13.2</b> DataCamp course</a></li>
+<li class="chapter" data-level="13.3" data-path="sec-functions.html"><a href="sec-functions.html#functions-returning-multiple-objects"><i class="fa fa-check"></i><b>13.3</b> Functions returning multiple objects</a></li>
+<li class="chapter" data-level="13.4" data-path="sec-functions.html"><a href="sec-functions.html#the-...-argument"><i class="fa fa-check"></i><b>13.4</b> The <code>...</code> argument</a></li>
+<li class="chapter" data-level="13.5" data-path="sec-functions.html"><a href="sec-functions.html#documenting-your-functions"><i class="fa fa-check"></i><b>13.5</b> Documenting your functions</a></li>
+<li class="chapter" data-level="13.6" data-path="sec-functions.html"><a href="sec-functions.html#lp-functions"><i class="fa fa-check"></i><b>13.6</b> Different learning paths</a></li>
+<li class="chapter" data-level="13.7" data-path="sec-functions.html"><a href="sec-functions.html#rc-functions"><i class="fa fa-check"></i><b>13.7</b> Recap</a></li>
+<li class="chapter" data-level="13.8" data-path="sec-functions.html"><a href="sec-functions.html#ex-functions"><i class="fa fa-check"></i><b>13.8</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="sec-transform.html"><a href="sec-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>8.6.1</b> Exercise (gapminder)</a></li>
-<li class="chapter" data-level="8.6.2" data-path="sec-transform.html"><a href="sec-transform.html#ex-babynames1"><i class="fa fa-check"></i><b>8.6.2</b> Exercise (babynames)</a></li>
-<li class="chapter" data-level="8.6.3" data-path="sec-transform.html"><a href="sec-transform.html#ex-profit1"><i class="fa fa-check"></i><b>8.6.3</b> Exercise (profit)</a></li>
-<li class="chapter" data-level="8.6.4" data-path="sec-transform.html"><a href="sec-transform.html#ex-fish"><i class="fa fa-check"></i><b>8.6.4</b> Exercise (fisheries)</a></li>
+<li class="chapter" data-level="13.8.1" data-path="sec-functions.html"><a href="sec-functions.html#exercise-defining-functions"><i class="fa fa-check"></i><b>13.8.1</b> Exercise (defining functions)</a></li>
+<li class="chapter" data-level="13.8.2" data-path="sec-functions.html"><a href="sec-functions.html#exercise-scope"><i class="fa fa-check"></i><b>13.8.2</b> Exercise (scope)</a></li>
+<li class="chapter" data-level="13.8.3" data-path="sec-functions.html"><a href="sec-functions.html#exercise-job-sequencing"><i class="fa fa-check"></i><b>13.8.3</b> Exercise (job sequencing)</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>IV Visualization</b></span></li>
-<li class="chapter" data-level="9" data-path="sec-plot.html"><a href="sec-plot.html"><i class="fa fa-check"></i><b>9</b> Data visualization using ggplot</a>
+<li class="part"><span><b>VII IO, tidy and transform</b></span></li>
+<li class="chapter" data-level="14" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html"><i class="fa fa-check"></i><b>14</b> Introduction to tidyverse and R Markdown</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="sec-plot.html"><a href="sec-plot.html#lo-plot"><i class="fa fa-check"></i><b>9.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="9.2" data-path="sec-plot.html"><a href="sec-plot.html#introduction-to-data-visualization"><i class="fa fa-check"></i><b>9.2</b> Introduction to data visualization</a></li>
-<li class="chapter" data-level="9.3" data-path="sec-plot.html"><a href="sec-plot.html#combining-plots-into-one-using-patchwork"><i class="fa fa-check"></i><b>9.3</b> Combining plots into one using <em>patchwork</em></a></li>
-<li class="chapter" data-level="9.4" data-path="sec-plot.html"><a href="sec-plot.html#saving-graphics"><i class="fa fa-check"></i><b>9.4</b> Saving graphics</a></li>
-<li class="chapter" data-level="9.5" data-path="sec-plot.html"><a href="sec-plot.html#lp-r-plot"><i class="fa fa-check"></i><b>9.5</b> Different learning paths</a></li>
-<li class="chapter" data-level="9.6" data-path="sec-plot.html"><a href="sec-plot.html#rc-r-plot"><i class="fa fa-check"></i><b>9.6</b> Recap</a></li>
-<li class="chapter" data-level="9.7" data-path="sec-plot.html"><a href="sec-plot.html#ex-r-plot"><i class="fa fa-check"></i><b>9.7</b> Exercises</a>
+<li class="chapter" data-level="14.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lo-tidy-intro"><i class="fa fa-check"></i><b>14.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="14.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#the-tidyverse-package"><i class="fa fa-check"></i><b>14.2</b> The tidyverse package</a></li>
+<li class="chapter" data-level="14.3" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#writing-reproducible-reports"><i class="fa fa-check"></i><b>14.3</b> Writing reproducible reports</a></li>
+<li class="chapter" data-level="14.4" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#tibbles"><i class="fa fa-check"></i><b>14.4</b> Tibbles</a></li>
+<li class="chapter" data-level="14.5" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lp-tidy-intro"><i class="fa fa-check"></i><b>14.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="14.6" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#rc-tidy-intro"><i class="fa fa-check"></i><b>14.6</b> Recap</a></li>
+<li class="chapter" data-level="14.7" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#ex-tidy-intro"><i class="fa fa-check"></i><b>14.7</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="9.7.1" data-path="sec-plot.html"><a href="sec-plot.html#ex-gapminder2"><i class="fa fa-check"></i><b>9.7.1</b> Exercise (gapminder)</a></li>
-<li class="chapter" data-level="9.7.2" data-path="sec-plot.html"><a href="sec-plot.html#ex-profit2"><i class="fa fa-check"></i><b>9.7.2</b> Exercise (profit)</a></li>
-<li class="chapter" data-level="9.7.3" data-path="sec-plot.html"><a href="sec-plot.html#ex-covid19"><i class="fa fa-check"></i><b>9.7.3</b> Exercise (COVID-19)</a></li>
-<li class="chapter" data-level="9.7.4" data-path="sec-plot.html"><a href="sec-plot.html#ex-lego"><i class="fa fa-check"></i><b>9.7.4</b> Exercise (Lego and sales)</a></li>
+<li class="chapter" data-level="14.7.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-your-first-r-markdown-exercise"><i class="fa fa-check"></i><b>14.7.1</b> Exercise (your first R Markdown exercise)</a></li>
+<li class="chapter" data-level="14.7.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-tibbles"><i class="fa fa-check"></i><b>14.7.2</b> Exercise (tibbles)</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>V R project in groups</b></span></li>
-<li class="chapter" data-level="10" data-path="sec-project.html"><a href="sec-project.html"><i class="fa fa-check"></i><b>10</b> Mandatory R project</a>
+<li class="chapter" data-level="15" data-path="sec-io.html"><a href="sec-io.html"><i class="fa fa-check"></i><b>15</b> Importing and exporting data</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="sec-project.html"><a href="sec-project.html#lo-project"><i class="fa fa-check"></i><b>10.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="10.2" data-path="sec-project.html"><a href="sec-project.html#r-project"><i class="fa fa-check"></i><b>10.2</b> R project</a></li>
-</ul></li>
-<li class="part"><span><b>VI Extra</b></span></li>
-<li class="chapter" data-level="11" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>11</b> Spatial data and maps</a>
+<li class="chapter" data-level="15.1" data-path="sec-io.html"><a href="sec-io.html#lo-io"><i class="fa fa-check"></i><b>15.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="15.2" data-path="sec-io.html"><a href="sec-io.html#csv-files"><i class="fa fa-check"></i><b>15.2</b> CSV files</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="sec-maps.html"><a href="sec-maps.html#lo-maps"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="11.2" data-path="sec-maps.html"><a href="sec-maps.html#sec-map-api-key"><i class="fa fa-check"></i><b>11.2</b> Services for obtatining spatial data</a></li>
-<li class="chapter" data-level="11.3" data-path="sec-maps.html"><a href="sec-maps.html#calculating-distances"><i class="fa fa-check"></i><b>11.3</b> Calculating distances</a>
+<li class="chapter" data-level="15.2.1" data-path="sec-io.html"><a href="sec-io.html#reading-a-csv-file"><i class="fa fa-check"></i><b>15.2.1</b> Reading a CSV file</a></li>
+<li class="chapter" data-level="15.2.2" data-path="sec-io.html"><a href="sec-io.html#writing-to-csv-files"><i class="fa fa-check"></i><b>15.2.2</b> Writing to CSV files</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="sec-io.html"><a href="sec-io.html#excel"><i class="fa fa-check"></i><b>15.3</b> Excel</a></li>
+<li class="chapter" data-level="15.4" data-path="sec-io.html"><a href="sec-io.html#google-sheets"><i class="fa fa-check"></i><b>15.4</b> Google Sheets</a></li>
+<li class="chapter" data-level="15.5" data-path="sec-io.html"><a href="sec-io.html#text-files"><i class="fa fa-check"></i><b>15.5</b> Text files</a></li>
+<li class="chapter" data-level="15.6" data-path="sec-io.html"><a href="sec-io.html#rs-native-binary-format"><i class="fa fa-check"></i><b>15.6</b> R’s native binary format</a></li>
+<li class="chapter" data-level="15.7" data-path="sec-io.html"><a href="sec-io.html#json"><i class="fa fa-check"></i><b>15.7</b> Json</a></li>
+<li class="chapter" data-level="15.8" data-path="sec-io.html"><a href="sec-io.html#lp-io"><i class="fa fa-check"></i><b>15.8</b> Different learning paths</a></li>
+<li class="chapter" data-level="15.9" data-path="sec-io.html"><a href="sec-io.html#rc-io"><i class="fa fa-check"></i><b>15.9</b> Recap</a></li>
+<li class="chapter" data-level="15.10" data-path="sec-io.html"><a href="sec-io.html#ex-io"><i class="fa fa-check"></i><b>15.10</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="11.3.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps"><i class="fa fa-check"></i><b>11.3.1</b> Using Google Maps</a></li>
-<li class="chapter" data-level="11.3.2" data-path="sec-maps.html"><a href="sec-maps.html#using-bing-maps"><i class="fa fa-check"></i><b>11.3.2</b> Using Bing Maps</a></li>
+<li class="chapter" data-level="15.10.1" data-path="sec-io.html"><a href="sec-io.html#exercise-statistikbanken"><i class="fa fa-check"></i><b>15.10.1</b> Exercise (Statistikbanken)</a></li>
+<li class="chapter" data-level="15.10.2" data-path="sec-io.html"><a href="sec-io.html#exercise-tuples-in-opl"><i class="fa fa-check"></i><b>15.10.2</b> Exercise (tuples in OPL)</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="sec-maps.html"><a href="sec-maps.html#geocoding-and-reverse-geocoding"><i class="fa fa-check"></i><b>11.4</b> Geocoding and reverse geocoding</a>
+</ul></li>
+<li class="chapter" data-level="16" data-path="sec-transform.html"><a href="sec-transform.html"><i class="fa fa-check"></i><b>16</b> Transforming data</a>
 <ul>
-<li class="chapter" data-level="11.4.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps-1"><i class="fa fa-check"></i><b>11.4.1</b> Using Google maps</a></li>
-<li class="chapter" data-level="11.4.2" data-path="sec-maps.html"><a href="sec-maps.html#use-bing-maps"><i class="fa fa-check"></i><b>11.4.2</b> Use Bing Maps</a></li>
+<li class="chapter" data-level="16.1" data-path="sec-transform.html"><a href="sec-transform.html#lo-transform"><i class="fa fa-check"></i><b>16.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="16.2" data-path="sec-transform.html"><a href="sec-transform.html#working-with-data-in-the-tidyverse"><i class="fa fa-check"></i><b>16.2</b> Working with data in the tidyverse</a></li>
+<li class="chapter" data-level="16.3" data-path="sec-transform.html"><a href="sec-transform.html#mutating-and-filtering-joins"><i class="fa fa-check"></i><b>16.3</b> Mutating and filtering joins</a></li>
+<li class="chapter" data-level="16.4" data-path="sec-transform.html"><a href="sec-transform.html#lp-transform"><i class="fa fa-check"></i><b>16.4</b> Different learning paths</a></li>
+<li class="chapter" data-level="16.5" data-path="sec-transform.html"><a href="sec-transform.html#rc-transform"><i class="fa fa-check"></i><b>16.5</b> Recap</a></li>
+<li class="chapter" data-level="16.6" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>16.6</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="16.6.1" data-path="sec-transform.html"><a href="sec-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>16.6.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="16.6.2" data-path="sec-transform.html"><a href="sec-transform.html#ex-babynames1"><i class="fa fa-check"></i><b>16.6.2</b> Exercise (babynames)</a></li>
+<li class="chapter" data-level="16.6.3" data-path="sec-transform.html"><a href="sec-transform.html#ex-profit1"><i class="fa fa-check"></i><b>16.6.3</b> Exercise (profit)</a></li>
+<li class="chapter" data-level="16.6.4" data-path="sec-transform.html"><a href="sec-transform.html#ex-fish"><i class="fa fa-check"></i><b>16.6.4</b> Exercise (fisheries)</a></li>
 </ul></li>
-<li class="chapter" data-level="11.5" data-path="sec-maps.html"><a href="sec-maps.html#adding-markers-and-routes-to-a-map"><i class="fa fa-check"></i><b>11.5</b> Adding markers and routes to a map</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="sec-r-excel.html"><a href="sec-r-excel.html"><i class="fa fa-check"></i><b>12</b> Using R in Excel and Excel in R</a></li>
-<li class="chapter" data-level="13" data-path="sec-opl.html"><a href="sec-opl.html"><i class="fa fa-check"></i><b>13</b> Run an OPL model from R</a></li>
-<li class="chapter" data-level="14" data-path="sec-simulation.html"><a href="sec-simulation.html"><i class="fa fa-check"></i><b>14</b> Simulation in R</a></li>
+<li class="part"><span><b>VIII Visualization</b></span></li>
+<li class="chapter" data-level="17" data-path="sec-plot.html"><a href="sec-plot.html"><i class="fa fa-check"></i><b>17</b> Data visualization using ggplot</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sec-plot.html"><a href="sec-plot.html#lo-plot"><i class="fa fa-check"></i><b>17.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="17.2" data-path="sec-plot.html"><a href="sec-plot.html#introduction-to-data-visualization"><i class="fa fa-check"></i><b>17.2</b> Introduction to data visualization</a></li>
+<li class="chapter" data-level="17.3" data-path="sec-plot.html"><a href="sec-plot.html#combining-plots-into-one-using-patchwork"><i class="fa fa-check"></i><b>17.3</b> Combining plots into one using <em>patchwork</em></a></li>
+<li class="chapter" data-level="17.4" data-path="sec-plot.html"><a href="sec-plot.html#saving-graphics"><i class="fa fa-check"></i><b>17.4</b> Saving graphics</a></li>
+<li class="chapter" data-level="17.5" data-path="sec-plot.html"><a href="sec-plot.html#lp-r-plot"><i class="fa fa-check"></i><b>17.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="17.6" data-path="sec-plot.html"><a href="sec-plot.html#rc-r-plot"><i class="fa fa-check"></i><b>17.6</b> Recap</a></li>
+<li class="chapter" data-level="17.7" data-path="sec-plot.html"><a href="sec-plot.html#ex-r-plot"><i class="fa fa-check"></i><b>17.7</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="17.7.1" data-path="sec-plot.html"><a href="sec-plot.html#ex-gapminder2"><i class="fa fa-check"></i><b>17.7.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="17.7.2" data-path="sec-plot.html"><a href="sec-plot.html#ex-profit2"><i class="fa fa-check"></i><b>17.7.2</b> Exercise (profit)</a></li>
+<li class="chapter" data-level="17.7.3" data-path="sec-plot.html"><a href="sec-plot.html#ex-covid19"><i class="fa fa-check"></i><b>17.7.3</b> Exercise (COVID-19)</a></li>
+<li class="chapter" data-level="17.7.4" data-path="sec-plot.html"><a href="sec-plot.html#ex-lego"><i class="fa fa-check"></i><b>17.7.4</b> Exercise (Lego and sales)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IX R project in groups</b></span></li>
+<li class="chapter" data-level="18" data-path="sec-project.html"><a href="sec-project.html"><i class="fa fa-check"></i><b>18</b> Mandatory R project</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sec-project.html"><a href="sec-project.html#lo-project"><i class="fa fa-check"></i><b>18.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="18.2" data-path="sec-project.html"><a href="sec-project.html#r-project"><i class="fa fa-check"></i><b>18.2</b> R project</a></li>
+</ul></li>
+<li class="part"><span><b>X Extra</b></span></li>
+<li class="chapter" data-level="19" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>19</b> Spatial data and maps</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="sec-maps.html"><a href="sec-maps.html#lo-maps"><i class="fa fa-check"></i><b>19.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="19.2" data-path="sec-maps.html"><a href="sec-maps.html#sec-map-api-key"><i class="fa fa-check"></i><b>19.2</b> Services for obtatining spatial data</a></li>
+<li class="chapter" data-level="19.3" data-path="sec-maps.html"><a href="sec-maps.html#calculating-distances"><i class="fa fa-check"></i><b>19.3</b> Calculating distances</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps"><i class="fa fa-check"></i><b>19.3.1</b> Using Google Maps</a></li>
+<li class="chapter" data-level="19.3.2" data-path="sec-maps.html"><a href="sec-maps.html#using-bing-maps"><i class="fa fa-check"></i><b>19.3.2</b> Using Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="sec-maps.html"><a href="sec-maps.html#geocoding-and-reverse-geocoding"><i class="fa fa-check"></i><b>19.4</b> Geocoding and reverse geocoding</a>
+<ul>
+<li class="chapter" data-level="19.4.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps-1"><i class="fa fa-check"></i><b>19.4.1</b> Using Google maps</a></li>
+<li class="chapter" data-level="19.4.2" data-path="sec-maps.html"><a href="sec-maps.html#use-bing-maps"><i class="fa fa-check"></i><b>19.4.2</b> Use Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="19.5" data-path="sec-maps.html"><a href="sec-maps.html#adding-markers-and-routes-to-a-map"><i class="fa fa-check"></i><b>19.5</b> Adding markers and routes to a map</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="sec-r-excel.html"><a href="sec-r-excel.html"><i class="fa fa-check"></i><b>20</b> Using R in Excel and Excel in R</a></li>
+<li class="chapter" data-level="21" data-path="sec-opl.html"><a href="sec-opl.html"><i class="fa fa-check"></i><b>21</b> Run an OPL model from R</a></li>
+<li class="chapter" data-level="22" data-path="sec-simulation.html"><a href="sec-simulation.html"><i class="fa fa-check"></i><b>22</b> Simulation in R</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="groups.html"><a href="groups.html"><i class="fa fa-check"></i><b>A</b> Working in groups</a>
 <ul>
@@ -360,14 +434,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="B" data-path="annotate.html"><a href="annotate.html"><i class="fa fa-check"></i><b>B</b> Annotate the course notes</a></li>
-<li class="chapter" data-level="C" data-path="help.html"><a href="help.html"><i class="fa fa-check"></i><b>C</b> Getting help</a>
-<ul>
-<li class="chapter" data-level="" data-path="help.html"><a href="help.html#study-café"><i class="fa fa-check"></i>Study café</a>
-<ul>
-<li class="chapter" data-level="" data-path="help.html"><a href="help.html#need-help---ask-a-question"><i class="fa fa-check"></i>Need help - ask a question</a></li>
-<li class="chapter" data-level="" data-path="help.html"><a href="help.html#current-queue"><i class="fa fa-check"></i>Current queue</a></li>
-</ul></li>
-</ul></li>
+<li class="chapter" data-level="C" data-path="help.html"><a href="help.html"><i class="fa fa-check"></i><b>C</b> Getting help</a></li>
 <li class="chapter" data-level="D" data-path="slides.html"><a href="slides.html"><i class="fa fa-check"></i><b>D</b> Slides</a></li>
 <li class="chapter" data-level="E" data-path="lg-course.html"><a href="lg-course.html"><i class="fa fa-check"></i><b>E</b> Learning goals</a></li>
 <li class="chapter" data-level="F" data-path="sec-ba.html"><a href="sec-ba.html"><i class="fa fa-check"></i><b>F</b> Business Analytics</a></li>
@@ -400,11 +467,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="sec-loops" class="section level1" number="4">
-<h1><span class="header-section-number">Module 4</span> Loops and conditionals</h1>
+<div id="sec-loops" class="section level1" number="12">
+<h1><span class="header-section-number">Module 12</span> Loops and conditionals</h1>
+<div id="learning-path-diagramme-1" class="section level2 unnumbered">
+<h2>Learning path diagramme</h2>
+<div id="htmlwidget-b5a36e45c5362c803e32" style="width:100%;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b5a36e45c5362c803e32">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"💡 Conditionals\\n& control flow\", URL = \"https://campus.datacamp.com/courses/intermediate-r/chapter-1-conditionals-and-control-flow\", tooltip = \"Chapter 1 of the interactive DataCamp course Intermediate R.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"0,2!\"] \n  \"2\" [label = \"📖 Logical\\nfunctions\", URL = \"#conditionals-and-control-flow\", tooltip = \"Useful logical functions.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"1.75,2!\"] \n  \"3\" [label = \"💡 Loops\", URL = \"https://campus.datacamp.com/courses/intermediate-r/chapter-2-loops\", tooltip = \"Chapter 2 of the interactive DataCamp course Intermediate R.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"3.15,2!\"] \n  \"4\" [label = \"📖 Loops\\n(extra)\", URL = \"#loops\", tooltip = \"Extra tools for looping\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"4.55,2!\"] \n  \"5\" [label = \"📖 Recap\", URL = \"#rc-loops\", tooltip = \"Recap of module\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"5.95,2!\"] \n  \"6\" [label = \"💻 Exercises\", URL = \"#ex_loops\", tooltip = \"Exercises of the module\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"7.45,2!\"] \n  \"7\" [label = \"🎬 Control\\nstructures\", URL = \"https://www.youtube.com/watch?v=s_h9ruNwI_0&ab_channel=RogerPeng\", tooltip = \"Roger Peng has an introduction to control structures including if, for and while on YouTube.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"0,3!\"] \n  \"8\" [label = \"📖 Iteration\", URL = \"https://r4ds.had.co.nz/iteration.html\", tooltip = \"A more detailed introduction to loops (Chapter 21 in H. Wickham, 2017).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"3.15,1!\"] \n  \"9\" [label = \"💡 Loops\\nusing apply\", URL = \"https://campus.datacamp.com/courses/intermediate-r/chapter-4-the-apply-family?ex=1\", tooltip = \"An introduction to loops using the apply family of functions (Chapter 4 of the interactive DataCamp course Intermediate R).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"4.55,1!\"] \n  \"10\" [label = \"\", URL = \"\", tooltip = \"\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"2.2,-0.34!\"] \n  \"11\" [label = \"Color:\", URL = \"\", tooltip = \"\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", margin = \"\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"-0.43,0!\"] \n  \"12\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"-0.2,-0.4!\"] \n  \"13\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"0.8,-0.4!\"] \n  \"14\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"1.8,-0.4!\"] \n  \"15\" [label = \"Shape:\", URL = \"\", tooltip = \"\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", margin = \"\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"3,0!\"] \n  \"16\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"1\", fillcolor = \"Grey40\", pos = \"3.3,-0.4!\"] \n  \"17\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", margin = \"\", height = \"\", width = \"1\", fillcolor = \"Grey40\", pos = \"4.55,-0.4!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"9\" [color = \"black\", arrowhead = \"vee\"] \n\"5\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>This module considers programming with loops and conditional statements.</p>
-<div id="lo-loops" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Learning outcomes</h2>
+</div>
+<div id="lo-loops" class="section level2" number="12.1">
+<h2><span class="header-section-number">12.1</span> Learning outcomes</h2>
 <p>By the end of this module, you are expected to be able to:</p>
 <ul>
 <li>Formulate conditional statements.</li>
@@ -418,8 +490,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
 <!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
 </div>
-<div id="conditionals-and-control-flow" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Conditionals and control flow</h2>
+<div id="conditionals-and-control-flow" class="section level2" number="12.2">
+<h2><span class="header-section-number">12.2</span> Conditionals and control flow</h2>
 <p>An excellent introduction to conditionals and if statements is given in <a href="https://campus.datacamp.com/courses/intermediate-r/chapter-1-conditionals-and-control-flow">Chapter 1</a> of the interactive DataCamp course <a href="https://learn.datacamp.com/courses/intermediate-r">Intermediate R</a>. Please complete the chapter before continuing.</p>
 <p>Some functions are also useful for comparing logical data types. Consider this example:</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="sec-loops.html#cb111-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">2</span>, <span class="dv">17</span>, <span class="dv">11</span>, <span class="cn">NA</span>, <span class="dv">4</span>)</span>
@@ -469,8 +541,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb113-30"><a href="sec-loops.html#cb113-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;negative&quot; &quot;negative&quot; &quot;negative&quot; &quot;negative&quot; &quot;negative&quot; &quot;positive&quot; &quot;positive&quot; &quot;positive&quot;</span></span>
 <span id="cb113-31"><a href="sec-loops.html#cb113-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;positive&quot; &quot;positive&quot; &quot;positive&quot; &quot;missing&quot;</span></span></code></pre></div>
 </div>
-<div id="loops" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Loops</h2>
+<div id="loops" class="section level2" number="12.3">
+<h2><span class="header-section-number">12.3</span> Loops</h2>
 <p>An excellent introduction to conditionals and if statements is given in <a href="https://campus.datacamp.com/courses/intermediate-r/chapter-2-loops">Chapter 2</a> of the interactive DataCamp course <a href="https://learn.datacamp.com/courses/intermediate-r">Intermediate R</a>. Please complete the chapter before continuing.</p>
 <p>Loops in R may be slow. However, not if you follow some golden rules:</p>
 <ul>
@@ -560,7 +632,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb119-2"><a href="sec-loops.html#cb119-2" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
 <span id="cb119-3"><a href="sec-loops.html#cb119-3" aria-hidden="true" tabindex="-1"></a>ite <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(<span class="at">i =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">j=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
 <span id="cb119-4"><a href="sec-loops.html#cb119-4" aria-hidden="true" tabindex="-1"></a>ite</span>
-<span id="cb119-5"><a href="sec-loops.html#cb119-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 2</span></span>
+<span id="cb119-5"><a href="sec-loops.html#cb119-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 2</span></span>
 <span id="cb119-6"><a href="sec-loops.html#cb119-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       i     j</span></span>
 <span id="cb119-7"><a href="sec-loops.html#cb119-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span></span>
 <span id="cb119-8"><a href="sec-loops.html#cb119-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1     1</span></span>
@@ -594,7 +666,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="sec-loops.html#cb120-1" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
 <span id="cb120-2"><a href="sec-loops.html#cb120-2" aria-hidden="true" tabindex="-1"></a>ite <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(<span class="at">i =</span> <span class="dv">2</span>, <span class="at">j =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
 <span id="cb120-3"><a href="sec-loops.html#cb120-3" aria-hidden="true" tabindex="-1"></a>ite</span>
-<span id="cb120-4"><a href="sec-loops.html#cb120-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 x 2</span></span>
+<span id="cb120-4"><a href="sec-loops.html#cb120-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
 <span id="cb120-5"><a href="sec-loops.html#cb120-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       i     j</span></span>
 <span id="cb120-6"><a href="sec-loops.html#cb120-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span id="cb120-7"><a href="sec-loops.html#cb120-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     2     1</span></span>
@@ -612,18 +684,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb120-19"><a href="sec-loops.html#cb120-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]   NA   NA   NA</span></span>
 <span id="cb120-20"><a href="sec-loops.html#cb120-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]    4   NA    6</span></span></code></pre></div>
 </div>
-<div id="lp-loops" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> Different learning paths</h2>
+<div id="lp-loops" class="section level2" number="12.4">
+<h2><span class="header-section-number">12.4</span> Different learning paths</h2>
 <p>We are all different and you may like different learning styles compared to others. You may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be useful for you. Note these suggestions are not a part of syllabus!</p>
 <ul>
 <li>Roger Peng has a video <a href="https://www.youtube.com/watch?v=s_h9ruNwI_0">An introduction to control structures</a> including <code>if</code>, <code>for</code> and <code>while</code>.</li>
 <li>Hefin Rhys has a video <a href="https://www.youtube.com/watch?v=2evtsnPaoDg">Conditional statements and loops in R</a> doing examples in RStudio.</li>
-<li>For a more detailed introduction to loops see <a href="https://r4ds.had.co.nz/iteration.html">Chapter 21</a> in <span class="citation"><a href="colophon.html#ref-r4ds" role="doc-biblioref">H. Wickham</a> (<a href="colophon.html#ref-r4ds" role="doc-biblioref">2017</a>)</span>.</li>
+<li>For a more detailed introduction to loops see <a href="https://r4ds.had.co.nz/iteration.html">Chapter 21</a> in <span class="citation">H. Wickham (<a href="#ref-r4ds" role="doc-biblioref">2017</a>)</span>.</li>
 <li>Loops can also be created using the <em>apply</em> family of functions. An introduction is given in <a href="https://campus.datacamp.com/courses/intermediate-r/chapter-4-the-apply-family">Chapter 4</a> of the interactive DataCamp course <a href="https://learn.datacamp.com/courses/intermediate-r">Intermediate R</a>.</li>
 </ul>
 </div>
-<div id="rc-loops" class="section level2" number="4.5">
-<h2><span class="header-section-number">4.5</span> Recap</h2>
+<div id="rc-loops" class="section level2" number="12.5">
+<h2><span class="header-section-number">12.5</span> Recap</h2>
 <p><em>Comparison/relational operators</em> known to R are:</p>
 <ul>
 <li><code>&lt;</code> for less than,</li>
@@ -648,11 +720,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Do not grow objects during the loop. Instead, allocate an object to hold the results and fill it in during the loop.</p>
 <p>Nested loops are possible in R. However, often they can be converted into a single loop by defining a data frame having the values of the nested loops in each row. Here function <code>expand_grid</code> may be useful to create the data frame.</p>
 </div>
-<div id="ex-loops" class="section level2" number="4.6">
-<h2><span class="header-section-number">4.6</span> Exercises</h2>
+<div id="ex-loops" class="section level2" number="12.6">
+<h2><span class="header-section-number">12.6</span> Exercises</h2>
 <p>Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the <a href="help.html#help">help page</a>. Solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up to early. Put some effort into finding a solution!</p>
-<div id="exercise-conditional-expressions" class="section level3" number="4.6.1">
-<h3><span class="header-section-number">4.6.1</span> Exercise (conditional expressions)</h3>
+<div id="exercise-conditional-expressions" class="section level3" number="12.6.1">
+<h3><span class="header-section-number">12.6.1</span> Exercise (conditional expressions)</h3>
 <p><em>Solve this exercise using a script file</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Consider object <code>x</code>:</p>
@@ -676,14 +748,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb124-2"><a href="sec-loops.html#cb124-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span></span>
 <span id="cb124-3"><a href="sec-loops.html#cb124-3" aria-hidden="true" tabindex="-1"></a>x</span>
 <span id="cb124-4"><a href="sec-loops.html#cb124-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15</span></span></code></pre></div>
-<div id="ubkuWN4qVDNCSE74gH9y" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ubkuWN4qVDNCSE74gH9y-title">
+<div id="VDNCSE74gH9yPOeuDXiO" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="VDNCSE74gH9yPOeuDXiO-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="ubkuWN4qVDNCSE74gH9y-title">
+<h4 class="modal-title" id="VDNCSE74gH9yPOeuDXiO-title">
 Solution
 </h4>
 </div>
@@ -699,17 +771,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#ubkuWN4qVDNCSE74gH9y">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#VDNCSE74gH9yPOeuDXiO">
 Solution
 </button>
-<div id="POeuDXiO5d0Dgrn8Omga" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="POeuDXiO5d0Dgrn8Omga-title">
+<div id="5d0Dgrn8Omga7YRl1Cs6" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="5d0Dgrn8Omga7YRl1Cs6-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="POeuDXiO5d0Dgrn8Omga-title">
+<h4 class="modal-title" id="5d0Dgrn8Omga7YRl1Cs6-title">
 Hint
 </h4>
 </div>
@@ -724,20 +796,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#POeuDXiO5d0Dgrn8Omga">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#5d0Dgrn8Omga7YRl1Cs6">
 Hint
 </button>
 <ol start="4" style="list-style-type: decimal">
 <li>Use the <code>if_else</code> function to set elements with value below 7 to 0.</li>
 </ol>
-<div id="7YRl1Cs6yNrtUiUz49mX" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="7YRl1Cs6yNrtUiUz49mX-title">
+<div id="yNrtUiUz49mXPzFV4oNn" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="yNrtUiUz49mXPzFV4oNn-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="7YRl1Cs6yNrtUiUz49mX-title">
+<h4 class="modal-title" id="yNrtUiUz49mXPzFV4oNn-title">
 Solution
 </h4>
 </div>
@@ -753,17 +825,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#7YRl1Cs6yNrtUiUz49mX">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#yNrtUiUz49mXPzFV4oNn">
 Solution
 </button>
-<div id="PzFV4oNnCwLW6sx2UErW" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="PzFV4oNnCwLW6sx2UErW-title">
+<div id="CwLW6sx2UErW0HKaF26h" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="CwLW6sx2UErW0HKaF26h-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="PzFV4oNnCwLW6sx2UErW-title">
+<h4 class="modal-title" id="CwLW6sx2UErW0HKaF26h-title">
 Hint
 </h4>
 </div>
@@ -778,20 +850,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#PzFV4oNnCwLW6sx2UErW">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#CwLW6sx2UErW0HKaF26h">
 Hint
 </button>
 <ol start="5" style="list-style-type: decimal">
 <li>Use the <code>if_else</code> function to set elements with value below 7 or above 10 to <code>NA_integer_</code> (which is the NA/missing value of an integer).</li>
 </ol>
-<div id="0HKaF26hwJ4JcRnHZ2Bj" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="0HKaF26hwJ4JcRnHZ2Bj-title">
+<div id="wJ4JcRnHZ2BjpVZ08r5F" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="wJ4JcRnHZ2BjpVZ08r5F-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="0HKaF26hwJ4JcRnHZ2Bj-title">
+<h4 class="modal-title" id="wJ4JcRnHZ2BjpVZ08r5F-title">
 Solution
 </h4>
 </div>
@@ -807,9 +879,9 @@ Solution
 <span id="cb129-9"><a href="sec-loops.html#cb129-9" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="st">&quot;decimal&quot;</span></span>
 <span id="cb129-10"><a href="sec-loops.html#cb129-10" aria-hidden="true" tabindex="-1"></a>} </span>
 <span id="cb129-11"><a href="sec-loops.html#cb129-11" aria-hidden="true" tabindex="-1"></a>x</span>
-<span id="cb129-12"><a href="sec-loops.html#cb129-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb129-12"><a href="sec-loops.html#cb129-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7</span></span>
 <span id="cb129-13"><a href="sec-loops.html#cb129-13" aria-hidden="true" tabindex="-1"></a>y</span>
-<span id="cb129-14"><a href="sec-loops.html#cb129-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;even&quot;</span></span></code></pre></div>
+<span id="cb129-14"><a href="sec-loops.html#cb129-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;odd&quot;</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -819,17 +891,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#0HKaF26hwJ4JcRnHZ2Bj">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#wJ4JcRnHZ2BjpVZ08r5F">
 Solution
 </button>
-<div id="VZ08r5FyZFc19h4cw5y1" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="VZ08r5FyZFc19h4cw5y1-title">
+<div id="ZFc19h4cw5y1iSZsYjcJ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ZFc19h4cw5y1iSZsYjcJ-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="VZ08r5FyZFc19h4cw5y1-title">
+<h4 class="modal-title" id="ZFc19h4cw5y1iSZsYjcJ-title">
 Hint
 </h4>
 </div>
@@ -855,28 +927,28 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#VZ08r5FyZFc19h4cw5y1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#ZFc19h4cw5y1iSZsYjcJ">
 Hint
 </button>
 <ol start="6" style="list-style-type: decimal">
 <li><p>Consider code</p>
 <div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="sec-loops.html#cb131-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="cn">NA</span>,<span class="fl">5.5</span>), <span class="dv">1</span>)</span>
 <span id="cb131-2"><a href="sec-loops.html#cb131-2" aria-hidden="true" tabindex="-1"></a>x</span>
-<span id="cb131-3"><a href="sec-loops.html#cb131-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 9</span></span></code></pre></div>
+<span id="cb131-3"><a href="sec-loops.html#cb131-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7</span></span></code></pre></div>
 <p>which generates a number from the vector <code>c(1:10,NA,5.5)</code>.</p>
 <p>Write code which set object <code>y</code> equal to “even” if <code>x</code> is even, “odd” if <code>x</code> is odd, “decimal” if <code>x</code> has a decimal not zero and “missing” if <code>x</code> is <code>NA</code>. Hint: have a look at <code>?'%%'</code> (the modulo operator).</p></li>
 </ol>
 </div>
-<div id="exercise-loops" class="section level3" number="4.6.2">
-<h3><span class="header-section-number">4.6.2</span> Exercise (loops)</h3>
-<div id="SZsYjcJOCqbkYHjYLVoW" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="SZsYjcJOCqbkYHjYLVoW-title">
+<div id="exercise-loops" class="section level3" number="12.6.2">
+<h3><span class="header-section-number">12.6.2</span> Exercise (loops)</h3>
+<div id="CqbkYHjYLVoWCqMIljqZ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="CqbkYHjYLVoWCqMIljqZ-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="SZsYjcJOCqbkYHjYLVoW-title">
+<h4 class="modal-title" id="CqbkYHjYLVoWCqMIljqZ-title">
 Solution
 </h4>
 </div>
@@ -896,17 +968,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#SZsYjcJOCqbkYHjYLVoW">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#CqbkYHjYLVoWCqMIljqZ">
 Solution
 </button>
-<div id="CqMIljqZ1UXpjY48g6CM" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="CqMIljqZ1UXpjY48g6CM-title">
+<div id="1UXpjY48g6CMqEh6mFX2" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="1UXpjY48g6CMqEh6mFX2-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="CqMIljqZ1UXpjY48g6CM-title">
+<h4 class="modal-title" id="1UXpjY48g6CMqEh6mFX2-title">
 Hint
 </h4>
 </div>
@@ -925,20 +997,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#CqMIljqZ1UXpjY48g6CM">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#1UXpjY48g6CMqEh6mFX2">
 Hint
 </button>
 <ol style="list-style-type: decimal">
 <li>Using a <code>for</code> loop, create a vector having values <span class="math inline">\(2i + 4\)</span> given <span class="math inline">\(i=1\ldots 4\)</span>.</li>
 </ol>
-<div id="qEh6mFX2nKuMyNUU0dVJ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="qEh6mFX2nKuMyNUU0dVJ-title">
+<div id="nKuMyNUU0dVJacRAikqX" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="nKuMyNUU0dVJacRAikqX-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="qEh6mFX2nKuMyNUU0dVJ-title">
+<h4 class="modal-title" id="nKuMyNUU0dVJacRAikqX-title">
 Solution
 </h4>
 </div>
@@ -957,17 +1029,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#qEh6mFX2nKuMyNUU0dVJ">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#nKuMyNUU0dVJacRAikqX">
 Solution
 </button>
-<div id="acRAikqXISNFexIeXb10" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="acRAikqXISNFexIeXb10-title">
+<div id="ISNFexIeXb10815TCoFU" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ISNFexIeXb10815TCoFU-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="acRAikqXISNFexIeXb10-title">
+<h4 class="modal-title" id="ISNFexIeXb10815TCoFU-title">
 Hint
 </h4>
 </div>
@@ -986,20 +1058,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#acRAikqXISNFexIeXb10">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#ISNFexIeXb10815TCoFU">
 Hint
 </button>
 <ol start="2" style="list-style-type: decimal">
 <li>Using a <code>for</code> loop, create a vector having values <span class="math inline">\(2i + 4\)</span> given <span class="math inline">\(i=2,5,6,12\)</span>.</li>
 </ol>
-<div id="815TCoFUe9pREI9a9BLB" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="815TCoFUe9pREI9a9BLB-title">
+<div id="e9pREI9a9BLBPcgpNx1b" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="e9pREI9a9BLBPcgpNx1b-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="815TCoFUe9pREI9a9BLB-title">
+<h4 class="modal-title" id="e9pREI9a9BLBPcgpNx1b-title">
 Solution
 </h4>
 </div>
@@ -1020,17 +1092,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#815TCoFUe9pREI9a9BLB">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#e9pREI9a9BLBPcgpNx1b">
 Solution
 </button>
-<div id="PcgpNx1bSLs4sBDr3Ezg" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="PcgpNx1bSLs4sBDr3Ezg-title">
+<div id="SLs4sBDr3EzgRNSnfS3E" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="SLs4sBDr3EzgRNSnfS3E-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="PcgpNx1bSLs4sBDr3Ezg-title">
+<h4 class="modal-title" id="SLs4sBDr3EzgRNSnfS3E-title">
 Hint
 </h4>
 </div>
@@ -1051,20 +1123,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#PcgpNx1bSLs4sBDr3Ezg">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#SLs4sBDr3EzgRNSnfS3E">
 Hint
 </button>
 <ol start="3" style="list-style-type: decimal">
 <li>Solve Question 2 using a <code>while</code> loop.</li>
 </ol>
-<div id="RNSnfS3EEE3UFlXw5wiv" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="RNSnfS3EEE3UFlXw5wiv-title">
+<div id="EE3UFlXw5wivc9BjaJlK" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="EE3UFlXw5wivc9BjaJlK-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="RNSnfS3EEE3UFlXw5wiv-title">
+<h4 class="modal-title" id="EE3UFlXw5wivc9BjaJlK-title">
 Solution
 </h4>
 </div>
@@ -1082,17 +1154,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#RNSnfS3EEE3UFlXw5wiv">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#EE3UFlXw5wivc9BjaJlK">
 Solution
 </button>
-<div id="c9BjaJlKrZPvS6SzvQrI" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="c9BjaJlKrZPvS6SzvQrI-title">
+<div id="rZPvS6SzvQrInnNNereW" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="rZPvS6SzvQrInnNNereW-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="c9BjaJlKrZPvS6SzvQrI-title">
+<h4 class="modal-title" id="rZPvS6SzvQrInnNNereW-title">
 Hint
 </h4>
 </div>
@@ -1108,21 +1180,21 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#c9BjaJlKrZPvS6SzvQrI">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#rZPvS6SzvQrInnNNereW">
 Hint
 </button>
 <ol start="4" style="list-style-type: decimal">
 <li>Solve Questions 1 and 2 using a vectorized alternative.</li>
 </ol>
 </div>
-<div id="ex-dist" class="section level3" number="4.6.3">
-<h3><span class="header-section-number">4.6.3</span> Exercise (calculating distances)</h3>
+<div id="ex-dist" class="section level3" number="12.6.3">
+<h3><span class="header-section-number">12.6.3</span> Exercise (calculating distances)</h3>
 <p>Consider zip codes in Jutland:</p>
 <div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="sec-loops.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remotes::install_github(&quot;bss-osca/tfa/tfa-package&quot;, upgrade = FALSE)  # run to upgrade</span></span>
 <span id="cb140-2"><a href="sec-loops.html#cb140-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb140-3"><a href="sec-loops.html#cb140-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfa)   </span>
 <span id="cb140-4"><a href="sec-loops.html#cb140-4" aria-hidden="true" tabindex="-1"></a>zips</span>
-<span id="cb140-5"><a href="sec-loops.html#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 376 x 2</span></span>
+<span id="cb140-5"><a href="sec-loops.html#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 376 × 2</span></span>
 <span id="cb140-6"><a href="sec-loops.html#cb140-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Zip Area           </span></span>
 <span id="cb140-7"><a href="sec-loops.html#cb140-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;          </span></span>
 <span id="cb140-8"><a href="sec-loops.html#cb140-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  5320 &quot;Agedrup&quot;      </span></span>
@@ -1140,7 +1212,7 @@ Hint
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="sec-loops.html#cb141-1" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
 <span id="cb141-2"><a href="sec-loops.html#cb141-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> zips[idx,]</span>
 <span id="cb141-3"><a href="sec-loops.html#cb141-3" aria-hidden="true" tabindex="-1"></a>dat</span>
-<span id="cb141-4"><a href="sec-loops.html#cb141-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 2</span></span>
+<span id="cb141-4"><a href="sec-loops.html#cb141-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 2</span></span>
 <span id="cb141-5"><a href="sec-loops.html#cb141-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Zip Area           </span></span>
 <span id="cb141-6"><a href="sec-loops.html#cb141-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;          </span></span>
 <span id="cb141-7"><a href="sec-loops.html#cb141-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  5320 &quot;Agedrup&quot;      </span></span>
@@ -1169,20 +1241,20 @@ Hint
 <span id="cb142-8"><a href="sec-loops.html#cb142-8" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(url)</span>
 <span id="cb142-9"><a href="sec-loops.html#cb142-9" aria-hidden="true" tabindex="-1"></a>dist <span class="ot">&lt;-</span> lst<span class="sc">$</span>resourceSets<span class="sc">$</span>resources[[<span class="dv">1</span>]]<span class="sc">$</span>travelDistance</span>
 <span id="cb142-10"><a href="sec-loops.html#cb142-10" aria-hidden="true" tabindex="-1"></a>dist</span>
-<span id="cb142-11"><a href="sec-loops.html#cb142-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 139</span></span>
+<span id="cb142-11"><a href="sec-loops.html#cb142-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 138</span></span>
 <span id="cb142-12"><a href="sec-loops.html#cb142-12" aria-hidden="true" tabindex="-1"></a>lst<span class="sc">$</span>statusCode</span>
 <span id="cb142-13"><a href="sec-loops.html#cb142-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 200</span></span>
 <span id="cb142-14"><a href="sec-loops.html#cb142-14" aria-hidden="true" tabindex="-1"></a>lst<span class="sc">$</span>statusDescription</span>
 <span id="cb142-15"><a href="sec-loops.html#cb142-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;OK&quot;</span></span></code></pre></div>
 <p>Note we call the Bing maps API with the two zip codes. A <a href="https://en.wikipedia.org/wiki/JSON">json file</a> is returned and stored in a list. To get the average travel distance we access <code>travelDistance</code>. The status code should be 200 if the calculation returned is okay.</p>
-<div id="nnNNereW9b2Ujk3RVGbj" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="nnNNereW9b2Ujk3RVGbj-title">
+<div id="9b2Ujk3RVGbji7ZnEip7" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="9b2Ujk3RVGbji7ZnEip7-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="nnNNereW9b2Ujk3RVGbj-title">
+<h4 class="modal-title" id="9b2Ujk3RVGbji7ZnEip7-title">
 Solution
 </h4>
 </div>
@@ -1207,11 +1279,11 @@ Solution
 <span id="cb143-18"><a href="sec-loops.html#cb143-18" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb143-19"><a href="sec-loops.html#cb143-19" aria-hidden="true" tabindex="-1"></a>distanceMat</span>
 <span id="cb143-20"><a href="sec-loops.html#cb143-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                    5320 Agedrup 6753 Agerb\xe6k 6534 Agerskov 8961 Alling\xe5bro 6051 Almind</span></span>
-<span id="cb143-21"><a href="sec-loops.html#cb143-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5320 Agedrup                0.0           138.8         142.4                214        87.3</span></span>
-<span id="cb143-22"><a href="sec-loops.html#cb143-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6753 Agerb\xe6k           138.8             0.0         107.0                180        61.3</span></span>
-<span id="cb143-23"><a href="sec-loops.html#cb143-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6534 Agerskov             142.4           107.0           0.0                204        65.5</span></span>
-<span id="cb143-24"><a href="sec-loops.html#cb143-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8961 Alling\xe5bro        214.0           180.4         204.3                  0       149.2</span></span>
-<span id="cb143-25"><a href="sec-loops.html#cb143-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6051 Almind                87.3            61.3          65.5                149         0.0</span></span></code></pre></div>
+<span id="cb143-21"><a href="sec-loops.html#cb143-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5320 Agedrup                0.0           137.7           143                215        86.2</span></span>
+<span id="cb143-22"><a href="sec-loops.html#cb143-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6753 Agerb\xe6k           137.7             0.0           108                180        59.4</span></span>
+<span id="cb143-23"><a href="sec-loops.html#cb143-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6534 Agerskov             142.7           108.4             0                206        65.0</span></span>
+<span id="cb143-24"><a href="sec-loops.html#cb143-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8961 Alling\xe5bro        215.2           180.4           206                  0       149.2</span></span>
+<span id="cb143-25"><a href="sec-loops.html#cb143-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6051 Almind                86.2            59.4            65                149         0.0</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1221,17 +1293,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#nnNNereW9b2Ujk3RVGbj">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#9b2Ujk3RVGbji7ZnEip7">
 Solution
 </button>
-<div id="i7ZnEip7xkoB1ru8TSh4" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="i7ZnEip7xkoB1ru8TSh4-title">
+<div id="xkoB1ru8TSh4jOSiTzqp" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="xkoB1ru8TSh4jOSiTzqp-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="i7ZnEip7xkoB1ru8TSh4-title">
+<h4 class="modal-title" id="xkoB1ru8TSh4jOSiTzqp-title">
 Hint
 </h4>
 </div>
@@ -1264,28 +1336,28 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#i7ZnEip7xkoB1ru8TSh4">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#xkoB1ru8TSh4jOSiTzqp">
 Hint
 </button>
 <p>Use nested for loops to fill <code>distanceMat</code> with distances. Assume that the distance from a to b is the same as from b to a. That is, you only have to call the API once for two zip codes. Use an if statement to check if the status code is okay.</p>
 </div>
-<div id="exercise-expand_grid" class="section level3" number="4.6.4">
-<h3><span class="header-section-number">4.6.4</span> Exercise (<code>expand_grid</code>)</h3>
-<div id="jOSiTzqpl6qoz2kPap00" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="jOSiTzqpl6qoz2kPap00-title">
+<div id="exercise-expand_grid" class="section level3" number="12.6.4">
+<h3><span class="header-section-number">12.6.4</span> Exercise (<code>expand_grid</code>)</h3>
+<div id="l6qoz2kPap00zlJozCeR" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="l6qoz2kPap00zlJozCeR-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="jOSiTzqpl6qoz2kPap00-title">
+<h4 class="modal-title" id="l6qoz2kPap00zlJozCeR-title">
 Solution
 </h4>
 </div>
 <div class="modal-body">
 <div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="sec-loops.html#cb145-1" aria-hidden="true" tabindex="-1"></a>ite <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(<span class="at">i =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>), <span class="at">j =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>)</span>
 <span id="cb145-2"><a href="sec-loops.html#cb145-2" aria-hidden="true" tabindex="-1"></a>ite</span>
-<span id="cb145-3"><a href="sec-loops.html#cb145-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 x 2</span></span>
+<span id="cb145-3"><a href="sec-loops.html#cb145-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 × 2</span></span>
 <span id="cb145-4"><a href="sec-loops.html#cb145-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       i     j</span></span>
 <span id="cb145-5"><a href="sec-loops.html#cb145-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt;</span></span>
 <span id="cb145-6"><a href="sec-loops.html#cb145-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1     2</span></span>
@@ -1310,11 +1382,11 @@ Solution
 <span id="cb145-25"><a href="sec-loops.html#cb145-25" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb145-26"><a href="sec-loops.html#cb145-26" aria-hidden="true" tabindex="-1"></a>distanceMat</span>
 <span id="cb145-27"><a href="sec-loops.html#cb145-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                    5320 Agedrup 6753 Agerb\xe6k 6534 Agerskov 8961 Alling\xe5bro 6051 Almind</span></span>
-<span id="cb145-28"><a href="sec-loops.html#cb145-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5320 Agedrup                0.0           138.8         142.4                214        87.3</span></span>
-<span id="cb145-29"><a href="sec-loops.html#cb145-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6753 Agerb\xe6k           138.8             0.0         107.0                180        60.4</span></span>
-<span id="cb145-30"><a href="sec-loops.html#cb145-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6534 Agerskov             142.4           107.0           0.0                204        64.1</span></span>
-<span id="cb145-31"><a href="sec-loops.html#cb145-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8961 Alling\xe5bro        214.0           180.4         204.3                  0       149.2</span></span>
-<span id="cb145-32"><a href="sec-loops.html#cb145-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6051 Almind                87.3            60.4          64.1                149         0.0</span></span></code></pre></div>
+<span id="cb145-28"><a href="sec-loops.html#cb145-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5320 Agedrup                0.0           137.7         142.7                215        86.2</span></span>
+<span id="cb145-29"><a href="sec-loops.html#cb145-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6753 Agerb\xe6k           137.7             0.0         108.4                180        58.8</span></span>
+<span id="cb145-30"><a href="sec-loops.html#cb145-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6534 Agerskov             142.7           108.4           0.0                206        63.8</span></span>
+<span id="cb145-31"><a href="sec-loops.html#cb145-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8961 Alling\xe5bro        215.2           180.4         205.7                  0       149.2</span></span>
+<span id="cb145-32"><a href="sec-loops.html#cb145-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6051 Almind                86.2            58.8          63.8                149         0.0</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1324,17 +1396,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#jOSiTzqpl6qoz2kPap00">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#l6qoz2kPap00zlJozCeR">
 Solution
 </button>
-<div id="zlJozCeRwzSEhYaQQbSx" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="zlJozCeRwzSEhYaQQbSx-title">
+<div id="wzSEhYaQQbSxqDQQ1NQB" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="wzSEhYaQQbSxqDQQ1NQB-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="zlJozCeRwzSEhYaQQbSx-title">
+<h4 class="modal-title" id="wzSEhYaQQbSxqDQQ1NQB-title">
 Hint
 </h4>
 </div>
@@ -1367,10 +1439,10 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#zlJozCeRwzSEhYaQQbSx">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#wzSEhYaQQbSxqDQQ1NQB">
 Hint
 </button>
-<p>Consider the solution of Exercise <a href="sec-loops.html#ex-dist">4.6.3</a> and assume that you only want to calculate the distance from rows 1 and 5 to rows 2 and 3 in <code>dat</code>. Modify the solution using <code>expand_grid</code> so only one loop is used.</p>
+<p>Consider the solution of Exercise <a href="sec-loops.html#ex-dist">12.6.3</a> and assume that you only want to calculate the distance from rows 1 and 5 to rows 2 and 3 in <code>dat</code>. Modify the solution using <code>expand_grid</code> so only one loop is used.</p>
 <!-- <div class = "boxExercise"> -->
 <!-- `<i class="fa-pull-right fa-5x iconStyle1 fas fa-laptop-code"></i>`{=html}   -->
 <!-- **Exercise 1** -->
@@ -1387,6 +1459,12 @@ Hint
 <!-- `<i class="fa-pull-right fa-5x iconStyle1 fas fa-external-link-alt"></i>`{=html} -->
 
 </div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-r4ds" class="csl-entry">
+Wickham, H. 2017. <em>R for Data Science</em>. O’Reilly. <a href="https://r4ds.had.co.nz/">https://r4ds.had.co.nz/</a>.
 </div>
 </div>
             </section>
@@ -1417,7 +1495,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/bss-osca/tfa/edit/master/book/loops-cond.Rmd",
+"link": "https://github.com/bss-osca/tfa/edit/master/book/06-01_r-loops-cond.Rmd",
 "text": "Edit"
 },
 "history": {

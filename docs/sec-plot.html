@@ -4,27 +4,27 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 9 Data visualization using ggplot | Tools for Analytics (TFA)</title>
-  <meta name="description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <title>Module 17 Data visualization using ggplot | Tools for Analytics (TFA)</title>
+  <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 9 Data visualization using ggplot | Tools for Analytics (TFA)" />
+  <meta property="og:title" content="Module 17 Data visualization using ggplot | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://bss-osca.github.io/tfa/" />
-  <meta property="og:image" content="https://bss-osca.github.io/tfa/assets/logo.png" />
-  <meta property="og:description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
+  <meta property="og:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
+  <meta property="og:description" content="Course notes for the ‘Tools for Analytics’ course" />
   <meta name="github-repo" content="bss-osca/tfa" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 9 Data visualization using ggplot | Tools for Analytics (TFA)" />
+  <meta name="twitter:title" content="Module 17 Data visualization using ggplot | Tools for Analytics (TFA)" />
   
-  <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
-  <meta name="twitter:image" content="https://bss-osca.github.io/tfa/assets/logo.png" />
+  <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course" />
+  <meta name="twitter:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
 
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2021-03-10" />
+<meta name="date" content="2021-08-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="sec-transform.html"/>
 <link rel="next" href="sec-project.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,11 +51,16 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
 <link href="libs/font-awesome-5.3.1/css/all.min.css" rel="stylesheet" />
 <link href="libs/font-awesome-5.3.1/css/v4-shims.min.css" rel="stylesheet" />
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -68,7 +73,7 @@
 <link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
 <script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.17/datatables.js"></script>
+<script src="libs/datatables-binding-0.18/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
@@ -164,6 +169,29 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 <link rel="stylesheet" href="assets/style.css" type="text/css" />
 </head>
 
@@ -180,173 +208,219 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="toc-logo"><a href="./"><img src="img/logo.png"></a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction to the book</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#how-this-book-is-organized"><i class="fa fa-check"></i><b>1.1</b> How this book is organized</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#ack"><i class="fa fa-check"></i><b>1.2</b> Acknowledgements</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#lo-intro"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#purpose"><i class="fa fa-check"></i><b>1.2</b> Purpose for the book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#r-vs-vba"><i class="fa fa-check"></i><b>1.3</b> R vs Excel/VBA</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#computer"><i class="fa fa-check"></i><b>1.4</b> How a computer works</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#organization"><i class="fa fa-check"></i><b>1.5</b> How this book is organized</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#ack"><i class="fa fa-check"></i><b>1.6</b> Acknowledgements</a></li>
 </ul></li>
-<li class="part"><span><b>I Getting started</b></span></li>
-<li class="chapter" data-level="2" data-path="sec-install.html"><a href="sec-install.html"><i class="fa fa-check"></i><b>2</b> Install R and RStudio</a>
+<li class="part"><span><b>I Getting started with VBA</b></span></li>
+<li class="chapter" data-level="2" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html"><i class="fa fa-check"></i><b>2</b> A introduction to VBA</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="sec-install.html"><a href="sec-install.html#lo-install"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="2.2" data-path="sec-install.html"><a href="sec-install.html#install-r"><i class="fa fa-check"></i><b>2.2</b> Install R and RStudio</a></li>
-<li class="chapter" data-level="2.3" data-path="sec-install.html"><a href="sec-install.html#test-your-installation"><i class="fa fa-check"></i><b>2.3</b> Test your installation</a></li>
-<li class="chapter" data-level="2.4" data-path="sec-install.html"><a href="sec-install.html#add-on-packages"><i class="fa fa-check"></i><b>2.4</b> Add-on packages</a></li>
-<li class="chapter" data-level="2.5" data-path="sec-install.html"><a href="sec-install.html#lp-install"><i class="fa fa-check"></i><b>2.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="2.1" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#lo-vba-intro"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="2.2" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#vba-what"><i class="fa fa-check"></i><b>2.2</b> What is VBA</a></li>
+<li class="chapter" data-level="2.3" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#vba-hello"><i class="fa fa-check"></i><b>2.3</b> Your first program</a></li>
+<li class="chapter" data-level="2.4" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#vba-macro"><i class="fa fa-check"></i><b>2.4</b> The macro recorder</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="sec-r-basics.html"><a href="sec-r-basics.html"><i class="fa fa-check"></i><b>3</b> R basics and workflows</a>
+<li class="chapter" data-level="3" data-path="test.html"><a href="test.html"><i class="fa fa-check"></i><b>3</b> Test</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lo-r-basics"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="3.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-with-r-at-the-command-line-in-rstudio"><i class="fa fa-check"></i><b>3.2</b> Working with R at the command line in RStudio</a></li>
-<li class="chapter" data-level="3.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#your-first-datacamp-course"><i class="fa fa-check"></i><b>3.3</b> Your first DataCamp course</a></li>
-<li class="chapter" data-level="3.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#pipes"><i class="fa fa-check"></i><b>3.4</b> Pipes</a></li>
-<li class="chapter" data-level="3.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rprojs"><i class="fa fa-check"></i><b>3.5</b> RStudio projects</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#storing-your-code-in-a-script-file"><i class="fa fa-check"></i><b>3.5.1</b> Storing your code in a script file</a></li>
+<li class="chapter" data-level="3.1" data-path="test.html"><a href="test.html#learning-outcomes"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="3.2" data-path="test.html"><a href="test.html#different-learning-paths"><i class="fa fa-check"></i><b>3.2</b> Different learning paths</a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#global-options"><i class="fa fa-check"></i><b>3.6</b> Global options</a></li>
-<li class="chapter" data-level="3.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-directory"><i class="fa fa-check"></i><b>3.7</b> Working directory</a></li>
-<li class="chapter" data-level="3.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lp-r-basics"><i class="fa fa-check"></i><b>3.8</b> Different learning paths</a></li>
-<li class="chapter" data-level="3.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rc-r-basics"><i class="fa fa-check"></i><b>3.9</b> Recap</a></li>
-<li class="chapter" data-level="3.10" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-r-basics"><i class="fa fa-check"></i><b>3.10</b> Exercises</a>
+<li class="part"><span><b>II Programming in VBA</b></span></li>
+<li class="chapter" data-level="4" data-path="data-types-varables.html"><a href="data-types-varables.html"><i class="fa fa-check"></i><b>4</b> Data types - Varables</a>
 <ul>
-<li class="chapter" data-level="3.10.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-group-work"><i class="fa fa-check"></i><b>3.10.1</b> Exercise (group work)</a></li>
-<li class="chapter" data-level="3.10.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-install-packages"><i class="fa fa-check"></i><b>3.10.2</b> Exercise (install packages)</a></li>
-<li class="chapter" data-level="3.10.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-piping"><i class="fa fa-check"></i><b>3.10.3</b> Exercise (piping)</a></li>
-<li class="chapter" data-level="3.10.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-working-dir"><i class="fa fa-check"></i><b>3.10.4</b> Exercise (working dir)</a></li>
-<li class="chapter" data-level="3.10.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-vectors"><i class="fa fa-check"></i><b>3.10.5</b> Exercise (vectors)</a></li>
-<li class="chapter" data-level="3.10.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-matrices"><i class="fa fa-check"></i><b>3.10.6</b> Exercise (matrices)</a></li>
-<li class="chapter" data-level="3.10.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-data-frames"><i class="fa fa-check"></i><b>3.10.7</b> Exercise (data frames)</a></li>
-<li class="chapter" data-level="3.10.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-lists"><i class="fa fa-check"></i><b>3.10.8</b> Exercise (lists)</a></li>
-<li class="chapter" data-level="3.10.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-strings"><i class="fa fa-check"></i><b>3.10.9</b> Exercise (string management)</a></li>
+<li class="chapter" data-level="4.1" data-path="data-types-varables.html"><a href="data-types-varables.html#learning-outcomes-1"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="procedures-and-functions.html"><a href="procedures-and-functions.html"><i class="fa fa-check"></i><b>5</b> Procedures and functions</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="procedures-and-functions.html"><a href="procedures-and-functions.html#learning-outcomes-2"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
 </ul></li>
-<li class="part"><span><b>II Programming in R</b></span></li>
-<li class="chapter" data-level="4" data-path="sec-loops.html"><a href="sec-loops.html"><i class="fa fa-check"></i><b>4</b> Loops and conditionals</a>
+<li class="chapter" data-level="6" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html"><i class="fa fa-check"></i><b>6</b> Loops and conditionals</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="sec-loops.html"><a href="sec-loops.html#lo-loops"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="4.2" data-path="sec-loops.html"><a href="sec-loops.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>4.2</b> Conditionals and control flow</a></li>
-<li class="chapter" data-level="4.3" data-path="sec-loops.html"><a href="sec-loops.html#loops"><i class="fa fa-check"></i><b>4.3</b> Loops</a></li>
-<li class="chapter" data-level="4.4" data-path="sec-loops.html"><a href="sec-loops.html#lp-loops"><i class="fa fa-check"></i><b>4.4</b> Different learning paths</a></li>
-<li class="chapter" data-level="4.5" data-path="sec-loops.html"><a href="sec-loops.html#rc-loops"><i class="fa fa-check"></i><b>4.5</b> Recap</a></li>
-<li class="chapter" data-level="4.6" data-path="sec-loops.html"><a href="sec-loops.html#ex-loops"><i class="fa fa-check"></i><b>4.6</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="4.6.1" data-path="sec-loops.html"><a href="sec-loops.html#exercise-conditional-expressions"><i class="fa fa-check"></i><b>4.6.1</b> Exercise (conditional expressions)</a></li>
-<li class="chapter" data-level="4.6.2" data-path="sec-loops.html"><a href="sec-loops.html#exercise-loops"><i class="fa fa-check"></i><b>4.6.2</b> Exercise (loops)</a></li>
-<li class="chapter" data-level="4.6.3" data-path="sec-loops.html"><a href="sec-loops.html#ex-dist"><i class="fa fa-check"></i><b>4.6.3</b> Exercise (calculating distances)</a></li>
-<li class="chapter" data-level="4.6.4" data-path="sec-loops.html"><a href="sec-loops.html#exercise-expand_grid"><i class="fa fa-check"></i><b>4.6.4</b> Exercise (<code>expand_grid</code>)</a></li>
+<li class="chapter" data-level="6.1" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html#learning-outcomes-3"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="object-model.html"><a href="object-model.html"><i class="fa fa-check"></i><b>7</b> Object model</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="object-model.html"><a href="object-model.html#learning-outcomes-4"><i class="fa fa-check"></i><b>7.1</b> Learning outcomes</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="sec-functions.html"><a href="sec-functions.html"><i class="fa fa-check"></i><b>5</b> Functions</a>
+<li class="part"><span><b>III Randomization in VBA</b></span></li>
+<li class="chapter" data-level="8" data-path="generating-random-values.html"><a href="generating-random-values.html"><i class="fa fa-check"></i><b>8</b> Generating random values</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="sec-functions.html"><a href="sec-functions.html#lo-functions"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="5.2" data-path="sec-functions.html"><a href="sec-functions.html#datacamp-course"><i class="fa fa-check"></i><b>5.2</b> DataCamp course</a></li>
-<li class="chapter" data-level="5.3" data-path="sec-functions.html"><a href="sec-functions.html#functions-returning-multiple-objects"><i class="fa fa-check"></i><b>5.3</b> Functions returning multiple objects</a></li>
-<li class="chapter" data-level="5.4" data-path="sec-functions.html"><a href="sec-functions.html#the-...-argument"><i class="fa fa-check"></i><b>5.4</b> The <code>...</code> argument</a></li>
-<li class="chapter" data-level="5.5" data-path="sec-functions.html"><a href="sec-functions.html#documenting-your-functions"><i class="fa fa-check"></i><b>5.5</b> Documenting your functions</a></li>
-<li class="chapter" data-level="5.6" data-path="sec-functions.html"><a href="sec-functions.html#lp-functions"><i class="fa fa-check"></i><b>5.6</b> Different learning paths</a></li>
-<li class="chapter" data-level="5.7" data-path="sec-functions.html"><a href="sec-functions.html#rc-functions"><i class="fa fa-check"></i><b>5.7</b> Recap</a></li>
-<li class="chapter" data-level="5.8" data-path="sec-functions.html"><a href="sec-functions.html#ex-functions"><i class="fa fa-check"></i><b>5.8</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="5.8.1" data-path="sec-functions.html"><a href="sec-functions.html#exercise-defining-functions"><i class="fa fa-check"></i><b>5.8.1</b> Exercise (defining functions)</a></li>
-<li class="chapter" data-level="5.8.2" data-path="sec-functions.html"><a href="sec-functions.html#exercise-scope"><i class="fa fa-check"></i><b>5.8.2</b> Exercise (scope)</a></li>
-<li class="chapter" data-level="5.8.3" data-path="sec-functions.html"><a href="sec-functions.html#exercise-job-sequencing"><i class="fa fa-check"></i><b>5.8.3</b> Exercise (job sequencing)</a></li>
+<li class="chapter" data-level="8.1" data-path="generating-random-values.html"><a href="generating-random-values.html#learning-outcomes-5"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
 </ul></li>
+<li class="part"><span><b>IV Extra topics in VBA</b></span></li>
+<li class="chapter" data-level="9" data-path="file-management.html"><a href="file-management.html"><i class="fa fa-check"></i><b>9</b> File management</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="file-management.html"><a href="file-management.html#learning-outcomes-6"><i class="fa fa-check"></i><b>9.1</b> Learning outcomes</a></li>
 </ul></li>
-<li class="part"><span><b>III IO, tidy and transform</b></span></li>
-<li class="chapter" data-level="6" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html"><i class="fa fa-check"></i><b>6</b> Introduction to tidyverse and R Markdown</a>
+<li class="part"><span><b>V Getting started in R</b></span></li>
+<li class="chapter" data-level="10" data-path="sec-install.html"><a href="sec-install.html"><i class="fa fa-check"></i><b>10</b> Install R and RStudio</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lo-tidy-intro"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="6.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#the-tidyverse-package"><i class="fa fa-check"></i><b>6.2</b> The tidyverse package</a></li>
-<li class="chapter" data-level="6.3" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#writing-reproducible-reports"><i class="fa fa-check"></i><b>6.3</b> Writing reproducible reports</a></li>
-<li class="chapter" data-level="6.4" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#tibbles"><i class="fa fa-check"></i><b>6.4</b> Tibbles</a></li>
-<li class="chapter" data-level="6.5" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lp-tidy-intro"><i class="fa fa-check"></i><b>6.5</b> Different learning paths</a></li>
-<li class="chapter" data-level="6.6" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#rc-tidy-intro"><i class="fa fa-check"></i><b>6.6</b> Recap</a></li>
-<li class="chapter" data-level="6.7" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#ex-tidy-intro"><i class="fa fa-check"></i><b>6.7</b> Exercises</a>
+<li class="chapter" data-level="10.1" data-path="sec-install.html"><a href="sec-install.html#lo-install"><i class="fa fa-check"></i><b>10.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="10.2" data-path="sec-install.html"><a href="sec-install.html#install-r"><i class="fa fa-check"></i><b>10.2</b> Install R and RStudio</a></li>
+<li class="chapter" data-level="10.3" data-path="sec-install.html"><a href="sec-install.html#test-your-installation"><i class="fa fa-check"></i><b>10.3</b> Test your installation</a></li>
+<li class="chapter" data-level="10.4" data-path="sec-install.html"><a href="sec-install.html#add-on-packages"><i class="fa fa-check"></i><b>10.4</b> Add-on packages</a></li>
+<li class="chapter" data-level="10.5" data-path="sec-install.html"><a href="sec-install.html#lp-install"><i class="fa fa-check"></i><b>10.5</b> Different learning paths</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="sec-r-basics.html"><a href="sec-r-basics.html"><i class="fa fa-check"></i><b>11</b> R basics and workflows</a>
 <ul>
-<li class="chapter" data-level="6.7.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-your-first-r-markdown-exercise"><i class="fa fa-check"></i><b>6.7.1</b> Exercise (your first R Markdown exercise)</a></li>
-<li class="chapter" data-level="6.7.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-tibbles"><i class="fa fa-check"></i><b>6.7.2</b> Exercise (tibbles)</a></li>
+<li class="chapter" data-level="" data-path="sec-r-basics.html"><a href="sec-r-basics.html#learning-path-diagramme"><i class="fa fa-check"></i>Learning path diagramme</a></li>
+<li class="chapter" data-level="11.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lo-r-basics"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="11.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-with-r-at-the-command-line-in-rstudio"><i class="fa fa-check"></i><b>11.2</b> Working with R at the command line in RStudio</a></li>
+<li class="chapter" data-level="11.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#your-first-datacamp-course"><i class="fa fa-check"></i><b>11.3</b> Your first DataCamp course</a></li>
+<li class="chapter" data-level="11.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#pipes"><i class="fa fa-check"></i><b>11.4</b> Pipes</a></li>
+<li class="chapter" data-level="11.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rprojs"><i class="fa fa-check"></i><b>11.5</b> RStudio projects</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#storing-your-code-in-a-script-file"><i class="fa fa-check"></i><b>11.5.1</b> Storing your code in a script file</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#global-options"><i class="fa fa-check"></i><b>11.6</b> Global options</a></li>
+<li class="chapter" data-level="11.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-directory"><i class="fa fa-check"></i><b>11.7</b> Working directory</a></li>
+<li class="chapter" data-level="11.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lp-r-basics"><i class="fa fa-check"></i><b>11.8</b> Different learning paths</a></li>
+<li class="chapter" data-level="11.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rc-r-basics"><i class="fa fa-check"></i><b>11.9</b> Recap</a></li>
+<li class="chapter" data-level="11.10" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-r-basics"><i class="fa fa-check"></i><b>11.10</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="11.10.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-group-work"><i class="fa fa-check"></i><b>11.10.1</b> Exercise (group work)</a></li>
+<li class="chapter" data-level="11.10.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-install-packages"><i class="fa fa-check"></i><b>11.10.2</b> Exercise (install packages)</a></li>
+<li class="chapter" data-level="11.10.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-piping"><i class="fa fa-check"></i><b>11.10.3</b> Exercise (piping)</a></li>
+<li class="chapter" data-level="11.10.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-working-dir"><i class="fa fa-check"></i><b>11.10.4</b> Exercise (working dir)</a></li>
+<li class="chapter" data-level="11.10.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-vectors"><i class="fa fa-check"></i><b>11.10.5</b> Exercise (vectors)</a></li>
+<li class="chapter" data-level="11.10.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-matrices"><i class="fa fa-check"></i><b>11.10.6</b> Exercise (matrices)</a></li>
+<li class="chapter" data-level="11.10.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-data-frames"><i class="fa fa-check"></i><b>11.10.7</b> Exercise (data frames)</a></li>
+<li class="chapter" data-level="11.10.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-lists"><i class="fa fa-check"></i><b>11.10.8</b> Exercise (lists)</a></li>
+<li class="chapter" data-level="11.10.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-strings"><i class="fa fa-check"></i><b>11.10.9</b> Exercise (string management)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sec-io.html"><a href="sec-io.html"><i class="fa fa-check"></i><b>7</b> Importing and exporting data</a>
+<li class="part"><span><b>VI Programming in R</b></span></li>
+<li class="chapter" data-level="12" data-path="sec-loops.html"><a href="sec-loops.html"><i class="fa fa-check"></i><b>12</b> Loops and conditionals</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="sec-io.html"><a href="sec-io.html#lo-io"><i class="fa fa-check"></i><b>7.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="7.2" data-path="sec-io.html"><a href="sec-io.html#csv-files"><i class="fa fa-check"></i><b>7.2</b> CSV files</a>
+<li class="chapter" data-level="" data-path="sec-loops.html"><a href="sec-loops.html#learning-path-diagramme-1"><i class="fa fa-check"></i>Learning path diagramme</a></li>
+<li class="chapter" data-level="12.1" data-path="sec-loops.html"><a href="sec-loops.html#lo-loops"><i class="fa fa-check"></i><b>12.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="12.2" data-path="sec-loops.html"><a href="sec-loops.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>12.2</b> Conditionals and control flow</a></li>
+<li class="chapter" data-level="12.3" data-path="sec-loops.html"><a href="sec-loops.html#loops"><i class="fa fa-check"></i><b>12.3</b> Loops</a></li>
+<li class="chapter" data-level="12.4" data-path="sec-loops.html"><a href="sec-loops.html#lp-loops"><i class="fa fa-check"></i><b>12.4</b> Different learning paths</a></li>
+<li class="chapter" data-level="12.5" data-path="sec-loops.html"><a href="sec-loops.html#rc-loops"><i class="fa fa-check"></i><b>12.5</b> Recap</a></li>
+<li class="chapter" data-level="12.6" data-path="sec-loops.html"><a href="sec-loops.html#ex-loops"><i class="fa fa-check"></i><b>12.6</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="sec-io.html"><a href="sec-io.html#reading-a-csv-file"><i class="fa fa-check"></i><b>7.2.1</b> Reading a CSV file</a></li>
-<li class="chapter" data-level="7.2.2" data-path="sec-io.html"><a href="sec-io.html#writing-to-csv-files"><i class="fa fa-check"></i><b>7.2.2</b> Writing to CSV files</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="sec-io.html"><a href="sec-io.html#excel"><i class="fa fa-check"></i><b>7.3</b> Excel</a></li>
-<li class="chapter" data-level="7.4" data-path="sec-io.html"><a href="sec-io.html#google-sheets"><i class="fa fa-check"></i><b>7.4</b> Google Sheets</a></li>
-<li class="chapter" data-level="7.5" data-path="sec-io.html"><a href="sec-io.html#text-files"><i class="fa fa-check"></i><b>7.5</b> Text files</a></li>
-<li class="chapter" data-level="7.6" data-path="sec-io.html"><a href="sec-io.html#rs-native-binary-format"><i class="fa fa-check"></i><b>7.6</b> R’s native binary format</a></li>
-<li class="chapter" data-level="7.7" data-path="sec-io.html"><a href="sec-io.html#json"><i class="fa fa-check"></i><b>7.7</b> Json</a></li>
-<li class="chapter" data-level="7.8" data-path="sec-io.html"><a href="sec-io.html#lp-io"><i class="fa fa-check"></i><b>7.8</b> Different learning paths</a></li>
-<li class="chapter" data-level="7.9" data-path="sec-io.html"><a href="sec-io.html#rc-io"><i class="fa fa-check"></i><b>7.9</b> Recap</a></li>
-<li class="chapter" data-level="7.10" data-path="sec-io.html"><a href="sec-io.html#ex-io"><i class="fa fa-check"></i><b>7.10</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="7.10.1" data-path="sec-io.html"><a href="sec-io.html#exercise-statistikbanken"><i class="fa fa-check"></i><b>7.10.1</b> Exercise (Statistikbanken)</a></li>
-<li class="chapter" data-level="7.10.2" data-path="sec-io.html"><a href="sec-io.html#exercise-tuples-in-opl"><i class="fa fa-check"></i><b>7.10.2</b> Exercise (tuples in OPL)</a></li>
+<li class="chapter" data-level="12.6.1" data-path="sec-loops.html"><a href="sec-loops.html#exercise-conditional-expressions"><i class="fa fa-check"></i><b>12.6.1</b> Exercise (conditional expressions)</a></li>
+<li class="chapter" data-level="12.6.2" data-path="sec-loops.html"><a href="sec-loops.html#exercise-loops"><i class="fa fa-check"></i><b>12.6.2</b> Exercise (loops)</a></li>
+<li class="chapter" data-level="12.6.3" data-path="sec-loops.html"><a href="sec-loops.html#ex-dist"><i class="fa fa-check"></i><b>12.6.3</b> Exercise (calculating distances)</a></li>
+<li class="chapter" data-level="12.6.4" data-path="sec-loops.html"><a href="sec-loops.html#exercise-expand_grid"><i class="fa fa-check"></i><b>12.6.4</b> Exercise (<code>expand_grid</code>)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="sec-transform.html"><a href="sec-transform.html"><i class="fa fa-check"></i><b>8</b> Transforming data</a>
+<li class="chapter" data-level="13" data-path="sec-functions.html"><a href="sec-functions.html"><i class="fa fa-check"></i><b>13</b> Functions</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="sec-transform.html"><a href="sec-transform.html#lo-transform"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="8.2" data-path="sec-transform.html"><a href="sec-transform.html#working-with-data-in-the-tidyverse"><i class="fa fa-check"></i><b>8.2</b> Working with data in the tidyverse</a></li>
-<li class="chapter" data-level="8.3" data-path="sec-transform.html"><a href="sec-transform.html#mutating-and-filtering-joins"><i class="fa fa-check"></i><b>8.3</b> Mutating and filtering joins</a></li>
-<li class="chapter" data-level="8.4" data-path="sec-transform.html"><a href="sec-transform.html#lp-transform"><i class="fa fa-check"></i><b>8.4</b> Different learning paths</a></li>
-<li class="chapter" data-level="8.5" data-path="sec-transform.html"><a href="sec-transform.html#rc-transform"><i class="fa fa-check"></i><b>8.5</b> Recap</a></li>
-<li class="chapter" data-level="8.6" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>8.6</b> Exercises</a>
+<li class="chapter" data-level="13.1" data-path="sec-functions.html"><a href="sec-functions.html#lo-functions"><i class="fa fa-check"></i><b>13.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="13.2" data-path="sec-functions.html"><a href="sec-functions.html#datacamp-course"><i class="fa fa-check"></i><b>13.2</b> DataCamp course</a></li>
+<li class="chapter" data-level="13.3" data-path="sec-functions.html"><a href="sec-functions.html#functions-returning-multiple-objects"><i class="fa fa-check"></i><b>13.3</b> Functions returning multiple objects</a></li>
+<li class="chapter" data-level="13.4" data-path="sec-functions.html"><a href="sec-functions.html#the-...-argument"><i class="fa fa-check"></i><b>13.4</b> The <code>...</code> argument</a></li>
+<li class="chapter" data-level="13.5" data-path="sec-functions.html"><a href="sec-functions.html#documenting-your-functions"><i class="fa fa-check"></i><b>13.5</b> Documenting your functions</a></li>
+<li class="chapter" data-level="13.6" data-path="sec-functions.html"><a href="sec-functions.html#lp-functions"><i class="fa fa-check"></i><b>13.6</b> Different learning paths</a></li>
+<li class="chapter" data-level="13.7" data-path="sec-functions.html"><a href="sec-functions.html#rc-functions"><i class="fa fa-check"></i><b>13.7</b> Recap</a></li>
+<li class="chapter" data-level="13.8" data-path="sec-functions.html"><a href="sec-functions.html#ex-functions"><i class="fa fa-check"></i><b>13.8</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="sec-transform.html"><a href="sec-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>8.6.1</b> Exercise (gapminder)</a></li>
-<li class="chapter" data-level="8.6.2" data-path="sec-transform.html"><a href="sec-transform.html#ex-babynames1"><i class="fa fa-check"></i><b>8.6.2</b> Exercise (babynames)</a></li>
-<li class="chapter" data-level="8.6.3" data-path="sec-transform.html"><a href="sec-transform.html#ex-profit1"><i class="fa fa-check"></i><b>8.6.3</b> Exercise (profit)</a></li>
-<li class="chapter" data-level="8.6.4" data-path="sec-transform.html"><a href="sec-transform.html#ex-fish"><i class="fa fa-check"></i><b>8.6.4</b> Exercise (fisheries)</a></li>
+<li class="chapter" data-level="13.8.1" data-path="sec-functions.html"><a href="sec-functions.html#exercise-defining-functions"><i class="fa fa-check"></i><b>13.8.1</b> Exercise (defining functions)</a></li>
+<li class="chapter" data-level="13.8.2" data-path="sec-functions.html"><a href="sec-functions.html#exercise-scope"><i class="fa fa-check"></i><b>13.8.2</b> Exercise (scope)</a></li>
+<li class="chapter" data-level="13.8.3" data-path="sec-functions.html"><a href="sec-functions.html#exercise-job-sequencing"><i class="fa fa-check"></i><b>13.8.3</b> Exercise (job sequencing)</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>IV Visualization</b></span></li>
-<li class="chapter" data-level="9" data-path="sec-plot.html"><a href="sec-plot.html"><i class="fa fa-check"></i><b>9</b> Data visualization using ggplot</a>
+<li class="part"><span><b>VII IO, tidy and transform</b></span></li>
+<li class="chapter" data-level="14" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html"><i class="fa fa-check"></i><b>14</b> Introduction to tidyverse and R Markdown</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="sec-plot.html"><a href="sec-plot.html#lo-plot"><i class="fa fa-check"></i><b>9.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="9.2" data-path="sec-plot.html"><a href="sec-plot.html#introduction-to-data-visualization"><i class="fa fa-check"></i><b>9.2</b> Introduction to data visualization</a></li>
-<li class="chapter" data-level="9.3" data-path="sec-plot.html"><a href="sec-plot.html#combining-plots-into-one-using-patchwork"><i class="fa fa-check"></i><b>9.3</b> Combining plots into one using <em>patchwork</em></a></li>
-<li class="chapter" data-level="9.4" data-path="sec-plot.html"><a href="sec-plot.html#saving-graphics"><i class="fa fa-check"></i><b>9.4</b> Saving graphics</a></li>
-<li class="chapter" data-level="9.5" data-path="sec-plot.html"><a href="sec-plot.html#lp-r-plot"><i class="fa fa-check"></i><b>9.5</b> Different learning paths</a></li>
-<li class="chapter" data-level="9.6" data-path="sec-plot.html"><a href="sec-plot.html#rc-r-plot"><i class="fa fa-check"></i><b>9.6</b> Recap</a></li>
-<li class="chapter" data-level="9.7" data-path="sec-plot.html"><a href="sec-plot.html#ex-r-plot"><i class="fa fa-check"></i><b>9.7</b> Exercises</a>
+<li class="chapter" data-level="14.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lo-tidy-intro"><i class="fa fa-check"></i><b>14.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="14.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#the-tidyverse-package"><i class="fa fa-check"></i><b>14.2</b> The tidyverse package</a></li>
+<li class="chapter" data-level="14.3" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#writing-reproducible-reports"><i class="fa fa-check"></i><b>14.3</b> Writing reproducible reports</a></li>
+<li class="chapter" data-level="14.4" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#tibbles"><i class="fa fa-check"></i><b>14.4</b> Tibbles</a></li>
+<li class="chapter" data-level="14.5" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lp-tidy-intro"><i class="fa fa-check"></i><b>14.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="14.6" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#rc-tidy-intro"><i class="fa fa-check"></i><b>14.6</b> Recap</a></li>
+<li class="chapter" data-level="14.7" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#ex-tidy-intro"><i class="fa fa-check"></i><b>14.7</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="9.7.1" data-path="sec-plot.html"><a href="sec-plot.html#ex-gapminder2"><i class="fa fa-check"></i><b>9.7.1</b> Exercise (gapminder)</a></li>
-<li class="chapter" data-level="9.7.2" data-path="sec-plot.html"><a href="sec-plot.html#ex-profit2"><i class="fa fa-check"></i><b>9.7.2</b> Exercise (profit)</a></li>
-<li class="chapter" data-level="9.7.3" data-path="sec-plot.html"><a href="sec-plot.html#ex-covid19"><i class="fa fa-check"></i><b>9.7.3</b> Exercise (COVID-19)</a></li>
-<li class="chapter" data-level="9.7.4" data-path="sec-plot.html"><a href="sec-plot.html#ex-lego"><i class="fa fa-check"></i><b>9.7.4</b> Exercise (Lego and sales)</a></li>
+<li class="chapter" data-level="14.7.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-your-first-r-markdown-exercise"><i class="fa fa-check"></i><b>14.7.1</b> Exercise (your first R Markdown exercise)</a></li>
+<li class="chapter" data-level="14.7.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-tibbles"><i class="fa fa-check"></i><b>14.7.2</b> Exercise (tibbles)</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>V R project in groups</b></span></li>
-<li class="chapter" data-level="10" data-path="sec-project.html"><a href="sec-project.html"><i class="fa fa-check"></i><b>10</b> Mandatory R project</a>
+<li class="chapter" data-level="15" data-path="sec-io.html"><a href="sec-io.html"><i class="fa fa-check"></i><b>15</b> Importing and exporting data</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="sec-project.html"><a href="sec-project.html#lo-project"><i class="fa fa-check"></i><b>10.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="10.2" data-path="sec-project.html"><a href="sec-project.html#r-project"><i class="fa fa-check"></i><b>10.2</b> R project</a></li>
-</ul></li>
-<li class="part"><span><b>VI Extra</b></span></li>
-<li class="chapter" data-level="11" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>11</b> Spatial data and maps</a>
+<li class="chapter" data-level="15.1" data-path="sec-io.html"><a href="sec-io.html#lo-io"><i class="fa fa-check"></i><b>15.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="15.2" data-path="sec-io.html"><a href="sec-io.html#csv-files"><i class="fa fa-check"></i><b>15.2</b> CSV files</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="sec-maps.html"><a href="sec-maps.html#lo-maps"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="11.2" data-path="sec-maps.html"><a href="sec-maps.html#sec-map-api-key"><i class="fa fa-check"></i><b>11.2</b> Services for obtatining spatial data</a></li>
-<li class="chapter" data-level="11.3" data-path="sec-maps.html"><a href="sec-maps.html#calculating-distances"><i class="fa fa-check"></i><b>11.3</b> Calculating distances</a>
+<li class="chapter" data-level="15.2.1" data-path="sec-io.html"><a href="sec-io.html#reading-a-csv-file"><i class="fa fa-check"></i><b>15.2.1</b> Reading a CSV file</a></li>
+<li class="chapter" data-level="15.2.2" data-path="sec-io.html"><a href="sec-io.html#writing-to-csv-files"><i class="fa fa-check"></i><b>15.2.2</b> Writing to CSV files</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="sec-io.html"><a href="sec-io.html#excel"><i class="fa fa-check"></i><b>15.3</b> Excel</a></li>
+<li class="chapter" data-level="15.4" data-path="sec-io.html"><a href="sec-io.html#google-sheets"><i class="fa fa-check"></i><b>15.4</b> Google Sheets</a></li>
+<li class="chapter" data-level="15.5" data-path="sec-io.html"><a href="sec-io.html#text-files"><i class="fa fa-check"></i><b>15.5</b> Text files</a></li>
+<li class="chapter" data-level="15.6" data-path="sec-io.html"><a href="sec-io.html#rs-native-binary-format"><i class="fa fa-check"></i><b>15.6</b> R’s native binary format</a></li>
+<li class="chapter" data-level="15.7" data-path="sec-io.html"><a href="sec-io.html#json"><i class="fa fa-check"></i><b>15.7</b> Json</a></li>
+<li class="chapter" data-level="15.8" data-path="sec-io.html"><a href="sec-io.html#lp-io"><i class="fa fa-check"></i><b>15.8</b> Different learning paths</a></li>
+<li class="chapter" data-level="15.9" data-path="sec-io.html"><a href="sec-io.html#rc-io"><i class="fa fa-check"></i><b>15.9</b> Recap</a></li>
+<li class="chapter" data-level="15.10" data-path="sec-io.html"><a href="sec-io.html#ex-io"><i class="fa fa-check"></i><b>15.10</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="11.3.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps"><i class="fa fa-check"></i><b>11.3.1</b> Using Google Maps</a></li>
-<li class="chapter" data-level="11.3.2" data-path="sec-maps.html"><a href="sec-maps.html#using-bing-maps"><i class="fa fa-check"></i><b>11.3.2</b> Using Bing Maps</a></li>
+<li class="chapter" data-level="15.10.1" data-path="sec-io.html"><a href="sec-io.html#exercise-statistikbanken"><i class="fa fa-check"></i><b>15.10.1</b> Exercise (Statistikbanken)</a></li>
+<li class="chapter" data-level="15.10.2" data-path="sec-io.html"><a href="sec-io.html#exercise-tuples-in-opl"><i class="fa fa-check"></i><b>15.10.2</b> Exercise (tuples in OPL)</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="sec-maps.html"><a href="sec-maps.html#geocoding-and-reverse-geocoding"><i class="fa fa-check"></i><b>11.4</b> Geocoding and reverse geocoding</a>
+</ul></li>
+<li class="chapter" data-level="16" data-path="sec-transform.html"><a href="sec-transform.html"><i class="fa fa-check"></i><b>16</b> Transforming data</a>
 <ul>
-<li class="chapter" data-level="11.4.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps-1"><i class="fa fa-check"></i><b>11.4.1</b> Using Google maps</a></li>
-<li class="chapter" data-level="11.4.2" data-path="sec-maps.html"><a href="sec-maps.html#use-bing-maps"><i class="fa fa-check"></i><b>11.4.2</b> Use Bing Maps</a></li>
+<li class="chapter" data-level="16.1" data-path="sec-transform.html"><a href="sec-transform.html#lo-transform"><i class="fa fa-check"></i><b>16.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="16.2" data-path="sec-transform.html"><a href="sec-transform.html#working-with-data-in-the-tidyverse"><i class="fa fa-check"></i><b>16.2</b> Working with data in the tidyverse</a></li>
+<li class="chapter" data-level="16.3" data-path="sec-transform.html"><a href="sec-transform.html#mutating-and-filtering-joins"><i class="fa fa-check"></i><b>16.3</b> Mutating and filtering joins</a></li>
+<li class="chapter" data-level="16.4" data-path="sec-transform.html"><a href="sec-transform.html#lp-transform"><i class="fa fa-check"></i><b>16.4</b> Different learning paths</a></li>
+<li class="chapter" data-level="16.5" data-path="sec-transform.html"><a href="sec-transform.html#rc-transform"><i class="fa fa-check"></i><b>16.5</b> Recap</a></li>
+<li class="chapter" data-level="16.6" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>16.6</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="16.6.1" data-path="sec-transform.html"><a href="sec-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>16.6.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="16.6.2" data-path="sec-transform.html"><a href="sec-transform.html#ex-babynames1"><i class="fa fa-check"></i><b>16.6.2</b> Exercise (babynames)</a></li>
+<li class="chapter" data-level="16.6.3" data-path="sec-transform.html"><a href="sec-transform.html#ex-profit1"><i class="fa fa-check"></i><b>16.6.3</b> Exercise (profit)</a></li>
+<li class="chapter" data-level="16.6.4" data-path="sec-transform.html"><a href="sec-transform.html#ex-fish"><i class="fa fa-check"></i><b>16.6.4</b> Exercise (fisheries)</a></li>
 </ul></li>
-<li class="chapter" data-level="11.5" data-path="sec-maps.html"><a href="sec-maps.html#adding-markers-and-routes-to-a-map"><i class="fa fa-check"></i><b>11.5</b> Adding markers and routes to a map</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="sec-r-excel.html"><a href="sec-r-excel.html"><i class="fa fa-check"></i><b>12</b> Using R in Excel and Excel in R</a></li>
-<li class="chapter" data-level="13" data-path="sec-opl.html"><a href="sec-opl.html"><i class="fa fa-check"></i><b>13</b> Run an OPL model from R</a></li>
-<li class="chapter" data-level="14" data-path="sec-simulation.html"><a href="sec-simulation.html"><i class="fa fa-check"></i><b>14</b> Simulation in R</a></li>
+<li class="part"><span><b>VIII Visualization</b></span></li>
+<li class="chapter" data-level="17" data-path="sec-plot.html"><a href="sec-plot.html"><i class="fa fa-check"></i><b>17</b> Data visualization using ggplot</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sec-plot.html"><a href="sec-plot.html#lo-plot"><i class="fa fa-check"></i><b>17.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="17.2" data-path="sec-plot.html"><a href="sec-plot.html#introduction-to-data-visualization"><i class="fa fa-check"></i><b>17.2</b> Introduction to data visualization</a></li>
+<li class="chapter" data-level="17.3" data-path="sec-plot.html"><a href="sec-plot.html#combining-plots-into-one-using-patchwork"><i class="fa fa-check"></i><b>17.3</b> Combining plots into one using <em>patchwork</em></a></li>
+<li class="chapter" data-level="17.4" data-path="sec-plot.html"><a href="sec-plot.html#saving-graphics"><i class="fa fa-check"></i><b>17.4</b> Saving graphics</a></li>
+<li class="chapter" data-level="17.5" data-path="sec-plot.html"><a href="sec-plot.html#lp-r-plot"><i class="fa fa-check"></i><b>17.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="17.6" data-path="sec-plot.html"><a href="sec-plot.html#rc-r-plot"><i class="fa fa-check"></i><b>17.6</b> Recap</a></li>
+<li class="chapter" data-level="17.7" data-path="sec-plot.html"><a href="sec-plot.html#ex-r-plot"><i class="fa fa-check"></i><b>17.7</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="17.7.1" data-path="sec-plot.html"><a href="sec-plot.html#ex-gapminder2"><i class="fa fa-check"></i><b>17.7.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="17.7.2" data-path="sec-plot.html"><a href="sec-plot.html#ex-profit2"><i class="fa fa-check"></i><b>17.7.2</b> Exercise (profit)</a></li>
+<li class="chapter" data-level="17.7.3" data-path="sec-plot.html"><a href="sec-plot.html#ex-covid19"><i class="fa fa-check"></i><b>17.7.3</b> Exercise (COVID-19)</a></li>
+<li class="chapter" data-level="17.7.4" data-path="sec-plot.html"><a href="sec-plot.html#ex-lego"><i class="fa fa-check"></i><b>17.7.4</b> Exercise (Lego and sales)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IX R project in groups</b></span></li>
+<li class="chapter" data-level="18" data-path="sec-project.html"><a href="sec-project.html"><i class="fa fa-check"></i><b>18</b> Mandatory R project</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sec-project.html"><a href="sec-project.html#lo-project"><i class="fa fa-check"></i><b>18.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="18.2" data-path="sec-project.html"><a href="sec-project.html#r-project"><i class="fa fa-check"></i><b>18.2</b> R project</a></li>
+</ul></li>
+<li class="part"><span><b>X Extra</b></span></li>
+<li class="chapter" data-level="19" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>19</b> Spatial data and maps</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="sec-maps.html"><a href="sec-maps.html#lo-maps"><i class="fa fa-check"></i><b>19.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="19.2" data-path="sec-maps.html"><a href="sec-maps.html#sec-map-api-key"><i class="fa fa-check"></i><b>19.2</b> Services for obtatining spatial data</a></li>
+<li class="chapter" data-level="19.3" data-path="sec-maps.html"><a href="sec-maps.html#calculating-distances"><i class="fa fa-check"></i><b>19.3</b> Calculating distances</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps"><i class="fa fa-check"></i><b>19.3.1</b> Using Google Maps</a></li>
+<li class="chapter" data-level="19.3.2" data-path="sec-maps.html"><a href="sec-maps.html#using-bing-maps"><i class="fa fa-check"></i><b>19.3.2</b> Using Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="sec-maps.html"><a href="sec-maps.html#geocoding-and-reverse-geocoding"><i class="fa fa-check"></i><b>19.4</b> Geocoding and reverse geocoding</a>
+<ul>
+<li class="chapter" data-level="19.4.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps-1"><i class="fa fa-check"></i><b>19.4.1</b> Using Google maps</a></li>
+<li class="chapter" data-level="19.4.2" data-path="sec-maps.html"><a href="sec-maps.html#use-bing-maps"><i class="fa fa-check"></i><b>19.4.2</b> Use Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="19.5" data-path="sec-maps.html"><a href="sec-maps.html#adding-markers-and-routes-to-a-map"><i class="fa fa-check"></i><b>19.5</b> Adding markers and routes to a map</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="sec-r-excel.html"><a href="sec-r-excel.html"><i class="fa fa-check"></i><b>20</b> Using R in Excel and Excel in R</a></li>
+<li class="chapter" data-level="21" data-path="sec-opl.html"><a href="sec-opl.html"><i class="fa fa-check"></i><b>21</b> Run an OPL model from R</a></li>
+<li class="chapter" data-level="22" data-path="sec-simulation.html"><a href="sec-simulation.html"><i class="fa fa-check"></i><b>22</b> Simulation in R</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="groups.html"><a href="groups.html"><i class="fa fa-check"></i><b>A</b> Working in groups</a>
 <ul>
@@ -360,14 +434,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="B" data-path="annotate.html"><a href="annotate.html"><i class="fa fa-check"></i><b>B</b> Annotate the course notes</a></li>
-<li class="chapter" data-level="C" data-path="help.html"><a href="help.html"><i class="fa fa-check"></i><b>C</b> Getting help</a>
-<ul>
-<li class="chapter" data-level="" data-path="help.html"><a href="help.html#study-café"><i class="fa fa-check"></i>Study café</a>
-<ul>
-<li class="chapter" data-level="" data-path="help.html"><a href="help.html#need-help---ask-a-question"><i class="fa fa-check"></i>Need help - ask a question</a></li>
-<li class="chapter" data-level="" data-path="help.html"><a href="help.html#current-queue"><i class="fa fa-check"></i>Current queue</a></li>
-</ul></li>
-</ul></li>
+<li class="chapter" data-level="C" data-path="help.html"><a href="help.html"><i class="fa fa-check"></i><b>C</b> Getting help</a></li>
 <li class="chapter" data-level="D" data-path="slides.html"><a href="slides.html"><i class="fa fa-check"></i><b>D</b> Slides</a></li>
 <li class="chapter" data-level="E" data-path="lg-course.html"><a href="lg-course.html"><i class="fa fa-check"></i><b>E</b> Learning goals</a></li>
 <li class="chapter" data-level="F" data-path="sec-ba.html"><a href="sec-ba.html"><i class="fa fa-check"></i><b>F</b> Business Analytics</a></li>
@@ -400,11 +467,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="sec-plot" class="section level1" number="9">
-<h1><span class="header-section-number">Module 9</span> Data visualization using ggplot</h1>
+<div id="sec-plot" class="section level1" number="17">
+<h1><span class="header-section-number">Module 17</span> Data visualization using ggplot</h1>
 <p>This module considers visualization of your data using the <a href="https://ggplot2.tidyverse.org/">ggplot2</a> package which is a part of <a href="https://www.tidyverse.org">tidyverse</a>. R has several systems for making plots, but ggplot2 is one of the most elegant and most versatile. Using ggplot2 you can make plots faster by learning one system and applying it in many different plot types.</p>
-<div id="lo-plot" class="section level2" number="9.1">
-<h2><span class="header-section-number">9.1</span> Learning outcomes</h2>
+<div id="lo-plot" class="section level2" number="17.1">
+<h2><span class="header-section-number">17.1</span> Learning outcomes</h2>
 <p>By the end of this module, you are expected to:</p>
 <ul>
 <li>Know how to create basic plots using ggplot.</li>
@@ -421,15 +488,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
 <!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
 </div>
-<div id="introduction-to-data-visualization" class="section level2" number="9.2">
-<h2><span class="header-section-number">9.2</span> Introduction to data visualization</h2>
+<div id="introduction-to-data-visualization" class="section level2" number="17.2">
+<h2><span class="header-section-number">17.2</span> Introduction to data visualization</h2>
 <p>The package <a href="https://ggplot2.tidyverse.org/">ggplot2</a> is a plotting package that makes it simple to create complex plots from data in a data frame. It provides an interface for specifying which variables to plot, how they are displayed, and general visual properties. Hence, only minimal changes are needed, if the underlying data change or if we decide to change from a bar plot to a scatterplot.</p>
 <p>The package implements the grammar of graphics, a coherent system for describing and building layered plots. A plot is built step by step by adding new layers. Adding layers in this fashion allows for extensive flexibility and customization of plots.</p>
 <p>An excellent introduction to data visualization using <a href="https://ggplot2.tidyverse.org/">ggplot2</a> is given in the interactive DataCamp course <a href="https://learn.datacamp.com/courses/introduction-to-data-visualization-with-ggplot2">Introduction to data visualization with ggplot2</a>. Please complete the course before continuing.</p>
-<p>Note that there is a difference between using the pipe <code>%&gt;%</code> operator which passes the output of the previous line of code as the first input of the next line of code and the <code>+</code> operator used between <strong>ggplot2</strong> functions for “layering.” That is, you create the plot in layers, separated by <code>+</code>.</p>
+<p>Note that there is a difference between using the pipe <code>%&gt;%</code> operator which passes the output of the previous line of code as the first input of the next line of code and the <code>+</code> operator used between <strong>ggplot2</strong> functions for “layering”. That is, you create the plot in layers, separated by <code>+</code>.</p>
 </div>
-<div id="combining-plots-into-one-using-patchwork" class="section level2" number="9.3">
-<h2><span class="header-section-number">9.3</span> Combining plots into one using <em>patchwork</em></h2>
+<div id="combining-plots-into-one-using-patchwork" class="section level2" number="17.3">
+<h2><span class="header-section-number">17.3</span> Combining plots into one using <em>patchwork</em></h2>
 <p>You can combine separate ggplots into the same graphic using the <em>patchwork</em> package. You can install <em>patchwork</em> from CRAN using <code>install.packages('patchwork')</code>.</p>
 <p>The usage is simple. Plots in two rows:</p>
 <div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="sec-plot.html#cb359-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -437,24 +504,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb359-3"><a href="sec-plot.html#cb359-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(mpg, disp))</span>
 <span id="cb359-4"><a href="sec-plot.html#cb359-4" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(gear, disp, <span class="at">group =</span> gear))</span>
 <span id="cb359-5"><a href="sec-plot.html#cb359-5" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-369-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-381-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The package provides rich support for arbitrarily complex layouts. Code for nesting three
 plots on top of a third:</p>
 <div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="sec-plot.html#cb360-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(disp, qsec))</span>
 <span id="cb360-2"><a href="sec-plot.html#cb360-2" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="fu">aes</span>(carb))</span>
 <span id="cb360-3"><a href="sec-plot.html#cb360-3" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">|</span> p2 <span class="sc">|</span> p3) <span class="sc">/</span></span>
 <span id="cb360-4"><a href="sec-plot.html#cb360-4" aria-hidden="true" tabindex="-1"></a>      p4</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-370-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-382-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>For further examples see the <a href="https://patchwork.data-imaginist.com/">documentation pages</a>.</p>
 </div>
-<div id="saving-graphics" class="section level2" number="9.4">
-<h2><span class="header-section-number">9.4</span> Saving graphics</h2>
+<div id="saving-graphics" class="section level2" number="17.4">
+<h2><span class="header-section-number">17.4</span> Saving graphics</h2>
 <p>In general, when you do anlytics using R Markdown, there is no need to save your graphics. This is done automatically. However, in a few cases you may need to save you graphics in different formats. Let us consider a simple plot:</p>
 <div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="sec-plot.html#cb361-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb361-2"><a href="sec-plot.html#cb361-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy, <span class="at">colour =</span> class)) <span class="sc">+</span> </span>
 <span id="cb361-3"><a href="sec-plot.html#cb361-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
 <span id="cb361-4"><a href="sec-plot.html#cb361-4" aria-hidden="true" tabindex="-1"></a>p  <span class="co"># print it out</span></span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-371-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-383-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>To save the plot as a bitmap image (png, jpeg etc) have a look at the documentation (<code>?png</code>). Let us try to save the plot as a png file.</p>
 <div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="sec-plot.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">&quot;test1.png&quot;</span>)  <span class="co"># open png device for writing </span></span>
 <span id="cb362-2"><a href="sec-plot.html#cb362-2" aria-hidden="true" tabindex="-1"></a>p</span>
@@ -483,21 +550,21 @@ plots on top of a third:</p>
 <span id="cb363-6"><a href="sec-plot.html#cb363-6" aria-hidden="true" tabindex="-1"></a><span class="co"># browseURL(&quot;test1.pdf&quot;)  # to have a look at the file</span></span></code></pre></div>
 <p>If you use LaTeX you may use the <em>tikzDevice</em> package to save plots as TikZ.</p>
 </div>
-<div id="lp-r-plot" class="section level2" number="9.5">
-<h2><span class="header-section-number">9.5</span> Different learning paths</h2>
+<div id="lp-r-plot" class="section level2" number="17.5">
+<h2><span class="header-section-number">17.5</span> Different learning paths</h2>
 <p>We are all different and you may like different learning styles compared to others. You may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be useful for you. Note these suggestions are not a part of syllabus!</p>
 <ul>
-<li>A detailed introduction to visualization using ggplot2 is given in Chapters 22-29 in <span class="citation"><a href="colophon.html#ref-stat545" role="doc-biblioref">Bryan</a> (<a href="colophon.html#ref-stat545" role="doc-biblioref">2017</a>)</span>.</li>
-<li>A short introduction is given in <a href="https://r4ds.had.co.nz/data-visualisation.html">Chapter 3</a> in <span class="citation"><a href="colophon.html#ref-r4ds" role="doc-biblioref">H. Wickham</a> (<a href="colophon.html#ref-r4ds" role="doc-biblioref">2017</a>)</span>.</li>
+<li>A detailed introduction to visualization using ggplot2 is given in Chapters 22-29 in <span class="citation">Bryan (<a href="#ref-stat545" role="doc-biblioref">2017</a>)</span>.</li>
+<li>A short introduction is given in <a href="https://r4ds.had.co.nz/data-visualisation.html">Chapter 3</a> in <span class="citation">H. Wickham (<a href="#ref-r4ds" role="doc-biblioref">2017</a>)</span>.</li>
 <li>The ‘Data visualization with ggplot2’ cheatsheet is very useful. Find the newest version in RStudio <strong>Help &gt; Cheatsheets</strong>.</li>
 <li>A good place to see examples are on the <a href="https://ggplot2.tidyverse.org/reference/index.html">main reference page</a>. Follow the link to the function of interest and have a look at the examples.</li>
 <li>Further advanded possibilities for ggplot2 are given in the interactive DataCamp course <a href="https://learn.datacamp.com/courses/intermediate-data-visualization-with-ggplot2">Intermediate Data Visualization with ggplot2</a>.</li>
 </ul>
 </div>
-<div id="rc-r-plot" class="section level2" number="9.6">
-<h2><span class="header-section-number">9.6</span> Recap</h2>
+<div id="rc-r-plot" class="section level2" number="17.6">
+<h2><span class="header-section-number">17.6</span> Recap</h2>
 <ul>
-<li><p>The tidyverse package <a href="https://ggplot2.tidyverse.org/">ggplot2</a> is an R package for producing data visualizations. It is based on the Grammar of Graphics by <span class="citation"><a href="colophon.html#ref-gramma" role="doc-biblioref">Wilkinson</a> (<a href="colophon.html#ref-gramma" role="doc-biblioref">2005</a>)</span>.</p></li>
+<li><p>The tidyverse package <a href="https://ggplot2.tidyverse.org/">ggplot2</a> is an R package for producing data visualizations. It is based on the Grammar of Graphics by <span class="citation">Wilkinson (<a href="#ref-gramma" role="doc-biblioref">2005</a>)</span>.</p></li>
 <li><p>The grammar of graphics is a coherent system for describing and building layered plots.</p>
 <ul>
 <li>Graphics are made by grammatical elements such as data, aesthetics, geometries, scales, facets, and themes.</li>
@@ -512,14 +579,14 @@ plots on top of a third:</p>
 <li><p>Separate ggplots can be combined into the same graphic using the <em>patchwork</em> package.</p></li>
 <li><p>Save plots as variables and different image files using the device functions such as <code>png</code> and <code>pdf</code>.</p></li>
 <li><p>The pipe <code>%&gt;%</code> operator is used to “pipe” the output of the previous line of code as the first input of the next line of code.</p></li>
-<li><p>The <code>+</code> operator in <strong>ggplot2</strong> functions is used for “layering.” This means you create the plot in layers, separated by <code>+</code>.</p></li>
+<li><p>The <code>+</code> operator in <strong>ggplot2</strong> functions is used for “layering”. This means you create the plot in layers, separated by <code>+</code>.</p></li>
 </ul>
 </div>
-<div id="ex-r-plot" class="section level2" number="9.7">
-<h2><span class="header-section-number">9.7</span> Exercises</h2>
+<div id="ex-r-plot" class="section level2" number="17.7">
+<h2><span class="header-section-number">17.7</span> Exercises</h2>
 <p>Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the <a href="help.html#help">help page</a>. Solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up to early. Put some effort into finding a solution!</p>
-<div id="ex-gapminder2" class="section level3" number="9.7.1">
-<h3><span class="header-section-number">9.7.1</span> Exercise (gapminder)</h3>
+<div id="ex-gapminder2" class="section level3" number="17.7.1">
+<h3><span class="header-section-number">17.7.1</span> Exercise (gapminder)</h3>
 <p>Use the <em>exercise R Markdown template</em> to solve this exercise (<strong>File &gt; New File &gt; R Markdown…</strong>, select <strong>From template</strong> and then <strong>TFA Exercise</strong>).</p>
 <p>In this exercise, we will demonstrate how relatively simple ggplot2 code can create insightful and aesthetically pleasing plots. As motivation we will create plots that help us better understand trends in world health and economics.</p>
 <p><a href="https://en.wikipedia.org/wiki/Hans_Rosling">Hans Rosling</a> was the co-founder of the <a href="http://www.gapminder.org/">Gapminder Foundation</a>, an organization dedicated to educating the public by using data to dispel common myths about the so-called developing world. Hans Rosling conveyed actual data-based trends in a dramatic way of his own, using effective data visualization. Here we will try to answer two questions:</p>
@@ -532,7 +599,7 @@ plots on top of a third:</p>
 <span id="cb364-2"><a href="sec-plot.html#cb364-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dslabs)</span>
 <span id="cb364-3"><a href="sec-plot.html#cb364-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(gapminder)</span>
 <span id="cb364-4"><a href="sec-plot.html#cb364-4" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
-<span id="cb364-5"><a href="sec-plot.html#cb364-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10,545 x 9</span></span>
+<span id="cb364-5"><a href="sec-plot.html#cb364-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10,545 × 9</span></span>
 <span id="cb364-6"><a href="sec-plot.html#cb364-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country    year infant_mortality life_expectancy fertility population      gdp continent region  </span></span>
 <span id="cb364-7"><a href="sec-plot.html#cb364-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;fct&gt;     &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;   </span></span>
 <span id="cb364-8"><a href="sec-plot.html#cb364-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Albania    1960            115.             62.9      6.19    1636054 NA       Europe    Souther…</span></span>
@@ -658,14 +725,14 @@ South Africa
 <div id="the-west-vs.-the-developing-world" class="section level4 unnumbered">
 <h4>The west vs. the developing world</h4>
 <p>There is a preconceived notion that the world is divided into two groups: the Western world (Western Europe and North America), characterized by long life spans and small families, versus the developing world (Africa, Asia, and Latin America) characterized by short life spans and large families. But do the data support this dichotomous view?</p>
-<div id="4L1Lmjo39eOB77cVUsBl" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="4L1Lmjo39eOB77cVUsBl-title">
+<div id="HtA8jXXhelHzx1kML1l9" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="HtA8jXXhelHzx1kML1l9-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="4L1Lmjo39eOB77cVUsBl-title">
+<h4 class="modal-title" id="HtA8jXXhelHzx1kML1l9-title">
 Solution
 </h4>
 </div>
@@ -673,7 +740,7 @@ Solution
 <div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="sec-plot.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(gapminder, year <span class="sc">==</span> <span class="dv">1962</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb366-2"><a href="sec-plot.html#cb366-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(fertility, life_expectancy, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
 <span id="cb366-3"><a href="sec-plot.html#cb366-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() </span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-376-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-388-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 Most points fall into two distinct categories:
 </p>
@@ -697,17 +764,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#4L1Lmjo39eOB77cVUsBl">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#HtA8jXXhelHzx1kML1l9">
 Solution
 </button>
-<div id="D98sfSiheuCQ29hjQLU1" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="D98sfSiheuCQ29hjQLU1-title">
+<div id="6iR1vmQ8oiPA0LBYaHvh" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="6iR1vmQ8oiPA0LBYaHvh-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="D98sfSiheuCQ29hjQLU1-title">
+<h4 class="modal-title" id="6iR1vmQ8oiPA0LBYaHvh-title">
 Hint
 </h4>
 </div>
@@ -724,20 +791,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#D98sfSiheuCQ29hjQLU1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#6iR1vmQ8oiPA0LBYaHvh">
 Hint
 </button>
 <ol style="list-style-type: decimal">
 <li>Make a scatterplot of life expectancy versus fertility rates (average number of children per woman) in 1962. Use continent as color aesthetic.</li>
 </ol>
-<div id="qeBXsELmE4PCecP9BQO3" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="qeBXsELmE4PCecP9BQO3-title">
+<div id="HibPA19aD2urpbinrhKU" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="HibPA19aD2urpbinrhKU-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="qeBXsELmE4PCecP9BQO3-title">
+<h4 class="modal-title" id="HibPA19aD2urpbinrhKU-title">
 Solution
 </h4>
 </div>
@@ -746,7 +813,7 @@ Solution
 <span id="cb368-2"><a href="sec-plot.html#cb368-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(fertility, life_expectancy, <span class="at">col =</span> continent)) <span class="sc">+</span></span>
 <span id="cb368-3"><a href="sec-plot.html#cb368-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb368-4"><a href="sec-plot.html#cb368-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(year))</span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-378-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-390-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 This plot clearly shows that the majority of countries have moved from the <em>developing world</em> cluster to the <em>western world</em> one. In 2012, the western versus developing world view no longer makes sense. This is particularly clear when comparing Europe to Asia, the latter of which includes several countries that have made great improvements.
 </p>
@@ -759,17 +826,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#qeBXsELmE4PCecP9BQO3">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#HibPA19aD2urpbinrhKU">
 Solution
 </button>
-<div id="0sIxfqQvkHgvjfk72NVw" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="0sIxfqQvkHgvjfk72NVw-title">
+<div id="mPaI9HCDWvaGNY9f10fC" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mPaI9HCDWvaGNY9f10fC-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="0sIxfqQvkHgvjfk72NVw-title">
+<h4 class="modal-title" id="mPaI9HCDWvaGNY9f10fC-title">
 Hint
 </h4>
 </div>
@@ -787,20 +854,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#0sIxfqQvkHgvjfk72NVw">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#mPaI9HCDWvaGNY9f10fC">
 Hint
 </button>
 <ol start="2" style="list-style-type: decimal">
 <li>In 1962, “the West versus developing world” view was grounded in some reality. Is this still the case 50 years later? We could easily plot the 2012 data in the same way we did for 1962. To make comparisons, side by side plots are preferable. In <strong>ggplot2</strong>, we can achieve this by <em>faceting</em> variables and making a plot for each year. That is, you must filter by years 1962 and 2012 and add the layer <code>facet_grid</code>, which automatically separates the plots.</li>
 </ol>
-<div id="wdJXfrY5ipOCG2WaatQE" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="wdJXfrY5ipOCG2WaatQE-title">
+<div id="N9hc3P6OSc4L1Lmjo39e" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="N9hc3P6OSc4L1Lmjo39e-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="wdJXfrY5ipOCG2WaatQE-title">
+<h4 class="modal-title" id="N9hc3P6OSc4L1Lmjo39e-title">
 Solution
 </h4>
 </div>
@@ -812,7 +879,7 @@ Solution
 <span id="cb370-5"><a href="sec-plot.html#cb370-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(fertility, life_expectancy, <span class="at">col =</span> continent)) <span class="sc">+</span></span>
 <span id="cb370-6"><a href="sec-plot.html#cb370-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb370-7"><a href="sec-plot.html#cb370-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(year)) </span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-380-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-392-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 The plot clearly shows how most Asian countries have improved at a much faster rate than European ones.
 </p>
@@ -825,17 +892,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#wdJXfrY5ipOCG2WaatQE">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#N9hc3P6OSc4L1Lmjo39e">
 Solution
 </button>
-<div id="V4ejDBsIzjvkKN2tWLon" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="V4ejDBsIzjvkKN2tWLon-title">
+<div id="OB77cVUsBlD98sfSiheu" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="OB77cVUsBlD98sfSiheu-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="V4ejDBsIzjvkKN2tWLon-title">
+<h4 class="modal-title" id="OB77cVUsBlD98sfSiheu-title">
 Hint
 </h4>
 </div>
@@ -854,7 +921,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#V4ejDBsIzjvkKN2tWLon">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#OB77cVUsBlD98sfSiheu">
 Hint
 </button>
 <ol start="3" style="list-style-type: decimal">
@@ -864,17 +931,17 @@ Hint
 <div id="infobox---scales" class="section level4 unnumbered box">
 <h4>Infobox - Scales</h4>
 <p>The default choice of the range of the axes is important. When not using <code>facet</code>, this range is determined by the data shown in the plot. When using <code>facet</code>, this range is determined by the data shown in all plots and therefore kept fixed across plots. This makes comparisons across plots much easier. For example, in the above plot, we can see that life expectancy has increased and the fertility has decreased across most countries. We see this because the cloud of points moves. This is not the case if we adjust the scales:</p>
-<p><img src="TFA_files/figure-html/unnamed-chunk-382-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-394-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>In the plot above, we have to pay special attention to the range to notice that the plot on the right has a larger life expectancy.</p>
 </div>
-<div id="mW6t8pYYjOoqnPAi531e" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mW6t8pYYjOoqnPAi531e-title">
+<div id="CQ29hjQLU1qeBXsELmE4" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="CQ29hjQLU1qeBXsELmE4-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="mW6t8pYYjOoqnPAi531e-title">
+<h4 class="modal-title" id="CQ29hjQLU1qeBXsELmE4-title">
 Solution
 </h4>
 </div>
@@ -883,7 +950,7 @@ Solution
 <span id="cb372-2"><a href="sec-plot.html#cb372-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Asia&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb372-3"><a href="sec-plot.html#cb372-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(fertility, life_expectancy, <span class="at">col =</span> year)) <span class="sc">+</span></span>
 <span id="cb372-4"><a href="sec-plot.html#cb372-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()  </span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-383-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-395-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -893,17 +960,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#mW6t8pYYjOoqnPAi531e">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#CQ29hjQLU1qeBXsELmE4">
 Solution
 </button>
-<div id="gBnndx83wqMOx6hYsjd9" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="gBnndx83wqMOx6hYsjd9-title">
+<div id="PCecP9BQO30sIxfqQvkH" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="PCecP9BQO30sIxfqQvkH-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="gBnndx83wqMOx6hYsjd9-title">
+<h4 class="modal-title" id="PCecP9BQO30sIxfqQvkH-title">
 Hint
 </h4>
 </div>
@@ -921,7 +988,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#gBnndx83wqMOx6hYsjd9">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#PCecP9BQO30sIxfqQvkH">
 Hint
 </button>
 <ol start="4" style="list-style-type: decimal">
@@ -938,14 +1005,14 @@ Hint
 <p><img src="TFA_files/figure-html/fertility-time-series-plot-points-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We see that the trend is not linear at all. Instead there is sharp drop during the 1960s and 1970s to below 2. Then the trend comes back to 2 and stabilizes during the 1990s.</p>
 <p>When the points are regularly and densely spaced, as they are here, we create curves by joining the points with lines, to convey that these data are from a single series, here a country. To do this, we use the <code>geom_line</code> function instead of <code>geom_point</code>.</p>
-<div id="TQ9pHdTZb6UAQfZGI0Ih" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="TQ9pHdTZb6UAQfZGI0Ih-title">
+<div id="gvjfk72NVwwdJXfrY5ip" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="gvjfk72NVwwdJXfrY5ip-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="TQ9pHdTZb6UAQfZGI0Ih-title">
+<h4 class="modal-title" id="gvjfk72NVwwdJXfrY5ip-title">
 Solution
 </h4>
 </div>
@@ -954,7 +1021,7 @@ Solution
 <span id="cb375-2"><a href="sec-plot.html#cb375-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;United States&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb375-3"><a href="sec-plot.html#cb375-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, fertility)) <span class="sc">+</span></span>
 <span id="cb375-4"><a href="sec-plot.html#cb375-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-385-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-397-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -964,20 +1031,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#TQ9pHdTZb6UAQfZGI0Ih">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#gvjfk72NVwwdJXfrY5ip">
 Solution
 </button>
 <ol start="5" style="list-style-type: decimal">
 <li>Make a lineplot showing the time series of fertility versus year for United States.</li>
 </ol>
-<div id="4yntWLS6ENOf8S9Y1npC" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="4yntWLS6ENOf8S9Y1npC-title">
+<div id="OCG2WaatQEV4ejDBsIzj" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="OCG2WaatQEV4ejDBsIzj-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="4yntWLS6ENOf8S9Y1npC-title">
+<h4 class="modal-title" id="OCG2WaatQEV4ejDBsIzj-title">
 Solution
 </h4>
 </div>
@@ -986,7 +1053,7 @@ Solution
 <span id="cb376-2"><a href="sec-plot.html#cb376-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country <span class="sc">%in%</span> countries) <span class="sc">%&gt;%</span> </span>
 <span id="cb376-3"><a href="sec-plot.html#cb376-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, fertility, <span class="at">col =</span> country)) <span class="sc">+</span></span>
 <span id="cb376-4"><a href="sec-plot.html#cb376-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() </span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-386-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-398-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 The plot clearly shows how South Korea's fertility rate dropped drastically during the 1960s and 1970s, and by 1990 had a similar rate to that of Germany.
 </p>
@@ -999,17 +1066,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#4yntWLS6ENOf8S9Y1npC">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#OCG2WaatQEV4ejDBsIzj">
 Solution
 </button>
-<div id="Yc8hswj0lLP0KKSpeMmN" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Yc8hswj0lLP0KKSpeMmN-title">
+<div id="vkKN2tWLonmW6t8pYYjO" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="vkKN2tWLonmW6t8pYYjO-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="Yc8hswj0lLP0KKSpeMmN-title">
+<h4 class="modal-title" id="vkKN2tWLonmW6t8pYYjO-title">
 Hint
 </h4>
 </div>
@@ -1026,20 +1093,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Yc8hswj0lLP0KKSpeMmN">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#vkKN2tWLonmW6t8pYYjO">
 Hint
 </button>
 <ol start="6" style="list-style-type: decimal">
 <li>Lineplots is particularly helpful when we look at more countries. Make a lineplot showing the time series of fertility versus year for South Korea and Germany. Use country as color aesthetic.</li>
 </ol>
-<div id="wlIE9tXuzYKfsyPjJSEg" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="wlIE9tXuzYKfsyPjJSEg-title">
+<div id="oqnPAi531egBnndx83wq" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="oqnPAi531egBnndx83wq-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="wlIE9tXuzYKfsyPjJSEg-title">
+<h4 class="modal-title" id="oqnPAi531egBnndx83wq-title">
 Solution
 </h4>
 </div>
@@ -1048,7 +1115,7 @@ Solution
 <span id="cb378-2"><a href="sec-plot.html#cb378-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">%in%</span> countries) <span class="sc">%&gt;%</span> </span>
 <span id="cb378-3"><a href="sec-plot.html#cb378-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, life_expectancy, <span class="at">col =</span> country)) <span class="sc">+</span></span>
 <span id="cb378-4"><a href="sec-plot.html#cb378-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() </span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-388-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-400-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 The plot clearly shows how an improvement in life expectancy followed the drops in fertility rates. In 1960, Germans lived 15 years longer than South Koreans, although by 2010 the gap is completely closed. It exemplifies the improvement that many non-western countries have achieved in the last 40 years.
 </p>
@@ -1061,7 +1128,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#wlIE9tXuzYKfsyPjJSEg">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#oqnPAi531egBnndx83wq">
 Solution
 </button>
 <ol start="7" style="list-style-type: decimal">
@@ -1085,14 +1152,14 @@ Solution
 <p>We use the <code>color = "black"</code> argument to draw a boundary and clearly distinguish the bins.</p>
 <p>In this plot, we see that for the majority of countries, averages are below $10 a day. However, the majority of the x-axis is dedicated to the 35 countries with averages above $10. So the plot is not very informative about countries with values below $10 a day.</p>
 <p>It might be more informative to quickly be able to see how many countries have average daily incomes of about $1 (extremely poor), $2 (very poor), $4 (poor), $8 (middle), $16 (well off), $32 (rich), $64 (very rich) per day. These changes are multiplicative and log transformations convert multiplicative changes into additive ones: when using base 2, a doubling of a value turns into an increase by 1.</p>
-<div id="Pgw3ckgsnsyYmZ4T9Y3j" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Pgw3ckgsnsyYmZ4T9Y3j-title">
+<div id="MOx6hYsjd9TQ9pHdTZb6" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="MOx6hYsjd9TQ9pHdTZb6-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="Pgw3ckgsnsyYmZ4T9Y3j-title">
+<h4 class="modal-title" id="MOx6hYsjd9TQ9pHdTZb6-title">
 Solution
 </h4>
 </div>
@@ -1101,7 +1168,7 @@ Solution
 <span id="cb381-2"><a href="sec-plot.html#cb381-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> past_year <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(gdp)) <span class="sc">%&gt;%</span></span>
 <span id="cb381-3"><a href="sec-plot.html#cb381-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">log2</span>(dollars_per_day))) <span class="sc">+</span> </span>
 <span id="cb381-4"><a href="sec-plot.html#cb381-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-390-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-402-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 This provides a <em>close-up</em> of the mid to lower income countries.
 </p>
@@ -1114,7 +1181,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Pgw3ckgsnsyYmZ4T9Y3j">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#MOx6hYsjd9TQ9pHdTZb6">
 Solution
 </button>
 <ol start="8" style="list-style-type: decimal">
@@ -1145,15 +1212,15 @@ With base two, our range includes -2, -1, 0, 1, 2, 3, 4, and 5. It is easier to 
 <p><code>----1----x----2--------3----</code></p>
 <p>for log transformed data, we know that the value of <span class="math inline">\(x\)</span> is about 1.5. If the scales are logged:</p>
 <p><code>----1----x----10------100---</code></p>
-<p>then, to determine <code>x</code>, we need to compute <span class="math inline">\(10^{1.5}\)</span>, which is not easy to do in our heads. The advantage of using logged scales is that we see the original values on the axes. However, the advantage of showing logged scales is that the original values are displayed in the plot, which are easier to interpret. For example, we would see “32 dollars a day” instead of “5 log base 2 dollars a day.”</p>
-<div id="05tyJdebsmI3RQdkaSDS" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="05tyJdebsmI3RQdkaSDS-title">
+<p>then, to determine <code>x</code>, we need to compute <span class="math inline">\(10^{1.5}\)</span>, which is not easy to do in our heads. The advantage of using logged scales is that we see the original values on the axes. However, the advantage of showing logged scales is that the original values are displayed in the plot, which are easier to interpret. For example, we would see “32 dollars a day” instead of “5 log base 2 dollars a day”.</p>
+<div id="UAQfZGI0Ih4yntWLS6EN" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="UAQfZGI0Ih4yntWLS6EN-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="05tyJdebsmI3RQdkaSDS-title">
+<h4 class="modal-title" id="UAQfZGI0Ih4yntWLS6EN-title">
 Solution
 </h4>
 </div>
@@ -1163,7 +1230,7 @@ Solution
 <span id="cb384-3"><a href="sec-plot.html#cb384-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(dollars_per_day)) <span class="sc">+</span> </span>
 <span id="cb384-4"><a href="sec-plot.html#cb384-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb384-5"><a href="sec-plot.html#cb384-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">trans =</span> <span class="st">&quot;log2&quot;</span>)</span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-392-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-404-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 The plot from Q8 is the same except the values on the x-axis.
 </p>
@@ -1176,7 +1243,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#05tyJdebsmI3RQdkaSDS">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#UAQfZGI0Ih4yntWLS6EN">
 Solution
 </button>
 <ol start="9" style="list-style-type: decimal">
@@ -1190,14 +1257,14 @@ Solution
 <span id="cb385-4"><a href="sec-plot.html#cb385-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Northern America&quot;</span>, <span class="st">&quot;Australia and New Zealand&quot;</span>) <span class="sc">~</span> <span class="st">&quot;West&quot;</span>,</span>
 <span id="cb385-5"><a href="sec-plot.html#cb385-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;Rest&quot;</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb385-6"><a href="sec-plot.html#cb385-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code></pre></div>
-<div id="lGhmNJ6TjWv0uZoQJPI7" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="lGhmNJ6TjWv0uZoQJPI7-title">
+<div id="Of8S9Y1npCYc8hswj0lL" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Of8S9Y1npCYc8hswj0lL-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="lGhmNJ6TjWv0uZoQJPI7-title">
+<h4 class="modal-title" id="Of8S9Y1npCYc8hswj0lL-title">
 Solution
 </h4>
 </div>
@@ -1208,7 +1275,7 @@ Solution
 <span id="cb386-4"><a href="sec-plot.html#cb386-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb386-5"><a href="sec-plot.html#cb386-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(group)) <span class="sc">+</span></span>
 <span id="cb386-6"><a href="sec-plot.html#cb386-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">trans =</span> <span class="st">&quot;log2&quot;</span>)</span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-394-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-406-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 The plot confirms the west vs the rest dichotomy.
 </p>
@@ -1221,17 +1288,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#lGhmNJ6TjWv0uZoQJPI7">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Of8S9Y1npCYc8hswj0lL">
 Solution
 </button>
-<div id="HHL1lRb61B1wUnY60QCn" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="HHL1lRb61B1wUnY60QCn-title">
+<div id="P0KKSpeMmNwlIE9tXuzY" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="P0KKSpeMmNwlIE9tXuzY-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="HHL1lRb61B1wUnY60QCn-title">
+<h4 class="modal-title" id="P0KKSpeMmNwlIE9tXuzY-title">
 Hint
 </h4>
 </div>
@@ -1251,21 +1318,21 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#HHL1lRb61B1wUnY60QCn">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#P0KKSpeMmNwlIE9tXuzY">
 Hint
 </button>
 <ol start="10" style="list-style-type: decimal">
 <li>Make a histogram of <code>dollars_per_day</code> from 1970 using a log2 scale and <em>facet</em> it by group. Is there a <em>west</em> versus the <em>rest</em> dichotomy?</li>
 </ol>
 <p>The exploratory data analysis above has revealed two characteristics about average income distribution in 1970. Using a histogram, we found a bimodal distribution with the modes relating to poor and rich countries. We will try to visualize these summaries in one plot.</p>
-<div id="VXv41Y6G89Z3djNh3aGB" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="VXv41Y6G89Z3djNh3aGB-title">
+<div id="KfsyPjJSEgPgw3ckgsns" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="KfsyPjJSEgPgw3ckgsns-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="VXv41Y6G89Z3djNh3aGB-title">
+<h4 class="modal-title" id="KfsyPjJSEgPgw3ckgsns-title">
 Solution
 </h4>
 </div>
@@ -1276,7 +1343,7 @@ Solution
 <span id="cb388-4"><a href="sec-plot.html#cb388-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb388-5"><a href="sec-plot.html#cb388-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">trans =</span> <span class="st">&quot;log2&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb388-6"><a href="sec-plot.html#cb388-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-396-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-408-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1286,17 +1353,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#VXv41Y6G89Z3djNh3aGB">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#KfsyPjJSEgPgw3ckgsns">
 Solution
 </button>
-<div id="HbQdwWFkW8E76ejR9qz1" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="HbQdwWFkW8E76ejR9qz1-title">
+<div id="yYmZ4T9Y3j05tyJdebsm" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="yYmZ4T9Y3j05tyJdebsm-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="HbQdwWFkW8E76ejR9qz1-title">
+<h4 class="modal-title" id="yYmZ4T9Y3j05tyJdebsm-title">
 Hint
 </h4>
 </div>
@@ -1316,7 +1383,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#HbQdwWFkW8E76ejR9qz1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#yYmZ4T9Y3j05tyJdebsm">
 Hint
 </button>
 <ol start="11" style="list-style-type: decimal">
@@ -1336,14 +1403,14 @@ Hint
 <span id="cb390-11"><a href="sec-plot.html#cb390-11" aria-hidden="true" tabindex="-1"></a>      </span>
 <span id="cb390-12"><a href="sec-plot.html#cb390-12" aria-hidden="true" tabindex="-1"></a>country_list <span class="ot">&lt;-</span> <span class="fu">intersect</span>(country_list_1, country_list_2)</span></code></pre></div>
 <p>We can now filter the rows by <code>years</code> and <code>country_list</code>.</p>
-<div id="XnWFTIxhk0OS7F9PDWtW" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="XnWFTIxhk0OS7F9PDWtW-title">
+<div id="I3RQdkaSDSlGhmNJ6TjW" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="I3RQdkaSDSlGhmNJ6TjW-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="XnWFTIxhk0OS7F9PDWtW-title">
+<h4 class="modal-title" id="I3RQdkaSDSlGhmNJ6TjW-title">
 Solution
 </h4>
 </div>
@@ -1354,7 +1421,7 @@ Solution
 <span id="cb391-4"><a href="sec-plot.html#cb391-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb391-5"><a href="sec-plot.html#cb391-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">trans =</span> <span class="st">&quot;log2&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb391-6"><a href="sec-plot.html#cb391-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(year <span class="sc">~</span> group)</span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-399-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-411-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 The income gap between rich and poor countries has narrowed considerably during the last 40 years
 </p>
@@ -1367,17 +1434,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#XnWFTIxhk0OS7F9PDWtW">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#I3RQdkaSDSlGhmNJ6TjW">
 Solution
 </button>
-<div id="QID3mxuIFJKcd6U2exxu" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="QID3mxuIFJKcd6U2exxu-title">
+<div id="v0uZoQJPI7HHL1lRb61B" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="v0uZoQJPI7HHL1lRb61B-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="QID3mxuIFJKcd6U2exxu-title">
+<h4 class="modal-title" id="v0uZoQJPI7HHL1lRb61B-title">
 Hint
 </h4>
 </div>
@@ -1397,20 +1464,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#QID3mxuIFJKcd6U2exxu">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#v0uZoQJPI7HHL1lRb61B">
 Hint
 </button>
 <ol start="12" style="list-style-type: decimal">
 <li>Make a histogram of <code>dollars_per_day</code> from 1970 and 2010 using a log2 scale and <em>facet</em> it by group and year. Does the dichotomy persist?</li>
 </ol>
-<div id="TMOwgPTkjTPOfg3SV9IC" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="TMOwgPTkjTPOfg3SV9IC-title">
+<div id="1wUnY60QCnVXv41Y6G89" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="1wUnY60QCnVXv41Y6G89-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="TMOwgPTkjTPOfg3SV9IC-title">
+<h4 class="modal-title" id="1wUnY60QCnVXv41Y6G89-title">
 Solution
 </h4>
 </div>
@@ -1421,7 +1488,7 @@ Solution
 <span id="cb393-4"><a href="sec-plot.html#cb393-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(group, dollars_per_day, <span class="at">fill =</span> year)) <span class="sc">+</span></span>
 <span id="cb393-5"><a href="sec-plot.html#cb393-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb393-6"><a href="sec-plot.html#cb393-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">trans =</span> <span class="st">&quot;log2&quot;</span>) </span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-401-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-413-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 We now see that the rich countries have become a bit richer, but percentage-wise, the poor countries appear to have improved more. In particular, we see that the proportion of <em>developing</em> countries earning more than $16 a day increased substantially.
 </p>
@@ -1434,17 +1501,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#TMOwgPTkjTPOfg3SV9IC">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#1wUnY60QCnVXv41Y6G89">
 Solution
 </button>
-<div id="7qL3dlXVkspVnBNP50O9" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="7qL3dlXVkspVnBNP50O9-title">
+<div id="Z3djNh3aGBHbQdwWFkW8" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Z3djNh3aGBHbQdwWFkW8-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="7qL3dlXVkspVnBNP50O9-title">
+<h4 class="modal-title" id="Z3djNh3aGBHbQdwWFkW8-title">
 Hint
 </h4>
 </div>
@@ -1464,7 +1531,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#7qL3dlXVkspVnBNP50O9">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Z3djNh3aGBHbQdwWFkW8">
 Hint
 </button>
 <ol start="13" style="list-style-type: decimal">
@@ -1497,20 +1564,20 @@ We used a series of histograms and boxplots to see this. Let us now shift to den
 <span id="cb397-5"><a href="sec-plot.html#cb397-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(year))</span>
 <span id="cb397-6"><a href="sec-plot.html#cb397-6" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) </span></code></pre></div>
 <p><img src="TFA_files/figure-html/income-smooth-density-counts-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div id="saSX3kg7beLgZHu2toKP" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="saSX3kg7beLgZHu2toKP-title">
+<div id="E76ejR9qz1XnWFTIxhk0" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="E76ejR9qz1XnWFTIxhk0-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="saSX3kg7beLgZHu2toKP-title">
+<h4 class="modal-title" id="E76ejR9qz1XnWFTIxhk0-title">
 Solution
 </h4>
 </div>
 <div class="modal-body">
 <div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="sec-plot.html#cb398-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">bw =</span> <span class="fl">0.75</span>)</span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-404-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-416-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 This plot now shows that the developing world distribution is changing.
 </p>
@@ -1523,7 +1590,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#saSX3kg7beLgZHu2toKP">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#E76ejR9qz1XnWFTIxhk0">
 Solution
 </button>
 <ol start="14" style="list-style-type: decimal">
@@ -1535,14 +1602,14 @@ Solution
 <span id="cb399-3"><a href="sec-plot.html#cb399-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
 <span id="cb399-4"><a href="sec-plot.html#cb399-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight =</span> population<span class="sc">/</span><span class="fu">sum</span>(population)<span class="sc">*</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb399-5"><a href="sec-plot.html#cb399-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span></code></pre></div>
-<div id="VY4JE6yLvoPnFm5Dy2Xf" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="VY4JE6yLvoPnFm5Dy2Xf-title">
+<div id="OS7F9PDWtWQID3mxuIFJ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="OS7F9PDWtWQID3mxuIFJ-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="VY4JE6yLvoPnFm5Dy2Xf-title">
+<h4 class="modal-title" id="OS7F9PDWtWQID3mxuIFJ-title">
 Solution
 </h4>
 </div>
@@ -1552,7 +1619,7 @@ Solution
 <span id="cb400-3"><a href="sec-plot.html#cb400-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">trans =</span> <span class="st">&quot;log2&quot;</span>, <span class="at">limit =</span> <span class="fu">c</span>(<span class="fl">0.125</span>, <span class="dv">300</span>)) <span class="sc">+</span> </span>
 <span id="cb400-4"><a href="sec-plot.html#cb400-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">bw =</span> <span class="fl">0.75</span>) <span class="sc">+</span> </span>
 <span id="cb400-5"><a href="sec-plot.html#cb400-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(year))</span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-406-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-418-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 We now see that the rich countries have become a bit richer, but percentage-wise, the poor countries appear to have improved more. In particular, we see that the proportion of <em>developing</em> countries earning more than $16 a day increased substantially.
 </p>
@@ -1565,17 +1632,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#VY4JE6yLvoPnFm5Dy2Xf">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#OS7F9PDWtWQID3mxuIFJ">
 Solution
 </button>
-<div id="HUrU8Jl2vgP8vEj0Fzie" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="HUrU8Jl2vgP8vEj0Fzie-title">
+<div id="Kcd6U2exxuTMOwgPTkjT" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Kcd6U2exxuTMOwgPTkjT-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="HUrU8Jl2vgP8vEj0Fzie-title">
+<h4 class="modal-title" id="Kcd6U2exxuTMOwgPTkjT-title">
 Hint
 </h4>
 </div>
@@ -1594,15 +1661,15 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#HUrU8Jl2vgP8vEj0Fzie">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Kcd6U2exxuTMOwgPTkjT">
 Hint
 </button>
 <ol start="15" style="list-style-type: decimal">
 <li>Modify the ggplot function with a weight argument and plot the density (with area equal 1).</li>
 </ol>
 </div>
-<div id="ex-profit2" class="section level3" number="9.7.2">
-<h3><span class="header-section-number">9.7.2</span> Exercise (profit)</h3>
+<div id="ex-profit2" class="section level3" number="17.7.2">
+<h3><span class="header-section-number">17.7.2</span> Exercise (profit)</h3>
 <p>Use the <em>exercise R Markdown template</em> to solve this exercise (<strong>File &gt; New File &gt; R Markdown…</strong>, select <strong>From template</strong> and then <strong>TFA Exercise</strong>).</p>
 <p>Consider the dataset profit (provided by the tfa package) containing quarterly financial records for each costumer, product, etc.:</p>
 <div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="sec-plot.html#cb402-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remotes::install_github(&quot;bss-osca/tfa/tfa-package&quot;, upgrade = FALSE)   # upgrade first</span></span>
@@ -1623,7 +1690,7 @@ Hint
 <span id="cb402-16"><a href="sec-plot.html#cb402-16" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(profit)</span></code></pre></div>
 <table style="width: auto;" class="table table-condensed">
 <caption>
-<span id="tab:unnamed-chunk-408">Table 9.1: </span>Data summary
+<span id="tab:unnamed-chunk-420">Table 17.1: </span>Data summary
 </caption>
 <thead>
 <tr>
@@ -2062,14 +2129,14 @@ Profit
 <ol style="list-style-type: decimal">
 <li>Make a barplot that shows the total profitability of the product lines. Use the following steps:</li>
 </ol>
-<div id="E5IXmGJwUyqy7JwdyyjO" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="E5IXmGJwUyqy7JwdyyjO-title">
+<div id="POfg3SV9IC7qL3dlXVks" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="POfg3SV9IC7qL3dlXVks-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="E5IXmGJwUyqy7JwdyyjO-title">
+<h4 class="modal-title" id="POfg3SV9IC7qL3dlXVks-title">
 Solution
 </h4>
 </div>
@@ -2085,17 +2152,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#E5IXmGJwUyqy7JwdyyjO">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#POfg3SV9IC7qL3dlXVks">
 Solution
 </button>
-<div id="fFJqgmJdcEFsm1ktt7yu" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="fFJqgmJdcEFsm1ktt7yu-title">
+<div id="pVnBNP50O9saSX3kg7be" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="pVnBNP50O9saSX3kg7be-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="fFJqgmJdcEFsm1ktt7yu-title">
+<h4 class="modal-title" id="pVnBNP50O9saSX3kg7be-title">
 Hint
 </h4>
 </div>
@@ -2111,19 +2178,19 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#fFJqgmJdcEFsm1ktt7yu">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#pVnBNP50O9saSX3kg7be">
 Hint
 </button>
 <p>      
 a) Convert all character columns to factor columns.</p>
-<div id="GtpR4rKEpzE5drBVMpTE" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="GtpR4rKEpzE5drBVMpTE-title">
+<div id="LgZHu2toKPVY4JE6yLvo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="LgZHu2toKPVY4JE6yLvo-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="GtpR4rKEpzE5drBVMpTE-title">
+<h4 class="modal-title" id="LgZHu2toKPVY4JE6yLvo-title">
 Solution
 </h4>
 </div>
@@ -2133,7 +2200,7 @@ Solution
 <span id="cb405-3"><a href="sec-plot.html#cb405-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Profit =</span> <span class="fu">sum</span>(Profit)) <span class="sc">%&gt;%</span> </span>
 <span id="cb405-4"><a href="sec-plot.html#cb405-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Product Line</span><span class="st">`</span>, <span class="at">y =</span> Profit)) <span class="sc">+</span></span>
 <span id="cb405-5"><a href="sec-plot.html#cb405-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-411-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-423-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2143,17 +2210,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#GtpR4rKEpzE5drBVMpTE">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#LgZHu2toKPVY4JE6yLvo">
 Solution
 </button>
-<div id="Gp1PaWgVYqJ2omr40arR" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Gp1PaWgVYqJ2omr40arR-title">
+<div id="PnFm5Dy2XfHUrU8Jl2vg" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="PnFm5Dy2XfHUrU8Jl2vg-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="Gp1PaWgVYqJ2omr40arR-title">
+<h4 class="modal-title" id="PnFm5Dy2XfHUrU8Jl2vg-title">
 Hint
 </h4>
 </div>
@@ -2172,19 +2239,19 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Gp1PaWgVYqJ2omr40arR">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#PnFm5Dy2XfHUrU8Jl2vg">
 Hint
 </button>
 <p>      
 b) Group by product line, calculate the total profit and plot profit for each product line.</p>
-<div id="2PMT8TGUuVh3gn12ZmjG" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="2PMT8TGUuVh3gn12ZmjG-title">
+<div id="P8vEj0FzieE5IXmGJwUy" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="P8vEj0FzieE5IXmGJwUy-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="2PMT8TGUuVh3gn12ZmjG-title">
+<h4 class="modal-title" id="P8vEj0FzieE5IXmGJwUy-title">
 Solution
 </h4>
 </div>
@@ -2204,7 +2271,7 @@ Solution
 <span id="cb407-13"><a href="sec-plot.html#cb407-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(<span class="st">`</span><span class="at">Product Line</span><span class="st">`</span>, Profit), <span class="at">y =</span> Profit)) <span class="sc">+</span></span>
 <span id="cb407-14"><a href="sec-plot.html#cb407-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
 <span id="cb407-15"><a href="sec-plot.html#cb407-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Total profit for each product line&quot;</span>) </span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-413-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-413-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-425-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-425-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2214,17 +2281,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#2PMT8TGUuVh3gn12ZmjG">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#P8vEj0FzieE5IXmGJwUy">
 Solution
 </button>
-<div id="nQAbpm54x5DRmqcO8ssK" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="nQAbpm54x5DRmqcO8ssK-title">
+<div id="qy7JwdyyjOfFJqgmJdcE" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="qy7JwdyyjOfFJqgmJdcE-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="nQAbpm54x5DRmqcO8ssK-title">
+<h4 class="modal-title" id="qy7JwdyyjOfFJqgmJdcE-title">
 Hint 2
 </h4>
 </div>
@@ -2243,17 +2310,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#nQAbpm54x5DRmqcO8ssK">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#qy7JwdyyjOfFJqgmJdcE">
 Hint 2
 </button>
-<div id="VUnuapoHVIriMzhEeLnK" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="VUnuapoHVIriMzhEeLnK-title">
+<div id="Fsm1ktt7yuGtpR4rKEpz" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Fsm1ktt7yuGtpR4rKEpz-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="VUnuapoHVIriMzhEeLnK-title">
+<h4 class="modal-title" id="Fsm1ktt7yuGtpR4rKEpz-title">
 Hint 1
 </h4>
 </div>
@@ -2270,19 +2337,19 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#VUnuapoHVIriMzhEeLnK">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Fsm1ktt7yuGtpR4rKEpz">
 Hint 1
 </button>
 <p>      
 c) Plot profit for each product line where product line is reordered based on total profit.</p>
-<div id="G4Z0HHo7GRxJm8UWsMSR" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="G4Z0HHo7GRxJm8UWsMSR-title">
+<div id="E5drBVMpTEGp1PaWgVYq" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="E5drBVMpTEGp1PaWgVYq-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="G4Z0HHo7GRxJm8UWsMSR-title">
+<h4 class="modal-title" id="E5drBVMpTEGp1PaWgVYq-title">
 Solution
 </h4>
 </div>
@@ -2293,7 +2360,7 @@ Solution
 <span id="cb409-4"><a href="sec-plot.html#cb409-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(<span class="st">`</span><span class="at">Product Line</span><span class="st">`</span>, Profit), <span class="at">y =</span> Profit)) <span class="sc">+</span></span>
 <span id="cb409-5"><a href="sec-plot.html#cb409-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
 <span id="cb409-6"><a href="sec-plot.html#cb409-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Total profit for each product line&quot;</span>) </span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-416-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-428-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2303,23 +2370,23 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#G4Z0HHo7GRxJm8UWsMSR">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#E5drBVMpTEGp1PaWgVYq">
 Solution
 </button>
-<div id="i3hffUHN6F2TKDkFPh78" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="i3hffUHN6F2TKDkFPh78-title">
+<div id="J2omr40arR2PMT8TGUuV" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="J2omr40arR2PMT8TGUuV-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="i3hffUHN6F2TKDkFPh78-title">
+<h4 class="modal-title" id="J2omr40arR2PMT8TGUuV-title">
 Hint
 </h4>
 </div>
 <div class="modal-body">
 <p>
-Try to google ‘ggplot add title.’
+Try to google 'ggplot add title'.
 </p>
 </div>
 <div class="modal-footer">
@@ -2330,19 +2397,19 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#i3hffUHN6F2TKDkFPh78">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#J2omr40arR2PMT8TGUuV">
 Hint
 </button>
 <p>      
 d) Add a title to the plot using <code>labs</code>.</p>
-<div id="zyl1yltDGbLk4tlswKB9" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="zyl1yltDGbLk4tlswKB9-title">
+<div id="h3gn12ZmjGnQAbpm54x5" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="h3gn12ZmjGnQAbpm54x5-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="zyl1yltDGbLk4tlswKB9-title">
+<h4 class="modal-title" id="h3gn12ZmjGnQAbpm54x5-title">
 Solution
 </h4>
 </div>
@@ -2355,7 +2422,7 @@ Solution
 <span id="cb410-6"><a href="sec-plot.html#cb410-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Total profit for each product line&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb410-7"><a href="sec-plot.html#cb410-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Product line&quot;</span>) <span class="sc">+</span></span>
 <span id="cb410-8"><a href="sec-plot.html#cb410-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-418-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-430-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2365,23 +2432,23 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#zyl1yltDGbLk4tlswKB9">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#h3gn12ZmjGnQAbpm54x5">
 Solution
 </button>
-<div id="7Tor4jyJia2RdnXs0RTn" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="7Tor4jyJia2RdnXs0RTn-title">
+<div id="DRmqcO8ssKVUnuapoHVI" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="DRmqcO8ssKVUnuapoHVI-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="7Tor4jyJia2RdnXs0RTn-title">
+<h4 class="modal-title" id="DRmqcO8ssKVUnuapoHVI-title">
 Hint
 </h4>
 </div>
 <div class="modal-body">
 <p>
-Try to google ‘ggplot2 rotate axis labels.’
+Try to google 'ggplot2 rotate axis labels'.
 </p>
 </div>
 <div class="modal-footer">
@@ -2392,19 +2459,19 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#7Tor4jyJia2RdnXs0RTn">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#DRmqcO8ssKVUnuapoHVI">
 Hint
 </button>
 <p>      
 e) Rotate the x-axis labels 90 degrees.</p>
-<div id="HaBoaGnbxB0NlZA5s9dR" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="HaBoaGnbxB0NlZA5s9dR-title">
+<div id="riMzhEeLnKG4Z0HHo7GR" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="riMzhEeLnKG4Z0HHo7GR-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="HaBoaGnbxB0NlZA5s9dR-title">
+<h4 class="modal-title" id="riMzhEeLnKG4Z0HHo7GR-title">
 Solution
 </h4>
 </div>
@@ -2413,12 +2480,12 @@ Solution
 <span id="cb411-2"><a href="sec-plot.html#cb411-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Product Line</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb411-3"><a href="sec-plot.html#cb411-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Profit =</span> <span class="fu">sum</span>(Profit)) </span>
 <span id="cb411-4"><a href="sec-plot.html#cb411-4" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">slice_min</span>(Profit)</span>
-<span id="cb411-5"><a href="sec-plot.html#cb411-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
+<span id="cb411-5"><a href="sec-plot.html#cb411-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
 <span id="cb411-6"><a href="sec-plot.html#cb411-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `Product Line`       Profit</span></span>
 <span id="cb411-7"><a href="sec-plot.html#cb411-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;fct&gt;                 &lt;dbl&gt;</span></span>
 <span id="cb411-8"><a href="sec-plot.html#cb411-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Third Party Products   2209</span></span>
 <span id="cb411-9"><a href="sec-plot.html#cb411-9" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">slice_max</span>(Profit)</span>
-<span id="cb411-10"><a href="sec-plot.html#cb411-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
+<span id="cb411-10"><a href="sec-plot.html#cb411-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
 <span id="cb411-11"><a href="sec-plot.html#cb411-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `Product Line`  Profit</span></span>
 <span id="cb411-12"><a href="sec-plot.html#cb411-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;fct&gt;            &lt;dbl&gt;</span></span>
 <span id="cb411-13"><a href="sec-plot.html#cb411-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Credit Products  31016</span></span></code></pre></div>
@@ -2431,17 +2498,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#HaBoaGnbxB0NlZA5s9dR">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#riMzhEeLnKG4Z0HHo7GR">
 Solution
 </button>
-<div id="vb4WgUcTqGPnsXKZK9V2" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="vb4WgUcTqGPnsXKZK9V2-title">
+<div id="xJm8UWsMSRi3hffUHN6F" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="xJm8UWsMSRi3hffUHN6F-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="vb4WgUcTqGPnsXKZK9V2-title">
+<h4 class="modal-title" id="xJm8UWsMSRi3hffUHN6F-title">
 Hint
 </h4>
 </div>
@@ -2460,19 +2527,19 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#vb4WgUcTqGPnsXKZK9V2">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#xJm8UWsMSRi3hffUHN6F">
 Hint
 </button>
 <p>      
 f) Which product line is best and worst?</p>
-<div id="8AKLrMwTrJKAcBXC6Kbg" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="8AKLrMwTrJKAcBXC6Kbg-title">
+<div id="2TKDkFPh78zyl1yltDGb" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="2TKDkFPh78zyl1yltDGb-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="8AKLrMwTrJKAcBXC6Kbg-title">
+<h4 class="modal-title" id="2TKDkFPh78zyl1yltDGb-title">
 Solution
 </h4>
 </div>
@@ -2486,7 +2553,7 @@ Solution
 <span id="cb413-7"><a href="sec-plot.html#cb413-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Total profit for each product line&quot;</span>) <span class="sc">+</span>  </span>
 <span id="cb413-8"><a href="sec-plot.html#cb413-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Product Line&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb413-9"><a href="sec-plot.html#cb413-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-422-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-434-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 Some product lines have quite different earnings in different quarters.
 </p>
@@ -2499,17 +2566,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#8AKLrMwTrJKAcBXC6Kbg">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#2TKDkFPh78zyl1yltDGb">
 Solution
 </button>
-<div id="CP8ClTEnRAAyWWgmgs8G" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="CP8ClTEnRAAyWWgmgs8G-title">
+<div id="Lk4tlswKB97Tor4jyJia" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Lk4tlswKB97Tor4jyJia-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="CP8ClTEnRAAyWWgmgs8G-title">
+<h4 class="modal-title" id="Lk4tlswKB97Tor4jyJia-title">
 Hint
 </h4>
 </div>
@@ -2532,20 +2599,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#CP8ClTEnRAAyWWgmgs8G">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Lk4tlswKB97Tor4jyJia">
 Hint
 </button>
 <ol start="2" style="list-style-type: decimal">
 <li>Make a barplot that shows the total profitability of the product lines in each quarter. Are there details we have missed in Question 1?</li>
 </ol>
-<div id="tLvKeWYUWNbGefYJkqMR" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="tLvKeWYUWNbGefYJkqMR-title">
+<div id="2RdnXs0RTnHaBoaGnbxB" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="2RdnXs0RTnHaBoaGnbxB-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="tLvKeWYUWNbGefYJkqMR-title">
+<h4 class="modal-title" id="2RdnXs0RTnHaBoaGnbxB-title">
 Solution
 </h4>
 </div>
@@ -2555,7 +2622,7 @@ Solution
 <span id="cb415-3"><a href="sec-plot.html#cb415-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb415-4"><a href="sec-plot.html#cb415-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Profit for each product line&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb415-5"><a href="sec-plot.html#cb415-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-424-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-436-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 The profit varies more for three of the product lines.
 </p>
@@ -2568,17 +2635,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#tLvKeWYUWNbGefYJkqMR">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#2RdnXs0RTnHaBoaGnbxB">
 Solution
 </button>
-<div id="rPUV2OSYfgtfWJ18VV7F" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="rPUV2OSYfgtfWJ18VV7F-title">
+<div id="0NlZA5s9dRvb4WgUcTqG" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="0NlZA5s9dRvb4WgUcTqG-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="rPUV2OSYfgtfWJ18VV7F-title">
+<h4 class="modal-title" id="0NlZA5s9dRvb4WgUcTqG-title">
 Hint
 </h4>
 </div>
@@ -2597,20 +2664,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#rPUV2OSYfgtfWJ18VV7F">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#0NlZA5s9dRvb4WgUcTqG">
 Hint
 </button>
 <ol start="3" style="list-style-type: decimal">
 <li>Make a boxplot of profitability of the product lines. Any insight?</li>
 </ol>
-<div id="AH9QD4sDCJKlZAovFkCp" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="AH9QD4sDCJKlZAovFkCp-title">
+<div id="PnsXKZK9V28AKLrMwTrJ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="PnsXKZK9V28AKLrMwTrJ-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="AH9QD4sDCJKlZAovFkCp-title">
+<h4 class="modal-title" id="PnsXKZK9V28AKLrMwTrJ-title">
 Solution
 </h4>
 </div>
@@ -2622,7 +2689,7 @@ Solution
 <span id="cb417-5"><a href="sec-plot.html#cb417-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb417-6"><a href="sec-plot.html#cb417-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Total profit for each customer&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb417-7"><a href="sec-plot.html#cb417-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-426-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-438-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 Lowest and highest total profit is for PBI and WEM, respectively.
 </p>
@@ -2635,17 +2702,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#AH9QD4sDCJKlZAovFkCp">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#PnsXKZK9V28AKLrMwTrJ">
 Solution
 </button>
-<div id="Il7qoq02IK4h1pVlwXwJ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Il7qoq02IK4h1pVlwXwJ-title">
+<div id="KAcBXC6KbgCP8ClTEnRA" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="KAcBXC6KbgCP8ClTEnRA-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="Il7qoq02IK4h1pVlwXwJ-title">
+<h4 class="modal-title" id="KAcBXC6KbgCP8ClTEnRA-title">
 Hint
 </h4>
 </div>
@@ -2666,20 +2733,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Il7qoq02IK4h1pVlwXwJ">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#KAcBXC6KbgCP8ClTEnRA">
 Hint
 </button>
 <ol start="4" style="list-style-type: decimal">
 <li>Make a barplot that shows the total profitability of the customers. Which customer is best and worst?</li>
 </ol>
-<div id="HyFnIhlG0QbRLWEH1WPy" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="HyFnIhlG0QbRLWEH1WPy-title">
+<div id="AyWWgmgs8GtLvKeWYUWN" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="AyWWgmgs8GtLvKeWYUWN-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="HyFnIhlG0QbRLWEH1WPy-title">
+<h4 class="modal-title" id="AyWWgmgs8GtLvKeWYUWN-title">
 Solution
 </h4>
 </div>
@@ -2691,7 +2758,7 @@ Solution
 <span id="cb419-5"><a href="sec-plot.html#cb419-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb419-6"><a href="sec-plot.html#cb419-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Mean profit for each customer&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb419-7"><a href="sec-plot.html#cb419-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-428-1.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-440-1.png" width="672" style="display: block; margin: auto;" />
 <p>
 Since the number of transactions are not the same, the order of customers will not be the same.
 </p>
@@ -2704,17 +2771,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#HyFnIhlG0QbRLWEH1WPy">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#AyWWgmgs8GtLvKeWYUWN">
 Solution
 </button>
-<div id="3dU0BdWtgVJO9NGwFj4M" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="3dU0BdWtgVJO9NGwFj4M-title">
+<div id="bGefYJkqMRrPUV2OSYfg" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="bGefYJkqMRrPUV2OSYfg-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="3dU0BdWtgVJO9NGwFj4M-title">
+<h4 class="modal-title" id="bGefYJkqMRrPUV2OSYfg-title">
 Hint
 </h4>
 </div>
@@ -2735,20 +2802,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#3dU0BdWtgVJO9NGwFj4M">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#bGefYJkqMRrPUV2OSYfg">
 Hint
 </button>
 <ol start="5" style="list-style-type: decimal">
 <li>Make a barplot that shows the mean profitability of the customers. Which customer is best and worst? Compare against Question 4 and discuss.</li>
 </ol>
-<div id="DsQJP9dltbdfvzGIuNiq" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="DsQJP9dltbdfvzGIuNiq-title">
+<div id="tfWJ18VV7FAH9QD4sDCJ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="tfWJ18VV7FAH9QD4sDCJ-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="DsQJP9dltbdfvzGIuNiq-title">
+<h4 class="modal-title" id="tfWJ18VV7FAH9QD4sDCJ-title">
 Solution
 </h4>
 </div>
@@ -2770,17 +2837,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#DsQJP9dltbdfvzGIuNiq">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#tfWJ18VV7FAH9QD4sDCJ">
 Solution
 </button>
-<div id="7qe06QpKIuPZF8CWxQq4" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="7qe06QpKIuPZF8CWxQq4-title">
+<div id="KlZAovFkCpIl7qoq02IK" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="KlZAovFkCpIl7qoq02IK-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="7qe06QpKIuPZF8CWxQq4-title">
+<h4 class="modal-title" id="KlZAovFkCpIl7qoq02IK-title">
 Hint
 </h4>
 </div>
@@ -2802,20 +2869,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#7qe06QpKIuPZF8CWxQq4">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#KlZAovFkCpIl7qoq02IK">
 Hint
 </button>
 <ol start="6" style="list-style-type: decimal">
 <li>Make a plot illustrating number of transactions for each customer. Use total profit as fill atheistic.</li>
 </ol>
-<div id="kGW2luk6wBnfPkPaJeMs" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="kGW2luk6wBnfPkPaJeMs-title">
+<div id="4h1pVlwXwJHyFnIhlG0Q" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="4h1pVlwXwJHyFnIhlG0Q-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="kGW2luk6wBnfPkPaJeMs-title">
+<h4 class="modal-title" id="4h1pVlwXwJHyFnIhlG0Q-title">
 Solution
 </h4>
 </div>
@@ -2825,7 +2892,7 @@ Solution
 <span id="cb423-3"><a href="sec-plot.html#cb423-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb423-4"><a href="sec-plot.html#cb423-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Profit for each customer&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb423-5"><a href="sec-plot.html#cb423-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-432-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-444-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2835,17 +2902,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#kGW2luk6wBnfPkPaJeMs">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#4h1pVlwXwJHyFnIhlG0Q">
 Solution
 </button>
-<div id="PSte0eExRf6CwZPZ8UBE" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="PSte0eExRf6CwZPZ8UBE-title">
+<div id="bRLWEH1WPy3dU0BdWtgV" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="bRLWEH1WPy3dU0BdWtgV-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="PSte0eExRf6CwZPZ8UBE-title">
+<h4 class="modal-title" id="bRLWEH1WPy3dU0BdWtgV-title">
 Hint
 </h4>
 </div>
@@ -2864,15 +2931,15 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#PSte0eExRf6CwZPZ8UBE">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#bRLWEH1WPy3dU0BdWtgV">
 Hint
 </button>
 <ol start="7" style="list-style-type: decimal">
 <li>Make a boxplot illustrating the profit for each customer.</li>
 </ol>
 </div>
-<div id="ex-covid19" class="section level3" number="9.7.3">
-<h3><span class="header-section-number">9.7.3</span> Exercise (COVID-19)</h3>
+<div id="ex-covid19" class="section level3" number="17.7.3">
+<h3><span class="header-section-number">17.7.3</span> Exercise (COVID-19)</h3>
 <p>Use the <em>exercise R Markdown template</em> to solve this exercise (<strong>File &gt; New File &gt; R Markdown…</strong>, select <strong>From template</strong> and then <strong>TFA Exercise</strong>).</p>
 <p>Countries around the world are responding to an outbreak of respiratory illness caused by a novel corona virus, COVID-19. The outbreak first started in Wuhan, China, but cases have been identified in a growing number of other locations internationally, including the United States. In this report we explore how the trajectory of the cumulative deaths in a number of countries.</p>
 <p>The data come from the <a href="https://github.com/RamiKrispin/coronavirus"><strong>coronavirus</strong> package</a>, which pulls data from the Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Corona virus repository. The corona virus package provides a tidy format dataset of the 2019 Novel Corona virus COVID-19 (2019-nCoV) epidemic. The package is available on GitHub <a href="https://github.com/RamiKrispin/coronavirus">here</a> and is updated daily.</p>
@@ -2904,7 +2971,7 @@ Hint
 <span id="cb427-9"><a href="sec-plot.html#cb427-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">days_elapsed =</span> <span class="fu">as.numeric</span>(date <span class="sc">-</span> <span class="fu">min</span>(date)),</span>
 <span id="cb427-10"><a href="sec-plot.html#cb427-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">year</span>(date)</span>
 <span id="cb427-11"><a href="sec-plot.html#cb427-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span>
-<span id="cb427-12"><a href="sec-plot.html#cb427-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 237,888 x 7</span></span>
+<span id="cb427-12"><a href="sec-plot.html#cb427-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 332,280 × 7</span></span>
 <span id="cb427-13"><a href="sec-plot.html#cb427-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country     date       type      tot_cases cumulative_cases days_elapsed  year</span></span>
 <span id="cb427-14"><a href="sec-plot.html#cb427-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span id="cb427-15"><a href="sec-plot.html#cb427-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghanistan 2020-01-22 confirmed         0                0            0  2020</span></span>
@@ -2917,15 +2984,15 @@ Hint
 <span id="cb427-22"><a href="sec-plot.html#cb427-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Algeria     2020-01-22 death             0                0            0  2020</span></span>
 <span id="cb427-23"><a href="sec-plot.html#cb427-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Algeria     2020-01-22 recovered         0                0            0  2020</span></span>
 <span id="cb427-24"><a href="sec-plot.html#cb427-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Andorra     2020-01-22 confirmed         0                0            0  2020</span></span>
-<span id="cb427-25"><a href="sec-plot.html#cb427-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 237,878 more rows</span></span></code></pre></div>
-<div id="ogy8RUXSAiuHlv0VGSPp" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ogy8RUXSAiuHlv0VGSPp-title">
+<span id="cb427-25"><a href="sec-plot.html#cb427-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 332,270 more rows</span></span></code></pre></div>
+<div id="JO9NGwFj4MDsQJP9dltb" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="JO9NGwFj4MDsQJP9dltb-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="ogy8RUXSAiuHlv0VGSPp-title">
+<h4 class="modal-title" id="JO9NGwFj4MDsQJP9dltb-title">
 Solution
 </h4>
 </div>
@@ -2940,8 +3007,8 @@ Solution
 <span id="cb428-8"><a href="sec-plot.html#cb428-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Number of Covid 19 cases per day&quot;</span>,</span>
 <span id="cb428-9"><a href="sec-plot.html#cb428-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;cases&quot;</span></span>
 <span id="cb428-10"><a href="sec-plot.html#cb428-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb428-11"><a href="sec-plot.html#cb428-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,239 x 3</span></span>
-<span id="cb428-12"><a href="sec-plot.html#cb428-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   date [413]</span></span>
+<span id="cb428-11"><a href="sec-plot.html#cb428-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,704 × 3</span></span>
+<span id="cb428-12"><a href="sec-plot.html#cb428-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   date [568]</span></span>
 <span id="cb428-13"><a href="sec-plot.html#cb428-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    date       type      tot_cases</span></span>
 <span id="cb428-14"><a href="sec-plot.html#cb428-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt;</span></span>
 <span id="cb428-15"><a href="sec-plot.html#cb428-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2020-01-22 confirmed       557</span></span>
@@ -2954,8 +3021,8 @@ Solution
 <span id="cb428-22"><a href="sec-plot.html#cb428-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2020-01-24 death             8</span></span>
 <span id="cb428-23"><a href="sec-plot.html#cb428-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2020-01-24 recovered         7</span></span>
 <span id="cb428-24"><a href="sec-plot.html#cb428-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2020-01-25 confirmed       492</span></span>
-<span id="cb428-25"><a href="sec-plot.html#cb428-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,229 more rows</span></span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-437-1.png" width="672" style="display: block; margin: auto;" /></p>
+<span id="cb428-25"><a href="sec-plot.html#cb428-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,694 more rows</span></span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-449-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2965,17 +3032,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#ogy8RUXSAiuHlv0VGSPp">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#JO9NGwFj4MDsQJP9dltb">
 Solution
 </button>
-<div id="8rOc7sdVdxnwfSwfLL0R" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="8rOc7sdVdxnwfSwfLL0R-title">
+<div id="dfvzGIuNiq7qe06QpKIu" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="dfvzGIuNiq7qe06QpKIu-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="8rOc7sdVdxnwfSwfLL0R-title">
+<h4 class="modal-title" id="dfvzGIuNiq7qe06QpKIu-title">
 Hint 2
 </h4>
 </div>
@@ -2999,17 +3066,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#8rOc7sdVdxnwfSwfLL0R">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#dfvzGIuNiq7qe06QpKIu">
 Hint 2
 </button>
-<div id="V3k9LNvdrPhCWtIIQsgR" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="V3k9LNvdrPhCWtIIQsgR-title">
+<div id="PZF8CWxQq4kGW2luk6wB" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="PZF8CWxQq4kGW2luk6wB-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="V3k9LNvdrPhCWtIIQsgR-title">
+<h4 class="modal-title" id="PZF8CWxQq4kGW2luk6wB-title">
 Hint 1
 </h4>
 </div>
@@ -3029,7 +3096,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#V3k9LNvdrPhCWtIIQsgR">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#PZF8CWxQq4kGW2luk6wB">
 Hint 1
 </button>
 <ol style="list-style-type: decimal">
@@ -3043,14 +3110,14 @@ Hint 1
 <span id="cb431-5"><a href="sec-plot.html#cb431-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;US&quot;</span>,</span>
 <span id="cb431-6"><a href="sec-plot.html#cb431-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Italy&quot;</span></span>
 <span id="cb431-7"><a href="sec-plot.html#cb431-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div id="pFN7EgzphWBypyWknVWh" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="pFN7EgzphWBypyWknVWh-title">
+<div id="nfPkPaJeMsPSte0eExRf" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="nfPkPaJeMsPSte0eExRf-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="pFN7EgzphWBypyWknVWh-title">
+<h4 class="modal-title" id="nfPkPaJeMsPSte0eExRf-title">
 Solution
 </h4>
 </div>
@@ -3067,7 +3134,7 @@ Solution
 <span id="cb432-10"><a href="sec-plot.html#cb432-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Cumulative number of deaths&quot;</span>,</span>
 <span id="cb432-11"><a href="sec-plot.html#cb432-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Cumulative deaths from COVID-19, selected countries&quot;</span></span>
 <span id="cb432-12"><a href="sec-plot.html#cb432-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-441-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-453-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -3077,17 +3144,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#pFN7EgzphWBypyWknVWh">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#nfPkPaJeMsPSte0eExRf">
 Solution
 </button>
-<div id="TIXaexGGFQQOZNNJcA85" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="TIXaexGGFQQOZNNJcA85-title">
+<div id="6CwZPZ8UBEogy8RUXSAi" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="6CwZPZ8UBEogy8RUXSAi-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="TIXaexGGFQQOZNNJcA85-title">
+<h4 class="modal-title" id="6CwZPZ8UBEogy8RUXSAi-title">
 Hint 2
 </h4>
 </div>
@@ -3113,17 +3180,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#TIXaexGGFQQOZNNJcA85">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#6CwZPZ8UBEogy8RUXSAi">
 Hint 2
 </button>
-<div id="4gynegLdO7mrPeZtOOJ6" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="4gynegLdO7mrPeZtOOJ6-title">
+<div id="uHlv0VGSPp8rOc7sdVdx" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="uHlv0VGSPp8rOc7sdVdx-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="4gynegLdO7mrPeZtOOJ6-title">
+<h4 class="modal-title" id="uHlv0VGSPp8rOc7sdVdx-title">
 Hint 1
 </h4>
 </div>
@@ -3142,7 +3209,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#4gynegLdO7mrPeZtOOJ6">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#uHlv0VGSPp8rOc7sdVdx">
 Hint 1
 </button>
 <ol start="2" style="list-style-type: decimal">
@@ -3152,7 +3219,7 @@ Hint 1
 <div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="sec-plot.html#cb435-1" aria-hidden="true" tabindex="-1"></a>world_pop <span class="ot">&lt;-</span> tfa<span class="sc">::</span>world_pop <span class="sc">%&gt;%</span></span>
 <span id="cb435-2"><a href="sec-plot.html#cb435-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">%in%</span> countries) <span class="sc">%&gt;%</span> </span>
 <span id="cb435-3"><a href="sec-plot.html#cb435-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
-<span id="cb435-4"><a href="sec-plot.html#cb435-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,505 x 3</span></span>
+<span id="cb435-4"><a href="sec-plot.html#cb435-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,505 × 3</span></span>
 <span id="cb435-5"><a href="sec-plot.html#cb435-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country  year       pop</span></span>
 <span id="cb435-6"><a href="sec-plot.html#cb435-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;dbl&gt;     &lt;dbl&gt;</span></span>
 <span id="cb435-7"><a href="sec-plot.html#cb435-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 China    1800 321675013</span></span>
@@ -3171,7 +3238,7 @@ Hint 1
 <span id="cb436-2"><a href="sec-plot.html#cb436-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">%in%</span> countries) <span class="sc">%&gt;%</span> </span>
 <span id="cb436-3"><a href="sec-plot.html#cb436-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(world_pop) <span class="sc">%&gt;%</span> </span>
 <span id="cb436-4"><a href="sec-plot.html#cb436-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
-<span id="cb436-5"><a href="sec-plot.html#cb436-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6,195 x 8</span></span>
+<span id="cb436-5"><a href="sec-plot.html#cb436-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 8,520 × 8</span></span>
 <span id="cb436-6"><a href="sec-plot.html#cb436-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country date       type      tot_cases cumulative_cases days_elapsed  year        pop</span></span>
 <span id="cb436-7"><a href="sec-plot.html#cb436-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;</span></span>
 <span id="cb436-8"><a href="sec-plot.html#cb436-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 China   2020-01-22 confirmed       548              548            0  2020 1424548266</span></span>
@@ -3184,17 +3251,17 @@ Hint 1
 <span id="cb436-15"><a href="sec-plot.html#cb436-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 France  2020-01-22 death             0                0            0  2020   65721165</span></span>
 <span id="cb436-16"><a href="sec-plot.html#cb436-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 France  2020-01-22 recovered         0                0            0  2020   65721165</span></span>
 <span id="cb436-17"><a href="sec-plot.html#cb436-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Italy   2020-01-22 confirmed         0                0            0  2020   59132073</span></span>
-<span id="cb436-18"><a href="sec-plot.html#cb436-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 6,185 more rows</span></span>
+<span id="cb436-18"><a href="sec-plot.html#cb436-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 8,510 more rows</span></span>
 <span id="cb436-19"><a href="sec-plot.html#cb436-19" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(dat))  <span class="co"># check if any missing values</span></span>
 <span id="cb436-20"><a href="sec-plot.html#cb436-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
-<div id="jtY8uO8tRQPJ8nqBSF5l" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="jtY8uO8tRQPJ8nqBSF5l-title">
+<div id="nwfSwfLL0RV3k9LNvdrP" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="nwfSwfLL0RV3k9LNvdrP-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="jtY8uO8tRQPJ8nqBSF5l-title">
+<h4 class="modal-title" id="nwfSwfLL0RV3k9LNvdrP-title">
 Solution
 </h4>
 </div>
@@ -3210,20 +3277,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#jtY8uO8tRQPJ8nqBSF5l">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#nwfSwfLL0RV3k9LNvdrP">
 Solution
 </button>
 <ol start="3" style="list-style-type: decimal">
 <li>Calculate <code>tot_cases_pop</code> as number of cases per 100000 inhabitants. That is, total cases divided by population and multiplied by 100000.</li>
 </ol>
-<div id="HV8Tq0zmFjS2bOzR01I7" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="HV8Tq0zmFjS2bOzR01I7-title">
+<div id="hCWtIIQsgRpFN7EgzphW" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="hCWtIIQsgRpFN7EgzphW-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="HV8Tq0zmFjS2bOzR01I7-title">
+<h4 class="modal-title" id="hCWtIIQsgRpFN7EgzphW-title">
 Solution
 </h4>
 </div>
@@ -3232,7 +3299,7 @@ Solution
 <span id="cb438-2"><a href="sec-plot.html#cb438-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;=</span> <span class="fu">today</span>() <span class="sc">-</span> <span class="fu">days</span>(<span class="dv">21</span>), type <span class="sc">==</span> <span class="st">&quot;confirmed&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb438-3"><a href="sec-plot.html#cb438-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> tot_cases_pop, <span class="at">fill =</span> country)) <span class="sc">+</span></span>
 <span id="cb438-4"><a href="sec-plot.html#cb438-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge2</span>())</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-447-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-459-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -3242,17 +3309,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#HV8Tq0zmFjS2bOzR01I7">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#hCWtIIQsgRpFN7EgzphW">
 Solution
 </button>
-<div id="7SPGOYE2x9bwzan568DK" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="7SPGOYE2x9bwzan568DK-title">
+<div id="BypyWknVWhTIXaexGGFQ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="BypyWknVWhTIXaexGGFQ-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="7SPGOYE2x9bwzan568DK-title">
+<h4 class="modal-title" id="BypyWknVWhTIXaexGGFQ-title">
 Hint 2
 </h4>
 </div>
@@ -3270,24 +3337,24 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#7SPGOYE2x9bwzan568DK">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#BypyWknVWhTIXaexGGFQ">
 Hint 2
 </button>
-<div id="bCH5drlbfkRCGQ62dXof" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="bCH5drlbfkRCGQ62dXof-title">
+<div id="QOZNNJcA854gynegLdO7" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="QOZNNJcA854gynegLdO7-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="bCH5drlbfkRCGQ62dXof-title">
+<h4 class="modal-title" id="QOZNNJcA854gynegLdO7-title">
 Hint 1
 </h4>
 </div>
 <div class="modal-body">
 <div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="sec-plot.html#cb440-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use this to find date 21 days ago</span></span>
 <span id="cb440-2"><a href="sec-plot.html#cb440-2" aria-hidden="true" tabindex="-1"></a><span class="fu">today</span>() <span class="sc">-</span> <span class="fu">days</span>(<span class="dv">21</span>)</span>
-<span id="cb440-3"><a href="sec-plot.html#cb440-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2021-02-17&quot;</span></span></code></pre></div>
+<span id="cb440-3"><a href="sec-plot.html#cb440-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2021-07-22&quot;</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -3297,20 +3364,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#bCH5drlbfkRCGQ62dXof">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#QOZNNJcA854gynegLdO7">
 Hint 1
 </button>
 <ol start="4" style="list-style-type: decimal">
 <li>Plot the number of confirmed cases per 100000 inhabitants for the last 21 days. Use country as fill aesthetic.</li>
 </ol>
-<div id="TrmNzDyRJrhYEWkUTVbU" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="TrmNzDyRJrhYEWkUTVbU-title">
+<div id="mrPeZtOOJ6jtY8uO8tRQ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mrPeZtOOJ6jtY8uO8tRQ-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="TrmNzDyRJrhYEWkUTVbU-title">
+<h4 class="modal-title" id="mrPeZtOOJ6jtY8uO8tRQ-title">
 Solution
 </h4>
 </div>
@@ -3319,7 +3386,7 @@ Solution
 <span id="cb441-2"><a href="sec-plot.html#cb441-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;=</span> <span class="fu">today</span>() <span class="sc">-</span> <span class="fu">days</span>(<span class="dv">14</span>), country <span class="sc">==</span> <span class="st">&quot;Denmark&quot;</span>, type <span class="sc">==</span> <span class="st">&quot;confirmed&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb441-3"><a href="sec-plot.html#cb441-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> tot_cases_pop)) <span class="sc">+</span></span>
 <span id="cb441-4"><a href="sec-plot.html#cb441-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-450-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-462-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -3329,17 +3396,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#TrmNzDyRJrhYEWkUTVbU">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#mrPeZtOOJ6jtY8uO8tRQ">
 Solution
 </button>
-<div id="CVs4SrKaTlWywZ8FzPDL" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="CVs4SrKaTlWywZ8FzPDL-title">
+<div id="PJ8nqBSF5lHV8Tq0zmFj" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="PJ8nqBSF5lHV8Tq0zmFj-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="CVs4SrKaTlWywZ8FzPDL-title">
+<h4 class="modal-title" id="PJ8nqBSF5lHV8Tq0zmFj-title">
 Hint
 </h4>
 </div>
@@ -3357,34 +3424,34 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#CVs4SrKaTlWywZ8FzPDL">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#PJ8nqBSF5lHV8Tq0zmFj">
 Hint
 </button>
 <ol start="5" style="list-style-type: decimal">
 <li>Plot the number of confirmed cases per 100000 inhabitants in Denmark for the last 14 days.</li>
 </ol>
 </div>
-<div id="ex-lego" class="section level3" number="9.7.4">
-<h3><span class="header-section-number">9.7.4</span> Exercise (Lego and sales)</h3>
+<div id="ex-lego" class="section level3" number="17.7.4">
+<h3><span class="header-section-number">17.7.4</span> Exercise (Lego and sales)</h3>
 <p>Use the <em>exercise R Markdown template</em> to solve this exercise (<strong>File &gt; New File &gt; R Markdown…</strong>, select <strong>From template</strong> and then <strong>TFA Exercise</strong>).</p>
 <p>Consider (simulated) data of Lego sales in 2018 for a sample of customers who bought Legos in the U.S. The dataset is called <code>lego_sales</code>. You can find descriptions of each of the variables in the help file for the dataset, which you can access by running <code>?lego_sales</code> in your Console.</p>
 <p>You need the <em>tidyverse</em> package as usual and the <em>dsbox</em> package for the data.</p>
 <div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="sec-plot.html#cb443-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb443-2"><a href="sec-plot.html#cb443-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dsbox)   <span class="co"># install using devtools::install_github(&quot;rstudio-education/dsbox&quot;)</span></span></code></pre></div>
-<p>Answer the following questions using a table with numbers and try to visualize it. For each question, state your answer in a sentence, e.g. “The first three common names of purchasers are ….”</p>
+<p>Answer the following questions using a table with numbers and try to visualize it. For each question, state your answer in a sentence, e.g. “The first three common names of purchasers are …”.</p>
 <ol style="list-style-type: decimal">
 <li><p>What are the three most common first names of purchasers?</p></li>
 <li><p>What are the three most common themes of Lego sets purchased?</p></li>
 <li><p>Among the most common theme of Lego sets purchased, what is the most common subtheme?</p></li>
 </ol>
-<div id="Z11KF1lmg3elJP2U8nPw" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Z11KF1lmg3elJP2U8nPw-title">
+<div id="S2bOzR01I77SPGOYE2x9" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="S2bOzR01I77SPGOYE2x9-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="Z11KF1lmg3elJP2U8nPw-title">
+<h4 class="modal-title" id="S2bOzR01I77SPGOYE2x9-title">
 Hint
 </h4>
 </div>
@@ -3401,21 +3468,21 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Z11KF1lmg3elJP2U8nPw">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#S2bOzR01I77SPGOYE2x9">
 Hint
 </button>
 <ol start="4" style="list-style-type: decimal">
 <li>Create a new variable called <code>age_group</code> and group the ages into the
-following categories: “18 and under,” “19 - 25,” “26 - 35,” “36 - 50,” “51 and over.”</li>
+following categories: “18 and under”, “19 - 25”, “26 - 35”, “36 - 50”, “51 and over”.</li>
 </ol>
-<div id="jQnMNfRiQfWuwxEQP9Wv" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="jQnMNfRiQfWuwxEQP9Wv-title">
+<div id="bwzan568DKbCH5drlbfk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="bwzan568DKbCH5drlbfk-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="jQnMNfRiQfWuwxEQP9Wv-title">
+<h4 class="modal-title" id="bwzan568DKbCH5drlbfk-title">
 Hint
 </h4>
 </div>
@@ -3432,20 +3499,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#jQnMNfRiQfWuwxEQP9Wv">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#bwzan568DKbCH5drlbfk">
 Hint
 </button>
 <ol start="5" style="list-style-type: decimal">
 <li>Which age group has purchased the highest number of Lego sets.</li>
 </ol>
-<div id="5eBFZ6fcsCJPv2Ci3y1V" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="5eBFZ6fcsCJPv2Ci3y1V-title">
+<div id="RCGQ62dXofTrmNzDyRJr" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="RCGQ62dXofTrmNzDyRJr-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="5eBFZ6fcsCJPv2Ci3y1V-title">
+<h4 class="modal-title" id="RCGQ62dXofTrmNzDyRJr-title">
 Hint
 </h4>
 </div>
@@ -3462,7 +3529,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#5eBFZ6fcsCJPv2Ci3y1V">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#RCGQ62dXofTrmNzDyRJr">
 Hint
 </button>
 <ol start="6" style="list-style-type: decimal">
@@ -3478,6 +3545,18 @@ your visualization answers the question.</p></li>
 
 
 
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-stat545" class="csl-entry">
+Bryan, J. 2017. <em>STAT 545 - Data Wrangling, Exploration, and Analysis with r</em>. <a href="https://stat545.com/">https://stat545.com/</a>.
+</div>
+<div id="ref-r4ds" class="csl-entry">
+Wickham, H. 2017. <em>R for Data Science</em>. O’Reilly. <a href="https://r4ds.had.co.nz/">https://r4ds.had.co.nz/</a>.
+</div>
+<div id="ref-gramma" class="csl-entry">
+Wilkinson, Leland. 2005. <em>The Grammar of Graphics (Statistics and Computing)</em>. Springer-Verlag.
+</div>
+</div>
             </section>
 
           </div>
@@ -3506,7 +3585,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/bss-osca/tfa/edit/master/book/plot-intro.Rmd",
+"link": "https://github.com/bss-osca/tfa/edit/master/book/07-04_r-plot-intro.Rmd",
 "text": "Edit"
 },
 "history": {

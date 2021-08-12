@@ -4,27 +4,27 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 11 Spatial data and maps | Tools for Analytics (TFA)</title>
-  <meta name="description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <title>Module 19 Spatial data and maps | Tools for Analytics (TFA)</title>
+  <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 11 Spatial data and maps | Tools for Analytics (TFA)" />
+  <meta property="og:title" content="Module 19 Spatial data and maps | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://bss-osca.github.io/tfa/" />
-  <meta property="og:image" content="https://bss-osca.github.io/tfa/assets/logo.png" />
-  <meta property="og:description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
+  <meta property="og:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
+  <meta property="og:description" content="Course notes for the ‘Tools for Analytics’ course" />
   <meta name="github-repo" content="bss-osca/tfa" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 11 Spatial data and maps | Tools for Analytics (TFA)" />
+  <meta name="twitter:title" content="Module 19 Spatial data and maps | Tools for Analytics (TFA)" />
   
-  <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course (R part)" />
-  <meta name="twitter:image" content="https://bss-osca.github.io/tfa/assets/logo.png" />
+  <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course" />
+  <meta name="twitter:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
 
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2021-03-10" />
+<meta name="date" content="2021-08-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="sec-project.html"/>
 <link rel="next" href="sec-r-excel.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,11 +51,16 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
 <link href="libs/font-awesome-5.3.1/css/all.min.css" rel="stylesheet" />
 <link href="libs/font-awesome-5.3.1/css/v4-shims.min.css" rel="stylesheet" />
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -68,7 +73,7 @@
 <link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
 <script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.17/datatables.js"></script>
+<script src="libs/datatables-binding-0.18/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
@@ -164,6 +169,29 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 <link rel="stylesheet" href="assets/style.css" type="text/css" />
 </head>
 
@@ -180,173 +208,219 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="toc-logo"><a href="./"><img src="img/logo.png"></a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction to the book</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#how-this-book-is-organized"><i class="fa fa-check"></i><b>1.1</b> How this book is organized</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#ack"><i class="fa fa-check"></i><b>1.2</b> Acknowledgements</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#lo-intro"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#purpose"><i class="fa fa-check"></i><b>1.2</b> Purpose for the book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#r-vs-vba"><i class="fa fa-check"></i><b>1.3</b> R vs Excel/VBA</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#computer"><i class="fa fa-check"></i><b>1.4</b> How a computer works</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#organization"><i class="fa fa-check"></i><b>1.5</b> How this book is organized</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#ack"><i class="fa fa-check"></i><b>1.6</b> Acknowledgements</a></li>
 </ul></li>
-<li class="part"><span><b>I Getting started</b></span></li>
-<li class="chapter" data-level="2" data-path="sec-install.html"><a href="sec-install.html"><i class="fa fa-check"></i><b>2</b> Install R and RStudio</a>
+<li class="part"><span><b>I Getting started with VBA</b></span></li>
+<li class="chapter" data-level="2" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html"><i class="fa fa-check"></i><b>2</b> A introduction to VBA</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="sec-install.html"><a href="sec-install.html#lo-install"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="2.2" data-path="sec-install.html"><a href="sec-install.html#install-r"><i class="fa fa-check"></i><b>2.2</b> Install R and RStudio</a></li>
-<li class="chapter" data-level="2.3" data-path="sec-install.html"><a href="sec-install.html#test-your-installation"><i class="fa fa-check"></i><b>2.3</b> Test your installation</a></li>
-<li class="chapter" data-level="2.4" data-path="sec-install.html"><a href="sec-install.html#add-on-packages"><i class="fa fa-check"></i><b>2.4</b> Add-on packages</a></li>
-<li class="chapter" data-level="2.5" data-path="sec-install.html"><a href="sec-install.html#lp-install"><i class="fa fa-check"></i><b>2.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="2.1" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#lo-vba-intro"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="2.2" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#vba-what"><i class="fa fa-check"></i><b>2.2</b> What is VBA</a></li>
+<li class="chapter" data-level="2.3" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#vba-hello"><i class="fa fa-check"></i><b>2.3</b> Your first program</a></li>
+<li class="chapter" data-level="2.4" data-path="sec-vba-intro.html"><a href="sec-vba-intro.html#vba-macro"><i class="fa fa-check"></i><b>2.4</b> The macro recorder</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="sec-r-basics.html"><a href="sec-r-basics.html"><i class="fa fa-check"></i><b>3</b> R basics and workflows</a>
+<li class="chapter" data-level="3" data-path="test.html"><a href="test.html"><i class="fa fa-check"></i><b>3</b> Test</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lo-r-basics"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="3.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-with-r-at-the-command-line-in-rstudio"><i class="fa fa-check"></i><b>3.2</b> Working with R at the command line in RStudio</a></li>
-<li class="chapter" data-level="3.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#your-first-datacamp-course"><i class="fa fa-check"></i><b>3.3</b> Your first DataCamp course</a></li>
-<li class="chapter" data-level="3.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#pipes"><i class="fa fa-check"></i><b>3.4</b> Pipes</a></li>
-<li class="chapter" data-level="3.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rprojs"><i class="fa fa-check"></i><b>3.5</b> RStudio projects</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#storing-your-code-in-a-script-file"><i class="fa fa-check"></i><b>3.5.1</b> Storing your code in a script file</a></li>
+<li class="chapter" data-level="3.1" data-path="test.html"><a href="test.html#learning-outcomes"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="3.2" data-path="test.html"><a href="test.html#different-learning-paths"><i class="fa fa-check"></i><b>3.2</b> Different learning paths</a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#global-options"><i class="fa fa-check"></i><b>3.6</b> Global options</a></li>
-<li class="chapter" data-level="3.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-directory"><i class="fa fa-check"></i><b>3.7</b> Working directory</a></li>
-<li class="chapter" data-level="3.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lp-r-basics"><i class="fa fa-check"></i><b>3.8</b> Different learning paths</a></li>
-<li class="chapter" data-level="3.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rc-r-basics"><i class="fa fa-check"></i><b>3.9</b> Recap</a></li>
-<li class="chapter" data-level="3.10" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-r-basics"><i class="fa fa-check"></i><b>3.10</b> Exercises</a>
+<li class="part"><span><b>II Programming in VBA</b></span></li>
+<li class="chapter" data-level="4" data-path="data-types-varables.html"><a href="data-types-varables.html"><i class="fa fa-check"></i><b>4</b> Data types - Varables</a>
 <ul>
-<li class="chapter" data-level="3.10.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-group-work"><i class="fa fa-check"></i><b>3.10.1</b> Exercise (group work)</a></li>
-<li class="chapter" data-level="3.10.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-install-packages"><i class="fa fa-check"></i><b>3.10.2</b> Exercise (install packages)</a></li>
-<li class="chapter" data-level="3.10.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-piping"><i class="fa fa-check"></i><b>3.10.3</b> Exercise (piping)</a></li>
-<li class="chapter" data-level="3.10.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-working-dir"><i class="fa fa-check"></i><b>3.10.4</b> Exercise (working dir)</a></li>
-<li class="chapter" data-level="3.10.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-vectors"><i class="fa fa-check"></i><b>3.10.5</b> Exercise (vectors)</a></li>
-<li class="chapter" data-level="3.10.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-matrices"><i class="fa fa-check"></i><b>3.10.6</b> Exercise (matrices)</a></li>
-<li class="chapter" data-level="3.10.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-data-frames"><i class="fa fa-check"></i><b>3.10.7</b> Exercise (data frames)</a></li>
-<li class="chapter" data-level="3.10.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-lists"><i class="fa fa-check"></i><b>3.10.8</b> Exercise (lists)</a></li>
-<li class="chapter" data-level="3.10.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-strings"><i class="fa fa-check"></i><b>3.10.9</b> Exercise (string management)</a></li>
+<li class="chapter" data-level="4.1" data-path="data-types-varables.html"><a href="data-types-varables.html#learning-outcomes-1"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="procedures-and-functions.html"><a href="procedures-and-functions.html"><i class="fa fa-check"></i><b>5</b> Procedures and functions</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="procedures-and-functions.html"><a href="procedures-and-functions.html#learning-outcomes-2"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
 </ul></li>
-<li class="part"><span><b>II Programming in R</b></span></li>
-<li class="chapter" data-level="4" data-path="sec-loops.html"><a href="sec-loops.html"><i class="fa fa-check"></i><b>4</b> Loops and conditionals</a>
+<li class="chapter" data-level="6" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html"><i class="fa fa-check"></i><b>6</b> Loops and conditionals</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="sec-loops.html"><a href="sec-loops.html#lo-loops"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="4.2" data-path="sec-loops.html"><a href="sec-loops.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>4.2</b> Conditionals and control flow</a></li>
-<li class="chapter" data-level="4.3" data-path="sec-loops.html"><a href="sec-loops.html#loops"><i class="fa fa-check"></i><b>4.3</b> Loops</a></li>
-<li class="chapter" data-level="4.4" data-path="sec-loops.html"><a href="sec-loops.html#lp-loops"><i class="fa fa-check"></i><b>4.4</b> Different learning paths</a></li>
-<li class="chapter" data-level="4.5" data-path="sec-loops.html"><a href="sec-loops.html#rc-loops"><i class="fa fa-check"></i><b>4.5</b> Recap</a></li>
-<li class="chapter" data-level="4.6" data-path="sec-loops.html"><a href="sec-loops.html#ex-loops"><i class="fa fa-check"></i><b>4.6</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="4.6.1" data-path="sec-loops.html"><a href="sec-loops.html#exercise-conditional-expressions"><i class="fa fa-check"></i><b>4.6.1</b> Exercise (conditional expressions)</a></li>
-<li class="chapter" data-level="4.6.2" data-path="sec-loops.html"><a href="sec-loops.html#exercise-loops"><i class="fa fa-check"></i><b>4.6.2</b> Exercise (loops)</a></li>
-<li class="chapter" data-level="4.6.3" data-path="sec-loops.html"><a href="sec-loops.html#ex-dist"><i class="fa fa-check"></i><b>4.6.3</b> Exercise (calculating distances)</a></li>
-<li class="chapter" data-level="4.6.4" data-path="sec-loops.html"><a href="sec-loops.html#exercise-expand_grid"><i class="fa fa-check"></i><b>4.6.4</b> Exercise (<code>expand_grid</code>)</a></li>
+<li class="chapter" data-level="6.1" data-path="loops-and-conditionals.html"><a href="loops-and-conditionals.html#learning-outcomes-3"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="object-model.html"><a href="object-model.html"><i class="fa fa-check"></i><b>7</b> Object model</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="object-model.html"><a href="object-model.html#learning-outcomes-4"><i class="fa fa-check"></i><b>7.1</b> Learning outcomes</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="sec-functions.html"><a href="sec-functions.html"><i class="fa fa-check"></i><b>5</b> Functions</a>
+<li class="part"><span><b>III Randomization in VBA</b></span></li>
+<li class="chapter" data-level="8" data-path="generating-random-values.html"><a href="generating-random-values.html"><i class="fa fa-check"></i><b>8</b> Generating random values</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="sec-functions.html"><a href="sec-functions.html#lo-functions"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="5.2" data-path="sec-functions.html"><a href="sec-functions.html#datacamp-course"><i class="fa fa-check"></i><b>5.2</b> DataCamp course</a></li>
-<li class="chapter" data-level="5.3" data-path="sec-functions.html"><a href="sec-functions.html#functions-returning-multiple-objects"><i class="fa fa-check"></i><b>5.3</b> Functions returning multiple objects</a></li>
-<li class="chapter" data-level="5.4" data-path="sec-functions.html"><a href="sec-functions.html#the-...-argument"><i class="fa fa-check"></i><b>5.4</b> The <code>...</code> argument</a></li>
-<li class="chapter" data-level="5.5" data-path="sec-functions.html"><a href="sec-functions.html#documenting-your-functions"><i class="fa fa-check"></i><b>5.5</b> Documenting your functions</a></li>
-<li class="chapter" data-level="5.6" data-path="sec-functions.html"><a href="sec-functions.html#lp-functions"><i class="fa fa-check"></i><b>5.6</b> Different learning paths</a></li>
-<li class="chapter" data-level="5.7" data-path="sec-functions.html"><a href="sec-functions.html#rc-functions"><i class="fa fa-check"></i><b>5.7</b> Recap</a></li>
-<li class="chapter" data-level="5.8" data-path="sec-functions.html"><a href="sec-functions.html#ex-functions"><i class="fa fa-check"></i><b>5.8</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="5.8.1" data-path="sec-functions.html"><a href="sec-functions.html#exercise-defining-functions"><i class="fa fa-check"></i><b>5.8.1</b> Exercise (defining functions)</a></li>
-<li class="chapter" data-level="5.8.2" data-path="sec-functions.html"><a href="sec-functions.html#exercise-scope"><i class="fa fa-check"></i><b>5.8.2</b> Exercise (scope)</a></li>
-<li class="chapter" data-level="5.8.3" data-path="sec-functions.html"><a href="sec-functions.html#exercise-job-sequencing"><i class="fa fa-check"></i><b>5.8.3</b> Exercise (job sequencing)</a></li>
+<li class="chapter" data-level="8.1" data-path="generating-random-values.html"><a href="generating-random-values.html#learning-outcomes-5"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
 </ul></li>
+<li class="part"><span><b>IV Extra topics in VBA</b></span></li>
+<li class="chapter" data-level="9" data-path="file-management.html"><a href="file-management.html"><i class="fa fa-check"></i><b>9</b> File management</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="file-management.html"><a href="file-management.html#learning-outcomes-6"><i class="fa fa-check"></i><b>9.1</b> Learning outcomes</a></li>
 </ul></li>
-<li class="part"><span><b>III IO, tidy and transform</b></span></li>
-<li class="chapter" data-level="6" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html"><i class="fa fa-check"></i><b>6</b> Introduction to tidyverse and R Markdown</a>
+<li class="part"><span><b>V Getting started in R</b></span></li>
+<li class="chapter" data-level="10" data-path="sec-install.html"><a href="sec-install.html"><i class="fa fa-check"></i><b>10</b> Install R and RStudio</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lo-tidy-intro"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="6.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#the-tidyverse-package"><i class="fa fa-check"></i><b>6.2</b> The tidyverse package</a></li>
-<li class="chapter" data-level="6.3" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#writing-reproducible-reports"><i class="fa fa-check"></i><b>6.3</b> Writing reproducible reports</a></li>
-<li class="chapter" data-level="6.4" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#tibbles"><i class="fa fa-check"></i><b>6.4</b> Tibbles</a></li>
-<li class="chapter" data-level="6.5" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lp-tidy-intro"><i class="fa fa-check"></i><b>6.5</b> Different learning paths</a></li>
-<li class="chapter" data-level="6.6" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#rc-tidy-intro"><i class="fa fa-check"></i><b>6.6</b> Recap</a></li>
-<li class="chapter" data-level="6.7" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#ex-tidy-intro"><i class="fa fa-check"></i><b>6.7</b> Exercises</a>
+<li class="chapter" data-level="10.1" data-path="sec-install.html"><a href="sec-install.html#lo-install"><i class="fa fa-check"></i><b>10.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="10.2" data-path="sec-install.html"><a href="sec-install.html#install-r"><i class="fa fa-check"></i><b>10.2</b> Install R and RStudio</a></li>
+<li class="chapter" data-level="10.3" data-path="sec-install.html"><a href="sec-install.html#test-your-installation"><i class="fa fa-check"></i><b>10.3</b> Test your installation</a></li>
+<li class="chapter" data-level="10.4" data-path="sec-install.html"><a href="sec-install.html#add-on-packages"><i class="fa fa-check"></i><b>10.4</b> Add-on packages</a></li>
+<li class="chapter" data-level="10.5" data-path="sec-install.html"><a href="sec-install.html#lp-install"><i class="fa fa-check"></i><b>10.5</b> Different learning paths</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="sec-r-basics.html"><a href="sec-r-basics.html"><i class="fa fa-check"></i><b>11</b> R basics and workflows</a>
 <ul>
-<li class="chapter" data-level="6.7.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-your-first-r-markdown-exercise"><i class="fa fa-check"></i><b>6.7.1</b> Exercise (your first R Markdown exercise)</a></li>
-<li class="chapter" data-level="6.7.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-tibbles"><i class="fa fa-check"></i><b>6.7.2</b> Exercise (tibbles)</a></li>
+<li class="chapter" data-level="" data-path="sec-r-basics.html"><a href="sec-r-basics.html#learning-path-diagramme"><i class="fa fa-check"></i>Learning path diagramme</a></li>
+<li class="chapter" data-level="11.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lo-r-basics"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="11.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-with-r-at-the-command-line-in-rstudio"><i class="fa fa-check"></i><b>11.2</b> Working with R at the command line in RStudio</a></li>
+<li class="chapter" data-level="11.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#your-first-datacamp-course"><i class="fa fa-check"></i><b>11.3</b> Your first DataCamp course</a></li>
+<li class="chapter" data-level="11.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#pipes"><i class="fa fa-check"></i><b>11.4</b> Pipes</a></li>
+<li class="chapter" data-level="11.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rprojs"><i class="fa fa-check"></i><b>11.5</b> RStudio projects</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#storing-your-code-in-a-script-file"><i class="fa fa-check"></i><b>11.5.1</b> Storing your code in a script file</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#global-options"><i class="fa fa-check"></i><b>11.6</b> Global options</a></li>
+<li class="chapter" data-level="11.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#working-directory"><i class="fa fa-check"></i><b>11.7</b> Working directory</a></li>
+<li class="chapter" data-level="11.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#lp-r-basics"><i class="fa fa-check"></i><b>11.8</b> Different learning paths</a></li>
+<li class="chapter" data-level="11.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#rc-r-basics"><i class="fa fa-check"></i><b>11.9</b> Recap</a></li>
+<li class="chapter" data-level="11.10" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-r-basics"><i class="fa fa-check"></i><b>11.10</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="11.10.1" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-group-work"><i class="fa fa-check"></i><b>11.10.1</b> Exercise (group work)</a></li>
+<li class="chapter" data-level="11.10.2" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-install-packages"><i class="fa fa-check"></i><b>11.10.2</b> Exercise (install packages)</a></li>
+<li class="chapter" data-level="11.10.3" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-piping"><i class="fa fa-check"></i><b>11.10.3</b> Exercise (piping)</a></li>
+<li class="chapter" data-level="11.10.4" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-working-dir"><i class="fa fa-check"></i><b>11.10.4</b> Exercise (working dir)</a></li>
+<li class="chapter" data-level="11.10.5" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-vectors"><i class="fa fa-check"></i><b>11.10.5</b> Exercise (vectors)</a></li>
+<li class="chapter" data-level="11.10.6" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-matrices"><i class="fa fa-check"></i><b>11.10.6</b> Exercise (matrices)</a></li>
+<li class="chapter" data-level="11.10.7" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-data-frames"><i class="fa fa-check"></i><b>11.10.7</b> Exercise (data frames)</a></li>
+<li class="chapter" data-level="11.10.8" data-path="sec-r-basics.html"><a href="sec-r-basics.html#exercise-lists"><i class="fa fa-check"></i><b>11.10.8</b> Exercise (lists)</a></li>
+<li class="chapter" data-level="11.10.9" data-path="sec-r-basics.html"><a href="sec-r-basics.html#ex-strings"><i class="fa fa-check"></i><b>11.10.9</b> Exercise (string management)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sec-io.html"><a href="sec-io.html"><i class="fa fa-check"></i><b>7</b> Importing and exporting data</a>
+<li class="part"><span><b>VI Programming in R</b></span></li>
+<li class="chapter" data-level="12" data-path="sec-loops.html"><a href="sec-loops.html"><i class="fa fa-check"></i><b>12</b> Loops and conditionals</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="sec-io.html"><a href="sec-io.html#lo-io"><i class="fa fa-check"></i><b>7.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="7.2" data-path="sec-io.html"><a href="sec-io.html#csv-files"><i class="fa fa-check"></i><b>7.2</b> CSV files</a>
+<li class="chapter" data-level="" data-path="sec-loops.html"><a href="sec-loops.html#learning-path-diagramme-1"><i class="fa fa-check"></i>Learning path diagramme</a></li>
+<li class="chapter" data-level="12.1" data-path="sec-loops.html"><a href="sec-loops.html#lo-loops"><i class="fa fa-check"></i><b>12.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="12.2" data-path="sec-loops.html"><a href="sec-loops.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>12.2</b> Conditionals and control flow</a></li>
+<li class="chapter" data-level="12.3" data-path="sec-loops.html"><a href="sec-loops.html#loops"><i class="fa fa-check"></i><b>12.3</b> Loops</a></li>
+<li class="chapter" data-level="12.4" data-path="sec-loops.html"><a href="sec-loops.html#lp-loops"><i class="fa fa-check"></i><b>12.4</b> Different learning paths</a></li>
+<li class="chapter" data-level="12.5" data-path="sec-loops.html"><a href="sec-loops.html#rc-loops"><i class="fa fa-check"></i><b>12.5</b> Recap</a></li>
+<li class="chapter" data-level="12.6" data-path="sec-loops.html"><a href="sec-loops.html#ex-loops"><i class="fa fa-check"></i><b>12.6</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="sec-io.html"><a href="sec-io.html#reading-a-csv-file"><i class="fa fa-check"></i><b>7.2.1</b> Reading a CSV file</a></li>
-<li class="chapter" data-level="7.2.2" data-path="sec-io.html"><a href="sec-io.html#writing-to-csv-files"><i class="fa fa-check"></i><b>7.2.2</b> Writing to CSV files</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="sec-io.html"><a href="sec-io.html#excel"><i class="fa fa-check"></i><b>7.3</b> Excel</a></li>
-<li class="chapter" data-level="7.4" data-path="sec-io.html"><a href="sec-io.html#google-sheets"><i class="fa fa-check"></i><b>7.4</b> Google Sheets</a></li>
-<li class="chapter" data-level="7.5" data-path="sec-io.html"><a href="sec-io.html#text-files"><i class="fa fa-check"></i><b>7.5</b> Text files</a></li>
-<li class="chapter" data-level="7.6" data-path="sec-io.html"><a href="sec-io.html#rs-native-binary-format"><i class="fa fa-check"></i><b>7.6</b> R’s native binary format</a></li>
-<li class="chapter" data-level="7.7" data-path="sec-io.html"><a href="sec-io.html#json"><i class="fa fa-check"></i><b>7.7</b> Json</a></li>
-<li class="chapter" data-level="7.8" data-path="sec-io.html"><a href="sec-io.html#lp-io"><i class="fa fa-check"></i><b>7.8</b> Different learning paths</a></li>
-<li class="chapter" data-level="7.9" data-path="sec-io.html"><a href="sec-io.html#rc-io"><i class="fa fa-check"></i><b>7.9</b> Recap</a></li>
-<li class="chapter" data-level="7.10" data-path="sec-io.html"><a href="sec-io.html#ex-io"><i class="fa fa-check"></i><b>7.10</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="7.10.1" data-path="sec-io.html"><a href="sec-io.html#exercise-statistikbanken"><i class="fa fa-check"></i><b>7.10.1</b> Exercise (Statistikbanken)</a></li>
-<li class="chapter" data-level="7.10.2" data-path="sec-io.html"><a href="sec-io.html#exercise-tuples-in-opl"><i class="fa fa-check"></i><b>7.10.2</b> Exercise (tuples in OPL)</a></li>
+<li class="chapter" data-level="12.6.1" data-path="sec-loops.html"><a href="sec-loops.html#exercise-conditional-expressions"><i class="fa fa-check"></i><b>12.6.1</b> Exercise (conditional expressions)</a></li>
+<li class="chapter" data-level="12.6.2" data-path="sec-loops.html"><a href="sec-loops.html#exercise-loops"><i class="fa fa-check"></i><b>12.6.2</b> Exercise (loops)</a></li>
+<li class="chapter" data-level="12.6.3" data-path="sec-loops.html"><a href="sec-loops.html#ex-dist"><i class="fa fa-check"></i><b>12.6.3</b> Exercise (calculating distances)</a></li>
+<li class="chapter" data-level="12.6.4" data-path="sec-loops.html"><a href="sec-loops.html#exercise-expand_grid"><i class="fa fa-check"></i><b>12.6.4</b> Exercise (<code>expand_grid</code>)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="sec-transform.html"><a href="sec-transform.html"><i class="fa fa-check"></i><b>8</b> Transforming data</a>
+<li class="chapter" data-level="13" data-path="sec-functions.html"><a href="sec-functions.html"><i class="fa fa-check"></i><b>13</b> Functions</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="sec-transform.html"><a href="sec-transform.html#lo-transform"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="8.2" data-path="sec-transform.html"><a href="sec-transform.html#working-with-data-in-the-tidyverse"><i class="fa fa-check"></i><b>8.2</b> Working with data in the tidyverse</a></li>
-<li class="chapter" data-level="8.3" data-path="sec-transform.html"><a href="sec-transform.html#mutating-and-filtering-joins"><i class="fa fa-check"></i><b>8.3</b> Mutating and filtering joins</a></li>
-<li class="chapter" data-level="8.4" data-path="sec-transform.html"><a href="sec-transform.html#lp-transform"><i class="fa fa-check"></i><b>8.4</b> Different learning paths</a></li>
-<li class="chapter" data-level="8.5" data-path="sec-transform.html"><a href="sec-transform.html#rc-transform"><i class="fa fa-check"></i><b>8.5</b> Recap</a></li>
-<li class="chapter" data-level="8.6" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>8.6</b> Exercises</a>
+<li class="chapter" data-level="13.1" data-path="sec-functions.html"><a href="sec-functions.html#lo-functions"><i class="fa fa-check"></i><b>13.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="13.2" data-path="sec-functions.html"><a href="sec-functions.html#datacamp-course"><i class="fa fa-check"></i><b>13.2</b> DataCamp course</a></li>
+<li class="chapter" data-level="13.3" data-path="sec-functions.html"><a href="sec-functions.html#functions-returning-multiple-objects"><i class="fa fa-check"></i><b>13.3</b> Functions returning multiple objects</a></li>
+<li class="chapter" data-level="13.4" data-path="sec-functions.html"><a href="sec-functions.html#the-...-argument"><i class="fa fa-check"></i><b>13.4</b> The <code>...</code> argument</a></li>
+<li class="chapter" data-level="13.5" data-path="sec-functions.html"><a href="sec-functions.html#documenting-your-functions"><i class="fa fa-check"></i><b>13.5</b> Documenting your functions</a></li>
+<li class="chapter" data-level="13.6" data-path="sec-functions.html"><a href="sec-functions.html#lp-functions"><i class="fa fa-check"></i><b>13.6</b> Different learning paths</a></li>
+<li class="chapter" data-level="13.7" data-path="sec-functions.html"><a href="sec-functions.html#rc-functions"><i class="fa fa-check"></i><b>13.7</b> Recap</a></li>
+<li class="chapter" data-level="13.8" data-path="sec-functions.html"><a href="sec-functions.html#ex-functions"><i class="fa fa-check"></i><b>13.8</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="sec-transform.html"><a href="sec-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>8.6.1</b> Exercise (gapminder)</a></li>
-<li class="chapter" data-level="8.6.2" data-path="sec-transform.html"><a href="sec-transform.html#ex-babynames1"><i class="fa fa-check"></i><b>8.6.2</b> Exercise (babynames)</a></li>
-<li class="chapter" data-level="8.6.3" data-path="sec-transform.html"><a href="sec-transform.html#ex-profit1"><i class="fa fa-check"></i><b>8.6.3</b> Exercise (profit)</a></li>
-<li class="chapter" data-level="8.6.4" data-path="sec-transform.html"><a href="sec-transform.html#ex-fish"><i class="fa fa-check"></i><b>8.6.4</b> Exercise (fisheries)</a></li>
+<li class="chapter" data-level="13.8.1" data-path="sec-functions.html"><a href="sec-functions.html#exercise-defining-functions"><i class="fa fa-check"></i><b>13.8.1</b> Exercise (defining functions)</a></li>
+<li class="chapter" data-level="13.8.2" data-path="sec-functions.html"><a href="sec-functions.html#exercise-scope"><i class="fa fa-check"></i><b>13.8.2</b> Exercise (scope)</a></li>
+<li class="chapter" data-level="13.8.3" data-path="sec-functions.html"><a href="sec-functions.html#exercise-job-sequencing"><i class="fa fa-check"></i><b>13.8.3</b> Exercise (job sequencing)</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>IV Visualization</b></span></li>
-<li class="chapter" data-level="9" data-path="sec-plot.html"><a href="sec-plot.html"><i class="fa fa-check"></i><b>9</b> Data visualization using ggplot</a>
+<li class="part"><span><b>VII IO, tidy and transform</b></span></li>
+<li class="chapter" data-level="14" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html"><i class="fa fa-check"></i><b>14</b> Introduction to tidyverse and R Markdown</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="sec-plot.html"><a href="sec-plot.html#lo-plot"><i class="fa fa-check"></i><b>9.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="9.2" data-path="sec-plot.html"><a href="sec-plot.html#introduction-to-data-visualization"><i class="fa fa-check"></i><b>9.2</b> Introduction to data visualization</a></li>
-<li class="chapter" data-level="9.3" data-path="sec-plot.html"><a href="sec-plot.html#combining-plots-into-one-using-patchwork"><i class="fa fa-check"></i><b>9.3</b> Combining plots into one using <em>patchwork</em></a></li>
-<li class="chapter" data-level="9.4" data-path="sec-plot.html"><a href="sec-plot.html#saving-graphics"><i class="fa fa-check"></i><b>9.4</b> Saving graphics</a></li>
-<li class="chapter" data-level="9.5" data-path="sec-plot.html"><a href="sec-plot.html#lp-r-plot"><i class="fa fa-check"></i><b>9.5</b> Different learning paths</a></li>
-<li class="chapter" data-level="9.6" data-path="sec-plot.html"><a href="sec-plot.html#rc-r-plot"><i class="fa fa-check"></i><b>9.6</b> Recap</a></li>
-<li class="chapter" data-level="9.7" data-path="sec-plot.html"><a href="sec-plot.html#ex-r-plot"><i class="fa fa-check"></i><b>9.7</b> Exercises</a>
+<li class="chapter" data-level="14.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lo-tidy-intro"><i class="fa fa-check"></i><b>14.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="14.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#the-tidyverse-package"><i class="fa fa-check"></i><b>14.2</b> The tidyverse package</a></li>
+<li class="chapter" data-level="14.3" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#writing-reproducible-reports"><i class="fa fa-check"></i><b>14.3</b> Writing reproducible reports</a></li>
+<li class="chapter" data-level="14.4" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#tibbles"><i class="fa fa-check"></i><b>14.4</b> Tibbles</a></li>
+<li class="chapter" data-level="14.5" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#lp-tidy-intro"><i class="fa fa-check"></i><b>14.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="14.6" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#rc-tidy-intro"><i class="fa fa-check"></i><b>14.6</b> Recap</a></li>
+<li class="chapter" data-level="14.7" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#ex-tidy-intro"><i class="fa fa-check"></i><b>14.7</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="9.7.1" data-path="sec-plot.html"><a href="sec-plot.html#ex-gapminder2"><i class="fa fa-check"></i><b>9.7.1</b> Exercise (gapminder)</a></li>
-<li class="chapter" data-level="9.7.2" data-path="sec-plot.html"><a href="sec-plot.html#ex-profit2"><i class="fa fa-check"></i><b>9.7.2</b> Exercise (profit)</a></li>
-<li class="chapter" data-level="9.7.3" data-path="sec-plot.html"><a href="sec-plot.html#ex-covid19"><i class="fa fa-check"></i><b>9.7.3</b> Exercise (COVID-19)</a></li>
-<li class="chapter" data-level="9.7.4" data-path="sec-plot.html"><a href="sec-plot.html#ex-lego"><i class="fa fa-check"></i><b>9.7.4</b> Exercise (Lego and sales)</a></li>
+<li class="chapter" data-level="14.7.1" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-your-first-r-markdown-exercise"><i class="fa fa-check"></i><b>14.7.1</b> Exercise (your first R Markdown exercise)</a></li>
+<li class="chapter" data-level="14.7.2" data-path="sec-tidy-intro.html"><a href="sec-tidy-intro.html#exercise-tibbles"><i class="fa fa-check"></i><b>14.7.2</b> Exercise (tibbles)</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>V R project in groups</b></span></li>
-<li class="chapter" data-level="10" data-path="sec-project.html"><a href="sec-project.html"><i class="fa fa-check"></i><b>10</b> Mandatory R project</a>
+<li class="chapter" data-level="15" data-path="sec-io.html"><a href="sec-io.html"><i class="fa fa-check"></i><b>15</b> Importing and exporting data</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="sec-project.html"><a href="sec-project.html#lo-project"><i class="fa fa-check"></i><b>10.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="10.2" data-path="sec-project.html"><a href="sec-project.html#r-project"><i class="fa fa-check"></i><b>10.2</b> R project</a></li>
-</ul></li>
-<li class="part"><span><b>VI Extra</b></span></li>
-<li class="chapter" data-level="11" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>11</b> Spatial data and maps</a>
+<li class="chapter" data-level="15.1" data-path="sec-io.html"><a href="sec-io.html#lo-io"><i class="fa fa-check"></i><b>15.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="15.2" data-path="sec-io.html"><a href="sec-io.html#csv-files"><i class="fa fa-check"></i><b>15.2</b> CSV files</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="sec-maps.html"><a href="sec-maps.html#lo-maps"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="11.2" data-path="sec-maps.html"><a href="sec-maps.html#sec-map-api-key"><i class="fa fa-check"></i><b>11.2</b> Services for obtatining spatial data</a></li>
-<li class="chapter" data-level="11.3" data-path="sec-maps.html"><a href="sec-maps.html#calculating-distances"><i class="fa fa-check"></i><b>11.3</b> Calculating distances</a>
+<li class="chapter" data-level="15.2.1" data-path="sec-io.html"><a href="sec-io.html#reading-a-csv-file"><i class="fa fa-check"></i><b>15.2.1</b> Reading a CSV file</a></li>
+<li class="chapter" data-level="15.2.2" data-path="sec-io.html"><a href="sec-io.html#writing-to-csv-files"><i class="fa fa-check"></i><b>15.2.2</b> Writing to CSV files</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="sec-io.html"><a href="sec-io.html#excel"><i class="fa fa-check"></i><b>15.3</b> Excel</a></li>
+<li class="chapter" data-level="15.4" data-path="sec-io.html"><a href="sec-io.html#google-sheets"><i class="fa fa-check"></i><b>15.4</b> Google Sheets</a></li>
+<li class="chapter" data-level="15.5" data-path="sec-io.html"><a href="sec-io.html#text-files"><i class="fa fa-check"></i><b>15.5</b> Text files</a></li>
+<li class="chapter" data-level="15.6" data-path="sec-io.html"><a href="sec-io.html#rs-native-binary-format"><i class="fa fa-check"></i><b>15.6</b> R’s native binary format</a></li>
+<li class="chapter" data-level="15.7" data-path="sec-io.html"><a href="sec-io.html#json"><i class="fa fa-check"></i><b>15.7</b> Json</a></li>
+<li class="chapter" data-level="15.8" data-path="sec-io.html"><a href="sec-io.html#lp-io"><i class="fa fa-check"></i><b>15.8</b> Different learning paths</a></li>
+<li class="chapter" data-level="15.9" data-path="sec-io.html"><a href="sec-io.html#rc-io"><i class="fa fa-check"></i><b>15.9</b> Recap</a></li>
+<li class="chapter" data-level="15.10" data-path="sec-io.html"><a href="sec-io.html#ex-io"><i class="fa fa-check"></i><b>15.10</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="11.3.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps"><i class="fa fa-check"></i><b>11.3.1</b> Using Google Maps</a></li>
-<li class="chapter" data-level="11.3.2" data-path="sec-maps.html"><a href="sec-maps.html#using-bing-maps"><i class="fa fa-check"></i><b>11.3.2</b> Using Bing Maps</a></li>
+<li class="chapter" data-level="15.10.1" data-path="sec-io.html"><a href="sec-io.html#exercise-statistikbanken"><i class="fa fa-check"></i><b>15.10.1</b> Exercise (Statistikbanken)</a></li>
+<li class="chapter" data-level="15.10.2" data-path="sec-io.html"><a href="sec-io.html#exercise-tuples-in-opl"><i class="fa fa-check"></i><b>15.10.2</b> Exercise (tuples in OPL)</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="sec-maps.html"><a href="sec-maps.html#geocoding-and-reverse-geocoding"><i class="fa fa-check"></i><b>11.4</b> Geocoding and reverse geocoding</a>
+</ul></li>
+<li class="chapter" data-level="16" data-path="sec-transform.html"><a href="sec-transform.html"><i class="fa fa-check"></i><b>16</b> Transforming data</a>
 <ul>
-<li class="chapter" data-level="11.4.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps-1"><i class="fa fa-check"></i><b>11.4.1</b> Using Google maps</a></li>
-<li class="chapter" data-level="11.4.2" data-path="sec-maps.html"><a href="sec-maps.html#use-bing-maps"><i class="fa fa-check"></i><b>11.4.2</b> Use Bing Maps</a></li>
+<li class="chapter" data-level="16.1" data-path="sec-transform.html"><a href="sec-transform.html#lo-transform"><i class="fa fa-check"></i><b>16.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="16.2" data-path="sec-transform.html"><a href="sec-transform.html#working-with-data-in-the-tidyverse"><i class="fa fa-check"></i><b>16.2</b> Working with data in the tidyverse</a></li>
+<li class="chapter" data-level="16.3" data-path="sec-transform.html"><a href="sec-transform.html#mutating-and-filtering-joins"><i class="fa fa-check"></i><b>16.3</b> Mutating and filtering joins</a></li>
+<li class="chapter" data-level="16.4" data-path="sec-transform.html"><a href="sec-transform.html#lp-transform"><i class="fa fa-check"></i><b>16.4</b> Different learning paths</a></li>
+<li class="chapter" data-level="16.5" data-path="sec-transform.html"><a href="sec-transform.html#rc-transform"><i class="fa fa-check"></i><b>16.5</b> Recap</a></li>
+<li class="chapter" data-level="16.6" data-path="sec-transform.html"><a href="sec-transform.html#ex-transform"><i class="fa fa-check"></i><b>16.6</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="16.6.1" data-path="sec-transform.html"><a href="sec-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>16.6.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="16.6.2" data-path="sec-transform.html"><a href="sec-transform.html#ex-babynames1"><i class="fa fa-check"></i><b>16.6.2</b> Exercise (babynames)</a></li>
+<li class="chapter" data-level="16.6.3" data-path="sec-transform.html"><a href="sec-transform.html#ex-profit1"><i class="fa fa-check"></i><b>16.6.3</b> Exercise (profit)</a></li>
+<li class="chapter" data-level="16.6.4" data-path="sec-transform.html"><a href="sec-transform.html#ex-fish"><i class="fa fa-check"></i><b>16.6.4</b> Exercise (fisheries)</a></li>
 </ul></li>
-<li class="chapter" data-level="11.5" data-path="sec-maps.html"><a href="sec-maps.html#adding-markers-and-routes-to-a-map"><i class="fa fa-check"></i><b>11.5</b> Adding markers and routes to a map</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="sec-r-excel.html"><a href="sec-r-excel.html"><i class="fa fa-check"></i><b>12</b> Using R in Excel and Excel in R</a></li>
-<li class="chapter" data-level="13" data-path="sec-opl.html"><a href="sec-opl.html"><i class="fa fa-check"></i><b>13</b> Run an OPL model from R</a></li>
-<li class="chapter" data-level="14" data-path="sec-simulation.html"><a href="sec-simulation.html"><i class="fa fa-check"></i><b>14</b> Simulation in R</a></li>
+<li class="part"><span><b>VIII Visualization</b></span></li>
+<li class="chapter" data-level="17" data-path="sec-plot.html"><a href="sec-plot.html"><i class="fa fa-check"></i><b>17</b> Data visualization using ggplot</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sec-plot.html"><a href="sec-plot.html#lo-plot"><i class="fa fa-check"></i><b>17.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="17.2" data-path="sec-plot.html"><a href="sec-plot.html#introduction-to-data-visualization"><i class="fa fa-check"></i><b>17.2</b> Introduction to data visualization</a></li>
+<li class="chapter" data-level="17.3" data-path="sec-plot.html"><a href="sec-plot.html#combining-plots-into-one-using-patchwork"><i class="fa fa-check"></i><b>17.3</b> Combining plots into one using <em>patchwork</em></a></li>
+<li class="chapter" data-level="17.4" data-path="sec-plot.html"><a href="sec-plot.html#saving-graphics"><i class="fa fa-check"></i><b>17.4</b> Saving graphics</a></li>
+<li class="chapter" data-level="17.5" data-path="sec-plot.html"><a href="sec-plot.html#lp-r-plot"><i class="fa fa-check"></i><b>17.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="17.6" data-path="sec-plot.html"><a href="sec-plot.html#rc-r-plot"><i class="fa fa-check"></i><b>17.6</b> Recap</a></li>
+<li class="chapter" data-level="17.7" data-path="sec-plot.html"><a href="sec-plot.html#ex-r-plot"><i class="fa fa-check"></i><b>17.7</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="17.7.1" data-path="sec-plot.html"><a href="sec-plot.html#ex-gapminder2"><i class="fa fa-check"></i><b>17.7.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="17.7.2" data-path="sec-plot.html"><a href="sec-plot.html#ex-profit2"><i class="fa fa-check"></i><b>17.7.2</b> Exercise (profit)</a></li>
+<li class="chapter" data-level="17.7.3" data-path="sec-plot.html"><a href="sec-plot.html#ex-covid19"><i class="fa fa-check"></i><b>17.7.3</b> Exercise (COVID-19)</a></li>
+<li class="chapter" data-level="17.7.4" data-path="sec-plot.html"><a href="sec-plot.html#ex-lego"><i class="fa fa-check"></i><b>17.7.4</b> Exercise (Lego and sales)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IX R project in groups</b></span></li>
+<li class="chapter" data-level="18" data-path="sec-project.html"><a href="sec-project.html"><i class="fa fa-check"></i><b>18</b> Mandatory R project</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sec-project.html"><a href="sec-project.html#lo-project"><i class="fa fa-check"></i><b>18.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="18.2" data-path="sec-project.html"><a href="sec-project.html#r-project"><i class="fa fa-check"></i><b>18.2</b> R project</a></li>
+</ul></li>
+<li class="part"><span><b>X Extra</b></span></li>
+<li class="chapter" data-level="19" data-path="sec-maps.html"><a href="sec-maps.html"><i class="fa fa-check"></i><b>19</b> Spatial data and maps</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="sec-maps.html"><a href="sec-maps.html#lo-maps"><i class="fa fa-check"></i><b>19.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="19.2" data-path="sec-maps.html"><a href="sec-maps.html#sec-map-api-key"><i class="fa fa-check"></i><b>19.2</b> Services for obtatining spatial data</a></li>
+<li class="chapter" data-level="19.3" data-path="sec-maps.html"><a href="sec-maps.html#calculating-distances"><i class="fa fa-check"></i><b>19.3</b> Calculating distances</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps"><i class="fa fa-check"></i><b>19.3.1</b> Using Google Maps</a></li>
+<li class="chapter" data-level="19.3.2" data-path="sec-maps.html"><a href="sec-maps.html#using-bing-maps"><i class="fa fa-check"></i><b>19.3.2</b> Using Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="sec-maps.html"><a href="sec-maps.html#geocoding-and-reverse-geocoding"><i class="fa fa-check"></i><b>19.4</b> Geocoding and reverse geocoding</a>
+<ul>
+<li class="chapter" data-level="19.4.1" data-path="sec-maps.html"><a href="sec-maps.html#using-google-maps-1"><i class="fa fa-check"></i><b>19.4.1</b> Using Google maps</a></li>
+<li class="chapter" data-level="19.4.2" data-path="sec-maps.html"><a href="sec-maps.html#use-bing-maps"><i class="fa fa-check"></i><b>19.4.2</b> Use Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="19.5" data-path="sec-maps.html"><a href="sec-maps.html#adding-markers-and-routes-to-a-map"><i class="fa fa-check"></i><b>19.5</b> Adding markers and routes to a map</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="sec-r-excel.html"><a href="sec-r-excel.html"><i class="fa fa-check"></i><b>20</b> Using R in Excel and Excel in R</a></li>
+<li class="chapter" data-level="21" data-path="sec-opl.html"><a href="sec-opl.html"><i class="fa fa-check"></i><b>21</b> Run an OPL model from R</a></li>
+<li class="chapter" data-level="22" data-path="sec-simulation.html"><a href="sec-simulation.html"><i class="fa fa-check"></i><b>22</b> Simulation in R</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="groups.html"><a href="groups.html"><i class="fa fa-check"></i><b>A</b> Working in groups</a>
 <ul>
@@ -360,14 +434,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="B" data-path="annotate.html"><a href="annotate.html"><i class="fa fa-check"></i><b>B</b> Annotate the course notes</a></li>
-<li class="chapter" data-level="C" data-path="help.html"><a href="help.html"><i class="fa fa-check"></i><b>C</b> Getting help</a>
-<ul>
-<li class="chapter" data-level="" data-path="help.html"><a href="help.html#study-café"><i class="fa fa-check"></i>Study café</a>
-<ul>
-<li class="chapter" data-level="" data-path="help.html"><a href="help.html#need-help---ask-a-question"><i class="fa fa-check"></i>Need help - ask a question</a></li>
-<li class="chapter" data-level="" data-path="help.html"><a href="help.html#current-queue"><i class="fa fa-check"></i>Current queue</a></li>
-</ul></li>
-</ul></li>
+<li class="chapter" data-level="C" data-path="help.html"><a href="help.html"><i class="fa fa-check"></i><b>C</b> Getting help</a></li>
 <li class="chapter" data-level="D" data-path="slides.html"><a href="slides.html"><i class="fa fa-check"></i><b>D</b> Slides</a></li>
 <li class="chapter" data-level="E" data-path="lg-course.html"><a href="lg-course.html"><i class="fa fa-check"></i><b>E</b> Learning goals</a></li>
 <li class="chapter" data-level="F" data-path="sec-ba.html"><a href="sec-ba.html"><i class="fa fa-check"></i><b>F</b> Business Analytics</a></li>
@@ -400,11 +467,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="sec-maps" class="section level1" number="11">
-<h1><span class="header-section-number">Module 11</span> Spatial data and maps</h1>
+<div id="sec-maps" class="section level1" number="19">
+<h1><span class="header-section-number">Module 19</span> Spatial data and maps</h1>
 <p>Spatial data, also known as geospatial data, is a term used to describe any data related to or containing information about a specific location on a surface (often a map). We will consider <em>distance matrix</em> calculations for finding the shortest distance/travel time between a set of origins and destinations, <em>geocoding</em> which is the process of converting an address to geographic coordinates (latitude, longitude) and <em>reverse geocoding</em> which is the opposite process of converting a location as described by geographic coordinates (latitude, longitude) to a human-readable address or place name. Finally, we consider how to display spatial data on a map.</p>
-<div id="lo-maps" class="section level2" number="11.1">
-<h2><span class="header-section-number">11.1</span> Learning outcomes</h2>
+<div id="lo-maps" class="section level2" number="19.1">
+<h2><span class="header-section-number">19.1</span> Learning outcomes</h2>
 <p>By the end of this module, you are expected to be able to:</p>
 <ul>
 <li>Calculate euclidean, manhattan, etc. distances.</li>
@@ -417,10 +484,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
 <!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
 </div>
-<div id="sec-map-api-key" class="section level2" number="11.2">
-<h2><span class="header-section-number">11.2</span> Services for obtatining spatial data</h2>
+<div id="sec-map-api-key" class="section level2" number="19.2">
+<h2><span class="header-section-number">19.2</span> Services for obtatining spatial data</h2>
 <p>Often you need to connect to a service using an API for obtaining spatial data. The most common is Google and Bing (Microsoft) and to use the services you need an API key. Another service is also <a href="https://developer.here.com/">Here</a>.</p>
-<p>If you use Google Maps you can obtain an API key <a href="https://cloud.google.com/maps-platform/">here</a>. Modest to light use is free; however, you need a valid credit card. Note you must enable the APIs you intend to use. Google in fact has several services for geo-related solutions. For example, the Maps Static API provides map images, while the Geocoding API provides geocoding and reverse geocoding services. You need to enable the APIs before you use them. You’ll only need to do that once, and then they’ll be ready for you to use. Enabling the APIs just means clicking a few radio buttons on the Google Maps Platform web interface.</p>
+<p>If you use Google Maps you can obtain an API key <a href="https://cloud.google.com/maps-platform/">here</a>. Modest to light use is free; however, you need a valid credit card. Note you must enable the APIs you intend to use. Google in fact has several services for geo-related solutions. For example, the Maps Static API provides map images, while the Geocoding API provides geocoding and reverse geocoding services. You need to enable the APIs before you use them. You will only need to do that once, and then they will be ready for you to use. Enabling the APIs just means clicking a few radio buttons on the Google Maps Platform web interface.</p>
 <p>We will be using the <strong>ggmap</strong> package for Google services. You can add the API key using:</p>
 <div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="sec-maps.html#cb444-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggmap)</span>
 <span id="cb444-2"><a href="sec-maps.html#cb444-2" aria-hidden="true" tabindex="-1"></a><span class="fu">register_google</span>(<span class="at">key =</span> <span class="st">&quot;[your key]&quot;</span>, <span class="at">write =</span> <span class="cn">TRUE</span>)</span>
@@ -432,8 +499,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Add the line <code>BING_MAPS_API_KEY=[your key]</code> and save the file.</p>
 <p>Note your API keys is private and unique to you, so be careful not to share it online!</p>
 </div>
-<div id="calculating-distances" class="section level2" number="11.3">
-<h2><span class="header-section-number">11.3</span> Calculating distances</h2>
+<div id="calculating-distances" class="section level2" number="19.3">
+<h2><span class="header-section-number">19.3</span> Calculating distances</h2>
 <p>If you need to calculate euclidean, manhattan, etc. distances, you can use the <code>dist</code> R function:</p>
 <div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="sec-maps.html#cb446-1" aria-hidden="true" tabindex="-1"></a>coord <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">1</span>, <span class="dv">1</span>,<span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">1</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb446-2"><a href="sec-maps.html#cb446-2" aria-hidden="true" tabindex="-1"></a>coord</span>
@@ -454,8 +521,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb446-17"><a href="sec-maps.html#cb446-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 1.00 1.41 0.00 1.00</span></span>
 <span id="cb446-18"><a href="sec-maps.html#cb446-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 1.41 1.00 1.00 0.00</span></span></code></pre></div>
 <p>However, euclidean distances are often a poor approximation of shortest path lengths.</p>
-<div id="using-google-maps" class="section level3" number="11.3.1">
-<h3><span class="header-section-number">11.3.1</span> Using Google Maps</h3>
+<div id="using-google-maps" class="section level3" number="19.3.1">
+<h3><span class="header-section-number">19.3.1</span> Using Google Maps</h3>
 <p>Remember to have <a href="sec-maps.html#sec-map-api-key">set your API key</a> and activate the <em>Distance Matrix API</em> service on the Google Cloud Platform. We consider the following places:</p>
 <div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="sec-maps.html#cb447-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggmap)</span>
 <span id="cb447-2"><a href="sec-maps.html#cb447-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -468,7 +535,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb447-9"><a href="sec-maps.html#cb447-9" aria-hidden="true" tabindex="-1"></a>       5L,  <span class="st">&quot;Bilka Holstebro&quot;</span>,         <span class="st">&quot;Nyholmvej 20, 7500 Holstebro, Denmark&quot;</span>,</span>
 <span id="cb447-10"><a href="sec-maps.html#cb447-10" aria-hidden="true" tabindex="-1"></a>      )</span>
 <span id="cb447-11"><a href="sec-maps.html#cb447-11" aria-hidden="true" tabindex="-1"></a>dat</span>
-<span id="cb447-12"><a href="sec-maps.html#cb447-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 3</span></span>
+<span id="cb447-12"><a href="sec-maps.html#cb447-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 3</span></span>
 <span id="cb447-13"><a href="sec-maps.html#cb447-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Id Shop            Address                                     </span></span>
 <span id="cb447-14"><a href="sec-maps.html#cb447-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;                                       </span></span>
 <span id="cb447-15"><a href="sec-maps.html#cb447-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 Bilka Esbjerg   Stormgade 157, 6715 Esbjerg, Denmark        </span></span>
@@ -479,10 +546,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To calculate a distance matrix we use the <code>mapdist</code> function:</p>
 <div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="sec-maps.html#cb448-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapdist</span>(<span class="at">from =</span> <span class="st">&quot;Stormgade 157, 6715 Esbjerg, Denmark&quot;</span>, </span>
 <span id="cb448-2"><a href="sec-maps.html#cb448-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">to =</span> <span class="st">&quot;Golfvej 5, 7400 Herning, Denmark&quot;</span>)</span>
-<span id="cb448-3"><a href="sec-maps.html#cb448-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 9</span></span>
-<span id="cb448-4"><a href="sec-maps.html#cb448-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   from                        to                          m    km miles seconds minutes hours mode  </span></span>
-<span id="cb448-5"><a href="sec-maps.html#cb448-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                       &lt;chr&gt;                   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; </span></span>
-<span id="cb448-6"><a href="sec-maps.html#cb448-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjer… Golfvej 5, 7400 Hernin… 85634  85.6  53.2    4463    74.4  1.24 drivi…</span></span></code></pre></div>
+<span id="cb448-3"><a href="sec-maps.html#cb448-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 9</span></span>
+<span id="cb448-4"><a href="sec-maps.html#cb448-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   from                                 to                  m    km miles seconds minutes hours mode </span></span>
+<span id="cb448-5"><a href="sec-maps.html#cb448-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                                &lt;chr&gt;           &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
+<span id="cb448-6"><a href="sec-maps.html#cb448-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjerg, Denmark Golfvej 5, 740… 85637  85.6  53.2    4407    73.4  1.22 driv…</span></span></code></pre></div>
 <p>Note Google returns results for the fastest path between the two points. Let us try to define a function which calculate all the distances:</p>
 <div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="sec-maps.html#cb449-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Calculate the distance matrix in long format.</span></span>
 <span id="cb449-2"><a href="sec-maps.html#cb449-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
@@ -496,24 +563,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb449-10"><a href="sec-maps.html#cb449-10" aria-hidden="true" tabindex="-1"></a>   datDist <span class="ot">&lt;-</span> datDist <span class="sc">%&gt;%</span> <span class="fu">filter</span>(id_from <span class="sc">!=</span> id_to)</span>
 <span id="cb449-11"><a href="sec-maps.html#cb449-11" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> (symmetric) datDist <span class="ot">&lt;-</span> datDist <span class="sc">%&gt;%</span> <span class="fu">filter</span>(id_from <span class="sc">&lt;</span> id_to)</span>
 <span id="cb449-12"><a href="sec-maps.html#cb449-12" aria-hidden="true" tabindex="-1"></a>   datDist <span class="ot">&lt;-</span> datDist <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">from =</span> address[id_from], <span class="at">to =</span> address[id_to])</span>
-<span id="cb449-13"><a href="sec-maps.html#cb449-13" aria-hidden="true" tabindex="-1"></a>   res <span class="ot">&lt;-</span> <span class="fu">mapdist</span>(datDist <span class="sc">%&gt;%</span> <span class="fu">select</span>(from, to), <span class="at">mode =</span> mode)</span>
+<span id="cb449-13"><a href="sec-maps.html#cb449-13" aria-hidden="true" tabindex="-1"></a>   res <span class="ot">&lt;-</span> <span class="fu">mapdist</span>(<span class="at">from =</span> datDist <span class="sc">%&gt;%</span> <span class="fu">pull</span>(from), <span class="at">to =</span> datDist <span class="sc">%&gt;%</span> <span class="fu">pull</span>(to), <span class="at">mode =</span> mode)</span>
 <span id="cb449-14"><a href="sec-maps.html#cb449-14" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(<span class="fu">left_join</span>(datDist, res, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;from&quot;</span>, <span class="st">&quot;to&quot;</span>)))</span>
 <span id="cb449-15"><a href="sec-maps.html#cb449-15" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb449-16"><a href="sec-maps.html#cb449-16" aria-hidden="true" tabindex="-1"></a>datDistGoo <span class="ot">&lt;-</span> <span class="fu">goo_calc_distances</span>(dat<span class="sc">$</span>Address)</span>
 <span id="cb449-17"><a href="sec-maps.html#cb449-17" aria-hidden="true" tabindex="-1"></a>datDistGoo</span>
-<span id="cb449-18"><a href="sec-maps.html#cb449-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 x 11</span></span>
+<span id="cb449-18"><a href="sec-maps.html#cb449-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 11</span></span>
 <span id="cb449-19"><a href="sec-maps.html#cb449-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    id_from id_to from               to                     m    km miles seconds minutes hours mode </span></span>
 <span id="cb449-20"><a href="sec-maps.html#cb449-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      &lt;int&gt; &lt;int&gt; &lt;chr&gt;              &lt;chr&gt;              &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
-<span id="cb449-21"><a href="sec-maps.html#cb449-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1       1     2 Stormgade 157, 67… Golfvej 5, 7400 …  85634  85.6  53.2    4463    74.4 1.24  driv…</span></span>
-<span id="cb449-22"><a href="sec-maps.html#cb449-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2       1     3 Stormgade 157, 67… Slotsarkaderne 2… 321103 321.  200.    11751   196.  3.26  driv…</span></span>
-<span id="cb449-23"><a href="sec-maps.html#cb449-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3       1     4 Stormgade 157, 67… A.F Heidemannsve… 322287 322.  200.    11271   188.  3.13  driv…</span></span>
-<span id="cb449-24"><a href="sec-maps.html#cb449-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4       1     5 Stormgade 157, 67… Nyholmvej 20, 75… 103934 104.   64.6    5347    89.1 1.49  driv…</span></span>
-<span id="cb449-25"><a href="sec-maps.html#cb449-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5       2     3 Golfvej 5, 7400 H… Slotsarkaderne 2… 332507 333.  207.    12044   201.  3.35  driv…</span></span>
-<span id="cb449-26"><a href="sec-maps.html#cb449-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6       2     4 Golfvej 5, 7400 H… A.F Heidemannsve… 178249 178.  111.     7966   133.  2.21  driv…</span></span>
-<span id="cb449-27"><a href="sec-maps.html#cb449-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7       2     5 Golfvej 5, 7400 H… Nyholmvej 20, 75…  44023  44.0  27.4    1879    31.3 0.522 driv…</span></span>
-<span id="cb449-28"><a href="sec-maps.html#cb449-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8       3     4 Slotsarkaderne 26… A.F Heidemannsve… 354285 354.  220.    17087   285.  4.75  driv…</span></span>
-<span id="cb449-29"><a href="sec-maps.html#cb449-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9       3     5 Slotsarkaderne 26… Nyholmvej 20, 75… 374691 375.  233.    13630   227.  3.79  driv…</span></span>
-<span id="cb449-30"><a href="sec-maps.html#cb449-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10       4     5 A.F Heidemannsvej… Nyholmvej 20, 75… 181259 181.  113.     7879   131.  2.19  driv…</span></span></code></pre></div>
+<span id="cb449-21"><a href="sec-maps.html#cb449-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1       1     2 Stormgade 157, 67… Golfvej 5, 7400 …  85637  85.6  53.2    4407    73.4 1.22  driv…</span></span>
+<span id="cb449-22"><a href="sec-maps.html#cb449-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2       1     3 Stormgade 157, 67… Slotsarkaderne 2… 321174 321.  200.    11717   195.  3.25  driv…</span></span>
+<span id="cb449-23"><a href="sec-maps.html#cb449-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3       1     4 Stormgade 157, 67… A.F Heidemannsve… 322237 322.  200.    10923   182.  3.03  driv…</span></span>
+<span id="cb449-24"><a href="sec-maps.html#cb449-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4       1     5 Stormgade 157, 67… Nyholmvej 20, 75… 103720 104.   64.5    5295    88.2 1.47  driv…</span></span>
+<span id="cb449-25"><a href="sec-maps.html#cb449-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5       2     3 Golfvej 5, 7400 H… Slotsarkaderne 2… 491580 492.  305.    17264   288.  4.80  driv…</span></span>
+<span id="cb449-26"><a href="sec-maps.html#cb449-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6       2     4 Golfvej 5, 7400 H… A.F Heidemannsve… 374866 375.  233.    13415   224.  3.73  driv…</span></span>
+<span id="cb449-27"><a href="sec-maps.html#cb449-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7       2     5 Golfvej 5, 7400 H… Nyholmvej 20, 75… 332586 333.  207.    12089   201.  3.36  driv…</span></span>
+<span id="cb449-28"><a href="sec-maps.html#cb449-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8       3     4 Slotsarkaderne 26… A.F Heidemannsve… 178213 178.  111.     7710   128.  2.14  driv…</span></span>
+<span id="cb449-29"><a href="sec-maps.html#cb449-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9       3     5 Slotsarkaderne 26… Nyholmvej 20, 75…  44036  44.0  27.4    1811    30.2 0.503 driv…</span></span>
+<span id="cb449-30"><a href="sec-maps.html#cb449-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10       4     5 A.F Heidemannsvej… Nyholmvej 20, 75… 181239 181.  113.     7655   128.  2.13  driv…</span></span></code></pre></div>
 <p>Note that only the calculated distances are returned. If you want to have the whole distance matrix we define function:</p>
 <div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="sec-maps.html#cb450-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Convert the data frame returned from calling a `___calc_distances` function to a distance matrix.</span></span>
 <span id="cb450-2"><a href="sec-maps.html#cb450-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
@@ -536,20 +603,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb450-19"><a href="sec-maps.html#cb450-19" aria-hidden="true" tabindex="-1"></a><span class="fu">as_dist_matrix</span>(datDistGoo, <span class="st">&quot;km&quot;</span>)  <span class="co"># distances in km</span></span>
 <span id="cb450-20"><a href="sec-maps.html#cb450-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       [,1]  [,2] [,3] [,4] [,5]</span></span>
 <span id="cb450-21"><a href="sec-maps.html#cb450-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]   0.0  85.6  321  322  104</span></span>
-<span id="cb450-22"><a href="sec-maps.html#cb450-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]  85.6   0.0  333  178   44</span></span>
-<span id="cb450-23"><a href="sec-maps.html#cb450-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 321.1 332.5    0  354  375</span></span>
-<span id="cb450-24"><a href="sec-maps.html#cb450-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 322.3 178.2  354    0  181</span></span>
-<span id="cb450-25"><a href="sec-maps.html#cb450-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 103.9  44.0  375  181    0</span></span>
+<span id="cb450-22"><a href="sec-maps.html#cb450-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]  85.6   0.0  492  375  333</span></span>
+<span id="cb450-23"><a href="sec-maps.html#cb450-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 321.2 491.6    0  178   44</span></span>
+<span id="cb450-24"><a href="sec-maps.html#cb450-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 322.2 374.9  178    0  181</span></span>
+<span id="cb450-25"><a href="sec-maps.html#cb450-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 103.7 332.6   44  181    0</span></span>
 <span id="cb450-26"><a href="sec-maps.html#cb450-26" aria-hidden="true" tabindex="-1"></a><span class="fu">as_dist_matrix</span>(datDistGoo, <span class="st">&quot;seconds&quot;</span>)  <span class="co"># travel time in seconds </span></span>
 <span id="cb450-27"><a href="sec-maps.html#cb450-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       [,1]  [,2]  [,3]  [,4]  [,5]</span></span>
-<span id="cb450-28"><a href="sec-maps.html#cb450-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]     0  4463 11751 11271  5347</span></span>
-<span id="cb450-29"><a href="sec-maps.html#cb450-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]  4463     0 12044  7966  1879</span></span>
-<span id="cb450-30"><a href="sec-maps.html#cb450-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 11751 12044     0 17087 13630</span></span>
-<span id="cb450-31"><a href="sec-maps.html#cb450-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 11271  7966 17087     0  7879</span></span>
-<span id="cb450-32"><a href="sec-maps.html#cb450-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,]  5347  1879 13630  7879     0</span></span></code></pre></div>
+<span id="cb450-28"><a href="sec-maps.html#cb450-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]     0  4407 11717 10923  5295</span></span>
+<span id="cb450-29"><a href="sec-maps.html#cb450-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]  4407     0 17264 13415 12089</span></span>
+<span id="cb450-30"><a href="sec-maps.html#cb450-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 11717 17264     0  7710  1811</span></span>
+<span id="cb450-31"><a href="sec-maps.html#cb450-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 10923 13415  7710     0  7655</span></span>
+<span id="cb450-32"><a href="sec-maps.html#cb450-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,]  5295 12089  1811  7655     0</span></span></code></pre></div>
 </div>
-<div id="using-bing-maps" class="section level3" number="11.3.2">
-<h3><span class="header-section-number">11.3.2</span> Using Bing Maps</h3>
+<div id="using-bing-maps" class="section level3" number="19.3.2">
+<h3><span class="header-section-number">19.3.2</span> Using Bing Maps</h3>
 <p>Remember to have <a href="sec-maps.html#sec-map-api-key">set your API key</a>. We first define a <code>bing_mapdist</code> function:</p>
 <div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="sec-maps.html#cb451-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
 <span id="cb451-2"><a href="sec-maps.html#cb451-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Distance between two locations.</span></span>
@@ -582,17 +649,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb451-29"><a href="sec-maps.html#cb451-29" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb451-30"><a href="sec-maps.html#cb451-30" aria-hidden="true" tabindex="-1"></a><span class="fu">bing_mapdist</span>(<span class="at">from =</span> <span class="st">&quot;Stormgade 157, 6715 Esbjerg, Denmark&quot;</span>, </span>
 <span id="cb451-31"><a href="sec-maps.html#cb451-31" aria-hidden="true" tabindex="-1"></a>             <span class="at">to =</span> <span class="st">&quot;A.F Heidemannsvej 20, 9800 Hjørring, Denmark&quot;</span>)</span>
-<span id="cb451-32"><a href="sec-maps.html#cb451-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 5</span></span>
-<span id="cb451-33"><a href="sec-maps.html#cb451-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   from                               to                                            km seconds mode  </span></span>
-<span id="cb451-34"><a href="sec-maps.html#cb451-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                              &lt;chr&gt;                                      &lt;dbl&gt;   &lt;int&gt; &lt;chr&gt; </span></span>
-<span id="cb451-35"><a href="sec-maps.html#cb451-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjerg, Denm… A.F Heidemannsvej 20, 9800 Hjørring, Denm…  322.   10123 Drivi…</span></span>
+<span id="cb451-32"><a href="sec-maps.html#cb451-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 5</span></span>
+<span id="cb451-33"><a href="sec-maps.html#cb451-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   from                                 to                                          km seconds mode  </span></span>
+<span id="cb451-34"><a href="sec-maps.html#cb451-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                                &lt;chr&gt;                                    &lt;dbl&gt;   &lt;int&gt; &lt;chr&gt; </span></span>
+<span id="cb451-35"><a href="sec-maps.html#cb451-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjerg, Denmark A.F Heidemannsvej 20, 9800 Hjørring, De…  322.    9960 Drivi…</span></span>
 <span id="cb451-36"><a href="sec-maps.html#cb451-36" aria-hidden="true" tabindex="-1"></a><span class="fu">bing_mapdist</span>(<span class="at">from =</span> <span class="st">&quot;Stormgade 157, 6715 Esbjerg, Denmark&quot;</span>, </span>
 <span id="cb451-37"><a href="sec-maps.html#cb451-37" aria-hidden="true" tabindex="-1"></a>             <span class="at">to =</span> <span class="st">&quot;A.F Heidemannsvej 20, 9800 Hjørring, Denmark&quot;</span>, </span>
 <span id="cb451-38"><a href="sec-maps.html#cb451-38" aria-hidden="true" tabindex="-1"></a>             <span class="at">optimize =</span> <span class="st">&quot;distance&quot;</span>)</span>
-<span id="cb451-39"><a href="sec-maps.html#cb451-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 5</span></span>
-<span id="cb451-40"><a href="sec-maps.html#cb451-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   from                               to                                            km seconds mode  </span></span>
-<span id="cb451-41"><a href="sec-maps.html#cb451-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                              &lt;chr&gt;                                      &lt;dbl&gt;   &lt;int&gt; &lt;chr&gt; </span></span>
-<span id="cb451-42"><a href="sec-maps.html#cb451-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjerg, Denm… A.F Heidemannsvej 20, 9800 Hjørring, Denm…  257.   14395 Drivi…</span></span></code></pre></div>
+<span id="cb451-39"><a href="sec-maps.html#cb451-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 5</span></span>
+<span id="cb451-40"><a href="sec-maps.html#cb451-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   from                                 to                                          km seconds mode  </span></span>
+<span id="cb451-41"><a href="sec-maps.html#cb451-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                                &lt;chr&gt;                                    &lt;dbl&gt;   &lt;int&gt; &lt;chr&gt; </span></span>
+<span id="cb451-42"><a href="sec-maps.html#cb451-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjerg, Denmark A.F Heidemannsvej 20, 9800 Hjørring, De…  257.   14085 Drivi…</span></span></code></pre></div>
 <p>Note we here can get both the shortest and fastest path between two points. Next, we use the <code>bing_mapdist</code> function for calculating distances:</p>
 <div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="sec-maps.html#cb452-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Calculate the distance matrix in long format.</span></span>
 <span id="cb452-2"><a href="sec-maps.html#cb452-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
@@ -611,50 +678,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb452-15"><a href="sec-maps.html#cb452-15" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb452-16"><a href="sec-maps.html#cb452-16" aria-hidden="true" tabindex="-1"></a>datDistBing <span class="ot">&lt;-</span> <span class="fu">bing_calc_distances</span>(dat<span class="sc">$</span>Address)</span>
 <span id="cb452-17"><a href="sec-maps.html#cb452-17" aria-hidden="true" tabindex="-1"></a>datDistBing</span>
-<span id="cb452-18"><a href="sec-maps.html#cb452-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 x 7</span></span>
-<span id="cb452-19"><a href="sec-maps.html#cb452-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    id_from id_to from                            to                                km seconds mode  </span></span>
-<span id="cb452-20"><a href="sec-maps.html#cb452-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      &lt;int&gt; &lt;int&gt; &lt;chr&gt;                           &lt;chr&gt;                          &lt;dbl&gt;   &lt;int&gt; &lt;chr&gt; </span></span>
-<span id="cb452-21"><a href="sec-maps.html#cb452-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1       1     2 Stormgade 157, 6715 Esbjerg, D… Golfvej 5, 7400 Herning, Denm…  87.8    4810 Drivi…</span></span>
-<span id="cb452-22"><a href="sec-maps.html#cb452-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2       1     3 Stormgade 157, 6715 Esbjerg, D… Slotsarkaderne 26, 3400 Hille… 322.    10556 Drivi…</span></span>
-<span id="cb452-23"><a href="sec-maps.html#cb452-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3       1     4 Stormgade 157, 6715 Esbjerg, D… A.F Heidemannsvej 20, 9800 Hj… 322.    10123 Drivi…</span></span>
-<span id="cb452-24"><a href="sec-maps.html#cb452-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4       1     5 Stormgade 157, 6715 Esbjerg, D… Nyholmvej 20, 7500 Holstebro,… 114.     6009 Drivi…</span></span>
-<span id="cb452-25"><a href="sec-maps.html#cb452-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5       2     3 Golfvej 5, 7400 Herning, Denma… Slotsarkaderne 26, 3400 Hille… 333.    10693 Drivi…</span></span>
-<span id="cb452-26"><a href="sec-maps.html#cb452-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6       2     4 Golfvej 5, 7400 Herning, Denma… A.F Heidemannsvej 20, 9800 Hj… 187.     8052 Drivi…</span></span>
-<span id="cb452-27"><a href="sec-maps.html#cb452-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7       2     5 Golfvej 5, 7400 Herning, Denma… Nyholmvej 20, 7500 Holstebro,…  44.2    1726 Drivi…</span></span>
-<span id="cb452-28"><a href="sec-maps.html#cb452-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8       3     4 Slotsarkaderne 26, 3400 Hiller… A.F Heidemannsvej 20, 9800 Hj… 397.    17195 Drivi…</span></span>
-<span id="cb452-29"><a href="sec-maps.html#cb452-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9       3     5 Slotsarkaderne 26, 3400 Hiller… Nyholmvej 20, 7500 Holstebro,… 375.    12252 Drivi…</span></span>
-<span id="cb452-30"><a href="sec-maps.html#cb452-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10       4     5 A.F Heidemannsvej 20, 9800 Hjø… Nyholmvej 20, 7500 Holstebro,… 190.     8302 Drivi…</span></span></code></pre></div>
+<span id="cb452-18"><a href="sec-maps.html#cb452-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 7</span></span>
+<span id="cb452-19"><a href="sec-maps.html#cb452-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    id_from id_to from                                         to                    km seconds mode </span></span>
+<span id="cb452-20"><a href="sec-maps.html#cb452-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      &lt;int&gt; &lt;int&gt; &lt;chr&gt;                                        &lt;chr&gt;              &lt;dbl&gt;   &lt;int&gt; &lt;chr&gt;</span></span>
+<span id="cb452-21"><a href="sec-maps.html#cb452-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1       1     2 Stormgade 157, 6715 Esbjerg, Denmark         Golfvej 5, 7400 H…  87.7    4595 Driv…</span></span>
+<span id="cb452-22"><a href="sec-maps.html#cb452-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2       1     3 Stormgade 157, 6715 Esbjerg, Denmark         Slotsarkaderne 26… 322.    10422 Driv…</span></span>
+<span id="cb452-23"><a href="sec-maps.html#cb452-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3       1     4 Stormgade 157, 6715 Esbjerg, Denmark         A.F Heidemannsvej… 322.     9960 Driv…</span></span>
+<span id="cb452-24"><a href="sec-maps.html#cb452-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4       1     5 Stormgade 157, 6715 Esbjerg, Denmark         Nyholmvej 20, 750… 123.     5788 Driv…</span></span>
+<span id="cb452-25"><a href="sec-maps.html#cb452-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5       2     3 Golfvej 5, 7400 Herning, Denmark             Slotsarkaderne 26… 334.    10640 Driv…</span></span>
+<span id="cb452-26"><a href="sec-maps.html#cb452-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6       2     4 Golfvej 5, 7400 Herning, Denmark             A.F Heidemannsvej… 187.     7926 Driv…</span></span>
+<span id="cb452-27"><a href="sec-maps.html#cb452-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7       2     5 Golfvej 5, 7400 Herning, Denmark             Nyholmvej 20, 750…  44.2    1744 Driv…</span></span>
+<span id="cb452-28"><a href="sec-maps.html#cb452-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8       3     4 Slotsarkaderne 26, 3400 Hillerød, Denmark    A.F Heidemannsvej… 397.    17197 Driv…</span></span>
+<span id="cb452-29"><a href="sec-maps.html#cb452-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9       3     5 Slotsarkaderne 26, 3400 Hillerød, Denmark    Nyholmvej 20, 750… 375.    12118 Driv…</span></span>
+<span id="cb452-30"><a href="sec-maps.html#cb452-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10       4     5 A.F Heidemannsvej 20, 9800 Hjørring, Denmark Nyholmvej 20, 750… 194.     8237 Driv…</span></span></code></pre></div>
 <p>Note in general results from the API services are based on a set of assumptions and hence the results from different services may not be the same. You may use the different services to check if the distances are correct, by checking the results from different services:</p>
 <div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="sec-maps.html#cb453-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Difference in minutes</span></span>
 <span id="cb453-2"><a href="sec-maps.html#cb453-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span>(<span class="fu">as_dist_matrix</span>(datDistGoo, <span class="st">&quot;seconds&quot;</span>) <span class="sc">-</span> <span class="fu">as_dist_matrix</span>(datDistBing, <span class="st">&quot;seconds&quot;</span>))<span class="sc">/</span><span class="dv">60</span></span>
-<span id="cb453-3"><a href="sec-maps.html#cb453-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       [,1]  [,2] [,3]  [,4]  [,5]</span></span>
-<span id="cb453-4"><a href="sec-maps.html#cb453-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]  0.00  5.78 19.9 19.13 11.03</span></span>
-<span id="cb453-5"><a href="sec-maps.html#cb453-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]  5.78  0.00 22.5  1.43  2.55</span></span>
-<span id="cb453-6"><a href="sec-maps.html#cb453-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 19.92 22.52  0.0  1.80 22.97</span></span>
-<span id="cb453-7"><a href="sec-maps.html#cb453-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 19.13  1.43  1.8  0.00  7.05</span></span>
-<span id="cb453-8"><a href="sec-maps.html#cb453-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 11.03  2.55 23.0  7.05  0.00</span></span>
+<span id="cb453-3"><a href="sec-maps.html#cb453-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       [,1]   [,2]  [,3]  [,4]   [,5]</span></span>
+<span id="cb453-4"><a href="sec-maps.html#cb453-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]  0.00   3.13  21.6  16.1   8.22</span></span>
+<span id="cb453-5"><a href="sec-maps.html#cb453-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]  3.13   0.00 110.4  91.5 172.42</span></span>
+<span id="cb453-6"><a href="sec-maps.html#cb453-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 21.58 110.40   0.0 158.1 171.78</span></span>
+<span id="cb453-7"><a href="sec-maps.html#cb453-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 16.05  91.48 158.1   0.0   9.70</span></span>
+<span id="cb453-8"><a href="sec-maps.html#cb453-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,]  8.22 172.42 171.8   9.7   0.00</span></span>
 <span id="cb453-9"><a href="sec-maps.html#cb453-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Km from 1 to 3</span></span>
 <span id="cb453-10"><a href="sec-maps.html#cb453-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mapdist</span>(<span class="at">from =</span> <span class="st">&quot;Stormgade 157, 6715 Esbjerg, Denmark&quot;</span>, </span>
 <span id="cb453-11"><a href="sec-maps.html#cb453-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">to =</span> <span class="st">&quot;Slotsarkaderne 26, 3400 Hillerød, Denmark&quot;</span>)</span>
-<span id="cb453-12"><a href="sec-maps.html#cb453-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 9</span></span>
-<span id="cb453-13"><a href="sec-maps.html#cb453-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   from                    to                              m    km miles seconds minutes hours mode  </span></span>
-<span id="cb453-14"><a href="sec-maps.html#cb453-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                   &lt;chr&gt;                       &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; </span></span>
-<span id="cb453-15"><a href="sec-maps.html#cb453-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Es… Slotsarkaderne 26, 3400 H… 321103  321.  200.   11751    196.  3.26 drivi…</span></span>
+<span id="cb453-12"><a href="sec-maps.html#cb453-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 9</span></span>
+<span id="cb453-13"><a href="sec-maps.html#cb453-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   from                                 to                  m    km miles seconds minutes hours mode </span></span>
+<span id="cb453-14"><a href="sec-maps.html#cb453-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                                &lt;chr&gt;           &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
+<span id="cb453-15"><a href="sec-maps.html#cb453-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjerg, Denmark Slotsarkadern… 321174  321.  200.   11717    195.  3.25 driv…</span></span>
 <span id="cb453-16"><a href="sec-maps.html#cb453-16" aria-hidden="true" tabindex="-1"></a><span class="fu">bing_mapdist</span>(<span class="at">from =</span> <span class="st">&quot;Stormgade 157, 6715 Esbjerg, Denmark&quot;</span>, </span>
 <span id="cb453-17"><a href="sec-maps.html#cb453-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">to =</span> <span class="st">&quot;Slotsarkaderne 26, 3400 Hillerød, Denmark&quot;</span>)</span>
-<span id="cb453-18"><a href="sec-maps.html#cb453-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 5</span></span>
-<span id="cb453-19"><a href="sec-maps.html#cb453-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   from                                 to                                          km seconds mode  </span></span>
-<span id="cb453-20"><a href="sec-maps.html#cb453-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                                &lt;chr&gt;                                    &lt;dbl&gt;   &lt;int&gt; &lt;chr&gt; </span></span>
-<span id="cb453-21"><a href="sec-maps.html#cb453-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjerg, Denmark Slotsarkaderne 26, 3400 Hillerød, Denma…  322.   10556 Drivi…</span></span></code></pre></div>
+<span id="cb453-18"><a href="sec-maps.html#cb453-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 5</span></span>
+<span id="cb453-19"><a href="sec-maps.html#cb453-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   from                                 to                                           km seconds mode </span></span>
+<span id="cb453-20"><a href="sec-maps.html#cb453-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                                &lt;chr&gt;                                     &lt;dbl&gt;   &lt;int&gt; &lt;chr&gt;</span></span>
+<span id="cb453-21"><a href="sec-maps.html#cb453-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Stormgade 157, 6715 Esbjerg, Denmark Slotsarkaderne 26, 3400 Hillerød, Denmark  322.   10422 Driv…</span></span></code></pre></div>
 </div>
 </div>
-<div id="geocoding-and-reverse-geocoding" class="section level2" number="11.4">
-<h2><span class="header-section-number">11.4</span> Geocoding and reverse geocoding</h2>
-<div id="using-google-maps-1" class="section level3" number="11.4.1">
-<h3><span class="header-section-number">11.4.1</span> Using Google maps</h3>
+<div id="geocoding-and-reverse-geocoding" class="section level2" number="19.4">
+<h2><span class="header-section-number">19.4</span> Geocoding and reverse geocoding</h2>
+<div id="using-google-maps-1" class="section level3" number="19.4.1">
+<h3><span class="header-section-number">19.4.1</span> Using Google maps</h3>
 <p>Remember to enable the <em>Geocoding API</em>. To get the coordinates of an address we use the <code>geocode</code> function:</p>
 <div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="sec-maps.html#cb454-1" aria-hidden="true" tabindex="-1"></a><span class="fu">geocode</span>(<span class="st">&quot;Stormgade 157, 6715 Esbjerg, Denmark&quot;</span>)</span>
-<span id="cb454-2"><a href="sec-maps.html#cb454-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
+<span id="cb454-2"><a href="sec-maps.html#cb454-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
 <span id="cb454-3"><a href="sec-maps.html#cb454-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     lon   lat</span></span>
 <span id="cb454-4"><a href="sec-maps.html#cb454-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span id="cb454-5"><a href="sec-maps.html#cb454-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  8.46  55.5</span></span></code></pre></div>
@@ -662,7 +729,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="sec-maps.html#cb455-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
 <span id="cb455-2"><a href="sec-maps.html#cb455-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_geocode</span>(Address)</span>
 <span id="cb455-3"><a href="sec-maps.html#cb455-3" aria-hidden="true" tabindex="-1"></a>dat</span>
-<span id="cb455-4"><a href="sec-maps.html#cb455-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 5</span></span>
+<span id="cb455-4"><a href="sec-maps.html#cb455-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 5</span></span>
 <span id="cb455-5"><a href="sec-maps.html#cb455-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Id Shop            Address                                        lon   lat</span></span>
 <span id="cb455-6"><a href="sec-maps.html#cb455-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;                                        &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span id="cb455-7"><a href="sec-maps.html#cb455-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 Bilka Esbjerg   Stormgade 157, 6715 Esbjerg, Denmark          8.46  55.5</span></span>
@@ -680,17 +747,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb457-4"><a href="sec-maps.html#cb457-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">revgeocode</span>(<span class="fu">c</span>(<span class="at">lon =</span> lon[i], <span class="at">lat =</span> lat[i]))</span>
 <span id="cb457-5"><a href="sec-maps.html#cb457-5" aria-hidden="true" tabindex="-1"></a>             }))</span>
 <span id="cb457-6"><a href="sec-maps.html#cb457-6" aria-hidden="true" tabindex="-1"></a>dat</span>
-<span id="cb457-7"><a href="sec-maps.html#cb457-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 6</span></span>
-<span id="cb457-8"><a href="sec-maps.html#cb457-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Id Shop         Address                            lon   lat AddressGeoGoo                     </span></span>
-<span id="cb457-9"><a href="sec-maps.html#cb457-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;                            &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                             </span></span>
-<span id="cb457-10"><a href="sec-maps.html#cb457-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 Bilka Esbje… Stormgade 157, 6715 Esbjerg, De…  8.46  55.5 Stormgade 157, 6715 Esbjerg, Denm…</span></span>
-<span id="cb457-11"><a href="sec-maps.html#cb457-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 Bilka Herni… Golfvej 5, 7400 Herning, Denmark  9.00  56.1 Golfvej 5, 7400 Herning, Denmark  </span></span>
-<span id="cb457-12"><a href="sec-maps.html#cb457-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3 Bilka Hille… Slotsarkaderne 26, 3400 Hillerø… 12.3   55.9 Slotsarkaderne 26, 3400 Hillerød,…</span></span>
-<span id="cb457-13"><a href="sec-maps.html#cb457-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     4 Bilka Hjørr… A.F Heidemannsvej 20, 9800 Hjør… 10.0   57.4 A F Heidemanns Vej 20, 9800 Hjørr…</span></span>
-<span id="cb457-14"><a href="sec-maps.html#cb457-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     5 Bilka Holst… Nyholmvej 20, 7500 Holstebro, D…  8.62  56.4 Nyholmvej 20, 7500 Holstebro, Den…</span></span></code></pre></div>
+<span id="cb457-7"><a href="sec-maps.html#cb457-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 6</span></span>
+<span id="cb457-8"><a href="sec-maps.html#cb457-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Id Shop            Address                                        lon   lat AddressGeoGoo      </span></span>
+<span id="cb457-9"><a href="sec-maps.html#cb457-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;                                        &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;              </span></span>
+<span id="cb457-10"><a href="sec-maps.html#cb457-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 Bilka Esbjerg   Stormgade 157, 6715 Esbjerg, Denmark          8.46  55.5 Stormgade 157, 671…</span></span>
+<span id="cb457-11"><a href="sec-maps.html#cb457-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 Bilka Herning   Golfvej 5, 7400 Herning, Denmark              9.00  56.1 Golfvej 5, 7400 He…</span></span>
+<span id="cb457-12"><a href="sec-maps.html#cb457-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3 Bilka Hillerød  Slotsarkaderne 26, 3400 Hillerød, Denmark    12.3   55.9 Slotsarkaderne 26,…</span></span>
+<span id="cb457-13"><a href="sec-maps.html#cb457-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     4 Bilka Hjørring  A.F Heidemannsvej 20, 9800 Hjørring, Denmark 10.0   57.4 A F Heidemanns Vej…</span></span>
+<span id="cb457-14"><a href="sec-maps.html#cb457-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     5 Bilka Holstebro Nyholmvej 20, 7500 Holstebro, Denmark         8.62  56.4 Nyholmvej 20, 7500…</span></span></code></pre></div>
 </div>
-<div id="use-bing-maps" class="section level3" number="11.4.2">
-<h3><span class="header-section-number">11.4.2</span> Use Bing Maps</h3>
+<div id="use-bing-maps" class="section level3" number="19.4.2">
+<h3><span class="header-section-number">19.4.2</span> Use Bing Maps</h3>
 <p>To get the coordinates of an address we define the <code>bing_geocode</code> function:</p>
 <div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="sec-maps.html#cb458-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Geocode addresses</span></span>
 <span id="cb458-2"><a href="sec-maps.html#cb458-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
@@ -710,12 +777,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb458-16"><a href="sec-maps.html#cb458-16" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(dat)</span>
 <span id="cb458-17"><a href="sec-maps.html#cb458-17" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb458-18"><a href="sec-maps.html#cb458-18" aria-hidden="true" tabindex="-1"></a><span class="fu">bing_geocode</span>(<span class="st">&quot;A.F. Heidemannsvej 20, 9800 Hjørring, Denmark&quot;</span>)</span>
-<span id="cb458-19"><a href="sec-maps.html#cb458-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 2</span></span>
+<span id="cb458-19"><a href="sec-maps.html#cb458-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
 <span id="cb458-20"><a href="sec-maps.html#cb458-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     lon   lat</span></span>
 <span id="cb458-21"><a href="sec-maps.html#cb458-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span id="cb458-22"><a href="sec-maps.html#cb458-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  10.0  57.4</span></span>
 <span id="cb458-23"><a href="sec-maps.html#cb458-23" aria-hidden="true" tabindex="-1"></a><span class="fu">bing_geocode</span>(dat<span class="sc">$</span>Address)</span>
-<span id="cb458-24"><a href="sec-maps.html#cb458-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 2</span></span>
+<span id="cb458-24"><a href="sec-maps.html#cb458-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 2</span></span>
 <span id="cb458-25"><a href="sec-maps.html#cb458-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     lon   lat</span></span>
 <span id="cb458-26"><a href="sec-maps.html#cb458-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span id="cb458-27"><a href="sec-maps.html#cb458-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  8.46  55.5</span></span>
@@ -734,14 +801,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb459-8"><a href="sec-maps.html#cb459-8" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
 <span id="cb459-9"><a href="sec-maps.html#cb459-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_bing_geocode</span>(Address)</span>
 <span id="cb459-10"><a href="sec-maps.html#cb459-10" aria-hidden="true" tabindex="-1"></a>dat</span>
-<span id="cb459-11"><a href="sec-maps.html#cb459-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 6</span></span>
-<span id="cb459-12"><a href="sec-maps.html#cb459-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Id Shop         Address                          AddressGeoGoo                        lon   lat</span></span>
-<span id="cb459-13"><a href="sec-maps.html#cb459-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;                            &lt;chr&gt;                              &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb459-14"><a href="sec-maps.html#cb459-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 Bilka Esbje… Stormgade 157, 6715 Esbjerg, De… Stormgade 157, 6715 Esbjerg, Denm…  8.46  55.5</span></span>
-<span id="cb459-15"><a href="sec-maps.html#cb459-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 Bilka Herni… Golfvej 5, 7400 Herning, Denmark Golfvej 5, 7400 Herning, Denmark    9.00  56.1</span></span>
-<span id="cb459-16"><a href="sec-maps.html#cb459-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3 Bilka Hille… Slotsarkaderne 26, 3400 Hillerø… Slotsarkaderne 26, 3400 Hillerød,… 12.3   55.9</span></span>
-<span id="cb459-17"><a href="sec-maps.html#cb459-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     4 Bilka Hjørr… A.F Heidemannsvej 20, 9800 Hjør… A F Heidemanns Vej 20, 9800 Hjørr… 10.0   57.4</span></span>
-<span id="cb459-18"><a href="sec-maps.html#cb459-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     5 Bilka Holst… Nyholmvej 20, 7500 Holstebro, D… Nyholmvej 20, 7500 Holstebro, Den…  8.62  56.4</span></span></code></pre></div>
+<span id="cb459-11"><a href="sec-maps.html#cb459-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 6</span></span>
+<span id="cb459-12"><a href="sec-maps.html#cb459-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Id Shop            Address                                      AddressGeoGoo         lon   lat</span></span>
+<span id="cb459-13"><a href="sec-maps.html#cb459-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;                                        &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb459-14"><a href="sec-maps.html#cb459-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 Bilka Esbjerg   Stormgade 157, 6715 Esbjerg, Denmark         Stormgade 157, 671…  8.46  55.5</span></span>
+<span id="cb459-15"><a href="sec-maps.html#cb459-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 Bilka Herning   Golfvej 5, 7400 Herning, Denmark             Golfvej 5, 7400 He…  9.00  56.1</span></span>
+<span id="cb459-16"><a href="sec-maps.html#cb459-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3 Bilka Hillerød  Slotsarkaderne 26, 3400 Hillerød, Denmark    Slotsarkaderne 26,… 12.3   55.9</span></span>
+<span id="cb459-17"><a href="sec-maps.html#cb459-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     4 Bilka Hjørring  A.F Heidemannsvej 20, 9800 Hjørring, Denmark A F Heidemanns Vej… 10.0   57.4</span></span>
+<span id="cb459-18"><a href="sec-maps.html#cb459-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     5 Bilka Holstebro Nyholmvej 20, 7500 Holstebro, Denmark        Nyholmvej 20, 7500…  8.62  56.4</span></span></code></pre></div>
 <p>To reverse geocode use the <code>bing_revgeocode</code> function:</p>
 <div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="sec-maps.html#cb460-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Reverse geocode coordinates</span></span>
 <span id="cb460-2"><a href="sec-maps.html#cb460-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
@@ -767,18 +834,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb461-4"><a href="sec-maps.html#cb461-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">bing_revgeocode</span>(<span class="fu">c</span>(<span class="at">lon =</span> lon[i], <span class="at">lat =</span> lat[i]))</span>
 <span id="cb461-5"><a href="sec-maps.html#cb461-5" aria-hidden="true" tabindex="-1"></a>             }))</span>
 <span id="cb461-6"><a href="sec-maps.html#cb461-6" aria-hidden="true" tabindex="-1"></a>dat </span>
-<span id="cb461-7"><a href="sec-maps.html#cb461-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 7</span></span>
-<span id="cb461-8"><a href="sec-maps.html#cb461-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Id Shop      Address              AddressGeoGoo              lon   lat AddressGeoBing          </span></span>
-<span id="cb461-9"><a href="sec-maps.html#cb461-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;                &lt;chr&gt;                    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                   </span></span>
-<span id="cb461-10"><a href="sec-maps.html#cb461-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 Bilka Es… Stormgade 157, 6715… Stormgade 157, 6715 Esb…  8.46  55.5 Stormgade 157, 6715 Esb…</span></span>
-<span id="cb461-11"><a href="sec-maps.html#cb461-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 Bilka He… Golfvej 5, 7400 Her… Golfvej 5, 7400 Herning…  9.00  56.1 Golfvej 5, 7400 Herning…</span></span>
-<span id="cb461-12"><a href="sec-maps.html#cb461-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3 Bilka Hi… Slotsarkaderne 26, … Slotsarkaderne 26, 3400… 12.3   55.9 Nordstensvej, 3400 Hill…</span></span>
-<span id="cb461-13"><a href="sec-maps.html#cb461-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     4 Bilka Hj… A.F Heidemannsvej 2… A F Heidemanns Vej 20, … 10.0   57.4 A.F. Heidemanns Vej 20,…</span></span>
-<span id="cb461-14"><a href="sec-maps.html#cb461-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     5 Bilka Ho… Nyholmvej 20, 7500 … Nyholmvej 20, 7500 Hols…  8.62  56.4 Nyholmvej 20, 7500 Hols…</span></span></code></pre></div>
+<span id="cb461-7"><a href="sec-maps.html#cb461-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 7</span></span>
+<span id="cb461-8"><a href="sec-maps.html#cb461-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Id Shop            Address            AddressGeoGoo            lon   lat AddressGeoBing        </span></span>
+<span id="cb461-9"><a href="sec-maps.html#cb461-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;              &lt;chr&gt;                  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                 </span></span>
+<span id="cb461-10"><a href="sec-maps.html#cb461-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 Bilka Esbjerg   Stormgade 157, 67… Stormgade 157, 6715 E…  8.46  55.5 Stormgade 157, 6715 E…</span></span>
+<span id="cb461-11"><a href="sec-maps.html#cb461-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 Bilka Herning   Golfvej 5, 7400 H… Golfvej 5, 7400 Herni…  9.00  56.1 Golfvej 5, 7400 Herni…</span></span>
+<span id="cb461-12"><a href="sec-maps.html#cb461-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3 Bilka Hillerød  Slotsarkaderne 26… Slotsarkaderne 26, 34… 12.3   55.9 SLOTSARKADERNE 26, 34…</span></span>
+<span id="cb461-13"><a href="sec-maps.html#cb461-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     4 Bilka Hjørring  A.F Heidemannsvej… A F Heidemanns Vej 20… 10.0   57.4 A.F. Heidemanns Vej 2…</span></span>
+<span id="cb461-14"><a href="sec-maps.html#cb461-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     5 Bilka Holstebro Nyholmvej 20, 750… Nyholmvej 20, 7500 Ho…  8.62  56.4 Nyholmvej 20, 7500 Ho…</span></span></code></pre></div>
 </div>
 </div>
-<div id="adding-markers-and-routes-to-a-map" class="section level2" number="11.5">
-<h2><span class="header-section-number">11.5</span> Adding markers and routes to a map</h2>
+<div id="adding-markers-and-routes-to-a-map" class="section level2" number="19.5">
+<h2><span class="header-section-number">19.5</span> Adding markers and routes to a map</h2>
 <p><a href="http://leafletjs.com">Leaflet</a> is an open-source JavaScript library for interactive maps. It’s used by websites ranging from The New York Times and The Washington Post to GitHub and Flickr, as well as GIS specialists like OpenStreetMap, Mapbox, and CartoDB. The <a href="https://rstudio.github.io/leaflet/">leaflet</a> package makes it easy to create Leaflet maps from R.</p>
 <p>Note Leaflet is open-source and free so you do not need an API key for making maps. If you would like to use Google maps instead then have a look at the <a href="http://symbolixau.github.io/googleway/">googleway</a> package instead.</p>
 <p>First let us create a map with two base layers</p>
@@ -796,8 +863,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb462-12"><a href="sec-maps.html#cb462-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">layersControlOptions</span>(<span class="at">collapsed =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb462-13"><a href="sec-maps.html#cb462-13" aria-hidden="true" tabindex="-1"></a>   ) </span>
 <span id="cb462-14"><a href="sec-maps.html#cb462-14" aria-hidden="true" tabindex="-1"></a> m</span></code></pre></div>
-<div id="htmlwidget-7e36a9b3b74c705193ae" style="width:672px;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7e36a9b3b74c705193ae">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Map",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satelite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["CartoDB.PositronOnlyLabels",null,"Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Map","Satelite"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]}],"setView":[[56.2,10.2],7,[]]},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-188e4459e0fdd10ea921" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-188e4459e0fdd10ea921">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Map",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satelite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["CartoDB.PositronOnlyLabels",null,"Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Map","Satelite"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]}],"setView":[[56.2,10.2],7,[]]},"evals":[],"jsHooks":[]}</script>
 <p>Next, let us add the places:</p>
 <div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="sec-maps.html#cb463-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
 <span id="cb463-2"><a href="sec-maps.html#cb463-2" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span>Id,              <span class="sc">~</span>Shop,                                        <span class="sc">~</span>Address,</span>
@@ -811,14 +878,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb463-10"><a href="sec-maps.html#cb463-10" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> m <span class="sc">%&gt;%</span> </span>
 <span id="cb463-11"><a href="sec-maps.html#cb463-11" aria-hidden="true" tabindex="-1"></a>   <span class="fu">addMarkers</span>(<span class="sc">~</span>lon, <span class="sc">~</span>lat, <span class="at">popup =</span> <span class="sc">~</span>Address, <span class="at">label =</span> <span class="sc">~</span><span class="fu">str_c</span>(Id, <span class="st">&quot;  - &quot;</span>, Shop), <span class="at">data =</span> dat)</span>
 <span id="cb463-12"><a href="sec-maps.html#cb463-12" aria-hidden="true" tabindex="-1"></a>m</span></code></pre></div>
-<div id="htmlwidget-996162a5055a71c8640d" style="width:672px;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-996162a5055a71c8640d">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Map",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satelite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["CartoDB.PositronOnlyLabels",null,"Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Map","Satelite"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[55.5107577,56.1357775,55.9290561,57.4446261,56.3779116],[8.4559613,9.0047956,12.297778,10.0031376,8.622241],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Stormgade 157, 6715 Esbjerg, Denmark","Golfvej 5, 7400 Herning, Denmark","Slotsarkaderne 26, 3400 Hillerød, Denmark","A.F Heidemannsvej 20, 9800 Hjørring, Denmark","Nyholmvej 20, 7500 Holstebro, Denmark"],null,null,null,["1  - Bilka Esbjerg","2  - Bilka Herning","3  - Bilka Hillerød","4  - Bilka Hjørring","5  - Bilka Holstebro"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[56.2,10.2],7,[]],"limits":{"lat":[55.5107577,57.4446261],"lng":[8.4559613,12.297778]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0b52d7cf9646d3984373" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0b52d7cf9646d3984373">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Map",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satelite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["CartoDB.PositronOnlyLabels",null,"Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Map","Satelite"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[55.5107577,56.1357775,55.9290561,57.4440055,56.3779116],[8.4559613,9.0047956,12.297778,10.0034954,8.622241],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Stormgade 157, 6715 Esbjerg, Denmark","Golfvej 5, 7400 Herning, Denmark","Slotsarkaderne 26, 3400 Hillerød, Denmark","A.F Heidemannsvej 20, 9800 Hjørring, Denmark","Nyholmvej 20, 7500 Holstebro, Denmark"],null,null,null,["1  - Bilka Esbjerg","2  - Bilka Herning","3  - Bilka Hillerød","4  - Bilka Hjørring","5  - Bilka Holstebro"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[56.2,10.2],7,[]],"limits":{"lat":[55.5107577,57.4440055],"lng":[8.4559613,12.297778]}},"evals":[],"jsHooks":[]}</script>
 <p>To add a line between a set of points use the <code>addPolylines</code> function:</p>
 <div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="sec-maps.html#cb464-1" aria-hidden="true" tabindex="-1"></a>routeIds <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
 <span id="cb464-2"><a href="sec-maps.html#cb464-2" aria-hidden="true" tabindex="-1"></a>route <span class="ot">&lt;-</span> dat[routeIds,] </span>
 <span id="cb464-3"><a href="sec-maps.html#cb464-3" aria-hidden="true" tabindex="-1"></a>m <span class="sc">%&gt;%</span> <span class="fu">addPolylines</span>(<span class="at">lng =</span> <span class="sc">~</span>lon, <span class="at">lat =</span> <span class="sc">~</span>lat, <span class="at">data =</span> route, <span class="at">weight =</span> <span class="dv">2</span>, <span class="at">label =</span> <span class="st">&quot;Route 1&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-ff1174f182d4c35e10bf" style="width:672px;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ff1174f182d4c35e10bf">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Map",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satelite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["CartoDB.PositronOnlyLabels",null,"Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Map","Satelite"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[55.5107577,56.1357775,55.9290561,57.4446261,56.3779116],[8.4559613,9.0047956,12.297778,10.0031376,8.622241],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Stormgade 157, 6715 Esbjerg, Denmark","Golfvej 5, 7400 Herning, Denmark","Slotsarkaderne 26, 3400 Hillerød, Denmark","A.F Heidemannsvej 20, 9800 Hjørring, Denmark","Nyholmvej 20, 7500 Holstebro, Denmark"],null,null,null,["1  - Bilka Esbjerg","2  - Bilka Herning","3  - Bilka Hillerød","4  - Bilka Hjørring","5  - Bilka Holstebro"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[9.0047956,8.622241,8.4559613,9.0047956],"lat":[56.1357775,56.3779116,55.5107577,56.1357775]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":2,"opacity":0.5,"fill":false,"fillColor":"#03F","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Route 1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[56.2,10.2],7,[]],"limits":{"lat":[55.5107577,57.4446261],"lng":[8.4559613,12.297778]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-626b8a13b3a33a44411a" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-626b8a13b3a33a44411a">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Map",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satelite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["CartoDB.PositronOnlyLabels",null,"Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Map","Satelite"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[55.5107577,56.1357775,55.9290561,57.4440055,56.3779116],[8.4559613,9.0047956,12.297778,10.0034954,8.622241],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Stormgade 157, 6715 Esbjerg, Denmark","Golfvej 5, 7400 Herning, Denmark","Slotsarkaderne 26, 3400 Hillerød, Denmark","A.F Heidemannsvej 20, 9800 Hjørring, Denmark","Nyholmvej 20, 7500 Holstebro, Denmark"],null,null,null,["1  - Bilka Esbjerg","2  - Bilka Herning","3  - Bilka Hillerød","4  - Bilka Hjørring","5  - Bilka Holstebro"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[9.0047956,8.622241,8.4559613,9.0047956],"lat":[56.1357775,56.3779116,55.5107577,56.1357775]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":2,"opacity":0.5,"fill":false,"fillColor":"#03F","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Route 1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[56.2,10.2],7,[]],"limits":{"lat":[55.5107577,57.4440055],"lng":[8.4559613,12.297778]}},"evals":[],"jsHooks":[]}</script>
 <p>A more advanced setup is to use the <code>addFlows</code> function from the <a href="https://github.com/rte-antares-rpackage/leaflet.minicharts">leaflet.minicharts</a> package. First let us define some lines:</p>
 <div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="sec-maps.html#cb465-1" aria-hidden="true" tabindex="-1"></a>datLines <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">FromId =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>), <span class="at">ToId =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>))</span>
 <span id="cb465-2"><a href="sec-maps.html#cb465-2" aria-hidden="true" tabindex="-1"></a>datLines <span class="ot">&lt;-</span> <span class="fu">left_join</span>(datLines, dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Shop, <span class="sc">-</span>Address), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;FromId&quot;</span> <span class="ot">=</span> <span class="st">&quot;Id&quot;</span>)) <span class="sc">%&gt;%</span> </span>
@@ -826,7 +893,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb465-4"><a href="sec-maps.html#cb465-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">left_join</span>(dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Shop, <span class="sc">-</span>Address), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;ToId&quot;</span> <span class="ot">=</span> <span class="st">&quot;Id&quot;</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb465-5"><a href="sec-maps.html#cb465-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">rename</span>(<span class="st">&quot;ToLat&quot;</span> <span class="ot">=</span> <span class="st">&quot;lat&quot;</span>, <span class="st">&quot;ToLon&quot;</span> <span class="ot">=</span> <span class="st">&quot;lon&quot;</span>)</span>
 <span id="cb465-6"><a href="sec-maps.html#cb465-6" aria-hidden="true" tabindex="-1"></a>datLines</span>
-<span id="cb465-7"><a href="sec-maps.html#cb465-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 6</span></span>
+<span id="cb465-7"><a href="sec-maps.html#cb465-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 6</span></span>
 <span id="cb465-8"><a href="sec-maps.html#cb465-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   FromId  ToId FromLon FromLat ToLon ToLat</span></span>
 <span id="cb465-9"><a href="sec-maps.html#cb465-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span id="cb465-10"><a href="sec-maps.html#cb465-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      2     5    9.00    56.1  8.62  56.4</span></span>
@@ -839,8 +906,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="sec-maps.html#cb466-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet.minicharts)</span>
 <span id="cb466-2"><a href="sec-maps.html#cb466-2" aria-hidden="true" tabindex="-1"></a>m <span class="sc">%&gt;%</span> <span class="fu">addFlows</span>(datLines<span class="sc">$</span>FromLon, datLines<span class="sc">$</span>FromLat, datLines<span class="sc">$</span>ToLon, datLines<span class="sc">$</span>ToLat,</span>
 <span id="cb466-3"><a href="sec-maps.html#cb466-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">flow =</span> <span class="dv">1</span>, <span class="at">maxFlow =</span> <span class="dv">20</span>, <span class="at">opacity =</span> <span class="fl">0.5</span>, <span class="at">popup =</span> <span class="fu">popupArgs</span>(<span class="at">noPopup =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<div id="htmlwidget-8f2b959e52ffaa7f707f" style="width:672px;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8f2b959e52ffaa7f707f">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Map",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satelite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["CartoDB.PositronOnlyLabels",null,"Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Map","Satelite"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[55.5107577,56.1357775,55.9290561,57.4446261,56.3779116],[8.4559613,9.0047956,12.297778,10.0031376,8.622241],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Stormgade 157, 6715 Esbjerg, Denmark","Golfvej 5, 7400 Herning, Denmark","Slotsarkaderne 26, 3400 Hillerød, Denmark","A.F Heidemannsvej 20, 9800 Hjørring, Denmark","Nyholmvej 20, 7500 Holstebro, Denmark"],null,null,null,["1  - Bilka Esbjerg","2  - Bilka Herning","3  - Bilka Hillerød","4  - Bilka Hjørring","5  - Bilka Holstebro"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addFlows","args":[[{"dyn":{},"static":{"color":"blue","value":1,"maxValue":20,"minThickness":1,"maxThickness":20,"opacity":0.5,"layerId":"_flow (10.0031376,57.4446261) -> (12.297778,55.9290561)","lat0":57.4446261,"lat1":55.9290561,"lng0":10.0031376,"lng1":12.297778},"timeSteps":1},{"dyn":{},"static":{"color":"blue","value":1,"maxValue":20,"minThickness":1,"maxThickness":20,"opacity":0.5,"layerId":"_flow (12.297778,55.9290561) -> (9.0047956,56.1357775)","lat0":55.9290561,"lat1":56.1357775,"lng0":12.297778,"lng1":9.0047956},"timeSteps":1},{"dyn":{},"static":{"color":"blue","value":1,"maxValue":20,"minThickness":1,"maxThickness":20,"opacity":0.5,"layerId":"_flow (8.4559613,55.5107577) -> (9.0047956,56.1357775)","lat0":55.5107577,"lat1":56.1357775,"lng0":8.4559613,"lng1":9.0047956},"timeSteps":1},{"dyn":{},"static":{"color":"blue","value":1,"maxValue":20,"minThickness":1,"maxThickness":20,"opacity":0.5,"layerId":"_flow (8.622241,56.3779116) -> (8.4559613,55.5107577)","lat0":56.3779116,"lat1":55.5107577,"lng0":8.622241,"lng1":8.4559613},"timeSteps":1},{"dyn":{},"static":{"color":"blue","value":1,"maxValue":20,"minThickness":1,"maxThickness":20,"opacity":0.5,"layerId":"_flow (9.0047956,56.1357775) -> (10.0031376,57.4446261)","lat0":56.1357775,"lat1":57.4446261,"lng0":9.0047956,"lng1":10.0031376},"timeSteps":1},{"dyn":{},"static":{"color":"blue","value":1,"maxValue":20,"minThickness":1,"maxThickness":20,"opacity":0.5,"layerId":"_flow (9.0047956,56.1357775) -> (8.622241,56.3779116)","lat0":56.1357775,"lat1":56.3779116,"lng0":9.0047956,"lng1":8.622241},"timeSteps":1}],["1"],null,{"showTitle":true,"showValues":true,"labels":[],"supValues":null,"supLabels":[],"html":null,"noPopup":true,"digits":null}]}],"setView":[[56.2,10.2],7,[]],"limits":{"lat":[55.5107577,57.4446261],"lng":[8.4559613,12.297778]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7b447cf21eae8b3322d3" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7b447cf21eae8b3322d3">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Map",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satelite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["CartoDB.PositronOnlyLabels",null,"Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Map","Satelite"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[55.5107577,56.1357775,55.9290561,57.4440055,56.3779116],[8.4559613,9.0047956,12.297778,10.0034954,8.622241],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Stormgade 157, 6715 Esbjerg, Denmark","Golfvej 5, 7400 Herning, Denmark","Slotsarkaderne 26, 3400 Hillerød, Denmark","A.F Heidemannsvej 20, 9800 Hjørring, Denmark","Nyholmvej 20, 7500 Holstebro, Denmark"],null,null,null,["1  - Bilka Esbjerg","2  - Bilka Herning","3  - Bilka Hillerød","4  - Bilka Hjørring","5  - Bilka Holstebro"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addFlows","args":[[{"dyn":{},"static":{"color":"blue","value":1,"maxValue":20,"minThickness":1,"maxThickness":20,"opacity":0.5,"layerId":"_flow (10.0034954,57.4440055) -> (12.297778,55.9290561)","lat0":57.4440055,"lat1":55.9290561,"lng0":10.0034954,"lng1":12.297778},"timeSteps":1},{"dyn":{},"static":{"color":"blue","value":1,"maxValue":20,"minThickness":1,"maxThickness":20,"opacity":0.5,"layerId":"_flow (12.297778,55.9290561) -> (9.0047956,56.1357775)","lat0":55.9290561,"lat1":56.1357775,"lng0":12.297778,"lng1":9.0047956},"timeSteps":1},{"dyn":{},"static":{"color":"blue","value":1,"maxValue":20,"minThickness":1,"maxThickness":20,"opacity":0.5,"layerId":"_flow (8.4559613,55.5107577) -> (9.0047956,56.1357775)","lat0":55.5107577,"lat1":56.1357775,"lng0":8.4559613,"lng1":9.0047956},"timeSteps":1},{"dyn":{},"static":{"color":"blue","value":1,"maxValue":20,"minThickness":1,"maxThickness":20,"opacity":0.5,"layerId":"_flow (8.622241,56.3779116) -> (8.4559613,55.5107577)","lat0":56.3779116,"lat1":55.5107577,"lng0":8.622241,"lng1":8.4559613},"timeSteps":1},{"dyn":{},"static":{"color":"blue","value":1,"maxValue":20,"minThickness":1,"maxThickness":20,"opacity":0.5,"layerId":"_flow (9.0047956,56.1357775) -> (10.0034954,57.4440055)","lat0":56.1357775,"lat1":57.4440055,"lng0":9.0047956,"lng1":10.0034954},"timeSteps":1},{"dyn":{},"static":{"color":"blue","value":1,"maxValue":20,"minThickness":1,"maxThickness":20,"opacity":0.5,"layerId":"_flow (9.0047956,56.1357775) -> (8.622241,56.3779116)","lat0":56.1357775,"lat1":56.3779116,"lng0":9.0047956,"lng1":8.622241},"timeSteps":1}],["1"],null,{"showTitle":true,"showValues":true,"labels":[],"supValues":null,"supLabels":[],"html":null,"noPopup":true,"digits":null},null]}],"setView":[[56.2,10.2],7,[]],"limits":{"lat":[55.5107577,57.4440055],"lng":[8.4559613,12.297778]}},"evals":[],"jsHooks":[]}</script>
 <p>Let us define a function for adding routes:</p>
 <div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="sec-maps.html#cb467-1" aria-hidden="true" tabindex="-1"></a>add_route <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">dat =</span> <span class="cn">NULL</span>, route, <span class="at">solution =</span> <span class="dv">1</span>) {</span>
 <span id="cb467-2"><a href="sec-maps.html#cb467-2" aria-hidden="true" tabindex="-1"></a>   route_id <span class="ot">=</span> <span class="fu">if_else</span>(<span class="fu">is.null</span>(dat), <span class="dv">1</span>, <span class="fu">max</span>(dat<span class="sc">$</span>RouteId) <span class="sc">+</span> <span class="dv">1</span>)</span>
@@ -859,7 +926,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb467-15"><a href="sec-maps.html#cb467-15" aria-hidden="true" tabindex="-1"></a>   <span class="fu">rename</span>(<span class="st">&quot;ToLat&quot;</span> <span class="ot">=</span> <span class="st">&quot;lat&quot;</span>, <span class="st">&quot;ToLon&quot;</span> <span class="ot">=</span> <span class="st">&quot;lon&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb467-16"><a href="sec-maps.html#cb467-16" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">str_c</span>(<span class="st">&quot;Solution &quot;</span>, Sol))</span>
 <span id="cb467-17"><a href="sec-maps.html#cb467-17" aria-hidden="true" tabindex="-1"></a>datLines</span>
-<span id="cb467-18"><a href="sec-maps.html#cb467-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 12 x 9</span></span>
+<span id="cb467-18"><a href="sec-maps.html#cb467-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 12 × 9</span></span>
 <span id="cb467-19"><a href="sec-maps.html#cb467-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     From    To   Sol RouteId FromLon FromLat ToLon ToLat group     </span></span>
 <span id="cb467-20"><a href="sec-maps.html#cb467-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     </span></span>
 <span id="cb467-21"><a href="sec-maps.html#cb467-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1     2     5     1       1    9.00    56.1  8.62  56.4 Solution 1</span></span>
@@ -880,16 +947,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb468-3"><a href="sec-maps.html#cb468-3" aria-hidden="true" tabindex="-1"></a>m <span class="sc">%&gt;%</span> <span class="fu">addFlows</span>(datP<span class="sc">$</span>FromLon, datP<span class="sc">$</span>FromLat, datP<span class="sc">$</span>ToLon, datP<span class="sc">$</span>ToLat,</span>
 <span id="cb468-4"><a href="sec-maps.html#cb468-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">flow =</span> datP<span class="sc">$</span>RouteId, <span class="at">maxThickness =</span> <span class="dv">2</span>, <span class="at">color =</span> col_pal[datP<span class="sc">$</span>RouteId],</span>
 <span id="cb468-5"><a href="sec-maps.html#cb468-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">opacity =</span> <span class="fl">0.5</span>, <span class="at">popup =</span> <span class="fu">popupArgs</span>(<span class="at">labels =</span> <span class="st">&quot;Route&quot;</span>))</span></code></pre></div>
-<div id="htmlwidget-2ad07af55e22696b984d" style="width:672px;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2ad07af55e22696b984d">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Map",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satelite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["CartoDB.PositronOnlyLabels",null,"Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Map","Satelite"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[55.5107577,56.1357775,55.9290561,57.4446261,56.3779116],[8.4559613,9.0047956,12.297778,10.0031376,8.622241],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Stormgade 157, 6715 Esbjerg, Denmark","Golfvej 5, 7400 Herning, Denmark","Slotsarkaderne 26, 3400 Hillerød, Denmark","A.F Heidemannsvej 20, 9800 Hjørring, Denmark","Nyholmvej 20, 7500 Holstebro, Denmark"],null,null,null,["1  - Bilka Esbjerg","2  - Bilka Herning","3  - Bilka Hillerød","4  - Bilka Hjørring","5  - Bilka Holstebro"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addFlows","args":[[{"dyn":{"color":["#80FF00"],"value":[2]},"static":{"maxValue":2,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (10.0031376,57.4446261) -> (12.297778,55.9290561)","lat0":57.4446261,"lat1":55.9290561,"lng0":10.0031376,"lng1":12.297778},"timeSteps":1},{"dyn":{"color":["#80FF00"],"value":[2]},"static":{"maxValue":2,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (12.297778,55.9290561) -> (9.0047956,56.1357775)","lat0":55.9290561,"lat1":56.1357775,"lng0":12.297778,"lng1":9.0047956},"timeSteps":1},{"dyn":{"color":["#FF0000"],"value":[1]},"static":{"maxValue":2,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (8.4559613,55.5107577) -> (9.0047956,56.1357775)","lat0":55.5107577,"lat1":56.1357775,"lng0":8.4559613,"lng1":9.0047956},"timeSteps":1},{"dyn":{"color":["#FF0000"],"value":[1]},"static":{"maxValue":2,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (8.622241,56.3779116) -> (8.4559613,55.5107577)","lat0":56.3779116,"lat1":55.5107577,"lng0":8.622241,"lng1":8.4559613},"timeSteps":1},{"dyn":{"color":["#80FF00"],"value":[2]},"static":{"maxValue":2,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (9.0047956,56.1357775) -> (10.0031376,57.4446261)","lat0":56.1357775,"lat1":57.4446261,"lng0":9.0047956,"lng1":10.0031376},"timeSteps":1},{"dyn":{"color":["#FF0000"],"value":[1]},"static":{"maxValue":2,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (9.0047956,56.1357775) -> (8.622241,56.3779116)","lat0":56.1357775,"lat1":56.3779116,"lng0":9.0047956,"lng1":8.622241},"timeSteps":1}],["1"],null,{"showTitle":true,"showValues":true,"labels":["Route"],"supValues":null,"supLabels":[],"html":null,"noPopup":false,"digits":null}]}],"setView":[[56.2,10.2],7,[]],"limits":{"lat":[55.5107577,57.4446261],"lng":[8.4559613,12.297778]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7919bb598abb35ab7ee8" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7919bb598abb35ab7ee8">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Map",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satelite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["CartoDB.PositronOnlyLabels",null,"Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Map","Satelite"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[55.5107577,56.1357775,55.9290561,57.4440055,56.3779116],[8.4559613,9.0047956,12.297778,10.0034954,8.622241],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Stormgade 157, 6715 Esbjerg, Denmark","Golfvej 5, 7400 Herning, Denmark","Slotsarkaderne 26, 3400 Hillerød, Denmark","A.F Heidemannsvej 20, 9800 Hjørring, Denmark","Nyholmvej 20, 7500 Holstebro, Denmark"],null,null,null,["1  - Bilka Esbjerg","2  - Bilka Herning","3  - Bilka Hillerød","4  - Bilka Hjørring","5  - Bilka Holstebro"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addFlows","args":[[{"dyn":{"color":["#80FF00"],"value":[2]},"static":{"maxValue":2,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (10.0034954,57.4440055) -> (12.297778,55.9290561)","lat0":57.4440055,"lat1":55.9290561,"lng0":10.0034954,"lng1":12.297778},"timeSteps":1},{"dyn":{"color":["#80FF00"],"value":[2]},"static":{"maxValue":2,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (12.297778,55.9290561) -> (9.0047956,56.1357775)","lat0":55.9290561,"lat1":56.1357775,"lng0":12.297778,"lng1":9.0047956},"timeSteps":1},{"dyn":{"color":["#FF0000"],"value":[1]},"static":{"maxValue":2,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (8.4559613,55.5107577) -> (9.0047956,56.1357775)","lat0":55.5107577,"lat1":56.1357775,"lng0":8.4559613,"lng1":9.0047956},"timeSteps":1},{"dyn":{"color":["#FF0000"],"value":[1]},"static":{"maxValue":2,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (8.622241,56.3779116) -> (8.4559613,55.5107577)","lat0":56.3779116,"lat1":55.5107577,"lng0":8.622241,"lng1":8.4559613},"timeSteps":1},{"dyn":{"color":["#80FF00"],"value":[2]},"static":{"maxValue":2,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (9.0047956,56.1357775) -> (10.0034954,57.4440055)","lat0":56.1357775,"lat1":57.4440055,"lng0":9.0047956,"lng1":10.0034954},"timeSteps":1},{"dyn":{"color":["#FF0000"],"value":[1]},"static":{"maxValue":2,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (9.0047956,56.1357775) -> (8.622241,56.3779116)","lat0":56.1357775,"lat1":56.3779116,"lng0":9.0047956,"lng1":8.622241},"timeSteps":1}],["1"],null,{"showTitle":true,"showValues":true,"labels":["Route"],"supValues":null,"supLabels":[],"html":null,"noPopup":false,"digits":null},null]}],"setView":[[56.2,10.2],7,[]],"limits":{"lat":[55.5107577,57.4440055],"lng":[8.4559613,12.297778]}},"evals":[],"jsHooks":[]}</script>
 <p>A map with Solution 2:</p>
 <div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="sec-maps.html#cb469-1" aria-hidden="true" tabindex="-1"></a>col_pal <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(<span class="fu">max</span>(datLines<span class="sc">$</span>RouteId))</span>
 <span id="cb469-2"><a href="sec-maps.html#cb469-2" aria-hidden="true" tabindex="-1"></a>datP <span class="ot">&lt;-</span> datLines <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Sol <span class="sc">==</span> <span class="dv">2</span>)</span>
 <span id="cb469-3"><a href="sec-maps.html#cb469-3" aria-hidden="true" tabindex="-1"></a>m <span class="sc">%&gt;%</span> <span class="fu">addFlows</span>(datP<span class="sc">$</span>FromLon, datP<span class="sc">$</span>FromLat, datP<span class="sc">$</span>ToLon, datP<span class="sc">$</span>ToLat,</span>
 <span id="cb469-4"><a href="sec-maps.html#cb469-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">flow =</span> datP<span class="sc">$</span>RouteId, <span class="at">maxThickness =</span> <span class="dv">2</span>, <span class="at">color =</span> col_pal[datP<span class="sc">$</span>RouteId],</span>
 <span id="cb469-5"><a href="sec-maps.html#cb469-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">opacity =</span> <span class="fl">0.5</span>, <span class="at">popup =</span> <span class="fu">popupArgs</span>(<span class="at">labels =</span> <span class="st">&quot;Route&quot;</span>))</span></code></pre></div>
-<div id="htmlwidget-8e7116a1c97fc9b7512a" style="width:672px;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8e7116a1c97fc9b7512a">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Map",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satelite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["CartoDB.PositronOnlyLabels",null,"Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Map","Satelite"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[55.5107577,56.1357775,55.9290561,57.4446261,56.3779116],[8.4559613,9.0047956,12.297778,10.0031376,8.622241],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Stormgade 157, 6715 Esbjerg, Denmark","Golfvej 5, 7400 Herning, Denmark","Slotsarkaderne 26, 3400 Hillerød, Denmark","A.F Heidemannsvej 20, 9800 Hjørring, Denmark","Nyholmvej 20, 7500 Holstebro, Denmark"],null,null,null,["1  - Bilka Esbjerg","2  - Bilka Herning","3  - Bilka Hillerød","4  - Bilka Hjørring","5  - Bilka Holstebro"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addFlows","args":[[{"dyn":{"color":["#8000FF"],"value":[4]},"static":{"maxValue":4,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (10.0031376,57.4446261) -> (9.0047956,56.1357775)","lat0":57.4446261,"lat1":56.1357775,"lng0":10.0031376,"lng1":9.0047956},"timeSteps":1},{"dyn":{"color":["#00FFFF"],"value":[3]},"static":{"maxValue":4,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (12.297778,55.9290561) -> (8.4559613,55.5107577)","lat0":55.9290561,"lat1":55.5107577,"lng0":12.297778,"lng1":8.4559613},"timeSteps":1},{"dyn":{"color":["#00FFFF"],"value":[3]},"static":{"maxValue":4,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (8.4559613,55.5107577) -> (9.0047956,56.1357775)","lat0":55.5107577,"lat1":56.1357775,"lng0":8.4559613,"lng1":9.0047956},"timeSteps":1},{"dyn":{"color":["#8000FF"],"value":[4]},"static":{"maxValue":4,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (8.622241,56.3779116) -> (10.0031376,57.4446261)","lat0":56.3779116,"lat1":57.4446261,"lng0":8.622241,"lng1":10.0031376},"timeSteps":1},{"dyn":{"color":["#00FFFF"],"value":[3]},"static":{"maxValue":4,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (9.0047956,56.1357775) -> (12.297778,55.9290561)","lat0":56.1357775,"lat1":55.9290561,"lng0":9.0047956,"lng1":12.297778},"timeSteps":1},{"dyn":{"color":["#8000FF"],"value":[4]},"static":{"maxValue":4,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (9.0047956,56.1357775) -> (8.622241,56.3779116)","lat0":56.1357775,"lat1":56.3779116,"lng0":9.0047956,"lng1":8.622241},"timeSteps":1}],["1"],null,{"showTitle":true,"showValues":true,"labels":["Route"],"supValues":null,"supLabels":[],"html":null,"noPopup":false,"digits":null}]}],"setView":[[56.2,10.2],7,[]],"limits":{"lat":[55.5107577,57.4446261],"lng":[8.4559613,12.297778]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-5e2dde4a958973eb9053" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5e2dde4a958973eb9053">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Map",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satelite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["CartoDB.PositronOnlyLabels",null,"Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Map","Satelite"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[55.5107577,56.1357775,55.9290561,57.4440055,56.3779116],[8.4559613,9.0047956,12.297778,10.0034954,8.622241],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Stormgade 157, 6715 Esbjerg, Denmark","Golfvej 5, 7400 Herning, Denmark","Slotsarkaderne 26, 3400 Hillerød, Denmark","A.F Heidemannsvej 20, 9800 Hjørring, Denmark","Nyholmvej 20, 7500 Holstebro, Denmark"],null,null,null,["1  - Bilka Esbjerg","2  - Bilka Herning","3  - Bilka Hillerød","4  - Bilka Hjørring","5  - Bilka Holstebro"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addFlows","args":[[{"dyn":{"color":["#8000FF"],"value":[4]},"static":{"maxValue":4,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (10.0034954,57.4440055) -> (9.0047956,56.1357775)","lat0":57.4440055,"lat1":56.1357775,"lng0":10.0034954,"lng1":9.0047956},"timeSteps":1},{"dyn":{"color":["#00FFFF"],"value":[3]},"static":{"maxValue":4,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (12.297778,55.9290561) -> (8.4559613,55.5107577)","lat0":55.9290561,"lat1":55.5107577,"lng0":12.297778,"lng1":8.4559613},"timeSteps":1},{"dyn":{"color":["#00FFFF"],"value":[3]},"static":{"maxValue":4,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (8.4559613,55.5107577) -> (9.0047956,56.1357775)","lat0":55.5107577,"lat1":56.1357775,"lng0":8.4559613,"lng1":9.0047956},"timeSteps":1},{"dyn":{"color":["#8000FF"],"value":[4]},"static":{"maxValue":4,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (8.622241,56.3779116) -> (10.0034954,57.4440055)","lat0":56.3779116,"lat1":57.4440055,"lng0":8.622241,"lng1":10.0034954},"timeSteps":1},{"dyn":{"color":["#00FFFF"],"value":[3]},"static":{"maxValue":4,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (9.0047956,56.1357775) -> (12.297778,55.9290561)","lat0":56.1357775,"lat1":55.9290561,"lng0":9.0047956,"lng1":12.297778},"timeSteps":1},{"dyn":{"color":["#8000FF"],"value":[4]},"static":{"maxValue":4,"minThickness":1,"maxThickness":2,"opacity":0.5,"layerId":"_flow (9.0047956,56.1357775) -> (8.622241,56.3779116)","lat0":56.1357775,"lat1":56.3779116,"lng0":9.0047956,"lng1":8.622241},"timeSteps":1}],["1"],null,{"showTitle":true,"showValues":true,"labels":["Route"],"supValues":null,"supLabels":[],"html":null,"noPopup":false,"digits":null},null]}],"setView":[[56.2,10.2],7,[]],"limits":{"lat":[55.5107577,57.4440055],"lng":[8.4559613,12.297778]}},"evals":[],"jsHooks":[]}</script>
 <p>An interactive map with both solutions:</p>
 <div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="sec-maps.html#cb470-1" aria-hidden="true" tabindex="-1"></a>mm <span class="ot">&lt;-</span> m</span>
 <span id="cb470-2"><a href="sec-maps.html#cb470-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(datLines), <span class="cf">function</span>(i) {</span>
@@ -909,8 +976,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb470-16"><a href="sec-maps.html#cb470-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hideGroup</span>(<span class="fu">unique</span>(datLines<span class="sc">$</span>group)) <span class="sc">%&gt;%</span> </span>
 <span id="cb470-17"><a href="sec-maps.html#cb470-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">showGroup</span>(<span class="st">&quot;Solution 1&quot;</span>)</span>
 <span id="cb470-18"><a href="sec-maps.html#cb470-18" aria-hidden="true" tabindex="-1"></a>mm</span></code></pre></div>
-<div id="htmlwidget-6b04a4c89c822a19dbf4" style="width:672px;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6b04a4c89c822a19dbf4">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Map",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satelite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["CartoDB.PositronOnlyLabels",null,"Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Map","Satelite"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[55.5107577,56.1357775,55.9290561,57.4446261,56.3779116],[8.4559613,9.0047956,12.297778,10.0031376,8.622241],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Stormgade 157, 6715 Esbjerg, Denmark","Golfvej 5, 7400 Herning, Denmark","Slotsarkaderne 26, 3400 Hillerød, Denmark","A.F Heidemannsvej 20, 9800 Hjørring, Denmark","Nyholmvej 20, 7500 Holstebro, Denmark"],null,null,null,["1  - Bilka Esbjerg","2  - Bilka Herning","3  - Bilka Hillerød","4  - Bilka Hjørring","5  - Bilka Holstebro"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[9.0047956,8.622241],"lat":[56.1357775,56.3779116]}]]],null,"Solution 1",{"interactive":true,"className":"","stroke":true,"color":"#FF0000","weight":2,"opacity":0.5,"fill":false,"fillColor":"#FF0000","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[8.622241,8.4559613],"lat":[56.3779116,55.5107577]}]]],null,"Solution 1",{"interactive":true,"className":"","stroke":true,"color":"#FF0000","weight":2,"opacity":0.5,"fill":false,"fillColor":"#FF0000","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[8.4559613,9.0047956],"lat":[55.5107577,56.1357775]}]]],null,"Solution 1",{"interactive":true,"className":"","stroke":true,"color":"#FF0000","weight":2,"opacity":0.5,"fill":false,"fillColor":"#FF0000","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[9.0047956,10.0031376],"lat":[56.1357775,57.4446261]}]]],null,"Solution 1",{"interactive":true,"className":"","stroke":true,"color":"#FF0000","weight":2,"opacity":0.5,"fill":false,"fillColor":"#FF0000","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[10.0031376,12.297778],"lat":[57.4446261,55.9290561]}]]],null,"Solution 1",{"interactive":true,"className":"","stroke":true,"color":"#FF0000","weight":2,"opacity":0.5,"fill":false,"fillColor":"#FF0000","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[12.297778,9.0047956],"lat":[55.9290561,56.1357775]}]]],null,"Solution 1",{"interactive":true,"className":"","stroke":true,"color":"#FF0000","weight":2,"opacity":0.5,"fill":false,"fillColor":"#FF0000","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[9.0047956,12.297778],"lat":[56.1357775,55.9290561]}]]],null,"Solution 2",{"interactive":true,"className":"","stroke":true,"color":"#80FF00","weight":2,"opacity":0.5,"fill":false,"fillColor":"#80FF00","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 2",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[12.297778,8.4559613],"lat":[55.9290561,55.5107577]}]]],null,"Solution 2",{"interactive":true,"className":"","stroke":true,"color":"#80FF00","weight":2,"opacity":0.5,"fill":false,"fillColor":"#80FF00","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 2",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[8.4559613,9.0047956],"lat":[55.5107577,56.1357775]}]]],null,"Solution 2",{"interactive":true,"className":"","stroke":true,"color":"#80FF00","weight":2,"opacity":0.5,"fill":false,"fillColor":"#80FF00","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 2",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[9.0047956,8.622241],"lat":[56.1357775,56.3779116]}]]],null,"Solution 2",{"interactive":true,"className":"","stroke":true,"color":"#80FF00","weight":2,"opacity":0.5,"fill":false,"fillColor":"#80FF00","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 2",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[8.622241,10.0031376],"lat":[56.3779116,57.4446261]}]]],null,"Solution 2",{"interactive":true,"className":"","stroke":true,"color":"#80FF00","weight":2,"opacity":0.5,"fill":false,"fillColor":"#80FF00","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 2",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[10.0031376,9.0047956],"lat":[57.4446261,56.1357775]}]]],null,"Solution 2",{"interactive":true,"className":"","stroke":true,"color":"#80FF00","weight":2,"opacity":0.5,"fill":false,"fillColor":"#80FF00","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 2",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[["Map","Satelite"],["Solution 1","Solution 2"],{"collapsed":false,"autoZIndex":true,"position":"topright"}]},{"method":"hideGroup","args":[["Solution 1","Solution 2"]]},{"method":"showGroup","args":["Solution 1"]}],"setView":[[56.2,10.2],7,[]],"limits":{"lat":[55.5107577,57.4446261],"lng":[8.4559613,12.297778]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-582d0ea7b72fe06266e1" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-582d0ea7b72fe06266e1">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Map",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satelite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["CartoDB.PositronOnlyLabels",null,"Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Map","Satelite"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[55.5107577,56.1357775,55.9290561,57.4440055,56.3779116],[8.4559613,9.0047956,12.297778,10.0034954,8.622241],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Stormgade 157, 6715 Esbjerg, Denmark","Golfvej 5, 7400 Herning, Denmark","Slotsarkaderne 26, 3400 Hillerød, Denmark","A.F Heidemannsvej 20, 9800 Hjørring, Denmark","Nyholmvej 20, 7500 Holstebro, Denmark"],null,null,null,["1  - Bilka Esbjerg","2  - Bilka Herning","3  - Bilka Hillerød","4  - Bilka Hjørring","5  - Bilka Holstebro"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[9.0047956,8.622241],"lat":[56.1357775,56.3779116]}]]],null,"Solution 1",{"interactive":true,"className":"","stroke":true,"color":"#FF0000","weight":2,"opacity":0.5,"fill":false,"fillColor":"#FF0000","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[8.622241,8.4559613],"lat":[56.3779116,55.5107577]}]]],null,"Solution 1",{"interactive":true,"className":"","stroke":true,"color":"#FF0000","weight":2,"opacity":0.5,"fill":false,"fillColor":"#FF0000","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[8.4559613,9.0047956],"lat":[55.5107577,56.1357775]}]]],null,"Solution 1",{"interactive":true,"className":"","stroke":true,"color":"#FF0000","weight":2,"opacity":0.5,"fill":false,"fillColor":"#FF0000","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[9.0047956,10.0034954],"lat":[56.1357775,57.4440055]}]]],null,"Solution 1",{"interactive":true,"className":"","stroke":true,"color":"#FF0000","weight":2,"opacity":0.5,"fill":false,"fillColor":"#FF0000","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[10.0034954,12.297778],"lat":[57.4440055,55.9290561]}]]],null,"Solution 1",{"interactive":true,"className":"","stroke":true,"color":"#FF0000","weight":2,"opacity":0.5,"fill":false,"fillColor":"#FF0000","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[12.297778,9.0047956],"lat":[55.9290561,56.1357775]}]]],null,"Solution 1",{"interactive":true,"className":"","stroke":true,"color":"#FF0000","weight":2,"opacity":0.5,"fill":false,"fillColor":"#FF0000","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[9.0047956,12.297778],"lat":[56.1357775,55.9290561]}]]],null,"Solution 2",{"interactive":true,"className":"","stroke":true,"color":"#80FF00","weight":2,"opacity":0.5,"fill":false,"fillColor":"#80FF00","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 2",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[12.297778,8.4559613],"lat":[55.9290561,55.5107577]}]]],null,"Solution 2",{"interactive":true,"className":"","stroke":true,"color":"#80FF00","weight":2,"opacity":0.5,"fill":false,"fillColor":"#80FF00","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 2",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[8.4559613,9.0047956],"lat":[55.5107577,56.1357775]}]]],null,"Solution 2",{"interactive":true,"className":"","stroke":true,"color":"#80FF00","weight":2,"opacity":0.5,"fill":false,"fillColor":"#80FF00","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 2",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[9.0047956,8.622241],"lat":[56.1357775,56.3779116]}]]],null,"Solution 2",{"interactive":true,"className":"","stroke":true,"color":"#80FF00","weight":2,"opacity":0.5,"fill":false,"fillColor":"#80FF00","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 2",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[8.622241,10.0034954],"lat":[56.3779116,57.4440055]}]]],null,"Solution 2",{"interactive":true,"className":"","stroke":true,"color":"#80FF00","weight":2,"opacity":0.5,"fill":false,"fillColor":"#80FF00","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 2",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolylines","args":[[[[{"lng":[10.0034954,9.0047956],"lat":[57.4440055,56.1357775]}]]],null,"Solution 2",{"interactive":true,"className":"","stroke":true,"color":"#80FF00","weight":2,"opacity":0.5,"fill":false,"fillColor":"#80FF00","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,"Solution 2",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[["Map","Satelite"],["Solution 1","Solution 2"],{"collapsed":false,"autoZIndex":true,"position":"topright"}]},{"method":"hideGroup","args":[["Solution 1","Solution 2"]]},{"method":"showGroup","args":["Solution 1"]}],"setView":[[56.2,10.2],7,[]],"limits":{"lat":[55.5107577,57.4440055],"lng":[8.4559613,12.297778]}},"evals":[],"jsHooks":[]}</script>
 <p>Note unfortunately arrows cannot be shown in this case.</p>
 
 </div>
@@ -943,7 +1010,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/bss-osca/tfa/edit/master/book/maps.Rmd",
+"link": "https://github.com/bss-osca/tfa/edit/master/book/09-01_r-maps.Rmd",
 "text": "Edit"
 },
 "history": {
