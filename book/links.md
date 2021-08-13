@@ -97,6 +97,16 @@
 
 [Udemy]: https://www.udemy.com/
 
+[vba-yt-course1]: https://www.youtube.com/playlist?list=PLpOAvcoMay5S_hb2D7iKznLqJ8QG_pde0
+[vba-course1-hello]: https://youtu.be/f42OniDWaIo
+
+[vba-yt-course2]: https://www.youtube.com/playlist?list=PL3A6U40JUYCi4njVx59-vaUxYkG0yRO4m
+[vba-course2-devel-tab]: https://youtu.be/awEOUaw9q58
+[vba-course2-devel-editor]: https://youtu.be/awEOUaw9q58
+[vba-course2-devel-project]: https://youtu.be/fp6PTbU7bXo
+[vba-course2-devel-properties]: https://youtu.be/ks2QYKAd9Xw
+[vba-course2-devel-hello]: https://youtu.be/EQ6tDWBc8G4
+
 [video-install]: https://vimeo.com/415501284
 [video-rstudio-intro]: https://vimeo.com/416391353
 [video-packages]: https://vimeo.com/416743698

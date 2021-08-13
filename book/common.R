@@ -10,9 +10,9 @@ library(igraph)
 library(DiagrammeR)
 library(googlesheets4)
 library(conflicted)
-conflict_prefer("filter", "dplyr")
-conflict_prefer("select", "dplyr")
-conflict_prefer("lag", "dplyr")
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
 
 knitr::opts_chunk$set(
   comment = "#>",
