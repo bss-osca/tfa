@@ -303,6 +303,98 @@ We all get stuck sometimes and need some help. Below are some advises on how to 
 Note help using mail correspondence is not supported!
 
 
+# Coding/naming convention
+
+The main reason for using a consistent set of coding conventions is to standardize the structure and coding style of an application so that you and others can easily read and understand the code. Good coding conventions result in precise, readable, and unambiguous source code that is consistent with other language conventions and as intuitive as possible. 
+
+Different ways of naming you variables exists. You are advised to adopt a naming convention; some use [snake case][wiki-snake-case] others use [camel case][wiki-camel-case]. The [Leszynski naming convention](https://en.wikipedia.org/wiki/Leszynski_naming_convention) define variables with a consistent prefix that makes it easy to identify its data type. It is common to use Leszynski convention within the VBA community. The R community use snake case but camel case is also okay. Some common prefixes used for the Leszynski naming convention are:
+
+Type         Prefix     Example
+-----      ----------   --------
+Boolean      bln        blnFound
+Currency	    cur	      curRevenue
+Date (Time)	 dtm	      dtmStart
+Double	    dbl     	dblTolerance
+Integer      int        intQuantity
+Long	       lng	      lngDistance
+String       str        strFName
+Variant      vnt        vntCheckSum
+Array        ary        aryNumbers (optional)
+User form    frm        frmProcess
+Worksheet    wst        wstDistances
+Workbook     wbk        wbkData
+
+Many [other prefixes](https://msdn.microsoft.com/en-us/library/aa263493(v=vs.60).aspx) can be used also. 
+
+Choose the naming convention you like best in your study group. But stick only to one of them. A few examples:
+
+```
+this_is_snake_case   # note you do not use capital letters here
+thisIsCamelCase      # you start each word with a capital letter (except the first)
+dblTolerance         # Lezynski convention naming a double (dbl) variable
+strNane              # Lezynski naming a string (str) variable
+```
+
+When defining variables and functions, it is in general good practice to use nouns for variables and verbs for functions.
+
+
+## Commenting your code
+
+It is always good practice to comment your code. Such that others can get a fast overview and understand your code easier. We will use [roxygen documentation](https://roxygen2.r-lib.org/) comments which are widely known. A few examples in VBA are
+
+The top of a module file:
+
+```{javascript}
+'' Module description.
+'  Can be more than one line.
+' 
+' @remarks Put your remarks on the module implementation here
+' @author Lars Relund <junk@relund.dk>
+' @date 2016-08-26
+```
+
+Before each `sub`, `function` etc. write:
+
+```{javascript}
+'' Sub description
+' 
+' @pre Precondition 
+' @post Postcondition
+'
+' @param strA	Explanation of input parameter strA
+' @param intB Explanation of input parameter intB
+' @return Return value (if a function)
+' @remarks Further remarks 
+Public Function MyFunc(strA As String, intB As Integer) As Integer {
+   ...
+}
+```
+
+Further tags (i.e. keywords starting with @) can be seen [here](https://roxygen2.r-lib.org/articles/rd.html).
+
+In R we use a 'hash' (#') to comment functions:
+
+```{r, eval=FALSE}
+#' Subtract two vectors
+#'
+#' @param x First vector.
+#' @param y Vector to be subtracted.
+#'
+#' @return The difference.
+#' @export
+#'
+#' @examples
+#' subtract(x = c(5,5), y = c(2,3))
+subtract <- function(x, y) {
+  return(x-y)
+}
+```
+
+
+
+
+
+
 
 # Slides
 
