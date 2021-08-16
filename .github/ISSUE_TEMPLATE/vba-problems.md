@@ -1,5 +1,5 @@
 ---
-name: VBA
+name: VBA problems
 about: Problems in VBA
 title: "[VBA]"
 labels: vba
