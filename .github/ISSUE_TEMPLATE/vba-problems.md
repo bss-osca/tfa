@@ -1,6 +1,6 @@
 ---
 name: VBA problems
-about: Problems in VBA
+about: Problems in VBA/Excel
 title: "[VBA]"
 labels: vba
 assignees: ''
