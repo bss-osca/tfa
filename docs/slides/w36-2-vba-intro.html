@@ -82,49 +82,189 @@ A few useful shortcuts:
 
 ## Let us try it out
 
+.midi[
 An __algorithm__ is a finite sequence of well-defined instructions to solve a specific problem or to perform a computation. Let us try to program this algorithm written in pseudocode:
 
 .instructions[
 **Precondition**: A list of student names and a 2-dim array `pref` with group preferences. Entry `pref(i,j)` equals one if student `i` like to be in group with student `j` and zero otherwise.
 
-**Postcondition**: A set of groups with 3-6 persons.
+**Postcondition**: A list of groups with 3-6 persons.
 
-- Step 1: Put students that want to be together in a group if between 3 to 6 students.
-- Step 2: Create two student groups if more than 6 students want to be together.
-- Step 3: Consider the remaining students and create a group by adding students that want to be together until the group size is 4. 
-- Step 4: Add the last students to the last group.
-- Step 5: Return the student names of each group.
+- Step 1: Allocate students that want to be together to a group number
+- Step 2: Fix groups with between 3 to 6 students
+- Step 3: Split groups with more that 6 students into N groups such that N gives the minimum number of groups between 3 to 6 students
+- Step 4: Merge groups with 2 students into a group with 4 students
+- Step 5: Consider the remaining students and create a group by adding students that want to be together until the group size is 4.
+- Step 6: Return the student names of each group.
 ]
 
+Let us have a look at the [implementation](https://github.com/bss-osca/tfa/blob/master/vba/vba-groups.xlsm).
+]
 ---
 
 ## Say Hello World
 
----
-
-## Procedures
-
-You will deal with two kinds of procedures
-
-Sub (they can work as a “macro” in Excel)
-Function (they can work like Excel functions)
+Let us try to create our first procedure in VBA.
 
 ---
 
 ## Basic building blocks in programming
 
-variables, input/output, decisions/cond statements, loops, procedures (functions and subs)
+- _Variables_ store stuff in memory.
+- _Procedures_ (functions and subs) execute a set of instructions.
+- _Conditional statements_ (decisions) are used to execute different instructions depending on a true/false statement.
+- _Loops_ are used to execute code repeatedly. 
+- _Input/output_ are needed to read data and output the result.
 
+Let us try some examples using this [Excel file]() template.
 
 ---
 
 ## Variables
 
+.pull-left[
+- Variables are used to store information in the program.
+- A variable is a box that can contain 
+  - A number
+  - A string of text
+  - A date
+  - An array of integers
+- The variable name is the label on the box.
+]
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="./img/storage.jpg" alt="Computer memory" width="120%" /&gt;
+&lt;p class="caption"&gt;Computer memory&lt;/p&gt;
+&lt;/div&gt;
+]
+
+Run the procedure `DeclareVariables` in the Excel file.
+---
+
+## Procedures
+
+In VBA we deal with two kinds of procedures:
+
+- A `Sub` which can work as a “macro” in Excel, i.e. we can call it using e.g. a button. 
+
+
+```javascript
+Sub SubName(input As integer)
+    ...
+End Sub
+```
+
+
+- A `Function` which can work like Excel functions, i.e. return a value.
+
+
+```javascript
+Function FunctionName(input As String) As String
+    ...
+End Function
+```
+
+Have a look at the function `StringJoin` in the Excel file.
+
 ---
 
 ## Input/output
 
+You can use `Range` to read/write to a sheet:
 
+  ```
+  Range("B7") = 107      ' Write 107 in cell B7
+  Range("H1") = "Test"   ' Write Test in cell H1
+  Range("T4") = x        ' Write value of varible x in cell T4
+  x = Range("B7)         ' Set x equal to value in cell B7 
+  ```
+
+You must know which sheet you are considering (above the active one). Always refer to a sheet:
+
+  ```
+  Worksheets("Groups").Range("B7") = 107   ' Write 107 in B7 in sheet Groups
+  ```
+
+As an alternative you may use `Cells`:
+
+  ```
+  Cells(2,3) = 107  ' Write 107 to cell in row 2 and column 3 (C2) 
+  ```
+
+Have a look at the sub `ReadWrite` in the Excel file.
+
+---
+
+## Communicate with the user
+
+- Simple message box: 
+  ```
+  MsgBox(“You are done!”)
+  ```
+- More advanced message box:
+  ```
+  intAns = MsgBox("Delete Sheet 1 permanently?", vbOKCancel + vbQuestion)
+  ```
+  Different buttons and their value can be seen in the [documentation](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/msgbox-function)
+- Input box:
+  ```
+  strAns = InputBox("What is your name?")
+  ```
+  Return what the user types (if press Cancel then return an empty string)
+
+Have a look at the sub `Dialog` in the Excel file.
+
+---
+
+## Conditional statements (decisions) 
+
+We can execute different instructions depending on a true/false statement. An example with an if statement:
+
+```
+If int &lt; 7 Then
+  MsgBox("Number is less than 7.")
+ElseIf int == 7
+  MsgBox("Number is 7.")
+Else
+  MsgBox("Number is greater than 7.")
+End If
+```
+
+Have a look at the sub `CondStatement` in the Excel file.
+
+---
+
+## Loops 
+
+Used to execute code repeatedly:
+
+  ```
+  Sub Loops()
+    For i = 1 To 3
+  	  MsgBox(i)
+    Next
+  End Sub
+  ```
+
+Have a look at the sub `Loops` in the Excel file.
+
+---
+
+## Using built-in functions
+
+Three types of functions:
+
+- Functions that are build into VBA
+- Excel functions (Worksheet/application functions)
+- Custom functions (yours or mine)
+  ```
+  Now()  ' VBA function - Date and time right now  
+  Rnd()  ' VBA function - Random number between 0 and 1
+  WorksheetFunction.Sum(Range("D2:E5"))  ' Excel function - Sum of range
+  ```
+
+Have a look at the sub `ExcelFunction` in the Excel file.
 
 
 
