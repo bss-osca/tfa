@@ -1,177 +1,122 @@
 ---
 title: "An introduction to VBA"
 author: "Lars Relund Nielsen"
-date: ""
-output: 
-   ioslides_presentation: 
-      widescreen: true
-      logo: ../../book/img/logo.png
-      incremental: true
-      fig_width: 7
-      fig_height: 6
-      fig_caption: true
-knit: (function(inputFile, encoding) {
-  output_dir = "../../docs/slides";
-  rmarkdown::render(inputFile, encoding = encoding, output_dir = output_dir)})
+output:
+  xaringan::moon_reader:
+    css: "./libs/slides.css"
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+      highlightStyle: solarized-light
+      countIncrementalSlides: false
 editor_options: 
   chunk_output_type: console
 ---
 
-<!-- Two column css styles + etc -->
-<style>
-.column-left{
-  float: left;
-  width: 50%;
-  text-align: left;
-}
-.column-right{
-  float: right;
-  width: 50%;
-  text-align: left;
-}
-.centerVH {
-  text-align: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-</style>
+```{r, child = "../setup.Rmd", echo=FALSE}
+```
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+```{r include=FALSE}
+# use xaringan::inf_mr(cast_from = "..") to preview
 ```
 
 
 
 
 
-- Start keywords (such as `Sub` and `If`) with a capital letter (the VBA editor often correct this automatically for you).
-- Only use letters a-z and A-Z in you names (some also use `_` but we will try to avoid it). That is don't use space in your names!
-- Use names of procedures (i.e. subs or functions) that start with a capital letter.
 
-- Always try to use parentheses when you call subs and functions, e.g. `dtmTime = Now` will give the same result as `dtmTime = Now()` (it is not always possible when you call subs with no input).
-- Indent you code using the default standard
-- Specify return type of functions 
-- Make procedures private whenever possible
-- Always use `Option Explicit` (can be se under Tools-Options: "Require variable declaration" in the VBA editor)
-
-## About Me 
-
-- Lars Relund Nielsen (larsrn@econ.au.dk)
-- Professor at Dept. of Economics and Business Economics, Aarhus Universitet. 
-- I do research in algorithms for optimization, multiobjective optimization, stochastic dynamic programming
-- Are programming in all kinds of languages such as C, C++, VBA, R, SQL, Javascript …
-- For more information see my [research page]( http://www.research.relund.dk/).
+<!-- - Always try to use parentheses when you call subs and functions, e.g. `dtmTime = Now` will give the same result as `dtmTime = Now()` (it is not always possible when you call subs with no input). -->
+<!-- - Indent you code using the default standard -->
+<!-- - Specify return type of functions  -->
+<!-- - Make procedures private whenever possible -->
+<!-- - Always use `Option Explicit` (can be se under Tools-Options: "Require variable declaration" in the VBA editor) -->
 
 
-## Course overview {.smaller}
+## What is VBA
 
-- Business Analytics (BA) refers to the scientific process of transforming data into insight for making better decisions in business. 
-- There is an increasing need for analysts with the ability to do tasks within Analytics. 
-- This requires for the analyst to be particularly qualified in handling IT based tools. 
-- The use of programming is the basis for performing analytical tasks such as descriptive, predictive and prescriptive analytics. 
-- This course gives you an introduction to different tools to perform Analytics.
-- The course is partitioned into two parts. 
-   * The VBA part gives you an introduction to the compiled programming language VBA (Visual Basic for Applications) in Excel. 
-   * The R part gives you an introduction to the interpreted programming language R. 
+- A programming language intended to control and automate Microsoft Office applications (we use Excel).
+- VBA (Visual Basic for Applications) is an implementation of BASIC developed by Microsoft. 
+- A [compiled language](https://en.wikipedia.org/wiki/Compiled_language#:~:text=A%20compiled%20language%20is%20a,%2Druntime%20translation%20takes%20place). That is, code need to be compiled first before running it. 
+- You can only run VBA using the desktop version of Excel (not the web version).
+- With VBA you can extend Excel and automate tasks by coding different algorithms that for instance can be run by pressing a button. 
 
 
-## Analytics as a data driven process
+---
 
-<div class="column-right">
-```{r, echo = FALSE} 
-# fig.cap="Analytics as a data driven process."
-knitr::include_graphics("../../book/img/process.png", dpi = 250)
+## Setting up Excel for VBA
+
+.midi[
+For running VBA code the **Developer** tab needs to be visible in Excel. This can be done by check marking the **Developer** tab under the 'Ribbon and Toolbar' options in Excel. You find it by choosing **Excel -> Preferences -> Ribbon and toolbar** (`r icons::fontawesome$brands$apple`) or right click a tab and choose **Customize ribbon ...** (`r icons::fontawesome$brands$windows`).
+
+In the **Developer** tab you open the VBA editor by pressing the **Visual basic** button (`r icons::fontawesome$brands$windows` Alt + F11, `r icons::fontawesome$brands$apple` ⌥ + F11).
+
+A few useful shortcuts:
+
+- Toggle VBA editor and Excel (`r icons::fontawesome$brands$windows` Alt + F11, `r icons::fontawesome$brands$apple` ⌘⇧´).
+- Run current procedure or continues execution after pausing (F5).
+- Terminate a procedure and reset all variables to their default values (Shift + F5).
+- Open the Object Browser (F2).
+- Auto complete code (Ctrl + Space).
+- Switch between subs/functions (Ctrl + Up/Down).
+- Use the debugger (F8).
+- Run Debugger to this line (Ctrl + F8).
+]
+<!-- - How to avoid the enable macros dialog? If you have your Excel macro files in a trusted location you can add this location as trusted under `Options > Trust Center > Trust Center Settings > Trusted locations`. -->
+<!-- - How to avoid the "Be careful! Parts of your document may include personal information that can't be removed by the Document Inspector"? Go to `Options > Trust Center > Trust Center Settings > Privacy Options` and un-check the check box that says "Remove personal information from file properties on save". -->
+
+---
+
+## Let us try it out
+
+An __algorithm__ is a finite sequence of well-defined instructions to solve a specific problem or to perform a computation. Let us try to program this algorithm written in pseudocode:
+
+.instructions[
+**Precondition**: A list of student names and a 2-dim array `pref` with group preferences. Entry `pref(i,j)` equals one if student `i` like to be in group with student `j` and zero otherwise.
+
+**Postcondition**: A set of groups with 3-6 persons.
+
+- Step 1: Put students that want to be together in a group if between 3 to 6 students.
+- Step 2: Create two student groups if more than 6 students want to be together.
+- Step 3: Consider the remaining students and create a group by adding students that want to be together until the group size is 4. 
+- Step 4: If two students left then add the students to the last group else create a new group.
+- Step 5: Return the student names of each group.
+]
+
+---
+
+## Say Hello World
+
+---
+
+## Procedures
+
+You will deal with two kinds of procedures
+
+Sub (they can work as a “macro” in Excel)
+Function (they can work like Excel functions)
+
+---
+
+## Basic building blocks in programming
+
+variables, input/output, decisions/cond statements, loops, procedures (functions and subs)
+
+
+---
+
+## Variables
+
+---
+
+## Input/output
+
+
+
+
+```{r copy to docs, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../../docs/slides/", overwrite = T)
+file.copy("../slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../../docs/slides/", recursive = T)
+file.copy("img", "../../docs/slides/", recursive = T)
 ```
-</div>
-<div class="column-left">
-- First you must __import__ your data. 
-<!-- That is, take data from a database, file, web API etc. and transform it into a data frame/table.  -->
-- Next you must get your data in the right form (__wrangling__).
-<!-- - In general raw data may be messy and need to be structured in a __tidy__ way.  -->
-<!-- Tidying your data means storing it in a structured form sutaiable for analysis. In brief, when your data is __tidy__, each column is a variable, and each row is an observation. Tidy data is important because the consistent structure lets you focus your struggle on questions about the data.  -->
-<!-- - Once you have tidy data, a common first step is to __transform__ it.  -->
-<!-- Transformation includes narrowing in on observations of interest (e.g. only observations from a specific year or warehouse), creating new variables based on existing variables (like the cost of using the machine that day given idle time).  -->
-- Exploration, visualizaton and modeling may be seen as different steps which can be used for __analyzing__ the data and answer the overall questions. 
-<!-- This part of the course will focus on the different steps except modeling.  -->
-<!-- - The next step is to do a simple __exploration__ of you data such as calculating a set of summary statistics (like counts, means or KPIs).  -->
-<!-- A good way to get an overview over your data is by __visualisation__.  -->
-<!-- A good visualisation will show you things that you did not expect, raise new questions about the data or confirm your hypotesis. A good visualisation might also hint that you're asking the wrong question, or you need to collect different data. Exploration and visusalization are descriptive analytics and used to answer questions such as: What happend? How many, how often, where? Where exactly is the problem? What actions are needed? -->
-<!-- - __Models__ are complementary tools to visualisation. Once you have made your questions sufficiently precise, you can use a model to answer them. A model is a description of a system using mathematical concepts and a simplification of the real system. That is, the results of a model are based on a set of assumptions. Models for statistical analysis, forecasting, system behaivior are predictive analytics and answer questions like: Why is this happening? What if these trends continue? What will happen next? Models for prescriptive analytics use optimization and other decision modelling techniques to suggest decision options with the goal of improving business performance and answer questions like: What is the best that can happen? -->
-- Given an analysis you must __communicate__ the results to decision makers. 
-<!-- Note that analytics is not a one-way process, is is common that you several times have to tidy and transform your data, explore and visualize based on the results of a model, rerun the model given feedback on you communication to the decision makers etc. Common connections are visualized using directed arrows in Figure \@ref(fig:process).  -->
-- Surrounding the process is __programming__ (your Swiss army knife). 
-<!-- An introduction to programming is given in the first part of the course using VBA in Excel. We will cover programming using R in this part of the course. -->
-</div>
-
-## VBA Part
-
--	VBA is a programming language ”behind” MS Office.
--	Automate processes and create algorithms.
--	Introduction to programming (i.e. coding).
--	The Object model: cells, worksheets, workbooks.
--	Input/Output, variables, loops, conditions, procedures. 
-- VBA project
-
-<!--<div class="centerVH">
-<h2>Over to Lars ...<h2/>
-<div/>-->
-
-## R Part
-
-- R basics
-- Programming in R (loops, conditionals and functions)
-- Rmarkdown
-- IO, tidy and transform
-- Visualization
-- R project
-
-
-## Teaching form and style {.smaller}
-
-- A combination of lectures and study cafés. 
-- Each week you will be given an on-line learning path such as
-   1) Read material or do interactive tutorials and start with exercises.
-   2) Lecture.
-   3) Continue with exercises (group work).
-   4) Join the Study café if you need help with the exercises.
-- The course is a "learning by doing" course. Programming is best learned by trying it yourself given some exercises. 
-- The main focus is on giving you a set of exercises that you can solve in your study groups.
-- It is strongly recommended that you solve the exercises for each week during the course. This is the best way to prepare for the exam. 
-
-
-## Groups 
-
-- You will be asked to form study groups of 3-6 persons which will be used in the whole course. 
-- It is up to you how to meet in these groups (on-line or physical). 
-- The groups will be the backbone when you solve exercises. 
-- It is expected that you have done some effort in understanding/solving the exercises before you meet in you group.
-- The mandatory project reports also have to be handed in as groups.
-
-
-## Project reports
-
-- Two mandatory reports must be written during the course. 
-- Each one focus on the topics covered in the VBA and R part of the course. 
-- For being qualified for exam participation each student must 
-
-   1) hand in the reports in groups,
-   2) do individual peer grading using the on-line platform Peergrade.
-   
-- For sign-up see Brightspace.
-
-
-## Exam
-
-- A six hour written exam about all the curriculum/topics in the course.
-- Curriculum include all material such as book chapters, course notes, videos, interactive tutorials, exercises and project reports.
-- Each part of the course will be given the same weight (3 hours for the VBA and R part). 
-
-----
-
-<div class="centerVH">
-<h2>Happy coding during the course!<h2/>
-<div/>
-
-

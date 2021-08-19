@@ -1,46 +1,27 @@
 ---
 title: "Welcome to Tools for Analytics"
 author: "Lars Relund Nielsen"
-date: ""
-output: 
-   ioslides_presentation: 
-      widescreen: true
-      logo: ../../book/img/logo.png
-      incremental: true
-      fig_width: 7
-      fig_height: 6
-      fig_caption: true
-knit: (function(inputFile, encoding) {
-  output_dir = "../../docs/slides";
-  rmarkdown::render(inputFile, encoding = encoding, output_dir = output_dir)})
+output:
+  xaringan::moon_reader:
+    css: "./libs/slides.css"
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+      highlightStyle: solarized-light
+      countIncrementalSlides: false
 editor_options: 
   chunk_output_type: console
 ---
 
-<!-- Two column css styles + etc -->
-<style>
-.column-left{
-  float: left;
-  width: 50%;
-  text-align: left;
-}
-.column-right{
-  float: right;
-  width: 50%;
-  text-align: left;
-}
-.centerVH {
-  text-align: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-</style>
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+```{r, child = "../setup.Rmd", echo=FALSE}
 ```
+
+```{r include=FALSE}
+# use xaringan::inf_mr(cast_from = "..") to preview
+```
+
+
 
 ## About Me 
 
@@ -50,12 +31,15 @@ knitr::opts_chunk$set(echo = FALSE)
 - Are programming in all kinds of languages such as C, C++, VBA, R, SQL, Javascript …
 - For more information see my [research page]( http://www.research.relund.dk/).
 
+---
 
 ## Who are you?
 
 Let us have a look at [what you answered](). 
 
-## Course overview {.smaller}
+---
+
+## Course overview 
 
 - Business Analytics (BA) refers to the scientific process of transforming data into insight for making better decisions in business. 
 - There is an increasing need for analysts with the ability to do tasks within Analytics. 
@@ -66,16 +50,11 @@ Let us have a look at [what you answered]().
    * The VBA part gives you an introduction to the compiled programming language VBA (Visual Basic for Applications) in Excel. 
    * The R part gives you an introduction to the interpreted programming language R. 
 
+---
 
 ## Analytics as a data driven process
 
-<div class="column-right">
-```{r, echo = FALSE} 
-# fig.cap="Analytics as a data driven process."
-knitr::include_graphics("../../book/img/process.png", dpi = 250)
-```
-</div>
-<div class="column-left">
+.pull-left[
 - First you must __import__ your data. 
 <!-- That is, take data from a database, file, web API etc. and transform it into a data frame/table.  -->
 - Next you must get your data in the right form (__wrangling__).
@@ -83,7 +62,7 @@ knitr::include_graphics("../../book/img/process.png", dpi = 250)
 <!-- Tidying your data means storing it in a structured form sutaiable for analysis. In brief, when your data is __tidy__, each column is a variable, and each row is an observation. Tidy data is important because the consistent structure lets you focus your struggle on questions about the data.  -->
 <!-- - Once you have tidy data, a common first step is to __transform__ it.  -->
 <!-- Transformation includes narrowing in on observations of interest (e.g. only observations from a specific year or warehouse), creating new variables based on existing variables (like the cost of using the machine that day given idle time).  -->
-- Exploration, visualizaton and modeling may be seen as different steps which can be used for __analyzing__ the data and answer the overall questions. 
+- Exploration, visualization and modeling may be seen as different steps which can be used for __analyzing__ the data and answer the overall questions. 
 <!-- This part of the course will focus on the different steps except modeling.  -->
 <!-- - The next step is to do a simple __exploration__ of you data such as calculating a set of summary statistics (like counts, means or KPIs).  -->
 <!-- A good way to get an overview over your data is by __visualisation__.  -->
@@ -93,7 +72,19 @@ knitr::include_graphics("../../book/img/process.png", dpi = 250)
 <!-- Note that analytics is not a one-way process, is is common that you several times have to tidy and transform your data, explore and visualize based on the results of a model, rerun the model given feedback on you communication to the decision makers etc. Common connections are visualized using directed arrows in Figure \@ref(fig:process).  -->
 - Surrounding the process is __programming__ (your Swiss army knife). 
 <!-- An introduction to programming is given in the first part of the course using VBA in Excel. We will cover programming using R in this part of the course. -->
-</div>
+]
+
+```{r, include=FALSE}
+file.copy("../../book/img/process.png", "img/process.png", overwrite = T)
+```
+
+.pull-right[
+```{r, echo = FALSE, out.width="120%"} 
+knitr::include_graphics("./img/process.png", dpi = 250) 
+```
+]
+
+---
 
 ## VBA Part
 
@@ -108,6 +99,8 @@ knitr::include_graphics("../../book/img/process.png", dpi = 250)
 <h2>Over to Lars ...<h2/>
 <div/>-->
 
+---
+
 ## R Part
 
 - R basics
@@ -117,19 +110,20 @@ knitr::include_graphics("../../book/img/process.png", dpi = 250)
 - Visualization
 - R project
 
+---
 
-## Teaching form and style {.smaller}
+## Teaching form and style 
 
 - A combination of lectures and study cafés. 
-- Each week you will be given an on-line learning path such as
-   1) Read material or do interactive tutorials and start with exercises.
-   2) Lecture.
-   3) Continue with exercises (group work).
-   4) Join the Study café if you need help with the exercises.
+  - Read material or do interactive tutorials and start with exercises.
+  - Lecture.
+  - Continue with exercises (group work).
+  - Join the Study café if you need help with the exercises.
 - The course is a "learning by doing" course. Programming is best learned by trying it yourself given some exercises. 
 - The main focus is on giving you a set of exercises that you can solve in your study groups.
 - It is strongly recommended that you solve the exercises for each week during the course. This is the best way to prepare for the exam. 
 
+---
 
 ## Groups 
 
@@ -139,18 +133,18 @@ knitr::include_graphics("../../book/img/process.png", dpi = 250)
 - It is expected that you have done some effort in understanding/solving the exercises before you meet in you group.
 - The mandatory project reports also have to be handed in as groups.
 
+---
 
 ## Project reports
 
 - Two mandatory reports must be written during the course. 
 - Each one focus on the topics covered in the VBA and R part of the course. 
 - For being qualified for exam participation each student must 
-
-   1) hand in the reports in groups,
-   2) do individual peer grading using the on-line platform Peergrade.
-   
+   - hand in the reports in groups,
+   - do individual peer grading using the on-line platform Peergrade.
 - For sign-up see Brightspace.
 
+---
 
 ## Exam
 
@@ -158,10 +152,17 @@ knitr::include_graphics("../../book/img/process.png", dpi = 250)
 - Curriculum include all material such as book chapters, course notes, videos, interactive tutorials, exercises and project reports.
 - Each part of the course will be given the same weight (3 hours for the VBA and R part). 
 
-----
+---
 
-<div class="centerVH">
-<h2>Happy coding during the course!<h2/>
-<div/>
+layout: false
+class: inverse, middle, center
+
+# Happy coding during the course!
 
 
+```{r copy to docs, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../../docs/slides/", overwrite = T)
+file.copy("../slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../../docs/slides/", recursive = T)
+file.copy("img", "../../docs/slides/", recursive = T)
+```
