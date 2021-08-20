@@ -3,7 +3,7 @@ name: VBA problems
 about: Problems in VBA/Excel
 title: "[VBA]"
 labels: vba
-assignees: ''
+assignees: relund, JesperBangMikkelsen, jubaau
 
 ---
 
