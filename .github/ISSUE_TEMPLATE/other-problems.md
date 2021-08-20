@@ -3,7 +3,7 @@ name: Other problems
 about: Problem not related to R or VBA
 title: "[Misc]"
 labels: ''
-assignees: ''
+assignees: relund, JesperBangMikkelsen, jubaau
 
 ---
 
