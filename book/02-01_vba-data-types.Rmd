@@ -44,5 +44,36 @@ By the end of this module, you are expected to have:
 
 
 
+
+## Exercises {#ex-vba-datatypes}
+
+`r strExercises`
+
+### Exercise - Product search {#ex-vba-search-products}
+
+The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-search-products-template.xlsm) contains a sheet _Products_ with a set of products with product code and price. Cell D1 contains the total number of products. 
+
+   (1) Create a sub `FindProduct` that 
+       * Declare two arrays to store the price and product code.
+       * Uses `ReDim` to set the size of the arrays.
+       * Use a for loop to assign values to the arrays.
+       * Use an input box to ask for a product code.
+       * Use a for loop to search for the product and output the price in a message box.
+   (2) Test you code using different product codes
+   (3) Add a button to the Main sheet that run the procedure.
+   (4) What happens if you write the product code without capital letters? If your code do not work, have a look at the [`UCase`](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/ucase-function) function.
+   (5) Modify your code so that if the product is not found then "Product not found!" is given in a message box. Hint: the [`Exit sub`](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/exit-statement) may be useful inside the last for loop.
+       
+
+### Exercise - Read Arrays {#ex-vba-read-arrays}
+
+The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-read-arrays-template.xlsm) contains different sheets with numbers to be read into an array. 
+
+   (1) The sheet _1D Array_ contains an index number `i` (column A) and value `v` (column B) also known as a long format. Create an array `ary1D` (with index starting from 0) that store the values `v` in array entry `ary1D(i)`. Assume that the default array value is 10. Hint you need a for loop to iterate though the numbers. Have a look at the unfinished sub `Read1DAry` for further hints.
+   (2) The sheet _2D Array_ contains an array in matrix format where a cell in row `r` and column `c` contains the value to be stored in the array entry `ary2D(r, c)`. Create the array and store the values. Note `ary2D` start indexing from 1 and not 0. Have a look at the unfinished sub `Read2DAry` for further hints.
+   (3) Modify sub `Read2DAry` so that indexing start from 0 instead of 1, i.e. a cell in row `r` and column `c` contains the value to be stored in the array entry `ary2D(r - 1, c - 1)`.
+   (4) The sheet _4D Array_ contains values to be stored in a long format (column A:D indices and column E values). Create an array `ary4D` (with index starting from 0) that store the values. Assume that the default value is 5. Have a look at the unfinished sub `Read4DAry` for further hints.
+   
+   
 ```{r links, child="links.md", include=FALSE}
 ```
