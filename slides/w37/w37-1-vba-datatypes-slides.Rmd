@@ -21,6 +21,8 @@ editor_options:
 # use xaringan::inf_mr(cast_from = "..") to preview
 ```
 
+layout: true
+
 <div class="my-footer">
 <span>
 <a href="https://bss-osca.github.io/tfa/" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/w37-a-vba-datatypes-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/w36/w37-1-vba-datatypes-slides.Rmd" target="_blank">Source</a> | <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-variables-template.xlsm" target="_blank">Excel</a>
@@ -46,8 +48,6 @@ editor_options:
 knitr::include_graphics("./img/storage.jpg", dpi = 250) 
 ```
 ]
-
-Let us try some examples using this [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-variables-template.xlsm) template.
 
 ---
 
@@ -114,10 +114,8 @@ Example:
 
 Note the `Set` keyword for setting object variables.
 
-Let us try some examples using this [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-variables-template.xlsm) template.
+Have a look at the sub `DeclareVariables` in module `A_Declarations` in this [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-variables-template.xlsm).
 
-
-DeclareVariables
 ---
 
 ## Why declare variables
@@ -128,11 +126,13 @@ DeclareVariables
 
 Example: 10000 customer locations on a map. Need to store the distance between each customer in a 10000 x 10000 array. Define array as:
 
+.midi[
 Set                                  | Memory
 ------------------------------------ | ------------------------------------------------------------------------------
 Dim location(10000,10000) As Variant | (28 + 10000\*10000\*16)/1024/1024 ~ 1526 MB (default if don’t define explicit)
 Dim location(10000,10000) As Double  | (28 + 10000\*10000\*8)/1024/1024 ~ 763 MB                                     
 Dim location(10000,10000) As Integer | (28 + 10000\*10000\*2)/1024/1024 ~ 191 MB  
+]
 
 Often your computer memory is around 5 GB, i.e. think about which data type you need! 
 
@@ -158,7 +158,9 @@ Then the VBA editor will tell you if you forget to declare variables (this can b
 - Local variables are local to a procedure and only known within that procedure.
 - Declare local variables inside the procedure.
 
-example in file
+For more details about scope see http://www.cpearson.com/excel/scope.aspx
+
+Have a look at the module `B_Scope` in the [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-variables-template.xlsm) and try to run the functions in debug mode (place the cursor in the top of a procedure and press the step into button). 
 
 ---
 
@@ -200,11 +202,9 @@ knitr::include_graphics("./img/array.jpg")
   MsgBox(intValues(4))  ' return 98     
   ```
 
-Note the default start index is 0. If you want to start with index 1 then add 
-  ```
-  Option Base 1
-  ```
-to the top of your module! 
+Note the default start index is 0. If you want to start with index 1 then add `Option Base 1` to the top of your module! 
+
+Have a look at procedures `ArrayEx1` and `ArrayEx2` in the module `A_Declarations` in the [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-variables-template.xlsm). To test the `Option Base 1` check out module `C_Base1`.
 
 ---
 
@@ -227,18 +227,25 @@ knitr::include_graphics("./img/3d-array.png")
   
   MsgBox intOrderSize(2,10, 20)  ' order size week 2, customer 10, product 20 
   ```
+
+Have a look at procedure `MiltidimArray` in the module `D_MultidimArray` in the [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-variables-template.xlsm). 
+
 ---
 
 ## Dynamic arrays
 
-Often we don't know the size of the array we need when we start the program.
-
+Often we don't know the size of the array we need when we start the program. Use `ReDim` to set the dimension 
+ 
 ```
 Dim strPeople() As String
 ...
 n = 8
 ReDim strPeople(n)
 ```
+
+Have a look at procedure `DynArray` in the module `A_Declarations` in the [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-variables-template.xlsm).
+
+You can always lowest and highest index using functions `LBound` and `UBound`
 
 
 ```{r copy to docs, include=FALSE}
