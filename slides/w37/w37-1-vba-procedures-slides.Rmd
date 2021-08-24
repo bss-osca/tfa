@@ -1,0 +1,155 @@
+---
+title: "Procedures"
+author: "Lars Relund Nielsen"
+output:
+  xaringan::moon_reader:
+    css: "./libs/slides.css"
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+      highlightStyle: solarized-light
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, child = "../setup.Rmd", echo=FALSE}
+```
+
+```{r include=FALSE}
+# use xaringan::inf_mr(cast_from = "..") to preview
+```
+
+layout: true
+
+<div class="my-footer">
+<span>
+<a href="https://bss-osca.github.io/tfa/" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/w37-a-vba-procedures-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/w36/w37-1-vba-procedures-slides.Rmd" target="_blank">Source</a> | <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-procedures-template.xlsm" target="_blank">Excel</a>
+</span>
+</div> 
+
+---
+
+## Procedures
+
+- A procedure is a piece of code stored in a module. 
+- A procedure contains a series of computational steps that will be carried out when the procedure is called. 
+
+VBA have two kinds of procedures:
+.pull-left[
+Subs:
+  - Can make changes to the worksheet
+  - Can modify its surroundings
+  - Can be executed by a button
+  - Cannot return anything
+]
+.pull-right[
+Functions:
+  - Can return something
+  - Can be used in Excel
+  - Cannot be used as a macro.
+]
+
+---
+
+## Declaring a procedure
+
+Sub:
+
+  ```
+  Sub MySub(arg1 As {datatype}, arg2 As {datatype})
+    ' Some code
+  End Sub
+  ```
+
+Function:
+
+  ```
+  Function MyFunction(arg1 As {datatype}, arg2 As {datatype}) As {return datatype}
+    ' Some code
+    MyFunciton = value  ' assign a return value to the function
+  End Sub
+  ```
+
+Hint: You can use `Exit Sub`/`Exit Function` to exit the sub/function early in the code.
+
+---
+
+## Calling a prodedure
+
+Use the `Call` keyword to call a sub:
+
+  ```
+  Call MySub(arg1, arg2)
+  ```
+
+Call a function by assigning its return value to a variable
+
+  ```
+  result = MyFunction(arg1, arg2)
+  ```
+
+---
+
+## Input `ByRef` or `ByVal`
+
+There are two ways of passing arguments to procedures:
+  ```
+  Sub MySub(ByRef arg1 As {datatype}, ByVal arg2 As {datatype})
+    ' Some code
+  End Sub
+  ```
+
+Variable `arg1` is passed **by reference** (default). That is, no new memory is allocated when the procedure is called and hence the procedure can have changed the value of `arg1` when the procedure stops. Note since the default, the result is the same if we omitted the keyword `ByRef`. Variable `arg2` is passed **by value**. That is, a copy of the variable is created in memory with local scope. Hence the procedure cannot change the value of `arg2` when the procedure stops (the local variables is deleted). 
+
+Using `ByRef` is faster and saves memory since we do not have to allocate new memory. We may use ByRef to return updated values of the input variables e.g calling a sub `ReadArrays` that takes an unallocated array as input and afterwards the arrays has been allocated and values from a sheet stored in the array. 
+
+---
+
+## Public and Private Procedures
+
+Public (default): Can be used from other modules, from other files and from Excel
+Public Sub f()
+   …		
+End Sub
+Private: Can only be used from within it’s own module
+Private Sub g()
+   …		
+End Sub
+
+---
+
+## Default input arguments
+
+A procedure may often be called with the same input argument value. To avoid specifying the value always you may set a default value using the `Optional` keyword:
+  ```
+  Sub MySub(arg1 As {datatype}, Optional arg2 As {datatype} = defaultValue)  
+  ```
+You can now call the procedure using:
+  ```
+  Call MySub(arg1)  ' assume that arg2 = defaultValue
+  ```
+Note: Every parameter following an optional parameter in the procedure definition must also be optional.
+
+---
+
+## Using built-in functions
+
+- VBA has a set of [built-in functions](https://bettersolutions.com/vba/functions/complete-list.htm) such as `Abs`, `Log` and `Date`. You call them by just writing their name:
+  ```
+  dtm as Date
+  dtm = Date()
+  ```
+- You can also use the [worksheet functions](https://docs.microsoft.com/en-us/office/vba/excel/concepts/events-worksheetfunctions-shapes/list-of-worksheet-functions-available-to-visual-basic) in Excel. You call them using the `WorksheetFunction` object:
+  ```
+  sum = WorksheetFunction.Sum(Range("A1:D5"))
+  ```
+
+
+```{r copy to docs, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../../docs/slides/", overwrite = T)
+file.copy("../slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../../docs/slides/", recursive = T)
+file.copy("img", "../../docs/slides/", recursive = T)
+```
