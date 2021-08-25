@@ -1,11 +1,147 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 ```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
 ```
+# Procedures 
 
-# Procedures
+This module gives a short introduction to procedures. In general syllabus will point to chapters in @vba-book; however, there is a lot for videos about VBA online such as course [14-Hour VBA Course][vba-yt-course2]. You may have a look at these videos instead if you prefer a different learning style. In the learning path diagram, links to alternative online content will be pointed out. Note this is alternatives to the standard learning path that you may use instead. The learning path may also have extra content that is not a part of syllabus you can have a look at.
+
+__Learning path diagram__
+
+Click/hover the nodes to follow links and see details.
+
+```{r, echo=FALSE, out.width="100%", fig.asp=NA}
+g <- create_learning_path(
+   url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
+   sheet = "vba-procedures", 
+   x_legend = 1.6, y_legend = 0.2)
+render_graph(g, height = 400)
+```
+
+## Learning outcomes {#lo-vba-procedures}
+
+By the end of this module, you are expected to be able to:
+
+* Describe what a procedure is.
+* Explain what kind of procedures there are in VBA and what they can be used for.
+* Declare and call a procedure.
+* Explain what the difference is by using input arguments _by reference_ or _by value_ in a procedure. 
+* Set the scope of a procedure using private or public procedures.
+* Set default input arguments.
+* Call built-in functions for VBA and Excel.
+
+The learning outcomes relate to the [overall learning goals](#lg-course) number 1, 2, 4, 8 and 9 of the course.
+
+<!-- SOLO increasing: identify · memorise · name · do simple procedure · collect data · -->
+<!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
+<!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
+<!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
+
+
+## Procedures {#vba-procedures}
+
+A procedure is a piece of code stored in a module which contains a series of computational steps that will be carried out when the procedure is called. VBA has two kinds of procedures: subs and functions.
+  
+Read Chapter 5 in @vba-book. You may also have a look at the alternative videos instead as listed in the learning path diagram.
+
+
+## How do I debug my code? {#vba-debug}
+
+You debug you code to find errors and correct bugs in your program. VBA has a built-in debugger that you may use to step though you code and check if the values in memory are correct. You start and use the debugger using the debugger buttons in the VBA editor, e.g. set the cursor in the top of a sub and press the **Step Into** button (`r icons::fontawesome$brands$windows` F8, `r icons::fontawesome$brands$apple` ⇧⌘I). You can now repeatedly press the button to step though the code. 
+
+In the **Locals** window you can see the values of the variables as you run you code. In the **Immediate** window you can add output using the [`Debug.Print`](https://www.automateexcel.com/vba/debug-print-immediate-window/) and test code.  
+
+Finally, if you want to run the program until a specific line or code then insert a break-point by clicking the margin of that line in the VBA editor. Next, run you sub and the debugger will stop at that line. 
+
+For more details you may have a look at Chapter 9 in @vba-book or the videos as listed in the learning path diagram.
 
 
 
+## Recap
 
+- A procedure is a piece of code stored in a module. 
+- A procedure contains a series of computational steps that will be carried out when the procedure is called. 
+- VBA has two kinds of procedures:
+  
+  Subs:
+  - Can make changes to the worksheet.
+  - Can modify its surroundings.
+  - Can be executed by a button (if no arguments).
+  - Cannot return anything.
+  
+  
+  Functions:
+  - Can return something.
+  - Can be used in Excel.
+  - Cannot be used as a macro.
+
+
+- You declare a procedure using
+  ```
+  Sub MySub(arg1 As {datatype}, arg2 As {datatype})
+    ' Some code
+  End Sub
+  
+  Function MyFunction(arg1 As {datatype}, arg2 As {datatype}) As {return datatype}
+    ' Some code
+    MyFunciton = value  ' assign a return value to the function
+  End Sub
+  ```
+- You can use `Exit Sub`/`Exit Function` to exit the sub/function early in the code.
+- Procedures can be either public or private:
+  - Public (default): Can be used from other modules, from other files and from Excel.
+    ```
+    Public Sub MySub()
+    ...
+    End Sub
+    ```
+  - Private: Can only be used from within its own module.
+    ```
+    Private Sub MySub()
+    ...
+    End Sub
+    ```
+- Use the `Call` keyword to call a sub:
+  ```
+  Call MySub(arg1, arg2)
+  ```
+- Call a function by assigning its return value to a variable
+  ```
+  result = MyFunction(arg1, arg2)
+  ```
+- There are two ways of passing arguments to procedures:
+  ```
+  Sub MySub(ByRef arg1 As {datatype}, ByVal arg2 As {datatype})
+    ' Some code
+  End Sub
+  ```
+  - Argument `arg1` is passed **by reference** (default). That is, no new memory is allocated when the procedure is called and hence the procedure can have changed the value of `arg1` when the procedure stops. 
+  - Since the default is `ByRef`, the result is the same if we omitted the keyword `ByRef`. 
+  - Argument `arg2` is passed **by value**. That is, a copy of the variable is created in memory with local scope. Hence the procedure cannot change the value of `arg2` when the procedure stops (the local variables is deleted). 
+
+  - Using `ByRef` is faster and saves memory since we do not have to allocate new memory. 
+  - We may use `ByRef` to return updated values of the input arguments e.g calling a sub `ReadArrays` that takes an unallocated array as input and afterwards the arrays has been allocated and values from a sheet stored in the array. 
+- Use the `Optional` keyword to indicate default input arguments:
+  ```
+  Sub MySub(arg1 As {datatype}, Optional arg2 As {datatype} = defaultValue)  
+  ```
+  You can now call the procedure using:
+  ```
+  Call MySub(arg1)  ' assume that arg2 = defaultValue
+  ```
+  Every parameter following an optional parameter in the procedure definition must also be optional.
+- VBA has a set of [built-in functions](https://bettersolutions.com/vba/functions/complete-list.htm) such as `Abs`, `Log` and `Date`. You call them by just writing their name:
+  ```
+  dtm as Date
+  dtm = Date()
+  ```
+- You can also use the [worksheet functions](https://docs.microsoft.com/en-us/office/vba/excel/concepts/events-worksheetfunctions-shapes/list-of-worksheet-functions-available-to-visual-basic) in Excel. You call them using the `WorksheetFunction` object:
+  ```
+  sum = WorksheetFunction.Sum(Range("A1:D5"))
+  ```
 
 
 ## Exercises {#ex-vba-procedures}
