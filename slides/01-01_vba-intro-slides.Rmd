@@ -1,0 +1,287 @@
+---
+title: "An introduction to VBA"
+author: "Lars Relund Nielsen"
+output:
+  xaringan::moon_reader:
+    css: "./libs/slides.css"
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+      highlightStyle: solarized-light
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, child = "setup.Rmd", echo=FALSE}
+```
+
+```{r include=FALSE}
+# use xaringan::inf_mr(cast_from = ".") to preview
+```
+
+layout: true
+  
+<div class="my-footer">
+<span>
+<a href="https://bss-osca.github.io/tfa/" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/w36-2-vba-intro-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/w36/w36-2-vba-intro-slides.Rmd" target="_blank">Source</a> | <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-intro-template.xlsm" target="_blank">Excel</a>
+</span>
+</div>
+
+---
+
+
+<!-- - Always try to use parentheses when you call subs and functions, e.g. `dtmTime = Now` will give the same result as `dtmTime = Now()` (it is not always possible when you call subs with no input). -->
+<!-- - Indent you code using the default standard -->
+<!-- - Specify return type of functions  -->
+<!-- - Make procedures private whenever possible -->
+<!-- - Always use `Option Explicit` (can be se under Tools-Options: "Require variable declaration" in the VBA editor) -->
+
+
+## What is VBA
+
+- A programming language intended to control and automate Microsoft Office applications (we use Excel).
+- VBA (Visual Basic for Applications) is an implementation of BASIC developed by Microsoft. 
+- A [compiled language](https://en.wikipedia.org/wiki/Compiled_language#:~:text=A%20compiled%20language%20is%20a,%2Druntime%20translation%20takes%20place). That is, code need to be compiled first before running it. 
+- You can only run VBA using the desktop version of Excel (not the web version).
+- With VBA you can extend Excel and automate tasks by coding different algorithms that for instance can be run by pressing a button. 
+
+
+---
+
+## Setting up Excel for VBA
+
+.midi[
+For running VBA code the **Developer** tab needs to be visible in Excel. This can be done by check marking the **Developer** tab under the 'Ribbon and Toolbar' options in Excel. You find it by choosing **Excel -> Preferences -> Ribbon and toolbar** (`r icons::fontawesome$brands$apple`) or right click a tab and choose **Customize ribbon ...** (`r icons::fontawesome$brands$windows`).
+
+In the **Developer** tab you open the VBA editor by pressing the **Visual basic** button (`r icons::fontawesome$brands$windows` Alt + F11, `r icons::fontawesome$brands$apple` ⌥ + F11).
+
+A few useful shortcuts:
+
+- Toggle VBA editor and Excel (`r icons::fontawesome$brands$windows` Alt + F11, `r icons::fontawesome$brands$apple` ⌘⇧´).
+- Run current procedure or continues execution after pausing (F5).
+- Terminate a procedure and reset all variables to their default values (Shift + F5).
+- Open the Object Browser (F2).
+- Auto complete code (Ctrl + Space).
+- Switch between subs/functions (Ctrl + Up/Down).
+- Use the debugger (F8).
+- Run Debugger to this line (Ctrl + F8).
+]
+<!-- - How to avoid the enable macros dialog? If you have your Excel macro files in a trusted location you can add this location as trusted under `Options > Trust Center > Trust Center Settings > Trusted locations`. -->
+<!-- - How to avoid the "Be careful! Parts of your document may include personal information that can't be removed by the Document Inspector"? Go to `Options > Trust Center > Trust Center Settings > Privacy Options` and un-check the check box that says "Remove personal information from file properties on save". -->
+
+---
+
+## Let us try it out
+
+.midi[
+An __algorithm__ is a finite sequence of well-defined instructions to solve a specific problem or to perform a computation. Let us try to program this algorithm written in pseudocode:
+
+.instructions[
+**Precondition**: A list of student names and a 2-dim array `pref` with group preferences. Entry `pref(i,j)` equals one if student `i` like to be in group with student `j` and zero otherwise.
+
+**Postcondition**: A list of groups with 3-6 persons.
+
+- Step 1: Allocate students that want to be together to a group number
+- Step 2: Fix groups with between 3 to 6 students
+- Step 3: Split groups with more that 6 students into N groups such that N gives the minimum number of groups between 3 to 6 students
+- Step 4: Merge groups with 2 students into a group with 4 students
+- Step 5: Consider the remaining students and create a group by adding students that want to be together until the group size is 4.
+- Step 6: Return the student names of each group.
+]
+
+Let us have a look at the [implementation](https://github.com/bss-osca/tfa/blob/master/vba/vba-groups.xlsm).
+]
+---
+
+## Say Hello World
+
+Let us try to create our first procedure in VBA.
+
+---
+
+## Basic building blocks in programming
+
+- _Variables_ store stuff in memory.
+- _Procedures_ (functions and subs) execute a set of instructions.
+- _Conditional statements_ (decisions) are used to execute different instructions depending on a true/false statement.
+- _Loops_ are used to execute code repeatedly. 
+- _Input/output_ are needed to read data and output the result.
+
+Let us try some examples using this [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-intro-template.xlsm) template.
+
+---
+
+## Variables
+
+.pull-left[
+- Variables are used to store information in the program.
+- A variable is a box that can contain 
+  - A number
+  - A string of text
+  - A date
+  - An array of integers
+- The variable name is the label on the box.
+]
+
+.pull-right[
+```{r, echo = FALSE, out.width="120%", fig.cap="Computer memory"} 
+knitr::include_graphics("./img/storage.jpg", dpi = 250) 
+```
+]
+
+Run the procedure `DeclareVariables` in the Excel file.
+---
+
+## Procedures
+
+In VBA we deal with two kinds of procedures:
+
+- A `Sub` which can work as a “macro” in Excel, i.e. we can call it using e.g. a button. 
+
+  ```
+  Sub SubName(input As integer)
+      ...
+  End Sub
+  ```
+
+
+- A `Function` which can work like Excel functions, i.e. return a value.
+
+  ```
+  Function FunctionName(input As String) As String
+      ...
+  End Function
+  ```
+
+Have a look at the function `StringJoin` in the Excel file.
+
+---
+
+## Input/output
+
+You can use `Range` to read/write to a sheet:
+
+  ```
+  Range("B7") = 107      ' Write 107 in cell B7
+  Range("H1") = "Test"   ' Write Test in cell H1
+  Range("T4") = x        ' Write value of varible x in cell T4
+  x = Range("B7)         ' Set x equal to value in cell B7 
+  ```
+
+You must know which sheet you are considering (above the active one). Always refer to a sheet:
+
+  ```
+  Worksheets("Groups").Range("B7") = 107   ' Write 107 in B7 in sheet Groups
+  ```
+
+As an alternative you may use `Cells`:
+
+  ```
+  Cells(2,3) = 107  ' Write 107 to cell in row 2 and column 3 (C2) 
+  ```
+
+Have a look at the sub `ReadWrite` in the Excel file.
+
+---
+
+## Communicate with the user
+
+- Simple message box: 
+  ```
+  MsgBox(“You are done!”)
+  ```
+- More advanced message box:
+  ```
+  intAns = MsgBox("Delete Sheet 1 permanently?", vbOKCancel + vbQuestion)
+  ```
+  Different buttons and their value can be seen in the [documentation](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/msgbox-function)
+- Input box:
+  ```
+  strAns = InputBox("What is your name?")
+  ```
+  Return what the user types (if press Cancel then return an empty string)
+
+Have a look at the sub `Dialog` in the Excel file.
+
+---
+
+## Conditional statements (decisions) 
+
+We can execute different instructions depending on a true/false statement. An example with an if statement:
+
+```
+If int < 7 Then
+  MsgBox("Number is less than 7.")
+ElseIf int == 7
+  MsgBox("Number is 7.")
+Else
+  MsgBox("Number is greater than 7.")
+End If
+```
+
+Have a look at the sub `CondStatement` in the Excel file.
+
+---
+
+## Loops 
+
+Used to execute code repeatedly:
+
+  ```
+  Sub Loops()
+    For i = 1 To 3
+  	  MsgBox(i)
+    Next
+  End Sub
+  ```
+
+Have a look at the sub `Loops` in the Excel file.
+
+---
+
+## Using built-in functions
+
+Three types of functions:
+
+- Functions that are build into VBA
+- Excel functions (Worksheet/application functions)
+- Custom functions (yours or mine)
+  ```
+  Now()  ' VBA function - Date and time right now  
+  Rnd()  ' VBA function - Random number between 0 and 1
+  WorksheetFunction.Sum(Range("D2:E5"))  ' Excel function - Sum of range
+  ```
+
+Have a look at the sub `ExcelFunction` in the Excel file.
+
+---
+
+## The macro recorder
+
+Good idea as supplement to coding in the following cases:
+- Forgot syntax for font, format, color etc.
+- Help to make charts
+
+Note: Recorded code must be cleaned up and often changed. In many other cases, recording is NOT a good idea.
+
+Always indicate in your VBA code when something is recorded!
+  ```
+  ' Start of recorded code
+  ...
+  
+  ' End of recorded code
+  ```
+
+Have a look at the sub `MacroRecorder` in the Excel file.
+
+
+
+
+```{r copy to docs, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../docs/slides/", overwrite = T)
+file.copy("./slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../docs/slides/", recursive = T)
+file.copy("img", "../docs/slides/", recursive = T)
+```
