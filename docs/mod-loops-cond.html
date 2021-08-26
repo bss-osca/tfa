@@ -267,6 +267,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="5.1.1" data-path="mod-loops-cond.html"><a href="mod-loops-cond.html#ex-vba-loops"><i class="fa fa-check"></i><b>5.1.1</b> Exercise - Loops</a></li>
 <li class="chapter" data-level="5.1.2" data-path="mod-loops-cond.html"><a href="mod-loops-cond.html#ex-vba-flight"><i class="fa fa-check"></i><b>5.1.2</b> Exercise - Flight search</a></li>
+<li class="chapter" data-level="5.1.3" data-path="mod-loops-cond.html"><a href="mod-loops-cond.html#ex-vba-job-seq"><i class="fa fa-check"></i><b>5.1.3</b> Exercise - Job sequencing</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="object-model.html"><a href="object-model.html"><i class="fa fa-check"></i><b>6</b> Object model</a>
@@ -525,14 +526,14 @@ div.csl-indent {
 <li>Try pressing the <strong>Clear Search</strong> button and see what happens. Have a look at the code in the VBA editor for this sub and get an overview. You are not expected to understand all the code.</li>
 <li>Try to finish the first part of the <code>SearchFlights</code> sub and store the flights in arrays. Use the debugger to check if the values are stored correctly.</li>
 </ol>
-<div id="mdfa4sfMKXiwpmJdSe7u" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mdfa4sfMKXiwpmJdSe7u-title">
+<div id="ZMSUvInXiT50hoKdZEWQ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ZMSUvInXiT50hoKdZEWQ-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="mdfa4sfMKXiwpmJdSe7u-title">
+<h4 class="modal-title" id="ZMSUvInXiT50hoKdZEWQ-title">
 Hint 2
 </h4>
 </div>
@@ -555,17 +556,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#mdfa4sfMKXiwpmJdSe7u">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#ZMSUvInXiT50hoKdZEWQ">
 Hint 2
 </button>
-<div id="8Lc8ox9hr22iyQfQMMOz" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="8Lc8ox9hr22iyQfQMMOz-title">
+<div id="BSueVvOwxcLJJHvZmcp8" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="BSueVvOwxcLJJHvZmcp8-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="8Lc8ox9hr22iyQfQMMOz-title">
+<h4 class="modal-title" id="BSueVvOwxcLJJHvZmcp8-title">
 Hint 1
 </h4>
 </div>
@@ -582,11 +583,44 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#8Lc8ox9hr22iyQfQMMOz">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#BSueVvOwxcLJJHvZmcp8">
 Hint 1
 </button>
 <ol start="4" style="list-style-type: decimal">
 <li>Try to finish the second part of the <code>SearchFlights</code> sub and search for matching origin-destination pairs. Note origins and destinations listed to be searched for are also matching origin-destination pairs if they are not in the same row.</li>
+</ol>
+</div>
+<div id="ex-vba-job-seq" class="section level3" number="5.1.3">
+<h3><span class="header-section-number">5.1.3</span> Exercise - Job sequencing</h3>
+<p>The <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-job-seq-template.xlsm">file</a> should be used as a starting point for this exercise.</p>
+<p>Consider <span class="math inline">\(i = 1,...,n\)</span> jobs that has to be done on a machine and let <span class="math inline">\(c_{ij}\)</span> denote the setup cost of switching from job <span class="math inline">\(i\)</span> to job <span class="math inline">\(j\)</span>. Moreover, let <span class="math inline">\(c_{0i}\)</span> denote the setup cost of setting up job <span class="math inline">\(i\)</span> when the machine is idle (index 0). Let <span class="math inline">\(s = (0, s_1, \ldots, s_n)\)</span> denote the sequence of jobs and <span class="math inline">\(C\)</span> the total setup costs, e.g. if <span class="math inline">\(s = (0,1,3,2,6,5,4)\)</span>, then <span class="math inline">\(C = c_{01} + c_{13} + c_{32} + c_{26} + c_{65} + c_{54}\)</span>. Different algorithms for finding a good strategy minimizing the total setup costs exists. A greedy algorithm is:</p>
+<div class="box">
+<p><strong>Step 0</strong>: Select the first job as one with minimal idle setup cost.</p>
+<p><strong>Step 1</strong>: Given current job <span class="math inline">\(i\)</span> select the unscheduled with minimal setup cost.</p>
+<p><strong>Step 2</strong>: If no unscheduled jobs then stop and output the found job sequence else go to Step 1.</p>
+</div>
+<p>Often a better algorithm is:</p>
+<div class="box">
+<p><strong>Step 0</strong>: Define relative setup costs <span class="math inline">\(\hat{c}_{ij} = c_{ij} - min(c_{0j},\ldots,c_{i-1j},,c_{i+1j}\ldots,c_{nj})\)</span> (the cost is subtracted the minimum value in that column).</p>
+<p><strong>Step 1</strong>: Call the greedy algorithm using costs <span class="math inline">\(\hat{c}_{ij}\)</span>.</p>
+</div>
+<p>Consider sheet <em>Main</em> that contains the setup costs for a scheduling problem.</p>
+<ol style="list-style-type: decimal">
+<li>Implement the greedy algorithm in a sub <code>Greedy</code> that store the setup costs in an <span class="math inline">\(n+1 \times n\)</span> 2D array assuming the setup costs table start in cell A4. Next, call the sub <code>GreedyAlg(costs)</code> that takes the costs as input argument. The sub must
+<ul>
+<li>Store the job sequence in an 1D array.</li>
+<li>Output the number of jobs in cell C1, the job sequence in cell C2 and the total setup costs in cell F1.</li>
+<li>Highlight the cells with setup costs used in the sequence.</li>
+</ul></li>
+<li>Implement the better algorithm in a sub <code>Better</code> that
+<ul>
+<li>Find and store the minimum setup costs for each column.</li>
+<li>Calculate the relative costs.</li>
+<li>Call the greedy algorithm using the relative costs.</li>
+<li>Correct the total setup costs by adding the minimum costs.</li>
+</ul></li>
+<li>Add three buttons to <em>Main</em> that remove the solution, run greedy and run better.</li>
+<li>Try to use different datasets from the sheet <em>Data</em> and paste it into A4 in <em>Main</em>.</li>
 </ol>
 
 </div>
