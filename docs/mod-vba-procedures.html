@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>D Coding/naming convention | Tools for Analytics (TFA)</title>
+  <title>Module 4 Procedures | Tools for Analytics (TFA)</title>
   <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="D Coding/naming convention | Tools for Analytics (TFA)" />
+  <meta property="og:title" content="Module 4 Procedures | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://bss-osca.github.io/tfa/" />
   <meta property="og:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="bss-osca/tfa" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="D Coding/naming convention | Tools for Analytics (TFA)" />
+  <meta name="twitter:title" content="Module 4 Procedures | Tools for Analytics (TFA)" />
   
   <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course" />
   <meta name="twitter:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="help.html"/>
-<link rel="next" href="lg-course.html"/>
+<link rel="prev" href="mod-vba-datatypes.html"/>
+<link rel="next" href="mod-loops-cond.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -496,134 +496,159 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="coding-convention" class="section level1" number="25">
-<h1><span class="header-section-number">D</span> Coding/naming convention</h1>
-<p>The main reason for using a consistent set of coding conventions is to standardize the structure and coding style of an application so that you and others can easily read and understand the code. Good coding conventions result in precise, readable, and unambiguous source code that is consistent with other language conventions and as intuitive as possible.</p>
-<p>Different ways of naming you variables exists. You are advised to adopt a naming convention; some use <a href="https://en.wikipedia.org/wiki/Snake_case">snake case</a> others use <a href="https://en.wikipedia.org/wiki/Camel_case">camel case</a>. The <a href="https://en.wikipedia.org/wiki/Leszynski_naming_convention">Leszynski naming convention</a> define variables with a consistent prefix that makes it easy to identify its data type. It is common to use Leszynski convention within the VBA community. The R community use snake case but camel case is also okay. Some common prefixes used for the Leszynski naming convention are:</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Type</th>
-<th align="center">Prefix</th>
-<th align="left">Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Boolean</td>
-<td align="center">bln</td>
-<td align="left">blnFound</td>
-</tr>
-<tr class="even">
-<td align="left">Currency</td>
-<td align="center">cur</td>
-<td align="left">curRevenue</td>
-</tr>
-<tr class="odd">
-<td align="left">Date (Time)</td>
-<td align="center">dtm</td>
-<td align="left">dtmStart</td>
-</tr>
-<tr class="even">
-<td align="left">Double</td>
-<td align="center">dbl</td>
-<td align="left">dblTolerance</td>
-</tr>
-<tr class="odd">
-<td align="left">Integer</td>
-<td align="center">int</td>
-<td align="left">intQuantity</td>
-</tr>
-<tr class="even">
-<td align="left">Long</td>
-<td align="center">lng</td>
-<td align="left">lngDistance</td>
-</tr>
-<tr class="odd">
-<td align="left">String</td>
-<td align="center">str</td>
-<td align="left">strFName</td>
-</tr>
-<tr class="even">
-<td align="left">Variant</td>
-<td align="center">vnt</td>
-<td align="left">vntCheckSum</td>
-</tr>
-<tr class="odd">
-<td align="left">Array</td>
-<td align="center">ary</td>
-<td align="left">aryNumbers (optional)</td>
-</tr>
-<tr class="even">
-<td align="left">User form</td>
-<td align="center">frm</td>
-<td align="left">frmProcess</td>
-</tr>
-<tr class="odd">
-<td align="left">Worksheet</td>
-<td align="center">wst</td>
-<td align="left">wstDistances</td>
-</tr>
-<tr class="even">
-<td align="left">Workbook</td>
-<td align="center">wbk</td>
-<td align="left">wbkData</td>
-</tr>
-</tbody>
-</table>
-<p>Many <a href="https://msdn.microsoft.com/en-us/library/aa263493(v=vs.60).aspx">other prefixes</a> can be used also.</p>
-<p>Choose the naming convention you like best in your study group. But stick only to one of them. A few examples:</p>
-<pre><code>this_is_snake_case   # note you do not use capital letters here
-thisIsCamelCase      # you start each word with a capital letter (except the first)
-dblTolerance         # Lezynski convention naming a double (dbl) variable
-strNane              # Lezynski naming a string (str) variable</code></pre>
-<p>When defining variables and functions, it is in general good practice to use nouns for variables and verbs for functions.</p>
-<div id="commenting-your-code" class="section level2" number="25.1">
-<h2><span class="header-section-number">D.1</span> Commenting your code</h2>
-<p>It is always good practice to comment your code. Such that others can get a fast overview and understand your code easier. We will use <a href="https://roxygen2.r-lib.org/">roxygen documentation</a> comments which are widely known. A few examples in VBA are</p>
-<p>The top of a module file:</p>
-<div class="sourceCode" id="cb498"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb498-1"><a href="coding-convention.html#cb498-1" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span> Module description<span class="op">.</span></span>
-<span id="cb498-2"><a href="coding-convention.html#cb498-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;  Can be more than one line.</span></span>
-<span id="cb498-3"><a href="coding-convention.html#cb498-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; </span></span>
-<span id="cb498-4"><a href="coding-convention.html#cb498-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @remarks Put your remarks on the module implementation here</span></span>
-<span id="cb498-5"><a href="coding-convention.html#cb498-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @author Lars Relund &lt;junk@relund.dk&gt;</span></span>
-<span id="cb498-6"><a href="coding-convention.html#cb498-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @date 2016-08-26</span></span></code></pre></div>
-<p>Before each <code>sub</code>, <code>function</code> etc. write:</p>
-<div class="sourceCode" id="cb499"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb499-1"><a href="coding-convention.html#cb499-1" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span> Sub description</span>
-<span id="cb499-2"><a href="coding-convention.html#cb499-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; </span></span>
-<span id="cb499-3"><a href="coding-convention.html#cb499-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @pre Precondition </span></span>
-<span id="cb499-4"><a href="coding-convention.html#cb499-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @post Postcondition</span></span>
-<span id="cb499-5"><a href="coding-convention.html#cb499-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb499-6"><a href="coding-convention.html#cb499-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @param strA   Explanation of input parameter strA</span></span>
-<span id="cb499-7"><a href="coding-convention.html#cb499-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @param intB Explanation of input parameter intB</span></span>
-<span id="cb499-8"><a href="coding-convention.html#cb499-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @return Return value (if a function)</span></span>
-<span id="cb499-9"><a href="coding-convention.html#cb499-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @remarks Further remarks </span></span>
-<span id="cb499-10"><a href="coding-convention.html#cb499-10" aria-hidden="true" tabindex="-1"></a>Public <span class="bu">Function</span> <span class="fu">MyFunc</span>(strA As <span class="bu">String</span><span class="op">,</span> intB As Integer) As Integer {</span>
-<span id="cb499-11"><a href="coding-convention.html#cb499-11" aria-hidden="true" tabindex="-1"></a>   <span class="op">...</span></span>
-<span id="cb499-12"><a href="coding-convention.html#cb499-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p>Further tags (i.e. keywords starting with @) can be seen <a href="https://roxygen2.r-lib.org/articles/rd.html">here</a>.</p>
-<p>In R we use a ‘hash’ (#’) to comment functions:</p>
-<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="coding-convention.html#cb500-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Subtract two vectors</span></span>
-<span id="cb500-2"><a href="coding-convention.html#cb500-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb500-3"><a href="coding-convention.html#cb500-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param x First vector.</span></span>
-<span id="cb500-4"><a href="coding-convention.html#cb500-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param y Vector to be subtracted.</span></span>
-<span id="cb500-5"><a href="coding-convention.html#cb500-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb500-6"><a href="coding-convention.html#cb500-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return The difference.</span></span>
-<span id="cb500-7"><a href="coding-convention.html#cb500-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
-<span id="cb500-8"><a href="coding-convention.html#cb500-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb500-9"><a href="coding-convention.html#cb500-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
-<span id="cb500-10"><a href="coding-convention.html#cb500-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; subtract(x = c(5,5), y = c(2,3))</span></span>
-<span id="cb500-11"><a href="coding-convention.html#cb500-11" aria-hidden="true" tabindex="-1"></a>subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
-<span id="cb500-12"><a href="coding-convention.html#cb500-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x<span class="sc">-</span>y)</span>
-<span id="cb500-13"><a href="coding-convention.html#cb500-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<!-- # Slides -->
-<!-- Slides and code from the lectures. -->
-<!-- * [Welcome to TFA][slides-welcome]. -->
-<!-- * [Getting started (Module 1-3)][slides-m1-3] - [R-scipt file](https://github.com/bss-osca/tfa/blob/master/slides/01-r_part_welcome/01-welcome_r_part.R). -->
-<!-- * [Programming (Module 4-5)][slides-m4-5] - [R-scipt file](https://github.com/bss-osca/tfa/blob/master/slides/02-programming/02-programming.R). -->
-<!-- * [IO, Tidy and transform (Module 6-8)][slides-m6-8] - [R Markdown file](https://github.com/bss-osca/tfa/blob/master/slides/03-transform/03-transform_examples.Rmd). -->
-<!-- * [Visualization using ggplot2 (Module 9)][slides-m9] - [R Markdown file](https://github.com/bss-osca/tfa/blob/master/slides/04-plot/04-plot_examples.Rmd). -->
-<!-- * [Mutating joins (Module 8.3)][slides-m83] - [R Markdown file](https://github.com/bss-osca/tfa/blob/master/slides/05-joins/05-joins_examples.Rmd). -->
+<div id="mod-vba-procedures" class="section level1" number="4">
+<h1><span class="header-section-number">Module 4</span> Procedures</h1>
+<p>This module gives a short introduction to procedures. In general syllabus will point to chapters in <span class="citation">Wøhlk (<a href="#ref-vba-book" role="doc-biblioref">2010</a>)</span>; however, there is a lot for videos about VBA online such as course <a href="https://www.youtube.com/playlist?list=PL3A6U40JUYCi4njVx59-vaUxYkG0yRO4m">14-Hour VBA Course</a>. You may have a look at these videos instead if you prefer a different learning style. In the learning path diagram, links to alternative online content will be pointed out. Note this is alternatives to the standard learning path that you may use instead. The learning path may also have extra content that is not a part of syllabus you can have a look at.</p>
+<p><strong>Learning path diagram</strong></p>
+<p>Click/hover the nodes to follow links and see details.</p>
+<div id="htmlwidget-10dc026a3ef2540bff93" style="width:100%;height:400px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-10dc026a3ef2540bff93">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 Procedures\", URL = \"#vba-procedures\", tooltip = \"Procedures\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"2,1!\"] \n  \"2\" [label = \"📖 How do I debug my code?\", URL = \"#vba-debug\", tooltip = \"How do I debug my code?\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"5,1!\"] \n  \"3\" [label = \"💻 Exercises\", URL = \"#ex-vba-procedures\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"8,1!\"] \n  \"4\" [label = \"🎬 Subs and parameters\", URL = \"https://youtu.be/aoueDZDh0D4\", tooltip = \"Subs and parameters\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"2,2!\"] \n  \"5\" [label = \"🎬 Functions\", URL = \"https://youtu.be/1rK_WVYn2oQ\", tooltip = \"Functions\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"2,3!\"] \n  \"6\" [label = \"🎬 Debug toolbar\", URL = \"https://youtu.be/AONXBZdx20Y\", tooltip = \"Debug toolbar\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"4,2!\"] \n  \"7\" [label = \"🎬 Locals window\", URL = \"https://youtu.be/BC8py7Ce2rg\", tooltip = \"Locals window\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"4,3!\"] \n  \"8\" [label = \"🎬 Breakpoints\", URL = \"https://youtu.be/k_1zrFdlZCU\", tooltip = \"Breakpoints\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"4,4!\"] \n  \"9\" [label = \"📖 Chapter 9 in\\nWøhlk (2010)\", URL = \"\", tooltip = \"Chapter 9 in Wøhlk (2010)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"6,2!\"] \n  \"10\" [label = \"\", URL = \"\", tooltip = \"\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"4,-0.14!\"] \n  \"11\" [label = \"Color:\", URL = \"\", tooltip = \"\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", margin = \"\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"1.37,0.2!\"] \n  \"12\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"1.6,-0.2!\"] \n  \"13\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"2.6,-0.2!\"] \n  \"14\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"3.6,-0.2!\"] \n  \"15\" [label = \"Shape:\", URL = \"\", tooltip = \"\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", margin = \"\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"4.8,0.2!\"] \n  \"16\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"1\", fillcolor = \"Grey40\", pos = \"5.1,-0.2!\"] \n  \"17\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", margin = \"\", height = \"\", width = \"1\", fillcolor = \"Grey40\", pos = \"6.35,-0.2!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"9\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"6\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n\"7\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="lo-vba-procedures" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Learning outcomes</h2>
+<p>By the end of this module, you are expected to be able to:</p>
+<ul>
+<li>Describe what a procedure is.</li>
+<li>Explain what kind of procedures there are in VBA and what they can be used for.</li>
+<li>Declare and call a procedure.</li>
+<li>Explain what the difference is by using input arguments <em>by reference</em> or <em>by value</em> in a procedure.</li>
+<li>Set the scope of a procedure using private or public procedures.</li>
+<li>Set default input arguments.</li>
+<li>Call built-in functions for VBA and Excel.</li>
+</ul>
+<p>The learning outcomes relate to the <a href="lg-course.html#lg-course">overall learning goals</a> number 1, 2, 4, 8 and 9 of the course.</p>
+<!-- SOLO increasing: identify · memorise · name · do simple procedure · collect data · -->
+<!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
+<!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
+<!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
+</div>
+<div id="vba-procedures" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Procedures</h2>
+<p>A procedure is a piece of code stored in a module which contains a series of computational steps that will be carried out when the procedure is called. VBA has two kinds of procedures: subs and functions.</p>
+<p>Read Chapter 5 in <span class="citation">Wøhlk (<a href="#ref-vba-book" role="doc-biblioref">2010</a>)</span>. You may also have a look at the alternative videos instead as listed in the learning path diagram.</p>
+</div>
+<div id="vba-debug" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> How do I debug my code?</h2>
+<p>You debug you code to find errors and correct bugs in your program. VBA has a built-in debugger that you may use to step though you code and check if the values in memory are correct. You start and use the debugger using the debugger buttons in the VBA editor, e.g. set the cursor in the top of a sub and press the <strong>Step Into</strong> button (<svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"> <path d="M0 93.7l183.6-25.3v177.4H0V93.7zm0 324.6l183.6 25.3V268.4H0v149.9zm203.8 28L448 480V268.4H203.8v177.9zm0-380.6v180.1H448V32L203.8 65.7z"></path></svg> F8, <svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"> <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"></path></svg> ⇧⌘I). You can now repeatedly press the button to step though the code.</p>
+<p>In the <strong>Locals</strong> window you can see the values of the variables as you run you code. In the <strong>Immediate</strong> window you can add output using the <a href="https://www.automateexcel.com/vba/debug-print-immediate-window/"><code>Debug.Print</code></a> and test code.</p>
+<p>Finally, if you want to run the program until a specific line or code then insert a break-point by clicking the margin of that line in the VBA editor. Next, run you sub and the debugger will stop at that line.</p>
+<p>For more details you may have a look at Chapter 9 in <span class="citation">Wøhlk (<a href="#ref-vba-book" role="doc-biblioref">2010</a>)</span> or the videos as listed in the learning path diagram.</p>
+</div>
+<div id="recap-1" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Recap</h2>
+<ul>
+<li><p>A procedure is a piece of code stored in a module.</p></li>
+<li><p>A procedure contains a series of computational steps that will be carried out when the procedure is called.</p></li>
+<li><p>VBA has two kinds of procedures:</p>
+<p>Subs:</p>
+<ul>
+<li>Can make changes to the worksheet.</li>
+<li>Can modify its surroundings.</li>
+<li>Can be executed by a button (if no arguments).</li>
+<li>Cannot return anything.</li>
+</ul>
+<p>Functions:</p>
+<ul>
+<li>Can return something.</li>
+<li>Can be used in Excel.</li>
+<li>Cannot be used as a macro.</li>
+</ul></li>
+<li><p>You declare a procedure using</p>
+<pre><code>Sub MySub(arg1 As {datatype}, arg2 As {datatype})
+  &#39; Some code
+End Sub
+
+Function MyFunction(arg1 As {datatype}, arg2 As {datatype}) As {return datatype}
+  &#39; Some code
+  MyFunciton = value  &#39; assign a return value to the function
+End Sub</code></pre></li>
+<li><p>You can use <code>Exit Sub</code>/<code>Exit Function</code> to exit the sub/function early in the code.</p></li>
+<li><p>Procedures can be either public or private:</p>
+<ul>
+<li><p>Public (default): Can be used from other modules, from other files and from Excel.</p>
+<pre><code>Public Sub MySub()
+...
+End Sub</code></pre></li>
+<li><p>Private: Can only be used from within its own module.</p>
+<pre><code>Private Sub MySub()
+...
+End Sub</code></pre></li>
+</ul></li>
+<li><p>Use the <code>Call</code> keyword to call a sub:</p>
+<pre><code>Call MySub(arg1, arg2)</code></pre></li>
+<li><p>Call a function by assigning its return value to a variable</p>
+<pre><code>result = MyFunction(arg1, arg2)</code></pre></li>
+<li><p>There are two ways of passing arguments to procedures:</p>
+<pre><code>Sub MySub(ByRef arg1 As {datatype}, ByVal arg2 As {datatype})
+  &#39; Some code
+End Sub</code></pre>
+<ul>
+<li><p>Argument <code>arg1</code> is passed <strong>by reference</strong> (default). That is, no new memory is allocated when the procedure is called and hence the procedure can have changed the value of <code>arg1</code> when the procedure stops.</p></li>
+<li><p>Since the default is <code>ByRef</code>, the result is the same if we omitted the keyword <code>ByRef</code>.</p></li>
+<li><p>Argument <code>arg2</code> is passed <strong>by value</strong>. That is, a copy of the variable is created in memory with local scope. Hence the procedure cannot change the value of <code>arg2</code> when the procedure stops (the local variables is deleted).</p></li>
+<li><p>Using <code>ByRef</code> is faster and saves memory since we do not have to allocate new memory.</p></li>
+<li><p>We may use <code>ByRef</code> to return updated values of the input arguments e.g calling a sub <code>ReadArrays</code> that takes an unallocated array as input and afterwards the arrays has been allocated and values from a sheet stored in the array.</p></li>
+</ul></li>
+<li><p>Use the <code>Optional</code> keyword to indicate default input arguments:</p>
+<pre><code>Sub MySub(arg1 As {datatype}, Optional arg2 As {datatype} = defaultValue)  </code></pre>
+<p>You can now call the procedure using:</p>
+<pre><code>Call MySub(arg1)  &#39; assume that arg2 = defaultValue</code></pre>
+<p>Every parameter following an optional parameter in the procedure definition must also be optional.</p></li>
+<li><p>VBA has a set of <a href="https://bettersolutions.com/vba/functions/complete-list.htm">built-in functions</a> such as <code>Abs</code>, <code>Log</code> and <code>Date</code>. You call them by just writing their name:</p>
+<pre><code>dtm as Date
+dtm = Date()</code></pre></li>
+<li><p>You can also use the <a href="https://docs.microsoft.com/en-us/office/vba/excel/concepts/events-worksheetfunctions-shapes/list-of-worksheet-functions-available-to-visual-basic">worksheet functions</a> in Excel. You call them using the <code>WorksheetFunction</code> object:</p>
+<pre><code>sum = WorksheetFunction.Sum(Range(&quot;A1:D5&quot;))</code></pre></li>
+</ul>
+</div>
+<div id="ex-vba-procedures" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Exercises</h2>
+<p>Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the <a href="help.html#help">help page</a>. Some of the solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up to early. Put some effort into finding a solution!</p>
+<div id="ex-vba-subs" class="section level3" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> Exercise - Subs</h3>
+<p>The <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-subs-template.xlsm">file</a> may be used as a starting point for this exercise.</p>
+<ol style="list-style-type: decimal">
+<li>Create a sub <code>GetMsg</code> that takes a string and a Boolean as input and create a message box with the string content if the Boolean is true. Test the procedure using the <code>TestGetMsg</code> sub.</li>
+<li>Modify the procedure so the Boolean have a default value equal to true.</li>
+<li>Create a sub <code>PrintNameAge</code> that takes two arguments as input (name and age) and create a message box with the persons name and age.</li>
+<li>Write a sub <code>TestPrintNameAge</code> that uses two input boxes to ask for name and age and then call sub <code>PrintNameAge</code>.</li>
+</ol>
+</div>
+<div id="ex-vba-functions" class="section level3" number="4.5.2">
+<h3><span class="header-section-number">4.5.2</span> Exercise - Functions</h3>
+<p>The <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-functions-template.xlsm">file</a> may be used as a starting point for this exercise.</p>
+<ol style="list-style-type: decimal">
+<li>Write a function <code>Discount</code> which takes a two input arguments (doubles): the discount percentage and the amount and returns the discounted value. Have a look at the unfinished sub <code>Discount</code> for hints. Note the comments describing the function using the <a href="coding-convention.html#coding-convention">coding convention</a>.</li>
+<li>Write a function <code>Larger</code> which takes two integer arguments and returns true if the first is larger than the last; otherwise false.</li>
+<li>Write a function <code>NumbDays</code> that takes a date as argument and return the number of days from today. Hint: Have a look at the <code>DateDiff</code> function.</li>
+</ol>
+<p>Test all the functions in the <em>Testing</em> sheet.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Write a sub that uses an input box to ask for an amount a then returns the discounted amount when the discount is 20%. The sub should use the function in Question 1. Create a button running the sub.</li>
+</ol>
+</div>
+<div id="ex-vba-worksheet-functions" class="section level3" number="4.5.3">
+<h3><span class="header-section-number">4.5.3</span> Exercise - Worksheet functions</h3>
+<p>The <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-worksheet-functions-template.xlsm">file</a> contains a procedure to generate a set of numbers.</p>
+<p>Create a procedure <code>Summary</code> that uses worksheet functions to:</p>
+<ul>
+<li>Find the maximum number and write it to cell D1.</li>
+<li>Find the minimum number and write it to cell D2.</li>
+<li>Find the sum of the numbers and write it to cell D3.</li>
+<li>Count the number of positives and write it to cell D4.</li>
+<li>Find the row number with maximum value and write it to cell D5.</li>
+</ul>
+<p>Google is a good place to start if you want to find a specific Excel function, e.g. try to search ‘excel row with max value’.</p>
+</div>
+<div id="ex-vba-byref" class="section level3" number="4.5.4">
+<h3><span class="header-section-number">4.5.4</span> Exercise - <code>ByRef</code></h3>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-vba-book" class="csl-entry">
+Wøhlk, S. 2010. <em>VBA Programming in Business Economics</em>. DJØF Publishing.
 </div>
 </div>
             </section>
@@ -631,8 +656,8 @@ strNane              # Lezynski naming a string (str) variable</code></pre>
           </div>
         </div>
       </div>
-<a href="help.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lg-course.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mod-vba-datatypes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mod-loops-cond.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -654,7 +679,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/bss-osca/tfa/edit/master/book/10-01_appdx.Rmd",
+"link": "https://github.com/bss-osca/tfa/edit/master/book/02-02_vba-procedures.Rmd",
 "text": "Edit"
 },
 "history": {

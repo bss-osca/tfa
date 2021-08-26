@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>D Coding/naming convention | Tools for Analytics (TFA)</title>
+  <title>Module 3 Data types and variables | Tools for Analytics (TFA)</title>
   <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="D Coding/naming convention | Tools for Analytics (TFA)" />
+  <meta property="og:title" content="Module 3 Data types and variables | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://bss-osca.github.io/tfa/" />
   <meta property="og:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="bss-osca/tfa" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="D Coding/naming convention | Tools for Analytics (TFA)" />
+  <meta name="twitter:title" content="Module 3 Data types and variables | Tools for Analytics (TFA)" />
   
   <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course" />
   <meta name="twitter:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="help.html"/>
-<link rel="next" href="lg-course.html"/>
+<link rel="prev" href="mod-vba-intro.html"/>
+<link rel="next" href="mod-vba-procedures.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -496,134 +496,229 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="coding-convention" class="section level1" number="25">
-<h1><span class="header-section-number">D</span> Coding/naming convention</h1>
-<p>The main reason for using a consistent set of coding conventions is to standardize the structure and coding style of an application so that you and others can easily read and understand the code. Good coding conventions result in precise, readable, and unambiguous source code that is consistent with other language conventions and as intuitive as possible.</p>
-<p>Different ways of naming you variables exists. You are advised to adopt a naming convention; some use <a href="https://en.wikipedia.org/wiki/Snake_case">snake case</a> others use <a href="https://en.wikipedia.org/wiki/Camel_case">camel case</a>. The <a href="https://en.wikipedia.org/wiki/Leszynski_naming_convention">Leszynski naming convention</a> define variables with a consistent prefix that makes it easy to identify its data type. It is common to use Leszynski convention within the VBA community. The R community use snake case but camel case is also okay. Some common prefixes used for the Leszynski naming convention are:</p>
+<div id="mod-vba-datatypes" class="section level1" number="3">
+<h1><span class="header-section-number">Module 3</span> Data types and variables</h1>
+<p>This module gives a short introduction to variables and data types. In general syllabus will point to chapters in <span class="citation">Wøhlk (<a href="#ref-vba-book" role="doc-biblioref">2010</a>)</span>; however, there is a lot for videos about VBA online such as courses <a href="https://www.youtube.com/playlist?list=PLpOAvcoMay5S_hb2D7iKznLqJ8QG_pde0">30 for 30 Excel VBA Absolute Beginner Course</a> and <a href="https://www.youtube.com/playlist?list=PL3A6U40JUYCi4njVx59-vaUxYkG0yRO4m">14-Hour VBA Course</a>. You may have a look at these videos instead if you prefer a different learning style. In the learning path diagram, links to alternative online content will be pointed out. Note this is alternatives to the standard learning path that you may use instead. The learning path may also have extra content that is not a part of syllabus you can have a look at.</p>
+<p><strong>Learning path diagram</strong></p>
+<p>Click/hover the nodes to follow links and see details.</p>
+<div id="htmlwidget-3edb70ca035459c47422" style="width:100%;height:400px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3edb70ca035459c47422">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 Data types and variables\", URL = \"#vba-datatypes\", tooltip = \"Data types and variables\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"2,1!\"] \n  \"2\" [label = \"📖 How do I structure my code?\", URL = \"#vba-code-structure\", tooltip = \"How do I structure my code?\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"5,1!\"] \n  \"3\" [label = \"💻 Exercises\", URL = \"#ex-vba-datatypes\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"8,1!\"] \n  \"4\" [label = \"🎬 Variables\", URL = \"https://youtu.be/BXjFDiH6R8E\", tooltip = \"Variables\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"3,2!\"] \n  \"5\" [label = \"🎬 Scope of variables\", URL = \"https://youtu.be/SpnWO6GOvrY\", tooltip = \"Scope of variables\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"3,3!\"] \n  \"6\" [label = \"🎬 Arrays\", URL = \"https://youtu.be/ELFrOYNTxEU\", tooltip = \"Arrays\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"1,2!\"] \n  \"7\" [label = \"🎬 Loop over an array\", URL = \"https://youtu.be/EOMX1nXZEb4\", tooltip = \"Loop over an array\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"1,3!\"] \n  \"8\" [label = \"🎬 Dynamic arrays\", URL = \"https://youtu.be/AqYDI2Vt1mw\", tooltip = \"Dynamic arrays\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"1,4!\"] \n  \"9\" [label = \"📖 Scope of variables\", URL = \"http://www.cpearson.com/excel/scope.aspx\", tooltip = \"Scope of variables\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"2,0!\"] \n  \"10\" [label = \"\", URL = \"\", tooltip = \"\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"5.9,4.16!\"] \n  \"11\" [label = \"Color:\", URL = \"\", tooltip = \"\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", margin = \"\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"3.27,4.5!\"] \n  \"12\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"3.5,4.1!\"] \n  \"13\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"4.5,4.1!\"] \n  \"14\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"5.5,4.1!\"] \n  \"15\" [label = \"Shape:\", URL = \"\", tooltip = \"\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", margin = \"\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"6.7,4.5!\"] \n  \"16\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"1\", fillcolor = \"Grey40\", pos = \"7,4.1!\"] \n  \"17\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", margin = \"\", height = \"\", width = \"1\", fillcolor = \"Grey40\", pos = \"8.25,4.1!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"9\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"6\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n\"7\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="lo-vba-datatypes" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Learning outcomes</h2>
+<p>By the end of this module, you are expected to be able to:</p>
+<ul>
+<li>Describe what a variable is.</li>
+<li>Name different datatypes and how they effect memory size.</li>
+<li>Declare a variable as a datatype.</li>
+<li>Describe that scope for a variable means.</li>
+<li>Declare an array variable with both fixed and dynamic dimension.</li>
+<li>Assign values to variables.</li>
+<li>Formulate well-structured code.</li>
+</ul>
+<p>The learning outcomes relate to the <a href="lg-course.html#lg-course">overall learning goals</a> number 1, 2, 4, 8 and 9 of the course.</p>
+<!-- SOLO increasing: identify · memorise · name · do simple procedure · collect data · -->
+<!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
+<!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
+<!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
+</div>
+<div id="vba-datatypes" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Datatypes</h2>
+<p>Variables are used to store information in a program that is saved in memory. A variable may store different datatypes such as an integer, a double, a string or an object (e.g. a range).</p>
+<p>Read Chapter 4 in <span class="citation">Wøhlk (<a href="#ref-vba-book" role="doc-biblioref">2010</a>)</span>. You may also have a look at the alternative videos instead as listed in the learning path diagram.</p>
+</div>
+<div id="vba-code-structure" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> How do I structure my code?</h2>
+<p>When you program it is always a good idea to structure your code. The main reason for using a consistent set of coding conventions is to standardize the structure and coding style of an application so that you and others can easily read and understand the code. Good coding conventions result in precise, readable, and unambiguous source code that is consistent with other language conventions and as intuitive as possible.</p>
+<p>Have a look at the <a href="coding-convention.html#coding-convention">guidelines given here</a>.</p>
+</div>
+<div id="recap" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Recap</h2>
+<ul>
+<li><p>Variables are used to store information in a program. The information is saved in memory. A variable may store different datatypes such as an integer, a double, a string or an object (e.g. a range).</p></li>
+<li><p>A selected set of datatypes are (see all in the <a href="https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/data-type-summary">documentation</a>):</p>
 <table>
+<colgroup>
+<col width="7%" />
+<col width="9%" />
+<col width="83%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th align="left">Type</th>
-<th align="center">Prefix</th>
-<th align="left">Example</th>
+<th>Name</th>
+<th>Type</th>
+<th>Details</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Boolean</td>
-<td align="center">bln</td>
-<td align="left">blnFound</td>
+<td>Byte</td>
+<td>Numerical</td>
+<td>Whole number between 0 and 255.</td>
 </tr>
 <tr class="even">
-<td align="left">Currency</td>
-<td align="center">cur</td>
-<td align="left">curRevenue</td>
+<td>Integer</td>
+<td>Numerical</td>
+<td>Whole number between -32’768 and 32’767.</td>
 </tr>
 <tr class="odd">
-<td align="left">Date (Time)</td>
-<td align="center">dtm</td>
-<td align="left">dtmStart</td>
+<td>Long</td>
+<td>Numerical</td>
+<td>Whole number between - 2’147’483’648 and 2’147’483’647.</td>
 </tr>
 <tr class="even">
-<td align="left">Double</td>
-<td align="center">dbl</td>
-<td align="left">dblTolerance</td>
+<td>Double</td>
+<td>Numerical</td>
+<td>Floating decimal number between -1.79769313486232E308 and 1.79769313486232E308.</td>
 </tr>
 <tr class="odd">
-<td align="left">Integer</td>
-<td align="center">int</td>
-<td align="left">intQuantity</td>
+<td>String</td>
+<td>Text</td>
+<td>Text.</td>
 </tr>
 <tr class="even">
-<td align="left">Long</td>
-<td align="center">lng</td>
-<td align="left">lngDistance</td>
+<td>Date</td>
+<td>Date</td>
+<td>Date and time.</td>
 </tr>
 <tr class="odd">
-<td align="left">String</td>
-<td align="center">str</td>
-<td align="left">strFName</td>
+<td>Boolean</td>
+<td>Boolean</td>
+<td>True or False.</td>
 </tr>
 <tr class="even">
-<td align="left">Variant</td>
-<td align="center">vnt</td>
-<td align="left">vntCheckSum</td>
+<td>Variant</td>
+<td>Any type</td>
+<td>Any kind of data (default type if the variable is not declared).</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Memory consists of bits (binary digit) where a bit can take the value 0 or 1.</p></li>
+<li><p>Common naming of memory chunks are 8 Bits = 1 Byte, 1024 Bytes = 1 Kilobyte, 1024 Kilobytes = 1 Megabyte, 1024 Megabytes = 1 Gigabyte, 1024 Gigabytes = 1 Terabyte.</p></li>
+<li><p>Variables take up different storage place in memory based on the datatype they use. The size of selected datatypes:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Data type</th>
+<th>Storage size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Byte</td>
+<td>1 byte</td>
+</tr>
+<tr class="even">
+<td>Boolean</td>
+<td>2 bytes</td>
 </tr>
 <tr class="odd">
-<td align="left">Array</td>
-<td align="center">ary</td>
-<td align="left">aryNumbers (optional)</td>
+<td>Integer</td>
+<td>2 bytes</td>
 </tr>
 <tr class="even">
-<td align="left">User form</td>
-<td align="center">frm</td>
-<td align="left">frmProcess</td>
+<td>Long (long integer)</td>
+<td>4 bytes</td>
 </tr>
 <tr class="odd">
-<td align="left">Worksheet</td>
-<td align="center">wst</td>
-<td align="left">wstDistances</td>
+<td>Double (double-precision floating-point)</td>
+<td>8 bytes</td>
 </tr>
 <tr class="even">
-<td align="left">Workbook</td>
-<td align="center">wbk</td>
-<td align="left">wbkData</td>
+<td>Date</td>
+<td>8 bytes</td>
+</tr>
+<tr class="odd">
+<td>String</td>
+<td>10 bytes + string length</td>
+</tr>
+<tr class="even">
+<td>Variant (with numbers)</td>
+<td>16 bytes</td>
+</tr>
+<tr class="odd">
+<td>Variant (with characters)</td>
+<td>22 bytes + string length</td>
 </tr>
 </tbody>
 </table>
-<p>Many <a href="https://msdn.microsoft.com/en-us/library/aa263493(v=vs.60).aspx">other prefixes</a> can be used also.</p>
-<p>Choose the naming convention you like best in your study group. But stick only to one of them. A few examples:</p>
-<pre><code>this_is_snake_case   # note you do not use capital letters here
-thisIsCamelCase      # you start each word with a capital letter (except the first)
-dblTolerance         # Lezynski convention naming a double (dbl) variable
-strNane              # Lezynski naming a string (str) variable</code></pre>
-<p>When defining variables and functions, it is in general good practice to use nouns for variables and verbs for functions.</p>
-<div id="commenting-your-code" class="section level2" number="25.1">
-<h2><span class="header-section-number">D.1</span> Commenting your code</h2>
-<p>It is always good practice to comment your code. Such that others can get a fast overview and understand your code easier. We will use <a href="https://roxygen2.r-lib.org/">roxygen documentation</a> comments which are widely known. A few examples in VBA are</p>
-<p>The top of a module file:</p>
-<div class="sourceCode" id="cb498"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb498-1"><a href="coding-convention.html#cb498-1" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span> Module description<span class="op">.</span></span>
-<span id="cb498-2"><a href="coding-convention.html#cb498-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;  Can be more than one line.</span></span>
-<span id="cb498-3"><a href="coding-convention.html#cb498-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; </span></span>
-<span id="cb498-4"><a href="coding-convention.html#cb498-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @remarks Put your remarks on the module implementation here</span></span>
-<span id="cb498-5"><a href="coding-convention.html#cb498-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @author Lars Relund &lt;junk@relund.dk&gt;</span></span>
-<span id="cb498-6"><a href="coding-convention.html#cb498-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @date 2016-08-26</span></span></code></pre></div>
-<p>Before each <code>sub</code>, <code>function</code> etc. write:</p>
-<div class="sourceCode" id="cb499"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb499-1"><a href="coding-convention.html#cb499-1" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span> Sub description</span>
-<span id="cb499-2"><a href="coding-convention.html#cb499-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; </span></span>
-<span id="cb499-3"><a href="coding-convention.html#cb499-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @pre Precondition </span></span>
-<span id="cb499-4"><a href="coding-convention.html#cb499-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @post Postcondition</span></span>
-<span id="cb499-5"><a href="coding-convention.html#cb499-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
-<span id="cb499-6"><a href="coding-convention.html#cb499-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @param strA   Explanation of input parameter strA</span></span>
-<span id="cb499-7"><a href="coding-convention.html#cb499-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @param intB Explanation of input parameter intB</span></span>
-<span id="cb499-8"><a href="coding-convention.html#cb499-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @return Return value (if a function)</span></span>
-<span id="cb499-9"><a href="coding-convention.html#cb499-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; @remarks Further remarks </span></span>
-<span id="cb499-10"><a href="coding-convention.html#cb499-10" aria-hidden="true" tabindex="-1"></a>Public <span class="bu">Function</span> <span class="fu">MyFunc</span>(strA As <span class="bu">String</span><span class="op">,</span> intB As Integer) As Integer {</span>
-<span id="cb499-11"><a href="coding-convention.html#cb499-11" aria-hidden="true" tabindex="-1"></a>   <span class="op">...</span></span>
-<span id="cb499-12"><a href="coding-convention.html#cb499-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p>Further tags (i.e. keywords starting with @) can be seen <a href="https://roxygen2.r-lib.org/articles/rd.html">here</a>.</p>
-<p>In R we use a ‘hash’ (#’) to comment functions:</p>
-<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="coding-convention.html#cb500-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Subtract two vectors</span></span>
-<span id="cb500-2"><a href="coding-convention.html#cb500-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb500-3"><a href="coding-convention.html#cb500-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param x First vector.</span></span>
-<span id="cb500-4"><a href="coding-convention.html#cb500-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param y Vector to be subtracted.</span></span>
-<span id="cb500-5"><a href="coding-convention.html#cb500-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb500-6"><a href="coding-convention.html#cb500-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return The difference.</span></span>
-<span id="cb500-7"><a href="coding-convention.html#cb500-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
-<span id="cb500-8"><a href="coding-convention.html#cb500-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb500-9"><a href="coding-convention.html#cb500-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
-<span id="cb500-10"><a href="coding-convention.html#cb500-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; subtract(x = c(5,5), y = c(2,3))</span></span>
-<span id="cb500-11"><a href="coding-convention.html#cb500-11" aria-hidden="true" tabindex="-1"></a>subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
-<span id="cb500-12"><a href="coding-convention.html#cb500-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x<span class="sc">-</span>y)</span>
-<span id="cb500-13"><a href="coding-convention.html#cb500-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<!-- # Slides -->
-<!-- Slides and code from the lectures. -->
-<!-- * [Welcome to TFA][slides-welcome]. -->
-<!-- * [Getting started (Module 1-3)][slides-m1-3] - [R-scipt file](https://github.com/bss-osca/tfa/blob/master/slides/01-r_part_welcome/01-welcome_r_part.R). -->
-<!-- * [Programming (Module 4-5)][slides-m4-5] - [R-scipt file](https://github.com/bss-osca/tfa/blob/master/slides/02-programming/02-programming.R). -->
-<!-- * [IO, Tidy and transform (Module 6-8)][slides-m6-8] - [R Markdown file](https://github.com/bss-osca/tfa/blob/master/slides/03-transform/03-transform_examples.Rmd). -->
-<!-- * [Visualization using ggplot2 (Module 9)][slides-m9] - [R Markdown file](https://github.com/bss-osca/tfa/blob/master/slides/04-plot/04-plot_examples.Rmd). -->
-<!-- * [Mutating joins (Module 8.3)][slides-m83] - [R Markdown file](https://github.com/bss-osca/tfa/blob/master/slides/05-joins/05-joins_examples.Rmd). -->
+<p>Arrays require 20 bytes of memory plus 4 bytes for each array dimension plus the number of bytes occupied by the data itself. A Variant containing an array requires 12 bytes more than the array alone.</p></li>
+<li><p>Variables must be declared by</p>
+<pre><code>Dim {variable name} As {data type}</code></pre>
+<p>Example:</p>
+<pre><code>Dim intC As Integer       
+intC = 2
+Dim dblCost As Double     
+dblCost = 2.45
+Dim rng As Range          
+Set rng = Range(“A3”)</code></pre>
+<p>Note the <code>Set</code> keyword for setting object variables.</p></li>
+<li><p>Declare varibles to optimize memory usage, avoid errors and speed up code (instead of storing in a sheet).</p></li>
+<li><p>Use <code>Option Explicit</code> in the top of every module so the VBA editor will tell you if you forget to declare variables.</p></li>
+<li><p>Variable scope:</p>
+<ul>
+<li>Global variables are known to the whole module or the whole file</li>
+<li>Declare global variables in the top of the file.</li>
+<li>In general try to avoid global variables!</li>
+<li>Local variables are local to a procedure and only known within that procedure.</li>
+<li>Declare local variables inside the procedure.</li>
+</ul></li>
+<li><p>Strings are special variables with varying length.</p></li>
+<li><p>Use the <code>&amp;</code> to concatenate strings (glue strings together).</p></li>
+<li><p>An empty string is of length zero.</p></li>
+<li><p>An array store groups of variables of a specific datatype. For example</p>
+<pre><code>Dim intValues(8) As Integer</code></pre>
+<p>The variable <code>intValues</code> is an array with 9 elements which can be accessed using index 0, 1, 2, …, 8.</p></li>
+<li><p>The default start index of an array is 0. If you want to start with index 1 then add <code>Option Base 1</code> to the top of your module.</p></li>
+<li><p>An array can have different dimensions, e.g.</p>
+<pre><code>Dim intOrderSize(52, 100, 50) As Integer  </code></pre>
+<p>where indices may be (week, customer, product) number. Let us assume that index start from 1 then we have an array with <span class="math inline">\(52 \cdot 100 \cdot 50\)</span> elements which can be accessed using e.g.</p>
+<pre><code>intOrderSize(2,10, 20)  &#39; order size week 2, customer 10, product 20 </code></pre></li>
+<li><p>Dynamic arrays are arrays where the dimension is unknown when they are declared. Use <code>ReDim</code> to set the dimension later:</p>
+<pre><code>Dim strPeople() As String
+...
+n = 8
+ReDim strPeople(n)</code></pre></li>
+</ul>
+<p>You may also have a look at the <a href="https://bss-osca.github.io/tfa/slides/w36-2-vba-datatypes-slices.html">slides for this module</a>.</p>
+</div>
+<div id="ex-vba-datatypes" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Exercises</h2>
+<p>Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the <a href="help.html#help">help page</a>. Some of the solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up to early. Put some effort into finding a solution!</p>
+<div id="ex-vba-search-products" class="section level3" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Exercise - Product search</h3>
+<p>The <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-search-products-template.xlsm">file</a> contains a sheet <em>Products</em> with a set of products with product code and price. Cell D1 contains the total number of products.</p>
+<ol style="list-style-type: decimal">
+<li>Create a sub <code>FindProduct</code> that
+<ul>
+<li>Declare two arrays to store the price and product code.</li>
+<li>Uses <code>ReDim</code> to set the size of the arrays.</li>
+<li>Use a for loop to assign values to the arrays.</li>
+<li>Use an input box to ask for a product code.</li>
+<li>Use a for loop to search for the product and output the price in a message box.</li>
+</ul></li>
+<li>Test you code using different product codes</li>
+<li>Add a button to the Main sheet that run the procedure.</li>
+<li>What happens if you write the product code without capital letters? If your code do not work, have a look at the <a href="https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/ucase-function"><code>UCase</code></a> function.</li>
+<li>Modify your code so that if the product is not found then “Product not found!” is given in a message box. Hint: the <a href="https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/exit-statement"><code>Exit sub</code></a> may be useful inside the last for loop.</li>
+</ol>
+</div>
+<div id="ex-vba-read-arrays" class="section level3" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Exercise - Read Arrays</h3>
+<p>The <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-read-arrays-template.xlsm">file</a> contains different sheets with numbers to be read into an array.</p>
+<ol style="list-style-type: decimal">
+<li>The sheet <em>1D Array</em> contains an index number <code>i</code> (column A) and value <code>v</code> (column B) also known as a long format. Create an array <code>ary1D</code> (with index starting from 0) that store the values <code>v</code> in array entry <code>ary1D(i)</code>. Assume that the default array value is 10. Hint you need a for loop to iterate though the numbers. Have a look at the unfinished sub <code>Read1DAry</code> for further hints.</li>
+<li>The sheet <em>2D Array</em> contains an array in matrix format where a cell in row <code>r</code> and column <code>c</code> contains the value to be stored in the array entry <code>ary2D(r, c)</code>. Create the array and store the values. Note <code>ary2D</code> start indexing from 1 and not 0. Have a look at the unfinished sub <code>Read2DAry</code> for further hints.</li>
+<li>Modify sub <code>Read2DAry</code> so that indexing start from 0 instead of 1, i.e. a cell in row <code>r</code> and column <code>c</code> contains the value to be stored in the array entry <code>ary2D(r - 1, c - 1)</code>.</li>
+<li>The sheet <em>4D Array</em> contains values to be stored in a long format (column A:D indices and column E values). Create an array <code>ary4D</code> (with index starting from 0) that store the values. Assume that the default value is 5. Have a look at the unfinished sub <code>Read4DAry</code> for further hints.</li>
+</ol>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-vba-book" class="csl-entry">
+Wøhlk, S. 2010. <em>VBA Programming in Business Economics</em>. DJØF Publishing.
 </div>
 </div>
             </section>
@@ -631,8 +726,8 @@ strNane              # Lezynski naming a string (str) variable</code></pre>
           </div>
         </div>
       </div>
-<a href="help.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lg-course.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mod-vba-intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mod-vba-procedures.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -654,7 +749,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/bss-osca/tfa/edit/master/book/10-01_appdx.Rmd",
+"link": "https://github.com/bss-osca/tfa/edit/master/book/02-01_vba-datatypes.Rmd",
 "text": "Edit"
 },
 "history": {
