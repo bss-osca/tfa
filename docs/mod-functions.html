@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Module 12 Functions | Tools for Analytics (TFA)</title>
+  <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Module 12 Functions | Tools for Analytics (TFA)" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://bss-osca.github.io/tfa/" />
+  <meta property="og:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
+  <meta property="og:description" content="Course notes for the ‘Tools for Analytics’ course" />
+  <meta name="github-repo" content="bss-osca/tfa" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Module 12 Functions | Tools for Analytics (TFA)" />
+  
+  <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course" />
+  <meta name="twitter:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
+
+<meta name="author" content="Lars Relund Nielsen" />
+
+
+<meta name="date" content="2021-08-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="mod-loops.html"/>
+<link rel="next" href="mod-tidy-intro.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
+<link href="libs/font-awesome-5.3.1/css/all.min.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.3.1/css/v4-shims.min.css" rel="stylesheet" />
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script>
+<link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
+<script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.18/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<html>
+<head>
+<script>
+  $(document).ready(function() {
+
+  // Section anchors
+  $('.section h1, .section h2, .section h3, .section h4, .section h5').each(function() {
+    anchor = '#' + $(this).parent().attr('id');
+    $(this).addClass("hasAnchor").prepend('<a href="' + anchor + '" class="anchor"></a>');
+  });
+});
+</script>
+<script src="https://hypothes.is/embed.js" async></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+</html>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="assets/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="./"><img src="img/logo.png"></a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction to the book</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#lo-intro"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#purpose"><i class="fa fa-check"></i><b>1.2</b> Purpose for the book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#r-vs-vba"><i class="fa fa-check"></i><b>1.3</b> R vs Excel/VBA</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#computer"><i class="fa fa-check"></i><b>1.4</b> How a computer works</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#organization"><i class="fa fa-check"></i><b>1.5</b> How this book is organized</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#ack"><i class="fa fa-check"></i><b>1.6</b> Acknowledgements</a></li>
+</ul></li>
+<li class="part"><span><b>I Getting started with VBA</b></span></li>
+<li class="chapter" data-level="2" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html"><i class="fa fa-check"></i><b>2</b> An introduction to VBA</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#lo-vba-intro"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="2.2" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-what"><i class="fa fa-check"></i><b>2.2</b> What is VBA</a></li>
+<li class="chapter" data-level="2.3" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-hello"><i class="fa fa-check"></i><b>2.3</b> Your first program</a></li>
+<li class="chapter" data-level="2.4" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-macro"><i class="fa fa-check"></i><b>2.4</b> The macro recorder</a></li>
+<li class="chapter" data-level="2.5" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#a-short-overview"><i class="fa fa-check"></i><b>2.5</b> A short overview</a></li>
+<li class="chapter" data-level="2.6" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#rc-vba-intro"><i class="fa fa-check"></i><b>2.6</b> Recap</a></li>
+<li class="chapter" data-level="2.7" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-intro"><i class="fa fa-check"></i><b>2.7</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-hello"><i class="fa fa-check"></i><b>2.7.1</b> Exercise - Hello</a></li>
+<li class="chapter" data-level="2.7.2" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-macro"><i class="fa fa-check"></i><b>2.7.2</b> Exercise - Record a macro</a></li>
+<li class="chapter" data-level="2.7.3" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-user-input"><i class="fa fa-check"></i><b>2.7.3</b> Exercise - User input</a></li>
+<li class="chapter" data-level="2.7.4" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-max-min"><i class="fa fa-check"></i><b>2.7.4</b> Exercise - Max and min number</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Programming in VBA</b></span></li>
+<li class="chapter" data-level="3" data-path="data-types-and-variables.html"><a href="data-types-and-variables.html"><i class="fa fa-check"></i><b>3</b> Data types and variables</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-types-and-variables.html"><a href="data-types-and-variables.html#lo-vba-datatypes"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="3.2" data-path="data-types-and-variables.html"><a href="data-types-and-variables.html#vba-datatypes"><i class="fa fa-check"></i><b>3.2</b> Datatypes</a></li>
+<li class="chapter" data-level="3.3" data-path="data-types-and-variables.html"><a href="data-types-and-variables.html#vba-code-structure"><i class="fa fa-check"></i><b>3.3</b> How do I structure my code?</a></li>
+<li class="chapter" data-level="3.4" data-path="data-types-and-variables.html"><a href="data-types-and-variables.html#recap"><i class="fa fa-check"></i><b>3.4</b> Recap</a></li>
+<li class="chapter" data-level="3.5" data-path="data-types-and-variables.html"><a href="data-types-and-variables.html#ex-vba-datatypes"><i class="fa fa-check"></i><b>3.5</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="data-types-and-variables.html"><a href="data-types-and-variables.html#ex-vba-search-products"><i class="fa fa-check"></i><b>3.5.1</b> Exercise - Product search</a></li>
+<li class="chapter" data-level="3.5.2" data-path="data-types-and-variables.html"><a href="data-types-and-variables.html#ex-vba-read-arrays"><i class="fa fa-check"></i><b>3.5.2</b> Exercise - Read Arrays</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="procedures.html"><a href="procedures.html"><i class="fa fa-check"></i><b>4</b> Procedures</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="procedures.html"><a href="procedures.html#lo-vba-procedures"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="4.2" data-path="procedures.html"><a href="procedures.html#vba-procedures"><i class="fa fa-check"></i><b>4.2</b> Procedures</a></li>
+<li class="chapter" data-level="4.3" data-path="procedures.html"><a href="procedures.html#vba-debug"><i class="fa fa-check"></i><b>4.3</b> How do I debug my code?</a></li>
+<li class="chapter" data-level="4.4" data-path="procedures.html"><a href="procedures.html#recap-1"><i class="fa fa-check"></i><b>4.4</b> Recap</a></li>
+<li class="chapter" data-level="4.5" data-path="procedures.html"><a href="procedures.html#ex-vba-procedures"><i class="fa fa-check"></i><b>4.5</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="procedures.html"><a href="procedures.html#ex-vba-subs"><i class="fa fa-check"></i><b>4.5.1</b> Exercise - Subs</a></li>
+<li class="chapter" data-level="4.5.2" data-path="procedures.html"><a href="procedures.html#ex-vba-functions"><i class="fa fa-check"></i><b>4.5.2</b> Exercise - Functions</a></li>
+<li class="chapter" data-level="4.5.3" data-path="procedures.html"><a href="procedures.html#ex-vba-worksheet-functions"><i class="fa fa-check"></i><b>4.5.3</b> Exercise - Worksheet functions</a></li>
+<li class="chapter" data-level="4.5.4" data-path="procedures.html"><a href="procedures.html#ex-vba-byref"><i class="fa fa-check"></i><b>4.5.4</b> Exercise - <code>ByRef</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="loops-and-conditional-statements.html"><a href="loops-and-conditional-statements.html"><i class="fa fa-check"></i><b>5</b> Loops and conditional statements</a></li>
+<li class="chapter" data-level="6" data-path="object-model.html"><a href="object-model.html"><i class="fa fa-check"></i><b>6</b> Object model</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="object-model.html"><a href="object-model.html#learning-outcomes"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="part"><span><b>III Randomization in VBA</b></span></li>
+<li class="chapter" data-level="7" data-path="generating-random-values.html"><a href="generating-random-values.html"><i class="fa fa-check"></i><b>7</b> Generating random values</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="generating-random-values.html"><a href="generating-random-values.html#learning-outcomes-1"><i class="fa fa-check"></i><b>7.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="part"><span><b>IV Extra topics in VBA</b></span></li>
+<li class="chapter" data-level="8" data-path="file-management.html"><a href="file-management.html"><i class="fa fa-check"></i><b>8</b> File management</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="file-management.html"><a href="file-management.html#learning-outcomes-2"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
+</ul></li>
+<li class="part"><span><b>V Getting started in R</b></span></li>
+<li class="chapter" data-level="9" data-path="mod-install.html"><a href="mod-install.html"><i class="fa fa-check"></i><b>9</b> Install R and RStudio</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="mod-install.html"><a href="mod-install.html#lo-install"><i class="fa fa-check"></i><b>9.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="9.2" data-path="mod-install.html"><a href="mod-install.html#install-r"><i class="fa fa-check"></i><b>9.2</b> Install R and RStudio</a></li>
+<li class="chapter" data-level="9.3" data-path="mod-install.html"><a href="mod-install.html#test-your-installation"><i class="fa fa-check"></i><b>9.3</b> Test your installation</a></li>
+<li class="chapter" data-level="9.4" data-path="mod-install.html"><a href="mod-install.html#add-on-packages"><i class="fa fa-check"></i><b>9.4</b> Add-on packages</a></li>
+<li class="chapter" data-level="9.5" data-path="mod-install.html"><a href="mod-install.html#lp-install"><i class="fa fa-check"></i><b>9.5</b> Different learning paths</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="mod-r-basics.html"><a href="mod-r-basics.html"><i class="fa fa-check"></i><b>10</b> R basics and workflows</a>
+<ul>
+<li class="chapter" data-level="" data-path="mod-r-basics.html"><a href="mod-r-basics.html#learning-path-diagramme"><i class="fa fa-check"></i>Learning path diagramme</a></li>
+<li class="chapter" data-level="10.1" data-path="mod-r-basics.html"><a href="mod-r-basics.html#lo-r-basics"><i class="fa fa-check"></i><b>10.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="10.2" data-path="mod-r-basics.html"><a href="mod-r-basics.html#working-with-r-at-the-command-line-in-rstudio"><i class="fa fa-check"></i><b>10.2</b> Working with R at the command line in RStudio</a></li>
+<li class="chapter" data-level="10.3" data-path="mod-r-basics.html"><a href="mod-r-basics.html#your-first-datacamp-course"><i class="fa fa-check"></i><b>10.3</b> Your first DataCamp course</a></li>
+<li class="chapter" data-level="10.4" data-path="mod-r-basics.html"><a href="mod-r-basics.html#pipes"><i class="fa fa-check"></i><b>10.4</b> Pipes</a></li>
+<li class="chapter" data-level="10.5" data-path="mod-r-basics.html"><a href="mod-r-basics.html#rprojs"><i class="fa fa-check"></i><b>10.5</b> RStudio projects</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="mod-r-basics.html"><a href="mod-r-basics.html#storing-your-code-in-a-script-file"><i class="fa fa-check"></i><b>10.5.1</b> Storing your code in a script file</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="mod-r-basics.html"><a href="mod-r-basics.html#global-options"><i class="fa fa-check"></i><b>10.6</b> Global options</a></li>
+<li class="chapter" data-level="10.7" data-path="mod-r-basics.html"><a href="mod-r-basics.html#working-directory"><i class="fa fa-check"></i><b>10.7</b> Working directory</a></li>
+<li class="chapter" data-level="10.8" data-path="mod-r-basics.html"><a href="mod-r-basics.html#lp-r-basics"><i class="fa fa-check"></i><b>10.8</b> Different learning paths</a></li>
+<li class="chapter" data-level="10.9" data-path="mod-r-basics.html"><a href="mod-r-basics.html#rc-r-basics"><i class="fa fa-check"></i><b>10.9</b> Recap</a></li>
+<li class="chapter" data-level="10.10" data-path="mod-r-basics.html"><a href="mod-r-basics.html#ex-r-basics"><i class="fa fa-check"></i><b>10.10</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="10.10.1" data-path="mod-r-basics.html"><a href="mod-r-basics.html#exercise-group-work"><i class="fa fa-check"></i><b>10.10.1</b> Exercise (group work)</a></li>
+<li class="chapter" data-level="10.10.2" data-path="mod-r-basics.html"><a href="mod-r-basics.html#exercise-install-packages"><i class="fa fa-check"></i><b>10.10.2</b> Exercise (install packages)</a></li>
+<li class="chapter" data-level="10.10.3" data-path="mod-r-basics.html"><a href="mod-r-basics.html#exercise-piping"><i class="fa fa-check"></i><b>10.10.3</b> Exercise (piping)</a></li>
+<li class="chapter" data-level="10.10.4" data-path="mod-r-basics.html"><a href="mod-r-basics.html#exercise-working-dir"><i class="fa fa-check"></i><b>10.10.4</b> Exercise (working dir)</a></li>
+<li class="chapter" data-level="10.10.5" data-path="mod-r-basics.html"><a href="mod-r-basics.html#exercise-vectors"><i class="fa fa-check"></i><b>10.10.5</b> Exercise (vectors)</a></li>
+<li class="chapter" data-level="10.10.6" data-path="mod-r-basics.html"><a href="mod-r-basics.html#exercise-matrices"><i class="fa fa-check"></i><b>10.10.6</b> Exercise (matrices)</a></li>
+<li class="chapter" data-level="10.10.7" data-path="mod-r-basics.html"><a href="mod-r-basics.html#exercise-data-frames"><i class="fa fa-check"></i><b>10.10.7</b> Exercise (data frames)</a></li>
+<li class="chapter" data-level="10.10.8" data-path="mod-r-basics.html"><a href="mod-r-basics.html#exercise-lists"><i class="fa fa-check"></i><b>10.10.8</b> Exercise (lists)</a></li>
+<li class="chapter" data-level="10.10.9" data-path="mod-r-basics.html"><a href="mod-r-basics.html#ex-strings"><i class="fa fa-check"></i><b>10.10.9</b> Exercise (string management)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>VI Programming in R</b></span></li>
+<li class="chapter" data-level="11" data-path="mod-loops.html"><a href="mod-loops.html"><i class="fa fa-check"></i><b>11</b> Loops and conditionals</a>
+<ul>
+<li class="chapter" data-level="" data-path="mod-loops.html"><a href="mod-loops.html#learning-path-diagramme-1"><i class="fa fa-check"></i>Learning path diagramme</a></li>
+<li class="chapter" data-level="11.1" data-path="mod-loops.html"><a href="mod-loops.html#lo-loops"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="11.2" data-path="mod-loops.html"><a href="mod-loops.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>11.2</b> Conditionals and control flow</a></li>
+<li class="chapter" data-level="11.3" data-path="mod-loops.html"><a href="mod-loops.html#loops"><i class="fa fa-check"></i><b>11.3</b> Loops</a></li>
+<li class="chapter" data-level="11.4" data-path="mod-loops.html"><a href="mod-loops.html#lp-loops"><i class="fa fa-check"></i><b>11.4</b> Different learning paths</a></li>
+<li class="chapter" data-level="11.5" data-path="mod-loops.html"><a href="mod-loops.html#rc-loops"><i class="fa fa-check"></i><b>11.5</b> Recap</a></li>
+<li class="chapter" data-level="11.6" data-path="mod-loops.html"><a href="mod-loops.html#ex-loops"><i class="fa fa-check"></i><b>11.6</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="11.6.1" data-path="mod-loops.html"><a href="mod-loops.html#exercise-conditional-expressions"><i class="fa fa-check"></i><b>11.6.1</b> Exercise (conditional expressions)</a></li>
+<li class="chapter" data-level="11.6.2" data-path="mod-loops.html"><a href="mod-loops.html#exercise-loops"><i class="fa fa-check"></i><b>11.6.2</b> Exercise (loops)</a></li>
+<li class="chapter" data-level="11.6.3" data-path="mod-loops.html"><a href="mod-loops.html#ex-dist"><i class="fa fa-check"></i><b>11.6.3</b> Exercise (calculating distances)</a></li>
+<li class="chapter" data-level="11.6.4" data-path="mod-loops.html"><a href="mod-loops.html#exercise-expand_grid"><i class="fa fa-check"></i><b>11.6.4</b> Exercise (<code>expand_grid</code>)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="mod-functions.html"><a href="mod-functions.html"><i class="fa fa-check"></i><b>12</b> Functions</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="mod-functions.html"><a href="mod-functions.html#lo-functions"><i class="fa fa-check"></i><b>12.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="12.2" data-path="mod-functions.html"><a href="mod-functions.html#datacamp-course"><i class="fa fa-check"></i><b>12.2</b> DataCamp course</a></li>
+<li class="chapter" data-level="12.3" data-path="mod-functions.html"><a href="mod-functions.html#functions-returning-multiple-objects"><i class="fa fa-check"></i><b>12.3</b> Functions returning multiple objects</a></li>
+<li class="chapter" data-level="12.4" data-path="mod-functions.html"><a href="mod-functions.html#the-...-argument"><i class="fa fa-check"></i><b>12.4</b> The <code>...</code> argument</a></li>
+<li class="chapter" data-level="12.5" data-path="mod-functions.html"><a href="mod-functions.html#documenting-your-functions"><i class="fa fa-check"></i><b>12.5</b> Documenting your functions</a></li>
+<li class="chapter" data-level="12.6" data-path="mod-functions.html"><a href="mod-functions.html#lp-functions"><i class="fa fa-check"></i><b>12.6</b> Different learning paths</a></li>
+<li class="chapter" data-level="12.7" data-path="mod-functions.html"><a href="mod-functions.html#rc-functions"><i class="fa fa-check"></i><b>12.7</b> Recap</a></li>
+<li class="chapter" data-level="12.8" data-path="mod-functions.html"><a href="mod-functions.html#ex-functions"><i class="fa fa-check"></i><b>12.8</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="12.8.1" data-path="mod-functions.html"><a href="mod-functions.html#exercise-defining-functions"><i class="fa fa-check"></i><b>12.8.1</b> Exercise (defining functions)</a></li>
+<li class="chapter" data-level="12.8.2" data-path="mod-functions.html"><a href="mod-functions.html#exercise-scope"><i class="fa fa-check"></i><b>12.8.2</b> Exercise (scope)</a></li>
+<li class="chapter" data-level="12.8.3" data-path="mod-functions.html"><a href="mod-functions.html#exercise-job-sequencing"><i class="fa fa-check"></i><b>12.8.3</b> Exercise (job sequencing)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>VII IO, tidy and transform</b></span></li>
+<li class="chapter" data-level="13" data-path="mod-tidy-intro.html"><a href="mod-tidy-intro.html"><i class="fa fa-check"></i><b>13</b> Introduction to tidyverse and R Markdown</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="mod-tidy-intro.html"><a href="mod-tidy-intro.html#lo-tidy-intro"><i class="fa fa-check"></i><b>13.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="13.2" data-path="mod-tidy-intro.html"><a href="mod-tidy-intro.html#the-tidyverse-package"><i class="fa fa-check"></i><b>13.2</b> The tidyverse package</a></li>
+<li class="chapter" data-level="13.3" data-path="mod-tidy-intro.html"><a href="mod-tidy-intro.html#writing-reproducible-reports"><i class="fa fa-check"></i><b>13.3</b> Writing reproducible reports</a></li>
+<li class="chapter" data-level="13.4" data-path="mod-tidy-intro.html"><a href="mod-tidy-intro.html#tibbles"><i class="fa fa-check"></i><b>13.4</b> Tibbles</a></li>
+<li class="chapter" data-level="13.5" data-path="mod-tidy-intro.html"><a href="mod-tidy-intro.html#lp-tidy-intro"><i class="fa fa-check"></i><b>13.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="13.6" data-path="mod-tidy-intro.html"><a href="mod-tidy-intro.html#rc-tidy-intro"><i class="fa fa-check"></i><b>13.6</b> Recap</a></li>
+<li class="chapter" data-level="13.7" data-path="mod-tidy-intro.html"><a href="mod-tidy-intro.html#ex-tidy-intro"><i class="fa fa-check"></i><b>13.7</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="13.7.1" data-path="mod-tidy-intro.html"><a href="mod-tidy-intro.html#exercise-your-first-r-markdown-exercise"><i class="fa fa-check"></i><b>13.7.1</b> Exercise (your first R Markdown exercise)</a></li>
+<li class="chapter" data-level="13.7.2" data-path="mod-tidy-intro.html"><a href="mod-tidy-intro.html#exercise-tibbles"><i class="fa fa-check"></i><b>13.7.2</b> Exercise (tibbles)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="mod-io.html"><a href="mod-io.html"><i class="fa fa-check"></i><b>14</b> Importing and exporting data</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="mod-io.html"><a href="mod-io.html#lo-io"><i class="fa fa-check"></i><b>14.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="14.2" data-path="mod-io.html"><a href="mod-io.html#csv-files"><i class="fa fa-check"></i><b>14.2</b> CSV files</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="mod-io.html"><a href="mod-io.html#reading-a-csv-file"><i class="fa fa-check"></i><b>14.2.1</b> Reading a CSV file</a></li>
+<li class="chapter" data-level="14.2.2" data-path="mod-io.html"><a href="mod-io.html#writing-to-csv-files"><i class="fa fa-check"></i><b>14.2.2</b> Writing to CSV files</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="mod-io.html"><a href="mod-io.html#excel"><i class="fa fa-check"></i><b>14.3</b> Excel</a></li>
+<li class="chapter" data-level="14.4" data-path="mod-io.html"><a href="mod-io.html#google-sheets"><i class="fa fa-check"></i><b>14.4</b> Google Sheets</a></li>
+<li class="chapter" data-level="14.5" data-path="mod-io.html"><a href="mod-io.html#text-files"><i class="fa fa-check"></i><b>14.5</b> Text files</a></li>
+<li class="chapter" data-level="14.6" data-path="mod-io.html"><a href="mod-io.html#rs-native-binary-format"><i class="fa fa-check"></i><b>14.6</b> R’s native binary format</a></li>
+<li class="chapter" data-level="14.7" data-path="mod-io.html"><a href="mod-io.html#json"><i class="fa fa-check"></i><b>14.7</b> Json</a></li>
+<li class="chapter" data-level="14.8" data-path="mod-io.html"><a href="mod-io.html#lp-io"><i class="fa fa-check"></i><b>14.8</b> Different learning paths</a></li>
+<li class="chapter" data-level="14.9" data-path="mod-io.html"><a href="mod-io.html#rc-io"><i class="fa fa-check"></i><b>14.9</b> Recap</a></li>
+<li class="chapter" data-level="14.10" data-path="mod-io.html"><a href="mod-io.html#ex-io"><i class="fa fa-check"></i><b>14.10</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="14.10.1" data-path="mod-io.html"><a href="mod-io.html#exercise-statistikbanken"><i class="fa fa-check"></i><b>14.10.1</b> Exercise (Statistikbanken)</a></li>
+<li class="chapter" data-level="14.10.2" data-path="mod-io.html"><a href="mod-io.html#exercise-tuples-in-opl"><i class="fa fa-check"></i><b>14.10.2</b> Exercise (tuples in OPL)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="mod-transform.html"><a href="mod-transform.html"><i class="fa fa-check"></i><b>15</b> Transforming data</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="mod-transform.html"><a href="mod-transform.html#lo-transform"><i class="fa fa-check"></i><b>15.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="15.2" data-path="mod-transform.html"><a href="mod-transform.html#working-with-data-in-the-tidyverse"><i class="fa fa-check"></i><b>15.2</b> Working with data in the tidyverse</a></li>
+<li class="chapter" data-level="15.3" data-path="mod-transform.html"><a href="mod-transform.html#mutating-and-filtering-joins"><i class="fa fa-check"></i><b>15.3</b> Mutating and filtering joins</a></li>
+<li class="chapter" data-level="15.4" data-path="mod-transform.html"><a href="mod-transform.html#lp-transform"><i class="fa fa-check"></i><b>15.4</b> Different learning paths</a></li>
+<li class="chapter" data-level="15.5" data-path="mod-transform.html"><a href="mod-transform.html#rc-transform"><i class="fa fa-check"></i><b>15.5</b> Recap</a></li>
+<li class="chapter" data-level="15.6" data-path="mod-transform.html"><a href="mod-transform.html#ex-transform"><i class="fa fa-check"></i><b>15.6</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="mod-transform.html"><a href="mod-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>15.6.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="15.6.2" data-path="mod-transform.html"><a href="mod-transform.html#ex-babynames1"><i class="fa fa-check"></i><b>15.6.2</b> Exercise (babynames)</a></li>
+<li class="chapter" data-level="15.6.3" data-path="mod-transform.html"><a href="mod-transform.html#ex-profit1"><i class="fa fa-check"></i><b>15.6.3</b> Exercise (profit)</a></li>
+<li class="chapter" data-level="15.6.4" data-path="mod-transform.html"><a href="mod-transform.html#ex-fish"><i class="fa fa-check"></i><b>15.6.4</b> Exercise (fisheries)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>VIII Visualization</b></span></li>
+<li class="chapter" data-level="16" data-path="mod-plot.html"><a href="mod-plot.html"><i class="fa fa-check"></i><b>16</b> Data visualization using ggplot</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="mod-plot.html"><a href="mod-plot.html#lo-plot"><i class="fa fa-check"></i><b>16.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="16.2" data-path="mod-plot.html"><a href="mod-plot.html#introduction-to-data-visualization"><i class="fa fa-check"></i><b>16.2</b> Introduction to data visualization</a></li>
+<li class="chapter" data-level="16.3" data-path="mod-plot.html"><a href="mod-plot.html#combining-plots-into-one-using-patchwork"><i class="fa fa-check"></i><b>16.3</b> Combining plots into one using <em>patchwork</em></a></li>
+<li class="chapter" data-level="16.4" data-path="mod-plot.html"><a href="mod-plot.html#saving-graphics"><i class="fa fa-check"></i><b>16.4</b> Saving graphics</a></li>
+<li class="chapter" data-level="16.5" data-path="mod-plot.html"><a href="mod-plot.html#lp-r-plot"><i class="fa fa-check"></i><b>16.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="16.6" data-path="mod-plot.html"><a href="mod-plot.html#rc-r-plot"><i class="fa fa-check"></i><b>16.6</b> Recap</a></li>
+<li class="chapter" data-level="16.7" data-path="mod-plot.html"><a href="mod-plot.html#ex-r-plot"><i class="fa fa-check"></i><b>16.7</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="16.7.1" data-path="mod-plot.html"><a href="mod-plot.html#ex-gapminder2"><i class="fa fa-check"></i><b>16.7.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="16.7.2" data-path="mod-plot.html"><a href="mod-plot.html#ex-profit2"><i class="fa fa-check"></i><b>16.7.2</b> Exercise (profit)</a></li>
+<li class="chapter" data-level="16.7.3" data-path="mod-plot.html"><a href="mod-plot.html#ex-covid19"><i class="fa fa-check"></i><b>16.7.3</b> Exercise (COVID-19)</a></li>
+<li class="chapter" data-level="16.7.4" data-path="mod-plot.html"><a href="mod-plot.html#ex-lego"><i class="fa fa-check"></i><b>16.7.4</b> Exercise (Lego and sales)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IX R project in groups</b></span></li>
+<li class="chapter" data-level="17" data-path="mod-project.html"><a href="mod-project.html"><i class="fa fa-check"></i><b>17</b> Mandatory R project</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="mod-project.html"><a href="mod-project.html#lo-project"><i class="fa fa-check"></i><b>17.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="17.2" data-path="mod-project.html"><a href="mod-project.html#r-project"><i class="fa fa-check"></i><b>17.2</b> R project</a></li>
+</ul></li>
+<li class="part"><span><b>X Extra</b></span></li>
+<li class="chapter" data-level="18" data-path="mod-maps.html"><a href="mod-maps.html"><i class="fa fa-check"></i><b>18</b> Spatial data and maps</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="mod-maps.html"><a href="mod-maps.html#lo-maps"><i class="fa fa-check"></i><b>18.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="18.2" data-path="mod-maps.html"><a href="mod-maps.html#mod-map-api-key"><i class="fa fa-check"></i><b>18.2</b> Services for obtatining spatial data</a></li>
+<li class="chapter" data-level="18.3" data-path="mod-maps.html"><a href="mod-maps.html#calculating-distances"><i class="fa fa-check"></i><b>18.3</b> Calculating distances</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="mod-maps.html"><a href="mod-maps.html#using-google-maps"><i class="fa fa-check"></i><b>18.3.1</b> Using Google Maps</a></li>
+<li class="chapter" data-level="18.3.2" data-path="mod-maps.html"><a href="mod-maps.html#using-bing-maps"><i class="fa fa-check"></i><b>18.3.2</b> Using Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="mod-maps.html"><a href="mod-maps.html#geocoding-and-reverse-geocoding"><i class="fa fa-check"></i><b>18.4</b> Geocoding and reverse geocoding</a>
+<ul>
+<li class="chapter" data-level="18.4.1" data-path="mod-maps.html"><a href="mod-maps.html#using-google-maps-1"><i class="fa fa-check"></i><b>18.4.1</b> Using Google maps</a></li>
+<li class="chapter" data-level="18.4.2" data-path="mod-maps.html"><a href="mod-maps.html#use-bing-maps"><i class="fa fa-check"></i><b>18.4.2</b> Use Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="18.5" data-path="mod-maps.html"><a href="mod-maps.html#adding-markers-and-routes-to-a-map"><i class="fa fa-check"></i><b>18.5</b> Adding markers and routes to a map</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="mod-r-excel.html"><a href="mod-r-excel.html"><i class="fa fa-check"></i><b>19</b> Using R in Excel and Excel in R</a></li>
+<li class="chapter" data-level="20" data-path="mod-opl.html"><a href="mod-opl.html"><i class="fa fa-check"></i><b>20</b> Run an OPL model from R</a></li>
+<li class="chapter" data-level="21" data-path="mod-simulation.html"><a href="mod-simulation.html"><i class="fa fa-check"></i><b>21</b> Simulation in R</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="groups.html"><a href="groups.html"><i class="fa fa-check"></i><b>A</b> Working in groups</a>
+<ul>
+<li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#r-project-structure"><i class="fa fa-check"></i>R project structure</a></li>
+<li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#using-git"><i class="fa fa-check"></i>Using Git together with GitHub</a>
+<ul>
+<li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#register-a-free-github-account"><i class="fa fa-check"></i>Register a free GitHub account</a></li>
+<li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#install-git"><i class="fa fa-check"></i>Install Git</a></li>
+<li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#check-your-installation"><i class="fa fa-check"></i>Check your installation</a></li>
+<li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#setup-projects-using-git-and-github"><i class="fa fa-check"></i>Setup projects using Git and GitHub</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="annotate.html"><a href="annotate.html"><i class="fa fa-check"></i><b>B</b> Annotate the course notes</a></li>
+<li class="chapter" data-level="C" data-path="help.html"><a href="help.html"><i class="fa fa-check"></i><b>C</b> Getting help</a></li>
+<li class="chapter" data-level="D" data-path="coding-convention.html"><a href="coding-convention.html"><i class="fa fa-check"></i><b>D</b> Coding/naming convention</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="coding-convention.html"><a href="coding-convention.html#commenting-your-code"><i class="fa fa-check"></i><b>D.1</b> Commenting your code</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="lg-course.html"><a href="lg-course.html"><i class="fa fa-check"></i><b>E</b> Learning goals</a></li>
+<li class="chapter" data-level="F" data-path="sec-ba.html"><a href="sec-ba.html"><i class="fa fa-check"></i><b>F</b> Business Analytics</a></li>
+<li class="chapter" data-level="G" data-path="colophon.html"><a href="colophon.html"><i class="fa fa-check"></i><b>G</b> Colophon</a></li>
+<li class="divider"></li>
+<li><center>
+  <a rel="license" href="./index.html#ack">
+    License: CC BY-NC-SA<br>
+    <i class = "fab fa-creative-commons fa-2x"></i>
+    <i class = "fab fa-creative-commons-by fa-2x"></i>
+    <i class = "fab fa-creative-commons-nc fa-2x"></i>
+    <i class = "fab fa-creative-commons-sa fa-2x"></i>
+  </a>
+</li></center>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Tools for Analytics (TFA)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mod-functions" class="section level1" number="12">
+<h1><span class="header-section-number">Module 12</span> Functions</h1>
+<blockquote>
+<p>To understand computations in R, two slogans are helpful:</p>
+<p>Everything that exists is an object.</p>
+<p>Everything that happens is a function call.</p>
+<p>John Chambers</p>
+</blockquote>
+<p>Writing functions is a core activity of an R programmer. It represents the key step of the transition from a user to a programmer. Functions have inputs and outputs. Functions (and control structures) are what makes your code more dynamic.</p>
+<p>Functions are often used to encapsulate a sequence of expressions that needs to be executed numerous times, perhaps under slightly different conditions. In programming, functional programming is a programming paradigm, a style of how code is written. Rather than repeating the code, functions and control structures allow one to build code in blocks. As a result, your code becomes more structured, more readable and much easier to maintain and debug (find errors).</p>
+<div id="lo-functions" class="section level2" number="12.1">
+<h2><span class="header-section-number">12.1</span> Learning outcomes</h2>
+<p>By the end of this module, you are expected to be able to:</p>
+<ul>
+<li>Call a function.</li>
+<li>Formulate a function with different input arguments.</li>
+<li>Describe why functions are important in R.</li>
+<li>Set defaults for input arguments.</li>
+<li>Return values from functions.</li>
+<li>Explain how variable scope and precedence works.</li>
+<li>Document functions.</li>
+</ul>
+<p>The learning outcomes relate to the <a href="lg-course.html#lg-course">overall learning goals</a> number 2, 3, 4 and 10 of the course.</p>
+<!-- SOLO increasing: identify · memorize · name · do simple procedure · collect data · -->
+<!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
+<!-- algorithms · compare · contrast · explain causes · analyze · relate · derive · -->
+<!-- evaluate · apply · argue · theorize · generalize · hypothesis · solve · reflect -->
+</div>
+<div id="datacamp-course" class="section level2" number="12.2">
+<h2><span class="header-section-number">12.2</span> DataCamp course</h2>
+<p>An excellent introduction to functions is given in <a href="https://campus.datacamp.com/courses/intermediate-r/chapter-3-functions">Chapter 3</a> in the DataCamp course <a href="https://learn.datacamp.com/courses/intermediate-r">Intermediate R</a>. Please complete the chapter before continuing.</p>
+</div>
+<div id="functions-returning-multiple-objects" class="section level2" number="12.3">
+<h2><span class="header-section-number">12.3</span> Functions returning multiple objects</h2>
+<p>Functions in R only return a single object. However, note that the object may be a list. That is, if you want to return multiple arguments, store them in a list. A simple example:</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="mod-functions.html#cb165-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb165-2"><a href="mod-functions.html#cb165-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the function does some stuff and calculate some results</span></span>
+<span id="cb165-3"><a href="mod-functions.html#cb165-3" aria-hidden="true" tabindex="-1"></a>  res1 <span class="ot">&lt;-</span> <span class="dv">45</span></span>
+<span id="cb165-4"><a href="mod-functions.html#cb165-4" aria-hidden="true" tabindex="-1"></a>  res2 <span class="ot">&lt;-</span> <span class="st">&quot;Success&quot;</span></span>
+<span id="cb165-5"><a href="mod-functions.html#cb165-5" aria-hidden="true" tabindex="-1"></a>  res3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">9</span>)</span>
+<span id="cb165-6"><a href="mod-functions.html#cb165-6" aria-hidden="true" tabindex="-1"></a>  res4 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">cost =</span> <span class="dv">23</span>, <span class="at">profit =</span> <span class="dv">200</span>)</span>
+<span id="cb165-7"><a href="mod-functions.html#cb165-7" aria-hidden="true" tabindex="-1"></a>  lst <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">days =</span> res1, <span class="at">run =</span> res2, <span class="at">id =</span> res3, <span class="at">money =</span> res4)</span>
+<span id="cb165-8"><a href="mod-functions.html#cb165-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(lst)</span>
+<span id="cb165-9"><a href="mod-functions.html#cb165-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb165-10"><a href="mod-functions.html#cb165-10" aria-hidden="true" tabindex="-1"></a><span class="fu">test</span>()</span>
+<span id="cb165-11"><a href="mod-functions.html#cb165-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $days</span></span>
+<span id="cb165-12"><a href="mod-functions.html#cb165-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 45</span></span>
+<span id="cb165-13"><a href="mod-functions.html#cb165-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb165-14"><a href="mod-functions.html#cb165-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $run</span></span>
+<span id="cb165-15"><a href="mod-functions.html#cb165-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Success&quot;</span></span>
+<span id="cb165-16"><a href="mod-functions.html#cb165-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb165-17"><a href="mod-functions.html#cb165-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $id</span></span>
+<span id="cb165-18"><a href="mod-functions.html#cb165-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4 7 9</span></span>
+<span id="cb165-19"><a href="mod-functions.html#cb165-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb165-20"><a href="mod-functions.html#cb165-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $money</span></span>
+<span id="cb165-21"><a href="mod-functions.html#cb165-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $money$cost</span></span>
+<span id="cb165-22"><a href="mod-functions.html#cb165-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 23</span></span>
+<span id="cb165-23"><a href="mod-functions.html#cb165-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb165-24"><a href="mod-functions.html#cb165-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $money$profit</span></span>
+<span id="cb165-25"><a href="mod-functions.html#cb165-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 200</span></span></code></pre></div>
+</div>
+<div id="the-...-argument" class="section level2" number="12.4">
+<h2><span class="header-section-number">12.4</span> The <code>...</code> argument</h2>
+<p>The special argument <code>...</code> indicates a variable number of arguments and is usually used to pass arguments to nested functions used inside the function. Consider example:</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="mod-functions.html#cb166-1" aria-hidden="true" tabindex="-1"></a>my_name <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">first =</span> <span class="st">&quot;Lars&quot;</span>, <span class="at">last =</span> <span class="st">&quot;Nielsen&quot;</span>) {</span>
+<span id="cb166-2"><a href="mod-functions.html#cb166-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_c</span>(first, last, <span class="at">sep =</span> <span class="st">&quot; &quot;</span>)</span>
+<span id="cb166-3"><a href="mod-functions.html#cb166-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb166-4"><a href="mod-functions.html#cb166-4" aria-hidden="true" tabindex="-1"></a><span class="fu">my_name</span>()</span>
+<span id="cb166-5"><a href="mod-functions.html#cb166-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Lars Nielsen&quot;</span></span>
+<span id="cb166-6"><a href="mod-functions.html#cb166-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-7"><a href="mod-functions.html#cb166-7" aria-hidden="true" tabindex="-1"></a>cite_text <span class="ot">&lt;-</span> <span class="cf">function</span>(text, ...) {</span>
+<span id="cb166-8"><a href="mod-functions.html#cb166-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_c</span>(text, <span class="st">&#39;, -&#39;</span>, <span class="fu">my_name</span>(...))</span>
+<span id="cb166-9"><a href="mod-functions.html#cb166-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb166-10"><a href="mod-functions.html#cb166-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cite_text</span>(<span class="st">&quot;Learning by doing is the best way to learn how to program!&quot;</span>)</span>
+<span id="cb166-11"><a href="mod-functions.html#cb166-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Learning by doing is the best way to learn how to program!, -Lars Nielsen&quot;</span></span>
+<span id="cb166-12"><a href="mod-functions.html#cb166-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cite_text</span>(<span class="st">&quot;Learning by doing is the best way to learn how to program!&quot;</span>, <span class="at">last =</span> <span class="st">&quot;Relund&quot;</span>)</span>
+<span id="cb166-13"><a href="mod-functions.html#cb166-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Learning by doing is the best way to learn how to program!, -Lars Relund&quot;</span></span>
+<span id="cb166-14"><a href="mod-functions.html#cb166-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cite_text</span>(<span class="st">&quot;To be or not to be&quot;</span>, <span class="at">first =</span> <span class="st">&quot;Shakespeare&quot;</span>, <span class="at">last =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb166-15"><a href="mod-functions.html#cb166-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;To be or not to be, -Shakespeare &quot;</span></span></code></pre></div>
+<p>Note in the first function run, we use the defaults in <code>my_name</code>. In the second run, we change the default last name and in the last run, we change both arguments.</p>
+<p>If you need to retrieve/capture the content of the <code>...</code> argument, put it in a list:</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="mod-functions.html#cb167-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="cf">function</span>(...) {</span>
+<span id="cb167-2"><a href="mod-functions.html#cb167-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(...))</span>
+<span id="cb167-3"><a href="mod-functions.html#cb167-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb167-4"><a href="mod-functions.html#cb167-4" aria-hidden="true" tabindex="-1"></a><span class="fu">test</span>(<span class="at">x =</span> <span class="dv">4</span>, <span class="at">y =</span> <span class="st">&quot;hey&quot;</span>, <span class="at">z =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb167-5"><a href="mod-functions.html#cb167-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $x</span></span>
+<span id="cb167-6"><a href="mod-functions.html#cb167-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4</span></span>
+<span id="cb167-7"><a href="mod-functions.html#cb167-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb167-8"><a href="mod-functions.html#cb167-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $y</span></span>
+<span id="cb167-9"><a href="mod-functions.html#cb167-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;hey&quot;</span></span>
+<span id="cb167-10"><a href="mod-functions.html#cb167-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb167-11"><a href="mod-functions.html#cb167-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $z</span></span>
+<span id="cb167-12"><a href="mod-functions.html#cb167-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 3 4 5</span></span></code></pre></div>
+</div>
+<div id="documenting-your-functions" class="section level2" number="12.5">
+<h2><span class="header-section-number">12.5</span> Documenting your functions</h2>
+<p>It is always a good idea to document your functions. This is in fact always done in functions of a package. For instance try <code>?mutate</code> and see the documentation in the <strong>Help</strong> tab.</p>
+<p>Assume that you have written a function</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="mod-functions.html#cb168-1" aria-hidden="true" tabindex="-1"></a>subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb168-2"><a href="mod-functions.html#cb168-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x<span class="sc">-</span>y)</span>
+<span id="cb168-3"><a href="mod-functions.html#cb168-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>In RStudio you can insert a <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">Roxygen</a> documentation skeleton by having the cursor at the first line of the function and go to <strong>Code &gt; Insert Roxygen Skeleton</strong> (Ctrl+Alt+Shift+R):</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="mod-functions.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Title</span></span>
+<span id="cb169-2"><a href="mod-functions.html#cb169-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb169-3"><a href="mod-functions.html#cb169-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param x </span></span>
+<span id="cb169-4"><a href="mod-functions.html#cb169-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param y </span></span>
+<span id="cb169-5"><a href="mod-functions.html#cb169-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb169-6"><a href="mod-functions.html#cb169-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return</span></span>
+<span id="cb169-7"><a href="mod-functions.html#cb169-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
+<span id="cb169-8"><a href="mod-functions.html#cb169-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb169-9"><a href="mod-functions.html#cb169-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb169-10"><a href="mod-functions.html#cb169-10" aria-hidden="true" tabindex="-1"></a>subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb169-11"><a href="mod-functions.html#cb169-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x<span class="sc">-</span>y)</span>
+<span id="cb169-12"><a href="mod-functions.html#cb169-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>You now can modify your documentation to</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="mod-functions.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Subtract two vectors</span></span>
+<span id="cb170-2"><a href="mod-functions.html#cb170-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb170-3"><a href="mod-functions.html#cb170-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param x First vector.</span></span>
+<span id="cb170-4"><a href="mod-functions.html#cb170-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param y Vector to be subtracted.</span></span>
+<span id="cb170-5"><a href="mod-functions.html#cb170-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb170-6"><a href="mod-functions.html#cb170-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return The difference.</span></span>
+<span id="cb170-7"><a href="mod-functions.html#cb170-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
+<span id="cb170-8"><a href="mod-functions.html#cb170-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb170-9"><a href="mod-functions.html#cb170-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb170-10"><a href="mod-functions.html#cb170-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; subtract(x = c(5,5), y = c(2,3))</span></span>
+<span id="cb170-11"><a href="mod-functions.html#cb170-11" aria-hidden="true" tabindex="-1"></a>subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb170-12"><a href="mod-functions.html#cb170-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x<span class="sc">-</span>y)</span>
+<span id="cb170-13"><a href="mod-functions.html#cb170-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Note</p>
+<ul>
+<li>Parameters/function arguments are documented using the <code>@param</code> tag.</li>
+<li>Return value is documented using the <code>@return</code> tag.</li>
+<li>Under the <code>@examples</code> tag you can insert some examples.</li>
+<li>Ignore the <code>@export</code> tag. This is used if you include your function in your own package. Package development is beyond the scope of this course. If you are interested, have a look at the book <span class="citation">Hadley Wickham (<a href="#ref-r-pkgs" role="doc-biblioref">2015</a>)</span>.</li>
+</ul>
+<p>A list of further tags can be seen in the vignette <a href="https://roxygen2.r-lib.org/articles/rd.html">Rd (documentation) tags</a>.</p>
+</div>
+<div id="lp-functions" class="section level2" number="12.6">
+<h2><span class="header-section-number">12.6</span> Different learning paths</h2>
+<p>We are all different and you may like different learning styles compared to others. You may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be useful for you. Note these suggestions are not a part of syllabus!</p>
+<ul>
+<li>For a more detailed interactive tutorial about functions see the DataCamp course <a href="https://learn.datacamp.com/courses/introduction-to-writing-functions-in-r">Introduction to Writing Functions in R</a>.</li>
+<li>Hefin Rhys has a video about <a href="https://www.youtube.com/watch?v=ffPeac3BigM">Writing functions in R</a> giving examples in RStudio.</li>
+<li>An introduction to functions is also given in <a href="https://bookdown.org/rdpeng/rprogdatascience/functions.html">Chapter 14</a> of <span class="citation">Peng (<a href="#ref-rdpeng" role="doc-biblioref">2018</a>)</span>.</li>
+<li>A detailed tutorial on functions is given in Chapters <a href="https://stat545.com/functions-part1.html">18</a>, <a href="https://stat545.com/functions-part2.html">19</a> and <a href="https://stat545.com/functions-part3.html">20</a> of <span class="citation">Bryan (<a href="#ref-stat545" role="doc-biblioref">2017</a>)</span>.</li>
+</ul>
+</div>
+<div id="rc-functions" class="section level2" number="12.7">
+<h2><span class="header-section-number">12.7</span> Recap</h2>
+<p>Writing functions is a core activity of an R programmer. It represents the key step of the transition from a user to a programmer. Functions have inputs and outputs. Functions (and control structures) are what makes your code more dynamic.</p>
+<p>Functions are often used to encapsulate a sequence of expressions that need to be executed numerous times, perhaps under slightly different conditions. In programming, functional programming is a programming paradigm, a style of how code is written. Rather than repeating the code, functions and control structures allow one to build code in blocks. As a result, your code becomes more structured, more readable and much easier to maintain and debug (find errors).</p>
+<p>Functions can be defined using the <code>function()</code> directive.</p>
+<p>The named arguments (input values) can have default values. Moreover, R passes arguments by value. That is, an R function cannot change the variable that you input to that function.</p>
+<p>A function can be called using its name and its arguments can be specified by name or by position in the argument list.</p>
+<p>Functions always return the last expression evaluated in the function body or when you use the <code>return</code> flow control statement (good coding practice).</p>
+<p>Scoping refers to the rules R use to look up the value of variables. A function will first look inside the body of the function to identify all the variables. If all variables exist, no further search is required. Otherwise, R will look one level up to see if the variable exists.</p>
+<p>Functions can be assigned to R objects just like any other R object.</p>
+<p>Document your functions using the Roxygen skeleton!</p>
+</div>
+<div id="ex-functions" class="section level2" number="12.8">
+<h2><span class="header-section-number">12.8</span> Exercises</h2>
+<p>Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the <a href="help.html#help">help page</a>. Some of the solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up to early. Put some effort into finding a solution!</p>
+<div id="exercise-defining-functions" class="section level3" number="12.8.1">
+<h3><span class="header-section-number">12.8.1</span> Exercise (defining functions)</h3>
+<p><em>Solve this exercise using a script file.</em></p>
+<div id="h0jQj02PdDphtPPFNEvT" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="h0jQj02PdDphtPPFNEvT-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="h0jQj02PdDphtPPFNEvT-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="mod-functions.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Computes the sum of the integers from 1 to n (inclusive).</span></span>
+<span id="cb171-2"><a href="mod-functions.html#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb171-3"><a href="mod-functions.html#cb171-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param n Max value in the sum.</span></span>
+<span id="cb171-4"><a href="mod-functions.html#cb171-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb171-5"><a href="mod-functions.html#cb171-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return Sum of the integers from 1 to n.</span></span>
+<span id="cb171-6"><a href="mod-functions.html#cb171-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb171-7"><a href="mod-functions.html#cb171-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb171-8"><a href="mod-functions.html#cb171-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; sum_n(30)</span></span>
+<span id="cb171-9"><a href="mod-functions.html#cb171-9" aria-hidden="true" tabindex="-1"></a>sum_n <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb171-10"><a href="mod-functions.html#cb171-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>(<span class="dv">1</span><span class="sc">:</span>n))</span>
+<span id="cb171-11"><a href="mod-functions.html#cb171-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb171-12"><a href="mod-functions.html#cb171-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sum_n</span>(<span class="dv">5000</span>)</span>
+<span id="cb171-13"><a href="mod-functions.html#cb171-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 12502500</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#h0jQj02PdDphtPPFNEvT">
+Solution
+</button>
+<div id="2lKYfH3Qbyy5UOOJgHOz" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="2lKYfH3Qbyy5UOOJgHOz-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="2lKYfH3Qbyy5UOOJgHOz-title">
+Hint
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="mod-functions.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Computes the sum of the integers from 1 to n (inclusive).</span></span>
+<span id="cb172-2"><a href="mod-functions.html#cb172-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb172-3"><a href="mod-functions.html#cb172-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param n Max value in the sum.</span></span>
+<span id="cb172-4"><a href="mod-functions.html#cb172-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb172-5"><a href="mod-functions.html#cb172-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return Sum of the integers from 1 to n.</span></span>
+<span id="cb172-6"><a href="mod-functions.html#cb172-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb172-7"><a href="mod-functions.html#cb172-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb172-8"><a href="mod-functions.html#cb172-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; sum_n(30)</span></span>
+<span id="cb172-9"><a href="mod-functions.html#cb172-9" aria-hidden="true" tabindex="-1"></a>sum_n <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb172-10"><a href="mod-functions.html#cb172-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(___)</span>
+<span id="cb172-11"><a href="mod-functions.html#cb172-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb172-12"><a href="mod-functions.html#cb172-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sum_n</span>(<span class="dv">5000</span>)</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#2lKYfH3Qbyy5UOOJgHOz">
+Hint
+</button>
+<ol style="list-style-type: decimal">
+<li>Create a function <code>sum_n</code> that for any given value, say <span class="math inline">\(n\)</span>, computes the sum of the integers from 1 to n (inclusive). Use the function to determine the sum of integers from 1 to 5000. Document your function too.</li>
+</ol>
+<div id="nJoDVA7t5rH1mM1k1QFU" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="nJoDVA7t5rH1mM1k1QFU-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="nJoDVA7t5rH1mM1k1QFU-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="mod-functions.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Computes the sum S_n = 1^2 + 2^2 + 3^2 + ... + n^2</span></span>
+<span id="cb173-2"><a href="mod-functions.html#cb173-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb173-3"><a href="mod-functions.html#cb173-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param n Max input in sum.</span></span>
+<span id="cb173-4"><a href="mod-functions.html#cb173-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb173-5"><a href="mod-functions.html#cb173-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return S_n</span></span>
+<span id="cb173-6"><a href="mod-functions.html#cb173-6" aria-hidden="true" tabindex="-1"></a>compute_s_n <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb173-7"><a href="mod-functions.html#cb173-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>((<span class="dv">1</span><span class="sc">:</span>n)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb173-8"><a href="mod-functions.html#cb173-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb173-9"><a href="mod-functions.html#cb173-9" aria-hidden="true" tabindex="-1"></a><span class="fu">compute_s_n</span>(<span class="dv">10</span>)</span>
+<span id="cb173-10"><a href="mod-functions.html#cb173-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 385</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#nJoDVA7t5rH1mM1k1QFU">
+Solution
+</button>
+<ol start="2" style="list-style-type: decimal">
+<li>Write a function <code>compute_s_n</code> that for any given <span class="math inline">\(n\)</span> computes the sum <span class="math inline">\(S_n = 1^2 + 2^2 + 3^2 + \dots + n^2\)</span>. Report the value of the sum when <span class="math inline">\(n=10\)</span>.</li>
+</ol>
+<div id="e5B6ocdOQLnseaK4aBjI" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="e5B6ocdOQLnseaK4aBjI-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="e5B6ocdOQLnseaK4aBjI-title">
+Solution 1
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="mod-functions.html#cb174-1" aria-hidden="true" tabindex="-1"></a>s_n <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&#39;numeric&#39;</span>, <span class="dv">25</span>)</span>
+<span id="cb174-2"><a href="mod-functions.html#cb174-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>) {</span>
+<span id="cb174-3"><a href="mod-functions.html#cb174-3" aria-hidden="true" tabindex="-1"></a>  s_n[n] <span class="ot">&lt;-</span> <span class="fu">compute_s_n</span>(n)</span>
+<span id="cb174-4"><a href="mod-functions.html#cb174-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb174-5"><a href="mod-functions.html#cb174-5" aria-hidden="true" tabindex="-1"></a>s_n</span>
+<span id="cb174-6"><a href="mod-functions.html#cb174-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]    1    5   14   30   55   91  140  204  285  385  506  650  819 1015 1240 1496 1785 2109 2470</span></span>
+<span id="cb174-7"><a href="mod-functions.html#cb174-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [20] 2870 3311 3795 4324 4900 5525</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#e5B6ocdOQLnseaK4aBjI">
+Solution 1
+</button>
+<div id="d7Fon2s7bTYjTzzObLRE" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="d7Fon2s7bTYjTzzObLRE-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="d7Fon2s7bTYjTzzObLRE-title">
+Hint 1
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="mod-functions.html#cb175-1" aria-hidden="true" tabindex="-1"></a>s_n <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&#39;numeric&#39;</span>, <span class="dv">25</span>)</span>
+<span id="cb175-2"><a href="mod-functions.html#cb175-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>) {</span>
+<span id="cb175-3"><a href="mod-functions.html#cb175-3" aria-hidden="true" tabindex="-1"></a>  s_n[n] <span class="ot">&lt;-</span> ___</span>
+<span id="cb175-4"><a href="mod-functions.html#cb175-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb175-5"><a href="mod-functions.html#cb175-5" aria-hidden="true" tabindex="-1"></a>s_n</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#d7Fon2s7bTYjTzzObLRE">
+Hint 1
+</button>
+<div id="013lTqaBbtnVQettBF7n" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="013lTqaBbtnVQettBF7n-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="013lTqaBbtnVQettBF7n-title">
+Solution 2
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="mod-functions.html#cb176-1" aria-hidden="true" tabindex="-1"></a>compute_s_n_alt <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb176-2"><a href="mod-functions.html#cb176-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(n<span class="sc">*</span>(n<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span>(<span class="dv">2</span><span class="sc">*</span>n<span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="dv">6</span>)</span>
+<span id="cb176-3"><a href="mod-functions.html#cb176-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb176-4"><a href="mod-functions.html#cb176-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>) {</span>
+<span id="cb176-5"><a href="mod-functions.html#cb176-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (s_n[n] <span class="sc">!=</span> <span class="fu">compute_s_n_alt</span>(n)) {</span>
+<span id="cb176-6"><a href="mod-functions.html#cb176-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&#39;Error!&#39;</span>)</span>
+<span id="cb176-7"><a href="mod-functions.html#cb176-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb176-8"><a href="mod-functions.html#cb176-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb176-9"><a href="mod-functions.html#cb176-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#013lTqaBbtnVQettBF7n">
+Solution 2
+</button>
+<div id="6plwSwmsO6HiMN1W7s4m" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="6plwSwmsO6HiMN1W7s4m-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="6plwSwmsO6HiMN1W7s4m-title">
+Hint 2
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="mod-functions.html#cb177-1" aria-hidden="true" tabindex="-1"></a>compute_s_n_alt <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb177-2"><a href="mod-functions.html#cb177-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(n<span class="sc">*</span>(n<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span>___)</span>
+<span id="cb177-3"><a href="mod-functions.html#cb177-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb177-4"><a href="mod-functions.html#cb177-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>) {</span>
+<span id="cb177-5"><a href="mod-functions.html#cb177-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (s_n[n] <span class="sc">!=</span> ___) {</span>
+<span id="cb177-6"><a href="mod-functions.html#cb177-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&#39;Error!&#39;</span>)</span>
+<span id="cb177-7"><a href="mod-functions.html#cb177-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb177-8"><a href="mod-functions.html#cb177-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb177-9"><a href="mod-functions.html#cb177-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#6plwSwmsO6HiMN1W7s4m">
+Hint 2
+</button>
+<ol start="3" style="list-style-type: decimal">
+<li>Define an empty numerical vector <code>s_n</code> of size 25 using <code>s_n &lt;- vector("numeric", 25)</code> and store in the results of <span class="math inline">\(S_1, S_2, \dots S_{25}\)</span> using a for-loop.
+Confirm that the formula for the sum is <span class="math inline">\(S_n= n(n+1)(2n+1)/6\)</span> for <span class="math inline">\(n = 1, \ldots, 25\)</span>.</li>
+</ol>
+<div id="q2HdmOvOQHbY2kCeWdcH" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="q2HdmOvOQHbY2kCeWdcH-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="q2HdmOvOQHbY2kCeWdcH-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="mod-functions.html#cb178-1" aria-hidden="true" tabindex="-1"></a>biggest <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb178-2"><a href="mod-functions.html#cb178-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (a <span class="sc">&gt;</span> b) <span class="fu">return</span>(<span class="dv">1</span>)</span>
+<span id="cb178-3"><a href="mod-functions.html#cb178-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb178-4"><a href="mod-functions.html#cb178-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb178-5"><a href="mod-functions.html#cb178-5" aria-hidden="true" tabindex="-1"></a><span class="fu">biggest</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb178-6"><a href="mod-functions.html#cb178-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0</span></span>
+<span id="cb178-7"><a href="mod-functions.html#cb178-7" aria-hidden="true" tabindex="-1"></a><span class="fu">biggest</span>(<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb178-8"><a href="mod-functions.html#cb178-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0</span></span>
+<span id="cb178-9"><a href="mod-functions.html#cb178-9" aria-hidden="true" tabindex="-1"></a><span class="fu">biggest</span>(<span class="dv">8</span>,<span class="dv">2</span>)</span>
+<span id="cb178-10"><a href="mod-functions.html#cb178-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#q2HdmOvOQHbY2kCeWdcH">
+Solution
+</button>
+<div id="DXzKK2WbkxU5GsqqweUB" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="DXzKK2WbkxU5GsqqweUB-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="DXzKK2WbkxU5GsqqweUB-title">
+Hint
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="mod-functions.html#cb179-1" aria-hidden="true" tabindex="-1"></a>biggest <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb179-2"><a href="mod-functions.html#cb179-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (a <span class="sc">&gt;</span> b) ___</span>
+<span id="cb179-3"><a href="mod-functions.html#cb179-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb179-4"><a href="mod-functions.html#cb179-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#DXzKK2WbkxU5GsqqweUB">
+Hint
+</button>
+<ol start="4" style="list-style-type: decimal">
+<li>Write a function <code>biggest</code> which takes two integers as arguments. Let the
+function return 1 if the first argument is larger than the second and return 0
+otherwise.</li>
+</ol>
+<div id="i5Swqi7azcG34sMwYVw6" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="i5Swqi7azcG34sMwYVw6-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="i5Swqi7azcG34sMwYVw6-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="mod-functions.html#cb180-1" aria-hidden="true" tabindex="-1"></a>shipping_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(total) {</span>
+<span id="cb180-2"><a href="mod-functions.html#cb180-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fl">0.1</span> <span class="sc">*</span> total)</span>
+<span id="cb180-3"><a href="mod-functions.html#cb180-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb180-4"><a href="mod-functions.html#cb180-4" aria-hidden="true" tabindex="-1"></a><span class="fu">shipping_cost</span>(<span class="dv">450</span>)</span>
+<span id="cb180-5"><a href="mod-functions.html#cb180-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 45</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#i5Swqi7azcG34sMwYVw6">
+Solution
+</button>
+<div id="oNYJ5mBeQCzR1wsbIoxq" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="oNYJ5mBeQCzR1wsbIoxq-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="oNYJ5mBeQCzR1wsbIoxq-title">
+Hint
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="mod-functions.html#cb181-1" aria-hidden="true" tabindex="-1"></a>shipping_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(total) {</span>
+<span id="cb181-2"><a href="mod-functions.html#cb181-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(___)</span>
+<span id="cb181-3"><a href="mod-functions.html#cb181-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#oNYJ5mBeQCzR1wsbIoxq">
+Hint
+</button>
+<ol start="5" style="list-style-type: decimal">
+<li>Write a function that returns the shipping cost as 10% of the total cost of an
+order (input argument).</li>
+</ol>
+<div id="7yY080omvMypmcxUtORw" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="7yY080omvMypmcxUtORw-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="7yY080omvMypmcxUtORw-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="mod-functions.html#cb182-1" aria-hidden="true" tabindex="-1"></a>shipping_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(total, <span class="at">pct =</span> <span class="fl">0.1</span>) {</span>
+<span id="cb182-2"><a href="mod-functions.html#cb182-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(pct <span class="sc">*</span> total)</span>
+<span id="cb182-3"><a href="mod-functions.html#cb182-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb182-4"><a href="mod-functions.html#cb182-4" aria-hidden="true" tabindex="-1"></a><span class="fu">shipping_cost</span>(<span class="dv">450</span>)</span>
+<span id="cb182-5"><a href="mod-functions.html#cb182-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 45</span></span>
+<span id="cb182-6"><a href="mod-functions.html#cb182-6" aria-hidden="true" tabindex="-1"></a><span class="fu">shipping_cost</span>(<span class="dv">450</span>, <span class="at">pct =</span> <span class="fl">0.2</span>)</span>
+<span id="cb182-7"><a href="mod-functions.html#cb182-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 90</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#7yY080omvMypmcxUtORw">
+Solution
+</button>
+<div id="g1AUQztLhufd9bGSDFeT" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="g1AUQztLhufd9bGSDFeT-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="g1AUQztLhufd9bGSDFeT-title">
+Hint
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="mod-functions.html#cb183-1" aria-hidden="true" tabindex="-1"></a>shipping_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(total, <span class="at">pct =</span> ___) {</span>
+<span id="cb183-2"><a href="mod-functions.html#cb183-2" aria-hidden="true" tabindex="-1"></a>  ___</span>
+<span id="cb183-3"><a href="mod-functions.html#cb183-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#g1AUQztLhufd9bGSDFeT">
+Hint
+</button>
+<ol start="6" style="list-style-type: decimal">
+<li>Given Question 5, rewrite the function so the percentage is an input argument with a default of 10%.</li>
+</ol>
+<div id="9Gic84xMgqE2apMKdxaV" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="9Gic84xMgqE2apMKdxaV-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="9Gic84xMgqE2apMKdxaV-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="mod-functions.html#cb184-1" aria-hidden="true" tabindex="-1"></a>shipping_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(total) {</span>
+<span id="cb184-2"><a href="mod-functions.html#cb184-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fl">0.1</span> <span class="sc">*</span> total)</span>
+<span id="cb184-3"><a href="mod-functions.html#cb184-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb184-4"><a href="mod-functions.html#cb184-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb184-5"><a href="mod-functions.html#cb184-5" aria-hidden="true" tabindex="-1"></a>gasoline_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(total) {</span>
+<span id="cb184-6"><a href="mod-functions.html#cb184-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">shipping_cost</span>(total) <span class="sc">*</span> <span class="fl">0.5</span>)</span>
+<span id="cb184-7"><a href="mod-functions.html#cb184-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb184-8"><a href="mod-functions.html#cb184-8" aria-hidden="true" tabindex="-1"></a><span class="fu">gasoline_cost</span>(<span class="dv">450</span>)</span>
+<span id="cb184-9"><a href="mod-functions.html#cb184-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 22.5</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#9Gic84xMgqE2apMKdxaV">
+Solution
+</button>
+<div id="9qDfc3warWGbngTScRb0" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="9qDfc3warWGbngTScRb0-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="9qDfc3warWGbngTScRb0-title">
+Hint
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="mod-functions.html#cb185-1" aria-hidden="true" tabindex="-1"></a>gasoline_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(total) {</span>
+<span id="cb185-2"><a href="mod-functions.html#cb185-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">shipping_cost</span>(___) <span class="sc">*</span> ___)</span>
+<span id="cb185-3"><a href="mod-functions.html#cb185-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#9qDfc3warWGbngTScRb0">
+Hint
+</button>
+<ol start="7" style="list-style-type: decimal">
+<li>Given Question 5, the shipping cost can be split into parts. One part is gasoline which is 50% of the shipping cost. Write a function that has total cost as input argument and calculate the gasoline cost and use the function defined in Question 5 inside it.</li>
+</ol>
+<div id="zP7rXs2silrVvC1JeJwm" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="zP7rXs2silrVvC1JeJwm-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="zP7rXs2silrVvC1JeJwm-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="mod-functions.html#cb186-1" aria-hidden="true" tabindex="-1"></a>shipping_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(total, <span class="at">pct =</span> <span class="fl">0.1</span>) {</span>
+<span id="cb186-2"><a href="mod-functions.html#cb186-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(pct <span class="sc">*</span> total)</span>
+<span id="cb186-3"><a href="mod-functions.html#cb186-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb186-4"><a href="mod-functions.html#cb186-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-5"><a href="mod-functions.html#cb186-5" aria-hidden="true" tabindex="-1"></a>gasoline_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(total, ...) {</span>
+<span id="cb186-6"><a href="mod-functions.html#cb186-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">shipping_cost</span>(total, ...) <span class="sc">*</span> <span class="fl">0.5</span>)</span>
+<span id="cb186-7"><a href="mod-functions.html#cb186-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb186-8"><a href="mod-functions.html#cb186-8" aria-hidden="true" tabindex="-1"></a><span class="fu">gasoline_cost</span>(<span class="dv">450</span>)</span>
+<span id="cb186-9"><a href="mod-functions.html#cb186-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 22.5</span></span>
+<span id="cb186-10"><a href="mod-functions.html#cb186-10" aria-hidden="true" tabindex="-1"></a><span class="fu">gasoline_cost</span>(<span class="dv">450</span>, <span class="at">pct =</span> <span class="fl">0.2</span>)</span>
+<span id="cb186-11"><a href="mod-functions.html#cb186-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 45</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#zP7rXs2silrVvC1JeJwm">
+Solution
+</button>
+<div id="LTPmU0dEkIuqS4ZZzKfw" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="LTPmU0dEkIuqS4ZZzKfw-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="LTPmU0dEkIuqS4ZZzKfw-title">
+Hint
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="mod-functions.html#cb187-1" aria-hidden="true" tabindex="-1"></a>gasoline_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(total, ...) {</span>
+<span id="cb187-2"><a href="mod-functions.html#cb187-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">shipping_cost</span>(___) <span class="sc">*</span> ___)</span>
+<span id="cb187-3"><a href="mod-functions.html#cb187-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#LTPmU0dEkIuqS4ZZzKfw">
+Hint
+</button>
+<ol start="8" style="list-style-type: decimal">
+<li>Given Question 6, the shipping cost can be split into parts. One part is gasoline which is 50% of the shipping cost. Write a function that has total cost a input argument and calculate the gasoline cost and use the function defined in Question 6 inside it. Hint: Use the <code>...</code> argument to pass arguments to <code>shipping_cost</code>.</li>
+</ol>
+<div id="Zg5rVDPsUfHoFMEwP8uL" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Zg5rVDPsUfHoFMEwP8uL-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="Zg5rVDPsUfHoFMEwP8uL-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="mod-functions.html#cb188-1" aria-hidden="true" tabindex="-1"></a>shipping_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(total, <span class="at">pct =</span> <span class="fl">0.1</span>) {</span>
+<span id="cb188-2"><a href="mod-functions.html#cb188-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(pct <span class="sc">*</span> total)</span>
+<span id="cb188-3"><a href="mod-functions.html#cb188-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb188-4"><a href="mod-functions.html#cb188-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb188-5"><a href="mod-functions.html#cb188-5" aria-hidden="true" tabindex="-1"></a>gasoline_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(total, ...) {</span>
+<span id="cb188-6"><a href="mod-functions.html#cb188-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">shipping_cost</span>(total, ...) <span class="sc">*</span> <span class="fl">0.5</span>)</span>
+<span id="cb188-7"><a href="mod-functions.html#cb188-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb188-8"><a href="mod-functions.html#cb188-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb188-9"><a href="mod-functions.html#cb188-9" aria-hidden="true" tabindex="-1"></a>costs <span class="ot">&lt;-</span> <span class="cf">function</span>(total, ...) {</span>
+<span id="cb188-10"><a href="mod-functions.html#cb188-10" aria-hidden="true" tabindex="-1"></a>  lst <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">total =</span> total, <span class="at">shipping =</span> <span class="fu">shipping_cost</span>(total, ...), <span class="at">gasoline =</span> <span class="fu">gasoline_cost</span>(total, ...))</span>
+<span id="cb188-11"><a href="mod-functions.html#cb188-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(lst)</span>
+<span id="cb188-12"><a href="mod-functions.html#cb188-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb188-13"><a href="mod-functions.html#cb188-13" aria-hidden="true" tabindex="-1"></a><span class="fu">costs</span>(<span class="dv">450</span>)</span>
+<span id="cb188-14"><a href="mod-functions.html#cb188-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $total</span></span>
+<span id="cb188-15"><a href="mod-functions.html#cb188-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 450</span></span>
+<span id="cb188-16"><a href="mod-functions.html#cb188-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb188-17"><a href="mod-functions.html#cb188-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $shipping</span></span>
+<span id="cb188-18"><a href="mod-functions.html#cb188-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 45</span></span>
+<span id="cb188-19"><a href="mod-functions.html#cb188-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb188-20"><a href="mod-functions.html#cb188-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $gasoline</span></span>
+<span id="cb188-21"><a href="mod-functions.html#cb188-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 22.5</span></span>
+<span id="cb188-22"><a href="mod-functions.html#cb188-22" aria-hidden="true" tabindex="-1"></a><span class="fu">costs</span>(<span class="dv">450</span>, <span class="at">pct =</span> <span class="fl">0.15</span>)</span>
+<span id="cb188-23"><a href="mod-functions.html#cb188-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $total</span></span>
+<span id="cb188-24"><a href="mod-functions.html#cb188-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 450</span></span>
+<span id="cb188-25"><a href="mod-functions.html#cb188-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb188-26"><a href="mod-functions.html#cb188-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $shipping</span></span>
+<span id="cb188-27"><a href="mod-functions.html#cb188-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 67.5</span></span>
+<span id="cb188-28"><a href="mod-functions.html#cb188-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb188-29"><a href="mod-functions.html#cb188-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $gasoline</span></span>
+<span id="cb188-30"><a href="mod-functions.html#cb188-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 33.8</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Zg5rVDPsUfHoFMEwP8uL">
+Solution
+</button>
+<div id="q8MF2mCOKbXzFjyYOp6X" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="q8MF2mCOKbXzFjyYOp6X-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="q8MF2mCOKbXzFjyYOp6X-title">
+Hint
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="mod-functions.html#cb189-1" aria-hidden="true" tabindex="-1"></a>shipping_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(total, <span class="at">pct =</span> <span class="fl">0.1</span>) {</span>
+<span id="cb189-2"><a href="mod-functions.html#cb189-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(pct <span class="sc">*</span> total)</span>
+<span id="cb189-3"><a href="mod-functions.html#cb189-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb189-4"><a href="mod-functions.html#cb189-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb189-5"><a href="mod-functions.html#cb189-5" aria-hidden="true" tabindex="-1"></a>gasoline_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(total, ...) {</span>
+<span id="cb189-6"><a href="mod-functions.html#cb189-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">shipping_cost</span>(total, ...) <span class="sc">*</span> <span class="fl">0.5</span>)</span>
+<span id="cb189-7"><a href="mod-functions.html#cb189-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb189-8"><a href="mod-functions.html#cb189-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb189-9"><a href="mod-functions.html#cb189-9" aria-hidden="true" tabindex="-1"></a>costs <span class="ot">&lt;-</span> <span class="cf">function</span>(total, ...) {</span>
+<span id="cb189-10"><a href="mod-functions.html#cb189-10" aria-hidden="true" tabindex="-1"></a>  lst <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">total =</span> ___, <span class="at">shipping =</span> ___, <span class="at">gasoline =</span> ___)</span>
+<span id="cb189-11"><a href="mod-functions.html#cb189-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(lst)</span>
+<span id="cb189-12"><a href="mod-functions.html#cb189-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#q8MF2mCOKbXzFjyYOp6X">
+Hint
+</button>
+<ol start="9" style="list-style-type: decimal">
+<li>Given Question 8, write a function <code>costs</code> that, given total cost, returns the total cost, shipping cost and gasoline cost.</li>
+</ol>
+</div>
+<div id="exercise-scope" class="section level3" number="12.8.2">
+<h3><span class="header-section-number">12.8.2</span> Exercise (scope)</h3>
+<div id="RG9sYYajdc3Zacc54gp9" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="RG9sYYajdc3Zacc54gp9-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="RG9sYYajdc3Zacc54gp9-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<p>
+That value is still 3 since <code>x</code> defined inside the function is a local variable.
+</p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#RG9sYYajdc3Zacc54gp9">
+Solution
+</button>
+<ol style="list-style-type: decimal">
+<li>After running the code below, what is the value of variable <code>x</code>?</li>
+</ol>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="mod-functions.html#cb190-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb190-2"><a href="mod-functions.html#cb190-2" aria-hidden="true" tabindex="-1"></a>my_func <span class="ot">&lt;-</span> <span class="cf">function</span>(y){</span>
+<span id="cb190-3"><a href="mod-functions.html#cb190-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb190-4"><a href="mod-functions.html#cb190-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y <span class="sc">+</span> <span class="dv">5</span>)</span>
+<span id="cb190-5"><a href="mod-functions.html#cb190-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb190-6"><a href="mod-functions.html#cb190-6" aria-hidden="true" tabindex="-1"></a><span class="fu">my_func</span>(<span class="dv">7</span>)</span></code></pre></div>
+<div id="mUzUYNW4XxWR2229TnHk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mUzUYNW4XxWR2229TnHk-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="mUzUYNW4XxWR2229TnHk-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<p>
+The code runs. But it is not good coding practice to call global variables inside a function (<code>x</code>). Instead <code>x</code> should have been an argument to the function.
+</p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#mUzUYNW4XxWR2229TnHk">
+Solution
+</button>
+<ol start="2" style="list-style-type: decimal">
+<li>Is there any problems with the following code?</li>
+</ol>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="mod-functions.html#cb191-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb191-2"><a href="mod-functions.html#cb191-2" aria-hidden="true" tabindex="-1"></a>my_func <span class="ot">&lt;-</span> <span class="cf">function</span>(y){</span>
+<span id="cb191-3"><a href="mod-functions.html#cb191-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y <span class="sc">+</span> x) </span>
+<span id="cb191-4"><a href="mod-functions.html#cb191-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb191-5"><a href="mod-functions.html#cb191-5" aria-hidden="true" tabindex="-1"></a><span class="fu">my_func</span>(<span class="dv">7</span>)</span></code></pre></div>
+<div id="WH1f4p8epF8lDGWTNmY9" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="WH1f4p8epF8lDGWTNmY9-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="WH1f4p8epF8lDGWTNmY9-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<p>
+That value is still 3 since <code>my_func</code> has not been called yet.
+</p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#WH1f4p8epF8lDGWTNmY9">
+Solution
+</button>
+<ol start="3" style="list-style-type: decimal">
+<li>Have a look at the documentation for operator <code>&lt;&lt;-</code> (run <code>?'&lt;--'</code>). After running the code below, what is the value of variable <code>x</code>?</li>
+</ol>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="mod-functions.html#cb192-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb192-2"><a href="mod-functions.html#cb192-2" aria-hidden="true" tabindex="-1"></a>my_func <span class="ot">&lt;-</span> <span class="cf">function</span>(y){</span>
+<span id="cb192-3"><a href="mod-functions.html#cb192-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb192-4"><a href="mod-functions.html#cb192-4" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;&lt;-</span> <span class="dv">5</span></span>
+<span id="cb192-5"><a href="mod-functions.html#cb192-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y <span class="sc">+</span> <span class="dv">5</span>)</span>
+<span id="cb192-6"><a href="mod-functions.html#cb192-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div id="zF8DNMI2vZDsSXme8JwB" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="zF8DNMI2vZDsSXme8JwB-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="zF8DNMI2vZDsSXme8JwB-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<p>
+That value of <code>x</code> is 5 since <code>&lt;&lt;-</code> is used to look at the parent environment. The function call returns 11 since the <code>x</code> used is the local variable. In general avoid using <code>&lt;&lt;-</code> and give local variables different names compared to global ones.
+</p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#zF8DNMI2vZDsSXme8JwB">
+Solution
+</button>
+<ol start="4" style="list-style-type: decimal">
+<li>After running the code below, what is the value of variable <code>x</code> and output of the function call?</li>
+</ol>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="mod-functions.html#cb193-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb193-2"><a href="mod-functions.html#cb193-2" aria-hidden="true" tabindex="-1"></a>my_func <span class="ot">&lt;-</span> <span class="cf">function</span>(y){</span>
+<span id="cb193-3"><a href="mod-functions.html#cb193-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb193-4"><a href="mod-functions.html#cb193-4" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;&lt;-</span> <span class="dv">5</span></span>
+<span id="cb193-5"><a href="mod-functions.html#cb193-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y <span class="sc">+</span> x)</span>
+<span id="cb193-6"><a href="mod-functions.html#cb193-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb193-7"><a href="mod-functions.html#cb193-7" aria-hidden="true" tabindex="-1"></a><span class="fu">my_func</span>(<span class="dv">7</span>)</span></code></pre></div>
+</div>
+<div id="exercise-job-sequencing" class="section level3" number="12.8.3">
+<h3><span class="header-section-number">12.8.3</span> Exercise (job sequencing)</h3>
+<p><em>Solve this exercise using a script file.</em></p>
+<p>This exercise is based on Exercise 6.12 in <span class="citation">Wøhlk (<a href="#ref-vba-book" role="doc-biblioref">2010</a>)</span>.</p>
+<p>Consider a problem of determining the best sequencing of jobs on a machine. A set of startup costs are given for 5 machines:</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="mod-functions.html#cb194-1" aria-hidden="true" tabindex="-1"></a>startup_costs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">27</span>, <span class="dv">28</span>, <span class="dv">32</span>, <span class="dv">35</span>, <span class="dv">26</span>)</span>
+<span id="cb194-2"><a href="mod-functions.html#cb194-2" aria-hidden="true" tabindex="-1"></a>startup_costs</span>
+<span id="cb194-3"><a href="mod-functions.html#cb194-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 27 28 32 35 26</span></span></code></pre></div>
+<p>Moreover, when changing from one job to another job, the setup costs are given as:</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="mod-functions.html#cb195-1" aria-hidden="true" tabindex="-1"></a>setup_costs <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb195-2"><a href="mod-functions.html#cb195-2" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA</span>, <span class="dv">35</span>, <span class="dv">22</span>, <span class="dv">44</span>, <span class="dv">12</span>,</span>
+<span id="cb195-3"><a href="mod-functions.html#cb195-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">49</span>, <span class="cn">NA</span>, <span class="dv">46</span>, <span class="dv">38</span>, <span class="dv">17</span>,</span>
+<span id="cb195-4"><a href="mod-functions.html#cb195-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">46</span>, <span class="dv">12</span>, <span class="cn">NA</span>, <span class="dv">29</span>, <span class="dv">41</span>,</span>
+<span id="cb195-5"><a href="mod-functions.html#cb195-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">23</span>, <span class="dv">37</span>, <span class="dv">31</span>, <span class="cn">NA</span>, <span class="dv">26</span>,</span>
+<span id="cb195-6"><a href="mod-functions.html#cb195-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">17</span>, <span class="dv">23</span>, <span class="dv">28</span>, <span class="dv">34</span>, <span class="cn">NA</span>), </span>
+<span id="cb195-7"><a href="mod-functions.html#cb195-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> T, <span class="at">nrow =</span> <span class="dv">5</span>)</span>
+<span id="cb195-8"><a href="mod-functions.html#cb195-8" aria-hidden="true" tabindex="-1"></a>setup_costs</span>
+<span id="cb195-9"><a href="mod-functions.html#cb195-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span></span>
+<span id="cb195-10"><a href="mod-functions.html#cb195-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]   NA   35   22   44   12</span></span>
+<span id="cb195-11"><a href="mod-functions.html#cb195-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]   49   NA   46   38   17</span></span>
+<span id="cb195-12"><a href="mod-functions.html#cb195-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,]   46   12   NA   29   41</span></span>
+<span id="cb195-13"><a href="mod-functions.html#cb195-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,]   23   37   31   NA   26</span></span>
+<span id="cb195-14"><a href="mod-functions.html#cb195-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,]   17   23   28   34   NA</span></span></code></pre></div>
+<p>The goal of the problem is to determine a sequence of jobs which minimizes the total setup cost including the startup cost.</p>
+<p>One possible way to find a sequence is the use a greedy strategy:</p>
+<pre><code>Greedy Algorithm
+Step 0: Start with the job which has minimal startup cost.
+Step 1: Select the next job as the job not already done 
+        with minimal setup cost given current job. 
+Step 2: Set next job in Step 1 to current job and 
+        go to Step 1 if not all jobs are done.</code></pre>
+<p>In R the greedy algorithm can be implemented as:</p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="mod-functions.html#cb197-1" aria-hidden="true" tabindex="-1"></a>greedy <span class="ot">&lt;-</span> <span class="cf">function</span>(startup, setup) {</span>
+<span id="cb197-2"><a href="mod-functions.html#cb197-2" aria-hidden="true" tabindex="-1"></a>  jobs <span class="ot">&lt;-</span> <span class="fu">nrow</span>(setup)</span>
+<span id="cb197-3"><a href="mod-functions.html#cb197-3" aria-hidden="true" tabindex="-1"></a>  cur_job <span class="ot">&lt;-</span> <span class="fu">which.min</span>(startup)</span>
+<span id="cb197-4"><a href="mod-functions.html#cb197-4" aria-hidden="true" tabindex="-1"></a>  cost <span class="ot">&lt;-</span> startup[cur_job]</span>
+<span id="cb197-5"><a href="mod-functions.html#cb197-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># cat(&quot;Start job:&quot;, cur_job, &quot;\n&quot;)</span></span>
+<span id="cb197-6"><a href="mod-functions.html#cb197-6" aria-hidden="true" tabindex="-1"></a>  job_seq <span class="ot">&lt;-</span> cur_job</span>
+<span id="cb197-7"><a href="mod-functions.html#cb197-7" aria-hidden="true" tabindex="-1"></a>  setup[, cur_job] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb197-8"><a href="mod-functions.html#cb197-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(jobs<span class="dv">-1</span>)) {</span>
+<span id="cb197-9"><a href="mod-functions.html#cb197-9" aria-hidden="true" tabindex="-1"></a>    next_job <span class="ot">&lt;-</span> <span class="fu">which.min</span>(setup[cur_job, ])</span>
+<span id="cb197-10"><a href="mod-functions.html#cb197-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># cat(&quot;Next job:&quot;, next_job, &quot;\n&quot;) </span></span>
+<span id="cb197-11"><a href="mod-functions.html#cb197-11" aria-hidden="true" tabindex="-1"></a>    cost <span class="ot">&lt;-</span> cost <span class="sc">+</span> setup[cur_job, next_job]</span>
+<span id="cb197-12"><a href="mod-functions.html#cb197-12" aria-hidden="true" tabindex="-1"></a>    job_seq <span class="ot">&lt;-</span> <span class="fu">c</span>(job_seq, next_job)</span>
+<span id="cb197-13"><a href="mod-functions.html#cb197-13" aria-hidden="true" tabindex="-1"></a>    cur_job <span class="ot">&lt;-</span> next_job</span>
+<span id="cb197-14"><a href="mod-functions.html#cb197-14" aria-hidden="true" tabindex="-1"></a>    setup[, cur_job] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb197-15"><a href="mod-functions.html#cb197-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb197-16"><a href="mod-functions.html#cb197-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># print(setup)</span></span>
+<span id="cb197-17"><a href="mod-functions.html#cb197-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">seq =</span> job_seq, <span class="at">cost =</span> cost))</span>
+<span id="cb197-18"><a href="mod-functions.html#cb197-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb197-19"><a href="mod-functions.html#cb197-19" aria-hidden="true" tabindex="-1"></a><span class="fu">greedy</span>(startup_costs, setup_costs)</span>
+<span id="cb197-20"><a href="mod-functions.html#cb197-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $seq</span></span>
+<span id="cb197-21"><a href="mod-functions.html#cb197-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 5 1 3 2 4</span></span>
+<span id="cb197-22"><a href="mod-functions.html#cb197-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb197-23"><a href="mod-functions.html#cb197-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $cost</span></span>
+<span id="cb197-24"><a href="mod-functions.html#cb197-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 115</span></span></code></pre></div>
+<p>First, the job with minimum startup cost is found using function <code>which.min</code> and we define cost as the startup cost. We use <code>cat</code> to make some debugging statements and initialize <code>job_seq</code> with the first job. Next, we have to find a way of ignoring jobs already done. We do that here by setting the columns of setup cost equal to NA for jobs already done. Hence, they will not be selected by <code>which.min</code>. The <code>for</code> loop runs 4 times and selects jobs and accumulate the total cost.</p>
+<p>A well-known better strategy is to:</p>
+<pre><code>Better Algorithm
+Step 0: Subtract minimum of startup and setup cost for each job from setup and 
+        startup costs (that is columnwise)
+Step 1: Call the greedy algorithm with the modified costs. Note that the total 
+        cost returned has to be modified a bit.</code></pre>
+<div id="kS8Cf8PRcFSAr95tIkOR" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="kS8Cf8PRcFSAr95tIkOR-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="kS8Cf8PRcFSAr95tIkOR-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="mod-functions.html#cb199-1" aria-hidden="true" tabindex="-1"></a>better <span class="ot">&lt;-</span> <span class="cf">function</span>(startup, setup) {</span>
+<span id="cb199-2"><a href="mod-functions.html#cb199-2" aria-hidden="true" tabindex="-1"></a>  jobs <span class="ot">&lt;-</span> <span class="fu">nrow</span>(setup)</span>
+<span id="cb199-3"><a href="mod-functions.html#cb199-3" aria-hidden="true" tabindex="-1"></a>  min_col_val <span class="ot">&lt;-</span> <span class="fu">apply</span>(<span class="fu">rbind</span>(startup, setup), <span class="dv">2</span>, min, <span class="at">na.rm =</span> T)</span>
+<span id="cb199-4"><a href="mod-functions.html#cb199-4" aria-hidden="true" tabindex="-1"></a>  startup <span class="ot">&lt;-</span> startup <span class="sc">-</span> min_col_val</span>
+<span id="cb199-5"><a href="mod-functions.html#cb199-5" aria-hidden="true" tabindex="-1"></a>  min_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(min_col_val, jobs), </span>
+<span id="cb199-6"><a href="mod-functions.html#cb199-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ncol =</span> jobs, <span class="at">byrow =</span> T)</span>
+<span id="cb199-7"><a href="mod-functions.html#cb199-7" aria-hidden="true" tabindex="-1"></a>  setup <span class="ot">&lt;-</span> setup <span class="sc">-</span> min_mat</span>
+<span id="cb199-8"><a href="mod-functions.html#cb199-8" aria-hidden="true" tabindex="-1"></a>  lst <span class="ot">&lt;-</span> <span class="fu">greedy</span>(startup, setup)</span>
+<span id="cb199-9"><a href="mod-functions.html#cb199-9" aria-hidden="true" tabindex="-1"></a>  lst<span class="sc">$</span>cost <span class="ot">&lt;-</span> lst<span class="sc">$</span>cost <span class="sc">+</span> <span class="fu">sum</span>(min_col_val)</span>
+<span id="cb199-10"><a href="mod-functions.html#cb199-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(lst)</span>
+<span id="cb199-11"><a href="mod-functions.html#cb199-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb199-12"><a href="mod-functions.html#cb199-12" aria-hidden="true" tabindex="-1"></a><span class="fu">better</span>(startup_costs, setup_costs)</span>
+<span id="cb199-13"><a href="mod-functions.html#cb199-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $seq</span></span>
+<span id="cb199-14"><a href="mod-functions.html#cb199-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4 1 3 2 5</span></span>
+<span id="cb199-15"><a href="mod-functions.html#cb199-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb199-16"><a href="mod-functions.html#cb199-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $cost</span></span>
+<span id="cb199-17"><a href="mod-functions.html#cb199-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 109</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#kS8Cf8PRcFSAr95tIkOR">
+Solution
+</button>
+<div id="989VUcR30DqGbbzBkFK0" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="989VUcR30DqGbbzBkFK0-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="989VUcR30DqGbbzBkFK0-title">
+Hint 2
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="mod-functions.html#cb200-1" aria-hidden="true" tabindex="-1"></a>better <span class="ot">&lt;-</span> <span class="cf">function</span>(startup, setup) {</span>
+<span id="cb200-2"><a href="mod-functions.html#cb200-2" aria-hidden="true" tabindex="-1"></a>  jobs <span class="ot">&lt;-</span> <span class="fu">nrow</span>(setup)</span>
+<span id="cb200-3"><a href="mod-functions.html#cb200-3" aria-hidden="true" tabindex="-1"></a>  min_col_val <span class="ot">&lt;-</span> <span class="fu">apply</span>(<span class="fu">rbind</span>(startup, setup), <span class="dv">2</span>, min, <span class="at">na.rm =</span> T)</span>
+<span id="cb200-4"><a href="mod-functions.html#cb200-4" aria-hidden="true" tabindex="-1"></a>  startup <span class="ot">&lt;-</span> startup <span class="sc">-</span> min_col_val</span>
+<span id="cb200-5"><a href="mod-functions.html#cb200-5" aria-hidden="true" tabindex="-1"></a>  min_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(min_col_val, jobs), </span>
+<span id="cb200-6"><a href="mod-functions.html#cb200-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ncol =</span> jobs, <span class="at">byrow =</span> T)</span>
+<span id="cb200-7"><a href="mod-functions.html#cb200-7" aria-hidden="true" tabindex="-1"></a>  setup <span class="ot">&lt;-</span> setup <span class="sc">-</span> ___</span>
+<span id="cb200-8"><a href="mod-functions.html#cb200-8" aria-hidden="true" tabindex="-1"></a>  lst <span class="ot">&lt;-</span> <span class="fu">greedy</span>(startup, setup)</span>
+<span id="cb200-9"><a href="mod-functions.html#cb200-9" aria-hidden="true" tabindex="-1"></a>  lst<span class="sc">$</span>cost <span class="ot">&lt;-</span> lst<span class="sc">$</span>cost <span class="sc">+</span> <span class="fu">sum</span>(___)</span>
+<span id="cb200-10"><a href="mod-functions.html#cb200-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(lst)</span>
+<span id="cb200-11"><a href="mod-functions.html#cb200-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb200-12"><a href="mod-functions.html#cb200-12" aria-hidden="true" tabindex="-1"></a><span class="fu">better</span>(startup_costs, setup_costs)</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#989VUcR30DqGbbzBkFK0">
+Hint 2
+</button>
+<div id="zRzC6FgZPjZZaD6jbwxk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="zRzC6FgZPjZZaD6jbwxk-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="zRzC6FgZPjZZaD6jbwxk-title">
+Hint 1
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="mod-functions.html#cb201-1" aria-hidden="true" tabindex="-1"></a>better <span class="ot">&lt;-</span> <span class="cf">function</span>(startup, setup) {</span>
+<span id="cb201-2"><a href="mod-functions.html#cb201-2" aria-hidden="true" tabindex="-1"></a>  jobs <span class="ot">&lt;-</span> <span class="fu">nrow</span>(setup)</span>
+<span id="cb201-3"><a href="mod-functions.html#cb201-3" aria-hidden="true" tabindex="-1"></a>  min_col_val <span class="ot">&lt;-</span> <span class="fu">apply</span>(___)</span>
+<span id="cb201-4"><a href="mod-functions.html#cb201-4" aria-hidden="true" tabindex="-1"></a>  startup <span class="ot">&lt;-</span> startup <span class="sc">-</span> ___</span>
+<span id="cb201-5"><a href="mod-functions.html#cb201-5" aria-hidden="true" tabindex="-1"></a>  min_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(min_col_val, jobs), </span>
+<span id="cb201-6"><a href="mod-functions.html#cb201-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ncol =</span> ___, <span class="at">byrow =</span> T)</span>
+<span id="cb201-7"><a href="mod-functions.html#cb201-7" aria-hidden="true" tabindex="-1"></a>  setup <span class="ot">&lt;-</span> setup <span class="sc">-</span> ___</span>
+<span id="cb201-8"><a href="mod-functions.html#cb201-8" aria-hidden="true" tabindex="-1"></a>  lst <span class="ot">&lt;-</span> <span class="fu">greedy</span>(___, ___)</span>
+<span id="cb201-9"><a href="mod-functions.html#cb201-9" aria-hidden="true" tabindex="-1"></a>  lst<span class="sc">$</span>cost <span class="ot">&lt;-</span> lst<span class="sc">$</span>cost <span class="sc">+</span> ___</span>
+<span id="cb201-10"><a href="mod-functions.html#cb201-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(lst)</span>
+<span id="cb201-11"><a href="mod-functions.html#cb201-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb201-12"><a href="mod-functions.html#cb201-12" aria-hidden="true" tabindex="-1"></a><span class="fu">better</span>(startup_costs, setup_costs)</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#zRzC6FgZPjZZaD6jbwxk">
+Hint 1
+</button>
+<p>Implement a <code>better</code> function calculating a better strategy. Hint: to find the minimum column costs, you may use <code>apply(rbind(startup, setup), 2, min, na.rm = T)</code>.</p>
+
+</div>
+</div>
+</div>
+
+
+
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-stat545" class="csl-entry">
+Bryan, J. 2017. <em>STAT 545 - Data Wrangling, Exploration, and Analysis with r</em>. <a href="https://stat545.com/">https://stat545.com/</a>.
+</div>
+<div id="ref-rdpeng" class="csl-entry">
+Peng, R. D. 2018. <em>R Programming for Data Science</em>. <a href="https://bookdown.org/rdpeng/rprogdatascience/">https://bookdown.org/rdpeng/rprogdatascience/</a>.
+</div>
+<div id="ref-r-pkgs" class="csl-entry">
+Wickham, Hadley. 2015. <em>R Packages: Organize, Test, Document, and Share Your Code</em>. O’Reilly Media. <a href="http://r-pkgs.had.co.nz/">http://r-pkgs.had.co.nz/</a>.
+</div>
+<div id="ref-vba-book" class="csl-entry">
+Wøhlk, S. 2010. <em>VBA Programming in Business Economics</em>. DJØF Publishing.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mod-loops.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mod-tidy-intro.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/bss-osca/tfa/edit/master/book/06-02_r-functions.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
