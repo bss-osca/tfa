@@ -1,0 +1,18 @@
+---
+title: "Sildes for the different modules"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+library(htmltools)
+library(stringr)
+```
+
+```{r, results='asis', echo=FALSE} 
+fNames <- list.files("../docs/slides/", pattern = ".html")
+fNames <- fNames[str_detect(fNames, "index", negate = TRUE)]
+tags$ul(tagList(lapply(fNames, function(f) tags$li(tags$a(paste0(f), href = f)))))
+```
+

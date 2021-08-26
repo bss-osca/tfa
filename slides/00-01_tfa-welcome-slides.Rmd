@@ -25,7 +25,7 @@ layout: true
 
 <div class="my-footer">
 <span>
-<a href="https://bss-osca.github.io/tfa/" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/00-01_tfa-welcome-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/00-01_tfa-welcome-slides.Rmd" target="_blank">Source</a>
+<a href="https://bss-osca.github.io/tfa/mod-intro.html" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/00-01_tfa-welcome-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/00-01_tfa-welcome-slides.Rmd" target="_blank">Source</a>
 </span>
 </div> 
 
@@ -173,4 +173,5 @@ file.copy(list.files(pattern = ".html"), "../docs/slides/", overwrite = T)
 file.copy("./slides.css", "./libs/", overwrite = T)
 file.copy("libs", "../docs/slides/", recursive = T)
 file.copy("img", "../docs/slides/", recursive = T)
+system2("Rscript", args = "-e 'rmarkdown::render(\"index.Rmd\", quiet = TRUE)'")
 ```
