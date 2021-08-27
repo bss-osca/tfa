@@ -1,10 +1,108 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 ```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
 ```
 
 # Loops and conditional statements {#mod-loops-cond}
 
+This module gives a short introduction to loops and conditional statements. In general syllabus will point to chapters in @vba-book; however, there is a lot for videos about VBA online such as course [14-Hour VBA Course][vba-yt-course2]. You may have a look at these videos instead if you prefer a different learning style. In the learning path diagram, links to alternative online content will be pointed out. Note this is alternatives to the standard learning path that you may use instead. The learning path may also have extra content that is not a part of syllabus you can have a look at.
+
+__Learning path diagram__
+
+Click/hover the nodes to follow links and see details.
+
+```{r, echo=FALSE, out.width="100%", fig.asp=NA}
+g <- create_learning_path(
+   url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
+   sheet = "vba-loops-cond", 
+   x_legend = 3.8, y_legend = 4.5)
+render_graph(g, height = 400)
+```
+
+## Learning outcomes {#lo-vba-loops-cond}
+
+By the end of this module, you are expected to be able to:
+
+* Describe what a conditional statement is.
+* Test a condition built using relational/logical operators.
+* Declare a conditional statement.
+* Describe what a loop is.
+* Declare a loop.
+* Declare nested loops.
+* Exit a loop.
+
+The learning outcomes relate to the [overall learning goals](#lg-course) number 1, 2, 4, 8, 9-12 and 16 of the course.
+
+<!-- SOLO increasing: identify · memorise · name · do simple procedure · collect data · -->
+<!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
+<!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
+<!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
 
 
+## Conditional statements {#vba-cond}
+
+Conditional statements are used to make decisions based on the conditions, i.e. a conditional statement control the flow in which the code runs. If the condition is met then the code is executed. 
+  
+Read Sections 6.1-6.2.1 in Chapter 6 in @vba-book. You may also have a look at the alternative videos instead as listed in the learning path diagram.
+
+
+## Loops {#vba-loops}
+
+Loops are used to repeat pieces of code.
+
+Read Sections 6.3-6.4 and Section 6.5.2 in Chapter 6 in @vba-book. You may also have a look at the alternative videos instead as listed in the learning path diagram.
+
+
+## Recap
+
+- Loops are used to repeat pieces of code.
+- For loops (repeat a number of times):
+  ```
+  For i = 1 To 10 
+      <code>
+  Next
+  ```
+      
+- While loops (repeat until a condition is met - two versions):
+
+   ```
+   While {condition true}    
+       <code>
+   Wend
+   
+   Do While {condition true}    
+       <code>
+   Loop
+   ```
+      
+- Use `Exit for` and `Exit Do` to break a `For` and a `Do While` loop before it ends (jump to the code after the for loop).
+- Loops may be nested inside each other:
+
+   ```
+   For i = 1 To 2     
+     For j = 1 To 3  
+         MsgBox ("(" & i & "," & j & ")")
+     Next
+   Next
+   ```
+   
+- Conditional Statements are used to make decisions based on the conditions. If the condition is met then the code is executed. 
+- An if then statement:
+
+   ```
+   If k <= 10 Then
+    <code>
+   ElseIf k <= 13 Then
+    <code>
+   Else
+    <code>
+   End If
+   ```
+   
+- You may drop `ElseIf` and `Else` code chunks. 
 
 ## Exercises {#ex-vba-loops-cond}
 
@@ -73,7 +171,7 @@ Often a better algorithm is:
 
 Consider sheet _Main_ that contains the setup costs for a scheduling problem.
 
-   (1) Implement the greedy algorithm in a sub `Greedy` that store the setup costs in an $n+1 \times n$ 2D array assuming the setup costs table start in cell A4. Next, call the sub `GreedyAlg(costs)` that takes the costs as input argument. The sub must
+   (1) Implement the greedy algorithm in a sub `Greedy` that store the setup costs in an ($n+1 \times n$) 2D array `costs` assuming the setup costs table start in cell A4. Next, call the sub `GreedyAlg(costs)` that takes the costs as input argument. The sub must
        - Store the job sequence in an 1D array.
        - Output the number of jobs in cell C1, the job sequence in cell C2 and the total setup costs in cell F1.
        - Highlight the cells with setup costs used in the sequence.
@@ -88,3 +186,4 @@ Consider sheet _Main_ that contains the setup costs for a scheduling problem.
 
 ```{r links, child="links.md", include=FALSE}
 ```
+
