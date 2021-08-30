@@ -50,6 +50,125 @@ Variables are used to store information in a program that is saved in memory. A 
 
 Read Chapter 4 in @vba-book. You may also have a look at the alternative videos instead as listed in the learning path diagram.
 
+### Collections
+
+A useful datatype not mentioned in Chapter 4 is a collection. Collections are a way of storing a group of items together (think of it as a set). Collections and arrays are both used to group variables. They both store a set of items e.g. a list of student marks or country names. If we compare collections against arrays:
+
+- Collections are similar to arrays but better to use when the number of items is not fixed. With an array you normally set the size once. On the contrary you often add or remove items from a collection.
+- Collections are better when adding and removing items.
+- An item in a collection are read-only whereas an entry in an array are read/write.
+- Collection can be accessed using a key or an index (starting from 1).
+- Items of a collection do not have to share the same data type.
+
+Collections are a part of the [Object Model](#mod-vba-object-model) and hence a collection have to be defined in a special way. Let us consider an [example](https://github.com/bss-osca/tfa/blob/master/vba/vba-collection-examples.xlsm). First we declare and create a collection:
+```
+Dim col As New Collection
+```
+The collection (or set) is now defined with zero items. You can add items using
+```
+col.Add "Apple"
+col.Add "Pear"
+col.Add 123
+```
+Let us create a function that prints the items of a collection as string:
+```
+Function Coll2Str(col As Collection) As String
+    Dim e As Variant
+    Dim str As String
+    
+    For Each e In col
+        str = str & e & ", "
+    Next e
+    str = Left(str, Len(str) - 1)
+    Coll2Str = str
+End Function
+```
+Then the output of 
+```
+Debug.Print "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+```
+in the Immediate window becomes
+```
+The collection now contains 3 items: Apple, Pear, 123
+```
+You can access values in the collection using index:
+```
+Debug.Print "The 1. item is: " & col(1)
+Debug.Print "The 3. item is: " & col(3)
+```
+```
+The 1. item is: Apple
+The 3. item is: 123
+```
+Items are removed using:
+```
+col.Remove (2)
+Debug.Print "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+```
+
+```
+The collection now contains 2 items: Apple, 123
+```
+
+Note index of items has now changed (the 3. item has become the 2. item):
+```
+Debug.Print "The 1. item is: " & col(1)
+Debug.Print "The 2. item is: " & col(2)
+```
+
+```
+The 1. item is: Apple
+The 2. item is: 123
+```
+
+You clear a collection using:
+```
+Set col = Nothing
+Debug.Print "The collection now contains " & col.Count & " items."
+```
+
+```
+The collection now contains 0 items.
+```
+
+An item in a collection can be given a key:
+```
+col.Add "Hans Jørgensen", "ID123"   ' value, key
+col.Add "Jens Hansen", "ID234"
+col.Add "Lone Nielsen", "ID456"
+' col.Add "Sine Mikkelsen", "ID456" ' gives an error since already used the key
+Debug.Print "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+```
+
+```
+The collection now contains 3 items: Hans Jørgensen, Jens Hansen, Lone Nielsen
+```
+You can now access the item using the key:
+```
+Debug.Print "The item with key ID123 is: " & col("ID123")
+```
+
+```
+The item with key ID123 is: Hans Jørgensen
+```
+Similar you can remove an item using a key:
+```
+ col.Remove "ID123"
+ Debug.Print "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+```
+
+```
+The collection now contains 2 items: Jens Hansen, Lone Nielsen
+```
+
+It is recommended to use keys since using keys is has three advantages:
+
+- If the order changes your code will still access the correct item
+- You can directly access the item without reading through the entire collection
+- It can make you code more readable
+
+For more information about collections you may have a look at this [webpage](http://excelmacromastery.com/excel-vba-collections/).
+
 
 ## How do I structure my code? {#vba-code-structure}
 
@@ -167,7 +286,7 @@ The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-search-products-t
    (5) Modify your code so that if the product is not found then "Product not found!" is given in a message box. Hint: the [`Exit sub`](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/exit-statement) may be useful inside the last for loop.
        
 
-### Exercise - Read Arrays {#ex-vba-read-arrays}
+### Exercise - Read arrays {#ex-vba-read-arrays}
 
 The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-read-arrays-template.xlsm) contains different sheets with numbers to be read into an array. 
 
@@ -175,6 +294,23 @@ The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-read-arrays-templ
    (2) The sheet _2D Array_ contains an array in matrix format where a cell in row `r` and column `c` contains the value to be stored in the array entry `ary2D(r, c)`. Create the array and store the values. Note `ary2D` start indexing from 1 and not 0. Have a look at the unfinished sub `Read2DAry` for further hints.
    (3) Modify sub `Read2DAry` so that indexing start from 0 instead of 1, i.e. a cell in row `r` and column `c` contains the value to be stored in the array entry `ary2D(r - 1, c - 1)`.
    (4) The sheet _4D Array_ contains values to be stored in a long format (column A:D indices and column E values). Create an array `ary4D` (with index starting from 0) that store the values. Assume that the default value is 5. Have a look at the unfinished sub `Read4DAry` for further hints.
+   
+   
+### Exercise - Read collections {#ex-vba-read-collections}
+
+The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-read-collections-template.xlsm) contains different sheets with numbers to be read into a collection.
+
+Sheet _Data no keys_ contains some numbers. Create a procedure `CollNoKeys` that:
+
+   (1) Create a collection `col` and add all the numbers.
+   (2) Print the collection in a message box (you may use the function `Coll2Str` here).
+   (3) Create another collection and add all the items in `col` with value below 5.
+
+Sheet _Data with keys_ contains some ID numbers and prices for a set of products. Create a procedure `CollKeys` that:
+
+   (1) Create a collection `col` and add all the prices using ID as key.
+   (2) Print the price of the product with ID92011 in a message box.
+   (3) What happens if you try to print the price of ID92?
    
    
 ```{r links, child="links.md", include=FALSE}
