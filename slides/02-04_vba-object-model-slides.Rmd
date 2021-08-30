@@ -1,0 +1,121 @@
+---
+title: "The object model in VBA"
+author: "Lars Relund Nielsen"
+output:
+  xaringan::moon_reader:
+    css: "./libs/slides.css"
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+      highlightStyle: solarized-light
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, child = "setup.Rmd", echo=FALSE}
+```
+
+```{r include=FALSE}
+# use xaringan::inf_mr(cast_from = ".") to preview
+```
+
+layout: true
+
+<div class="my-footer">
+<span>
+<a href="https://bss-osca.github.io/tfa/mod-vba-object-model" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/02-04_vba-object-model-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/02-04_vba-object-model-slides.Rmd" target="_blank">Source</a> | <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-object-model-template.xlsm" target="_blank">Excel</a>
+</span>
+</div> 
+
+---
+
+## The object model
+
+- The object model is a big hierarchy of all the predefined objects you can use in VBA. Examples of some objects are `Range`, `Worksheet`, and `WorksheetFunction`.
+- Think of an object as a datatype that holds a group of variables.
+- Objects are grouped and can be nested:
+
+```{r, echo = FALSE, out.width="120%", fig.cap="Object model examples"} 
+knitr::include_graphics("./img/object-model.jpg", dpi = 250) 
+```
+
+---
+
+## Referring to an object
+
+- You must specify the path in the hierarchy e.g. 
+  ```
+  Workbooks("Jobs").Worksheets("Data values").Range("D4").value
+  ```
+- You may skip parts of the path (VBA then uses the current active one):
+  ```
+  Workbooks("Jobs").Worksheets("Data values").Range("D4").value
+  Worksheets("Data values").Range("D4").value
+  Range("D4")
+  ```
+- Warning, you must know which sheet is active. Always specify what you want to be active	
+  ```
+  Workbooks("Jobs").Worksheets("Data values").Activate  ' activate the sheet
+  dbl = Range("D4")
+  dbl = SheetData.Range("D4")   ' alternative if the sheet 'Data values' is given 
+                                  ' the name SheetData in the VBA editor
+  ```
+
+---
+
+## Declaring and setting object variables
+
+- Object variables are declared like any other variables:
+  ```
+  Dim rng As Range
+  Dim wst As Worksheet
+  Dim col as Collection
+  ```
+- Use `Set` to allocate the Object:
+  ```
+  Set rng = Range("F7")
+  Set wst = Worksheets("Data values")
+  Set col = Collection
+  ```
+- You may declare and set in one go using the `New` keyword:
+  ```
+  Dim col as New Collection  ' col is now an empty collection (0 items)
+  ```
+
+---
+
+## The Range object
+
+sorting
+
+---
+
+## The Worksheet object
+
+
+---
+
+## The Aplication object
+
+- Can be used to access WorksheetFunctions
+- Turn of screen updating while doing calculations
+- Turn of automatic updating of cells
+- Turn of displaying alerts
+
+Beware this may have some consequences, i.e. always turn these options back to normal when finished calculations
+
+---
+
+## The For Each loop
+
+
+
+```{r copy to docs, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../docs/slides/", overwrite = T)
+file.copy("./slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../docs/slides/", recursive = T)
+file.copy("img", "../docs/slides/", recursive = T)
+system2("Rscript", args = "-e 'rmarkdown::render(\"index.Rmd\", quiet = TRUE)'")
+```
