@@ -36,11 +36,21 @@ Consider the _Data_ worksheet.
    (6) Create function `GetCurRegionCols` similar to `GetCurRegionRows` and use it to find the number of columns of the current region of B14?
    (7) Create a function `RngCopyInt` that takes a range with integer values and a dynamic array as arguments and copy the range into the array. Test in on range A1:B10 and use `Print2DArray` to print the array out in the range with upper left cell A26.
    (8) Have a look at the other range functions given. Find the last row of the current region with cell F19. Find the cell address of the lower left cell in the current region with cell D4. Why is it A22?
+   (9) Sort, in descending order, the current region containing cell H10 using the first column.
 
 You may use the functions in other exercises.
 
-### Exercise - Collections {#ex-vba-ranges}
+### Exercise - Collections {#ex-vba-collections}
 
+The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-collections-template.xlsm) should be used as a starting point for this exercise. You may use the range functions in module `RangeFunc`. 
+
+The _Data_ worksheet contains a list of orders from a shop. You want to create a procedure that can find all orders with profit within a specific range. Consider the procedure `Search`.
+
+   (1) Create a collection `colRow` where each item contains the row number of an order in the _Data_ sheet. Use the order id as key. 
+   (2) The _Main_ sheet contains a search range in cells B5:C5. Search your orders for profits satisfying the range and add the order ids to a new collection `colResult`. Use the order ids as keys too.
+   (3) Print the orders satisfying the profit range in the _Main_ sheet starting in cell A10. Hint: the collection with row numbers combined with `colResult` may be handy here. Sort the orders increasing in profit. 
+   (4) The _Main_ sheet contains an except cells D5. Remove all order ids equal the value in D5 from `colResult`. 
+   (5) Print the orders satisfying the profit range and not equal D5 in the _Main_ sheet starting in cell F10. 
 
 
 ```{r links, child="links.md", include=FALSE}
