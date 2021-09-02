@@ -52,6 +52,18 @@ The _Data_ worksheet contains a list of orders from a shop. You want to create a
    (4) The _Main_ sheet contains an except cells D5. Remove all order ids equal the value in D5 from `colResult`. 
    (5) Print the orders satisfying the profit range and not equal D5 in the _Main_ sheet starting in cell F10. 
 
+### Exercise - Production plan {#ex-vba-production-plan}
+
+The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-production-plan-template.xlsm) should be used as a starting point for this exercise. You may use the range functions in module `RangeFunc`. 
+
+Consider a production planning problem where a set of products must be produced on two machines. All products must first be processed on Machine 1 and next on Machine 2. The _Data_ sheets each contains a list of products that must be produced.
+
+Your goal is to create a procedure `Main` that 
+
+   (1) For each data sheet prints out the production plan in sheet _Main_. The procedure must work if another data sheet is added.
+   (2) The production plan must be formatted in orange background color except the cell with the makespan (total production time) which must be green.
+   (3) `Main` must call a subprocedure `MakePlan` that takes the worksheet with data and a row number as input arguments. The row number states in which row of worksheet _Main_ the production plan must be printed.
+   (4) A production plan is created by first sorting the products decreasing with respect to production time on Machine 2 and next increasing with respect to the production time of Machine 1. Note a product cannot start on a specific machine before the previous product has finished on that machine. 
 
 ```{r links, child="links.md", include=FALSE}
 ```
