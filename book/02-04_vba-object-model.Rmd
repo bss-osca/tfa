@@ -1,7 +1,164 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 ```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
 ```
 
 # Object model {#mod-vba-object-model}
+
+This module gives a short introduction to the object model. In general syllabus will point to chapters in @vba-book; however, there is a lot for videos about VBA online such as course [14-Hour VBA Course][vba-yt-course2]. You may have a look at these videos instead if you prefer a different learning style. In the learning path diagram, links to alternative online content will be pointed out. Note this is alternatives to the standard learning path that you may use instead. The learning path may also have extra content that is not a part of syllabus you can have a look at.
+
+__Learning path diagram__
+
+Click/hover the nodes to follow links and see details.
+
+```{r, echo=FALSE, out.width="100%", fig.asp=NA}
+g <- create_learning_path(
+   url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
+   sheet = "vba-object-model", 
+   x_legend = 1.7, y_legend = 4.5)
+render_graph(g, height = 400)
+```
+
+## Learning outcomes {#lo-vba-loops-cond}
+
+By the end of this module, you are expected to be able to:
+
+* Describe what the object model is.
+* Declare and set an object.
+* Explain what a collection of objects are. 
+* Add and delete worksheets.
+* Understand what a range is and extract properties about it such as rows, start row, address, start column etc. 
+* Use the current region of a range to get information about the size for data.
+* Sort a range.
+* Use a `For Each` loop to iterate though a collection of objects. 
+
+The learning outcomes relate to the [overall learning goals](#lg-course) number 1, 2, 4, 8 and 9-12 of the course.
+
+<!-- SOLO increasing: identify · memorise · name · do simple procedure · collect data · -->
+<!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
+<!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
+<!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
+
+
+## Object model {#vba-object-model}
+
+The object model is a big hierarchy of all the predefined objects you can use in VBA. Examples of some objects are `Range`, `Worksheet`, and `WorksheetFunction`. Think of an object as a reference to a datatype that holds a group of variables.
+
+Read Chapter 7 in @vba-book. You may also have a look at the extra videos as listed in the learning path diagram.
+
+
+## Recap
+
+- The object model is a big hierarchy of all the predefined objects you can use in VBA. Examples of some objects are `Range`, `Worksheet`, and `WorksheetFunction`.
+- Think of an object as a datatype that holds a group of variables.
+- Objects are grouped and can be nested:
+
+```{r, echo = FALSE, out.width="80%", fig.cap="Object model examples"} 
+knitr::include_graphics("./img/object-model.jpg", dpi = 250) 
+```
+
+- Refer to an object by specifying the path in the hierarchy e.g. 
+  ```
+  Workbooks("Jobs").Worksheets("Data values").Range("D4").value
+  ```
+- You may skip parts of the path (VBA then uses the current active one):
+  ```
+  Workbooks("Jobs").Worksheets("Data values").Range("D4").value
+  Worksheets("Data values").Range("D4").value
+  Range("D4")
+  ```
+- Warning, you must know which sheet is active. Always specify what you want to be active	
+  ```
+  Workbooks("Jobs").Worksheets("Data values").Activate  ' activate the sheet
+  dbl = Range("D4")
+  dbl = SheetData.Range("D4")   ' alternative if the sheet 'Data values' is g
+                                ' given the name SheetData in the VBA editor
+  ```
+- Declare object variables using:
+  ```
+  Dim rng As Range
+  Dim wst As Worksheet
+  Dim col as Collection
+  ```
+- Set object variables using the keyword `Set`:
+  ```
+  Set rng = Range("F7")
+  Set wst = Worksheets("Data values")
+  Set col = Collection
+  ```
+- You may declare and set in one go using the `New` keyword:
+  ```
+  Dim col as New Collection  ' col is now an empty collection (0 items)
+  ```
+- A range represents a cell, a row, a column, or a rectangular selection of cells. 
+  ```
+  Dim rng As Range
+  Set rng = Range("A1:D5")
+  rng = 145   ' cell value
+  MsgBox rng.Address   ' range address ($A$1:$D$5)
+  ```
+- The current region of a range is found by expanding the range until all cells surrounding the range is empty
+  ```
+  rng = Range("D23").CurrentRegion
+  ```
+  This is useful if don't know the size for data.
+
+- The columns in a range can be [sorted](https://docs.microsoft.com/en-us/office/vba/api/excel.range.sort). For instance sort a range ascending with respect to the second column and next descending with respect to the first column.
+  ```
+  rng.Sort Key1:=rng.Columns(2), Order1:=xlAscending, _
+           Key2:=rng.Columns(1), Order2:=xlDescending, Header:=xlYes
+  ```
+  Note the way of calling the procedure. You could also write
+  ```
+  Call rng.Sort(Key1:=rng.Columns(2), Order1:=xlAscending, _
+                Key2:=rng.Columns(1), Order2:=xlDescending, Header:=xlYes)
+  ```
+- A `Worksheet` is part of the `Worksheets` collection. You can add a new worksheet using:
+  ```
+  Dim wst As Worksheet
+  Set wst = ThisWorkbook.Worksheets.Add()  ' add new worksheet to collection Worksheets
+  wst.Name = "Test3"                       ' set the name
+  ```
+- You can delete a worksheet using:
+  ```
+  For Each wst In Worksheets
+      If wst.Name = "Test3" Then ' Delete "Test3"
+          wst.Delete
+      End If
+  Next
+  ```
+  
+- The Application object can be used to
+   - Access WorksheetFunctions
+   - Turn of screen updating while doing calculations
+   - Turn of automatic updating of cells
+   - Turn of displaying alerts
+   
+  Beware this may have some consequences, i.e. always turn these options back to normal when finished calculations
+
+- The `For Each` [loop](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/for-eachnext-statement) is used to iterate though objects in a collection:
+  ```
+  For Each wst In Worksheets
+      If wst.Name = "Test3" Then ' Delete "Test3"
+          wst.Delete
+      End If
+  Next
+  ```
+- You may use an `Exit For` statement to exit a `For Each` loop:
+  ```
+  For Each rng In Range("A1:B5") 
+    If IsNumeric(rng.Value) = False Then 
+      MsgBox "Cell " & rng.Address & " contains a non-numeric value." 
+      Exit For 
+    End If 
+  Next  
+  ```
+
+You may also have a look at the [slides for this module](https://bss-osca.github.io/tfa/slides/02-04_vba-object-model-slides.html).
+
 
 
 ## Exercises {#ex-vba-object-model}
