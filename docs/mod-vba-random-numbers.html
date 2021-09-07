@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2021-09-06" />
+<meta name="date" content="2021-09-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -294,9 +294,12 @@ div.csl-indent {
 <li class="part"><span><b>III Extra topics in VBA</b></span></li>
 <li class="chapter" data-level="7" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html"><i class="fa fa-check"></i><b>7</b> Generating random numbers</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-random-numbers"><i class="fa fa-check"></i><b>7.1</b> Exercises</a>
+<li class="chapter" data-level="7.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#vba-random-numbers"><i class="fa fa-check"></i><b>7.1</b> Generating random numbers</a></li>
+<li class="chapter" data-level="7.2" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#vba-simulation"><i class="fa fa-check"></i><b>7.2</b> Simulation</a></li>
+<li class="chapter" data-level="7.3" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-random-numbers"><i class="fa fa-check"></i><b>7.3</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="7.1.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-generate"><i class="fa fa-check"></i><b>7.1.1</b> Exercise - Generating numbers</a></li>
+<li class="chapter" data-level="7.3.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-generate"><i class="fa fa-check"></i><b>7.3.1</b> Exercise - Generating numbers</a></li>
+<li class="chapter" data-level="7.3.2" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-tsp"><i class="fa fa-check"></i><b>7.3.2</b> Exercise - Traveling Salesman</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>IV VBA project</b></span></li>
@@ -519,12 +522,20 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="mod-vba-random-numbers" class="section level1" number="7">
 <h1><span class="header-section-number">Module 7</span> Generating random numbers</h1>
-<div id="ex-vba-random-numbers" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> Exercises</h2>
-<p>Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the <a href="help.html#help">help page</a>. Some of the solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up to early. Put some effort into finding a solution!</p>
-<div id="ex-vba-generate" class="section level3" number="7.1.1">
-<h3><span class="header-section-number">7.1.1</span> Exercise - Generating numbers</h3>
-<p>The <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-random-template.xlsm">file</a> may be used as a starting point for this exercise.</p>
+<div id="vba-random-numbers" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Generating random numbers</h2>
+<p>Often we want to model a system where some of the elements are uncertain. That is, we want to generate some random numbers following different distributions. This can be done using the built-in VBA and Excel functions.</p>
+<p>Read Sections 18.1 and 18.2 of Chapter 18 in <span class="citation">Wøhlk (<a href="#ref-vba-book" role="doc-biblioref">2010</a>)</span>. You may also have a look at the extra videos as listed in the learning path diagram.</p>
+</div>
+<div id="vba-simulation" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Simulation</h2>
+</div>
+<div id="ex-vba-random-numbers" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Exercises</h2>
+<p>Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the <a href="help.html#help">help page</a>. Some of the solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up too early. Put some effort into finding a solution!</p>
+<div id="ex-vba-generate" class="section level3" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Exercise - Generating numbers</h3>
+<p>This <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-random-template.xlsm">file</a> should be used as a starting point for this exercise.</p>
 <ol style="list-style-type: decimal">
 <li>Create a procedure <code>GenNormal</code> with arguments <code>intSize</code>, <code>dblMean</code>, <code>dblSD</code> and <code>aryResult</code>. The procedure must generate <code>intSize</code> random numbers from a normal distribution with mean <code>dblMean</code> and standard deviation <code>dblSD</code>. The procedure must store the values in <code>aryResult</code>.</li>
 <li>Create a procedure <code>GenUniform</code> with arguments <code>intSize</code>, <code>dblMin</code>, <code>dblMax</code> and <code>aryResult</code>. The procedure must generate <code>intSize</code> random numbers from a uniform distribution in the range <code>dblMin</code> to <code>dblMax</code>. The procedure must store the values in <code>aryResult</code>.</li>
@@ -539,6 +550,17 @@ div.csl-indent {
 <li>Plot the results for each distribution using <code>CreatePlot</code>.</li>
 </ul></li>
 </ol>
+</div>
+<div id="ex-vba-tsp" class="section level3" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Exercise - Traveling Salesman</h3>
+<p>The <a href="https://en.wikipedia.org/wiki/Travelling_salesman_problem">travelling salesman problem</a> (TSP) asks the following question:</p>
+<blockquote>
+<p>Given a list of cities and the distances between each pair of the cities,
+what is the shortest possible route that visits each city exactly once
+and returns to the origin city?</p>
+</blockquote>
+<p>The problem is an NP-hard problem (worst case solution time grows exponential with the number of cities) in combinatorial optimization, important in theoretical computer science and operations research. The problem was first formulated in 1930 and is one of the most intensively studied problems in optimization. Even though the problem is computationally difficult, many heuristics and exact algorithms are known.</p>
+<p>The goal with this exercise is to test different heuristics on a set of problem instances. To see which one works best.</p>
 
 </div>
 </div>
@@ -546,6 +568,12 @@ div.csl-indent {
 
 
 
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-vba-book" class="csl-entry">
+Wøhlk, S. 2010. <em>VBA Programming in Business Economics</em>. DJØF Publishing.
+</div>
+</div>
             </section>
 
           </div>
@@ -574,7 +602,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/bss-osca/tfa/edit/master/book/03-01_vba-simulation.Rmd",
+"link": "https://github.com/bss-osca/tfa/edit/master/book/03-01_vba-random-numbers.Rmd",
 "text": "Edit"
 },
 "history": {
