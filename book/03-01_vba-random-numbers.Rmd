@@ -3,7 +3,17 @@
 
 # (PART) Extra topics in VBA {-}
 
-# Generating random numbers  {#mod-vba-random-numbers}
+# Generating random numbers {#mod-vba-random-numbers}
+
+
+## Generating random numbers {#vba-random-numbers}
+
+Often we want to model a system where some of the elements are uncertain. That is, we want to generate some random numbers following different distributions. This can be done using the built-in VBA and Excel functions.
+
+Read Sections 18.1 and 18.2 of Chapter 18 in @vba-book. You may also have a look at the extra videos as listed in the learning path diagram.
+
+## Simulation {#vba-simulation}
+
 
 
 
@@ -14,8 +24,7 @@
 
 ### Exercise - Generating numbers {#ex-vba-generate}
 
-
-The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-random-template.xlsm) may be used as a starting point for this exercise.
+This [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-random-template.xlsm) should be used as a starting point for this exercise.
 
    (1) Create a procedure `GenNormal` with arguments `intSize`, `dblMean`, `dblSD`  and `aryResult`. The procedure must generate `intSize` random numbers from a normal distribution with mean `dblMean` and standard deviation `dblSD`. The procedure must store the values in `aryResult`.
    (2) Create a procedure `GenUniform` with arguments `intSize`, `dblMin`, `dblMax` and `aryResult`. The procedure must generate `intSize` random numbers from a uniform distribution in the range `dblMin` to `dblMax`. The procedure must store the values in `aryResult`.
@@ -27,6 +36,21 @@ The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-random-template.x
        - A binomial distribution with 100 trials and a 0.2 probability of success.
        - A poisson distribution with mean 5.
        - Plot the results for each distribution using `CreatePlot`.
+
+### Exercise - Traveling Salesman {#ex-vba-tsp}
+
+The [travelling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem) (TSP) asks the following question: 
+
+> Given a list of cities and the distances between each pair of the cities, 
+> what is the shortest possible route that visits each city exactly once 
+> and returns to the origin city?
+
+The problem is an NP-hard problem (worst case solution time grows exponential with the number of cities) in combinatorial optimization, important in theoretical computer science and operations research. The problem was first formulated in 1930 and is one of the most intensively studied problems in optimization. Even though the problem is computationally difficult, many heuristics and exact algorithms are known. 
+
+The goal with this exercise is to test different heuristics on a set of problem instances. To see which one works best.
+
+
+
 
 ```{r links, child="links.md", include=FALSE}
 ```
