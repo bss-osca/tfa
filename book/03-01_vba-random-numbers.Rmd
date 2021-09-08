@@ -22,9 +22,9 @@ Read Sections 18.1 and 18.2 of Chapter 18 in @vba-book. You may also have a look
 
 `r strExercises`
 
-### Exercise - Generating numbers {#ex-vba-generate}
+### Exercise - Generating random numbers {#ex-vba-generate}
 
-This [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-random-template.xlsm) should be used as a starting point for this exercise.
+This [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-generate-template.xlsm) should be used as a starting point for this exercise.
 
    (1) Create a procedure `GenNormal` with arguments `intSize`, `dblMean`, `dblSD`  and `aryResult`. The procedure must generate `intSize` random numbers from a normal distribution with mean `dblMean` and standard deviation `dblSD`. The procedure must store the values in `aryResult`.
    (2) Create a procedure `GenUniform` with arguments `intSize`, `dblMin`, `dblMax` and `aryResult`. The procedure must generate `intSize` random numbers from a uniform distribution in the range `dblMin` to `dblMax`. The procedure must store the values in `aryResult`.
@@ -39,6 +39,8 @@ This [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-random-template.
 
 ### Exercise - Traveling Salesman {#ex-vba-tsp}
 
+This [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-tsp-template.xlsm) should be used as a starting point for this exercise.
+
 The [travelling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem) (TSP) asks the following question: 
 
 > Given a list of cities and the distances between each pair of the cities, 
@@ -49,8 +51,53 @@ The problem is an NP-hard problem (worst case solution time grows exponential wi
 
 The goal with this exercise is to test different heuristics on a set of problem instances. To see which one works best.
 
-
-
-
+   (1) Create a procedure `GenTSPData` satisfying:
+       - Arguments are `ByRef dblCoord() As Double, Optional intCities As Integer = 0, Optional blnPrint As Boolean = False`.
+       - Each city has an id number and a  x and y-coordinate.
+       - The generated cities are stored in `dblCoord` with `intCities` rows and three columns (column 1 store the city id, column 2 the x-coordinate and column 3 the y-coordinate) 
+       - The x and y-coordinates are random numbers from an uniform distribution between 0 and 10. 
+       - If `blnPrint` is true then coordinates are printed to the main sheet starting in cell A2. 
+       - If `intCities` is zero then use an input box to ask for the number of cities.  
+   (2) Create a procedure `BtnGenTSPData` that calls `GenTSPData`, ask for the number of cities and print the result to cell A2. A button linking to the procedure has already been created. 
+   (3) Create a procedure `CalcDistArray` satisfying:
+       - Arguments are `ByRef dblDist() As Double, dblCoord() As Double` where `dblCoord` are the coordinates found using `GenTSPData`.
+       - The distance between two cities are stored in `dblDist`, i.e. `dblDist(i, j)` store the distance between city `i` and `j`.
+       - Symmetric distances are assumed, i.e. `dblDist(i, j) = dblDist(j, i)`.
+   (4) Create a procedure `SolveTSPIncX` satisfying:
+       - Arguments are `dblCoord() As Double, dblDist() As Double, ByRef dblCost As Double, ByRef intSeq() As Integer`
+       - Sort the array `dblCoord` increasing in the x-coordinate (you may use the procedure `ArySort` in module `ModuleAry` to do this).
+       - Visit the cities in the order of the sorted array and return to the starting city.
+       - The visiting city sequence are stored in `intSeq`.
+       - The total cost are stored in `dblCost`. You may use the `CalcCost` function to find the total cost.
+   (5) Create a procedure `BtnSolveTSPIncX` that calls `SolveTSPIncX` using the TSP data in the Main sheet and print out the total cost in cell H4. A button linking to the procedure has already been created.
+   (6) Create a procedure `SolveTSPIncY` satisfying:
+       - Arguments are `dblCoord() As Double, dblDist() As Double, ByRef dblCost As Double, ByRef intSeq() As Integer`
+       - Sort the array `dblCoord` increasing in the y-coordinate (you may use the procedure `ArySort` in module `ModuleAry` to do this).
+       - Visit the cities in the order of the sorted array and return to the starting city.
+       - The visiting city sequence are stored in `intSeq`.
+       - The total cost are stored in `dblCost`. You may use the `CalcCost` function to find the total cost.
+   (7) Create a procedure `BtnSolveTSPIncY` that calls `SolveTSPIncY` using the TSP data in the Main sheet and print out the total cost in cell H8. A button linking to the procedure has already been created.
+   (8) Create a procedure `SolveTSPRand` satisfying:
+       - Arguments are `dblCoord() As Double, dblDist() As Double, ByRef dblCost As Double, ByRef intSeq() As Integer`
+       - Visit the cities in the order of the `dblCoord` array and return to the starting city. This may seen as we visit the cities in random order since generate x and y-coordinate random.
+       - The visiting city sequence are stored in `intSeq`.
+       - The total cost are stored in `dblCost`. You may use the `CalcCost` function to find the total cost.
+   (9) Create a procedure `BtnSolveTSPRand` that calls `SolveTSPRand` using the TSP data in the Main sheet and print out the total cost in cell H11. A button linking to the procedure has already been created.
+  (10) Create a procedure `SolveTSPNN` satisfying:
+       - Arguments are `dblCoord() As Double, dblDist() As Double, ByRef dblCost As Double, ByRef intSeq() As Integer`
+       - Start in city 1.
+       - Given the current city find the next city (not already visited) as the city with shortest distance.
+       - The visiting city sequence are stored in `intSeq`.
+       - The total cost are stored in `dblCost`. You may use the `CalcCost` function to find the total cost.
+  (11) Create a procedure `BtnSolveTSPNN` that calls `SolveTSPNN` using the TSP data in the Main sheet and print out the total cost in cell H14. A button linking to the procedure has already been created.
+  (12) Create a procedure `Simulation` satisfying:
+       - Generate an instance of TSP data with `intCities` cities which are chosen random between 10 and 500.
+       - Calculate the distance matrix.
+       - Solve the instance using all of the above solutions algorithms.
+       - Store the result in a row in the _Simulation_ sheet. 
+       - Repeat 100 times and calculate min, mean and max values for each solution algorithm.
+       
+       Have a look at sheet _Simulation example_ for an example. Note you do not have to print the coordinates out to the _Main_ sheet.
+  (13) Which solution algorithm seems to give the shortest total travel distance?
 ```{r links, child="links.md", include=FALSE}
 ```
