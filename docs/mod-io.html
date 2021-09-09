@@ -301,6 +301,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.4.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-generate"><i class="fa fa-check"></i><b>7.4.1</b> Exercise - Generating random numbers</a></li>
 <li class="chapter" data-level="7.4.2" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-tsp"><i class="fa fa-check"></i><b>7.4.2</b> Exercise - Traveling salesman problem</a></li>
+<li class="chapter" data-level="7.4.3" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-bakery"><i class="fa fa-check"></i><b>7.4.3</b> Exercise - Pierre’s bakery</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="mod-vba-solver.html"><a href="mod-vba-solver.html"><i class="fa fa-check"></i><b>8</b> Solving matematical optimization problems</a></li>
@@ -1462,31 +1463,33 @@ Hint
 <p>Load datasets</p>
 <div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="mod-io.html#cb289-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;bss-osca/tfa/tfa-package&quot;</span>, <span class="at">dependencies =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb289-2"><a href="mod-io.html#cb289-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   </span></span>
-<span id="cb289-3"><a href="mod-io.html#cb289-3" aria-hidden="true" tabindex="-1"></a>   checking <span class="cf">for</span> file ‘<span class="sc">/</span>private<span class="sc">/</span>var<span class="sc">/</span>folders<span class="sc">/</span><span class="dv">24</span><span class="sc">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="sc">/</span>T<span class="sc">/</span>Rtmpth7zrH<span class="sc">/</span>remotes9a931f54006d<span class="sc">/</span>bss<span class="sc">-</span>osca<span class="sc">-</span>tfa<span class="sc">-</span>e2b14ac<span class="sc">/</span>tfa<span class="sc">-</span>package<span class="sc">/</span>DESCRIPTION’ ...</span>
+<span id="cb289-3"><a href="mod-io.html#cb289-3" aria-hidden="true" tabindex="-1"></a>   checking <span class="cf">for</span> file ‘<span class="sc">/</span>private<span class="sc">/</span>var<span class="sc">/</span>folders<span class="sc">/</span><span class="dv">24</span><span class="sc">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="sc">/</span>T<span class="sc">/</span>RtmpxN8LTv<span class="sc">/</span>remotesb2764ef6551b<span class="sc">/</span>bss<span class="sc">-</span>osca<span class="sc">-</span>tfa<span class="sc">-</span>9bc4da5<span class="sc">/</span>tfa<span class="sc">-</span>package<span class="sc">/</span>DESCRIPTION’ ...</span>
 <span id="cb289-4"><a href="mod-io.html#cb289-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb289-5"><a href="mod-io.html#cb289-5" aria-hidden="true" tabindex="-1"></a>✔  checking <span class="cf">for</span> file ‘<span class="sc">/</span>private<span class="sc">/</span>var<span class="sc">/</span>folders<span class="sc">/</span><span class="dv">24</span><span class="sc">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="sc">/</span>T<span class="sc">/</span>Rtmpth7zrH<span class="sc">/</span>remotes9a931f54006d<span class="sc">/</span>bss<span class="sc">-</span>osca<span class="sc">-</span>tfa<span class="sc">-</span>e2b14ac<span class="sc">/</span>tfa<span class="sc">-</span>package<span class="sc">/</span>DESCRIPTION’</span>
+<span id="cb289-5"><a href="mod-io.html#cb289-5" aria-hidden="true" tabindex="-1"></a>✔  checking <span class="cf">for</span> file ‘<span class="sc">/</span>private<span class="sc">/</span>var<span class="sc">/</span>folders<span class="sc">/</span><span class="dv">24</span><span class="sc">/</span>8k48jl6d249_n_qfxwsl6xvm0000gn<span class="sc">/</span>T<span class="sc">/</span>RtmpxN8LTv<span class="sc">/</span>remotesb2764ef6551b<span class="sc">/</span>bss<span class="sc">-</span>osca<span class="sc">-</span>tfa<span class="sc">-</span>9bc4da5<span class="sc">/</span>tfa<span class="sc">-</span>package<span class="sc">/</span>DESCRIPTION’ (361ms)</span>
 <span id="cb289-6"><a href="mod-io.html#cb289-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb289-7"><a href="mod-io.html#cb289-7" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb289-8"><a href="mod-io.html#cb289-8" aria-hidden="true" tabindex="-1"></a>─  preparing ‘tfa’<span class="sc">:</span></span>
 <span id="cb289-9"><a href="mod-io.html#cb289-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb289-10"><a href="mod-io.html#cb289-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb289-11"><a href="mod-io.html#cb289-11" aria-hidden="true" tabindex="-1"></a>✔  checking DESCRIPTION meta<span class="sc">-</span>information</span>
-<span id="cb289-12"><a href="mod-io.html#cb289-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb289-13"><a href="mod-io.html#cb289-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb289-14"><a href="mod-io.html#cb289-14" aria-hidden="true" tabindex="-1"></a>─  checking <span class="cf">for</span> LF line<span class="sc">-</span>endings <span class="cf">in</span> source and make files and shell scripts</span>
-<span id="cb289-15"><a href="mod-io.html#cb289-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb289-16"><a href="mod-io.html#cb289-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb289-17"><a href="mod-io.html#cb289-17" aria-hidden="true" tabindex="-1"></a>─  checking <span class="cf">for</span> empty or unneeded directories</span>
-<span id="cb289-18"><a href="mod-io.html#cb289-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb289-19"><a href="mod-io.html#cb289-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb289-20"><a href="mod-io.html#cb289-20" aria-hidden="true" tabindex="-1"></a>─  building ‘tfa_0.<span class="dv">5</span>.<span class="fl">4.</span>tar.gz’</span>
-<span id="cb289-21"><a href="mod-io.html#cb289-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb289-22"><a href="mod-io.html#cb289-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb289-23"><a href="mod-io.html#cb289-23" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb289-24"><a href="mod-io.html#cb289-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb289-25"><a href="mod-io.html#cb289-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb289-26"><a href="mod-io.html#cb289-26" aria-hidden="true" tabindex="-1"></a>nurses <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/nurses.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tfa&quot;</span>))</span>
-<span id="cb289-27"><a href="mod-io.html#cb289-27" aria-hidden="true" tabindex="-1"></a>shifts <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/shifts.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tfa&quot;</span>))</span></code></pre></div>
+<span id="cb289-11"><a href="mod-io.html#cb289-11" aria-hidden="true" tabindex="-1"></a>   checking DESCRIPTION meta<span class="sc">-</span>information ...</span>
+<span id="cb289-12"><a href="mod-io.html#cb289-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb289-13"><a href="mod-io.html#cb289-13" aria-hidden="true" tabindex="-1"></a>✔  checking DESCRIPTION meta<span class="sc">-</span>information</span>
+<span id="cb289-14"><a href="mod-io.html#cb289-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb289-15"><a href="mod-io.html#cb289-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb289-16"><a href="mod-io.html#cb289-16" aria-hidden="true" tabindex="-1"></a>─  checking <span class="cf">for</span> LF line<span class="sc">-</span>endings <span class="cf">in</span> source and make files and shell scripts</span>
+<span id="cb289-17"><a href="mod-io.html#cb289-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb289-18"><a href="mod-io.html#cb289-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb289-19"><a href="mod-io.html#cb289-19" aria-hidden="true" tabindex="-1"></a>─  checking <span class="cf">for</span> empty or unneeded directories</span>
+<span id="cb289-20"><a href="mod-io.html#cb289-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb289-21"><a href="mod-io.html#cb289-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb289-22"><a href="mod-io.html#cb289-22" aria-hidden="true" tabindex="-1"></a>─  building ‘tfa_0.<span class="dv">5</span>.<span class="fl">4.</span>tar.gz’</span>
+<span id="cb289-23"><a href="mod-io.html#cb289-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb289-24"><a href="mod-io.html#cb289-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb289-25"><a href="mod-io.html#cb289-25" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb289-26"><a href="mod-io.html#cb289-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb289-27"><a href="mod-io.html#cb289-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb289-28"><a href="mod-io.html#cb289-28" aria-hidden="true" tabindex="-1"></a>nurses <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/nurses.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tfa&quot;</span>))</span>
+<span id="cb289-29"><a href="mod-io.html#cb289-29" aria-hidden="true" tabindex="-1"></a>shifts <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/shifts.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tfa&quot;</span>))</span></code></pre></div>
 <div id="vzDXetjbDunJEejSrfA0" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="vzDXetjbDunJEejSrfA0-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
