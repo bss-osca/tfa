@@ -25,7 +25,7 @@ layout: true
 
 <div class="my-footer">
 <span>
-<a href="https://bss-osca.github.io/tfa/vba-datatypes.html" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/02-01_vba-datatypes-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/02-01_vba-datatypes-slides.Rmd" target="_blank">Source</a> | <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-datatypes-template.xlsm" target="_blank">Excel</a>
+<a href="https://bss-osca.github.io/tfa/mod-vba-datatypes.html" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/02-01_vba-datatypes-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/02-01_vba-datatypes-slides.Rmd" target="_blank">Source</a> | <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-datatypes-template.xlsm" target="_blank">Excel</a>
 </span>
 </div> 
 
@@ -40,6 +40,7 @@ layout: true
   - A string of text
   - A date
   - An array of integers
+  - Another datatype.
 - The variable name is the label on the box.
 ]
 
@@ -158,9 +159,9 @@ Then the VBA editor will tell you if you forget to declare variables (this can b
 - Local variables are local to a procedure and only known within that procedure.
 - Declare local variables inside the procedure.
 
-For more details about scope see http://www.cpearson.com/excel/scope.aspx
-
 Have a look at the module `B_Scope` in the [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-datatypes-template.xlsm) and try to run the functions in debug mode (place the cursor in the top of a procedure and press the step into button). 
+
+For more details about scope see this [page](http://www.cpearson.com/excel/scope.aspx) (extra).
 
 ---
 
@@ -178,7 +179,7 @@ Have a look at the module `B_Scope` in the [Excel file](https://github.com/bss-o
 - We use the `&` to concatenate strings (glue strings together).
 - An empty string is of length zero.
 
-Further reading can be done in Chapter 13 in the VBA book (self study).
+Further reading can be done in Chapter 13 in the VBA book (extra).
 
 ---
 
@@ -228,7 +229,7 @@ knitr::include_graphics("./img/3d-array.png")
   MsgBox intOrderSize(2,10, 20)  ' order size week 2, customer 10, product 20 
   ```
 
-Have a look at procedure `MiltidimArray` in the module `D_MultidimArray` in the [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-datatypes-template.xlsm). 
+Have a look at procedure `MultidimArray` in the module `D_MultidimArray` in the [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-datatypes-template.xlsm). 
 
 ---
 
@@ -246,6 +247,23 @@ ReDim strPeople(n)
 Have a look at procedure `DynArray` in the module `A_Declarations` in the [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-datatypes-template.xlsm).
 
 You can always lowest and highest index using functions `LBound` and `UBound`
+
+---
+
+## Collections
+
+Collections are a way of storing a group of items together (think of it as a set). If we compare collections against arrays:
+
+- Collections are similar to arrays but better to use when the number of items is not fixed. With an array you normally set the size once. On the contrary you often add or remove items from a collection.
+- Collections are better when adding and removing items.
+- An item in a collection are read-only whereas an entry in an array are read/write.
+- Collection can be accessed using a key or an index (starting from 1).
+- Items of a collection do not have to share the same data type.
+
+Have a look at the module `E_Collections` in the [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-datatypes-template.xlsm).
+
+
+
 
 
 ```{r copy to docs, include=FALSE}
