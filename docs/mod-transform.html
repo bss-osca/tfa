@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 16 Transforming data | Tools for Analytics (TFA)</title>
   <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 16 Transforming data | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2021-09-13" />
+<meta name="date" content="2021-09-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -34,7 +34,8 @@
 <link rel="prev" href="mod-io.html"/>
 <link rel="next" href="mod-plot.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="libs/jquery-3.5.1/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,10 +51,9 @@
 
 
 
-
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <script src="libs/viz-1.8.2/viz.js"></script>
 <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
 <script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
@@ -73,7 +73,7 @@
 <link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
 <script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.18/datatables.js"></script>
+<script src="libs/datatables-binding-0.19/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
@@ -494,7 +494,7 @@ div.csl-indent {
 <li class="chapter" data-level="D.1" data-path="coding-convention.html"><a href="coding-convention.html#commenting-your-code"><i class="fa fa-check"></i><b>D.1</b> Commenting your code</a></li>
 </ul></li>
 <li class="chapter" data-level="E" data-path="lg-course.html"><a href="lg-course.html"><i class="fa fa-check"></i><b>E</b> Learning goals</a></li>
-<li class="chapter" data-level="F" data-path="sec-ba.html"><a href="sec-ba.html"><i class="fa fa-check"></i><b>F</b> Business Analytics</a></li>
+<li class="chapter" data-level="F" data-path="sec:ba.html"><a href="sec:ba.html"><i class="fa fa-check"></i><b>F</b> Business Analytics</a></li>
 <li class="chapter" data-level="G" data-path="colophon.html"><a href="colophon.html"><i class="fa fa-check"></i><b>G</b> Colophon</a></li>
 <li class="divider"></li>
 <li><center>
@@ -2938,17 +2938,16 @@ Solution
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="mod-transform.html#cb368-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb368-2"><a href="mod-transform.html#cb368-2" aria-hidden="true" tabindex="-1"></a>profit <span class="ot">&lt;-</span> profit <span class="sc">%&gt;%</span>  </span>
-<span id="cb368-3"><a href="mod-transform.html#cb368-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Quarter =</span> <span class="fu">str_remove</span>(Quarter, <span class="st">&quot;q&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">str_remove</span>(<span class="st">&quot;Q&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>())</span>
-<span id="cb368-4"><a href="mod-transform.html#cb368-4" aria-hidden="true" tabindex="-1"></a>profit <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(Quarter)</span>
-<span id="cb368-5"><a href="mod-transform.html#cb368-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 × 1</span></span>
-<span id="cb368-6"><a href="mod-transform.html#cb368-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Quarter</span></span>
-<span id="cb368-7"><a href="mod-transform.html#cb368-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;dbl&gt;</span></span>
-<span id="cb368-8"><a href="mod-transform.html#cb368-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       3</span></span>
-<span id="cb368-9"><a href="mod-transform.html#cb368-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       1</span></span>
-<span id="cb368-10"><a href="mod-transform.html#cb368-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       4</span></span>
-<span id="cb368-11"><a href="mod-transform.html#cb368-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4       2</span></span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="mod-transform.html#cb368-1" aria-hidden="true" tabindex="-1"></a>profit <span class="ot">&lt;-</span> profit <span class="sc">%&gt;%</span>  </span>
+<span id="cb368-2"><a href="mod-transform.html#cb368-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Quarter =</span> <span class="fu">str_remove</span>(Quarter, <span class="st">&quot;q&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">str_remove</span>(<span class="st">&quot;Q&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>())</span>
+<span id="cb368-3"><a href="mod-transform.html#cb368-3" aria-hidden="true" tabindex="-1"></a>profit <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(Quarter)</span>
+<span id="cb368-4"><a href="mod-transform.html#cb368-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 × 1</span></span>
+<span id="cb368-5"><a href="mod-transform.html#cb368-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Quarter</span></span>
+<span id="cb368-6"><a href="mod-transform.html#cb368-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;dbl&gt;</span></span>
+<span id="cb368-7"><a href="mod-transform.html#cb368-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       3</span></span>
+<span id="cb368-8"><a href="mod-transform.html#cb368-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       1</span></span>
+<span id="cb368-9"><a href="mod-transform.html#cb368-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       4</span></span>
+<span id="cb368-10"><a href="mod-transform.html#cb368-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4       2</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -3470,20 +3469,19 @@ Solution
 <span id="cb382-15"><a href="mod-transform.html#cb382-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 11 variables: Quarter &lt;dbl&gt;, Channel &lt;chr&gt;, Customer ID &lt;chr&gt;, Country &lt;chr&gt;,</span></span>
 <span id="cb382-16"><a href="mod-transform.html#cb382-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Product Line &lt;chr&gt;, Revenue &lt;dbl&gt;, Product Cost &lt;dbl&gt;, Customer Service Cost &lt;dbl&gt;,</span></span>
 <span id="cb382-17"><a href="mod-transform.html#cb382-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Profit &lt;dbl&gt;, Profit_calc &lt;dbl&gt;, Diff &lt;dbl&gt;</span></span>
-<span id="cb382-18"><a href="mod-transform.html#cb382-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb382-19"><a href="mod-transform.html#cb382-19" aria-hidden="true" tabindex="-1"></a><span class="co"># check - find NA values</span></span>
-<span id="cb382-20"><a href="mod-transform.html#cb382-20" aria-hidden="true" tabindex="-1"></a>profit <span class="sc">%&gt;%</span> </span>
-<span id="cb382-21"><a href="mod-transform.html#cb382-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb382-22"><a href="mod-transform.html#cb382-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">c_na =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(<span class="fu">c_across</span>(Revenue<span class="sc">:</span>Profit)))) <span class="sc">%&gt;%</span> </span>
-<span id="cb382-23"><a href="mod-transform.html#cb382-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(c_na <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb382-24"><a href="mod-transform.html#cb382-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 10</span></span>
-<span id="cb382-25"><a href="mod-transform.html#cb382-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Rowwise: </span></span>
-<span id="cb382-26"><a href="mod-transform.html#cb382-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Quarter Channel `Customer ID` Country `Product Line`            Revenue `Product Cost` `Customer Servi…</span></span>
-<span id="cb382-27"><a href="mod-transform.html#cb382-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;                       &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span id="cb382-28"><a href="mod-transform.html#cb382-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       1 EML     FRT           France  Revolving Credit Products       3             NA               NA</span></span>
-<span id="cb382-29"><a href="mod-transform.html#cb382-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       2 BRH     EBP           Guam    Fee Based Products             NA             NA                0</span></span>
-<span id="cb382-30"><a href="mod-transform.html#cb382-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       1 MAL     MFN           Japan   Fee Based Products             NA             NA                5</span></span>
-<span id="cb382-31"><a href="mod-transform.html#cb382-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 2 more variables: Profit &lt;dbl&gt;, c_na &lt;int&gt;</span></span></code></pre></div>
+<span id="cb382-18"><a href="mod-transform.html#cb382-18" aria-hidden="true" tabindex="-1"></a><span class="co"># check - find NA values</span></span>
+<span id="cb382-19"><a href="mod-transform.html#cb382-19" aria-hidden="true" tabindex="-1"></a>profit <span class="sc">%&gt;%</span> </span>
+<span id="cb382-20"><a href="mod-transform.html#cb382-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb382-21"><a href="mod-transform.html#cb382-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">c_na =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(<span class="fu">c_across</span>(Revenue<span class="sc">:</span>Profit)))) <span class="sc">%&gt;%</span> </span>
+<span id="cb382-22"><a href="mod-transform.html#cb382-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(c_na <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb382-23"><a href="mod-transform.html#cb382-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 10</span></span>
+<span id="cb382-24"><a href="mod-transform.html#cb382-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Rowwise: </span></span>
+<span id="cb382-25"><a href="mod-transform.html#cb382-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Quarter Channel `Customer ID` Country `Product Line`            Revenue `Product Cost` `Customer Servi…</span></span>
+<span id="cb382-26"><a href="mod-transform.html#cb382-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;                       &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;</span></span>
+<span id="cb382-27"><a href="mod-transform.html#cb382-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       1 EML     FRT           France  Revolving Credit Products       3             NA               NA</span></span>
+<span id="cb382-28"><a href="mod-transform.html#cb382-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       2 BRH     EBP           Guam    Fee Based Products             NA             NA                0</span></span>
+<span id="cb382-29"><a href="mod-transform.html#cb382-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       1 MAL     MFN           Japan   Fee Based Products             NA             NA                5</span></span>
+<span id="cb382-30"><a href="mod-transform.html#cb382-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 2 more variables: Profit &lt;dbl&gt;, c_na &lt;int&gt;</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -3911,15 +3909,14 @@ Solution
 <span id="cb392-7"><a href="mod-transform.html#cb392-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `Product Line`    cost</span></span>
 <span id="cb392-8"><a href="mod-transform.html#cb392-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;            &lt;dbl&gt;</span></span>
 <span id="cb392-9"><a href="mod-transform.html#cb392-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Credit Products 820665</span></span>
-<span id="cb392-10"><a href="mod-transform.html#cb392-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb392-11"><a href="mod-transform.html#cb392-11" aria-hidden="true" tabindex="-1"></a>profit <span class="sc">%&gt;%</span> </span>
-<span id="cb392-12"><a href="mod-transform.html#cb392-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Product Line</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb392-13"><a href="mod-transform.html#cb392-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cost =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Product Cost</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb392-14"><a href="mod-transform.html#cb392-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(cost)</span>
-<span id="cb392-15"><a href="mod-transform.html#cb392-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
-<span id="cb392-16"><a href="mod-transform.html#cb392-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `Product Line`        cost</span></span>
-<span id="cb392-17"><a href="mod-transform.html#cb392-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                &lt;dbl&gt;</span></span>
-<span id="cb392-18"><a href="mod-transform.html#cb392-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Third Party Products 91796</span></span></code></pre></div>
+<span id="cb392-10"><a href="mod-transform.html#cb392-10" aria-hidden="true" tabindex="-1"></a>profit <span class="sc">%&gt;%</span> </span>
+<span id="cb392-11"><a href="mod-transform.html#cb392-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Product Line</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb392-12"><a href="mod-transform.html#cb392-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cost =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Product Cost</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb392-13"><a href="mod-transform.html#cb392-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(cost)</span>
+<span id="cb392-14"><a href="mod-transform.html#cb392-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
+<span id="cb392-15"><a href="mod-transform.html#cb392-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `Product Line`        cost</span></span>
+<span id="cb392-16"><a href="mod-transform.html#cb392-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                &lt;dbl&gt;</span></span>
+<span id="cb392-17"><a href="mod-transform.html#cb392-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Third Party Products 91796</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -4709,7 +4706,6 @@ Peng, R. D. 2018. <em>R Programming for Data Science</em>. <a href="https://book
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -4739,6 +4735,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }
