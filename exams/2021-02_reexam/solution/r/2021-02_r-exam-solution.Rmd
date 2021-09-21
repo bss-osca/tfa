@@ -1,0 +1,486 @@
+---
+title: "`r params$title`"
+author: "`r params$author`"
+date: "`r params$date`"
+output: html_document
+params:
+  doc_output: solution
+  title: "Main file TFA reexam (R part)"
+  author: "Lars Relund Nielsen"
+  date: ""
+editor_options:
+  chunk_output_type: console
+---
+
+```{css, echo=FALSE}
+.solution {
+  background-color: aliceblue;
+  padding: 10px;
+}
+
+h2 {
+  font-size: large;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  message=FALSE)
+options(width = 90)
+
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+```
+
+
+```{r main, include=FALSE}
+doc_output <- params$doc_output
+
+knitr::knit_engines$set(
+  templatetext = function(options) {
+    if (doc_output == "template") return(options$code)
+    return("")
+  },
+  solutiontext = function(options) {
+    if (doc_output == "solution") 
+      return(paste0('\n<div class="solution">\n', options$code, '</div>'))
+    return("")
+  },
+  privatetext = function(options) {
+    return("")
+  })
+
+if (doc_output == "solution") {
+  knitr::opts_hooks$set(solution = function(options) {
+    if (isTRUE(options$solution)) {
+      options$eval = TRUE
+    }
+    options
+  })
+  knitr::knit_hooks$set(solution = function(before, options, envir) {
+    if (before) {
+      paste0('\n<div class="solution">\nGuiding solution:\n\n')
+    } else {
+      paste0('\n</div>\n')
+    }
+  })
+}
+
+if (doc_output == "template") {
+  knitr::opts_hooks$set(output = function(options) {
+    if (!is.na(options$output)) {
+      if (options$output == "solution") {
+        options$code = "# Your code here"
+      }
+    }
+    options
+  })
+}
+
+if (doc_output == "exam") {
+  knitr::opts_hooks$set(solution = function(options) {
+    if (isTRUE(options$solution)) {
+      options$eval = FALSE
+      options$include = FALSE
+    }
+    options
+  })
+}
+```
+
+In the following, use R to answer the questions/assignments. Your solutions must be written in a R Markdown (Rmd) file. This file must include your code and a (brief) comment for each question. For example, "The three companies with smallest profit are ..." or "The plot shows that ...".
+
+An R markdown template file is given in the appendix that you may use as a starting point. 
+
+You may load and use the following packages:
+
+```{r}
+library(tidyverse)
+library(skimr)
+```
+
+
+# R - `r ctrA()` (10%)
+
+Consider the vector:
+
+```{r}
+v <- c(9, 19, 2, 8, NA, 12, 9, 23, NA, 34)
+v
+```
+
+Use R to answer the following questions.
+
+## `r ctrQ()`
+
+Is any of the entries in `v` below or equal to 2?
+
+```{r, solution=TRUE}
+any(v <= 2)
+```
+
+
+<div class="solution">
+Yes since the vector contains 2.</div>
+
+
+
+
+## `r ctrQ()` 
+
+Is all of the entries in `v` above or equal to 2?
+
+```{r, solution=TRUE}
+all(v >= 2)
+```
+
+
+<div class="solution">
+We don't know since we have missing values.</div>
+
+
+## `r ctrQ()`
+
+Does `v` have missing values?
+
+```{r, solution=TRUE}
+any(is.na(v))
+```
+
+
+<div class="solution">
+Yes, since `v` contains `NA` values.</div>
+
+
+## `r ctrQ()` 
+
+Which entries in `v` are above 10? You must return the indices, e.g. the index of `v[3]` is 3.
+
+```{r, solution=TRUE}
+which(v > 10)
+```
+
+
+<div class="solution">
+The index are `r which(v > 10)`.</div>
+
+
+## `r ctrQ()` 
+
+Create a vector `res` where `res[i]` is equal to `v[i]` if `v[i]` is less than 10 and otherwise zero (also if `v[i]` is `NA`).  
+
+```{r, solution=TRUE}
+res <- if_else(v < 10, v, 0, 0)
+res
+```
+
+
+<div class="solution">
+We use `if_else` to set values.</div>
+
+
+
+
+# R - `r ctrA()` (20%)
+
+The dataset `titanic`, given in the appendix, lists approx. 1300 passengers on Titanic. The column/variables are:
+
+* `pclass`: Passenger class (1 = 1st; 2 = 2nd; 3 = 3rd).
+* `survived`: Survival (0 = No; 1 = Yes).
+* `name`: Name.
+* `sex`: Sex.
+* `age`: Age.
+* `fare`: Passenger Fare.
+* `cabin`: Cabin number.
+* `embarked`: Port of embarkation (C = Cherbourg; Q = Queenstown; S = Southampton).
+* `boat`: Lifeboat number.
+
+You can read the dataset file `titanic.csv` into the dataset `dat` using
+
+```{r}
+dat <- read_csv("titanic.csv")
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (data frames) and answer the following questions.
+
+
+
+## `r ctrQ(reset=T)`
+
+Create a new column named `male` which is true if the person is a male. 
+
+```{r, solution=TRUE}
+dat <- dat %>% 
+  mutate(male = if_else(sex == "male", TRUE, FALSE))
+dat
+```
+
+
+<div class="solution">
+We use `if_else` to set the new column.</div>
+
+
+## `r ctrQ()` 
+
+How many persons are we considering, how many men (in percentage) and how many survived? 
+
+
+```{r, solution=TRUE}
+skim(dat)
+```
+
+
+<div class="solution">
+From the output we can consider 1309 persons of which approx 64% are males. Approx. 38% of the passangers survived. </div>
+
+
+## `r ctrQ()`
+
+How many of the females survived in percent (and how many males)?
+
+```{r, solution=TRUE}
+dat %>% 
+  group_by(sex, survived) %>% 
+  count() %>% 
+  group_by(sex) %>% 
+  mutate(rate = n/sum(n))
+# Alternatively
+res <- dat %>% 
+  group_by(male) %>% 
+  summarise(survived = sum(survived)/n()) %>% 
+  print()
+```
+
+
+<div class="solution">
+The survival rate for women and men are `r str_c(round(100 * res %>% pull(survived)), collapse = " and ")` percent, respectively.</div>
+
+
+
+
+## `r ctrQ()`
+
+Define children as people with age below 19. How many children survived?
+
+```{r solution=TRUE}
+res <- dat %>% 
+  filter(age < 19, survived == TRUE) %>% 
+  nrow() %>% 
+  print()
+```
+
+
+<div class="solution">
+`r res` childern survived. </div>
+
+
+## `r ctrQ()`
+
+Did relatively more people survive at first class compared to third class?
+
+```{r, solution=TRUE}
+res <- dat %>% 
+  group_by(pclass) %>% 
+  summarise(rate = sum(survived)/n()) %>% 
+  print()
+```
+
+
+<div class="solution">
+There seems to be a big difference in survival rate between first class (`r round(100 * res %>% filter(pclass == 1) %>% pull(rate))`%) and third class (`r round(100 * res %>% filter(pclass == 3) %>% pull(rate))`%).</div>
+
+
+
+
+## `r ctrQ()`
+
+How many persons that entered a lifeboat did die in percent? 
+
+```{r, solution=TRUE}
+res <- dat %>% 
+  filter(!is.na(boat)) %>% 
+  summarise(rate = 1-sum(survived)/n()) %>% 
+  print()
+```
+
+
+<div class="solution">
+The survival rate when entered the lifeboat was high. Only `r round(100 * res %>% pull(), 2)`% died.</div>
+
+
+## `r ctrQ()`
+
+How many persons with `Hansen` in their name survived?
+
+```{r, solution=TRUE}
+dat %>% 
+  filter(str_detect(name, "Hansen"))
+```
+
+
+<div class="solution">
+Only a single person survived.</div>
+
+
+
+
+
+# R - `r ctrA()` (20%)
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you might need dplyr for preparing the datasets you want to plot). We work with the dataset `titanic` from Assignment 2 which can be read using:
+
+```{r}
+dat <- read_csv("titanic.csv")
+```
+
+
+## `r ctrQ(reset=T)`
+
+Create a visualization showing the number of persons embarking the different harbors with the following features:
+
+* Number of persons is represented using bars.
+* Informative figure title and axis titles are given.
+* The labels on the x-axis are the harbor names (not abbreviations).
+
+What harbor was the main departure harbor?
+
+```{r, solution=TRUE}
+dat <- dat %>% mutate(harbor = case_when(
+  embarked == "C" ~ "Cherbourg",
+  embarked == "Q" ~ "Queenstown",
+  embarked == "S" ~ "Southampton",
+  TRUE ~ NA_character_
+))
+dat %>% 
+  ggplot(aes(x = harbor)) +
+  geom_bar() +
+  labs(title = "Number of persons embarking each departure harbor",
+       x = "Harbor",
+       y = "Persons") 
+```
+
+
+<div class="solution">
+The main harbor was Southampton.</div>
+
+## `r ctrQ()`
+
+Create a visualization showing the age distribution of the persons with the following features:
+
+* Number of persons is represented using a histogram.
+* Informative figure title and axis titles are given.
+
+Where there most people on board in their twenties or thirties?
+
+
+
+```{r, solution=TRUE}
+dat %>% 
+  ggplot(aes(x = age)) +
+  geom_histogram(binwidth = 2) +
+  labs(title = "Age distribution",
+       x = "Age",
+       y = "Persons") 
+```
+
+
+<div class="solution">
+There where most people in their twenties. </div>
+
+
+## `r ctrQ()`
+
+Create a visualization showing the fare as a function of age with the following features:
+
+* Different colors are used for each sex. 
+* Informative figure title and axis titles are given.
+* A trend line for each sex is added using `geom_smooth`.
+
+Based on the trend lines, do females in general pay more for a ticket?
+
+```{r, solution=TRUE}
+dat %>% ggplot(aes(x = age, y = fare, color = sex)) +
+  geom_point() + 
+  geom_smooth() +
+  labs(title = "Fare prices given age",
+       x = "Age",
+       y = "Price",
+       color = "Sex") + 
+  theme(legend.position = "bottom")
+```
+
+
+<div class="solution">
+Based on the trend lines females in general pays more than males.</div>
+
+## `r ctrQ()`
+
+Create a visualization showing the survival rate for each passenger class with the following features:
+
+* Bars are used for each passenger class. 
+* All bars have same height (100 %).
+* Colors are used to identify who survived and did not survived.
+* Informative figure title and axis titles are given.
+
+Is the survival rate different on first and third class?
+
+```{r, solution=TRUE}
+dat %>% 
+  ggplot(aes(x = pclass, fill = as.logical(survived))) +
+  geom_bar(position="fill") +
+  labs(title = "Survival rate given passenger class",
+       x = "Class",
+       y = "",
+       fill = "Survived") + 
+  theme(legend.position = "bottom")
+```
+
+
+<div class="solution">
+Based on the plot most people survived at first classs.</div>
+
+
+
+## `r ctrQ()`
+
+Let column `level` denote the the first letter in `cabin`. Create a visualization showing the variance in fare prices with the following features:
+
+* Ignore rows with missing `level`.
+* Variation is shown using a boxplot. 
+* Informative figure title and axis titles are given.
+
+Is the fare price different at the B and C level?
+
+```{r, solution=TRUE}
+dat <- dat %>% 
+  mutate(level = str_sub(cabin, 1, 1)) 
+
+  dat %>% filter(!is.na(level)) %>% 
+    ggplot(aes(x = level, y = fare)) +
+    geom_boxplot() 
+```
+
+
+<div class="solution">
+Based on the plot the fare prices at B and C level are more or less the same.</div>
+
+
+
+
+
+
+
+
+

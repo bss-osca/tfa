@@ -1,0 +1,481 @@
+---
+title: "`r params$title`"
+author: "`r params$author`"
+date: "`r params$date`"
+output: html_document
+params:
+  doc_output: solution
+  title: "Main file TFA exam (R part)"
+  author: "Lars Relund Nielsen"
+  date: ""
+editor_options:
+  chunk_output_type: console
+---
+
+```{css, echo=FALSE}
+.solution {
+  background-color: aliceblue;
+  padding: 10px;
+}
+
+h2 {
+  font-size: large;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  message=FALSE)
+
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+```
+
+
+```{r main, include=FALSE}
+doc_output <- params$doc_output
+
+knitr::knit_engines$set(
+  templatetext = function(options) {
+    if (doc_output == "template") return(options$code)
+    return("")
+  },
+  solutiontext = function(options) {
+    if (doc_output == "solution") 
+      return(paste0('\n<div class="solution">\n', options$code, '</div>'))
+    return("")
+  },
+  privatetext = function(options) {
+    return("")
+  })
+
+if (doc_output == "solution") {
+  knitr::opts_hooks$set(solution = function(options) {
+    if (isTRUE(options$solution)) {
+      options$eval = TRUE
+    }
+    options
+  })
+  knitr::knit_hooks$set(solution = function(before, options, envir) {
+    if (before) {
+      paste0('\n<div class="solution">\nGuiding solution:\n\n')
+    } else {
+      paste0('\n</div>\n')
+    }
+  })
+}
+
+if (doc_output == "template") {
+  knitr::opts_hooks$set(output = function(options) {
+    if (!is.na(options$output)) {
+      if (options$output == "solution") {
+        options$code = "# Your code here"
+      }
+    }
+    options
+  })
+}
+
+if (doc_output == "exam") {
+  knitr::opts_hooks$set(solution = function(options) {
+    if (isTRUE(options$solution)) {
+      options$eval = FALSE
+      options$include = FALSE
+    }
+    options
+  })
+}
+```
+
+In the following, use R to answer the questions/assignments. Your solutions must be written up in a R Markdown (Rmd) file. This file must include your code and a (brief) comment for each question. For example, "The three companies with smalles profit are ..." or "The plot shows that ...".
+
+An R markdown template file is given in the appendix that you may use as a starting point. 
+
+You may load and use the following packages:
+
+```{r}
+library(tidyverse)
+library(skimr)
+```
+
+
+# R - `r ctrA()` (12%)
+
+
+
+
+The euclidean distance between two points $p = (p_1,p_2)$ and $q = (q_1,q_2)$ can be calculated using formula $$ d(p,q) = \sqrt{(p_1-q_1)^2 + (p_2-q_2)^2}.$$
+
+
+## `r ctrQ(reset=T)`  
+
+Calculate the distance between points $p = (10,10)$ and $q = (4,3)$ using the formula.
+
+```{r, solution=TRUE}
+p <- c(10,10)
+q <- c(4,3)
+sqrt((p[1] - q[1])^2 + (p[2] - q[2])^2)
+```
+
+
+<div class="solution">
+The distance is `r sqrt((p[1] - q[1])^2 + (p[2] - q[2])^2)`.</div>
+
+## `r ctrQ()`
+
+Consider 4 points in a matrix (one in each row):
+
+```{r}
+p_mat <- matrix(c(0, 7, 8, 2, 10, 16, 8, 12), nrow = 4)
+p_mat
+```
+
+The distance matrix of `p_mat` is a 4 times 4 matrix where entry (i,j) contains the distance from the point in row `i` to the point in row `j`. 
+
+Calculate the distance matrix of `p_mat`.
+
+```{r, solution=TRUE}
+d_mat = matrix(NA, nrow = nrow(p_mat), ncol = nrow(p_mat))
+for (i in 1:nrow(d_mat)) {
+  for (j in 1:ncol(d_mat)) {
+    # if (i>j) {d_mat[i,j] <- d_mat[j,i]; next}   # assume symmetric distances
+    # if (!is.na(d_mat[i,j])) next          # value already calculated 
+    if (i==j) {d_mat[i,j] <- 0; next}
+    d_mat[i,j] <- sqrt((p_mat[i,1] - p_mat[j,1])^2 + (p_mat[i,2] - p_mat[j,2])^2)
+  }
+}
+d_mat
+```
+
+
+<div class="solution">
+The distance matrix is given above.</div>
+
+## `r ctrQ()`
+
+Create a function `calc_distances` with the following features (implement as many as you can):
+
+* Takes a matrix `p_mat` with a point in each row as input argument.
+* Takes two additional input arguments `from` and `to` with default values `1:nrow(p_mat)`
+* Return the distance matrix with values calculated for rows in the `from` input argument and columns in the `to` input argument. The other entries equals `NA`.
+* The function should work for different `p_mat` (you may assume that the matrix always have two columns).
+
+You may test your code using:
+
+```{r, eval=FALSE}
+p_mat <- matrix(c(10, 9, 15, 15, 11, 19, 12, 11, 7, 15), nrow = 5)
+calc_distances(p_mat)
+calc_distances(p_mat, to = 3:4)
+calc_distances(p_mat, from = c(1, nrow(p_mat)), to = 3:4)
+```
+
+```{r, solution=TRUE}
+calc_distances <- function(p_mat, from = 1:nrow(p_mat), to = 1:nrow(p_mat)) {
+  d_mat <- matrix(NA, nrow = nrow(p_mat), ncol = nrow(p_mat))
+  ite <- expand_grid(from = from, to = to)
+  for (r in 1:nrow(ite)) {
+    i <- ite$from[r]
+    j <- ite$to[r]
+    if (!is.na(d_mat[i,j])) next          # value already calculated 
+    if (i==j) {d_mat[i,j] <- 0; next}
+    d_mat[i,j] <- sqrt((p_mat[i,1] - p_mat[j,1])^2 + (p_mat[i,2] - p_mat[j,2])^2)
+  }
+  return(d_mat)
+}
+p_mat <- matrix(c(10, 9, 15, 15, 11, 19, 12, 11, 7, 15), nrow = 5)
+calc_distances(p_mat)
+calc_distances(p_mat, to = 3:4)
+calc_distances(p_mat, from = c(1, nrow(p_mat)), to = 3:4)
+```
+
+
+<div class="solution">
+The function with test are given above.</div>
+
+
+# R - `r ctrA()` (22%)
+
+
+
+The dataset `companies`, given in the appendix, lists approx. 1000 of the world's biggest companies, measured by sales, profits, assets and market value. The column/variables are:
+
+* `name`: the name of the company.
+* `country`: the country the company is situated in.
+* `category`: the products the company produces.
+* `sales`: the amount of sales of the company in billion USD.
+* `profits`: the profit of the company in billion USD.
+* `assets`: the assets of the company in billion USD.
+* `marketvalue`: the market value of the company in billion USD.
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (data frames) and answer the following questions.
+
+
+## `r ctrQ(reset=T)`
+
+Read the dataset file `companies.csv` into the dataset `companies`.
+
+```{r, solution=TRUE}
+companies <- read_csv("companies.csv")
+```
+
+
+<div class="solution">
+The file is read using the code above.</div>
+
+## `r ctrQ()`
+
+How many different companies are we considering, how many different product categories and how many different countries? Hint: the *skimr* package might be useful. 
+
+```{r, solution=TRUE}
+skim(companies)
+```
+
+
+<div class="solution">
+From the output we can see that there are 1002 different companies (one for each row) 27 different product categories and 47 different countries. </div>
+
+
+
+## `r ctrQ()`
+
+What are the 3 biggest companies with respect to market value?
+
+```{r, solution=TRUE}
+dat <- companies %>% 
+  arrange(desc(marketvalue)) %>% 
+  head(n = 3) %>% 
+  print()
+# or
+# companies %>% 
+#   slice_max(marketvalue, n = 3)
+```
+
+
+<div class="solution">
+The 3 biggest companies are `r dat %>% pull(name)`.</div>
+
+
+
+
+## `r ctrQ()`
+
+For each country find the company with highest profit. What company has the highest profit in Denmark?
+
+```{r, solution=TRUE}
+dat <- companies %>% 
+  group_by(country) %>% 
+  slice_max(profits, n = 1) %>% 
+  print()
+```
+
+
+<div class="solution">
+The company with highest profit for each country is listed above. In Denmark the company is `r dat %>% filter(country == "Denmark") %>% pull(name)`.</div>
+
+
+
+## `r ctrQ()`
+
+Which 4 product categories have the highest total market value?
+
+```{r, solution=TRUE}
+dat <- companies %>% 
+  group_by(category) %>% 
+  summarise(marketvalue = sum(marketvalue)) %>% 
+  slice_max(marketvalue, n = 4) %>% 
+  print()
+```
+
+
+<div class="solution">
+The 4 product categories that have the highest total market value are `r dat %>% pull(category)`.</div>
+
+
+
+## `r ctrQ()`
+
+Create a new data frame only containing rows from Denmark and with columns `name`, `category` and a column `value` which equals the sum of columns `profits`, `assets` and `marketvalue`. Which company have the lowest value?
+
+```{r, solution=TRUE}
+dat <- companies %>% 
+  filter(country == "Denmark") %>% 
+  mutate(value = profits + assets + marketvalue) %>% 
+  select(name, category, value) %>% 
+  print()
+```
+
+
+<div class="solution">
+The companies can be seen above. The company with lowest value is `r dat %>% slice_min(value) %>% pull(name)`.</div>
+
+
+
+
+
+# R - `r ctrA()` (16%)
+
+
+
+
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you might need dplyr for preparing the datasets you want to plot). We work with the dataset `companies` from Assignment 2 which can be read using:
+
+```{r}
+companies <- read_csv("companies.csv")
+```
+
+
+## `r ctrQ(reset=T)`
+
+Create a visualization showing the number of companies for each product category with the following features:
+
+* Number of companies is represented using bars and sorted increasingly or decreasingly.
+* Informative figure title and axis titles are given.
+* The labels on the x-axis are rotated 90 degrees.
+
+What product category has the lowest number of companies?
+
+```{r, solution=TRUE}
+companies %>% 
+  count(category) %>% 
+  ggplot(aes(x = reorder(category, -n), y = n)) +
+  geom_col() +
+  labs(title = "Number of companies in each product category",
+       x = "Product category",
+       y = "") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+
+<div class="solution">
+Based on the plot, the lowest number of companies are in the _Trading companies_ category.</div>
+
+
+
+## `r ctrQ()`
+
+Consider product categories `Drugs & biotechnology` and `Media`. Create a visualization showing the profit given sales of each company with the following features:
+
+* Different colors are used for each product category. 
+* Informative figure title and axis titles are given.
+* A trend line for each category is added using `geom_smooth`.
+
+Based on the trend lines which product category gives the best profit? 
+
+```{r, solution=TRUE}
+companies %>% 
+  filter(category %in% c("Drugs & biotechnology", "Media")) %>% 
+  ggplot(aes(x = sales, y = profits, color = category)) +
+  geom_point() +
+  geom_smooth() +
+  labs(title = "Profit given sales",
+       x = "Sales (billion USD)",
+       y = "Profit (billion USD)",
+       color = "Product Category") +
+  theme(legend.position = "bottom")
+```
+
+
+<div class="solution">
+Based on the plot the _Drugs & biotechnology_ product category gives the best profit.</div>
+
+
+## `r ctrQ()`
+
+Consider product categories `Banking` and `Aerospace & defense`. Let `ratio` denote a variable/column that equals profit divided by sales. Create a visualization showing the variation in `ratio` with the following features:
+
+* Different colors are used for each product category. 
+* Informative figure title and axis titles are given.
+
+Based on the visualization comment on the variation and median. Which product category gives the highest ratio? 
+
+```{r, solution=TRUE}
+companies <- companies %>% 
+  mutate(ratio = profits/sales) 
+
+# Option 1 - Use a boxplot
+companies %>% 
+  filter(category %in% c("Banking", "Aerospace & defense")) %>% 
+  ggplot(aes(y = ratio, color = category)) +
+  geom_boxplot() +
+  labs(title = "Ratio of profit/sales",
+       x = "",
+       y = "Profit/sales ratio",
+       color = "Product Category") +
+  theme(legend.position = "bottom")
+
+# Option 2 - Use a density plot
+companies %>% 
+  filter(category %in% c("Banking", "Aerospace & defense")) %>% 
+  ggplot(aes(x = ratio, fill = category)) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Ratio of profit/sales",
+       y = "Density",
+       x = "Profit/sales ratio",
+       fill = "Product Category") +
+  theme(legend.position = "bottom")
+```
+
+
+<div class="solution">
+Given the plot above, it can be seen that the highest ratio with respect to the mean and the median is for _Banking_. However, the variation is also highest here.  </div>
+
+
+
+
+## `r ctrQ()`
+
+The `continents` dataset given in the appendix matches countries to continents and contains two columns:
+
+* `country`: the country.
+* `continent`: the corresponding continent.
+
+You can load the dataset using:
+
+```{r}
+continents <- read_csv("continents.csv")
+```
+
+Consider product categories `Banking`, `Aerospace & defense`, `Telecommunications services` and `Semiconductors`. Create a visualization showing assets given market value for each company with the following features (hint: you may need to do a mutating join):
+
+* Two continents `Americas` and `Europe` are considered.
+* Different colors are used for each continent. 
+* A plot is given for each product category (facet).
+* Informative figure title and axis titles are given.
+* A trend line for each category is added using `geom_smooth(method = lm)`.
+
+Based on the visualization consider the trend lines for _Banking_ and comment.
+
+```{r, solution=TRUE, warning=FALSE}
+companies %>% 
+  left_join(continents) %>% 
+  filter(continent %in% c("Americas", "Europe")) %>% 
+  filter(category %in% c("Banking", "Aerospace & defense", 
+                         "Telecommunications services", "Semiconductors")) %>% 
+  ggplot(aes(x = marketvalue, y = assets, color = continent)) +
+  geom_point() +
+  geom_smooth(method = lm) +
+  facet_wrap(vars(category), scales = "free") +
+  labs(title = "Assets given market value",
+       x = "Market value (billion USD)",
+       y = "Assets (billion USD)",
+       color = "Continent") +
+  theme(legend.position = "bottom")
+```
+
+
+<div class="solution">
+By considering the trend lines for _Banking_, it seems that if compare companies with the same marketvalue, then companies in Europe have more assets. </div>
+
