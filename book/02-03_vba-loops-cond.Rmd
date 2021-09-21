@@ -127,7 +127,7 @@ The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-loops-template.xl
 
 The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-flight-template.xlsm) should be used as a starting point for this exercise. 
 
-The sheet _Data_ contains a set of fights between different destinations. You task is to create a program that can search for matching flights given a set of origins and destinations. 
+The sheet _Data_ contains a set of flights between different destinations. You task is to create a program that can search for matching flights given a set of origins and destinations. 
 
    (1) Have a look at the results in sheet _Main_. The origin and destinations to search for are given in columns A and B and the search result in columns D, E and F. 
    (2) Try pressing the **Clear Search** button and see what happens. Have a look at the code in the VBA editor for this sub and get an overview. You are not expected to understand all the code.
@@ -166,7 +166,7 @@ Consider $i = 1,...,n$ jobs that has to be done on a machine and let $c_{ij}$ de
 Often a better algorithm is:
 
 <div class="box">
-**Step 0**: Define relative setup costs $\hat{c}_{ij} = c_{ij} - min(c_{0j},\ldots,c_{i-1j},,c_{i+1j}\ldots,c_{nj})$ (the cost is subtracted the minimum value in that column).
+**Step 0**: For each column $j$ find $\bar{c}_j = min(c_{0j},\ldots,c_{j-1,j},c_{j+1,j},\ldots,c_{nj})$ and define relative setup costs $\hat{c}_{ij} = c_{ij}-\bar{c}_{j}$ (the cost is subtracted the minimum value in that column).
 
 **Step 1**: Call the greedy algorithm using costs $\hat{c}_{ij}$.
 </div>
