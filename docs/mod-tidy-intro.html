@@ -297,11 +297,12 @@ div.csl-indent {
 <li class="chapter" data-level="7.1" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#lo-vba-loops-cond"><i class="fa fa-check"></i><b>7.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="7.2" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#vba-random-numbers"><i class="fa fa-check"></i><b>7.2</b> Generating random numbers</a></li>
 <li class="chapter" data-level="7.3" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#vba-simulation"><i class="fa fa-check"></i><b>7.3</b> Simulation</a></li>
-<li class="chapter" data-level="7.4" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-random-numbers"><i class="fa fa-check"></i><b>7.4</b> Exercises</a>
+<li class="chapter" data-level="7.4" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#recap-4"><i class="fa fa-check"></i><b>7.4</b> Recap</a></li>
+<li class="chapter" data-level="7.5" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-random-numbers"><i class="fa fa-check"></i><b>7.5</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-generate"><i class="fa fa-check"></i><b>7.4.1</b> Exercise - Generating random numbers</a></li>
-<li class="chapter" data-level="7.4.2" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-tsp"><i class="fa fa-check"></i><b>7.4.2</b> Exercise - Traveling salesman problem</a></li>
-<li class="chapter" data-level="7.4.3" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-bakery"><i class="fa fa-check"></i><b>7.4.3</b> Exercise - Dan’s bakery</a></li>
+<li class="chapter" data-level="7.5.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-generate"><i class="fa fa-check"></i><b>7.5.1</b> Exercise - Generating random numbers</a></li>
+<li class="chapter" data-level="7.5.2" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-tsp"><i class="fa fa-check"></i><b>7.5.2</b> Exercise - Traveling salesman problem</a></li>
+<li class="chapter" data-level="7.5.3" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-bakery"><i class="fa fa-check"></i><b>7.5.3</b> Exercise - Dan’s bakery</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="mod-vba-solver.html"><a href="mod-vba-solver.html"><i class="fa fa-check"></i><b>8</b> Solver</a></li>
@@ -584,53 +585,53 @@ div.csl-indent {
 <h2><span class="header-section-number">14.4</span> Tibbles</h2>
 <p>Tibbles are a modern data frame, keeping what time has proven to be effective, and throwing out what is not. Tibbles are more strict compared to data frames e.g. they do not change variable names or types, do not do partial matching and complain more e.g. when a variable does not exist. This forces you to confront problems earlier, typically leading to cleaner, more expressive code. Moreover, tibbles have an enhanced <code>print</code> method and can have columns that are lists.</p>
 <p>Let us see a few examples:</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="mod-tidy-intro.html#cb240-1" aria-hidden="true" tabindex="-1"></a>tbl1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Lars&quot;</span>, <span class="st">&quot;Susan&quot;</span>, <span class="st">&quot;Hans&quot;</span>), <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">56</span>, <span class="dv">45</span>))</span>
-<span id="cb240-2"><a href="mod-tidy-intro.html#cb240-2" aria-hidden="true" tabindex="-1"></a>tbl1</span>
-<span id="cb240-3"><a href="mod-tidy-intro.html#cb240-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
-<span id="cb240-4"><a href="mod-tidy-intro.html#cb240-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   name    age</span></span>
-<span id="cb240-5"><a href="mod-tidy-intro.html#cb240-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt;</span></span>
-<span id="cb240-6"><a href="mod-tidy-intro.html#cb240-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Lars     23</span></span>
-<span id="cb240-7"><a href="mod-tidy-intro.html#cb240-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Susan    56</span></span>
-<span id="cb240-8"><a href="mod-tidy-intro.html#cb240-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Hans     45</span></span>
-<span id="cb240-9"><a href="mod-tidy-intro.html#cb240-9" aria-hidden="true" tabindex="-1"></a>tbl2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y =</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>))</span>
-<span id="cb240-10"><a href="mod-tidy-intro.html#cb240-10" aria-hidden="true" tabindex="-1"></a>tbl2</span>
-<span id="cb240-11"><a href="mod-tidy-intro.html#cb240-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
-<span id="cb240-12"><a href="mod-tidy-intro.html#cb240-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       x y         </span></span>
-<span id="cb240-13"><a href="mod-tidy-intro.html#cb240-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;list&gt;    </span></span>
-<span id="cb240-14"><a href="mod-tidy-intro.html#cb240-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 &lt;int [5]&gt; </span></span>
-<span id="cb240-15"><a href="mod-tidy-intro.html#cb240-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 &lt;int [10]&gt;</span></span>
-<span id="cb240-16"><a href="mod-tidy-intro.html#cb240-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3 &lt;int [20]&gt;</span></span>
-<span id="cb240-17"><a href="mod-tidy-intro.html#cb240-17" aria-hidden="true" tabindex="-1"></a>tbl3 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(mtcars)</span>
-<span id="cb240-18"><a href="mod-tidy-intro.html#cb240-18" aria-hidden="true" tabindex="-1"></a>tbl3</span>
-<span id="cb240-19"><a href="mod-tidy-intro.html#cb240-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 33 × 12</span></span>
-<span id="cb240-20"><a href="mod-tidy-intro.html#cb240-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb col  </span></span>
-<span id="cb240-21"><a href="mod-tidy-intro.html#cb240-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
-<span id="cb240-22"><a href="mod-tidy-intro.html#cb240-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4 &lt;NA&gt; </span></span>
-<span id="cb240-23"><a href="mod-tidy-intro.html#cb240-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4 green</span></span>
-<span id="cb240-24"><a href="mod-tidy-intro.html#cb240-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1 blue </span></span>
-<span id="cb240-25"><a href="mod-tidy-intro.html#cb240-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1 red  </span></span>
-<span id="cb240-26"><a href="mod-tidy-intro.html#cb240-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2 &lt;NA&gt; </span></span>
-<span id="cb240-27"><a href="mod-tidy-intro.html#cb240-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1 blue </span></span>
-<span id="cb240-28"><a href="mod-tidy-intro.html#cb240-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4 green</span></span>
-<span id="cb240-29"><a href="mod-tidy-intro.html#cb240-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2 blue </span></span>
-<span id="cb240-30"><a href="mod-tidy-intro.html#cb240-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2 red  </span></span>
-<span id="cb240-31"><a href="mod-tidy-intro.html#cb240-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4 red  </span></span>
-<span id="cb240-32"><a href="mod-tidy-intro.html#cb240-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 23 more rows</span></span>
-<span id="cb240-33"><a href="mod-tidy-intro.html#cb240-33" aria-hidden="true" tabindex="-1"></a>tbl4 <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb240-34"><a href="mod-tidy-intro.html#cb240-34" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>x, <span class="sc">~</span>y, <span class="sc">~</span>z,</span>
-<span id="cb240-35"><a href="mod-tidy-intro.html#cb240-35" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--|--|----</span></span>
-<span id="cb240-36"><a href="mod-tidy-intro.html#cb240-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;a&quot;</span>, <span class="dv">2</span>, <span class="fl">3.6</span>,</span>
-<span id="cb240-37"><a href="mod-tidy-intro.html#cb240-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;b&quot;</span>, <span class="dv">1</span>, <span class="fl">8.5</span></span>
-<span id="cb240-38"><a href="mod-tidy-intro.html#cb240-38" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb240-39"><a href="mod-tidy-intro.html#cb240-39" aria-hidden="true" tabindex="-1"></a>tbl4</span>
-<span id="cb240-40"><a href="mod-tidy-intro.html#cb240-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
-<span id="cb240-41"><a href="mod-tidy-intro.html#cb240-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   x         y     z</span></span>
-<span id="cb240-42"><a href="mod-tidy-intro.html#cb240-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb240-43"><a href="mod-tidy-intro.html#cb240-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 a         2   3.6</span></span>
-<span id="cb240-44"><a href="mod-tidy-intro.html#cb240-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 b         1   8.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="mod-tidy-intro.html#cb242-1" aria-hidden="true" tabindex="-1"></a>tbl1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Lars&quot;</span>, <span class="st">&quot;Susan&quot;</span>, <span class="st">&quot;Hans&quot;</span>), <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">56</span>, <span class="dv">45</span>))</span>
+<span id="cb242-2"><a href="mod-tidy-intro.html#cb242-2" aria-hidden="true" tabindex="-1"></a>tbl1</span>
+<span id="cb242-3"><a href="mod-tidy-intro.html#cb242-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span id="cb242-4"><a href="mod-tidy-intro.html#cb242-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   name    age</span></span>
+<span id="cb242-5"><a href="mod-tidy-intro.html#cb242-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt;</span></span>
+<span id="cb242-6"><a href="mod-tidy-intro.html#cb242-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Lars     23</span></span>
+<span id="cb242-7"><a href="mod-tidy-intro.html#cb242-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Susan    56</span></span>
+<span id="cb242-8"><a href="mod-tidy-intro.html#cb242-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Hans     45</span></span>
+<span id="cb242-9"><a href="mod-tidy-intro.html#cb242-9" aria-hidden="true" tabindex="-1"></a>tbl2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y =</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>))</span>
+<span id="cb242-10"><a href="mod-tidy-intro.html#cb242-10" aria-hidden="true" tabindex="-1"></a>tbl2</span>
+<span id="cb242-11"><a href="mod-tidy-intro.html#cb242-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span id="cb242-12"><a href="mod-tidy-intro.html#cb242-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       x y         </span></span>
+<span id="cb242-13"><a href="mod-tidy-intro.html#cb242-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;list&gt;    </span></span>
+<span id="cb242-14"><a href="mod-tidy-intro.html#cb242-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 &lt;int [5]&gt; </span></span>
+<span id="cb242-15"><a href="mod-tidy-intro.html#cb242-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 &lt;int [10]&gt;</span></span>
+<span id="cb242-16"><a href="mod-tidy-intro.html#cb242-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3 &lt;int [20]&gt;</span></span>
+<span id="cb242-17"><a href="mod-tidy-intro.html#cb242-17" aria-hidden="true" tabindex="-1"></a>tbl3 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(mtcars)</span>
+<span id="cb242-18"><a href="mod-tidy-intro.html#cb242-18" aria-hidden="true" tabindex="-1"></a>tbl3</span>
+<span id="cb242-19"><a href="mod-tidy-intro.html#cb242-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 33 × 12</span></span>
+<span id="cb242-20"><a href="mod-tidy-intro.html#cb242-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb col  </span></span>
+<span id="cb242-21"><a href="mod-tidy-intro.html#cb242-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
+<span id="cb242-22"><a href="mod-tidy-intro.html#cb242-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4 &lt;NA&gt; </span></span>
+<span id="cb242-23"><a href="mod-tidy-intro.html#cb242-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4 green</span></span>
+<span id="cb242-24"><a href="mod-tidy-intro.html#cb242-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1 blue </span></span>
+<span id="cb242-25"><a href="mod-tidy-intro.html#cb242-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1 red  </span></span>
+<span id="cb242-26"><a href="mod-tidy-intro.html#cb242-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2 &lt;NA&gt; </span></span>
+<span id="cb242-27"><a href="mod-tidy-intro.html#cb242-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1 blue </span></span>
+<span id="cb242-28"><a href="mod-tidy-intro.html#cb242-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4 green</span></span>
+<span id="cb242-29"><a href="mod-tidy-intro.html#cb242-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2 blue </span></span>
+<span id="cb242-30"><a href="mod-tidy-intro.html#cb242-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2 red  </span></span>
+<span id="cb242-31"><a href="mod-tidy-intro.html#cb242-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4 red  </span></span>
+<span id="cb242-32"><a href="mod-tidy-intro.html#cb242-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 23 more rows</span></span>
+<span id="cb242-33"><a href="mod-tidy-intro.html#cb242-33" aria-hidden="true" tabindex="-1"></a>tbl4 <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb242-34"><a href="mod-tidy-intro.html#cb242-34" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>x, <span class="sc">~</span>y, <span class="sc">~</span>z,</span>
+<span id="cb242-35"><a href="mod-tidy-intro.html#cb242-35" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--|--|----</span></span>
+<span id="cb242-36"><a href="mod-tidy-intro.html#cb242-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;a&quot;</span>, <span class="dv">2</span>, <span class="fl">3.6</span>,</span>
+<span id="cb242-37"><a href="mod-tidy-intro.html#cb242-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;b&quot;</span>, <span class="dv">1</span>, <span class="fl">8.5</span></span>
+<span id="cb242-38"><a href="mod-tidy-intro.html#cb242-38" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb242-39"><a href="mod-tidy-intro.html#cb242-39" aria-hidden="true" tabindex="-1"></a>tbl4</span>
+<span id="cb242-40"><a href="mod-tidy-intro.html#cb242-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span id="cb242-41"><a href="mod-tidy-intro.html#cb242-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   x         y     z</span></span>
+<span id="cb242-42"><a href="mod-tidy-intro.html#cb242-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb242-43"><a href="mod-tidy-intro.html#cb242-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 a         2   3.6</span></span>
+<span id="cb242-44"><a href="mod-tidy-intro.html#cb242-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 b         1   8.5</span></span></code></pre></div>
 <p>Note that we can always coerce a data frame to a tibble (<code>tbl3</code>) or create it directly using <code>tibble</code>. Another way to create a tibble is with <code>tribble</code>. Here column headings are defined by formulas (i.e. they start with ~), and entries are separated by commas. This makes it possible to lay out small amounts of data in easy to read form.</p>
 <p>Tibbles have a refined print method that shows only the first 10 rows along with the number of columns that will fit on your screen. This makes it much easier to work with large data. In addition to its name, each column reports its type. Hence, your console is not overwhelmed with data. To see a full view of the data, you can use RStudio’s built-in data viewer:</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="mod-tidy-intro.html#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(tbl3)</span></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="mod-tidy-intro.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(tbl3)</span></code></pre></div>
 </div>
 <div id="lp-tidy-intro" class="section level2" number="14.5">
 <h2><span class="header-section-number">14.5</span> Different learning paths</h2>
@@ -669,8 +670,8 @@ div.csl-indent {
 <div id="exercise-your-first-r-markdown-exercise" class="section level3" number="14.7.1">
 <h3><span class="header-section-number">14.7.1</span> Exercise (your first R Markdown exercise)</h3>
 <p>Load the tfa package:</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="mod-tidy-intro.html#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remotes::install_github(&quot;bss-osca/tfa/tfa-package&quot;, upgrade = FALSE)  # run to upgrade</span></span>
-<span id="cb242-2"><a href="mod-tidy-intro.html#cb242-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfa)</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="mod-tidy-intro.html#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remotes::install_github(&quot;bss-osca/tfa/tfa-package&quot;, upgrade = FALSE)  # run to upgrade</span></span>
+<span id="cb244-2"><a href="mod-tidy-intro.html#cb244-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfa)</span></code></pre></div>
 <p>The package contains templates for exercises etc. Go to <strong>File &gt; New File &gt; R Markdown…</strong>. In the pop-up box select <strong>From template</strong> in the left column and then <strong>TFA Exercise</strong>. Press <em>Ok</em> and a new R Markdown document will be opened.</p>
 <ol style="list-style-type: decimal">
 <li><p>Change the meta text (e.g. the title and add your name) in the yaml.</p></li>
@@ -724,7 +725,7 @@ Solution
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="mod-tidy-intro.html#cb243-1" aria-hidden="true" tabindex="-1"></a>total <span class="ot">&lt;-</span> <span class="fu">sum</span>(setup_costs)</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="mod-tidy-intro.html#cb245-1" aria-hidden="true" tabindex="-1"></a>total <span class="ot">&lt;-</span> <span class="fu">sum</span>(setup_costs)</span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -786,21 +787,21 @@ Solution
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="mod-tidy-intro.html#cb244-1" aria-hidden="true" tabindex="-1"></a>airquality <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
-<span id="cb244-2"><a href="mod-tidy-intro.html#cb244-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 153 × 6</span></span>
-<span id="cb244-3"><a href="mod-tidy-intro.html#cb244-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Ozone Solar.R  Wind  Temp Month   Day</span></span>
-<span id="cb244-4"><a href="mod-tidy-intro.html#cb244-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt;   &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
-<span id="cb244-5"><a href="mod-tidy-intro.html#cb244-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1    41     190   7.4    67     5     1</span></span>
-<span id="cb244-6"><a href="mod-tidy-intro.html#cb244-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2    36     118   8      72     5     2</span></span>
-<span id="cb244-7"><a href="mod-tidy-intro.html#cb244-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3    12     149  12.6    74     5     3</span></span>
-<span id="cb244-8"><a href="mod-tidy-intro.html#cb244-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4    18     313  11.5    62     5     4</span></span>
-<span id="cb244-9"><a href="mod-tidy-intro.html#cb244-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5    NA      NA  14.3    56     5     5</span></span>
-<span id="cb244-10"><a href="mod-tidy-intro.html#cb244-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6    28      NA  14.9    66     5     6</span></span>
-<span id="cb244-11"><a href="mod-tidy-intro.html#cb244-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7    23     299   8.6    65     5     7</span></span>
-<span id="cb244-12"><a href="mod-tidy-intro.html#cb244-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8    19      99  13.8    59     5     8</span></span>
-<span id="cb244-13"><a href="mod-tidy-intro.html#cb244-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9     8      19  20.1    61     5     9</span></span>
-<span id="cb244-14"><a href="mod-tidy-intro.html#cb244-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    NA     194   8.6    69     5    10</span></span>
-<span id="cb244-15"><a href="mod-tidy-intro.html#cb244-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 143 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="mod-tidy-intro.html#cb246-1" aria-hidden="true" tabindex="-1"></a>airquality <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb246-2"><a href="mod-tidy-intro.html#cb246-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 153 × 6</span></span>
+<span id="cb246-3"><a href="mod-tidy-intro.html#cb246-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Ozone Solar.R  Wind  Temp Month   Day</span></span>
+<span id="cb246-4"><a href="mod-tidy-intro.html#cb246-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt;   &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb246-5"><a href="mod-tidy-intro.html#cb246-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1    41     190   7.4    67     5     1</span></span>
+<span id="cb246-6"><a href="mod-tidy-intro.html#cb246-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2    36     118   8      72     5     2</span></span>
+<span id="cb246-7"><a href="mod-tidy-intro.html#cb246-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3    12     149  12.6    74     5     3</span></span>
+<span id="cb246-8"><a href="mod-tidy-intro.html#cb246-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4    18     313  11.5    62     5     4</span></span>
+<span id="cb246-9"><a href="mod-tidy-intro.html#cb246-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5    NA      NA  14.3    56     5     5</span></span>
+<span id="cb246-10"><a href="mod-tidy-intro.html#cb246-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6    28      NA  14.9    66     5     6</span></span>
+<span id="cb246-11"><a href="mod-tidy-intro.html#cb246-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7    23     299   8.6    65     5     7</span></span>
+<span id="cb246-12"><a href="mod-tidy-intro.html#cb246-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8    19      99  13.8    59     5     8</span></span>
+<span id="cb246-13"><a href="mod-tidy-intro.html#cb246-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9     8      19  20.1    61     5     9</span></span>
+<span id="cb246-14"><a href="mod-tidy-intro.html#cb246-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    NA     194   8.6    69     5    10</span></span>
+<span id="cb246-15"><a href="mod-tidy-intro.html#cb246-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 143 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -828,176 +829,176 @@ Solution
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="mod-tidy-intro.html#cb245-1" aria-hidden="true" tabindex="-1"></a>airquality <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
-<span id="cb245-2"><a href="mod-tidy-intro.html#cb245-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 153 × 6</span></span>
-<span id="cb245-3"><a href="mod-tidy-intro.html#cb245-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Ozone Solar.R  Wind  Temp Month   Day</span></span>
-<span id="cb245-4"><a href="mod-tidy-intro.html#cb245-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt;   &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
-<span id="cb245-5"><a href="mod-tidy-intro.html#cb245-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1    41     190   7.4    67     5     1</span></span>
-<span id="cb245-6"><a href="mod-tidy-intro.html#cb245-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2    36     118   8      72     5     2</span></span>
-<span id="cb245-7"><a href="mod-tidy-intro.html#cb245-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3    12     149  12.6    74     5     3</span></span>
-<span id="cb245-8"><a href="mod-tidy-intro.html#cb245-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4    18     313  11.5    62     5     4</span></span>
-<span id="cb245-9"><a href="mod-tidy-intro.html#cb245-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5    NA      NA  14.3    56     5     5</span></span>
-<span id="cb245-10"><a href="mod-tidy-intro.html#cb245-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6    28      NA  14.9    66     5     6</span></span>
-<span id="cb245-11"><a href="mod-tidy-intro.html#cb245-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7    23     299   8.6    65     5     7</span></span>
-<span id="cb245-12"><a href="mod-tidy-intro.html#cb245-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8    19      99  13.8    59     5     8</span></span>
-<span id="cb245-13"><a href="mod-tidy-intro.html#cb245-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9     8      19  20.1    61     5     9</span></span>
-<span id="cb245-14"><a href="mod-tidy-intro.html#cb245-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    NA     194   8.6    69     5    10</span></span>
-<span id="cb245-15"><a href="mod-tidy-intro.html#cb245-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 143 more rows</span></span>
-<span id="cb245-16"><a href="mod-tidy-intro.html#cb245-16" aria-hidden="true" tabindex="-1"></a>airquality</span>
-<span id="cb245-17"><a href="mod-tidy-intro.html#cb245-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Ozone Solar.R Wind Temp Month Day</span></span>
-<span id="cb245-18"><a href="mod-tidy-intro.html#cb245-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      41     190  7.4   67     5   1</span></span>
-<span id="cb245-19"><a href="mod-tidy-intro.html#cb245-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      36     118  8.0   72     5   2</span></span>
-<span id="cb245-20"><a href="mod-tidy-intro.html#cb245-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      12     149 12.6   74     5   3</span></span>
-<span id="cb245-21"><a href="mod-tidy-intro.html#cb245-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      18     313 11.5   62     5   4</span></span>
-<span id="cb245-22"><a href="mod-tidy-intro.html#cb245-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      NA      NA 14.3   56     5   5</span></span>
-<span id="cb245-23"><a href="mod-tidy-intro.html#cb245-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      28      NA 14.9   66     5   6</span></span>
-<span id="cb245-24"><a href="mod-tidy-intro.html#cb245-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      23     299  8.6   65     5   7</span></span>
-<span id="cb245-25"><a href="mod-tidy-intro.html#cb245-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8      19      99 13.8   59     5   8</span></span>
-<span id="cb245-26"><a href="mod-tidy-intro.html#cb245-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9       8      19 20.1   61     5   9</span></span>
-<span id="cb245-27"><a href="mod-tidy-intro.html#cb245-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10     NA     194  8.6   69     5  10</span></span>
-<span id="cb245-28"><a href="mod-tidy-intro.html#cb245-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11      7      NA  6.9   74     5  11</span></span>
-<span id="cb245-29"><a href="mod-tidy-intro.html#cb245-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12     16     256  9.7   69     5  12</span></span>
-<span id="cb245-30"><a href="mod-tidy-intro.html#cb245-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13     11     290  9.2   66     5  13</span></span>
-<span id="cb245-31"><a href="mod-tidy-intro.html#cb245-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14     14     274 10.9   68     5  14</span></span>
-<span id="cb245-32"><a href="mod-tidy-intro.html#cb245-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15     18      65 13.2   58     5  15</span></span>
-<span id="cb245-33"><a href="mod-tidy-intro.html#cb245-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16     14     334 11.5   64     5  16</span></span>
-<span id="cb245-34"><a href="mod-tidy-intro.html#cb245-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17     34     307 12.0   66     5  17</span></span>
-<span id="cb245-35"><a href="mod-tidy-intro.html#cb245-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18      6      78 18.4   57     5  18</span></span>
-<span id="cb245-36"><a href="mod-tidy-intro.html#cb245-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19     30     322 11.5   68     5  19</span></span>
-<span id="cb245-37"><a href="mod-tidy-intro.html#cb245-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20     11      44  9.7   62     5  20</span></span>
-<span id="cb245-38"><a href="mod-tidy-intro.html#cb245-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 21      1       8  9.7   59     5  21</span></span>
-<span id="cb245-39"><a href="mod-tidy-intro.html#cb245-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 22     11     320 16.6   73     5  22</span></span>
-<span id="cb245-40"><a href="mod-tidy-intro.html#cb245-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 23      4      25  9.7   61     5  23</span></span>
-<span id="cb245-41"><a href="mod-tidy-intro.html#cb245-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 24     32      92 12.0   61     5  24</span></span>
-<span id="cb245-42"><a href="mod-tidy-intro.html#cb245-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 25     NA      66 16.6   57     5  25</span></span>
-<span id="cb245-43"><a href="mod-tidy-intro.html#cb245-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 26     NA     266 14.9   58     5  26</span></span>
-<span id="cb245-44"><a href="mod-tidy-intro.html#cb245-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 27     NA      NA  8.0   57     5  27</span></span>
-<span id="cb245-45"><a href="mod-tidy-intro.html#cb245-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 28     23      13 12.0   67     5  28</span></span>
-<span id="cb245-46"><a href="mod-tidy-intro.html#cb245-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 29     45     252 14.9   81     5  29</span></span>
-<span id="cb245-47"><a href="mod-tidy-intro.html#cb245-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 30    115     223  5.7   79     5  30</span></span>
-<span id="cb245-48"><a href="mod-tidy-intro.html#cb245-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 31     37     279  7.4   76     5  31</span></span>
-<span id="cb245-49"><a href="mod-tidy-intro.html#cb245-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 32     NA     286  8.6   78     6   1</span></span>
-<span id="cb245-50"><a href="mod-tidy-intro.html#cb245-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 33     NA     287  9.7   74     6   2</span></span>
-<span id="cb245-51"><a href="mod-tidy-intro.html#cb245-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 34     NA     242 16.1   67     6   3</span></span>
-<span id="cb245-52"><a href="mod-tidy-intro.html#cb245-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 35     NA     186  9.2   84     6   4</span></span>
-<span id="cb245-53"><a href="mod-tidy-intro.html#cb245-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 36     NA     220  8.6   85     6   5</span></span>
-<span id="cb245-54"><a href="mod-tidy-intro.html#cb245-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 37     NA     264 14.3   79     6   6</span></span>
-<span id="cb245-55"><a href="mod-tidy-intro.html#cb245-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 38     29     127  9.7   82     6   7</span></span>
-<span id="cb245-56"><a href="mod-tidy-intro.html#cb245-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 39     NA     273  6.9   87     6   8</span></span>
-<span id="cb245-57"><a href="mod-tidy-intro.html#cb245-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 40     71     291 13.8   90     6   9</span></span>
-<span id="cb245-58"><a href="mod-tidy-intro.html#cb245-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 41     39     323 11.5   87     6  10</span></span>
-<span id="cb245-59"><a href="mod-tidy-intro.html#cb245-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 42     NA     259 10.9   93     6  11</span></span>
-<span id="cb245-60"><a href="mod-tidy-intro.html#cb245-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 43     NA     250  9.2   92     6  12</span></span>
-<span id="cb245-61"><a href="mod-tidy-intro.html#cb245-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 44     23     148  8.0   82     6  13</span></span>
-<span id="cb245-62"><a href="mod-tidy-intro.html#cb245-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 45     NA     332 13.8   80     6  14</span></span>
-<span id="cb245-63"><a href="mod-tidy-intro.html#cb245-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 46     NA     322 11.5   79     6  15</span></span>
-<span id="cb245-64"><a href="mod-tidy-intro.html#cb245-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 47     21     191 14.9   77     6  16</span></span>
-<span id="cb245-65"><a href="mod-tidy-intro.html#cb245-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 48     37     284 20.7   72     6  17</span></span>
-<span id="cb245-66"><a href="mod-tidy-intro.html#cb245-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 49     20      37  9.2   65     6  18</span></span>
-<span id="cb245-67"><a href="mod-tidy-intro.html#cb245-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 50     12     120 11.5   73     6  19</span></span>
-<span id="cb245-68"><a href="mod-tidy-intro.html#cb245-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 51     13     137 10.3   76     6  20</span></span>
-<span id="cb245-69"><a href="mod-tidy-intro.html#cb245-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 52     NA     150  6.3   77     6  21</span></span>
-<span id="cb245-70"><a href="mod-tidy-intro.html#cb245-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 53     NA      59  1.7   76     6  22</span></span>
-<span id="cb245-71"><a href="mod-tidy-intro.html#cb245-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 54     NA      91  4.6   76     6  23</span></span>
-<span id="cb245-72"><a href="mod-tidy-intro.html#cb245-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 55     NA     250  6.3   76     6  24</span></span>
-<span id="cb245-73"><a href="mod-tidy-intro.html#cb245-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 56     NA     135  8.0   75     6  25</span></span>
-<span id="cb245-74"><a href="mod-tidy-intro.html#cb245-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 57     NA     127  8.0   78     6  26</span></span>
-<span id="cb245-75"><a href="mod-tidy-intro.html#cb245-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 58     NA      47 10.3   73     6  27</span></span>
-<span id="cb245-76"><a href="mod-tidy-intro.html#cb245-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 59     NA      98 11.5   80     6  28</span></span>
-<span id="cb245-77"><a href="mod-tidy-intro.html#cb245-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 60     NA      31 14.9   77     6  29</span></span>
-<span id="cb245-78"><a href="mod-tidy-intro.html#cb245-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 61     NA     138  8.0   83     6  30</span></span>
-<span id="cb245-79"><a href="mod-tidy-intro.html#cb245-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 62    135     269  4.1   84     7   1</span></span>
-<span id="cb245-80"><a href="mod-tidy-intro.html#cb245-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 63     49     248  9.2   85     7   2</span></span>
-<span id="cb245-81"><a href="mod-tidy-intro.html#cb245-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 64     32     236  9.2   81     7   3</span></span>
-<span id="cb245-82"><a href="mod-tidy-intro.html#cb245-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 65     NA     101 10.9   84     7   4</span></span>
-<span id="cb245-83"><a href="mod-tidy-intro.html#cb245-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 66     64     175  4.6   83     7   5</span></span>
-<span id="cb245-84"><a href="mod-tidy-intro.html#cb245-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 67     40     314 10.9   83     7   6</span></span>
-<span id="cb245-85"><a href="mod-tidy-intro.html#cb245-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 68     77     276  5.1   88     7   7</span></span>
-<span id="cb245-86"><a href="mod-tidy-intro.html#cb245-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 69     97     267  6.3   92     7   8</span></span>
-<span id="cb245-87"><a href="mod-tidy-intro.html#cb245-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 70     97     272  5.7   92     7   9</span></span>
-<span id="cb245-88"><a href="mod-tidy-intro.html#cb245-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 71     85     175  7.4   89     7  10</span></span>
-<span id="cb245-89"><a href="mod-tidy-intro.html#cb245-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 72     NA     139  8.6   82     7  11</span></span>
-<span id="cb245-90"><a href="mod-tidy-intro.html#cb245-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 73     10     264 14.3   73     7  12</span></span>
-<span id="cb245-91"><a href="mod-tidy-intro.html#cb245-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 74     27     175 14.9   81     7  13</span></span>
-<span id="cb245-92"><a href="mod-tidy-intro.html#cb245-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 75     NA     291 14.9   91     7  14</span></span>
-<span id="cb245-93"><a href="mod-tidy-intro.html#cb245-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 76      7      48 14.3   80     7  15</span></span>
-<span id="cb245-94"><a href="mod-tidy-intro.html#cb245-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 77     48     260  6.9   81     7  16</span></span>
-<span id="cb245-95"><a href="mod-tidy-intro.html#cb245-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 78     35     274 10.3   82     7  17</span></span>
-<span id="cb245-96"><a href="mod-tidy-intro.html#cb245-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 79     61     285  6.3   84     7  18</span></span>
-<span id="cb245-97"><a href="mod-tidy-intro.html#cb245-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 80     79     187  5.1   87     7  19</span></span>
-<span id="cb245-98"><a href="mod-tidy-intro.html#cb245-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 81     63     220 11.5   85     7  20</span></span>
-<span id="cb245-99"><a href="mod-tidy-intro.html#cb245-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 82     16       7  6.9   74     7  21</span></span>
-<span id="cb245-100"><a href="mod-tidy-intro.html#cb245-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 83     NA     258  9.7   81     7  22</span></span>
-<span id="cb245-101"><a href="mod-tidy-intro.html#cb245-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 84     NA     295 11.5   82     7  23</span></span>
-<span id="cb245-102"><a href="mod-tidy-intro.html#cb245-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 85     80     294  8.6   86     7  24</span></span>
-<span id="cb245-103"><a href="mod-tidy-intro.html#cb245-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 86    108     223  8.0   85     7  25</span></span>
-<span id="cb245-104"><a href="mod-tidy-intro.html#cb245-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 87     20      81  8.6   82     7  26</span></span>
-<span id="cb245-105"><a href="mod-tidy-intro.html#cb245-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 88     52      82 12.0   86     7  27</span></span>
-<span id="cb245-106"><a href="mod-tidy-intro.html#cb245-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 89     82     213  7.4   88     7  28</span></span>
-<span id="cb245-107"><a href="mod-tidy-intro.html#cb245-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 90     50     275  7.4   86     7  29</span></span>
-<span id="cb245-108"><a href="mod-tidy-intro.html#cb245-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 91     64     253  7.4   83     7  30</span></span>
-<span id="cb245-109"><a href="mod-tidy-intro.html#cb245-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 92     59     254  9.2   81     7  31</span></span>
-<span id="cb245-110"><a href="mod-tidy-intro.html#cb245-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 93     39      83  6.9   81     8   1</span></span>
-<span id="cb245-111"><a href="mod-tidy-intro.html#cb245-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 94      9      24 13.8   81     8   2</span></span>
-<span id="cb245-112"><a href="mod-tidy-intro.html#cb245-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95     16      77  7.4   82     8   3</span></span>
-<span id="cb245-113"><a href="mod-tidy-intro.html#cb245-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 96     78      NA  6.9   86     8   4</span></span>
-<span id="cb245-114"><a href="mod-tidy-intro.html#cb245-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 97     35      NA  7.4   85     8   5</span></span>
-<span id="cb245-115"><a href="mod-tidy-intro.html#cb245-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 98     66      NA  4.6   87     8   6</span></span>
-<span id="cb245-116"><a href="mod-tidy-intro.html#cb245-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 99    122     255  4.0   89     8   7</span></span>
-<span id="cb245-117"><a href="mod-tidy-intro.html#cb245-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100    89     229 10.3   90     8   8</span></span>
-<span id="cb245-118"><a href="mod-tidy-intro.html#cb245-118" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 101   110     207  8.0   90     8   9</span></span>
-<span id="cb245-119"><a href="mod-tidy-intro.html#cb245-119" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 102    NA     222  8.6   92     8  10</span></span>
-<span id="cb245-120"><a href="mod-tidy-intro.html#cb245-120" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 103    NA     137 11.5   86     8  11</span></span>
-<span id="cb245-121"><a href="mod-tidy-intro.html#cb245-121" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 104    44     192 11.5   86     8  12</span></span>
-<span id="cb245-122"><a href="mod-tidy-intro.html#cb245-122" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 105    28     273 11.5   82     8  13</span></span>
-<span id="cb245-123"><a href="mod-tidy-intro.html#cb245-123" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 106    65     157  9.7   80     8  14</span></span>
-<span id="cb245-124"><a href="mod-tidy-intro.html#cb245-124" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 107    NA      64 11.5   79     8  15</span></span>
-<span id="cb245-125"><a href="mod-tidy-intro.html#cb245-125" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 108    22      71 10.3   77     8  16</span></span>
-<span id="cb245-126"><a href="mod-tidy-intro.html#cb245-126" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 109    59      51  6.3   79     8  17</span></span>
-<span id="cb245-127"><a href="mod-tidy-intro.html#cb245-127" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 110    23     115  7.4   76     8  18</span></span>
-<span id="cb245-128"><a href="mod-tidy-intro.html#cb245-128" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 111    31     244 10.9   78     8  19</span></span>
-<span id="cb245-129"><a href="mod-tidy-intro.html#cb245-129" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 112    44     190 10.3   78     8  20</span></span>
-<span id="cb245-130"><a href="mod-tidy-intro.html#cb245-130" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 113    21     259 15.5   77     8  21</span></span>
-<span id="cb245-131"><a href="mod-tidy-intro.html#cb245-131" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 114     9      36 14.3   72     8  22</span></span>
-<span id="cb245-132"><a href="mod-tidy-intro.html#cb245-132" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 115    NA     255 12.6   75     8  23</span></span>
-<span id="cb245-133"><a href="mod-tidy-intro.html#cb245-133" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 116    45     212  9.7   79     8  24</span></span>
-<span id="cb245-134"><a href="mod-tidy-intro.html#cb245-134" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 117   168     238  3.4   81     8  25</span></span>
-<span id="cb245-135"><a href="mod-tidy-intro.html#cb245-135" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 118    73     215  8.0   86     8  26</span></span>
-<span id="cb245-136"><a href="mod-tidy-intro.html#cb245-136" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 119    NA     153  5.7   88     8  27</span></span>
-<span id="cb245-137"><a href="mod-tidy-intro.html#cb245-137" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 120    76     203  9.7   97     8  28</span></span>
-<span id="cb245-138"><a href="mod-tidy-intro.html#cb245-138" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 121   118     225  2.3   94     8  29</span></span>
-<span id="cb245-139"><a href="mod-tidy-intro.html#cb245-139" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 122    84     237  6.3   96     8  30</span></span>
-<span id="cb245-140"><a href="mod-tidy-intro.html#cb245-140" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 123    85     188  6.3   94     8  31</span></span>
-<span id="cb245-141"><a href="mod-tidy-intro.html#cb245-141" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 124    96     167  6.9   91     9   1</span></span>
-<span id="cb245-142"><a href="mod-tidy-intro.html#cb245-142" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 125    78     197  5.1   92     9   2</span></span>
-<span id="cb245-143"><a href="mod-tidy-intro.html#cb245-143" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 126    73     183  2.8   93     9   3</span></span>
-<span id="cb245-144"><a href="mod-tidy-intro.html#cb245-144" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 127    91     189  4.6   93     9   4</span></span>
-<span id="cb245-145"><a href="mod-tidy-intro.html#cb245-145" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 128    47      95  7.4   87     9   5</span></span>
-<span id="cb245-146"><a href="mod-tidy-intro.html#cb245-146" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 129    32      92 15.5   84     9   6</span></span>
-<span id="cb245-147"><a href="mod-tidy-intro.html#cb245-147" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 130    20     252 10.9   80     9   7</span></span>
-<span id="cb245-148"><a href="mod-tidy-intro.html#cb245-148" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 131    23     220 10.3   78     9   8</span></span>
-<span id="cb245-149"><a href="mod-tidy-intro.html#cb245-149" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 132    21     230 10.9   75     9   9</span></span>
-<span id="cb245-150"><a href="mod-tidy-intro.html#cb245-150" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 133    24     259  9.7   73     9  10</span></span>
-<span id="cb245-151"><a href="mod-tidy-intro.html#cb245-151" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 134    44     236 14.9   81     9  11</span></span>
-<span id="cb245-152"><a href="mod-tidy-intro.html#cb245-152" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 135    21     259 15.5   76     9  12</span></span>
-<span id="cb245-153"><a href="mod-tidy-intro.html#cb245-153" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 136    28     238  6.3   77     9  13</span></span>
-<span id="cb245-154"><a href="mod-tidy-intro.html#cb245-154" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 137     9      24 10.9   71     9  14</span></span>
-<span id="cb245-155"><a href="mod-tidy-intro.html#cb245-155" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 138    13     112 11.5   71     9  15</span></span>
-<span id="cb245-156"><a href="mod-tidy-intro.html#cb245-156" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 139    46     237  6.9   78     9  16</span></span>
-<span id="cb245-157"><a href="mod-tidy-intro.html#cb245-157" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 140    18     224 13.8   67     9  17</span></span>
-<span id="cb245-158"><a href="mod-tidy-intro.html#cb245-158" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 141    13      27 10.3   76     9  18</span></span>
-<span id="cb245-159"><a href="mod-tidy-intro.html#cb245-159" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 142    24     238 10.3   68     9  19</span></span>
-<span id="cb245-160"><a href="mod-tidy-intro.html#cb245-160" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 143    16     201  8.0   82     9  20</span></span>
-<span id="cb245-161"><a href="mod-tidy-intro.html#cb245-161" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 144    13     238 12.6   64     9  21</span></span>
-<span id="cb245-162"><a href="mod-tidy-intro.html#cb245-162" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 145    23      14  9.2   71     9  22</span></span>
-<span id="cb245-163"><a href="mod-tidy-intro.html#cb245-163" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 146    36     139 10.3   81     9  23</span></span>
-<span id="cb245-164"><a href="mod-tidy-intro.html#cb245-164" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 147     7      49 10.3   69     9  24</span></span>
-<span id="cb245-165"><a href="mod-tidy-intro.html#cb245-165" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 148    14      20 16.6   63     9  25</span></span>
-<span id="cb245-166"><a href="mod-tidy-intro.html#cb245-166" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 149    30     193  6.9   70     9  26</span></span>
-<span id="cb245-167"><a href="mod-tidy-intro.html#cb245-167" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 150    NA     145 13.2   77     9  27</span></span>
-<span id="cb245-168"><a href="mod-tidy-intro.html#cb245-168" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 151    14     191 14.3   75     9  28</span></span>
-<span id="cb245-169"><a href="mod-tidy-intro.html#cb245-169" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 152    18     131  8.0   76     9  29</span></span>
-<span id="cb245-170"><a href="mod-tidy-intro.html#cb245-170" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 153    20     223 11.5   68     9  30</span></span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="mod-tidy-intro.html#cb247-1" aria-hidden="true" tabindex="-1"></a>airquality <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb247-2"><a href="mod-tidy-intro.html#cb247-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 153 × 6</span></span>
+<span id="cb247-3"><a href="mod-tidy-intro.html#cb247-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Ozone Solar.R  Wind  Temp Month   Day</span></span>
+<span id="cb247-4"><a href="mod-tidy-intro.html#cb247-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt;   &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb247-5"><a href="mod-tidy-intro.html#cb247-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1    41     190   7.4    67     5     1</span></span>
+<span id="cb247-6"><a href="mod-tidy-intro.html#cb247-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2    36     118   8      72     5     2</span></span>
+<span id="cb247-7"><a href="mod-tidy-intro.html#cb247-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3    12     149  12.6    74     5     3</span></span>
+<span id="cb247-8"><a href="mod-tidy-intro.html#cb247-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4    18     313  11.5    62     5     4</span></span>
+<span id="cb247-9"><a href="mod-tidy-intro.html#cb247-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5    NA      NA  14.3    56     5     5</span></span>
+<span id="cb247-10"><a href="mod-tidy-intro.html#cb247-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6    28      NA  14.9    66     5     6</span></span>
+<span id="cb247-11"><a href="mod-tidy-intro.html#cb247-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7    23     299   8.6    65     5     7</span></span>
+<span id="cb247-12"><a href="mod-tidy-intro.html#cb247-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8    19      99  13.8    59     5     8</span></span>
+<span id="cb247-13"><a href="mod-tidy-intro.html#cb247-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9     8      19  20.1    61     5     9</span></span>
+<span id="cb247-14"><a href="mod-tidy-intro.html#cb247-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    NA     194   8.6    69     5    10</span></span>
+<span id="cb247-15"><a href="mod-tidy-intro.html#cb247-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 143 more rows</span></span>
+<span id="cb247-16"><a href="mod-tidy-intro.html#cb247-16" aria-hidden="true" tabindex="-1"></a>airquality</span>
+<span id="cb247-17"><a href="mod-tidy-intro.html#cb247-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Ozone Solar.R Wind Temp Month Day</span></span>
+<span id="cb247-18"><a href="mod-tidy-intro.html#cb247-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      41     190  7.4   67     5   1</span></span>
+<span id="cb247-19"><a href="mod-tidy-intro.html#cb247-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      36     118  8.0   72     5   2</span></span>
+<span id="cb247-20"><a href="mod-tidy-intro.html#cb247-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      12     149 12.6   74     5   3</span></span>
+<span id="cb247-21"><a href="mod-tidy-intro.html#cb247-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      18     313 11.5   62     5   4</span></span>
+<span id="cb247-22"><a href="mod-tidy-intro.html#cb247-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      NA      NA 14.3   56     5   5</span></span>
+<span id="cb247-23"><a href="mod-tidy-intro.html#cb247-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      28      NA 14.9   66     5   6</span></span>
+<span id="cb247-24"><a href="mod-tidy-intro.html#cb247-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      23     299  8.6   65     5   7</span></span>
+<span id="cb247-25"><a href="mod-tidy-intro.html#cb247-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8      19      99 13.8   59     5   8</span></span>
+<span id="cb247-26"><a href="mod-tidy-intro.html#cb247-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9       8      19 20.1   61     5   9</span></span>
+<span id="cb247-27"><a href="mod-tidy-intro.html#cb247-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10     NA     194  8.6   69     5  10</span></span>
+<span id="cb247-28"><a href="mod-tidy-intro.html#cb247-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11      7      NA  6.9   74     5  11</span></span>
+<span id="cb247-29"><a href="mod-tidy-intro.html#cb247-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12     16     256  9.7   69     5  12</span></span>
+<span id="cb247-30"><a href="mod-tidy-intro.html#cb247-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13     11     290  9.2   66     5  13</span></span>
+<span id="cb247-31"><a href="mod-tidy-intro.html#cb247-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14     14     274 10.9   68     5  14</span></span>
+<span id="cb247-32"><a href="mod-tidy-intro.html#cb247-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15     18      65 13.2   58     5  15</span></span>
+<span id="cb247-33"><a href="mod-tidy-intro.html#cb247-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16     14     334 11.5   64     5  16</span></span>
+<span id="cb247-34"><a href="mod-tidy-intro.html#cb247-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17     34     307 12.0   66     5  17</span></span>
+<span id="cb247-35"><a href="mod-tidy-intro.html#cb247-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18      6      78 18.4   57     5  18</span></span>
+<span id="cb247-36"><a href="mod-tidy-intro.html#cb247-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19     30     322 11.5   68     5  19</span></span>
+<span id="cb247-37"><a href="mod-tidy-intro.html#cb247-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20     11      44  9.7   62     5  20</span></span>
+<span id="cb247-38"><a href="mod-tidy-intro.html#cb247-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 21      1       8  9.7   59     5  21</span></span>
+<span id="cb247-39"><a href="mod-tidy-intro.html#cb247-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 22     11     320 16.6   73     5  22</span></span>
+<span id="cb247-40"><a href="mod-tidy-intro.html#cb247-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 23      4      25  9.7   61     5  23</span></span>
+<span id="cb247-41"><a href="mod-tidy-intro.html#cb247-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 24     32      92 12.0   61     5  24</span></span>
+<span id="cb247-42"><a href="mod-tidy-intro.html#cb247-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 25     NA      66 16.6   57     5  25</span></span>
+<span id="cb247-43"><a href="mod-tidy-intro.html#cb247-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 26     NA     266 14.9   58     5  26</span></span>
+<span id="cb247-44"><a href="mod-tidy-intro.html#cb247-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 27     NA      NA  8.0   57     5  27</span></span>
+<span id="cb247-45"><a href="mod-tidy-intro.html#cb247-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 28     23      13 12.0   67     5  28</span></span>
+<span id="cb247-46"><a href="mod-tidy-intro.html#cb247-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 29     45     252 14.9   81     5  29</span></span>
+<span id="cb247-47"><a href="mod-tidy-intro.html#cb247-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 30    115     223  5.7   79     5  30</span></span>
+<span id="cb247-48"><a href="mod-tidy-intro.html#cb247-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 31     37     279  7.4   76     5  31</span></span>
+<span id="cb247-49"><a href="mod-tidy-intro.html#cb247-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 32     NA     286  8.6   78     6   1</span></span>
+<span id="cb247-50"><a href="mod-tidy-intro.html#cb247-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 33     NA     287  9.7   74     6   2</span></span>
+<span id="cb247-51"><a href="mod-tidy-intro.html#cb247-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 34     NA     242 16.1   67     6   3</span></span>
+<span id="cb247-52"><a href="mod-tidy-intro.html#cb247-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 35     NA     186  9.2   84     6   4</span></span>
+<span id="cb247-53"><a href="mod-tidy-intro.html#cb247-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 36     NA     220  8.6   85     6   5</span></span>
+<span id="cb247-54"><a href="mod-tidy-intro.html#cb247-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 37     NA     264 14.3   79     6   6</span></span>
+<span id="cb247-55"><a href="mod-tidy-intro.html#cb247-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 38     29     127  9.7   82     6   7</span></span>
+<span id="cb247-56"><a href="mod-tidy-intro.html#cb247-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 39     NA     273  6.9   87     6   8</span></span>
+<span id="cb247-57"><a href="mod-tidy-intro.html#cb247-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 40     71     291 13.8   90     6   9</span></span>
+<span id="cb247-58"><a href="mod-tidy-intro.html#cb247-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 41     39     323 11.5   87     6  10</span></span>
+<span id="cb247-59"><a href="mod-tidy-intro.html#cb247-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 42     NA     259 10.9   93     6  11</span></span>
+<span id="cb247-60"><a href="mod-tidy-intro.html#cb247-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 43     NA     250  9.2   92     6  12</span></span>
+<span id="cb247-61"><a href="mod-tidy-intro.html#cb247-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 44     23     148  8.0   82     6  13</span></span>
+<span id="cb247-62"><a href="mod-tidy-intro.html#cb247-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 45     NA     332 13.8   80     6  14</span></span>
+<span id="cb247-63"><a href="mod-tidy-intro.html#cb247-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 46     NA     322 11.5   79     6  15</span></span>
+<span id="cb247-64"><a href="mod-tidy-intro.html#cb247-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 47     21     191 14.9   77     6  16</span></span>
+<span id="cb247-65"><a href="mod-tidy-intro.html#cb247-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 48     37     284 20.7   72     6  17</span></span>
+<span id="cb247-66"><a href="mod-tidy-intro.html#cb247-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 49     20      37  9.2   65     6  18</span></span>
+<span id="cb247-67"><a href="mod-tidy-intro.html#cb247-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 50     12     120 11.5   73     6  19</span></span>
+<span id="cb247-68"><a href="mod-tidy-intro.html#cb247-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 51     13     137 10.3   76     6  20</span></span>
+<span id="cb247-69"><a href="mod-tidy-intro.html#cb247-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 52     NA     150  6.3   77     6  21</span></span>
+<span id="cb247-70"><a href="mod-tidy-intro.html#cb247-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 53     NA      59  1.7   76     6  22</span></span>
+<span id="cb247-71"><a href="mod-tidy-intro.html#cb247-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 54     NA      91  4.6   76     6  23</span></span>
+<span id="cb247-72"><a href="mod-tidy-intro.html#cb247-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 55     NA     250  6.3   76     6  24</span></span>
+<span id="cb247-73"><a href="mod-tidy-intro.html#cb247-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 56     NA     135  8.0   75     6  25</span></span>
+<span id="cb247-74"><a href="mod-tidy-intro.html#cb247-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 57     NA     127  8.0   78     6  26</span></span>
+<span id="cb247-75"><a href="mod-tidy-intro.html#cb247-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 58     NA      47 10.3   73     6  27</span></span>
+<span id="cb247-76"><a href="mod-tidy-intro.html#cb247-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 59     NA      98 11.5   80     6  28</span></span>
+<span id="cb247-77"><a href="mod-tidy-intro.html#cb247-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 60     NA      31 14.9   77     6  29</span></span>
+<span id="cb247-78"><a href="mod-tidy-intro.html#cb247-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 61     NA     138  8.0   83     6  30</span></span>
+<span id="cb247-79"><a href="mod-tidy-intro.html#cb247-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 62    135     269  4.1   84     7   1</span></span>
+<span id="cb247-80"><a href="mod-tidy-intro.html#cb247-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 63     49     248  9.2   85     7   2</span></span>
+<span id="cb247-81"><a href="mod-tidy-intro.html#cb247-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 64     32     236  9.2   81     7   3</span></span>
+<span id="cb247-82"><a href="mod-tidy-intro.html#cb247-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 65     NA     101 10.9   84     7   4</span></span>
+<span id="cb247-83"><a href="mod-tidy-intro.html#cb247-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 66     64     175  4.6   83     7   5</span></span>
+<span id="cb247-84"><a href="mod-tidy-intro.html#cb247-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 67     40     314 10.9   83     7   6</span></span>
+<span id="cb247-85"><a href="mod-tidy-intro.html#cb247-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 68     77     276  5.1   88     7   7</span></span>
+<span id="cb247-86"><a href="mod-tidy-intro.html#cb247-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 69     97     267  6.3   92     7   8</span></span>
+<span id="cb247-87"><a href="mod-tidy-intro.html#cb247-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 70     97     272  5.7   92     7   9</span></span>
+<span id="cb247-88"><a href="mod-tidy-intro.html#cb247-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 71     85     175  7.4   89     7  10</span></span>
+<span id="cb247-89"><a href="mod-tidy-intro.html#cb247-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 72     NA     139  8.6   82     7  11</span></span>
+<span id="cb247-90"><a href="mod-tidy-intro.html#cb247-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 73     10     264 14.3   73     7  12</span></span>
+<span id="cb247-91"><a href="mod-tidy-intro.html#cb247-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 74     27     175 14.9   81     7  13</span></span>
+<span id="cb247-92"><a href="mod-tidy-intro.html#cb247-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 75     NA     291 14.9   91     7  14</span></span>
+<span id="cb247-93"><a href="mod-tidy-intro.html#cb247-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 76      7      48 14.3   80     7  15</span></span>
+<span id="cb247-94"><a href="mod-tidy-intro.html#cb247-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 77     48     260  6.9   81     7  16</span></span>
+<span id="cb247-95"><a href="mod-tidy-intro.html#cb247-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 78     35     274 10.3   82     7  17</span></span>
+<span id="cb247-96"><a href="mod-tidy-intro.html#cb247-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 79     61     285  6.3   84     7  18</span></span>
+<span id="cb247-97"><a href="mod-tidy-intro.html#cb247-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 80     79     187  5.1   87     7  19</span></span>
+<span id="cb247-98"><a href="mod-tidy-intro.html#cb247-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 81     63     220 11.5   85     7  20</span></span>
+<span id="cb247-99"><a href="mod-tidy-intro.html#cb247-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 82     16       7  6.9   74     7  21</span></span>
+<span id="cb247-100"><a href="mod-tidy-intro.html#cb247-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 83     NA     258  9.7   81     7  22</span></span>
+<span id="cb247-101"><a href="mod-tidy-intro.html#cb247-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 84     NA     295 11.5   82     7  23</span></span>
+<span id="cb247-102"><a href="mod-tidy-intro.html#cb247-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 85     80     294  8.6   86     7  24</span></span>
+<span id="cb247-103"><a href="mod-tidy-intro.html#cb247-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 86    108     223  8.0   85     7  25</span></span>
+<span id="cb247-104"><a href="mod-tidy-intro.html#cb247-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 87     20      81  8.6   82     7  26</span></span>
+<span id="cb247-105"><a href="mod-tidy-intro.html#cb247-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 88     52      82 12.0   86     7  27</span></span>
+<span id="cb247-106"><a href="mod-tidy-intro.html#cb247-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 89     82     213  7.4   88     7  28</span></span>
+<span id="cb247-107"><a href="mod-tidy-intro.html#cb247-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 90     50     275  7.4   86     7  29</span></span>
+<span id="cb247-108"><a href="mod-tidy-intro.html#cb247-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 91     64     253  7.4   83     7  30</span></span>
+<span id="cb247-109"><a href="mod-tidy-intro.html#cb247-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 92     59     254  9.2   81     7  31</span></span>
+<span id="cb247-110"><a href="mod-tidy-intro.html#cb247-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 93     39      83  6.9   81     8   1</span></span>
+<span id="cb247-111"><a href="mod-tidy-intro.html#cb247-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 94      9      24 13.8   81     8   2</span></span>
+<span id="cb247-112"><a href="mod-tidy-intro.html#cb247-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95     16      77  7.4   82     8   3</span></span>
+<span id="cb247-113"><a href="mod-tidy-intro.html#cb247-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 96     78      NA  6.9   86     8   4</span></span>
+<span id="cb247-114"><a href="mod-tidy-intro.html#cb247-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 97     35      NA  7.4   85     8   5</span></span>
+<span id="cb247-115"><a href="mod-tidy-intro.html#cb247-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 98     66      NA  4.6   87     8   6</span></span>
+<span id="cb247-116"><a href="mod-tidy-intro.html#cb247-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 99    122     255  4.0   89     8   7</span></span>
+<span id="cb247-117"><a href="mod-tidy-intro.html#cb247-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100    89     229 10.3   90     8   8</span></span>
+<span id="cb247-118"><a href="mod-tidy-intro.html#cb247-118" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 101   110     207  8.0   90     8   9</span></span>
+<span id="cb247-119"><a href="mod-tidy-intro.html#cb247-119" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 102    NA     222  8.6   92     8  10</span></span>
+<span id="cb247-120"><a href="mod-tidy-intro.html#cb247-120" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 103    NA     137 11.5   86     8  11</span></span>
+<span id="cb247-121"><a href="mod-tidy-intro.html#cb247-121" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 104    44     192 11.5   86     8  12</span></span>
+<span id="cb247-122"><a href="mod-tidy-intro.html#cb247-122" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 105    28     273 11.5   82     8  13</span></span>
+<span id="cb247-123"><a href="mod-tidy-intro.html#cb247-123" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 106    65     157  9.7   80     8  14</span></span>
+<span id="cb247-124"><a href="mod-tidy-intro.html#cb247-124" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 107    NA      64 11.5   79     8  15</span></span>
+<span id="cb247-125"><a href="mod-tidy-intro.html#cb247-125" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 108    22      71 10.3   77     8  16</span></span>
+<span id="cb247-126"><a href="mod-tidy-intro.html#cb247-126" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 109    59      51  6.3   79     8  17</span></span>
+<span id="cb247-127"><a href="mod-tidy-intro.html#cb247-127" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 110    23     115  7.4   76     8  18</span></span>
+<span id="cb247-128"><a href="mod-tidy-intro.html#cb247-128" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 111    31     244 10.9   78     8  19</span></span>
+<span id="cb247-129"><a href="mod-tidy-intro.html#cb247-129" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 112    44     190 10.3   78     8  20</span></span>
+<span id="cb247-130"><a href="mod-tidy-intro.html#cb247-130" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 113    21     259 15.5   77     8  21</span></span>
+<span id="cb247-131"><a href="mod-tidy-intro.html#cb247-131" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 114     9      36 14.3   72     8  22</span></span>
+<span id="cb247-132"><a href="mod-tidy-intro.html#cb247-132" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 115    NA     255 12.6   75     8  23</span></span>
+<span id="cb247-133"><a href="mod-tidy-intro.html#cb247-133" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 116    45     212  9.7   79     8  24</span></span>
+<span id="cb247-134"><a href="mod-tidy-intro.html#cb247-134" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 117   168     238  3.4   81     8  25</span></span>
+<span id="cb247-135"><a href="mod-tidy-intro.html#cb247-135" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 118    73     215  8.0   86     8  26</span></span>
+<span id="cb247-136"><a href="mod-tidy-intro.html#cb247-136" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 119    NA     153  5.7   88     8  27</span></span>
+<span id="cb247-137"><a href="mod-tidy-intro.html#cb247-137" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 120    76     203  9.7   97     8  28</span></span>
+<span id="cb247-138"><a href="mod-tidy-intro.html#cb247-138" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 121   118     225  2.3   94     8  29</span></span>
+<span id="cb247-139"><a href="mod-tidy-intro.html#cb247-139" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 122    84     237  6.3   96     8  30</span></span>
+<span id="cb247-140"><a href="mod-tidy-intro.html#cb247-140" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 123    85     188  6.3   94     8  31</span></span>
+<span id="cb247-141"><a href="mod-tidy-intro.html#cb247-141" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 124    96     167  6.9   91     9   1</span></span>
+<span id="cb247-142"><a href="mod-tidy-intro.html#cb247-142" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 125    78     197  5.1   92     9   2</span></span>
+<span id="cb247-143"><a href="mod-tidy-intro.html#cb247-143" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 126    73     183  2.8   93     9   3</span></span>
+<span id="cb247-144"><a href="mod-tidy-intro.html#cb247-144" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 127    91     189  4.6   93     9   4</span></span>
+<span id="cb247-145"><a href="mod-tidy-intro.html#cb247-145" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 128    47      95  7.4   87     9   5</span></span>
+<span id="cb247-146"><a href="mod-tidy-intro.html#cb247-146" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 129    32      92 15.5   84     9   6</span></span>
+<span id="cb247-147"><a href="mod-tidy-intro.html#cb247-147" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 130    20     252 10.9   80     9   7</span></span>
+<span id="cb247-148"><a href="mod-tidy-intro.html#cb247-148" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 131    23     220 10.3   78     9   8</span></span>
+<span id="cb247-149"><a href="mod-tidy-intro.html#cb247-149" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 132    21     230 10.9   75     9   9</span></span>
+<span id="cb247-150"><a href="mod-tidy-intro.html#cb247-150" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 133    24     259  9.7   73     9  10</span></span>
+<span id="cb247-151"><a href="mod-tidy-intro.html#cb247-151" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 134    44     236 14.9   81     9  11</span></span>
+<span id="cb247-152"><a href="mod-tidy-intro.html#cb247-152" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 135    21     259 15.5   76     9  12</span></span>
+<span id="cb247-153"><a href="mod-tidy-intro.html#cb247-153" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 136    28     238  6.3   77     9  13</span></span>
+<span id="cb247-154"><a href="mod-tidy-intro.html#cb247-154" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 137     9      24 10.9   71     9  14</span></span>
+<span id="cb247-155"><a href="mod-tidy-intro.html#cb247-155" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 138    13     112 11.5   71     9  15</span></span>
+<span id="cb247-156"><a href="mod-tidy-intro.html#cb247-156" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 139    46     237  6.9   78     9  16</span></span>
+<span id="cb247-157"><a href="mod-tidy-intro.html#cb247-157" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 140    18     224 13.8   67     9  17</span></span>
+<span id="cb247-158"><a href="mod-tidy-intro.html#cb247-158" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 141    13      27 10.3   76     9  18</span></span>
+<span id="cb247-159"><a href="mod-tidy-intro.html#cb247-159" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 142    24     238 10.3   68     9  19</span></span>
+<span id="cb247-160"><a href="mod-tidy-intro.html#cb247-160" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 143    16     201  8.0   82     9  20</span></span>
+<span id="cb247-161"><a href="mod-tidy-intro.html#cb247-161" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 144    13     238 12.6   64     9  21</span></span>
+<span id="cb247-162"><a href="mod-tidy-intro.html#cb247-162" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 145    23      14  9.2   71     9  22</span></span>
+<span id="cb247-163"><a href="mod-tidy-intro.html#cb247-163" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 146    36     139 10.3   81     9  23</span></span>
+<span id="cb247-164"><a href="mod-tidy-intro.html#cb247-164" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 147     7      49 10.3   69     9  24</span></span>
+<span id="cb247-165"><a href="mod-tidy-intro.html#cb247-165" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 148    14      20 16.6   63     9  25</span></span>
+<span id="cb247-166"><a href="mod-tidy-intro.html#cb247-166" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 149    30     193  6.9   70     9  26</span></span>
+<span id="cb247-167"><a href="mod-tidy-intro.html#cb247-167" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 150    NA     145 13.2   77     9  27</span></span>
+<span id="cb247-168"><a href="mod-tidy-intro.html#cb247-168" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 151    14     191 14.3   75     9  28</span></span>
+<span id="cb247-169"><a href="mod-tidy-intro.html#cb247-169" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 152    18     131  8.0   76     9  29</span></span>
+<span id="cb247-170"><a href="mod-tidy-intro.html#cb247-170" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 153    20     223 11.5   68     9  30</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1025,24 +1026,24 @@ Solution
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="mod-tidy-intro.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="co"># here misc is a list with lists</span></span>
-<span id="cb246-2"><a href="mod-tidy-intro.html#cb246-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Hans&quot;</span>, <span class="st">&quot;Ole&quot;</span>), </span>
-<span id="cb246-3"><a href="mod-tidy-intro.html#cb246-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">45</span>), </span>
-<span id="cb246-4"><a href="mod-tidy-intro.html#cb246-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">misc =</span> <span class="fu">list</span>(</span>
-<span id="cb246-5"><a href="mod-tidy-intro.html#cb246-5" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">list</span>(<span class="at">status =</span> <span class="dv">1</span>, <span class="at">comment =</span> <span class="st">&quot;To young&quot;</span>), </span>
-<span id="cb246-6"><a href="mod-tidy-intro.html#cb246-6" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">list</span>(<span class="at">comment =</span> <span class="st">&quot;Potential candidate&quot;</span>)))</span>
-<span id="cb246-7"><a href="mod-tidy-intro.html#cb246-7" aria-hidden="true" tabindex="-1"></a>dat</span>
-<span id="cb246-8"><a href="mod-tidy-intro.html#cb246-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
-<span id="cb246-9"><a href="mod-tidy-intro.html#cb246-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   name    age misc            </span></span>
-<span id="cb246-10"><a href="mod-tidy-intro.html#cb246-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;list&gt;          </span></span>
-<span id="cb246-11"><a href="mod-tidy-intro.html#cb246-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Hans     23 &lt;named list [2]&gt;</span></span>
-<span id="cb246-12"><a href="mod-tidy-intro.html#cb246-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Ole      45 &lt;named list [1]&gt;</span></span>
-<span id="cb246-13"><a href="mod-tidy-intro.html#cb246-13" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>misc[[<span class="dv">1</span>]]</span>
-<span id="cb246-14"><a href="mod-tidy-intro.html#cb246-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $status</span></span>
-<span id="cb246-15"><a href="mod-tidy-intro.html#cb246-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
-<span id="cb246-16"><a href="mod-tidy-intro.html#cb246-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb246-17"><a href="mod-tidy-intro.html#cb246-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $comment</span></span>
-<span id="cb246-18"><a href="mod-tidy-intro.html#cb246-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;To young&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="mod-tidy-intro.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="co"># here misc is a list with lists</span></span>
+<span id="cb248-2"><a href="mod-tidy-intro.html#cb248-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Hans&quot;</span>, <span class="st">&quot;Ole&quot;</span>), </span>
+<span id="cb248-3"><a href="mod-tidy-intro.html#cb248-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">45</span>), </span>
+<span id="cb248-4"><a href="mod-tidy-intro.html#cb248-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">misc =</span> <span class="fu">list</span>(</span>
+<span id="cb248-5"><a href="mod-tidy-intro.html#cb248-5" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">list</span>(<span class="at">status =</span> <span class="dv">1</span>, <span class="at">comment =</span> <span class="st">&quot;To young&quot;</span>), </span>
+<span id="cb248-6"><a href="mod-tidy-intro.html#cb248-6" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">list</span>(<span class="at">comment =</span> <span class="st">&quot;Potential candidate&quot;</span>)))</span>
+<span id="cb248-7"><a href="mod-tidy-intro.html#cb248-7" aria-hidden="true" tabindex="-1"></a>dat</span>
+<span id="cb248-8"><a href="mod-tidy-intro.html#cb248-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span id="cb248-9"><a href="mod-tidy-intro.html#cb248-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   name    age misc            </span></span>
+<span id="cb248-10"><a href="mod-tidy-intro.html#cb248-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;list&gt;          </span></span>
+<span id="cb248-11"><a href="mod-tidy-intro.html#cb248-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Hans     23 &lt;named list [2]&gt;</span></span>
+<span id="cb248-12"><a href="mod-tidy-intro.html#cb248-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Ole      45 &lt;named list [1]&gt;</span></span>
+<span id="cb248-13"><a href="mod-tidy-intro.html#cb248-13" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>misc[[<span class="dv">1</span>]]</span>
+<span id="cb248-14"><a href="mod-tidy-intro.html#cb248-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $status</span></span>
+<span id="cb248-15"><a href="mod-tidy-intro.html#cb248-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
+<span id="cb248-16"><a href="mod-tidy-intro.html#cb248-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb248-17"><a href="mod-tidy-intro.html#cb248-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $comment</span></span>
+<span id="cb248-18"><a href="mod-tidy-intro.html#cb248-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;To young&quot;</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
