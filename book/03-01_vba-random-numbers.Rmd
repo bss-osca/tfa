@@ -54,6 +54,32 @@ Given an uncertain system we simulate the system by constructing a deterministic
 Read Sections 18.2 of Chapter 18 in @vba-book. 
 
 
+## Recap
+
+- Often we want to model a system where some of the elements are uncertain. To simulate the system we want to generate some random numbers following different distributions. This can be done using the built-in VBA and Excel functions.
+- Initialize generation of random numbers using 
+  ```
+  Randomize()     ' chooses a random seed 
+  ```
+  Or
+  ```
+  Randomize(100)     ' generate the same random numbers
+  ```
+  We normally use the first option.
+- When generating random numbers in VBA and writing them to the worksheet, they will NOT be changed when the worksheet is updated! Only when the code is executed!
+- Examples on some distributions are
+   - Uniform between 0 and 1: `Rnd()`
+   - Uniform between i and j:  `i + (j - i) * Rnd`
+   - Normal distribution: `WorksheetFunction.NormInv(Rnd, dblMean, dblSD)`
+   - Binomial distribution: `WorksheetFunction.Binom_Inv(intTrials, dblPr, Rnd)`
+- Given an uncertain system we simulate the system by constructing a 
+   - Deterministic model (that is we assume the random numbers have some specific values) and algorithms for solving it. 
+   - Generate random numbers and used to solve the model and store the results. 
+   - Repeat a number of times and calculate statistics such as min, mean and standard deviation.
+
+You may also have a look at the [slides for this module](https://bss-osca.github.io/tfa/slides/03-0a_vba-random-numbers-model-slides.html).
+
+
 ## Exercises {#ex-vba-random-numbers}
 
 `r strExercises`
@@ -91,11 +117,11 @@ The goal with this exercise is to test different heuristics on a set of problem 
    (1) Create a procedure `GenTSPData` satisfying:
        - Arguments are `ByRef dblCoord() As Double, Optional intCities As Integer = 0, Optional blnPrint As Boolean = False`.
        - Each city has an id number and a  x and y-coordinate.
-       - The generated cities are stored in `dblCoord` with `intCities` rows and three columns (column 1 store the city id, column 2 the x-coordinate and column 3 the y-coordinate) 
+       - The generated cities are stored in array `dblCoord` with `intCities` rows and three columns (column 1 store the city id, column 2 the x-coordinate and column 3 the y-coordinate) 
        - The x and y-coordinates are random numbers from an uniform distribution between 0 and 10. 
        - If `blnPrint` is true then coordinates are printed to the main sheet starting in cell A2. 
        - If `intCities` is zero then use an input box to ask for the number of cities.  
-   (2) Create a procedure `BtnGenTSPData` that calls `GenTSPData`, ask for the number of cities and print the result to cell A2. A button linking to the procedure has already been created. 
+   (2) Create a procedure `BtnGenTSPData` that calls `GenTSPData`, ask for the number of cities and print the result to cell A2. A button linking to the procedure has already been created in the template file. 
    (3) Create a procedure `CalcDistArray` satisfying:
        - Arguments are `ByRef dblDist() As Double, dblCoord() As Double` where `dblCoord` are the coordinates found using `GenTSPData`.
        - The distance between two cities are stored in `dblDist`, i.e. `dblDist(i, j)` store the distance between city `i` and `j`.
