@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Tools for Analytics (TFA)</title>
+  <title>Module 11 Install R and RStudio | Tools for Analytics (TFA)</title>
   <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Tools for Analytics (TFA)" />
+  <meta property="og:title" content="Module 11 Install R and RStudio | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://bss-osca.github.io/tfa/" />
   <meta property="og:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="bss-osca/tfa" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Tools for Analytics (TFA)" />
+  <meta name="twitter:title" content="Module 11 Install R and RStudio | Tools for Analytics (TFA)" />
   
   <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course" />
   <meta name="twitter:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
-
-
+<link rel="prev" href="vba-project.html"/>
+<link rel="next" href="mod-r-basics.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -526,19 +526,107 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="mod-r-install" class="section level1" number="11">
+<h1><span class="header-section-number">Module 11</span> Install R and RStudio</h1>
+<!-- 
+Content from: https://stat545.com/block000_r-rstudio-install.html
+-->
+<div id="lo-r-install" class="section level2" number="11.1">
+<h2><span class="header-section-number">11.1</span> Learning outcomes</h2>
+<p>By the end of this module, you are expected to have:</p>
+<ul>
+<li>Installed R.</li>
+<li>Installed RStudio.
+<!-- * Installed Git. --></li>
+<li>Tested R and RStudio. <!--  and Git. --></li>
+<li>Installed some packages.</li>
+</ul>
+<p>The learning outcomes relate to the <a href="lg-course.html#lg-course">overall learning goal</a> number 5 of the course.</p>
+</div>
+<div id="install-r" class="section level2" number="11.2">
+<h2><span class="header-section-number">11.2</span> Install R and RStudio</h2>
+<p><a href="https://www.r-project.org">R</a> is a programming language and free software environment. The R language is widely used among statisticians and data miners for developing statistical software and data analysis. For a further overview and description of the history of R see <a href="https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html">Chapter 2</a> in <span class="citation">Peng (<a href="#ref-rdpeng" role="doc-biblioref">2018</a>)</span>. To run R you need to install it on your computer. Moreover, you need the IDE (integrated development environment) <a href="https://rstudio.com">RStudio</a> to save your work.</p>
+<div class="boxTask">
+<p><i class="fa-pull-right fa-5x iconStyle1 fas fa-tasks"></i></p>
+<ul>
+<li>Install R from <a href="https://cloud.r-project.org">CRAN</a> (Comprehensive R Archive Network). Install the latest precompiled binary distribution for your operating system (use the links up at the top of the CRAN page).</li>
+<li>Install the desktop version of <a href="https://rstudio.com/products/rstudio/download/#download">RStudio</a>, a powerful user interface for R.
+<!-- * Install the latest version of [Git][git-install]. If you have problems, see [here][hg-install-git]. --></li>
+<li>Under Windows it is a good idea to always open R with administrator rights:
+<ul>
+<li><p>Add a shortcut for RStudio (e.g. to the taskbar or desktop).</p></li>
+<li><p>Ctrl+Shift+Right-Click the shortcut and choose <strong>Properties</strong>:</p>
+<div class="figure">
+<img src="img/win_admin1.PNG" alt="" />
+<p class="caption">Choose Properties</p>
+</div></li>
+<li><p>Under <strong>Shortcut</strong> click <strong>Advanced</strong> and set <strong>Run as administrator</strong></p>
+<p><img src="img/win_admin3.PNG" /></p>
+<p>You now always can open RStudio with this shortcut.</p></li>
+</ul></li>
+</ul>
+</div>
+<p>If you have a pre-existing installation of R and/or RStudio, reinstall both to the latest versions. It can be considerably harder to run old software than new. To update your R version you may use the <a href="https://www.r-project.org/nosvn/pandoc/installr.html">intallr</a> package.</p>
+</div>
+<div id="test-your-installation" class="section level2" number="11.3">
+<h2><span class="header-section-number">11.3</span> Test your installation</h2>
+<div class="boxTask">
+<p><i class="fa-pull-right fa-5x iconStyle1 fas fa-tasks"></i></p>
+<ul>
+<li><p>Do whatever is appropriate for your OS to launch RStudio. You should get a window similar to the screenshot you have <a href="https://www.rstudio.com/wp-content/uploads/2014/04/rstudio-workbench.png">here</a>, but yours will be more boring because you have not written any code or made any figures yet.</p></li>
+<li><p>Put your cursor in the pane labeled Console, which is where you interact with the live R process. Create a simple object using code like <code>x &lt;- 2 * 4</code> (followed by enter or return). Then inspect the <code>x</code> object by typing <code>x</code> followed by enter or return. You should see the value 8 print to screen. If yes, you have succeeded in installing R and RStudio.</p></li>
+<li><p>Try to open a new file <strong>File &gt; New File &gt; New RMarkdown…</strong>. Use the defaults and press <strong>OK</strong>. Next save the file and compile it using <strong>Knit</strong> (Ctrl+Shift+K). You have now compiled a document with R code inside of it.</p></li>
+</ul>
+</div>
+</div>
+<div id="add-on-packages" class="section level2" number="11.4">
+<h2><span class="header-section-number">11.4</span> Add-on packages</h2>
+<p>R is an extensible system and many people share useful codes they have developed as a <em>package</em> via CRAN and GitHub. To install a package from CRAN, for example the <a href="https://CRAN.R-project.org/package=dplyr">dplyr</a> package for data manipulation, one way to do it is in the R console.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="mod-r-install.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>By including <code>dependencies = TRUE</code>, we are being explicit and extra careful to install any additional packages the target package, <code>dplyr</code> in the example above is dependent on.</p>
+<div class="boxTask">
+<p><i class="fa-pull-right fa-5x iconStyle1 fas fa-tasks"></i></p>
+<ul>
+<li>Install the package <a href="https://www.tidyverse.org">tidyverse</a> which is in fact a bundle of packages by running (note this operation may take a long time):</li>
+</ul>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="mod-r-install.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<ul>
+<li>Check if you have successfully installed tidyverse by loading the package:</li>
+</ul>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="mod-r-install.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<ul>
+<li>If your install was unsuccessful try to install the packages who fails one by one.</li>
+</ul>
+</div>
+<p>You may also see this short <a href="https://vimeo.com/416743698">video</a> explaining what packages are.</p>
+</div>
+<div id="lp-r-install" class="section level2" number="11.5">
+<h2><span class="header-section-number">11.5</span> Different learning paths</h2>
+<p>We are all different and you may like different learning styles compared to others. You may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be useful for you. Note these suggestions are not a part of syllabus!</p>
+<ul>
+<li><p><a href="https://vimeo.com/user114793395">Intro 2R</a> has a set of introductory <a href="https://vimeo.com/user114793395">videos</a> about R. Of special interest are</p>
+<ul>
+<li><a href="https://vimeo.com/415501284">A video about installing R and RStudio</a>.</li>
+<li><a href="https://vimeo.com/416391353">A video giving an introduction to RStudio</a>.</li>
+<li><a href="https://vimeo.com/416743698">A video about installing new packages</a>.</li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-rdpeng" class="csl-entry">
+Peng, R. D. 2018. <em>R Programming for Data Science</em>. <a href="https://bookdown.org/rdpeng/rprogdatascience/">https://bookdown.org/rdpeng/rprogdatascience/</a>.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="vba-project.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mod-r-basics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -559,7 +647,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/bss-osca/tfa/edit/master/book/%s",
+"link": "https://github.com/bss-osca/tfa/edit/master/book/05-01_r-install.Rmd",
 "text": "Edit"
 },
 "history": {
