@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 11 Install R and RStudio | Tools for Analytics (TFA)</title>
+  <title>Module 11 Setting up R | Tools for Analytics (TFA)</title>
   <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 11 Install R and RStudio | Tools for Analytics (TFA)" />
+  <meta property="og:title" content="Module 11 Setting up R | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://bss-osca.github.io/tfa/" />
   <meta property="og:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="bss-osca/tfa" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 11 Install R and RStudio | Tools for Analytics (TFA)" />
+  <meta name="twitter:title" content="Module 11 Setting up R | Tools for Analytics (TFA)" />
   
   <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course" />
   <meta name="twitter:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2021-09-30" />
+<meta name="date" content="2021-10-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -313,14 +313,16 @@ div.csl-indent {
 <li class="chapter" data-level="10.1" data-path="vba-project.html"><a href="vba-project.html#lo-vba-project"><i class="fa fa-check"></i><b>10.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="10.2" data-path="vba-project.html"><a href="vba-project.html#vba-project-1"><i class="fa fa-check"></i><b>10.2</b> VBA project</a></li>
 </ul></li>
-<li class="part"><span><b>V Getting started in R</b></span></li>
-<li class="chapter" data-level="11" data-path="mod-r-install.html"><a href="mod-r-install.html"><i class="fa fa-check"></i><b>11</b> Install R and RStudio</a>
+<li class="part"><span><b>V Getting started with R</b></span></li>
+<li class="chapter" data-level="11" data-path="mod-r-install.html"><a href="mod-r-install.html"><i class="fa fa-check"></i><b>11</b> Setting up R</a>
 <ul>
 <li class="chapter" data-level="11.1" data-path="mod-r-install.html"><a href="mod-r-install.html#lo-r-install"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
-<li class="chapter" data-level="11.2" data-path="mod-r-install.html"><a href="mod-r-install.html#install-r"><i class="fa fa-check"></i><b>11.2</b> Install R and RStudio</a></li>
-<li class="chapter" data-level="11.3" data-path="mod-r-install.html"><a href="mod-r-install.html#test-your-installation"><i class="fa fa-check"></i><b>11.3</b> Test your installation</a></li>
-<li class="chapter" data-level="11.4" data-path="mod-r-install.html"><a href="mod-r-install.html#add-on-packages"><i class="fa fa-check"></i><b>11.4</b> Add-on packages</a></li>
-<li class="chapter" data-level="11.5" data-path="mod-r-install.html"><a href="mod-r-install.html#lp-r-install"><i class="fa fa-check"></i><b>11.5</b> Different learning paths</a></li>
+<li class="chapter" data-level="11.2" data-path="mod-r-install.html"><a href="mod-r-install.html#r-install"><i class="fa fa-check"></i><b>11.2</b> Install R and RStudio</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="mod-r-install.html"><a href="mod-r-install.html#test-your-installation"><i class="fa fa-check"></i><b>11.2.1</b> Test your installation</a></li>
+<li class="chapter" data-level="11.2.2" data-path="mod-r-install.html"><a href="mod-r-install.html#add-on-packages"><i class="fa fa-check"></i><b>11.2.2</b> Add-on packages</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="mod-r-install.html"><a href="mod-r-install.html#r-cloud"><i class="fa fa-check"></i><b>11.3</b> Setup and test RStudio Cloud</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="mod-r-basics.html"><a href="mod-r-basics.html"><i class="fa fa-check"></i><b>12</b> R basics and workflows</a>
 <ul>
@@ -527,24 +529,60 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="mod-r-install" class="section level1" number="11">
-<h1><span class="header-section-number">Module 11</span> Install R and RStudio</h1>
-<!-- 
-Content from: https://stat545.com/block000_r-rstudio-install.html
--->
+<h1><span class="header-section-number">Module 11</span> Setting up R</h1>
+<p><a href="https://www.r-project.org">R</a> is a programming language and free software environment. The R language is widely used among statisticians and data miners for developing statistical software and data analysis. For a further overview and description of the history of R see <a href="https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html">Chapter 2</a> in <span class="citation">Peng (<a href="#ref-rdpeng" role="doc-biblioref">2018</a>)</span>. R can be run from a terminal but in general you use an IDE (integrated development environment) <a href="https://rstudio.com">RStudio</a> for running R and to saving your work.</p>
+<p>R and RStudio can either be run from your laptop or using <a href="https://rstudio.cloud/spaces/176810/join?access_code=LSGnG2EXTuzSyeYaNXJE77vP33DZUoeMbC0xhfCz">RStudio Cloud</a> which run R in the cloud using your browser. During this course it is recommend to use RStudio Cloud at much as possible; however, you also need to have R and RStudio installed on your laptop in case that the cloud service is down/not working. Some pros and cons of using R in the cloud vs on the laptop are</p>
+<p><strong>Cloud (<a href="https://rstudio.cloud/spaces/176810/join?access_code=LSGnG2EXTuzSyeYaNXJE77vP33DZUoeMbC0xhfCz">RStudio Cloud</a>)</strong></p>
+<p>Pros:</p>
+<ul>
+<li>Log in and you are ready to use R.</li>
+<li>No need to download anything.</li>
+<li>Packages easier to install.</li>
+<li>Everything can be run using a browser.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>There is a limit on user time and CPU time. You need to pay if need more time.</li>
+<li>Often slower than the desktop version.</li>
+<li>Need an internet connection.</li>
+<li>Risky to use at the exam if the internet connection is slow or is down. Use the laptop version instead.</li>
+</ul>
+<p><strong>Laptop (<a href="https://www.r-project.org">R</a> and <a href="https://rstudio.com">RStudio</a>)</strong></p>
+<p>Pros:</p>
+<ul>
+<li>Can be used without any internet connection.</li>
+<li>No limit on user time and CPU usage.</li>
+<li>Good if computations takes a lot of time.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>You need to install R and RStudio to get started.</li>
+<li>Packages must be installed.</li>
+<li>Other needed programs may have to be installed.</li>
+<li>Updates must be installed.</li>
+</ul>
+<p>In the learning path diagram, there may be links to alternative online content will be pointed out. Note this is an alternative to the standard learning path that you may use instead. The learning path may also have extra content that is not a part of syllabus you can have a look at. We are all different and you may like different learning styles compared to others.</p>
+<p><strong>Learning path diagram</strong></p>
+<p>Click/hover the nodes to follow links and see details.</p>
+<div id="htmlwidget-6937c71c1f2b78e5b03b" style="width:100%;height:300px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6937c71c1f2b78e5b03b">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 Install R and RStudio\", URL = \"#r-install\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"0,1!\"] \n  \"2\" [label = \"📖 Setup and test RStudio Cloud\", URL = \"#r-cloud\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"3,1!\"] \n  \"3\" [label = \"🎬 Install R and RStudio\", URL = \"https://vimeo.com/415501284\", tooltip = \"Install R and RStudio\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"0,2!\"] \n  \"4\" [label = \"🎬 Introduction to RStudio\", URL = \"https://vimeo.com/416391353\", tooltip = \"Introduction to RStudio\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"0,3!\"] \n  \"5\" [label = \"🎬 Installing R packages\", URL = \"https://vimeo.com/416743698\", tooltip = \"Installing R packages\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", height = \"\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"0,4!\"] \n  \"6\" [label = \"\", URL = \"\", tooltip = \"\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"4.8,3.76!\"] \n  \"7\" [label = \"Color:\", URL = \"\", tooltip = \"\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", margin = \"\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"2.17,4.1!\"] \n  \"8\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"2.4,3.7!\"] \n  \"9\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"3.4,3.7!\"] \n  \"10\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"4.4,3.7!\"] \n  \"11\" [label = \"Shape:\", URL = \"\", tooltip = \"\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", margin = \"\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"5.6,4.1!\"] \n  \"12\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", margin = \"\", height = \"\", width = \"1\", fillcolor = \"Grey40\", pos = \"5.9,3.7!\"] \n  \"13\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", margin = \"\", height = \"\", width = \"1\", fillcolor = \"Grey40\", pos = \"7.15,3.7!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <div id="lo-r-install" class="section level2" number="11.1">
 <h2><span class="header-section-number">11.1</span> Learning outcomes</h2>
 <p>By the end of this module, you are expected to have:</p>
 <ul>
-<li>Installed R.</li>
-<li>Installed RStudio.
+<li>Installed R and RStudio on your laptop.</li>
+<li>Tested R and RStudio on your laptop. <!--  and Git. --></li>
+<li>Installed some packages on your laptop
 <!-- * Installed Git. --></li>
-<li>Tested R and RStudio. <!--  and Git. --></li>
-<li>Installed some packages.</li>
+<li>Signed up on RStudio cloud and tested it.</li>
 </ul>
 <p>The learning outcomes relate to the <a href="lg-course.html#lg-course">overall learning goal</a> number 5 of the course.</p>
 </div>
-<div id="install-r" class="section level2" number="11.2">
+<div id="r-install" class="section level2" number="11.2">
 <h2><span class="header-section-number">11.2</span> Install R and RStudio</h2>
+<!-- 
+some Content from: https://stat545.com/block000_r-rstudio-install.html
+-->
 <p><a href="https://www.r-project.org">R</a> is a programming language and free software environment. The R language is widely used among statisticians and data miners for developing statistical software and data analysis. For a further overview and description of the history of R see <a href="https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html">Chapter 2</a> in <span class="citation">Peng (<a href="#ref-rdpeng" role="doc-biblioref">2018</a>)</span>. To run R you need to install it on your computer. Moreover, you need the IDE (integrated development environment) <a href="https://rstudio.com">RStudio</a> to save your work.</p>
 <div class="boxTask">
 <p><i class="fa-pull-right fa-5x iconStyle1 fas fa-tasks"></i></p>
@@ -567,20 +605,19 @@ Content from: https://stat545.com/block000_r-rstudio-install.html
 </ul>
 </div>
 <p>If you have a pre-existing installation of R and/or RStudio, reinstall both to the latest versions. It can be considerably harder to run old software than new. To update your R version you may use the <a href="https://www.r-project.org/nosvn/pandoc/installr.html">intallr</a> package.</p>
-</div>
-<div id="test-your-installation" class="section level2" number="11.3">
-<h2><span class="header-section-number">11.3</span> Test your installation</h2>
+<div id="test-your-installation" class="section level3" number="11.2.1">
+<h3><span class="header-section-number">11.2.1</span> Test your installation</h3>
 <div class="boxTask">
 <p><i class="fa-pull-right fa-5x iconStyle1 fas fa-tasks"></i></p>
 <ul>
 <li><p>Do whatever is appropriate for your OS to launch RStudio. You should get a window similar to the screenshot you have <a href="https://www.rstudio.com/wp-content/uploads/2014/04/rstudio-workbench.png">here</a>, but yours will be more boring because you have not written any code or made any figures yet.</p></li>
 <li><p>Put your cursor in the pane labeled Console, which is where you interact with the live R process. Create a simple object using code like <code>x &lt;- 2 * 4</code> (followed by enter or return). Then inspect the <code>x</code> object by typing <code>x</code> followed by enter or return. You should see the value 8 print to screen. If yes, you have succeeded in installing R and RStudio.</p></li>
-<li><p>Try to open a new file <strong>File &gt; New File &gt; New RMarkdown…</strong>. Use the defaults and press <strong>OK</strong>. Next save the file and compile it using <strong>Knit</strong> (Ctrl+Shift+K). You have now compiled a document with R code inside of it.</p></li>
+<li><p>Try to open a new file <strong>File &gt; New File &gt; New RMarkdown…</strong>. Use the defaults and press <strong>OK</strong>. Next save the file and compile it using <strong>Knit</strong> (Ctrl+Shift+K). You have now compiled a document with R code embedded.</p></li>
 </ul>
 </div>
 </div>
-<div id="add-on-packages" class="section level2" number="11.4">
-<h2><span class="header-section-number">11.4</span> Add-on packages</h2>
+<div id="add-on-packages" class="section level3" number="11.2.2">
+<h3><span class="header-section-number">11.2.2</span> Add-on packages</h3>
 <p>R is an extensible system and many people share useful codes they have developed as a <em>package</em> via CRAN and GitHub. To install a package from CRAN, for example the <a href="https://CRAN.R-project.org/package=dplyr">dplyr</a> package for data manipulation, one way to do it is in the R console.</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="mod-r-install.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>By including <code>dependencies = TRUE</code>, we are being explicit and extra careful to install any additional packages the target package, <code>dplyr</code> in the example above is dependent on.</p>
@@ -600,17 +637,19 @@ Content from: https://stat545.com/block000_r-rstudio-install.html
 </div>
 <p>You may also see this short <a href="https://vimeo.com/416743698">video</a> explaining what packages are.</p>
 </div>
-<div id="lp-r-install" class="section level2" number="11.5">
-<h2><span class="header-section-number">11.5</span> Different learning paths</h2>
-<p>We are all different and you may like different learning styles compared to others. You may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be useful for you. Note these suggestions are not a part of syllabus!</p>
+</div>
+<div id="r-cloud" class="section level2" number="11.3">
+<h2><span class="header-section-number">11.3</span> Setup and test RStudio Cloud</h2>
+<p>RStudio Cloud works as your laptop version except that a workspace with projects for each module already is created.</p>
+<div class="boxTask">
+<p><i class="fa-pull-right fa-5x iconStyle1 fas fa-tasks"></i></p>
 <ul>
-<li><p><a href="https://vimeo.com/user114793395">Intro 2R</a> has a set of introductory <a href="https://vimeo.com/user114793395">videos</a> about R. Of special interest are</p>
-<ul>
-<li><a href="https://vimeo.com/415501284">A video about installing R and RStudio</a>.</li>
-<li><a href="https://vimeo.com/416391353">A video giving an introduction to RStudio</a>.</li>
-<li><a href="https://vimeo.com/416743698">A video about installing new packages</a>.</li>
-</ul></li>
+<li>Join the Tools for Analytics workspace on <a href="https://rstudio.cloud/spaces/176810/join?access_code=LSGnG2EXTuzSyeYaNXJE77vP33DZUoeMbC0xhfCz">RStudio Cloud</a> (signup if you have not done it yet).</li>
+<li>Click the <em>Projects</em> link (top menu) and open the project <em>00-module-11</em>. A personal copy of the project is loaded for you.</li>
+<li>Put your cursor in the pane labeled Console, which is where you interact with the live R process. Create a simple object using code like <code>x &lt;- 2 * 4</code> (followed by enter or return). Then inspect the <code>x</code> object by typing <code>x</code> followed by enter or return. You should see the value 8 print to screen.</li>
+<li>Try to open a new file <strong>File &gt; New File &gt; New RMarkdown…</strong>. Use the defaults and press <strong>OK</strong>. Next save the file and compile it using <strong>Knit</strong> (Ctrl+Shift+K). You have now compiled a document with R code embedded.</li>
 </ul>
+</div>
 
 </div>
 </div>
