@@ -1,31 +1,81 @@
 ```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
 ```
 
-# (PART) Getting started in R {-} 
+# (PART) Getting started with R {-} 
 
-# Install R and RStudio {#mod-r-install}
+# Setting up R {#mod-r-install}
 
-<!-- 
-Content from: https://stat545.com/block000_r-rstudio-install.html
--->
+[R] is a programming language and free software environment. The R language is widely used among statisticians and data miners for developing statistical software and data analysis. For a further overview and description of the history of R see [Chapter 2](https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html) in @rdpeng. R can be run from a terminal but in general you use an IDE (integrated development environment) [RStudio] for running R and to saving your work.
+
+R and RStudio can either be run from your laptop or using [RStudio Cloud][rstudio-cloud] which run R in the cloud using your browser. During this course it is recommend to use RStudio Cloud at much as possible; however, you also need to have R and RStudio installed on your laptop in case that the cloud service is down/not working. Some pros and cons of using R in the cloud vs on the laptop are 
+
+__Cloud ([RStudio Cloud][rstudio-cloud])__
+
+Pros:
+
+- Log in and you are ready to use R.
+- No need to download anything.
+- Packages easier to install.
+- Everything can be run using a browser.
+
+Cons:
+
+- There is a limit on user time and CPU time. You need to pay if need more time. 
+- Often slower than the desktop version. 
+- Need an internet connection. 
+- Risky to use at the exam if the internet connection is slow or is down. Use the laptop version instead.
+
+__Laptop ([R] and [RStudio])__
+
+Pros:
+
+- Can be used without any internet connection.
+- No limit on user time and CPU usage.
+- Good if computations takes a lot of time.
+
+Cons:
+
+- You need to install R and RStudio to get started.
+- Packages must be installed.
+- Other needed programs may have to be installed.
+- Updates must be installed.
+
+In the learning path diagram, there may be links to alternative online content will be pointed out. Note this is an alternative to the standard learning path that you may use instead. The learning path may also have extra content that is not a part of syllabus you can have a look at. We are all different and you may like different learning styles compared to others. 
+
+__Learning path diagram__
+
+Click/hover the nodes to follow links and see details.
+
+```{r, echo=FALSE, out.width="100%", fig.asp=NA}
+g <- create_learning_path(
+   url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
+   sheet = "r-install", 
+   x_legend = 2.4, y_legend = 4.1)
+render_graph(g, height = 300)
+```
+
 
 ## Learning outcomes {#lo-r-install}
 
 By the end of this module, you are expected to have:
 
-* Installed R.
-* Installed RStudio.
+* Installed R and RStudio on your laptop.
+* Tested R and RStudio on your laptop. <!--  and Git. -->
+* Installed some packages on your laptop
 <!-- * Installed Git. -->
-* Tested R and RStudio. <!--  and Git. -->
-* Installed some packages.
+* Signed up on RStudio cloud and tested it. 
 
 The learning outcomes relate to the [overall learning goal](#lg-course) number 5 of the course.
 
-## Install R and RStudio {#install-r}
+
+
+## Install R and RStudio {#r-install}
+
+<!-- 
+some Content from: https://stat545.com/block000_r-rstudio-install.html
+-->
 
 [R] is a programming language and free software environment. The R language is widely used among statisticians and data miners for developing statistical software and data analysis. For a further overview and description of the history of R see [Chapter 2](https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html) in @rdpeng. To run R you need to install it on your computer. Moreover, you need the IDE (integrated development environment) [RStudio] to save your work.
-
-
 
 <div class = "boxTask">
 `r addIcon("tasks", attrib = list(class = "fa-pull-right fa-5x iconStyle1"))`  
@@ -48,7 +98,7 @@ The learning outcomes relate to the [overall learning goal](#lg-course) number 5
 If you have a pre-existing installation of R and/or RStudio, reinstall both to the latest versions. It can be considerably harder to run old software than new. To update your R version you may use the [intallr](https://www.r-project.org/nosvn/pandoc/installr.html) package.
 
 
-## Test your installation
+### Test your installation
 
 <div class = "boxTask">`r addIcon("tasks", attrib = list(class = "fa-pull-right fa-5x iconStyle1"))`  
 
@@ -56,10 +106,10 @@ If you have a pre-existing installation of R and/or RStudio, reinstall both to t
 
 * Put your cursor in the pane labeled Console, which is where you interact with the live R process. Create a simple object using code like `x <- 2 * 4` (followed by enter or return). Then inspect the `x` object by typing `x` followed by enter or return. You should see the value 8 print to screen. If yes, you have succeeded in installing R and RStudio.
 
-* Try to open a new file **File > New File > New RMarkdown...**. Use the defaults and press **OK**. Next save the file and compile it using **Knit** (Ctrl+Shift+K). You have now compiled a document with R code inside of it. 
+* Try to open a new file **File > New File > New RMarkdown...**. Use the defaults and press **OK**. Next save the file and compile it using **Knit** (Ctrl+Shift+K). You have now compiled a document with R code embedded. 
 </div>
 
-## Add-on packages
+### Add-on packages
 
 R is an extensible system and many people share useful codes they have developed as a _package_ via CRAN and GitHub. To install a package from CRAN, for example the [dplyr][dplyr-cran] package for data manipulation, one way to do it is in the R console.
 
@@ -90,15 +140,18 @@ library(tidyverse)
 You may also see this short [video][video-packages] explaining what packages are.
 
 
-## Different learning paths {#lp-r-install}
+## Setup and test RStudio Cloud {#r-cloud}
 
-`r strLPath`
+RStudio Cloud works as your laptop version except that a workspace with projects for each module already is created. 
 
-* [Intro 2R](https://vimeo.com/user114793395) has a set of introductory [videos](https://vimeo.com/user114793395) about R. Of special interest are
+<div class = "boxTask">
+`r addIcon("tasks", attrib = list(class = "fa-pull-right fa-5x iconStyle1"))`  
 
-   - [A video about installing R and RStudio][video-install].
-   - [A video giving an introduction to RStudio][video-rstudio-intro].
-   - [A video about installing new packages][video-packages].
+* Join the Tools for Analytics workspace on [RStudio Cloud][rstudio-cloud] (signup if you have not done it yet).
+* Click the _Projects_ link (top menu) and open the project _00-module-11_. A personal copy of the project is loaded for you.
+* Put your cursor in the pane labeled Console, which is where you interact with the live R process. Create a simple object using code like `x <- 2 * 4` (followed by enter or return). Then inspect the `x` object by typing `x` followed by enter or return. You should see the value 8 print to screen. 
+* Try to open a new file **File > New File > New RMarkdown...**. Use the defaults and press **OK**. Next save the file and compile it using **Knit** (Ctrl+Shift+K). You have now compiled a document with R code embedded. 
+</div>
 
 
 ```{r links, child="links.md", include=FALSE}
