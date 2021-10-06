@@ -1,0 +1,290 @@
+---
+title: "R part - Installation and Use"
+author: ""
+output:
+  xaringan::moon_reader:
+    css: "./libs/slides.css"
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+      highlightStyle: solarized-light
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, child = "setup.Rmd", echo=FALSE}
+```
+
+```{r include=FALSE}
+# use xaringan::inf_mr(cast_from = ".") to preview
+```
+
+layout: true
+
+<div class="my-footer">
+<span>
+<a href="https://bss-osca.github.io/tfa/mod-r-install" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/05-01_r-install-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/05-01_r-install-slides.Rmd" target="_blank">Source</a> | <a href="https://rstudio.cloud/spaces/176810/project/2963793" target="_blank">R project</a>
+</span>
+</div> 
+
+---
+
+## R
+
+- R is a programming language and free software environment.
+- We are using R via RStudio (an IDE). 
+- R is like a car's engine while RStudio is like a car's dashboard.
+- You can access RStudio using either: [RStudio Cloud][rstudio-cloud] (this is link to the workspace) or RStudio installed on your laptop (R must also be installed too).
+- We will mostly use RStudio Cloud.
+
+```{r, include=FALSE}
+file.copy("../book/img/R_vs_RStudio_1.png", "img/R_vs_RStudio_1.png", overwrite = T)
+```
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("img/R_vs_RStudio_1.png")
+```
+
+---
+
+## Cloud vs laptop version (pros)
+
+.pull-left[
+__Cloud ([RStudio Cloud][rstudio-cloud])__
+
+- Log in and you are ready to use R.
+- No need to download anything.
+- Packages easier to install.
+- Everything can be run using a browser.
+- Link to projects for each module.
+]
+.pull-right[
+__Laptop ([R] and [RStudio])__
+
+- Can be used without any internet connection.
+- No limit on user time and CPU usage.
+- Good if computations takes a lot of time.
+]
+---
+
+## Cloud vs laptop version (cons)
+
+.pull-left[
+__Cloud ([RStudio Cloud][rstudio-cloud])__
+
+- There is a limit on user time and CPU time. You need to pay if need more time. 
+- Often slower than the desktop version. 
+- Need an internet connection. 
+- Risky to use at the exam if the internet connection is slow or is down. Use the laptop version instead.
+]
+.pull-right[
+__Laptop ([R] and [RStudio])__
+
+- You need to install R and RStudio to get started.
+- Packages must be installed.
+- Other needed programs may have to be installed.
+- Updates must be installed.
+]
+---
+
+## R vs Excel/VBA
+
+- Excel
+  * Initial learning curve is quite minimal.
+  * Analysis can be done via point-and-click. 
+  * It's not exceedingly hard to make basic graphs and charts. 
+- R
+  * A programming language, meaning the initial learning curve is steeper. 
+  * Use command-line or script file.
+  * It will take you some time to become familiar with the interface and master the various functions. 
+- VBA
+  * Compiled language.
+
+---
+
+## RStudio
+
+```{r echo=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("img/rstudio-anatomy.png")
+```
+
+---
+
+## R basics
+
+Basic use of R
+```{r}
+8738787213 / 1653   # as a calculator
+"Lars"  # a character/string
+c(1,4)  # a vector
+1:4 # a vector (sequence)
+```
+
+---
+
+## R basics
+
+```{r}
+age <- c(12, 56, 34)  # assignment to object 
+name <- c("Hans", "Sille", "Bo")  # character vector
+people <- data.frame(Name = name, Age = age)  # data frame
+people  # print object
+people[1,]  # subsetting
+people$Name  # column Name
+```
+
+---
+
+## R basics
+
+```{r}
+lst <- list(p = people, status = 0, log = "Okay")  # a list (most abstract object)
+lst
+```
+
+- The most commonly used way to store data is using a data frame, where each row represents an observation, and each column a variable.
+
+---
+
+## Your Turn
+
+.your-turn[
+
+Use R to 
+
+- Extract column `Age` from `people`.
+- Extract the age of Hans from `people`.
+- Use `class` to find the data type of `p` in `lst`.
+- Why does this code not work?
+```r
+x <- 2
+Y <- 4
+x + y
+```
+- Define a list with a vector, a number, a string and a boolean.
+]
+
+```{r echo=FALSE}
+countdown(minutes = 5, top = "0")
+```
+
+???
+
+```{r}
+people$Age
+people[1, 2] # or
+people[people$Name == "Hans", "Age"]
+class(lst$p)
+# R is case sensitive
+list(v = c(1,2), n = 3, s = "foo", l = TRUE)
+```
+
+
+---
+
+## Functions
+
+- A function have inputs and outputs.
+- Functions are often used to encapsulate a sequence of expressions that need to be executed numerous times, perhaps under slightly different conditions. 
+- In programming, functional programming is a programming paradigm, a style how code is written. Rather than repeating code, functions and control structures allow one to build code in blocks. 
+- Functions are (often) verbs, followed by what they will be applied to in parentheses.
+
+```{r eval=FALSE}
+do_this(to_this)
+do_that(to_this, to_that, with_those)
+```
+
+---
+
+## Your Turn
+
+.your-turn[
+
+- Create a vector `v` with numbers 2, 4, 6, 8 [see the help for function `seq` by writing `?seq` in the console and having a look at the examples]. 
+- What is the sum of `v`?
+- What is the sum of the numbers in `x <- c(1:4, NA)` [see `?sum`]?
+- Does `x` contain a missing value (`NA`) [see `?is.na`]
+- Convert `s <- "1.2"` to a number [see `?as.numeric`].
+- What is the return value of `class(x)`?
+- Set `y <- NULL` and check if `y` is null [see `?NULL`]. 
+- Set `lst <- list(x = 3, y = "foo")` and check if `lst` contains an object `z` [use `is.null`].
+]
+
+```{r echo=FALSE}
+countdown(minutes = 5)
+```
+
+---
+
+## R packages
+
+- In R, the fundamental unit of shareable code is the package.
+- As of April 2020, there are over 15,000 packages available on the **C**omprehensive **R** **A**rchive **N**etwork (CRAN), the public clearing house for R packages. 
+- This huge variety of packages is one reason why R is so successful: the chances are that someone has already solved a problem that you’re working on, and you can benefit from their work by downloading their package.
+- Using R packages:
+  - Install them from CRAN with `install.packages("x")`.
+  - Install from GitHub using `remotes::install_github(path)`.
+  - Use them in R with `library(x)` or `x::<function>`.
+  - Use `?x` the see the help pages.
+
+---
+
+## Pipes
+
+Use the pipe `%>%` operator for expressing a sequence of multiple operations (Ctrl+Shift+M). Value `log2(sqrt(16))` using pipes:
+```{r}
+library(tidyverse)   # define the pipe operator
+x <- 16
+x %>% sqrt() %>% log2()
+```
+The pipe _sends_ the result of the left side of the pipe to be the first argument of the function on the right side of the pipe. 
+
+$$ \mbox{original data (x)}
+\rightarrow \mbox{ sqrt }
+\rightarrow \mbox{ log2 } $$
+
+That is, we take what is left of the arrow (the object `x`) and put it into the function on the right of the arrow. 
+
+---
+
+## Your Turn
+
+.your-turn[
+Use pipes to calculate 
+
+```{r}
+x <- c(1:4, NA, 34)
+x <- x^2
+x <- sum(x, na.rm = TRUE)
+x <- sqrt(x)
+x
+```
+]
+
+```{r echo=FALSE}
+countdown(minutes = 5)
+```
+
+???
+
+```{r}
+x <- c(1:4, NA, 34)^2 %>% sum() %>% sqrt() # or
+x
+x <- c(1:4, NA, 34) %>% `^`(2) %>% sum() %>% sqrt()
+x
+```
+
+
+```{r copy to docs, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../docs/slides/", overwrite = T)
+file.copy("./slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../docs/slides/", recursive = T)
+file.copy("img", "../docs/slides/", recursive = T)
+system2("Rscript", args = "-e 'rmarkdown::render(\"index.Rmd\", quiet = TRUE)'")
+```
+
+```{r links, child="links.md", include=FALSE}
+```
+
