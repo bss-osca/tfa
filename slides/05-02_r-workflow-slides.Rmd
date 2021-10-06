@@ -1,5 +1,5 @@
 ---
-title: "R part - Installation and Use"
+title: "An introduction to R"
 author: ""
 output:
   xaringan::moon_reader:
@@ -19,88 +19,16 @@ editor_options:
 
 ```{r include=FALSE}
 # use xaringan::inf_mr(cast_from = ".") to preview
+# use knitr::purl("05-02_r-workflow-slides.Rmd", "05-02_r-workflow-slides.R") to extract code
 ```
 
 layout: true
 
 <div class="my-footer">
 <span>
-<a href="https://bss-osca.github.io/tfa/mod-r-install" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/05-01_r-install-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/05-01_r-install-slides.Rmd" target="_blank">Source</a> | <a href="https://rstudio.cloud/spaces/176810/project/2963793" target="_blank">R project</a>
+<a href="https://bss-osca.github.io/tfa/mod-r-workflow" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/05-021_r-workflow-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/05-02_r-workflow-slides.Rmd" target="_blank">Source</a> | <a href="https://rstudio.cloud/spaces/176810/project/2963819" target="_blank">R project</a>
 </span>
 </div> 
-
----
-
-## R
-
-- R is a programming language and free software environment.
-- We are using R via RStudio (an IDE). 
-- R is like a car's engine while RStudio is like a car's dashboard.
-- You can access RStudio using either: [RStudio Cloud][rstudio-cloud] (this is link to the workspace) or RStudio installed on your laptop (R must also be installed too).
-- We will mostly use RStudio Cloud.
-
-```{r, include=FALSE}
-file.copy("../book/img/R_vs_RStudio_1.png", "img/R_vs_RStudio_1.png", overwrite = T)
-```
-
-```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("img/R_vs_RStudio_1.png")
-```
-
----
-
-## Cloud vs laptop version (pros)
-
-.pull-left[
-__Cloud ([RStudio Cloud][rstudio-cloud])__
-
-- Log in and you are ready to use R.
-- No need to download anything.
-- Packages easier to install.
-- Everything can be run using a browser.
-- Link to projects for each module.
-]
-.pull-right[
-__Laptop ([R] and [RStudio])__
-
-- Can be used without any internet connection.
-- No limit on user time and CPU usage.
-- Good if computations takes a lot of time.
-]
----
-
-## Cloud vs laptop version (cons)
-
-.pull-left[
-__Cloud ([RStudio Cloud][rstudio-cloud])__
-
-- There is a limit on user time and CPU time. You need to pay if need more time. 
-- Often slower than the desktop version. 
-- Need an internet connection. 
-- Risky to use at the exam if the internet connection is slow or is down. Use the laptop version instead.
-]
-.pull-right[
-__Laptop ([R] and [RStudio])__
-
-- You need to install R and RStudio to get started.
-- Packages must be installed.
-- Other needed programs may have to be installed.
-- Updates must be installed.
-]
----
-
-## R vs Excel/VBA
-
-- Excel
-  * Initial learning curve is quite minimal.
-  * Analysis can be done via point-and-click. 
-  * It's not exceedingly hard to make basic graphs and charts. 
-- R
-  * A programming language, meaning the initial learning curve is steeper. 
-  * Use command-line or script file.
-  * It will take you some time to become familiar with the interface and master the various functions. 
-- VBA
-  * Compiled language.
 
 ---
 
@@ -114,7 +42,7 @@ knitr::include_graphics("img/rstudio-anatomy.png")
 
 ## R basics
 
-Basic use of R
+Basic use of R (the code is in the subfolder _lecture_ in the project):
 ```{r}
 8738787213 / 1653   # as a calculator
 "Lars"  # a character/string
@@ -131,7 +59,7 @@ age <- c(12, 56, 34)  # assignment to object
 name <- c("Hans", "Sille", "Bo")  # character vector
 people <- data.frame(Name = name, Age = age)  # data frame
 people  # print object
-people[1,]  # subsetting
+people[1,]  # subsetting 1. row
 people$Name  # column Name
 ```
 
@@ -277,7 +205,7 @@ x
 ```
 
 
-```{r copy to docs, include=FALSE}
+```{r copy, include=FALSE}
 file.copy(list.files(pattern = ".html"), "../docs/slides/", overwrite = T)
 file.copy("./slides.css", "./libs/", overwrite = T)
 file.copy("libs", "../docs/slides/", recursive = T)
