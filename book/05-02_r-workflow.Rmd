@@ -8,7 +8,9 @@ editor_options:
 
 # R basics and workflows {#mod-r-basics}
 
-## Learning path diagramme {-}
+This module contains an introduction to using R, the syntax, data types etc. Coding in R is, as VBA, best learnt by trying it out and learn by trial and error. Hence the modules often contains links to interactive tutorials.
+
+We are all different and you may like different learning styles compared to others. In the learning path diagram, there may be links to alternative online content. Note this is an alternative to the standard learning path that you may use instead. The learning path may also have extra content, that is not a part of syllabus, you can have a look at. 
 
 ```{r, echo=FALSE, out.width="100%", fig.asp=NA}
 g <- create_learning_path(
@@ -17,6 +19,24 @@ g <- create_learning_path(
    x_legend = 5, y_legend = 5.15)
 render_graph(g)
 ```
+
+<!-- ## Different learning paths {#lp-r-basics} -->
+
+<!-- `r strLPath` -->
+
+<!-- * Roger Peng has a lot of [videos](https://www.youtube.com/playlist?list=PLjTlxb-wKvXPqyY3FZDO8GqIaWuEDy-Od) on YouTube about R. Of special interest are -->
+
+<!--    - An introduction to the R language ([Part 1][video-r-intro-p1], [Part 2][video-r-intro-p2], [Part 3][video-r-intro-p3]) including data types and basic operations. -->
+<!--    - [An introduction to subsetting in R][video-subsetting]. -->
+<!--    - [A detailed description af data types][video-datatypes]. -->
+
+<!-- * An introduction to R is given in [Chapter 4](https://bookdown.org/rdpeng/rprogdatascience/r-nuts-and-bolts.html) of @rdpeng. -->
+<!-- * A detailed tutorial on subsetting is given in [Chapter 9](https://bookdown.org/rdpeng/rprogdatascience/subsetting-r-objects.html) of @rdpeng. -->
+<!-- * A longer tutorial to factors is given in [Chapter 15][r4ds-factors] of @r4ds. -->
+<!-- * For a more detailed introduction to pipes see [Chapter 18][r4ds-pipes] in @r4ds. -->
+<!-- * For a detailed introduction to strings (see exercise below) check out the DataCamp course [String Manipulation with stringr in R][datacamp-r-strings]. -->
+<!-- * An introduction to good coding conventions in given in [Chapter 16](https://eeecon.uibk.ac.at/~discdown/rprogramming/style-guide.html) of @discdown. -->
+
 
 ## Learning outcomes {#lo-r-basics}
 
@@ -30,29 +50,28 @@ By the end of this module, you are expected to have:
 The learning outcomes relate to the [overall learning goals](#lg-course) number 2, 5, 6, 8, 11, 13 and 15 of the course.
 
 
+## Working with R at the command line in RStudio 
 
-## Working with R at the command line in RStudio
-
-R is a programming language and free software environment. The R language is widely used among statisticians and data miners for data analysis. To run R you need to install it on your computer. Throughout this book, we will assume that you are using R via RStudio. First time users often confuse the two. At its simplest, R is like a car's engine while RStudio is like a car's dashboard as illustrated in Figure \@ref(fig:R-vs-RStudio-1).
+R is a programming language and free software environment. The R language is widely used among statisticians and data miners for data analysis. To run R you need to install it on your laptop or use a cloud version. We will use R via RStudio. First time users often confuse the two. At its simplest, R is like a car's engine while RStudio is like a car's dashboard as illustrated in Figure \@ref(fig:R-vs-RStudio-1).
 
 ```{r R-vs-RStudio-1, echo=FALSE, fig.align="center", fig.cap="Analogy of difference between R and RStudio.", out.width="95%", purl=FALSE}
 knitr::include_graphics("img/R_vs_RStudio_1.png")
 ```
 
-More precisely, R is a programming language that runs computations, while RStudio is an *integrated development environment (IDE)* that provides an interface by adding many convenient features and tools. So just as the way of having access to a speedometer, rearview mirrors, and a navigation system makes driving much easier, using RStudio's interface makes using R much easier as well. 
+More precisely, R is a programming language that runs computations, while RStudio is an *integrated development environment (IDE)* that provides an interface by adding many convenient features and tools. So just as the way of having access to a speedometer, rearview mirrors, and a navigation system makes driving much easier, using RStudio's interface makes using R much easier as well. RStudio can be accessed using both your laptop version or [RStudio Cloud][rstudio-cloud]. Throughout this book, we will assume that you are using R via [RStudio Cloud][rstudio-cloud] if not stated otherwise.
 
 Compared to Excel, the benefit of using Excel is that the initial learning curve is quite minimal, and most analysis can be done via point-and-click on the top panel. Once a user imports their data into the program, it's not exceedingly hard to make basic graphs and charts. R is a programming language, however, meaning the initial learning curve is steeper. It will take you some time to become familiar with the interface and master the various functions. Luckily, using R can quickly become second-nature with practice. For a detailed comparison you may see [Excel vs R: A Brief Introduction to R][excel-vs-r] by Jesse Sadler.
 
 Compared to VBA, R is an [interpreted language][wiki-interpreted]; users typically access it through a command-line or script file. To run VBA you need to compile and execute it.   
 
-Recall our car analogy from earlier. As we do not drive a car by interacting directly with the engine but rather by interacting with elements on the car's dashboard, we will not be using R directly but rather we will use RStudio's interface. After you install R and RStudio on your computer, you will have two new *programs* (also called *applications*) you can open. We will always work in RStudio (except when you do online courses) and not in the R application. Figure \@ref(fig:R-vs-RStudio-2) shows what icon you should be clicking on your computer. 
+<!-- Recall our car analogy from earlier. As we do not drive a car by interacting directly with the engine but rather by interacting with elements on the car's dashboard, we will not be using R directly but rather we will use RStudio's interface. After you install R and RStudio on your laptop, you will have two new *programs* (also called *applications*) you can open. We will always work in RStudio on your laptop or in RStudio Cloud (except when you do online tutorials) and not in the R application. Figure \@ref(fig:R-vs-RStudio-2) shows what icon you should be clicking on your laptop.  -->
 
 
-```{r R-vs-RStudio-2, echo=FALSE, fig.align="center", fig.cap="Icons of R versus RStudio on your computer.", out.width="90%", purl=FALSE}
-knitr::include_graphics("img/R_vs_RStudio.png")
-```
+<!-- ```{r R-vs-RStudio-2, echo=FALSE, fig.align="center", fig.cap="Icons of R versus RStudio on your laptop.", out.width="90%", purl=FALSE} -->
+<!-- knitr::include_graphics("img/R_vs_RStudio.png") -->
+<!-- ``` -->
 
-Launch RStudio and consider the panes:
+Launch [RStudio][r-cloud-mod12] (follow this link to get to the correct project). An personal copy of the _01-module-12_ project is now created for you. Consider the panes:
 
 * Console (left)
 * Environment/History (tabbed in upper right)
@@ -157,7 +176,7 @@ or click the broom in RStudio's Environment pane.
 
 ## Your first DataCamp course
 
-[DataCamp] is an online platform for learning data science. We are going to use the platform for online lessons and exercises. You should already be signed up to the organization __Tools for analytics__ at DataCamp, otherwise sign up __using your university e-mail__ [here](https://www.datacamp.com/groups/shared_links/27a2552c6f9759a23e473bf403548817d731fde6478552ff871c65dc4350ef30). 
+[DataCamp] is an online platform for learning data science. We are going to use the platform for online tutorials. First, sign up to the organization __Tools for analytics__ at DataCamp __using your university e-mail__ [here](https://www.datacamp.com/groups/shared_links/27a2552c6f9759a23e473bf403548817d731fde6478552ff871c65dc4350ef30) (IMPORTANT do this before running the course/tutorial below!). 
 
 DataCamp runs all the courses in your browser. That is, R is run on a server and you do not use RStudio here. The first course gives an [Introduction to R][datacamp-r-intro]. You are expected to have completed [the course][datacamp-r-intro] before continuing this module! 
 
@@ -188,6 +207,7 @@ $$ \mbox{original data (x)}
 That is, we take what is left of the arrow (the object `x`) and put it into the function on the right of the arrow. These operations can be done using the pipe operator:
 
 ```{r}
+library(tidyverse)
 x <- 16
 x <- x %>%
    sqrt() %>%
@@ -213,8 +233,6 @@ selects the columns related to cylinders, gears, horse power and miles, and then
 
 ## RStudio projects {#rprojs}
 
-Let us return to RStudio. 
-
 One day you will need to quit R, do something else and return to your analysis later.
 
 One day you will have multiple analyses going that use R and you want to keep them separate.
@@ -223,11 +241,14 @@ One day you will need to bring data from the outside world into R and send numer
 
 To handle these real life situations, you need to store your work in a project that keeps all the files associated with a project organized together (such as input data, R scripts, analytical results and figures). RStudio has built-in support for this via its [_projects_][rstudio-using-projects]. You may think of a project as a folder where you store all you work. 
 
-Let us create one to use for the rest of this module. Do this: **File > New Project... > New Directory > New Project >**. The directory name you choose here will be the project name. Call it whatever you want (or follow me for convenience). I used `tfa_testing` in my `tmp` directory (that is `tfa_testing` is now a subfolder of `tmp`.
+On RStudio Cloud you create a project inside a workspace. The book already contains projects for most modules. However, let us try to create a project in your _Your Workspace_ workspace. Expand the left menu and select your _Your Workspace_ workspace. Press the _New Project_ button and select _New RStudio Project_. The project is now created and you can rename it in the upper left corner. Go back to the project _01-module-12_ in the _Tools for Analytics_ workspace that we will use for the remaining of the module.
+
+For RStudio on your laptop you create a project for the rest of this module by doing this: **File > New Project... > New Directory > New Project >**. The directory name you choose here will be the project name. Call it whatever you want (or follow me for convenience). I used `tfa_testing` in my `tmp` directory (that is `tfa_testing` is now a subfolder of `tmp`.
 
 You now need a way to store R code in your project. We will use 2 ways of storing your code. An R script file or an R Markdown document. Normally you store lines of R code in a script file that you need to run. 
 
-R Markdown provides an easy way to produce a rich, fully-documented reproducible analysis. Here you combine text, figures and metadata needed to reproduce the analysis from the beginning to the end in a single file. R Markdown compiles to nicely formatted HTML, PDF, or Word. We are going to use R Markdown for larger projects (e.g. the mandatory R report in week 48). We will come back to R Markdown later.
+R Markdown provides an easy way to produce a rich, fully-documented reproducible analysis. Here you combine text, figures and metadata needed to reproduce the analysis from the beginning to the end in a single file. R Markdown compiles to nicely formatted HTML, PDF, or Word. We are going to use R Markdown for larger projects (e.g. the mandatory R report). We will come back to R Markdown later.
+
 
 ### Storing your code in a script file
 
@@ -260,51 +281,35 @@ Change some things in your code. For instance set a sample size `n` at the top, 
 Try to get an overview of the different planes and tabs. For instance in the Files tab (lower right plane) you can get an overview of your project files. You may also see this [video about projects][video-projects].
 
 
-## Global options
+<!-- ## Global options -->
 
-Quit RStudio. Inspect the folder associated with your project if you wish. Maybe view the PDF in an external viewer. Restart RStudio. Note that things, by default, restore to where we were earlier. Check the Environment tap (top-right plane). The environment should be empty. If it contains objects you defined before you closed R, it is because they have been restored. This is in general not advisable and should be changed by opening **Tools > Global Options ...**. Under **General** set the check marks as:  
+<!-- This section is relevant if you use RStudio on your laptop. Quit RStudio. Inspect the folder associated with your project if you wish. Maybe view the PDF in an external viewer. Restart RStudio. Note that things, by default, restore to where we were earlier. Check the Environment tap (top-right plane). The environment should be empty. If it contains objects you defined before you closed R, it is because they have been restored. This is in general not advisable and should be changed by opening **Tools > Global Options ...**. Under **General** set the check marks as:   -->
 
-```{r echo=FALSE, out.width='60%'}
-knitr::include_graphics('img/global_options_general.PNG')
-```
+<!-- ```{r echo=FALSE, out.width='60%'} -->
+<!-- knitr::include_graphics('img/global_options_general.PNG') -->
+<!-- ``` -->
 
-Quit RStudio and reopen it. The Environment tab should now be empty. 
+<!-- Quit RStudio and reopen it. The Environment tab should now be empty.  -->
 
 
-## Working directory
+<!-- ## Working directory -->
 
-Any process running on your computer has a notion of its "working directory". In R, this is where R will look, by default, for files you ask it to load. It is also where, by default, any files you write to disk will go. Chances are your current working directory is the directory we inspected above, i.e. the one where RStudio wanted to save the workspace.
+<!-- Any process running on your laptop has a notion of its "working directory". In R, this is where R will look, by default, for files you ask it to load. It is also where, by default, any files you write to disk will go. Chances are your current working directory is the directory we inspected above, i.e. the one where RStudio wanted to save the workspace. -->
 
-You can explicitly check your working directory with:
+<!-- You can explicitly check your working directory with: -->
 
-```{r, eval = FALSE}
-getwd()
-```
+<!-- ```{r, eval = FALSE} -->
+<!-- getwd() -->
+<!-- ``` -->
 
-It is also displayed at the top of the RStudio console. In general it should be the directory of your R project. You can set R's working directory at the command line like so:
+<!-- It is also displayed at the top of the RStudio console. In general it should be the directory of your R project. You can set R's working directory at the command line like so: -->
 
-```{r, eval = FALSE}
-setwd("./subfolder")  # sets the working dir to a subfolder of you project folder
-```
+<!-- ```{r, eval = FALSE} -->
+<!-- setwd("./subfolder")  # sets the working dir to a subfolder of you project folder -->
+<!-- ``` -->
 
-You can also use RStudio's Files pane to navigate to a directory and then set it as working directory from the menu: **Session > Set Working Directory > To Files Pane Location**.
+<!-- You can also use RStudio's Files pane to navigate to a directory and then set it as working directory from the menu: **Session > Set Working Directory > To Files Pane Location**. -->
 
-## Different learning paths {#lp-r-basics}
-
-`r strLPath`
-
-* Roger Peng has a lot of [videos](https://www.youtube.com/playlist?list=PLjTlxb-wKvXPqyY3FZDO8GqIaWuEDy-Od) on YouTube about R. Of special interest are
-   
-   - An introduction to the R language ([Part 1][video-r-intro-p1], [Part 2][video-r-intro-p2], [Part 3][video-r-intro-p3]) including data types and basic operations.
-   - [An introduction to subsetting in R][video-subsetting].
-   - [A detailed description af data types][video-datatypes].
-   
-* An introduction to R is given in [Chapter 4](https://bookdown.org/rdpeng/rprogdatascience/r-nuts-and-bolts.html) of @rdpeng.
-* A detailed tutorial on subsetting is given in [Chapter 9](https://bookdown.org/rdpeng/rprogdatascience/subsetting-r-objects.html) of @rdpeng.
-* A longer tutorial to factors is given in [Chapter 15][r4ds-factors] of @r4ds.
-* For a more detailed introduction to pipes see [Chapter 18][r4ds-pipes] in @r4ds.
-* For a detailed introduction to strings (see exercise below) check out the DataCamp course [String Manipulation with stringr in R][datacamp-r-strings].
-* An introduction to good coding conventions in given in [Chapter 16](https://eeecon.uibk.ac.at/~discdown/rprogramming/style-guide.html) of @discdown.
 
 
 ## Recap {#rc-r-basics}
@@ -317,7 +322,7 @@ Store your work in a project that keeps all the files associated with a project 
 
 This workflow will serve you well in the future:
 
-* Create an RStudio project for an analytical project
+* Create an RStudio project for an analytical project (a project for most modules is already created in RStudio Cloud)
 * Keep inputs there (we will soon talk about importing)
 * Keep scripts there; edit them, run them in bits or as a whole from there
 * Keep outputs there (like the PDF written above)
@@ -355,7 +360,7 @@ A *pipe* (`%>%`) sends the result of the left side of the pipe to be the first a
 
 
 ```{r end_rbasics, include = FALSE}
-file.remove(c("avg_x.txt", "toy_line_plot.pdf"))
+#file.remove(c("avg_x.txt", "toy_line_plot.pdf"))
 ```
 
 
@@ -363,7 +368,7 @@ file.remove(c("avg_x.txt", "toy_line_plot.pdf"))
 
 `r strExercises` 
 
-Practice using shortcuts in RStudio (use Shift+Alt+K to get an overview). 
+Practice using shortcuts in RStudio (use Shift+Alt+K to get an overview). [Link to the project for this module][r-cloud-mod12]. 
 
 ### Exercise (group work)
 
@@ -374,44 +379,43 @@ You have all been allocated into groups. During the course, you are expected to 
    1) It is a good idea to have a shared place for your code. Have a look at the section [Working in groups](#groups) and decide on a place to share your code.
    1) Create a shared folder and project for your group.
    1) Agree on a coding convention.
-   1) Agree about the rules of how to meet etc.
 
 
 
-### Exercise (install packages)
+<!-- ### Exercise (install packages) -->
 
-*This exercise is done from the Console in RStudio (under Windows, [remember to have admin rights](#install-r)).*
+<!-- *This exercise is done from the Console in RStudio (under Windows, [remember to have admin rights](#install-r)).* -->
 
-```{r, solution=TRUE, eval=FALSE}
-install.packages("devtools")
-```
+<!-- ```{r, solution=TRUE, eval=FALSE, include=FALSE} -->
+<!-- install.packages("devtools") -->
+<!-- ``` -->
 
-   1) Install the package `devtools` using function `install.packages`. Note you can always get help/see documentation of a function by typing `?install.packages` or typing `install.packages` and press F1. 
+<!--    1) Install the package `devtools` using function `install.packages`. Note you can always get help/see documentation of a function by typing `?install.packages` or typing `install.packages` and press F1. -->
 
-You now have installed the package from the default repository ([CRAN][cran]). 
+<!-- You now have installed the package from the default repository ([CRAN][cran]). -->
 
-You may also install packages from other repositories (e.g. GitHub):
+<!-- You may also install packages from other repositories (e.g. GitHub): -->
 
-   2) Have a look at the documentation for function `install_github` in the package `devtools`. This can be done in different ways:
+   <!-- 2) Have a look at the documentation for function `install_github` in the package `devtools`. This can be done in different ways: -->
 
-   ```r
-   library(devtools)    # we here load all the functions in devtools
-   ?install_github
-   
-   ?devtools::install_github     # we here use the namespace devtools to load only one function
-   ```
+   <!-- r -->
+   <!-- library(devtools)    # we here load all the functions in devtools -->
+   <!-- ?install_github -->
 
-```{r, echo=FALSE, eval=FALSE}
-devtools::install_github("bss-osca/tfa/tfa-package")
-```
+   <!-- ?devtools::install_github     # we here use the namespace devtools to load only one function -->
 
-   3) Install the package `tfa` from GitHub using path `bss-osca/tfa/tfa-package`.
+
+<!-- ```{r, echo=FALSE, eval=FALSE, include=FALSE} -->
+<!-- devtools::install_github("bss-osca/tfa/tfa-package") -->
+<!-- ``` -->
+
+   <!-- 3) Install the package `tfa` from GitHub using path `bss-osca/tfa/tfa-package`. --> 
 
 
 
 ### Exercise (piping)
 
-*Solve this exercise using a script file (e.g. `exercises/pipe.R`). Remember that you can run a line in the file using Ctrl+Enter.* 
+*Solve this exercise using a script file (e.g. `exercises/pipe.R` which already has been created). Remember that you can run a line in the file using Ctrl+Enter.* 
 
 The pipe `%>%` can be used to perform operations sequentially without having to define intermediate objects (Ctrl+Shift+M). Have a look at the dataset `mtcars`: 
 
@@ -512,9 +516,10 @@ When reading and writing to local files, your working directory becomes importan
 Set the working directory to the project directory using the menu: **Session > Set Working Directory > To Project Directory**. Now let us create some files:
 
 ```{r}
-dir.create("subfolder", showWarnings = FALSE) 
-write_file("Some text in a file", path = "test1.txt")
-write_file("Some other text in a file", path = "subfolder/test2.txt")
+   library(tidyverse)
+   dir.create("subfolder", showWarnings = FALSE) 
+   write_file("Some text in a file", file = "test1.txt")
+   write_file("Some other text in a file", file = "subfolder/test2.txt")
 ```
 
 1) Which folders and files have been created? You may have a look in the **Files** tab in RStudio.
@@ -606,7 +611,7 @@ n * (n+1) / 2
 ```{r, solution=TRUE, text="Sample 30 integers in the range [1, 100]."}
 ```
 
-4) Run code. What does `sample.int` do?
+4) Run code. What does `sample.int` do (try running `?sample.int`)?
 
    ```{r}
    set.seed(123)
