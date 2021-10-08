@@ -72,8 +72,8 @@ cat(lines, sep = "\n")
 Here it is harder to guess the delimiter. It could be a space or a tabulator. Let us try to read it assuming a space or tabulator:
 
 ```{r}
-read_tsv(csv_file)                  # assume tabulator (\t)
-read_delim(csv_file, delim = " ", trim_ws = T)   # assume space
+read_tsv(csv_file)                  # assume tabulator (\t), just read one column
+read_table(csv_file)                # assume space(s) between cols
 ```
 
 The first function puts all data in one column. The second function works even though we have some warnings.
@@ -100,7 +100,7 @@ Given a tibble/data frame export it using `write_csv`:
 
 ```{r}
 csv_file <- "testing.csv"
-write_csv(dat, path = csv_file) 
+write_csv(dat, file = csv_file) 
 ```
 
 You can now always import the data again using `read_csv`:
@@ -171,7 +171,7 @@ saveWorkbook(wb, file = "test.xlsx", overwrite = TRUE)
 ```
 
 ```{r, include=FALSE}
-file.remove("test.xlsx", "test1.xlsx", "test2.xlsx")
+unlink(c("test.xlsx", "test1.xlsx", "test2.xlsx"))
 ```
 
 
