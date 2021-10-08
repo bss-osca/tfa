@@ -1,7 +1,7 @@
 ---
 name: VBA problems
 about: Problems in VBA/Excel
-title: "[VBA]"
+title: "[VBA] <add problem desc>"
 labels: vba
 assignees: relund, JesperBangMikkelsen, jubaau
 

@@ -1,7 +1,7 @@
 ---
 name: Other problems
 about: Problem not related to R or VBA
-title: "[Misc]"
+title: "[Misc] <add problem desc>"
 labels: ''
 assignees: relund, JesperBangMikkelsen, jubaau
 
