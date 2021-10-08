@@ -1,5 +1,5 @@
 ---
-title: "Programming"
+title: "Loops and conditionals"
 author: "Lars Relund Nielsen"
 output:
   xaringan::moon_reader:
@@ -14,13 +14,22 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r, child = "../setup.Rmd", echo=FALSE}
+```{r, child = "setup.Rmd", echo=FALSE}
 ```
 
-```{r packages, echo=FALSE, message=FALSE, warning=FALSE}
-# use xaringan::inf_mr(cast_from = "..") to preview
-library(tidyverse)
+```{r include=FALSE}
+# use xaringan::inf_mr(cast_from = ".") to preview
 ```
+
+layout: true
+
+<div class="my-footer">
+<span>
+<a href="https://bss-osca.github.io/tfa/mod-procedures.html" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/02-02_vba-procedures-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/02-02_vba-procedures-slides.Rmd" target="_blank">Source</a> | <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-procedures-template.xlsm" target="_blank">Excel</a>
+</span>
+</div> 
+
+---
 
 
 ## Comparison/relational operators
@@ -287,165 +296,18 @@ for (r in 1:nrow(dat)) {
 } 
 ```
 
----
 
-class: middle
 
-> To understand computations in R, two slogans are helpful:
->
->    Everything that exists is an object.
->
->    Everything that happens is a function call.
->
->
->    .right[\- _John Chambers_]
 
----
 
-## Functions
 
-- Functions are often used to encapsulate a sequence of expressions that need to be executed numerous times, perhaps under slightly different conditions. 
-<!-- - In programming, functional programming is a programming paradigm, a style how code is written. Rather than repeating code, functions and control structures allow one to build code in blocks.  -->
-- Functions are (often) verbs, followed by what they will be applied to in parentheses.
-- Functions can be defined using the `function()` directive:
-```{r}
-loop_output <- function(dat, rows = 1:2, cols = 2:3, ...) {
-  ite <- expand_grid(r = rows, c = cols)
-  for (i in 1:nrow(ite)) {
-    r <- ite$r[i]
-    c <- ite$c[i]
-    cat("Row ", r, " column ", c, " = ", dat[r,c], ".\n", ...)
-  } 
-  return("Finished!")
-}
-```
-- Functions always return the last expression evaluated in the function body or when you use the `return` flow control statement (good coding practice).
-
----
-
-## Functions - Arguments
-
-```{r}
-loop_output(mtcars)  # default values
-loop_output(mtcars, rows = c(3,1), cols = 6)  # specify values
+```{r copy, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../docs/slides/", overwrite = T)
+file.copy("./slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../docs/slides/", recursive = T)
+file.copy("img", "../docs/slides/", recursive = T)
+system2("Rscript", args = "-e 'rmarkdown::render(\"index.Rmd\", quiet = TRUE)'")
 ```
 
----
-
-## Functions - The `...` argument
-
-```{r}
-loop_output(mtcars, rows = c(3,1), cols = 6)  # specify values
-loop_output(mtcars, rows = c(3,1), cols = 6, sep = "")  # use the ... argument
+```{r links, child="links.md", include=FALSE}
 ```
-
----
-
-## Functions - Document your functions
-
-Use **Code > Insert Roxygen skeleton** (Ctrl+Alt+Shift+R).
-
-```{r}
-#' Loop through some values in a data frame
-#'
-#' @param dat A data frame.
-#' @param rows Rows to loop through.
-#' @param cols Columns to loop through.
-#' @param ... Arguments passed to `cat`.
-#'
-#' @return A string.
-loop_output <- function(dat, rows = 1:2, cols = 2:3, ...) {
-  ite <- expand_grid(r = rows, c = cols)
-  for (i in 1:nrow(ite)) {
-    r <- ite$r[i]
-    c <- ite$c[i]
-    cat("Row ", r, " column ", c, " = ", dat[r,c], ".\n", ...)
-  } 
-  return("Finished!")
-}
-```
-
-
----
-
-## Your Turn
-
-.your-turn[
-- Create a function that given some dice numbers and some cards from a 52-card deck (e.g. 1-spade), write out all the possible combinations as strings in the form `Dice = [value] and card = [value]`. 
-- Moreover, if the dice numbers contains the number 2, function must return true; otherwise, false. Hint:
-
-```r
-get_combinations <- function(dice, card) {
-  ite <- expand_grid(___)
-  found <- FALSE
-  for (i in 1:nrow(ite)) {
-    ___
-  } 
-  return(found)
-}
-get_combinations(dice = c(2,3), card = c("2-spade", "ace-dimond"))
-get_combinations(dice = c(3,1), card = c("10-heart", "king-dimond"))
-```
-]
-
-```{r echo=FALSE}
-countdown(minutes = 5, top = "0")
-```
-
-???
-
-```{r, include=TRUE}
-get_combinations <- function(dice, card) {
-  ite <- expand_grid(d = dice, c = card)
-  found <- FALSE
-  for (i in 1:nrow(ite)) {
-    d <- ite$d[i]
-    c <- ite$c[i]
-    cat("Dice ", d, " and card  = ", c, ".\n", sep = "")
-    if (d == 2) found = TRUE
-  } 
-  return(found)
-}
-get_combinations(dice = c(2,3), card = c("2-spade", "ace-dimond"))
-get_combinations(dice = c(3,1), card = c("10-heart", "king-dimond"))
-```
-
----
-
-## Your Turn
-
-.your-turn[
-- Create a function that calculates the present value (PV) of a future value. The equation is: 
-$$PV = FV/(1+r)^n$$ where $FV$ is future value, $r$ is the interest rate, and $n$ is the number of periods. 
-- Input arguments must be $FV$, $r$, $n$ and a boolean `round` equal true if the output should be rounded to two decimals. 
-- The default interest rate is 0.1 (10%) and rounding is false by default.
-]
-
-```{r echo=FALSE}
-countdown(minutes = 5)
-```
-
-???
-
-```{r, include=TRUE}
-get_PV <- function(FV, r = 0.1, n, round = FALSE) {
-  PV <- FV/(1+r)^n
-  if (round) return(round(PV, 2))
-  return(PV)
-}
-get_PV(100, n = 7)
-get_PV(100, n = 7, round = TRUE)
-get_PV(100, n = 7, r = 0.5)
-```
-
-
-
-
-
-```{r copy to docs, include=FALSE}
-file.copy(list.files(pattern = ".html"), "../../docs/slides/", overwrite = T)
-file.copy("../slides.css", "./libs/", overwrite = T)
-file.copy("libs", "../../docs/slides/", recursive = T)
-file.copy("img", "../../docs/slides/", recursive = T)
-```
-
