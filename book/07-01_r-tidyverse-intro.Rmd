@@ -12,7 +12,28 @@ source("common.R")
 
 # (PART) IO, tidy and transform {-} 
 
-# Introduction to tidyverse and R Markdown {#mod-r-tidyverse-intro}
+# Introduction to tidyverse and RMarkdown {#mod-r-tidyverse-intro}
+
+The [tidyverse][tidyverse-main-page] is a collection of R packages designed for data science. RMarkdown documents support the concept of [literate programming][wiki-literate-programming] where you weave R code together with text (written in Markdown) to produce elegantly formatted documents. 
+
+We are all different and you may like different learning styles compared to others. In the learning path diagram, there may be links to alternative online content. Note this is an alternative to the standard learning path that you may use instead. The learning path may also have extra content, that is not a part of syllabus, you can have a look at. 
+
+```{r, echo=FALSE, out.width="100%", fig.asp=NA, include=TRUE}
+g <- create_learning_path(
+   url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
+   sheet = "r-tidyverse-intro", 
+   x_legend = 0, y_legend = 6)
+render_graph(g)
+```
+
+<!-- * [Chapter 4](https://rbasics.netlify.app/4-rmarkdown.html) in @rbasics gives an overview of RMarkdown with videos included.  -->
+<!-- * You may also do the interactive DataCamp [Reporting with RMarkdown][datacamp-r-rmarkdown] which is a bit longer than the suggested course.  -->
+<!-- * If **Help > Markdown Quick Reference** not is enough, then try out this [interactive markdown tutorial][tutorial-markdown]. -->
+<!-- * Glenn Moncrieff gives a nice detailed overview on how to create [reproducible projects](https://rpubs.com/glennwithtwons/reproducible-r-toolbox).   -->
+<!-- * If you are interested in trying Git and GitHub, see @hgit for detailed help. -->
+<!-- * An introduction to tibbles and differences to data frames is given in the video [Working with tibbles in R][video-tibble-vs-df] by Hefin Rhys. -->
+<!-- * [Chapter 10](https://r4ds.had.co.nz/tibbles.html) in @r4ds gives an introduction to tibbles. -->
+
 
 ## Learning outcomes {#lo-tidyverse-intro}
 
@@ -20,7 +41,7 @@ By the end of this module, you are expected to be able to:
 
 * Describe what the tidyverse package is.
 * Explain the ideas behind reproducible reports and literal programming. 
-* Create your first R Markdown document and add some code and text.
+* Create your first RMarkdown document and add some code and text.
 
 The learning outcomes relate to the [overall learning goals](#lg-course) number 7, 17 and 18 of the course.
 
@@ -30,7 +51,7 @@ The learning outcomes relate to the [overall learning goals](#lg-course) number 
 <!-- evaluate · apply · argue · theorize · generalize · hypothesis · solve · reflect -->
 
 
-## The tidyverse package
+## The tidyverse package {#r-tidyverse-intro}
 
 The [tidyverse][tidyverse-main-page] is a collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.
 
@@ -56,17 +77,17 @@ Small introductions (with examples) to the packages are given on their documenta
 
 
 
-## Writing reproducible reports
+## Writing reproducible reports {#r-markdown-intro}
 
 The concept of [literate programming][wiki-literate-programming] was originally introduced by Donald Knuth in 1984. In a nutshell, Knuth envisioned a new programming paradigm where computer scientists focus on weaving code together with text as documentation. 
 
 That is, when we do an Analytics project, we are interested in writing reports containing both R code for importing data, wrangling and analysis. Moreover, at the same time, the document should contain our comments about the code, plots, analysis, results, etc. The document is then rendered to an output format such as html, pdf or Word which is presented to the decision maker. Note the document can be seen as the "the source code" for the report communicated to the decision maker. 
 
-Some developers have created tools to enable others to write better literate programs. They use a markup language made for authoring. We are going to focus on [R Markdown][r-markdown]. In R Markdown documents you can weave R code together with text (written in Markdown) to produce elegantly formatted output. 
+Some developers have created tools to enable others to write better literate programs. They use a markup language made for authoring. We are going to focus on [RMarkdown][r-markdown]. In RMarkdown documents you can weave R code together with text (written in Markdown) to produce elegantly formatted output. 
 
-In fact this book is written in R Markdown by using
+In fact this book is written in RMarkdown by using
 
-* a set of R Markdown documents bound together as a collection using the [bookdown][pkg-bookdown] package,
+* a set of RMarkdown documents bound together as a collection using the [bookdown][pkg-bookdown] package,
 * rendered to a web page using RStudio,
 * shared on [GitHub],
 * built by [GitHub Actions][github-actions],
@@ -80,12 +101,14 @@ This may seem complicated at first. However, after setup, it makes life much eas
 * keep history of the book source,
 * keep the book source at a single location. 
 
-R Markdown documents are reproducible. Anybody who works with data has at some point heard a colleague say ‘Well, it works on my computer’, expressing dismay at the fact that you cannot reproduce their results. Ultimately, reproducible means that the results can be reproduced given access to the original data, software, and code. In practice it may be hard to make your project totally reproducible. For instance, people may be using a different operating system, other versions of the software, etc. That is, there are different levels of reproducibility. In this course, we will focus on R Markdown only. See Section \@ref(lp-tidyverse-intro) for more info about levels of reproducibility.
+RMarkdown documents are reproducible. Anybody who works with data has at some point heard a colleague say ‘Well, it works on my computer’, expressing dismay at the fact that you cannot reproduce their results. Ultimately, reproducible means that the results can be reproduced given access to the original data, software, and code. In practice it may be hard to make your project totally reproducible. For instance, people may be using a different operating system, other versions of the software, etc. That is, there are different levels of reproducibility. In this course, we will focus on RMarkdown only. See Section \@ref(lp-tidyverse-intro) for more info about levels of reproducibility.
 
-An introduction to R Markdown is given in Chapters [3][datacamp-r-communicating-chap3] and [4][datacamp-r-communicating-chap4] of the [DataCamp] course [Communicating with Data in the Tidyverse][datacamp-r-communicating]. Note that you may skip Chapters 1 and 2 and still understand most of the questions in Chapters 3 and 4 (otherwise just see the solution). You are expected to have completed the chapters before continuing this module! 
+An introduction to RMarkdown is given in Chapters [3][datacamp-r-communicating-chap3] and [4][datacamp-r-communicating-chap4] of the [DataCamp] course [Communicating with Data in the Tidyverse][datacamp-r-communicating]. Note that you may skip Chapters 1 and 2 and still understand most of the questions in Chapters 3 and 4 (otherwise just see the solution). You are expected to have completed the chapters before continuing this module! 
+
+The RMarkdown cheatsheet may be useful. Find the newest version in RStudio **Help > Cheatsheets**. All chunk options for R code can be seen [here](https://yihui.org/knitr/options/).
 
 
-## Tibbles 
+## Tibbles {#r-tibbles-intro}
 
 Tibbles are a modern data frame, keeping what time has proven to be effective, and throwing out what is not. Tibbles are more strict compared to data frames e.g. they do not change variable names or types, do not do partial matching and complain more e.g. when a variable does not exist. This forces you to confront problems earlier, typically leading to cleaner, more expressive code. Moreover, tibbles have an enhanced `print` method and can have columns that are lists.
 
@@ -116,26 +139,12 @@ View(tbl3)
 ```
 
 
-## Different learning paths {#lp-tidyverse-intro}
-
-`r strLPath`
-
-* [Chapter 4](https://rbasics.netlify.app/4-rmarkdown.html) in @rbasics gives an overview of R Markdown with videos included. 
-* You may also do the interactive DataCamp [Reporting with R Markdown][datacamp-r-rmarkdown] which is a bit longer than the suggested course. 
-* If **Help > Markdown Quick Reference** not is enough, then try out this [interactive markdown tutorial][tutorial-markdown].
-* The R Markdown cheatsheet may be useful. Find the newest version in RStudio **Help > Cheatsheets**.
-* Glenn Moncrieff gives a nice detailed overview on how to create [reproducible projects](https://rpubs.com/glennwithtwons/reproducible-r-toolbox).  
-* If you are interested in trying Git and GitHub, see @hgit for detailed help.
-* All chunk options for R code can be seen [here](https://yihui.org/knitr/options/).
-* An introduction to tibbles and differences to data frames is given in the video [Working with tibbles in R][video-tibble-vs-df] by Hefin Rhys.
-* [Chapter 10](https://r4ds.had.co.nz/tibbles.html) in @r4ds gives an introduction to tibbles.
-
 
 ## Recap {#rc-tidyverse-intro}
 
 * [tidyverse][tidyverse-main-page] is a collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.
 
-* R Markdown is an example of literate programming. 
+* RMarkdown is an example of literate programming. 
 
 * The [core tidyverse][tidyverse-core] includes the packages that you are likely to use in everyday data analyses. 
 
@@ -145,7 +154,11 @@ View(tbl3)
 
 * In practice it may be hard to make your project totally reproducible. That is, there are different levels of reproducibility. 
 
-* R Markdown documents are an attempt to make reproducible documents and combine R code and markdown text.
+* RMarkdown documents are an attempt to make reproducible documents and combine R code and markdown text.
+
+* All chunk options for R code in RMarkdown documents can be seen [here](https://yihui.org/knitr/options/).
+
+* The RMarkdown cheatsheet may be useful. Find the newest version in RStudio **Help > Cheatsheets**. For Markdown syntax see **Help > Markdown Quick Reference**.
 
 * Tibbles are a modern data frame, keeping what time has proven to be effective, and throwing out what is not. 
 
@@ -153,13 +166,17 @@ View(tbl3)
 
 * Tibbles have an enhanced `print` method and can have columns that are lists.
 
+You may also have a look at the [slides for this module](https://bss-osca.github.io/tfa/slides/07-01_r-tidyverse-intro-slides.html).
 
 
 ## Exercises {#ex-tidyverse-intro}
 
 `r strExercises`
 
-### Exercise (your first R Markdown exercise)
+[Link to the project on RStudio Cloud for this module][r-cloud-mod15]. 
+
+
+### Exercise (your first RMarkdown exercise)
 
 Load the tfa package:
 
@@ -168,7 +185,7 @@ Load the tfa package:
 library(tfa)
 ```
 
-The package contains templates for exercises etc. Go to **File > New File > R Markdown...**. In the pop-up box select **From template** in the left column and then **TFA Exercise**. Press *Ok* and a new R Markdown document will be opened. 
+The package contains templates for exercises etc. Go to **File > New File > R Markdown...**. In the pop-up box select **From template** in the left column and then **TFA Exercise**. Press *Ok* and a new RMarkdown document will be opened. 
 
 1) Change the meta text (e.g. the title and add your name) in the yaml.
 

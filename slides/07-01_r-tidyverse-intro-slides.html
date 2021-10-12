@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Functions</title>
+    <title>IO, tidy and transform</title>
     <meta charset="utf-8" />
     <meta name="author" content="Lars Relund Nielsen" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
-    <link href="libs/countdown/countdown.css" rel="stylesheet" />
-    <script src="libs/countdown/countdown.js"></script>
     <link rel="stylesheet" href="libs/slides.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Functions
+# IO, tidy and transform
 ### Lars Relund Nielsen
 
 ---
@@ -30,254 +28,45 @@ layout: true
 
 &lt;div class="my-footer"&gt;
 &lt;span&gt;
-&lt;a href="https://bss-osca.github.io/tfa/mod-procedures.html" target="_blank"&gt;Book&lt;/a&gt; | &lt;a href="https://bss-osca.github.io/tfa/slides/02-02_vba-procedures-slides.html" target="_blank"&gt;Slides&lt;/a&gt; | &lt;a href="https://github.com/bss-osca/tfa/blob/master/slides/02-02_vba-procedures-slides.Rmd" target="_blank"&gt;Source&lt;/a&gt; | &lt;a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-procedures-template.xlsm" target="_blank"&gt;Excel&lt;/a&gt;
+&lt;a href="https://bss-osca.github.io/tfa/mod-r-tidyverse-intro" target="_blank"&gt;Book&lt;/a&gt; | &lt;a href="https://bss-osca.github.io/tfa/slides/06-01_r-tidyverse-intro-slides.html" target="_blank"&gt;Slides&lt;/a&gt; | &lt;a href="https://github.com/bss-osca/tfa/blob/master/slides/06-01_r-tidyverse-intro-slides.Rmd" target="_blank"&gt;Source&lt;/a&gt; | &lt;a href="https://rstudio.cloud/spaces/176810/project/3020509" target="_blank"&gt;R project&lt;/a&gt;
 &lt;/span&gt;
 &lt;/div&gt; 
 
 ---
 
-class: middle
 
-&gt; To understand computations in R, two slogans are helpful:
-&gt;
-&gt;    Everything that exists is an object.
-&gt;
-&gt;    Everything that happens is a function call.
-&gt;
-&gt;
-&gt;    .right[\- _John Chambers_]
+## The tidyverse package
 
----
+The [tidyverse][tidyverse-main-page] is a collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures. The main packages are loaded using `library(tidyverse)`. We focus on
 
-## Functions
+  * [readr][tidyverse-readr] provides a fast and friendly way to read rectangular data (like csv, tsv, and fwf). 
+  * [dplyr][tidyverse-dplyr] provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges.
+  * [ggplot2][tidyverse-ggplot2] is a system for declaratively creating graphics.
+  * [tidyr][tidyverse-tidyr] provides a set of functions that help you get to tidy data. Tidy data is data with a consistent form: in brief, every variable goes in a column, and every column is a variable. 
+  * [tibble][tidyverse-tibble] is a modern re-imagining of the data frame, keeping what time has proven to be effective, and throwing out what has not.
 
-- Functions are often used to encapsulate a sequence of expressions that need to be executed numerous times, perhaps under slightly different conditions. 
-&lt;!-- - In programming, functional programming is a programming paradigm, a style how code is written. Rather than repeating code, functions and control structures allow one to build code in blocks.  --&gt;
-- Functions are (often) verbs, followed by what they will be applied to in parentheses.
-- Functions can be defined using the `function()` directive:
-
-```r
-library(tidyverse)
-loop_output &lt;- function(dat, rows = 1:2, cols = 2:3, ...) {
-  ite &lt;- expand_grid(r = rows, c = cols)
-  for (i in 1:nrow(ite)) {
-    r &lt;- ite$r[i]
-    c &lt;- ite$c[i]
-    cat("Row ", r, " column ", c, " = ", dat[r,c], ".\n", ...)
-  } 
-  return("Finished!")
-}
-```
-- Functions always return the last expression evaluated in the function body or when you use the `return` flow control statement (good coding practice).
+Small introductions (with examples) to the packages are given on their documentation pages.
 
 ---
 
-## Functions - Arguments
+## Writing reproducible reports
 
-
-```r
-loop_output(mtcars)  # default values
-```
-
-```
-## Row  1  column  2  =  6 .
-## Row  1  column  3  =  160 .
-## Row  2  column  2  =  6 .
-## Row  2  column  3  =  160 .
-```
-
-```
-## [1] "Finished!"
-```
-
-```r
-loop_output(mtcars, rows = c(3,1), cols = 6)  # specify values
-```
-
-```
-## Row  3  column  6  =  2.32 .
-## Row  1  column  6  =  2.62 .
-```
-
-```
-## [1] "Finished!"
-```
+  - Reproducible means that the results can be reproduced given access to the original data, software, and code. 
+  - In practice it may be hard to make your project totally reproducible. There are different levels of reproducibility.
+  - [Literate programming][wiki-literate-programming] is a programming paradigm focusing on weaving code together with text as documentation. 
+  - Want to write reports containing both R code for importing data, wrangling and analysis with comments about the code, plots, analysis, results, etc. 
+  - Focus on [RMarkdown][r-markdown]. In RMarkdown documents you can weave R code together with text (written in Markdown) to produce rendered output in html, pdf or Word. 
+  - This may seem complicated at first. However, after setup, it makes life much easier, since don't have to copy/paste anymore.
 
 ---
 
-## Functions - The `...` argument
+## Example 
 
+Let us have a look at an example in the [RStudio Cloud project][r-cloud-mod15]. 
 
-```r
-loop_output(mtcars, rows = c(3,1), cols = 6)  # specify values
-```
+We will use the file `lecture/slides-examples.Rmd` throughout the lecture. 
 
-```
-## Row  3  column  6  =  2.32 .
-## Row  1  column  6  =  2.62 .
-```
-
-```
-## [1] "Finished!"
-```
-
-```r
-loop_output(mtcars, rows = c(3,1), cols = 6, sep = "")  # use the ... argument
-```
-
-```
-## Row 3 column 6 = 2.32.
-## Row 1 column 6 = 2.62.
-```
-
-```
-## [1] "Finished!"
-```
-
----
-
-## Functions - Document your functions
-
-Use **Code &gt; Insert Roxygen skeleton** (Ctrl+Alt+Shift+R).
-
-
-```r
-#' Loop through some values in a data frame
-#'
-#' @param dat A data frame.
-#' @param rows Rows to loop through.
-#' @param cols Columns to loop through.
-#' @param ... Arguments passed to `cat`.
-#'
-#' @return A string.
-loop_output &lt;- function(dat, rows = 1:2, cols = 2:3, ...) {
-  ite &lt;- expand_grid(r = rows, c = cols)
-  for (i in 1:nrow(ite)) {
-    r &lt;- ite$r[i]
-    c &lt;- ite$c[i]
-    cat("Row ", r, " column ", c, " = ", dat[r,c], ".\n", ...)
-  } 
-  return("Finished!")
-}
-```
-
-
----
-
-## Your Turn
-
-.your-turn[
-- Create a function that given some dice numbers and some cards from a 52-card deck (e.g. 1-spade), write out all the possible combinations as strings in the form `Dice = [value] and card = [value]`. 
-- Moreover, if the dice numbers contains the number 2, function must return true; otherwise, false. Hint:
-
-```r
-get_combinations &lt;- function(dice, card) {
-  ite &lt;- expand_grid(___)
-  found &lt;- FALSE
-  for (i in 1:nrow(ite)) {
-    ___
-  } 
-  return(found)
-}
-get_combinations(dice = c(2,3), card = c("2-spade", "ace-dimond"))
-get_combinations(dice = c(3,1), card = c("10-heart", "king-dimond"))
-```
-]
-
-<div class="countdown" id="timer_6163e2d1" style="top:0;right:0;" data-warnwhen="0">
-<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
-</div>
-
-???
-
-
-```r
-get_combinations &lt;- function(dice, card) {
-  ite &lt;- expand_grid(d = dice, c = card)
-  found &lt;- FALSE
-  for (i in 1:nrow(ite)) {
-    d &lt;- ite$d[i]
-    c &lt;- ite$c[i]
-    cat("Dice ", d, " and card  = ", c, ".\n", sep = "")
-    if (d == 2) found = TRUE
-  } 
-  return(found)
-}
-get_combinations(dice = c(2,3), card = c("2-spade", "ace-dimond"))
-```
-
-```
-## Dice 2 and card  = 2-spade.
-## Dice 2 and card  = ace-dimond.
-## Dice 3 and card  = 2-spade.
-## Dice 3 and card  = ace-dimond.
-```
-
-```
-## [1] TRUE
-```
-
-```r
-get_combinations(dice = c(3,1), card = c("10-heart", "king-dimond"))
-```
-
-```
-## Dice 3 and card  = 10-heart.
-## Dice 3 and card  = king-dimond.
-## Dice 1 and card  = 10-heart.
-## Dice 1 and card  = king-dimond.
-```
-
-```
-## [1] FALSE
-```
-
----
-
-## Your Turn
-
-.your-turn[
-- Create a function that calculates the present value (PV) of a future value. The equation is: 
-`$$PV = FV/(1+r)^n$$` where `\(FV\)` is future value, `\(r\)` is the interest rate, and `\(n\)` is the number of periods. 
-- Input arguments must be `\(FV\)`, `\(r\)`, `\(n\)` and a boolean `round` equal true if the output should be rounded to two decimals. 
-- The default interest rate is 0.1 (10%) and rounding is false by default.
-]
-
-<div class="countdown" id="timer_6163e435" style="right:0;bottom:0;" data-warnwhen="0">
-<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
-</div>
-
-???
-
-
-```r
-get_PV &lt;- function(FV, r = 0.1, n, round = FALSE) {
-  PV &lt;- FV/(1+r)^n
-  if (round) return(round(PV, 2))
-  return(PV)
-}
-get_PV(100, n = 7)
-```
-
-```
-## [1] 51.31581
-```
-
-```r
-get_PV(100, n = 7, round = TRUE)
-```
-
-```
-## [1] 51.32
-```
-
-```r
-get_PV(100, n = 7, r = 0.5)
-```
-
-```
-## [1] 5.852766
-```
+First, let us try to knit the document in different formats.
 
 
 
@@ -350,6 +139,7 @@ get_PV(100, n = 7, r = 0.5)
 [r-cloud-mod12]: https://rstudio.cloud/spaces/176810/project/2963819
 [r-cloud-mod13]: https://rstudio.cloud/spaces/176810/project/3020139
 [r-cloud-mod14]: https://rstudio.cloud/spaces/176810/project/3020322
+[r-cloud-mod15]: https://rstudio.cloud/spaces/176810/project/3020509
 [rstudio-download]: https://rstudio.com/products/rstudio/download/#download
 [rstudio-customizing]: https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio
 [rstudio-key-shortcuts]: https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts
