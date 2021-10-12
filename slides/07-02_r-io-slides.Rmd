@@ -1,0 +1,64 @@
+---
+title: "Importing and exporting data"
+author: "Lars Relund Nielsen"
+output:
+  xaringan::moon_reader:
+    css: "./libs/slides.css"
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+      highlightStyle: solarized-light
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, child = "setup.Rmd", echo=FALSE}
+```
+
+```{r include=FALSE}
+# use xaringan::inf_mr(cast_from = ".") to preview
+```
+
+layout: true
+
+<div class="my-footer">
+<span>
+<a href="https://bss-osca.github.io/tfa/mod-r-io" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/06-01_r-io-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/06-01_r-io-slides.Rmd" target="_blank">Source</a> | <a href="https://rstudio.cloud/spaces/176810/project/3026754" target="_blank">R project</a>
+</span>
+</div> 
+
+---
+
+## Input and output
+
+  * For doing data driven analytics you first must import some data. That is, take data from a database, file, web API etc. and transform it into a data frame/table. 
+  * Two main types of data files. Information is either binary encoded or stored as text files. 
+  * Text files can be read by humans and any programming language. 
+  * Binary file formats cannot be read by humans but allows space-efficient data compression. Moreover they can be used to save non tabular data.
+  * CSV files contain delimiter separated values (e.g. `,`, `;` or `_`) in plain text and are often named using the file suffix `.csv`. 
+  * The [readxl][tidyverse-readxl] package can be used to read Excel files. Write to an Excel file  using the [openxlsx][pkg-openxlsx] package. 
+  * You can import and export to Google sheets using the [googlesheets4][tidyverse-googlesheets4] package. 
+  * Json is an open standard text file format, and data interchange format. It can be used to store non tabular data in text format. 
+
+---
+
+## Examples and code 
+
+Let us have a look at an example in the [RStudio Cloud project][r-cloud-mod16]. 
+
+We will use the file `lecture/slides-examples.Rmd` throughout this lecture. 
+
+
+
+```{r copy, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../docs/slides/", overwrite = T)
+file.copy("./slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../docs/slides/", recursive = T)
+file.copy("img", "../docs/slides/", recursive = T)
+system2("Rscript", args = "-e 'rmarkdown::render(\"index.Rmd\", quiet = TRUE)'")
+```
+
+```{r links, child="links.md", include=FALSE}
+```

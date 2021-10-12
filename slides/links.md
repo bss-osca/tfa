@@ -63,6 +63,7 @@
 [r-cloud-mod13]: https://rstudio.cloud/spaces/176810/project/3020139
 [r-cloud-mod14]: https://rstudio.cloud/spaces/176810/project/3020322
 [r-cloud-mod15]: https://rstudio.cloud/spaces/176810/project/3020509
+[r-cloud-mod16]: https://rstudio.cloud/spaces/176810/project/3026754
 [rstudio-download]: https://rstudio.com/products/rstudio/download/#download
 [rstudio-customizing]: https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio
 [rstudio-key-shortcuts]: https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts

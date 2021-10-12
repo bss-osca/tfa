@@ -13,7 +13,20 @@ editor_options:
 
 For doing data driven analytics, you first must __import__ some data. That is, take data from a database, file, web API etc. and transform it into a data frame/table. Moreover, after processing data, you often want to export or store some of the results. This module introduces you to different ways of importing and exporting data. 
 
-## Learning outcomes {#lo-io}
+We are all different and you may like different learning styles compared to others. In the learning path diagram, there may be links to alternative online content. Note this is an alternative to the standard learning path that you may use instead. The learning path may also have extra content, that is not a part of syllabus, you can have a look at. 
+
+```{r, echo=FALSE, out.width="100%", fig.asp=NA, include=TRUE}
+g <- create_learning_path(
+   url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
+   sheet = "r-io", 
+   x_legend = 0, y_legend = 4)
+render_graph(g, width = 1000)
+```
+
+<!-- * [Chapter 5](https://rafalab.github.io/dsbook/importing-data.html) in @dsbook gives an alternative introduction to importing data. -->
+
+
+## Learning outcomes {#lo-r-io}
 
 By the end of this module, you are expected to be able to:
 
@@ -24,13 +37,15 @@ By the end of this module, you are expected to be able to:
 * Save data using R's native format.
 * Read and write to a json file.
 
+The learning outcomes relate to the [overall learning goals](#lg-course) number 7 and 13 of the course.
+
 <!-- SOLO increasing: identify · memorize · name · do simple procedure · collect data · -->
 <!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
 <!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
 <!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
 
 
-## CSV files
+## CSV files {#r-io-csv}
 
 [CSV files][wiki-csv] contain *comma separated values* (csv) in plain text and are often named using the file suffix `.csv`. Each line of the file is a data record. Each record consists of one or more fields, separated by a common delimiter (e.g. `,`, `;` or `_`). The CSV file format is not fully standardized. Different delimiters may be used, fields may be surrounded by quotation marks, text may contain escape characters and the encoding of the file may not be known. Despite these problems, CSV files are commonly used since they are easy to exchange and read.
 
@@ -120,7 +135,7 @@ write_excel_csv2(dat, csv_file)
 The CSV file can now be opened correctly in Excel. 
 
 
-## Excel
+## Excel {#r-io-excel}
 
 There are different packages in R for reading and writing to Excel. We will use the [readxl][tidyverse-readxl] package for reading Excel files which is a part of tidyverse. The package supports both the legacy `.xls` format and the modern xml-based `.xlsx` format. Let us use one of the example files provided by the package:
 
@@ -175,7 +190,7 @@ unlink(c("test.xlsx", "test1.xlsx", "test2.xlsx"))
 ```
 
 
-## Google Sheets
+## Google Sheets {#r-io-google}
 
 You can import and export to Google sheets using the [googlesheets4][tidyverse-googlesheets4] package in tidyverse. To read and write data, in general, you need to be logged in as a Google user. The package will ask you when needed. However, if you only want to read data from a public sheet, you can use `gs4_deauth` to skip this:
 
@@ -207,7 +222,7 @@ gs4_browse(gs)  # have a look at the file in a browser
 To see the results, have a look at your Google sheet `test` in your browser.
 
 
-## Text files
+## Text files {#r-io-text}
 
 You can read and write to plain text files using the [readr][tidyverse-readr] package. However, mostly you want to write to a text file because you want to save some kind of log file when you run your script. Here `sink` is an excellent function to use, since it redirects your R output. To see the output without messages, errors and warnings use:
 
@@ -256,7 +271,7 @@ cat(read_file("ex2.log"))
 ```
 
 
-## R's native binary format
+## R's native binary format {#r-io-r}
 
 In general, we can differ between two main types of data/files. Information is either binary encoded (basically just 0’s and 1’s) or stored as text files. What we have considered so far is storing data in text files. 
 
@@ -273,7 +288,7 @@ readRDS("test.rds")
 Note we here have saved a non tabular R object (a list).
 
 
-## Json
+## Json {#r-io-json}
 
 [JavaScript Object Notation][wiki-json] (json) is an open standard text file format, and data interchange format, that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and array data types. It can be used to store non tabular data in text format. It is often used for data-exchange in web-apis. 
 
@@ -295,15 +310,7 @@ cat(read_file("test.json"))
 
 
 
-## Different learning paths {#lp-io}
-
-`r strLPath`
-
-* [Chapter 5](https://rafalab.github.io/dsbook/importing-data.html) in @dsbook gives an alternative introduction to importing data.
-
-
-
-## Recap {#rc-io}
+## Recap {#rc-r-io}
 
 * For doing data driven analytics you first must import some data. That is, take data from a database, file, web API etc. and transform it into a data frame/table. 
 
@@ -331,12 +338,15 @@ cat(read_file("test.json"))
 
 * Json is an open standard text file format, and data interchange format. It can be used to store non tabular data in text format. It is often used for data-exchange in web-api's. 
 
+You may also have a look at the [slides for this module](https://bss-osca.github.io/tfa/slides/07-02_r-io-slides.html).
 
 
 
-## Exercises {#ex-io}
+## Exercises {#ex-r-io}
 
 `r strExercises`
+
+[Link to the project on RStudio Cloud for this module][r-cloud-mod16]. 
 
 ### Exercise (Statistikbanken)
 
