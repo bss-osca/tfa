@@ -1,20 +1,6 @@
 ## Common code relevant for all chapters
 
-library(tidyverse)
-options(dplyr.summarise.inform = FALSE)
-library(bsplus)
-library(htmltools)
 library(knitr)
-# To install igraph on OSX you may have to run 'brew unlink suite-sparse', install igraph and finally 'brew link suite-sparse' to re-enable.
-library(igraph)
-library(DiagrammeR)
-library(googlesheets4)
-library(fs)
-library(conflicted)
-conflict_prefer("filter", "dplyr", quiet = TRUE)
-conflict_prefer("select", "dplyr", quiet = TRUE)
-conflict_prefer("lag", "dplyr", quiet = TRUE)
-
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
@@ -29,6 +15,20 @@ knitr::opts_chunk$set(
   # fig.asp = 0.618,  # 1 / phi
   fig.show = "hold"
 )
+
+library(tidyverse)
+options(dplyr.summarise.inform = FALSE)
+library(bsplus)
+library(htmltools)
+# To install igraph on OSX you may have to run 'brew unlink suite-sparse', install igraph and finally 'brew link suite-sparse' to re-enable.
+library(igraph)
+library(DiagrammeR)
+library(googlesheets4)
+library(fs)
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
 
 options(
   width = 100,
