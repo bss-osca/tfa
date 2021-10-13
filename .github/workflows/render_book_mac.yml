@@ -7,7 +7,7 @@ on:
 name: Generate book (Mac)
 
 jobs:
-  build:
+  Render-book-mac:
     runs-on: macOS-latest
     env:
       RGL_USE_NULL: true
@@ -17,7 +17,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-
 
       - name: Setup Pandoc
         uses: r-lib/actions/setup-pandoc@v1
@@ -43,8 +42,6 @@ jobs:
 
       - name: Install packages
         run: |
-          R -e 'if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")'
-          R -e 'renv::restore()'
           R -e 'icons::download_fontawesome()'
 
       - name: Render book
