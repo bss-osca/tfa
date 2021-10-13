@@ -65,7 +65,7 @@ In general use the following functions
 For importing a CSV file properly, you need to know the delimiter, if the files has headers and the encoding. If you are not sure, you may have a look on the file by opening it in a text editor or try to read some lines:  
 
 ```{r}
-csv_file <- system.file("extdata/mtcars.csv", package = "readr")  # csv file
+csv_file <- readr_example("mtcars.csv") # csv file
 lines <- read_lines(csv_file, n_max = 3)
 lines
 cat(lines, sep = "\n")
@@ -76,22 +76,6 @@ It seems that the delimiter is a `,` and we may try to read the file using `read
 dat <- read_csv(csv_file)
 head(dat)
 ```
-Consider another example:
-
-```{r}
-csv_file <- system.file("extdata/massey-rating.txt", package = "readr")
-lines <- read_lines(csv_file, n_max = 3)
-cat(lines, sep = "\n")
-```
-
-Here it is harder to guess the delimiter. It could be a space or a tabulator. Let us try to read it assuming a space or tabulator:
-
-```{r}
-read_tsv(csv_file)                  # assume tabulator (\t), just read one column
-read_table(csv_file)                # assume space(s) between cols
-```
-
-The first function puts all data in one column. The second function works even though we have some warnings.
 
 CSV files should always be saved using encoding UTF-8. However, sometimes you may have encoding problems when you read a file:
 
@@ -116,6 +100,7 @@ Given a tibble/data frame export it using `write_csv`:
 ```{r}
 csv_file <- "testing.csv"
 write_csv(dat, file = csv_file) 
+write_csv2(dat, file = "testing_semicolon.csv")   # use a semicolon as delimitor
 ```
 
 You can now always import the data again using `read_csv`:
@@ -556,7 +541,8 @@ cat(read_file("test.dat"))  # to have a look
 Load datasets 
 
 ```{r}
-remotes::install_github("bss-osca/tfa/tfa-package", dependencies = FALSE)
+# remotes::install_github("bss-osca/tfa/tfa-package", dependencies = FALSE)  # if tfa not installed
+library(tfa)
 library(tidyverse)
 nurses <- read_csv(system.file("extdata/nurses.csv", package = "tfa"))
 shifts <- read_csv(system.file("extdata/shifts.csv", package = "tfa"))
