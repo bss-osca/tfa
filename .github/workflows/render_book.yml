@@ -4,7 +4,7 @@ on:
     # branches-ignore:
     #   - '**'
 
-name: Generate book
+name: Generate book (Mac)
 
 jobs:
   build:
@@ -27,12 +27,12 @@ jobs:
         with:
           use-public-rspm: true
 
-      - name: Setup renv
-        uses: r-lib/actions/setup-renv@v1
-
       - name: Install dependicies
         run: |
           brew install libgit2
+
+      - name: Setup renv
+        uses: r-lib/actions/setup-renv@v1
 
       - name: Cache bookdown results
         uses: actions/cache@v2
