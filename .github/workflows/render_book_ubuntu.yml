@@ -28,6 +28,10 @@ jobs:
 
       - uses: r-lib/actions/setup-renv@v1
 
+      - name: Install R stuff
+        run: |
+          R -e 'icons::download_fontawesome()'
+
       - name: Cache bookdown results
         uses: actions/cache@v2
         with:
