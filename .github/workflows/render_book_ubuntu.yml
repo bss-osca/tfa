@@ -1,50 +1,36 @@
 on:
   push:
-    # branches: master
-    branches-ignore:
-      - '**'
+    branches: [main, master]
+    # branches-ignore:
+    #   - '**'
 
-name: Render book
+name: Render book (Ubuntu)
 
 jobs:
   Render-book:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     env:
-      GITHUB_PAT: ${{ secrets.TFA }}
+      RGL_USE_NULL: true
+      BING_MAPS_API_KEY: ${{ secrets.BING_MAPS_KEY }}
+      GGMAP_GOOGLE_API_KEY: ${{ secrets.GGMAP_GOOGLE_KEY }}
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-      - name: Setup R
-        uses: r-lib/actions/setup-r@master
-      - name: Setup pandoc
-        uses: r-lib/actions/setup-pandoc@v1
-      - name: Install libcurl
-        run: sudo apt-get install libcurl4-openssl-dev
-      # - name: Query dependencies
-      #   run: Rscript -e "install.packages('remotes')" -e "saveRDS(remotes::dev_package_deps(dependencies = TRUE), 'depends.Rds')"
-      - name: Cache Renv packages
-        uses: actions/cache@v2
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-pandoc@v1
+
+      - uses: r-lib/actions/setup-r@v1
         with:
-          path: $HOME/.local/share/renv
-          key: r-${{ hashFiles('renv.lock') }}
-          restore-keys: r-
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-renv@v1
+
       - name: Cache bookdown results
         uses: actions/cache@v2
         with:
-          path: book/_bookdown_files
+          path: _bookdown_files
           key: bookdown-${{ hashFiles('**/*Rmd') }}
           restore-keys: bookdown-
-      - name: Install packages
-        run: |
-          R -e 'install.packages("renv")'
-          R -e 'renv::restore()'
-      - name: Render book
-        run: Rscript book/render_book.R
-      - name: Commit results
-        run: |
-          git config user.email "junk@relund.dk"
-          git config user.name "Lars Relund"
-          git add .
-          git commit --allow-empty -am 'gHA build: ${{github.run_number}}' || echo "No changes to commit"
-          git pull --rebase
-          git push https://${{github.actor}}:${{secrets.token}}@github.com/${{github.repository}}.git HEAD:${{ github.ref }} || echo "No changes to commit"
+
+      - name: Build site
+        run: Rscript -e 'bookdown::render_book("index.Rmd", quiet = TRUE)'
