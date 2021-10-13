@@ -517,7 +517,7 @@ When reading and writing to local files, your working directory becomes importan
 
 Set the working directory to the project directory using the menu: **Session > Set Working Directory > To Project Directory**. Now let us create some files:
 
-```{r}
+```{r, eval=FALSE}
    library(tidyverse)
    dir.create("subfolder", showWarnings = FALSE) 
    write_file("Some text in a file", file = "test1.txt")
@@ -528,12 +528,12 @@ Set the working directory to the project directory using the menu: **Session > S
 
 We can read the file again using:
 
-```{r}
+```{r, eval=FALSE}
 read_file("test1.txt")
 ```
 
 
-```{r, solution=TRUE}
+```{r, solution=TRUE, eval=FALSE}
 read_file("subfolder/test2.txt")
 ```
 ```{r, hint=TRUE, eval=FALSE}
@@ -548,7 +548,7 @@ read_file("subfolder/___")
 
 
 
-```{r, solution=TRUE}
+```{r, solution=TRUE, eval=FALSE}
 setwd("subfolder")  # done in Q3
 read_file("../test1.txt")
 read_file("test2.txt")
@@ -563,7 +563,6 @@ read_file("___")
 
 
 ```{r, include=FALSE}
-setwd("..")
 unlink("subfolder", recursive = TRUE)
 unlink("test1.txt")
 ```
