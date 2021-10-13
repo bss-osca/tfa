@@ -43,7 +43,7 @@ jobs:
       - name: Install packages
         run: |
           R -e 'install.packages("renv")'
-          R -e 'renv::restore()'
+          R -e 'renv::restore(repos = "http://package-proxy")'
           R -e 'icons::download_fontawesome()'
 
       - name: Render book
