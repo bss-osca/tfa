@@ -224,11 +224,11 @@ add_graph_legend <- function(graph, x, y) {
                  width = c(6, rep(0.8, 4), rep(1,3)),
                  height = c(1, 0, NA, NA, NA, 0, NA, NA),
                  penwidth = c(0.5, 0, 2, 2, 2, 0, 2, 2),
-                 tooltip = c("", "",
+                 tooltip = c(" ", " ",
                              "Mandatory syllabus.",
                              "Alternative syllabus if you prefer another learning style.",
                              "Extra learning if you are interested (not part of syllabus).",
-                             "",
+                             " ",
                              "Non-interactive learning content (e.g. reading).",
                              "Interactive learning content (tutorial, exercises etc.).")
         ))
