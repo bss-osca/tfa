@@ -18,21 +18,21 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
+
+      - name: Setup Pandoc
+        uses: r-lib/actions/setup-pandoc@v1
+
       - name: Setup R
-        uses: r-lib/actions/setup-r@master
+        uses: r-lib/actions/setup-r@v1
+        with:
+          use-public-rspm: true
+
+      - name: Setup renv
+        uses: r-lib/actions/setup-renv@v1
 
       - name: Install dependicies
         run: |
-          brew install pandoc
           brew install libgit2
-
-      - name: Cache Renv packages
-        uses: actions/cache@v2
-        with:
-          path: ~/Library/Application Support/renv
-          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-renv-
 
       - name: Cache bookdown results
         uses: actions/cache@v2
