@@ -41,3 +41,12 @@ jobs:
 
       - name: Render book
         run: Rscript book/render_book.R
+
+      - name: Commit results
+        run: |
+          git config user.email "junk@relund.dk"
+          git config user.name "Lars Relund"
+          git add .
+          git commit --allow-empty -am 'gHA build: ${{github.run_number}}' || echo "No changes to commit"
+          git pull --rebase
+          git push https://${{github.actor}}:${{secrets.token}}@github.com/${{github.repository}}.git HEAD:${{ github.ref }} || echo "No changes to commit"
