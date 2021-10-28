@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>An introduction to R</title>
+    <title>Visualization using ggplot2</title>
     <meta charset="utf-8" />
+    <meta name="author" content="Lars Relund Nielsen" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
-    <link href="libs/countdown/countdown.css" rel="stylesheet" />
-    <script src="libs/countdown/countdown.js"></script>
     <link rel="stylesheet" href="libs/slides.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# An introduction to R
-### 
+# Visualization using ggplot2
+### Lars Relund Nielsen
 
 ---
 
@@ -29,311 +28,118 @@ layout: true
 
 &lt;div class="my-footer"&gt;
 &lt;span&gt;
-&lt;a href="https://bss-osca.github.io/tfa/mod-r-workflow" target="_blank"&gt;Book&lt;/a&gt; | &lt;a href="https://bss-osca.github.io/tfa/slides/05-02_r-workflow-slides.html" target="_blank"&gt;Slides&lt;/a&gt; | &lt;a href="https://github.com/bss-osca/tfa/blob/master/slides/05-02_r-workflow-slides.Rmd" target="_blank"&gt;Source&lt;/a&gt; | &lt;a href="https://rstudio.cloud/spaces/176810/project/2963819" target="_blank"&gt;R project&lt;/a&gt;
+&lt;a href="https://bss-osca.github.io/tfa/mod-r-plot" target="_blank"&gt;Book&lt;/a&gt; | &lt;a href="https://bss-osca.github.io/tfa/slides/06-01_r-plot-slides.html" target="_blank"&gt;Slides&lt;/a&gt; | &lt;a href="https://github.com/bss-osca/tfa/blob/master/slides/06-01_r-plot-slides.Rmd" target="_blank"&gt;Source&lt;/a&gt; | &lt;a href="https://rstudio.cloud/spaces/176810/project/3130795" target="_blank"&gt;R project&lt;/a&gt;
 &lt;/span&gt;
 &lt;/div&gt; 
 
 ---
 
-## RStudio
+## Data visualization
 
-&lt;img src="img/rstudio-anatomy.png" width="80%" style="display: block; margin: auto;" /&gt;
+&gt; *"The simple graph has brought more information to the data analyst's mind than any other device." --- John Tukey*
 
----
-
-## R basics
-
-Basic use of R (the code is in the subfolder _lecture_ in the project):
-
-```r
-8738787213 / 1653   # as a calculator
-```
-
-```
-## [1] 5286623
-```
-
-```r
-"Lars"  # a character/string
-```
-
-```
-## [1] "Lars"
-```
-
-```r
-c(1,4)  # a vector
-```
-
-```
-## [1] 1 4
-```
-
-```r
-1:4 # a vector (sequence)
-```
-
-```
-## [1] 1 2 3 4
-```
+- Data visualization is the creation and study of the visual representation of data.
+- There are many tools for visualizing data (R is one of them), and many approaches/systems within R for making data visualizations (**ggplot2** is one of them, and that's what we're going to use).
 
 ---
 
-## R basics
+## ggplot2 a part of tidyverse
 
-
-```r
-age &lt;- c(12, 56, 34)  # assignment to object 
-name &lt;- c("Hans", "Sille", "Bo")  # character vector
-people &lt;- data.frame(Name = name, Age = age)  # data frame
-people  # print object
-```
-
-```
-##    Name Age
-## 1  Hans  12
-## 2 Sille  56
-## 3    Bo  34
-```
-
-```r
-people[1,]  # subsetting 1. row
-```
-
-```
-##   Name Age
-## 1 Hans  12
-```
-
-```r
-people$Name  # column Name
-```
-
-```
-## [1] "Hans"  "Sille" "Bo"
-```
-
----
-
-## R basics
-
-
-```r
-lst &lt;- list(p = people, status = 0, log = "Okay")  # a list (most abstract object)
-lst
-```
-
-```
-## $p
-##    Name Age
-## 1  Hans  12
-## 2 Sille  56
-## 3    Bo  34
-## 
-## $status
-## [1] 0
-## 
-## $log
-## [1] "Okay"
-```
-
-- The most commonly used way to store data is using a data frame, where each row represents an observation, and each column a variable.
-
----
-
-## Your Turn
-
-.your-turn[
-
-Use R to 
-
-- Extract column `Age` from `people`.
-- Extract the age of Hans from `people`.
-- Use `class` to find the data type of `p` in `lst`.
-- Why does this code not work?
-```r
-x &lt;- 2
-Y &lt;- 4
-x + y
-```
-- Define a list with a vector, a number, a string and a boolean.
+.pull-left[
+&lt;img src="img/ggplot2-part-of-tidyverse.png" width="80%" style="display: block; margin: auto;" /&gt;
+] 
+.pull-right[ 
+- **ggplot2** is tidyverse's data visualization package - The `gg` in "ggplot2" stands for Grammar of Graphics 
+- It is inspired by the book **Grammar of Graphics** by Leland Wilkinson
 ]
 
-<div class="countdown" id="timer_6166d113" style="top:0;right:0;" data-warnwhen="0">
-<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
-</div>
+---
 
-???
+## Grammar of Graphics
 
+A grammar of graphics is a tool that enables us to concisely describe the components of a graphic
 
-```r
-people$Age
-```
+&lt;img src="img/grammar-of-graphics.png" width="70%" style="display: block; margin: auto;" /&gt;
 
-```
-## [1] 12 56 34
-```
+.footnote[ Source: [BloggoType](http://bloggotype.blogspot.com/2016/08/holiday-notes2-grammar-of-graphics.html)]
 
-```r
-people[1, 2] # or
-```
-
-```
-## [1] 12
-```
-
-```r
-people[people$Name == "Hans", "Age"]
-```
-
-```
-## [1] 12
-```
-
-```r
-class(lst$p)
-```
-
-```
-## [1] "data.frame"
-```
-
-```r
-# R is case sensitive
-list(v = c(1,2), n = 3, s = "foo", l = TRUE)
-```
-
-```
-## $v
-## [1] 1 2
-## 
-## $n
-## [1] 3
-## 
-## $s
-## [1] "foo"
-## 
-## $l
-## [1] TRUE
-```
 
 
 ---
 
-## Functions
-
-- A function have inputs and outputs.
-- Functions are often used to encapsulate a sequence of expressions that need to be executed numerous times, perhaps under slightly different conditions. 
-- In programming, functional programming is a programming paradigm, a style how code is written. Rather than repeating code, functions and control structures allow one to build code in blocks. 
-- Functions are (often) verbs, followed by what they will be applied to in parentheses.
+## An example
 
 
 ```r
-do_this(to_this)
-do_that(to_this, to_that, with_those)
+ggplot(data = starwars, mapping = aes(x = height, y = mass)) +
+  geom_point() +
+  labs(title = "Mass vs. height of Starwars characters",
+       x = "Height (cm)", y = "Weight (kg)")
 ```
+
+```
+## Warning: Removed 28 rows containing missing values (geom_point).
+```
+
+&lt;img src="img/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-## Your Turn
-
-.your-turn[
-
-- Create a vector `v` with numbers 2, 4, 6, 8 [see the help for function `seq` by writing `?seq` in the console and having a look at the examples]. 
-- What is the sum of `v`?
-- What is the sum of the numbers in `x &lt;- c(1:4, NA)` [see `?sum`]?
-- Does `x` contain a missing value (`NA`) [see `?is.na`]
-- Convert `s &lt;- "1.2"` to a number [see `?as.numeric`].
-- What is the return value of `class(x)`?
-- Set `y &lt;- NULL` and check if `y` is null [see `?NULL`]. 
-- Set `lst &lt;- list(x = 3, y = "foo")` and check if `lst` contains an object `z` [use `is.null`].
+.question[ 
+- What are the functions doing?
+- What is the dataset being plotted?
+- Which variable is on the x-axis and which variable is on the y-axis?
+- What does the warning mean?
 ]
 
-<div class="countdown" id="timer_6166cfb3" style="right:0;bottom:0;" data-warnwhen="0">
-<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
-</div>
+
+```r
+ggplot(data = starwars, mapping = aes(x = height, y = mass)) +
+  geom_point() +
+  labs(
+    title = "Mass vs. height of Starwars characters",
+    x = "Height (cm)", 
+    y = "Weight (kg)"
+    )
+```
+
+    ## Warning: Removed 28 rows containing missing values (geom_point).
 
 ---
 
-## R packages
+## Hello ggplot2!
 
-- In R, the fundamental unit of shareable code is the package.
-- As of April 2020, there are over 15,000 packages available on the **C**omprehensive **R** **A**rchive **N**etwork (CRAN), the public clearing house for R packages. 
-- This huge variety of packages is one reason why R is so successful: the chances are that someone has already solved a problem that you’re working on, and you can benefit from their work by downloading their package.
-- Using R packages:
-  - Install them from CRAN with `install.packages("x")`.
-  - Install from GitHub using `remotes::install_github(path)`.
-  - Use them in R with `library(x)` or `x::&lt;function&gt;`.
-  - Use `?x` the see the help pages.
+- `ggplot()` is the main function in ggplot2
+- Plots are constructed in layers
+- Structure of the code for plots can be summarized as
+
+
+```r
+ggplot(data = [dataset], 
+       mapping = aes(x = [x-variable], y = [y-variable])) +
+   geom_xxx() +
+   other options
+```
+
+- To use ggplot2 functions, first load tidyverse
+
+
+```r
+library(tidyverse)
+```
+
+- For help with the ggplot2, see [ggplot2.tidyverse.org](http://ggplot2.tidyverse.org/)
 
 ---
 
-## Pipes
 
-Use the pipe `%&gt;%` operator for expressing a sequence of multiple operations (Ctrl+Shift+M). Value `log2(sqrt(16))` using pipes:
+class: middle
 
-```r
-library(tidyverse)   # define the pipe operator
-x &lt;- 16
-x %&gt;% sqrt() %&gt;% log2()
-```
+# Visualizing Star Wars
 
-```
-## [1] 2
-```
-The pipe _sends_ the result of the left side of the pipe to be the first argument of the function on the right side of the pipe. 
-
-$$ \mbox{original data (x)}
-\rightarrow \mbox{ sqrt }
-\rightarrow \mbox{ log2 } $$
-
-That is, we take what is left of the arrow (the object `x`) and put it into the function on the right of the arrow. 
-
----
-
-## Your Turn
-
-.your-turn[
-Use pipes to calculate 
+Let us consider the R markdown document.
 
 
-```r
-x &lt;- c(1:4, NA, 34)
-x &lt;- x^2
-x &lt;- sum(x, na.rm = TRUE)
-x &lt;- sqrt(x)
-x
-```
-
-```
-## [1] 34.43835
-```
-]
-
-<div class="countdown" id="timer_6166cf5a" style="right:0;bottom:0;" data-warnwhen="0">
-<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
-</div>
-
-???
-
-
-```r
-x &lt;- c(1:4, NA, 34)^2 %&gt;% sum() %&gt;% sqrt() # or
-x
-```
-
-```
-## [1] NA
-```
-
-```r
-x &lt;- c(1:4, NA, 34) %&gt;% `^`(2) %&gt;% sum() %&gt;% sqrt()
-x
-```
-
-```
-## [1] NA
-```
 
 
 
@@ -406,6 +212,7 @@ x
 [r-cloud-mod15]: https://rstudio.cloud/spaces/176810/project/3020509
 [r-cloud-mod16]: https://rstudio.cloud/spaces/176810/project/3026754
 [r-cloud-mod17]: https://rstudio.cloud/spaces/176810/project/3034015
+[r-cloud-mod18]: https://rstudio.cloud/spaces/176810/project/3130795
 [rstudio-download]: https://rstudio.com/products/rstudio/download/#download
 [rstudio-customizing]: https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio
 [rstudio-key-shortcuts]: https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts
@@ -476,7 +283,6 @@ x
 [wiki-literate-programming]: https://en.wikipedia.org/wiki/Literate_programming
 [wiki-csv]: https://en.wikipedia.org/wiki/Comma-separated_values
 [wiki-json]: https://en.wikipedia.org/wiki/JSON
-
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

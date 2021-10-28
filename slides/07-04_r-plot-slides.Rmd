@@ -14,16 +14,22 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r, child = "../setup.Rmd", echo=FALSE}
+```{r, child = "setup.Rmd", echo=FALSE}
 ```
 
-```{r links, child="../../book/links.md"}
+```{r include=FALSE}
+# use xaringan::inf_mr(cast_from = ".") to preview
 ```
 
-```{r packages, echo=FALSE, message=FALSE, warning=FALSE}
-# use xaringan::inf_mr(cast_from = "..") to preview
-library(tidyverse)
-```
+layout: true
+
+<div class="my-footer">
+<span>
+<a href="https://bss-osca.github.io/tfa/mod-r-plot" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/06-01_r-plot-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/06-01_r-plot-slides.Rmd" target="_blank">Source</a> | <a href="https://rstudio.cloud/spaces/176810/project/3130795" target="_blank">R project</a>
+</span>
+</div> 
+
+---
 
 ## Data visualization
 
@@ -127,10 +133,13 @@ Let us consider the R markdown document.
 
 
 
+```{r copy, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../docs/slides/", overwrite = T)
+file.copy("./slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../docs/slides/", recursive = T)
+file.copy("img", "../docs/slides/", recursive = T)
+system2("Rscript", args = "-e 'rmarkdown::render(\"index.Rmd\", quiet = TRUE)'")
+```
 
-```{r copy to docs, include=FALSE}
-file.copy(list.files(pattern = ".html"), "../../docs/slides/", overwrite = T)
-file.copy("../slides.css", "./libs/", overwrite = T)
-file.copy("libs", "../../docs/slides/", recursive = T)
-file.copy("img", "../../docs/slides/", recursive = T)
+```{r links, child="links.md", include=FALSE}
 ```

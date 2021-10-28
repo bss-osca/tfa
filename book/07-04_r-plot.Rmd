@@ -15,6 +15,21 @@ editor_options:
 
 This module considers visualization of your data using the [ggplot2][tidyverse-ggplot2] package which is a part of [tidyverse][tidyverse-main-page]. R has several systems for making plots, but ggplot2 is one of the most elegant and most versatile. Using ggplot2 you can make plots faster by learning one system and applying it in many different plot types.
 
+We are all different and you may like different learning styles compared to others. In the learning path diagram, there may be links to alternative online content. Note this is an alternative to the standard learning path that you may use instead. The learning path may also have extra content, that is not a part of syllabus, you can have a look at. 
+
+```{r, echo=FALSE, out.width="100%", fig.asp=NA, include=TRUE}
+g <- create_learning_path(
+   url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
+   sheet = "r-plot", 
+   x_legend = 1.75, y_legend = 0.55)
+render_graph(g)
+```
+
+<!-- * A detailed introduction to visualization using ggplot2 is given in Chapters 22-29 in @stat545.  -->
+<!-- * A short introduction is given in [Chapter 3](https://r4ds.had.co.nz/data-visualisation.html) in @r4ds. -->
+<!-- * Further advanded possibilities for ggplot2 are given in the interactive DataCamp course [Intermediate Data Visualization with ggplot2][datacamp-r-ggplot2-intermediate]. -->
+
+
 ## Learning outcomes {#lo-plot}
 
 By the end of this module, you are expected to:
@@ -34,7 +49,7 @@ The learning outcomes relate to the [overall learning goals](#lg-course) number 
 <!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
 <!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
 
-## Introduction to data visualization
+## Introduction to data visualization {#r-plot-intro}
 
 The package [ggplot2][tidyverse-ggplot2] is a plotting package that makes it simple to create complex plots from data in a data frame. It provides an interface for specifying which variables to plot, how they are displayed, and general visual properties. Hence, only minimal changes are needed, if the underlying data change or if we decide to change from a bar plot to a scatterplot. 
 
@@ -45,7 +60,7 @@ An excellent introduction to data visualization using [ggplot2][tidyverse-ggplot
 Note that there is a difference between using the pipe `%>%` operator which passes the output of the previous line of code as the first input of the next line of code and the `+` operator used between **ggplot2** functions for "layering". That is, you create the plot in layers, separated by `+`.
 
 
-## Combining plots into one using _patchwork_
+## Combining plots into one using _patchwork_  {#r-plot-multi}
 
 You can combine separate ggplots into the same graphic using the _patchwork_ package. You can install _patchwork_ from CRAN using `install.packages('patchwork')`. 
 
@@ -76,9 +91,9 @@ p4 <- ggplot(mtcars) + geom_bar(aes(carb))
 For further examples see the [documentation pages](https://patchwork.data-imaginist.com/).
 
 
-## Saving graphics
+## Saving graphics {#r-plot-save}
 
-In general, when you do anlytics using R Markdown, there is no need to save your graphics. This is done automatically. However, in a few cases you may need to save you graphics in different formats. Let us consider a simple plot:
+In general, when you do analytics using R Markdown, there is no need to save your graphics. This is done automatically. However, in a few cases you may need to save you graphics in different formats. Let us consider a simple plot:
 
 ```{r}
 library(tidyverse)
@@ -120,17 +135,6 @@ unlink(c("test1.png", "test2.png", "test3.png", "test1.pdf"))
 ```
 
 
-
-## Different learning paths {#lp-r-plot}
-
-`r strLPath`
-
-* A detailed introduction to visualization using ggplot2 is given in Chapters 22-29 in @stat545. 
-* A short introduction is given in [Chapter 3](https://r4ds.had.co.nz/data-visualisation.html) in @r4ds.
-* The 'Data visualization with ggplot2' cheatsheet is very useful. Find the newest version in RStudio **Help > Cheatsheets**.
-* A good place to see examples are on the [main reference page](https://ggplot2.tidyverse.org/reference/index.html). Follow the link to the function of interest and have a look at the examples.
-* Further advanded possibilities for ggplot2 are given in the interactive DataCamp course [Intermediate Data Visualization with ggplot2][datacamp-r-ggplot2-intermediate].
-
 ## Recap {#rc-r-plot}
 
 * The tidyverse package [ggplot2][tidyverse-ggplot2] is an R package for producing data visualizations. It is based on the Grammar of Graphics by @gramma. 
@@ -145,16 +149,19 @@ unlink(c("test1.png", "test2.png", "test3.png", "test1.pdf"))
 * Themes can be applied to the plot using the `theme_` functions and control all the non-data ink used to modify the overall look of a plot.
 * Separate ggplots can be combined into the same graphic using the _patchwork_ package. 
 * Save plots as variables and different image files using the device functions such as `png` and `pdf`.
-  
-  
 * The pipe `%>%` operator is used to "pipe" the output of the previous line of code as the first input of the next line of code.
 * The `+` operator in **ggplot2** functions is used for "layering". This means you create the plot in layers, separated by `+`.
+* The 'Data visualization with ggplot2' cheatsheet is very useful. Find the newest version in RStudio **Help > Cheatsheets**.
+* A good place to see examples are on the [main reference page](https://ggplot2.tidyverse.org/reference/index.html). Follow the link to the function of interest and have a look at the examples.
 
+You may also have a look at the [slides for this module](https://bss-osca.github.io/tfa/slides/05-02_r-plot-slides.html).
 
 
 ## Exercises {#ex-r-plot}
 
-`r strExercises`
+`r strExercises` 
+
+Practice using shortcuts in RStudio (use Shift+Alt+K to get an overview). [Link to the project on RStudio Cloud for this module][r-cloud-mod18]. 
 
 
 
