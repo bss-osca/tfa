@@ -1,0 +1,438 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
+```
+
+# (PART) Extra {-} 
+
+# Fitting probability distributions {#mod-r-dist-fit}
+
+Fitting distributions to data is a very common task in statistics and consists in choosing a probability distribution modelling the random variable, as well as finding parameter estimates for that distribution. This requires judgment and expertise and generally needs an iterative process of distribution choice, parameter estimation, and quality of fit assessment. In this module we will limit us to univariate data, i.e. univariate distributions such as normal, uniform, Poisson and exponential distributions. We will use  the [`fitdistrplus`](https://lbbe.univ-lyon1.fr/fr/fitdistrplus) package for fitting distributions.
+
+We are all different and you may like different learning styles compared to others. In the learning path diagram, there may be links to alternative online content. Note this is an alternative to the standard learning path that you may use instead. The learning path may also have extra content, that is not a part of syllabus, you can have a look at. 
+
+```{r, echo=FALSE, out.width="100%", fig.asp=NA, include=TRUE}
+g <- create_learning_path(
+   url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
+   sheet = "r-dist-fit", 
+   x_legend = 0, y_legend = 0.55)
+render_graph(g)
+```
+
+## Learning outcomes {#lo-r-dist-fit}
+
+By the end of this module, you are expected to:
+
+<!-- * Know how to create basic plots using ggplot. -->
+<!-- * Formulate the ideas behind the grammar of graphics. -->
+<!-- * Explain the idea behind aesthetics such as color, fill, and line type. -->
+<!-- * Add geometries to a plot such as a histogram, a boxplot, a barplot, a scatter plot, and a line. -->
+<!-- * Understand how themes can be used to modify the overall look of a plot. -->
+<!-- * Combine multiple plots into a single graphic. -->
+<!-- * Save plots as variables and different image files. -->
+
+The learning outcomes relate to the [overall learning goals](#lg-course) number 7, 11-14 and 18 of the course.
+
+<!-- SOLO increasing: identify · memorise · name · do simple procedure · collect data · -->
+<!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
+<!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
+<!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
+
+
+## Introduction {#sec-r-dist-fit-intro}
+
+Fitting distributions to data is a very common task in statistics and consists in choosing a probability distribution modelling the random variable, as well as finding parameter estimates for that distribution. This requires judgment and expertise and generally needs an iterative process of distribution choice, parameter estimation, and quality of fit assessment. In this module we will limit us to univariate data, i.e. univariate distributions such as a normal, uniform, Poisson and exponential distribution.
+
+Consider a dataset $x = (x_1, \ldots, x_n)$ with $n$ observations which is assumed to be _sample_ observations of a random variable $X$. Our goal is to find a distribution that fit the data well and estimate the parameters of the distribution. For instance if the distribution is a normal distribution then the mean and variance should be estimated. 
+
+Finding the distribution is an iterative process by considering distribution choice, parameter estimation, and quality of fit assessment repeatedly until you are satisfied. The first step is to decide if you data is should fit a discrete or continuous distribution. That is, should the random variable always take discrete values or could/are continuous values possible/okay? Note even though your sample only contain discrete values it is not necessarily samples from a discrete distribution. Consider for instance the dataset `groundbeef` which contains values of serving sizes in grams of ground beef patties consumed by children under 5 years old:
+
+```{r}
+library(fitdistrplus)
+library(tidyverse)
+data("groundbeef")   # activate the dataset
+dat <- as_tibble(groundbeef)
+str(dat)
+```
+
+Serving size in grams is only given using integers; however it is obvious that a continuous distribution should be fitted. We select the `serving` column so `dat` becomes a vector with the observations.
+
+```{r}
+dat <- dat$serving
+```
+
+
+## Fitting distributions to continuous data {#sec-r-dist-fit-cont}
+
+Before fitting one or more distributions to a data set, it is generally necessary to choose good
+candidates among a predefined set of distributions. This choice may be guided by the knowledge of
+stochastic processes governing the modeled variable, or, in the absence of knowledge regarding the
+underlying process, by the observation of its empirical distribution. We will use the
+[`fitdistrplus`](https://lbbe.univ-lyon1.fr/fr/fitdistrplus) package for fitting distributions. Let
+us continue with the `groundbeef` dataset.
+
+First of all, it is common to start with plots of the empirical distribution function and the
+histogram (or density plot), which can be obtained with the `plotdist` function which provides two
+plots where the left-hand plot is by default the histogram on a density scale and the
+right-hand plot the empirical cumulative distribution function (CDF).
+
+```{r, fig.height=6, fig.cap="Empirical density and distribution."}
+plotdist(dat, histo = TRUE, demp = TRUE)
+```
+
+The empirical plots of the density and the CDF may give you a hit about the distribution of $X$. But
+often additional descriptive statistics may help to choose candidates to describe a distribution
+among a set of parametric distributions. Especially the skewness and kurtosis, linked to the third
+and fourth moments, are useful for this purpose. A non-zero skewness reveals a lack of symmetry of
+the empirical distribution, while the kurtosis value quantifies the weight of tails in comparison to
+the normal distribution for which the kurtosis equals 3.
+
+The skewness and kurtosis and their corresponding estimate are given by
+  \begin{equation}
+    \label{skewness}
+    sk(X) = \frac{E[(X-E(X))^3]}{Var(X)^{\frac{3}{2}}}~,~
+    \widehat{sk}=\frac{\sqrt{n(n-1)}}{n-2}\times\frac{m_{3}}{m_{2}^{\frac{3}{2}}},
+  \end{equation}
+
+  \begin{equation}
+    \label{kurtosis}
+    kr(X) = \frac{E[(X-E(X))^4]}{Var(X)^{2}}~,~
+    \widehat{kr}=\frac{n-1}{(n-2)(n-3)}((n+1) \times \frac{m_{4}}{m_{2}^{2}}-3(n-1)) + 3,
+  \end{equation}
+where $m_{2}$, $m_{3}$, $m_{4}$ denote empirical moments defined by
+$m_{k}=\frac{1}{n}\sum_{i=1}^n(x_{i}-\overline{x})^{k}$, with mean value $\overline{x}$.
+
+The `descdist` function provides classical descriptive statistics (minimum, maximum, median, mean,
+standard deviation), skewness and kurtosis. A skewness-kurtosis plot such as the one proposed by
+@Cullen99 is provided by the `descdist` function for the empirical distribution On this plot, values
+for common distributions are displayed in order to help the choice of distributions to fit to
+data. For some distributions (normal, uniform, logistic, exponential), there is only one possible
+value for the skewness and the kurtosis. Thus, the distribution is represented by a single point
+on the plot. For other distributions, areas of possible values are represented, consisting of
+lines (as for gamma and lognormal distributions), or areas (as for beta distribution).
+Nevertheless, the user needs to know that skewness and kurtosis, like all higher moments, have a
+very high variance. Hence the skewness-kurtosis plot should then be regarded as indicative only
+and the properties of the random variable should be considered, notably its expected value and its
+range, as a complement to the use of the `plotdist` and `descdist` functions.
+
+Below is a call to the `descdist` function to describe the distribution of the serving size from the
+`groundbeef` data set and to draw the corresponding skewness-kurtosis plot. Looking at the results
+notice that the observed skewness is positive and the kurtosis is not far from 3. Hence the fit of
+three common right-skewed distributions could be considered: Weibull, gamma and lognormal
+distributions.
+
+```{r, fig.cap="Skewness-kurtosis plot for a continuous variable (`groundbeef`)."}
+descdist(dat)
+```
+
+Once one or more parametric distributions have been selected they are fitted to the data set using maximum likelihood. This is done using the `fitdist` function:
+
+```{r}
+fitW <- fitdist(dat, distr = "weibull")
+fitG <- fitdist(dat, distr = "gamma")
+fitL <- fitdist(dat, distr = "lnorm")
+```
+
+The function returns a list with information about the fit such as the parameter estimates, the loglikelihood, the Akaike and Bayesian information criteria (the so-called AIC and BIC). An overview can be seen using the `summary` function:
+
+```{r}
+summary(fitW)
+summary(fitG)
+summary(fitL)
+```
+
+The fit to the data can be plotted using four classical goodness-of-fit plots [@Cullen99]:
+
+- a density plot representing the density function of the fitted distribution along with the
+histogram of the empirical distribution,
+- a CDF plot of both the empirical distribution and the fitted distribution,
+- a Q-Q plot representing the empirical quantiles (y-axis) against the theoretical quantiles
+(x-axis),
+- a P-P plot representing the empirical distribution function evaluated at each data point (y-axis)
+against the fitted distribution function (x-axis).
+
+```{r, fig.asp=1, out.width="100%", fig.cap="Four Goodness-of-fit plots for various distributions fitted to the serving size data."}
+par(mfrow = c(2, 2))  # 4 plots in one figure
+pLegend <- c("Weibull", "lognormal", "gamma")
+lst <- list(fitW, fitL, fitG)
+denscomp(lst, legendtext = pLegend)
+qqcomp(lst, legendtext = pLegend)
+cdfcomp(lst, legendtext = pLegend)
+ppcomp(lst, legendtext = pLegend)
+```
+
+The density plot and the CDF plot may be considered as the basic classical goodness-of-fit plots.
+The two other plots are complementary and can be very informative in some cases. The Q-Q plot
+emphasizes the lack-of-fit at the distribution tails while the P-P plot emphasizes the lack-of-fit
+at the distribution center. In the present example, none of the three fitted distributions correctly
+describes the center of the distribution, but the Weibull and gamma distributions could be preferred
+for their better description of the right tail of the empirical distribution. Moreover, these
+distributions also have the lowest AIC values.
+
+Other methods can be used to fit distributions to the data instead of maximum likelihood. For details see @DelignetteMuller15.
+
+### Example: breakdown times 
+
+We consider a dataset that contains the recorded breakdown times of a machine part in days.   
+```{r}
+library(tfa)  # update to latest version using remotes::install_github("bss-osca/tfa/tfa-package", upgrade = FALSE) 
+dat <- breakdown
+plotdist(dat, histo = TRUE, demp = TRUE)
+```
+
+Since breakdown times may be seen as a continuous variable we try to fit a continuous variable. First we try to find distribution candidates:
+
+```{r}
+descdist(dat)
+```
+
+The observation is close to the normal and lognormal values and we try to fit these two distributions:
+
+```{r, fig.asp=1, out.width="100%", fig.cap="Four Goodness-of-fit plots for various distributions fitted to the breakdown data."}
+fitN <- fitdist(dat, distr = "norm")
+fitL <- fitdist(dat, distr = "lnorm")
+summary(fitN)
+summary(fitL)
+par(mfrow = c(2, 2))  # 4 plots in one figure
+pLegend <- c("normal", "lognormal")
+lst <- list(fitN, fitL)
+denscomp(lst, legendtext = pLegend)
+qqcomp(lst, legendtext = pLegend)
+cdfcomp(lst, legendtext = pLegend)
+ppcomp(lst, legendtext = pLegend)
+```
+
+Note it seems that the normal distribution has a better fit (AIC smallest). Also intuitively it makes sense that breakdown times are normal distributed around a mean value (however the probability of negative values should be low).  
+
+
+
+
+
+
+
+## Fitting distributions to discrete data {#sec-r-dist-fit-discrete}
+
+You may also need to fit discrete distributions such as:
+
+- The Poisson distribution which is a discrete probability distribution that expresses the probability of a given number of events occurring in a fixed interval of time and/or space if these events occur with a known average rate and independently of the time since the last event. The Poisson distribution can be applied to systems with a large number of possible events, each of which is rare. How many such events will occur during a fixed time interval? Under the right circumstances, this is a random number following a Poisson distribution.
+
+- The binomial distribution which is a probability distribution that is used to model the number of successes in a sequence of $n$ independent experiments with probability $p$ for success. The Bernoulli is a special case of the Binomial distribution where $n=1$ (one experiment).
+
+- The negative binomial distribution is a discrete probability distribution that models the number of failures in a sequence of independent and identically distributed Bernoulli trials before a specified number of successes occurs.
+
+- The geometric distribution is a special case of the negative binomial distribution where the specified number of successes are one.
+
+### Example: sales of lottery tickets
+
+Consider data of the number of houses that must be visited before selling 20 lottery tickets (assuming only one is sold at a time). 
+
+```{r}
+dat <- lottery
+plotdist(dat, discrete = TRUE)
+```
+
+Since the number of houses the must be visited (trials) is unknown, a negative binomial distribution seems as a good choice. The fit of a discrete distribution to discrete data requires the same procedure as for continuous data.
+
+```{r, fig.asp=0.6, out.width="100%", fig.cap="Four Goodness-of-fit plots for various distributions fitted to the breakdown data."}
+fit <- fitdist(dat, distr = "nbinom", discrete = TRUE, fix.arg = list(size = 20))
+summary(fit)
+par(mfrow = c(1, 2))  # 2 plots in one figure
+pLegend <- c("negative binomial")
+lst <- list(fit)
+denscomp(lst, legendtext = pLegend)
+cdfcomp(lst, legendtext = pLegend)
+```
+
+Note only the density and CDF is plotted for discrete data. Moreover, the this is an example where some of the parameters of the negative binomial distribution are known in advance. The negative binomial distribution has two parameters (see `?pnbinom`): the specified number of successes to occur (`size` argument) and the probability of success in each trial (`prob` argument). Given the information about the dataset, `size` equals 20 and we want to to try finding the probability of success in each trial. You fix a parameter by using the `fix.arg` argument in `fitdist`. Note that the summary only outputs the mean estimate `mu` but `prob = size/(size+mu)`:
+
+```{r}
+prob <- 20/(20 + fit$estimate)
+names(prob) <- NULL
+prob
+```
+
+That is the probability of success when visiting each house is approx. `r round(prob*100)`% and e.g. the number of houses that must be visited before all lottery tickets are sold with 95% probability is:
+
+```{r}
+qnbinom(0.95, size = 20, prob)
+```
+
+
+## The Poisson process {#sec-dist-fit-pois}
+
+A Poisson process models a series of discrete events. The average time between events is known, but the exact timing of events is random, i.e. the waiting time between events are exponential distributed. Since the exponential distribution is memoryless, the arrival time of an event is independent of what happend in the past (e.g. the arrival time of the last event). A Poisson process is often used in queueing theory to model random events, such as the arrival of customers at a store or phone calls arriving at a call center.
+
+More formally a Poisson process is defined as process counting the total number of events $N(t)$ at time $t$ given the average arrival rate $\lambda$. The process satisfy that:
+
+- $N(0)=0$;
+- The waiting time between events is exponential distributed with rate $\lambda$;
+- The number of arrivals in any interval of length $\tau$ is Poisson distributed with parameter $\tau\lambda$
+
+The arrivals in a Poisson process with on average 4 arrivals per time unit ($\lambda=4$) may look like:
+
+```{r poisson_process, echo=FALSE}
+arrivals<-10 # we sample 10 arrivals
+f<-rexp(arrivals,rate=4)   # sample 10 interarrival times with a rate of 4 arrivals/time unit
+x<-c(0,stats::filter(f,1, method="recursive"))   # arrival time of the 10 arrivals S_n
+xP<-x[2:(arrivals+1)]
+dat<-data.frame(S=c(x,xP),N=c(0:arrivals,0:(arrivals-1)))
+dat<-dat[order(dat$S,dat$N),]
+p<-rep(c(1,0),times=length(dat$S))
+dat$p<-p[1:length(dat$S)]
+ggplot(data=dat, aes(x=S, y=N, color=p) ) +
+   geom_line() + geom_point(aes(shape=factor(p))) +
+   scale_shape_manual(values=c(1,19)) + theme(legend.position="none") +
+   xlab("time") + ylab("arrivals")
+```
+
+Let us consider the data set `demand_goods` containing demand for two different goods/products:
+
+```{r}
+library(tfa)  # update to latest version using remotes::install_github("bss-osca/tfa/tfa-package", upgrade = FALSE) 
+demand_goods
+```
+
+The arrival of demands and demand size may follow a compound Poisson process which differ from a Poisson process by allowing more than a demand of one at a time. This if we consider the inter arrival times they should still follow an exponential distribution. Let us find the inter arrival times between each order and try to fit it have a look at the 
+
+```{r}
+library(tidyverse)
+datDf <- demand_goods %>% 
+  group_by(product) %>% 
+  mutate(between = as.numeric(date - lag(date), units="days")) %>% 
+  print()
+
+dat <- datDf %>% 
+  filter(product == 1, !is.na(between)) %>% 
+  pull(between)
+plotdist(dat, histo = TRUE, demp = TRUE)
+descdist(dat)
+```
+
+The observation is close to the exponential and lognormal values. However, a lognormal distribution cannot equal zero values:
+
+```{r, fig.asp=1, out.width="100%", fig.cap="Four Goodness-of-fit plots for various distributions fitted to the breakdown data."}
+fitE1 <- fitdist(dat, distr = "exp")
+summary(fitE1)
+par(mfrow = c(2, 2))  # 4 plots in one figure
+pLegend <- c("exp")
+lst <- list(fitE1)
+denscomp(lst, legendtext = pLegend)
+qqcomp(lst, legendtext = pLegend)
+cdfcomp(lst, legendtext = pLegend)
+ppcomp(lst, legendtext = pLegend)
+```
+
+The fit seems okay. Note that the horizontal and vertical points in the Q-Q and P-P plot indicate that another scale on measuring the inter arrival times would have be better (such as hours or minutes). Using days may round the numbers to much.
+
+
+Let us do the same analysis for product 2:
+
+```{r}
+dat <- datDf %>% 
+  filter(product == 2, !is.na(between)) %>% 
+  pull(between)
+plotdist(dat, histo = TRUE, demp = TRUE)
+descdist(dat)
+```
+
+The observation is close to the exponential values:
+
+```{r, fig.asp=1, out.width="100%", fig.cap="Four Goodness-of-fit plots for various distributions fitted to the breakdown data."}
+fitE2 <- fitdist(dat, distr = "exp")
+summary(fitE2)
+par(mfrow = c(2, 2))  # 4 plots in one figure
+pLegend <- c("exp")
+lst <- list(fitE2)
+denscomp(lst, legendtext = pLegend)
+qqcomp(lst, legendtext = pLegend)
+cdfcomp(lst, legendtext = pLegend)
+ppcomp(lst, legendtext = pLegend)
+```
+
+Again the fit seems okay. 
+
+To summarize the demand rate for product 1 is estimated to be `r round(fitE1$estimate,2)` per day and for product 2 to be `r round(fitE2$estimate,2)` per day.
+
+Given a demand arrive the question is how much is the demand size? That is, we have to fit a distribution to the demand:
+
+Let us do the same analysis for product 2:
+
+```{r}
+dat <- datDf %>% 
+  filter(product == 2) %>% 
+  pull(demand)
+plotdist(dat, histo = TRUE, demp = TRUE, discrete = TRUE)
+```
+
+Let us try to fit the negative binomial, Poisson and geometric distribution:
+
+```{r, fig.asp=1, out.width="100%", fig.cap="Four Goodness-of-fit plots for various distributions fitted to the breakdown data."}
+fitN2 <- fitdist(dat, distr = "nbinom")
+fitP2 <- fitdist(dat, distr = "pois")
+fitG2 <- fitdist(dat, distr = "geom")
+summary(fitN2)
+summary(fitP2)
+summary(fitG2)
+par(mfrow = c(1, 2)) 
+pLegend <- c("neg binomial", "Poisson", "geometric")
+lst <- list(fitN2, fitP2, fitG2)
+denscomp(lst, legendtext = pLegend)
+cdfcomp(lst, legendtext = pLegend)
+```
+
+The negative binomial seems to give the best fit and may be a good candidate.
+
+
+## Recap {#rc-r-dist-fit}
+
+* The tidyverse package [ggplot2][tidyverse-ggplot2] is an R package for producing data visualizations. It is based on the Grammar of Graphics by @gramma. 
+* The grammar of graphics is a coherent system for describing and building layered plots.
+  - Graphics are made by grammatical elements such as data, aesthetics, geometries, scales, facets, and themes.
+  - Plots are made though aesthetic mappings. That is, variables are mapped to x or y position using aesthetics attributes such as color, shape, or size.
+  - A plot is built step by step by adding new layers. Adding layers in this fashion allows for extensive flexibility and customization of plots.
+  - Together, the data, aesthetic mappings, and geometric object form a layer.
+  - A plot may have multiple layers, for example, when we overlay a scatterplot with a smoothed line.
+* Aesthetics are add in `ggplot` using the `aes` function or alternatively in `geom_` functions.
+* Geometries (e.g. a boxplot or line) are added to a plot using the `geom_` functions.
+* Themes can be applied to the plot using the `theme_` functions and control all the non-data ink used to modify the overall look of a plot.
+* Separate ggplots can be combined into the same graphic using the _patchwork_ package. 
+* Save plots as variables and different image files using the device functions such as `png` and `pdf`.
+* The pipe `%>%` operator is used to "pipe" the output of the previous line of code as the first input of the next line of code.
+* The `+` operator in **ggplot2** functions is used for "layering". This means you create the plot in layers, separated by `+`.
+* The 'Data visualization with ggplot2' cheatsheet is very useful. Find the newest version in RStudio **Help > Cheatsheets**.
+* A good place to see examples are on the [main reference page](https://ggplot2.tidyverse.org/reference/index.html). Follow the link to the function of interest and have a look at the examples.
+
+You may also have a look at the [slides for this module](https://bss-osca.github.io/tfa/slides/05-02_r-plot-slides.html).
+
+
+## Exercises {#ex-r-dist-fit}
+
+`r strExercises` 
+
+Practice using shortcuts in RStudio (use Shift+Alt+K to get an overview). [Link to the project on RStudio Cloud for this module][r-cloud-mod18]. 
+
+### Exercise
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
