@@ -22,6 +22,7 @@
 #' profit
 "profit"
 
+
 #' World population
 #'
 #' A dataset containing with populations for each country 1800-2100.
@@ -35,3 +36,31 @@
 #' @examples
 #' world_pop
 "world_pop"
+
+
+#' Demand for two goods/products.
+#'
+#' @format A data frame with 362 rows and 3 columns:
+#' date, demand and product id.
+#'
+#' @examples
+#' demand_goods
+"demand_goods"
+
+
+#' Breakdown times of a machine part
+#'
+#' @format A vector with days.
+#'
+#' @examples
+#' breakdown
+"breakdown"
+
+
+#' Houses visited before selling 20 lottery tickets (assuming only one is sold at a time).
+#'
+#' @format A vector with houses.
+#'
+#' @examples
+#' lottery
+"lottery"
