@@ -172,6 +172,270 @@ Is each of the following a dataset or a summary table?
 
 Let us have a look at the examples in the downloaded [R Markdown file](https://github.com/bss-osca/tfa/blob/master/slides/03-transform/03-transform_examples.Rmd).
 
+---
+
+layout: false
+
+class: center, title-slide, middle, inverse
+
+# Mutating joins
+
+---
+
+## Mutating joins
+
+Mutating joins allow you to combine variables from multiple tables. There are different types of joins. We will consider:
+
+- `inner_join()`: all rows from x where there are matching values in y, return 
+all combination of multiple matches in the case of multiple matches
+- `left_join()`: all rows from x
+- `right_join()`: all rows from y
+- `full_join()`: all rows from both x and y
+
+While mutating joins are primarily used to add new variables, they can also generate new observations. If a match is not unique, a join will add all possible combinations (the Cartesian product) of the matching observations.
+
+---
+
+## Setup
+
+For the next few slides...
+
+.pull-left[
+
+```r
+band_members
+```
+
+```
+## # A tibble: 3 × 2
+##   name  band   
+##   &lt;chr&gt; &lt;chr&gt;  
+## 1 Mick  Stones 
+## 2 John  Beatles
+## 3 Paul  Beatles
+```
+]
+.pull-right[
+
+```r
+band_instruments
+```
+
+```
+## # A tibble: 3 × 2
+##   name  plays 
+##   &lt;chr&gt; &lt;chr&gt; 
+## 1 John  guitar
+## 2 Paul  bass  
+## 3 Keith guitar
+```
+]
+
+---
+
+## `inner_join()`
+
+.pull-left[
+
+```r
+band_members %&gt;% 
+  inner_join(band_instruments)
+```
+
+```
+## # A tibble: 2 × 3
+##   name  band    plays 
+##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+## 1 John  Beatles guitar
+## 2 Paul  Beatles bass
+```
+]
+.pull-right[
+&lt;img src="img/inner-join.gif" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## `left_join()`
+
+.pull-left[
+
+```r
+band_members %&gt;% 
+  left_join(band_instruments)
+```
+
+```
+## # A tibble: 3 × 3
+##   name  band    plays 
+##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+## 1 Mick  Stones  &lt;NA&gt;  
+## 2 John  Beatles guitar
+## 3 Paul  Beatles bass
+```
+]
+.pull-right[
+&lt;img src="img/left-join.gif" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## `right_join()`
+
+.pull-left[
+
+```r
+band_members %&gt;%
+  right_join(band_instruments)
+```
+
+```
+## # A tibble: 3 × 3
+##   name  band    plays 
+##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+## 1 John  Beatles guitar
+## 2 Paul  Beatles bass  
+## 3 Keith &lt;NA&gt;    guitar
+```
+]
+.pull-right[
+&lt;img src="img/right-join.gif" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## `full_join()`
+
+.pull-left[
+
+```r
+band_members %&gt;% 
+  full_join(band_instruments)
+```
+
+```
+## # A tibble: 4 × 3
+##   name  band    plays 
+##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+## 1 Mick  Stones  &lt;NA&gt;  
+## 2 John  Beatles guitar
+## 3 Paul  Beatles bass  
+## 4 Keith &lt;NA&gt;    guitar
+```
+]
+.pull-right[
+&lt;img src="img/full-join.gif" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Filtering joins
+
+Filtering joins match observations in the same way as mutating joins, but affect the observations, not the variables. There are two types:
+
+- `semi_join()`: all rows from x where there are matching values in y, keeping just columns from x.
+- `anti_join()`: return all rows from x where there are not matching values in y, never duplicate rows of x
+ 
+These are most useful for diagnosing join mismatches. If you're worried about what observations your joins will match, start with a `semi_join()` or `anti_join()`. `semi_join()` and `anti_join()` never duplicate; they only remove observations. 
+
+---
+
+## `semi_join()`
+
+.pull-left[
+
+```r
+band_members %&gt;% 
+  semi_join(band_instruments)
+```
+
+```
+## # A tibble: 2 × 2
+##   name  band   
+##   &lt;chr&gt; &lt;chr&gt;  
+## 1 John  Beatles
+## 2 Paul  Beatles
+```
+]
+.pull-right[
+&lt;img src="img/semi-join.gif" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## `anti_join()`
+
+.pull-left[
+
+```r
+band_members %&gt;% 
+  anti_join(band_instruments)
+```
+
+```
+## # A tibble: 1 × 2
+##   name  band  
+##   &lt;chr&gt; &lt;chr&gt; 
+## 1 Mick  Stones
+```
+]
+.pull-right[
+&lt;img src="img/anti-join.gif" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## What if column names are not the same?
+
+.pull-left[
+
+```r
+band_members
+```
+
+```
+## # A tibble: 3 × 2
+##   name  band   
+##   &lt;chr&gt; &lt;chr&gt;  
+## 1 Mick  Stones 
+## 2 John  Beatles
+## 3 Paul  Beatles
+```
+
+```r
+band_instruments2
+```
+
+```
+## # A tibble: 3 × 2
+##   artist plays 
+##   &lt;chr&gt;  &lt;chr&gt; 
+## 1 John   guitar
+## 2 Paul   bass  
+## 3 Keith  guitar
+```
+]
+.pull-right[
+
+```r
+band_members %&gt;% 
+  full_join(
+    band_instruments2, 
+    by = c("name" = "artist"))
+```
+
+```
+## # A tibble: 4 × 3
+##   name  band    plays 
+##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+## 1 Mick  Stones  &lt;NA&gt;  
+## 2 John  Beatles guitar
+## 3 Paul  Beatles bass  
+## 4 Keith &lt;NA&gt;    guitar
+```
+]
+
+
 
 
 
