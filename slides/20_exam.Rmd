@@ -1,6 +1,6 @@
 ---
 title: "Tools for Analytics - Exam"
-author: "Lars Relund Nielsen and Sanne Wøhlk"
+author: "Lars Relund Nielsen"
 output:
   xaringan::moon_reader:
     css: "./libs/slides.css"
@@ -14,18 +14,22 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r, child = "../setup.Rmd", echo=FALSE}
+```{r, child = "setup.Rmd", echo=FALSE}
 ```
 
-```{r links, child="../../book/links.md"}
+```{r include=FALSE}
+# use xaringan::inf_mr(cast_from = ".") to preview
 ```
 
-```{r packages, echo=FALSE, message=FALSE, warning=FALSE}
-if (interactive()) setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # set working dir to current file location
-# use xaringan::inf_mr(cast_from = "..") to preview
-library(tidyverse)
-library(knitr)
-```
+layout: true
+
+<div class="my-footer">
+<span>
+<a href="https://bss-osca.github.io/tfa/mod-r-io" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/07-03_r-transform-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/07-03_r-transform-slides.Rmd" target="_blank">Source</a> | <a href="https://rstudio.cloud/spaces/176810/project/3026754" target="_blank">R project</a>
+</span>
+</div> 
+
+---
 
 ## Pratical information
 
@@ -55,7 +59,7 @@ knitr::include_graphics("img/student_vs_prof.gif")
 * Your R code must be written up in an R Markdown (Rmd) file named `yourFlowId.Rmd`. Moreover, also hand in the rendered/knitted html file.
 * Your file must include your code and a (brief) comment for each question. For example, “The three companies with smallest profit are …” or “The plot shows that …”.
 * An R markdown template file is given in the appendix that you may use as a starting point.
-* Your R code will be tested using R 4.0.3. As operating system Windows will be used.
+* Your R code will be tested using R 4.1.1. As operating system Windows will be used.
 * You may load and use the following packages:
 
   ```{r}
@@ -91,12 +95,16 @@ knitr::include_graphics("img/time.jpg")
 
 class: center middle
 
-# We wish you good luck at the exam!
+# I wish you good luck at the exam!
 
 
-```{r copy to docs, include=FALSE}
-file.copy(list.files(pattern = ".html"), "../../docs/slides/", overwrite = T)
-file.copy("../slides.css", "./libs/", overwrite = T)
-file.copy("libs", "../../docs/slides/", recursive = T)
-file.copy("img", "../../docs/slides/", recursive = T)
+```{r copy, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../docs/slides/", overwrite = T)
+file.copy("./slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../docs/slides/", recursive = T)
+file.copy("img", "../docs/slides/", recursive = T)
+system2("Rscript", args = "-e 'rmarkdown::render(\"index.Rmd\", quiet = TRUE)'")
+```
+
+```{r links, child="links.md", include=FALSE}
 ```

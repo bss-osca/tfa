@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Transform data</title>
+    <title>Tools for Analytics - Exam</title>
     <meta charset="utf-8" />
     <meta name="author" content="Lars Relund Nielsen" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -13,7 +13,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Transform data
+# Tools for Analytics - Exam
 ### Lars Relund Nielsen
 
 ---
@@ -34,410 +34,68 @@ layout: true
 
 ---
 
-## Tidy data
+## Pratical information
 
-&gt;Happy families are all alike; every unhappy family is unhappy in its own way. 
-&gt;
-&gt;Leo Tolstoy
+* A six hour written exam about all the topics.
+* Approx. the same weight on each part of the course (VBA and R part).
+* Please note that the weights on each assignment are only guideline weights, and they only provide information regarding the relative weight of the assignments. 
 
---
+&lt;img src="img/student_vs_prof.gif" width="80%" style="display: block; margin: auto;" /&gt;
+---
 
-.pull-left[
-**Characteristics of tidy data:**
+## Pratical information
 
-- Each variable forms a column.
-- Each observation forms a row.
-- Each type of observational unit forms a table.
+* The exam is open book, open internet, closed other people. 
+  - You may use any online or book-based resource you would like, but you must include citations for any code that you use (directly or indirectly). 
+  - You may not consult with anyone else during this exam. 
+* This assignment has one appendix available for download from WISEflow. The file is a zip file containing the files you may need during the exam.
+* If you find that some information is missing in the assignments, you may make the necessary assumptions and clearly specify these.
+* Handing in: You must hand in a set of files (`.Rmd`, `.xlsm` and `.html`) as “Appendix material”. Due to the system, you must also upload an empty pdf-document named `yourFlowId.pdf`.
+
+
+---
+
+## Specific for the R part
+
+* Your R code must be written up in an R Markdown (Rmd) file named `yourFlowId.Rmd`. Moreover, also hand in the rendered/knitted html file.
+* Your file must include your code and a (brief) comment for each question. For example, “The three companies with smallest profit are …” or “The plot shows that …”.
+* An R markdown template file is given in the appendix that you may use as a starting point.
+* Your R code will be tested using R 4.1.1. As operating system Windows will be used.
+* You may load and use the following packages:
+
+  
+  ```r
+  library(tidyverse)
+  library(skimr)
+  ```
+---
+
+## Specific for the VBA part
+
+* Your VBA code should be contained in a single Excel file named `yourFlowId.xlsm`.
+* Do not protect your code with password or turn it into an Add-In.
+* Your VBA code will be tested using Excel 2016. As operating system Windows will be used.
+
+---
+
+## How to prepare for the exam
+
+.pull-left[ 
+The best way prepare for the exam is to redo all the exercises:
+
+* Hide your previous solution.
+* Solve the exercise. If you have problems recap the stuff that you don't understand in the curriculum and have a look in the hidden solution.
+* Repeat until you can solve the exercise without help.
 ]
---
-.pull-right[
-**Characteristics of untidy data:**
-
-!@#$%^&amp;*()
+.pull-right[ 
+&lt;img src="img/time.jpg" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
 
-.question[
-What makes this data not tidy?
-]
+class: center middle
 
-&lt;br&gt;
-
-&lt;img src="img/hiv-est-prevalence-15-49.png" width="95%" style="display: block; margin: auto;" /&gt;
-
-.footnote[
-Source: [Gapminder, Estimated HIV prevalence among 15-49 year olds](https://www.gapminder.org/data)
-]
-
----
-
-## Summary tables 
-
-.question[
-Is each of the following a dataset or a summary table?
-]
-
-.midi[
-.pull-left[
-
-```
-## # A tibble: 87 × 3
-##   name           height  mass
-##   &lt;chr&gt;           &lt;int&gt; &lt;dbl&gt;
-## 1 Luke Skywalker    172    77
-## 2 C-3PO             167    75
-## 3 R2-D2              96    32
-## 4 Darth Vader       202   136
-## 5 Leia Organa       150    49
-## 6 Owen Lars         178   120
-## # … with 81 more rows
-```
-]
-.pull-right[
-
-```
-## # A tibble: 3 × 2
-##   gender    avg_height
-##   &lt;chr&gt;          &lt;dbl&gt;
-## 1 feminine        165.
-## 2 masculine       177.
-## 3 &lt;NA&gt;            181.
-```
-]
-]
-
----
-
-## A grammar of data wrangling...
-
-... based on the concepts of functions as verbs that manipulate data frames
-
-.pull-left[
-&lt;img src="img/dplyr-part-of-tidyverse.png" width="80%" style="display: block; margin: auto;" /&gt;
-]
-.pull-right[
-.midi[
-- `select`: pick columns by name
-- `arrange`: reorder rows
-- `slice`: pick rows using index(es)
-- `filter`: pick rows matching criteria
-- `distinct`: filter for unique rows
-- `mutate`: add new variables
-- `summarise`: reduce variables to values
-- `group_by`: for grouped operations
-- ... (many more)
-]
-]
-
----
-
-## Rules of **dplyr** functions
-
-- First argument is *always* a data frame
-- Subsequent arguments say what to do with that data frame
-- Always return a data frame
-
----
-
-## Data: Hotel bookings
-
-- Data from two hotels: one resort and one city hotel
-- Observations: Each row represents a hotel booking
-&lt;!-- - Goal for original data collection: Development of prediction models to classify a hotel booking's likelihood to be cancelled ([Antonia et al., 2019](https://www.sciencedirect.com/science/article/pii/S2352340918315191#bib5)) --&gt;
-
-
-```
-## # A tibble: 119,390 × 32
-##   hotel        is_canceled lead_time arrival_date_ye… arrival_date_mo… arrival_date_we… arrival_date_da…
-##   &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;                       &lt;dbl&gt;            &lt;dbl&gt;
-## 1 Resort Hotel           0       342             2015 July                           27                1
-## 2 Resort Hotel           0       737             2015 July                           27                1
-## 3 Resort Hotel           0         7             2015 July                           27                1
-## 4 Resort Hotel           0        13             2015 July                           27                1
-## 5 Resort Hotel           0        14             2015 July                           27                1
-## 6 Resort Hotel           0        14             2015 July                           27                1
-## # … with 119,384 more rows, and 25 more variables: stays_in_weekend_nights &lt;dbl&gt;,
-## #   stays_in_week_nights &lt;dbl&gt;, adults &lt;dbl&gt;, children &lt;dbl&gt;, babies &lt;dbl&gt;, meal &lt;chr&gt;,
-## #   country &lt;chr&gt;, market_segment &lt;chr&gt;, distribution_channel &lt;chr&gt;, is_repeated_guest &lt;dbl&gt;,
-## #   previous_cancellations &lt;dbl&gt;, previous_bookings_not_canceled &lt;dbl&gt;, reserved_room_type &lt;chr&gt;,
-## #   assigned_room_type &lt;chr&gt;, booking_changes &lt;dbl&gt;, deposit_type &lt;chr&gt;, agent &lt;chr&gt;,
-## #   company &lt;chr&gt;, days_in_waiting_list &lt;dbl&gt;, customer_type &lt;chr&gt;, adr &lt;dbl&gt;,
-## #   required_car_parking_spaces &lt;dbl&gt;, total_of_special_requests &lt;dbl&gt;, reservation_status &lt;chr&gt;, …
-```
-
----
-
-## Examples and code 
-
-Let us have a look at the examples in the downloaded [R Markdown file](https://github.com/bss-osca/tfa/blob/master/slides/03-transform/03-transform_examples.Rmd).
-
----
-
-layout: false
-
-class: center, title-slide, middle, inverse
-
-# Mutating joins
-
----
-
-## Mutating joins
-
-Mutating joins allow you to combine variables from multiple tables. There are different types of joins. We will consider:
-
-- `inner_join()`: all rows from x where there are matching values in y, return 
-all combinations of multiple matches in the case of multiple matches
-- `left_join()`: all rows from x
-- `right_join()`: all rows from y
-- `full_join()`: all rows from both x and y
-
-While mutating joins are primarily used to add new variables, they can also generate new observations. If a match is not unique, a join will add all possible combinations (the Cartesian product) of the matching observations.
-
----
-
-## Setup
-
-For the next few slides...
-
-.pull-left[
-
-```r
-band_members
-```
-
-```
-## # A tibble: 3 × 2
-##   name  band   
-##   &lt;chr&gt; &lt;chr&gt;  
-## 1 Mick  Stones 
-## 2 John  Beatles
-## 3 Paul  Beatles
-```
-]
-.pull-right[
-
-```r
-band_instruments
-```
-
-```
-## # A tibble: 3 × 2
-##   name  plays 
-##   &lt;chr&gt; &lt;chr&gt; 
-## 1 John  guitar
-## 2 Paul  bass  
-## 3 Keith guitar
-```
-]
-
----
-
-## `inner_join()`
-
-.pull-left[
-
-```r
-band_members %&gt;% 
-  inner_join(band_instruments)
-```
-
-```
-## # A tibble: 2 × 3
-##   name  band    plays 
-##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
-## 1 John  Beatles guitar
-## 2 Paul  Beatles bass
-```
-]
-.pull-right[
-&lt;img src="img/inner-join.gif" width="100%" style="display: block; margin: auto;" /&gt;
-]
-
----
-
-## `left_join()`
-
-.pull-left[
-
-```r
-band_members %&gt;% 
-  left_join(band_instruments)
-```
-
-```
-## # A tibble: 3 × 3
-##   name  band    plays 
-##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
-## 1 Mick  Stones  &lt;NA&gt;  
-## 2 John  Beatles guitar
-## 3 Paul  Beatles bass
-```
-]
-.pull-right[
-&lt;img src="img/left-join.gif" width="100%" style="display: block; margin: auto;" /&gt;
-]
-
----
-
-## `right_join()`
-
-.pull-left[
-
-```r
-band_members %&gt;%
-  right_join(band_instruments)
-```
-
-```
-## # A tibble: 3 × 3
-##   name  band    plays 
-##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
-## 1 John  Beatles guitar
-## 2 Paul  Beatles bass  
-## 3 Keith &lt;NA&gt;    guitar
-```
-]
-.pull-right[
-&lt;img src="img/right-join.gif" width="100%" style="display: block; margin: auto;" /&gt;
-]
-
----
-
-## `full_join()`
-
-.pull-left[
-
-```r
-band_members %&gt;% 
-  full_join(band_instruments)
-```
-
-```
-## # A tibble: 4 × 3
-##   name  band    plays 
-##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
-## 1 Mick  Stones  &lt;NA&gt;  
-## 2 John  Beatles guitar
-## 3 Paul  Beatles bass  
-## 4 Keith &lt;NA&gt;    guitar
-```
-]
-.pull-right[
-&lt;img src="img/full-join.gif" width="100%" style="display: block; margin: auto;" /&gt;
-]
-
----
-
-## Filtering joins
-
-Filtering joins match observations in the same way as mutating joins, but affect the observations, not the variables. There are two types:
-
-- `semi_join()`: all rows from x where there are matching values in y, keeping just columns from x.
-- `anti_join()`: return all rows from x where there are not matching values in y, never duplicate rows of x
- 
-These are most useful for diagnosing join mismatches. If you're worried about what observations your joins will match, start with a `semi_join()` or `anti_join()`. `semi_join()` and `anti_join()` never duplicate; they only remove observations. 
-
----
-
-## `semi_join()`
-
-.pull-left[
-
-```r
-band_members %&gt;% 
-  semi_join(band_instruments)
-```
-
-```
-## # A tibble: 2 × 2
-##   name  band   
-##   &lt;chr&gt; &lt;chr&gt;  
-## 1 John  Beatles
-## 2 Paul  Beatles
-```
-]
-.pull-right[
-&lt;img src="img/semi-join.gif" width="100%" style="display: block; margin: auto;" /&gt;
-]
-
----
-
-## `anti_join()`
-
-.pull-left[
-
-```r
-band_members %&gt;% 
-  anti_join(band_instruments)
-```
-
-```
-## # A tibble: 1 × 2
-##   name  band  
-##   &lt;chr&gt; &lt;chr&gt; 
-## 1 Mick  Stones
-```
-]
-.pull-right[
-&lt;img src="img/anti-join.gif" width="100%" style="display: block; margin: auto;" /&gt;
-]
-
----
-
-## What if column names are not the same?
-
-.pull-left[
-
-```r
-band_members
-```
-
-```
-## # A tibble: 3 × 2
-##   name  band   
-##   &lt;chr&gt; &lt;chr&gt;  
-## 1 Mick  Stones 
-## 2 John  Beatles
-## 3 Paul  Beatles
-```
-
-```r
-band_instruments2
-```
-
-```
-## # A tibble: 3 × 2
-##   artist plays 
-##   &lt;chr&gt;  &lt;chr&gt; 
-## 1 John   guitar
-## 2 Paul   bass  
-## 3 Keith  guitar
-```
-]
-.pull-right[
-
-```r
-band_members %&gt;% 
-  full_join(
-    band_instruments2, 
-    by = c("name" = "artist"))
-```
-
-```
-## # A tibble: 4 × 3
-##   name  band    plays 
-##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
-## 1 Mick  Stones  &lt;NA&gt;  
-## 2 John  Beatles guitar
-## 3 Paul  Beatles bass  
-## 4 Keith &lt;NA&gt;    guitar
-```
-]
-
-
-
-
+# I wish you good luck at the exam!
 
 
 
