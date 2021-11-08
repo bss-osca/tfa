@@ -149,51 +149,6 @@ hotels
 
 Let us have a look at the examples in the downloaded [R Markdown file](https://github.com/bss-osca/tfa/blob/master/slides/03-transform/03-transform_examples.Rmd).
 
----
-
-exclude: true
- 
-
-```{r l1, eval=FALSE}
-x <- TRUE   # you may use x <- T 
-y <- FALSE  # you may use y <- F
-x == y
-```
---
-```{r, ref.label="l1", echo=FALSE, eval=FALSE}
-```
---
-
----
-
-exclude: true
-
-## Your Turn
-
-.your-turn[
-- Create a function that calculates the present value ($PV$) of a future value. The equation is: 
-$$PV = FV/(1+r)^n$$ where $FV$ is future value, $r$ is the interest rate, and $n$ is the number of periods. 
-- Input arguments must be $FV$, $r$, $n$ and a boolean `round` equal true if the output should be rounded to two decimals. 
-- The default interest rate is 0.1 (10%) and rounding is false by default.
-]
-
-```{r echo=FALSE}
-countdown(minutes = 5)
-```
-
-???
-
-```{r, include=FALSE}
-get_PV <- function(FV, r = 0.1, n, round = FALSE) {
-  PV <- FV/(1+r)^n
-  if (round) return(round(PV, 2))
-  return(PV)
-}
-get_PV(100, n = 7)
-get_PV(100, n = 7, round = TRUE)
-get_PV(100, n = 7, r = 0.5)
-```
-
 
 
 
