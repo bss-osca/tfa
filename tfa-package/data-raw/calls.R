@@ -1,7 +1,7 @@
 library(tidyverse)
 library(lubridate)
 
-callsRaw <- read_csv("../inst/extdata/311.csv")
+callsRaw <- read_csv("../inst/extdata/311_calls.csv")
 calls <- callsRaw %>%
    dplyr::select(
       date = Date,
@@ -16,7 +16,6 @@ calls <- callsRaw %>%
    ) %>%
    dplyr::filter(
       year(date) == 2014,
-      between <= 100,
       between > 0,
       time >= hms("08:00:00"),
       time <= hms("17:00:00")
