@@ -61,6 +61,22 @@
 #'
 #' @format A vector with houses.
 #'
-#' @examples
+#' @example
 #' lottery
 "lottery"
+
+
+#' Telephone calls to to the Los Angeles 311 Call Center in 2014
+#'
+#' @format A data frame with 846,120 rows and 6 columns:
+#'
+#'   * **date** Date.
+#'   * **time** Time.
+#'   * **department** Redirected to which department?
+#'   * **zip** Zip code.
+#'   * **service** Service considered.
+#'   * **solved_how** How solved.
+#'
+#' @example
+#' calls
+"calls"
