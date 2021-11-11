@@ -14,7 +14,7 @@ Fitting distributions to data is a very common task in statistics and consists i
 
 We are all different and you may like different learning styles compared to others. In the learning path diagram, there may be links to alternative online content. Note this is an alternative to the standard learning path that you may use instead. The learning path may also have extra content, that is not a part of syllabus, you can have a look at. 
 
-```{r, echo=FALSE, out.width="100%", fig.asp=NA, include=TRUE}
+```{r, echo=FALSE, out.width="100%", fig.asp=NA, include=TRUE, fig.height=3}
 g <- create_learning_path(
    url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
    sheet = "r-dist-fit", 
@@ -26,15 +26,11 @@ render_graph(g)
 
 By the end of this module, you are expected to:
 
-<!-- * Know how to create basic plots using ggplot. -->
-<!-- * Formulate the ideas behind the grammar of graphics. -->
-<!-- * Explain the idea behind aesthetics such as color, fill, and line type. -->
-<!-- * Add geometries to a plot such as a histogram, a boxplot, a barplot, a scatter plot, and a line. -->
-<!-- * Understand how themes can be used to modify the overall look of a plot. -->
-<!-- * Combine multiple plots into a single graphic. -->
-<!-- * Save plots as variables and different image files. -->
+* Have knowledge about different univariate distributions. 
+* Identify continuous and discrete data.
+* Fit different distributions to data. 
 
-The learning outcomes relate to the [overall learning goals](#lg-course) number 7, 11-14 and 18 of the course.
+The learning outcomes relate to the [overall learning goals](#lg-course) number 7 and 11-14 of the course.
 
 <!-- SOLO increasing: identify · memorise · name · do simple procedure · collect data · -->
 <!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
@@ -388,25 +384,17 @@ The negative binomial seems to give the best fit and may be a good candidate.
 
 ## Recap {#rc-r-dist-fit}
 
-* The tidyverse package [ggplot2][tidyverse-ggplot2] is an R package for producing data visualizations. It is based on the Grammar of Graphics by @gramma. 
-* The grammar of graphics is a coherent system for describing and building layered plots.
-  - Graphics are made by grammatical elements such as data, aesthetics, geometries, scales, facets, and themes.
-  - Plots are made though aesthetic mappings. That is, variables are mapped to x or y position using aesthetics attributes such as color, shape, or size.
-  - A plot is built step by step by adding new layers. Adding layers in this fashion allows for extensive flexibility and customization of plots.
-  - Together, the data, aesthetic mappings, and geometric object form a layer.
-  - A plot may have multiple layers, for example, when we overlay a scatterplot with a smoothed line.
-* Aesthetics are add in `ggplot` using the `aes` function or alternatively in `geom_` functions.
-* Geometries (e.g. a boxplot or line) are added to a plot using the `geom_` functions.
-* Themes can be applied to the plot using the `theme_` functions and control all the non-data ink used to modify the overall look of a plot.
-* Separate ggplots can be combined into the same graphic using the _patchwork_ package. 
-* Save plots as variables and different image files using the device functions such as `png` and `pdf`.
-* The pipe `%>%` operator is used to "pipe" the output of the previous line of code as the first input of the next line of code.
-* The `+` operator in **ggplot2** functions is used for "layering". This means you create the plot in layers, separated by `+`.
-* The 'Data visualization with ggplot2' cheatsheet is very useful. Find the newest version in RStudio **Help > Cheatsheets**.
-* A good place to see examples are on the [main reference page](https://ggplot2.tidyverse.org/reference/index.html). Follow the link to the function of interest and have a look at the examples.
-
+  * Fitting distributions to data is a very common task in statistics and consists in choosing a probability distribution modelling the random variable, as well as finding parameter estimates for that distribution. 
+  * Fitting a univariate distribution requires judgment and expertise and generally needs an iterative process of distribution choice, parameter estimation, and quality of fit assessment. Steps may be:
+    - Examine data a decide on discrete vs continuous distribution.
+    - Find a set of candidate distributions.
+    - Fit the distributions using statistical methods and consider various plots.
+    - Decide on a distribution
+  * The AIC value may give you an indication about the best model fit. 
+  * Other methods can be used to fit distributions to the data instead of maximum likelihood. For details see @DelignetteMuller15.
+  * This module have only considered uncensored data. See @DelignetteMuller15 on how to handle censored data. 
+    
 You may also have a look at the [slides for this module](https://bss-osca.github.io/tfa/slides/05-02_r-plot-slides.html).
-
 
 ## Exercises {#ex-r-dist-fit}
 
@@ -414,7 +402,130 @@ You may also have a look at the [slides for this module](https://bss-osca.github
 
 Practice using shortcuts in RStudio (use Shift+Alt+K to get an overview). [Link to the project on RStudio Cloud for this module][r-cloud-mod18]. 
 
-### Exercise
+### Exercise - Call center
+
+Consider data from a call center: the Los Angeles 311 Call Center in 2014 from 8-17:
+
+```{r}
+library(tidyverse)
+library(tfa)
+library(skimr)
+skim(calls)
+```
+
+We first transform the dataset a bit:
+
+```{r}
+library(lubridate)
+calls <- calls %>%
+  group_by(date) %>% 
+  arrange(date, time) %>% 
+  mutate(
+    arrival = row_number(),
+    wday = wday(date, label = TRUE),
+    hour = hour(time),
+    between = time - lag(time)
+  ) 
+```
+
+```{r, solution=TRUE, text="`arrival` = number of arrivals on the given day, `wday` = weekday, `hour` = hour considered, `between` = time between calls in secs (inter arrival times)."}
+```
+  (1) Explain the new columns.
+
+The number of calls may follow a Poisson process with a fixed rate of calls per hour during the day. Let us try to plot the hourly rates:
+
+```{r}
+calls %>% 
+  count(date, hour, wday) %>% 
+  group_by(hour, wday) %>% 
+  summarize(rate = mean(n)) %>% 
+  ggplot(aes(x = hour, y = rate)) + 
+  geom_line() + 
+  facet_wrap(~wday) + 
+  ylab("calls/hour")
+```
+
+```{r, solution=TRUE, text="As can be seen the rate is not constaint over the day (we don't have a homogeneous Possion process). Moreover, in weekends the rate is much lower."}
+```
+  (2) Is the rate constant during a day and is the rate the same for different weekdays (explain)?
+  
+Since the rate is not fixed we may have a non-homogeneous Poisson process where the rate change during the day. Hence let us try to consider an specific hour and test if the rate here can be considered as fixed (i.e. we have a Poisson process with a fixed rate when considering a specific hour) 
+
+```{r, solution=TRUE, text="For a Poisson process the inter arrival times should follow an exponential distribution."}
+library(fitdistrplus)
+dat <- calls %>% 
+  filter(
+    wday == "Tue",
+    hour == 10,
+    !is.na(between)) %>% 
+  pull(between) %>% 
+  as.numeric() 
+descdist(dat)
+fit1 <- fitdist(dat, distr = "exp")
+fit2 <- fitdist(dat, distr = "lnorm")
+fit3 <- fitdist(dat, distr = "gamma")
+summary(fit1)
+summary(fit2)
+summary(fit3)
+par(mfrow = c(2, 2))  # 4 plots in one figure
+pLegend <- c("exp", "lnorm", "gamma")
+lst <- list(fit1, fit2, fit3)
+denscomp(lst, legendtext = pLegend)
+qqcomp(lst, legendtext = pLegend)
+cdfcomp(lst, legendtext = pLegend)
+ppcomp(lst, legendtext = pLegend)
+```
+```{r, hint=TRUE, eval=FALSE}
+library(fitdistrplus)
+dat <- calls %>% 
+  filter(
+    wday == ___,
+    hour == ___
+    !is.na(between)) %>% 
+  pull(between) %>% 
+  as.numeric() %>% 
+  print()
+descdist(dat)
+___ # try to fit the exp, lnorm and gamma
+```  
+  (3) Consider Tuesdays from 10-11 and fit the inter arrival times (`between`). If the data follow a Poisson process then the distribution should be?
+
+
+
+```{r, solution=TRUE}
+library(fitdistrplus)
+dat <- calls %>% 
+  filter(
+    wday == "Tue",
+    hour == 15,
+    !is.na(between)) %>% 
+  pull(between) %>% 
+  as.numeric() 
+descdist(dat)
+fit12 <- fitdist(dat, distr = "exp")
+fit22 <- fitdist(dat, distr = "lnorm")
+fit32 <- fitdist(dat, distr = "gamma")
+summary(fit12)
+summary(fit22)
+summary(fit32)
+par(mfrow = c(2, 2))  # 4 plots in one figure
+pLegend <- c("exp", "lnorm", "gamma")
+lst <- list(fit12, fit22, fit32)
+denscomp(lst, legendtext = pLegend)
+qqcomp(lst, legendtext = pLegend)
+cdfcomp(lst, legendtext = pLegend)
+ppcomp(lst, legendtext = pLegend)
+```
+  (4) Consider Tuesdays from 15-16 and fit the inter arrival times (`between`). 
+  
+```{r, solution=TRUE, text="The rate is higher (40 calls more per hour) in period 10-11."}
+fit1$estimate * 60 * 60 # 10-11
+fit12$estimate * 60 * 60 # 15-16
+```
+```{r, hint=TRUE, eval=FALSE, text="You have to look at the estimates of the rate."}
+```  
+  (5) What is the estimated arrival rate per hour Tuesday 12-13 and 16-17? Is the arrival rate the same?
+  
 
 
 
