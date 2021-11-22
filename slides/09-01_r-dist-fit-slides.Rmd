@@ -1,0 +1,88 @@
+---
+title: "Fitting probability distributions"
+author: "Lars Relund Nielsen"
+output:
+  xaringan::moon_reader:
+    css: "./libs/slides.css"
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+      highlightStyle: solarized-light
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, child = "setup.Rmd", echo=FALSE}
+```
+
+```{r include=FALSE}
+# use xaringan::inf_mr(cast_from = ".") to preview
+```
+
+layout: true
+
+<div class="my-footer">
+<span>
+<a href="https://bss-osca.github.io/tfa/mod-r-dist-fit" target="_blank">Book</a> | <a href="https://bss-osca.github.io/tfa/slides/09-01_r-dist-fit-slides.html" target="_blank">Slides</a> | <a href="https://github.com/bss-osca/tfa/blob/master/slides/09-01_r-dist-fit-slides.Rmd" target="_blank">Source</a> | <a href="https://rstudio.cloud/spaces/176810/project/3266132" target="_blank">R project</a>
+</span>
+</div> 
+
+---
+
+## Fitting distributions
+
+- Fitting distributions to data is a very common task in statistics.
+- Consists in choosing a probability distribution modelling the random variable, as well as finding parameter estimates for that distribution. 
+- Requires judgment and expertise and generally needs an iterative process of distribution choice, parameter estimation, and quality of fit assessment. 
+- You often have to fit distributions when you write your master thesis.
+- We consider univariate data, i.e. univariate distributions such as normal, uniform, Poisson and exponential distributions. 
+- Use  the [`fitdistrplus`](https://lbbe.univ-lyon1.fr/fr/fitdistrplus) package for fitting distributions.
+
+
+---
+
+## Steps
+
+  * Fitting a univariate distribution requires judgment and expertise and generally needs an iterative process of distribution choice, parameter estimation, and quality of fit assessment. Steps may be:
+    - Examine data a decide on discrete vs continuous distribution.
+    - Find a set of candidate distributions.
+    - Fit the distributions using statistical methods and consider various plots.
+    - Decide on a distribution
+
+---
+
+## Continuous data
+
+- The empirical plots of the density and the CDF may give you a hit about the distribution.
+- The the skewness and kurtosis, linked to the third and fourth moments, are useful to identify candidates. 
+- A non-zero skewness reveals a lack of symmetry of the empirical distribution.
+- The kurtosis value quantifies the weight of tails in comparison to the normal distribution for which the kurtosis equals 3.
+
+---
+
+## Discrete data
+
+- Try to fit different discrete distributions.
+- Plot the CDF and the density.
+
+---
+
+# Examples
+
+Let us consider the R markdown document at RStudio Cloud.
+
+
+
+
+```{r copy, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../docs/slides/", overwrite = T)
+file.copy("./slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../docs/slides/", recursive = T)
+file.copy("img", "../docs/slides/", recursive = T)
+system2("Rscript", args = "-e 'rmarkdown::render(\"index.Rmd\", quiet = TRUE)'")
+```
+
+```{r links, child="links.md", include=FALSE}
+```
