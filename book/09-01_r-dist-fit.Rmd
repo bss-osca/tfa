@@ -215,7 +215,7 @@ You may also need to fit discrete distributions such as:
 
 - The Poisson distribution which is a discrete probability distribution that expresses the probability of a given number of events occurring in a fixed interval of time and/or space if these events occur with a known average rate and independently of the time since the last event. The Poisson distribution can be applied to systems with a large number of possible events, each of which is rare. How many such events will occur during a fixed time interval? Under the right circumstances, this is a random number following a Poisson distribution.
 
-- The binomial distribution which is a probability distribution that is used to model the number of successes in a sequence of $n$ independent experiments with probability $p$ for success. The Bernoulli is a special case of the Binomial distribution where $n=1$ (one experiment).
+- The binomial distribution which is a probability distribution that is used to model the number of successes in a sequence of $n$ independent experiments with probability $p$ for success. The Bernoulli distribution is a special case of the Binomial distribution where $n=1$ (one experiment).
 
 - The negative binomial distribution which is a discrete probability distribution that models the number of failures in a sequence of independent and identically distributed Bernoulli trials before a specified number of successes occurs.
 
@@ -230,7 +230,7 @@ dat <- lottery
 plotdist(dat, discrete = TRUE)
 ```
 
-Since the number of houses the must be visited (trials) is unknown, a negative binomial distribution seems as a good choice. The fit of a discrete distribution to discrete data requires the same procedure as for continuous data.
+Since the number of houses that must be visited (trials) is unknown, a negative binomial distribution seems as a good choice (with 20 successes). The fit of a discrete distribution to discrete data requires the same procedure as for continuous data.
 
 ```{r, fig.asp=0.6, out.width="100%", fig.cap="Four Goodness-of-fit plots for various distributions fitted to the breakdown data."}
 fit <- fitdist(dat, distr = "nbinom", discrete = TRUE, fix.arg = list(size = 20))
@@ -242,7 +242,7 @@ denscomp(lst, legendtext = pLegend)
 cdfcomp(lst, legendtext = pLegend)
 ```
 
-Note only the density and CDF is plotted for discrete data. Moreover, the this is an example where some of the parameters of the negative binomial distribution are known in advance. The negative binomial distribution has two parameters (see `?pnbinom`): the specified number of successes to occur (`size` argument) and the probability of success in each trial (`prob` argument). Given the information about the dataset, `size` equals 20 and we want to to try finding the probability of success in each trial. You fix a parameter by using the `fix.arg` argument in `fitdist`. Note that the summary only outputs the mean estimate `mu` but `prob = size/(size+mu)`:
+Note only the density and CDF is plotted for discrete data. Moreover, this is an example where some of the parameters of the negative binomial distribution are known in advance. The negative binomial distribution has two parameters (see `?pnbinom`): the specified number of successes to occur (`size` argument) and the probability of success in each trial (`prob` argument). Given the information about the dataset, `size` equals 20 and we want to to try finding the probability of success in each trial. You fix a parameter by using the `fix.arg` argument in `fitdist`. Note that the summary only outputs the mean estimate `mu` but `prob = size/(size+mu)`:
 
 ```{r}
 prob <- 20/(20 + fit$estimate)
@@ -259,7 +259,7 @@ qnbinom(0.95, size = 20, prob)
 
 ## The Poisson process {#sec-dist-fit-pois}
 
-A Poisson process models a series of discrete events. The average time between events is known, but the exact timing of events is random, i.e. the waiting time between events are exponential distributed. Since the exponential distribution is memoryless, the arrival time of an event is independent of what happend in the past (e.g. the arrival time of the last event). A Poisson process is often used in queueing theory to model random events, such as the arrival of customers at a store or phone calls arriving at a call center.
+A Poisson process models a series of discrete events. The average time between events is known, but the exact timing of events is random: the waiting time between events are exponential distributed. Since the exponential distribution is memoryless, the arrival time of an event is independent of what happend in the past (e.g. the arrival time of the last event). A Poisson process is often used in queueing theory to model random events, such as the arrival of customers at a store or phone calls arriving at a call center.
 
 More formally a Poisson process is defined as process counting the total number of events $N(t)$ at time $t$ given the average arrival rate $\lambda$. The process satisfy that:
 
@@ -291,7 +291,7 @@ library(tfa)  # update to latest version using remotes::install_github("bss-osca
 demand_goods
 ```
 
-The arrival of demands and demand size may follow a compound Poisson process which differ from a Poisson process by allowing more than a demand of one at a time. This if we consider the inter arrival times they should still follow an exponential distribution. Let us find the inter arrival times between each order and try to fit it have a look at the 
+The arrival of demands and demand size may follow a compound Poisson process which differ from a Poisson process by allowing more than a demand of one given an arrival. That is, the inter arrival times should still follow an exponential distribution. Let us find the inter arrival times between each order and try to fit it: 
 
 ```{r}
 library(tidyverse)
@@ -321,8 +321,7 @@ cdfcomp(lst, legendtext = pLegend)
 ppcomp(lst, legendtext = pLegend)
 ```
 
-The fit seems okay. Note that the horizontal and vertical points in the Q-Q and P-P plot indicate that another scale on measuring the inter arrival times would have be better (such as hours or minutes). Using days may round the numbers to much.
-
+The fit seems okay. Note that the horizontal and vertical points in the Q-Q and P-P plot indicate that another scale on measuring the inter arrival times would have been better (such as hours or minutes). Using days may round the numbers to much.
 
 Let us do the analysis for product 2:
 
@@ -352,9 +351,7 @@ Again the fit seems okay.
 
 To summarize the demand rate for product 1 is estimated to be `r round(fitE1$estimate,2)` per day and for product 2 to be `r round(fitE2$estimate,2)` per day.
 
-Given a demand arrive the question is how much is the demand size? That is, we have to fit a distribution to the demand:
-
-Let us do the same analysis for product 2:
+Given a demand arrive the question is how much is the demand size? That is, we have to fit a distribution to the demand. Let us do the analysis for product 2:
 
 ```{r}
 dat <- datDf %>% 
