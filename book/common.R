@@ -336,7 +336,7 @@ link_excel_file_text <- function(module_number_prefix, module_name) {
          ),
          "(open it and use it while reading the notes). Have a look inside the module",
          i(str_c("TM", module_number, "_", "ex")),
-         "for examples used in the notes and during lectures. Have a look at module",
+         "in the VBA editor for examples used in the notes and during lectures. Have a look at module",
          i(str_c("TM", module_number, "_", "exercises"
          )),
          "for exercises. The template file for next teaching module will contain guiding answers for the exercises to this teaching module."
