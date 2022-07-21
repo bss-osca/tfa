@@ -1,0 +1,547 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
+```
+
+```{r, include=FALSE}
+module_number_prefix <- "04"
+module_number <- as.numeric(module_number_prefix)
+module_name <- "vba-procedures"
+here::i_am(str_c("book/", module_number_prefix, "_", module_name, ".Rmd"))
+# module_name_underscore <- str_replace_all(module_name, "-", "_")
+sheet_name_prefix <- str_c("TM", module_number)
+```
+
+# Procedures {#mod-vba-procedures}
+
+This module gives a short introduction to procedures. A procedure is a piece of code stored in a module which contains a series of computational steps that will be carried out when the procedure is called. VBA has two kinds of procedures subs (short for subroutine) and functions. Both are basic building blocks in programming. The main differences between a sub and a function is:
+
+**Subs**
+
+  - Can make changes to the worksheet.
+  - Can modify its surroundings.
+  - Can be executed by a button (a macro - if no arguments).
+  - Cannot return anything.
+
+**Functions**
+
+  - Can return something.
+  - Can be used in Excel.
+  - Cannot be used as a macro.
+
+```{r, echo=FALSE}
+link_excel_file_text(module_number_prefix, module_name)
+```
+
+During execution of procedures it may be useful to use the debugger to run the code step by step. A very short introduction to debugging in VBA is given in Section \@ref(#vba-debug). Read it before continuing this teaching module.
+
+#### Learning path diagram {-}
+
+Click/hover the nodes to follow links and see details.
+
+```{r, echo=FALSE, out.width="100%", fig.asp=NA}
+g <- create_learning_path(
+   url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
+   sheet = "vba-procedures", 
+   x_legend = 1.6, y_legend = 0.2)
+render_graph(g, height = 400)
+```
+
+In general syllabus will point to chapters in @vba-book; however, there is a lot for videos about VBA online such as course [14-Hour VBA Course][vba-yt-course2]. You may have a look at these videos instead if you prefer a different learning style. In the learning path diagram, links to alternative online content will be pointed out. Note this is alternatives to the standard learning path that you may use instead. The learning path may also have extra content that is not a part of syllabus you can have a look at.
+
+
+## Learning outcomes {#lo-vba-procedures}
+
+By the end of this module, you are expected to be able to:
+
+* Describe what a procedure is.
+* Explain what kind of procedures there are in VBA and what they can be used for.
+* Declare and call a procedure.
+* Explain what the difference is by using input arguments _by reference_ or _by value_ in a procedure. 
+* Set the scope of a procedure using private or public procedures.
+* Set default input arguments.
+* Call built-in functions for VBA and Excel.
+
+The learning outcomes relate to the [overall learning goals](#lg-course) number 1, 2, 4, 8 and 9 of the course.
+
+<!-- SOLO increasing: identify · memorise · name · do simple procedure · collect data · -->
+<!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
+<!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
+<!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
+
+
+## Subs and functions - The basics {#vba-subs-functions}
+
+A sub is declared using:
+
+```
+Sub SubName(arg1 As <datatype>, arg2 As <datatype>)
+   <code>
+End Sub
+```
+
+The name of the sub is `SubName` and it takes two *arguments* `arg1` and `arg2`. A sub can take an arbitrary number of arguments. Until now we have mostly considered subs with no arguments often called a macro. Macros can be called using a button in Excel. 
+
+A function is declared using:
+
+```
+Function FunctionName(arg1 As <datatype>, arg2 As <datatype>) As <return datatype>
+ <code>
+ FunctionName = value  ' assign a return value to the function
+End Sub
+```
+
+The name of the function is `FunctionName` and it takes two *arguments* `arg1` and `arg2`. A function can take an arbitrary number of arguments. A function always return a value of a data type (a sub do not return anything). You return a value by assigning it to the variable `FunctionName` (same as the function name). 
+
+Let us consider a simple sub with one argument: 
+
+```
+Sub TM4_SimpleSub(str As String)
+   MsgBox (str)
+End Sub
+```
+
+and a simple function with two arguments:
+
+```
+Function TM4_SimpleFunc(dblA As Double, dblB As Double) As Integer
+   TM4_SimpleFunc = dblA + dblB  ' return variable equals function name
+End Function
+```
+
+You call a sub from another procedure using the `Call` keyword and a another function by assigning its return value to a variable:
+
+```
+' Try running it using the debugger (Ctrl + F8 (win) or cmd + shift + I (mac))
+Sub TM4_CallSimpleProc()
+   Dim dblV As Double
+   
+   MsgBox ("Ready")
+   Call TM4_SimpleSub("SimpleSub")  ' call a sub within a procedure
+   dblV = TM4_SimpleFunc(3, 4)      ' call a function within a procedure
+   MsgBox ("Value is " & intV)
+End Sub
+```
+
+It is always good coding practice to document you procedures:
+
+```
+'' Product of two numbers
+' @param i First number
+' @param j Second number
+' @return The product i * j
+' @remarks The numbers are doubles.
+Function TM4_ProductFunc(i As Double, j As Double) As Double
+    TM4_ProductFunc = i * j
+End Function
+
+'' Product of two numbers which are stored in dblV (since ByRef is the default).
+' @param i First number
+' @param j Second number
+' @param dblV Stores the product
+' @remarks The numbers are doubles.
+Private Sub TM4_ProductSub(i As Double, j As Double, dblV As Double)
+    dblV = i * j
+End Sub
+```
+
+Note both procedures above do the same thing. The function returns the product and the procedure stores the product in argument `dblV` which is modified when the function call is returned:
+
+```
+'' Use TM4_ProductSub (TM4_ProductFunc produce the same result)
+' Try running it using the debugger (Ctrl + F8 (win) or cmd + shift + I (mac))
+Sub TM4_RunProductSub()
+    Dim dblV As Double
+    
+    dblV = 4
+    MsgBox ("Current value is " & dblV)  ' Current value is 4
+    Call TM4_ProductSub(7, 3, dblV)      ' dblV = TM4_ProductFunc(7, 3) (same result)
+    MsgBox ("Current value is " & dblV)  ' Current value is 21
+End Sub
+```
+
+The reason is that arguments are per default references pointing to the same place in memory (we will look at the details in Section \@ref(vba-byref)).
+
+You can use `Exit Sub`/`Exit Function` to exit the sub/function early in the code:
+
+```
+'' Division of two numbers
+' @param i First number.
+' @param j Second number.
+' @return Divison i / j.
+' @remarks The numbers are doubles.
+Sub TM4_DivisionSub(i As Double, j As Double)
+    If j = 0 Then
+      MsgBox ("Error: division with zero!")
+      Exit Sub
+    End If
+    MsgBox ("Value is " & i / j)
+End Sub
+
+'' Run using F5
+Sub TM4_TestDivisionSub()
+    Call TM4_DivisionSub(8, 2)  ' no error
+    Call TM4_DivisionSub(8, 0)  ' gives an error message
+End Sub
+```
+
+
+## Optional arguments
+
+Often you define procedures that have arguments with a default value. You can do this using the `Optional` keyword:
+
+```
+'' Convert kilograms to grams or pounds
+' @param dblKg Kilograms.
+' @param blnToGrams Convert to grams (if true) otherwise to pounds.
+' @return Converted value.
+Function TM4_ConvertKg(dblKg As Double, Optional blnToGrams As Boolean = True)
+   If blnToGrams Then
+      TM4_ConvertKg = dblKg * 1000
+      Exit Function
+   End If
+   TM4_ConvertKg = dblKg * 2.20462
+End Function
+
+'' Run using F5
+Sub TM4_TestConvertKg()
+   MsgBox (TM4_ConvertKg(10))         ' use default value (to grams)
+   MsgBox (TM4_ConvertKg(10, False))  ' to pounds
+End Sub
+```
+
+Here we have one optional argument with default value equal to true. Now the function can be called with one argument (use the default value of the second argument) or with two arguments. Have a look at cells A8:C13 in worksheet *`r sheet_name_prefix`* (Figure \@ref(fig:tm4-sheet)) where we use the function to find convert to grams (`TM4_ConvertKg(A8)`) and pounds (`TM4_ConvertKg(A8; FALSE)`).
+
+Let us try to define a sub that format some cells (the content have been found using the macro recorder and then cleaned):
+
+```
+'' Format a range
+'@param rng Range to format.
+'@param intInteriorColor Interior color index.
+'@param intFontColor Font color index.
+'@param intFontSize Font size.
+Sub TM4_FormatCell(rng As Range, Optional intInteriorColor As Integer = 0, _
+ Optional intFontColor As Integer = 44, Optional intFontSize As Integer = 12)
+    rng.Interior.ColorIndex = intInteriorColor
+    rng.Font.ColorIndex = intFontColor
+    rng.Font.Size = intFontSize
+End Sub
+
+'' Run using F5
+Sub TestingFormatCell()
+    Dim rng As Range
+    
+    Worksheets("TM4").Activate
+    Call FormatCell(Range("A16"))       ' use default values
+    Call FormatCell(Range("B16"), 46)   ' use background color index 46
+    Call FormatCell(Range("C16"), , 21) ' set font color
+    Call FormatCell(rng:=Range("D16"), intFontSize:=16, intFontColor:=23)  ' call sub using argument names explicit
+End Sub
+```
+
+Observe that there is different ways to call a procedure with optional arguments. If you have may optional arguments it is best to use the last where you explicit state the argument names (here the order of the arguments do not matter either). Note that every argument following an optional argument in the procedure definition must also be optional. Moreover, if lines are to long you may split them using `_` (underscore).
+
+In the example above we use the color index values in VBA (56 different ones). Let us have a look at them:
+
+```
+'' Run using F5
+Sub TM4_SeeColorIndex()
+   Dim r As Integer
+   Dim c As Integer
+   Dim i As Integer
+   
+   Worksheets("TM4").Activate
+   i = 1
+   For r = 18 To 40
+      For c = 2 To 5
+         Cells(r, c) = i
+         Call TM4_FormatCell(rng:=Cells(r, c), intInteriorColor:=i, intFontColor:=1 + i Mod 4)
+         If i = 56 Then
+            Exit Sub
+         End If
+         i = i + 1
+      Next
+   Next
+End Sub
+```
+
+The output will be outputted from row 18 (column B-E):
+
+```{r tm4-sheet, echo = FALSE, out.width="400px", fig.cap="TM4 worksheet."} 
+knitr::include_graphics("./img/tm4-sheet.png") 
+```
+
+
+## Public and private procedures
+
+You may use the keyword `Private` or `Public` (default) when you define a procedure. For instance:
+
+```
+Private Sub SubName(arg1 As <datatype>, arg2 As <datatype>)
+   <code>
+End Sub
+```
+
+A private procedure can only be used by other procedures in the module. This may be useful if you want to define 'internal' procedures that you only want to use in the module. This also imply that a private sub can not be called from a button and a private function can not be called from a cell. Note the default value is `Public`. That is, if `Private` or `Public` is excluded, VBA will always treat the sub as if it were Public:
+
+```
+Sub SubName(arg1 As <datatype>, arg2 As <datatype>)  ' VBA assumes it is public (the default)
+   <code>
+End Sub
+
+Public Sub SubName(arg1 As <datatype>, arg2 As <datatype>) ' same result as above
+   <code>
+End Sub
+```
+
+
+## Passing arguments by reference or by value {#vba-byref}
+
+There are two ways of passing arguments to procedures:
+
+```
+Sub SubName(ByRef arg1 As <datatype>, ByVal arg2 As <datatype>)
+ <code>
+End Sub
+```
+
+Argument `arg1` is passed **by reference** (default). That is, no new memory is allocated when the procedure is called and as a result the procedure can have changed the value of `arg1` when the procedure stops. Note since the default, the result is the same if we omitted the keyword `ByRef`. Argument `arg2` is passed **by value**. That is, a copy of the variable is created in memory. Hence the procedure cannot change the value of `arg2` when the procedure stops (the copy is deleted). 
+
+Using `ByRef` is faster and saves memory since we do not have to allocate new memory. We may use `ByRef` to return updated values of the input arguments (sub `TM4_ProductSub` did that). In fact you may have multiple arguments which when the sub finished have been modified. See it as the arguments have been modified with the result of the sub. Using `ByVal` is safer if you want be sure that the argument is not modified inside the procedure.
+
+Try guessing the result of running sub `TM4_TestingBy`:
+
+```
+Private Function TM4_ByVal(ByVal i As Integer) As Integer
+    i = i * 2
+    MsgBox ("In ByVal i is " & i)
+    TM4_ByVal = i * 5
+End Function
+
+'' Note "Function TM4_ByRef(i As Integer) As Integer" gives same result
+Private Function TM4_ByRef(ByRef i As Integer) As Integer
+    i = i * 2
+    MsgBox ("In ByRef i is " & i)
+    TM4_ByRef = i * 5
+End Function
+
+
+' Try running it using F5 or the debugger (Ctrl + F8 (win) or cmd + shift + I (mac))
+Private Sub TM4_TestBy()
+    Dim n As Integer
+    Dim i As Integer
+    
+    i = 5
+    MsgBox ("In the start i is " & i)
+    n = TM4_ByVal(i)
+    MsgBox ("Try gussing the values of n and i")
+    MsgBox ("After TM4_ByVal i is " & i & " and " & n & " is returned.")
+    n = TM4_ByRef(i)
+    MsgBox ("Try gussing the values of n and i")
+    MsgBox ("After TM4_ByRef i is " & i & " and " & n & " is returned.")
+End Sub
+```
+
+
+## Built-in functions
+
+VBA has a set of [built-in functions](https://bettersolutions.com/vba/functions/complete-list.htm) such as `Abs`, `Log` and `Date`. You call them by just writing their name:
+
+```
+'' Test VBA functions
+' You can always get help by putting the crusor in the function name and press F1
+Sub TM4_TestVBAfunctions()
+   MsgBox ("Absolute value: " & Abs(-4.2))
+   MsgBox ("Integer part: " & Fix(-4.2))
+   MsgBox ("Floor of the number: " & Int(-4.2))
+   MsgBox ("Natural logarithm: " & Log(16))
+   MsgBox ("Random number [0,1[: " & Rnd())
+End Sub
+```
+
+You can also use the [worksheet functions](https://bettersolutions.com/excel/functions/vba-or-excel.htm) in Excel. You call them using the `WorksheetFunction` object. A few examples:
+
+```
+'' Test worksheetfunctions
+' You can always get help by putting the crusor in the function name and press F1
+Sub TM4_TestWorksheetfunctions()
+   Dim r As Integer
+   Dim c As Integer
+   
+   Worksheets("TM4").Activate
+   MsgBox ("Numbers above 80: " & WorksheetFunction.CountIf(Range("B33:E38"), ">80")) ' count numbers above
+   MsgBox ("Sumproduct: " & WorksheetFunction.SumProduct(Range("B33:E33"), Range("B34:E34")))
+   MsgBox ("Max: " & WorksheetFunction.Max(Range("B33:E38")))
+   
+   For r = 40 To 45
+      For c = 2 To 4
+         Cells(r, c) = WorksheetFunction.RandBetween(0, 9)
+      Next
+   Next
+End Sub
+```
+
+
+## Recap
+
+- A procedure is a piece of code stored in a module. 
+- A procedure contains a series of computational steps that will be carried out when the procedure is called. 
+- VBA has two kinds of procedures:
+  
+  Subs:
+  - Can make changes to the worksheet.
+  - Can modify its surroundings.
+  - Can be executed by a button (if no arguments).
+  - Cannot return anything.
+  
+  
+  Functions:
+  - Can return something.
+  - Can be used in Excel.
+  - Cannot be used as a macro.
+
+
+- You declare a procedure using
+  ```
+   Sub SubName(arg1 As <datatype>, arg2 As <datatype>)
+      <code>
+   End Sub
+   
+   Function FunctionName(arg1 As <datatype>, arg2 As <datatype>) As <return datatype>
+    <code>
+    FunctionName = value  ' assign a return value to the function
+   End Sub
+  ```
+- You can use `Exit Sub`/`Exit Function` to exit the sub/function early in the code.
+- Procedures can be either public or private:
+  - Public (default): Can be used from other modules, from other files and from Excel.
+    ```
+    Public Sub SubName()
+    ...
+    End Sub
+    ```
+  - Private: Can only be used from within its own module.
+    ```
+    Private Sub SubName()
+    ...
+    End Sub
+    ```
+- Use the `Call` keyword to call a sub:
+  ```
+  Call SubName(arg1, arg2)
+  ```
+- Call a function by assigning its return value to a variable
+  ```
+  result = FunctionName(arg1, arg2)
+  ```
+- There are two ways of passing arguments to procedures:
+  ```
+  Sub SubName(ByRef arg1 As <datatype>, ByVal arg2 As <datatype>)
+    <code>
+  End Sub
+  ```
+  - Argument `arg1` is passed **by reference** (default). That is, no new memory is allocated when the procedure is called and hence the procedure can have changed the value of `arg1` when the procedure stops. 
+  - Since the default is `ByRef`, the result is the same if we omitted the keyword `ByRef`. 
+  - Argument `arg2` is passed **by value**. That is, a copy of the variable is created in memory with local scope. Hence the procedure cannot change the value of `arg2` when the procedure stops (the local variables is deleted). 
+
+  - Using `ByRef` is faster and saves memory since we do not have to allocate new memory. 
+  - We may use `ByRef` to return updated values of the input arguments.
+- Use the `Optional` keyword to indicate default input arguments:
+  ```
+  Sub SubName(arg1 As <datatype>, Optional arg2 As <datatype> = <defaultValue>)  
+  ```
+  You can now call the procedure using:
+  ```
+  Call SubName(arg1)  ' assume that arg2 = defaultValue
+  ```
+  Every parameter following an optional parameter in the procedure definition must also be optional.
+- VBA has a set of [built-in functions](https://bettersolutions.com/vba/functions/complete-list.htm) such as `Abs`, `Log` and `Date`. You call them by just writing their name:
+  ```
+  dtm as Date
+  dtm = Date()
+  ```
+- You can also use the [worksheet functions](https://docs.microsoft.com/en-us/office/vba/excel/concepts/events-worksheetfunctions-shapes/list-of-worksheet-functions-available-to-visual-basic) in Excel. You call them using the `WorksheetFunction` object:
+  ```
+  sum = WorksheetFunction.Sum(Range("A1:D5"))
+  ```
+  
+You may also have a look at the [slides for this module](https://bss-osca.github.io/tfa/slides/02-02_vba-procedures-slides.html).
+
+
+## Exercises {#ex-vba-procedures}
+
+`r strExercises`
+
+### Exercise - Subs {#ex-vba-subs}
+
+The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-subs-template.xlsm) may be used as a starting point for this exercise. 
+
+   (1) Create a sub `GetMsg` that takes a string and a Boolean as input and create a message box with the string content if the Boolean is true. Test the procedure using the `TestGetMsg` sub.
+   (2) Modify the procedure so the Boolean have a default value equal to true.
+   (3) Create a sub `PrintNameAge` that takes two arguments as input (name and age) and create a message box with the persons name and age.
+   (4) Write a sub `TestPrintNameAge` that uses two input boxes to ask for name and age and then call sub `PrintNameAge`.
+
+### Exercise - Functions {#ex-vba-functions}
+
+The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-functions-template.xlsm) may be used as a starting point for this exercise. 
+
+   (1) Write a function `Discount` which takes a two input arguments (doubles): the discount percentage and the amount and returns the discounted value. Have a look at the unfinished sub `Discount` for hints. Note the comments describing the function using the [coding convention](#coding-convention).
+   (2) Write a function `Larger` which takes two integer arguments and returns true if the first is larger than the last; otherwise false.
+   (3) Write a function `NumbDays` that takes a date as argument and return the number of days from today. Hint: Have a look at the `DateDiff` function. 
+   
+Test all the functions in the _Testing_ sheet.
+
+   (4) Write a sub that uses an input box to ask for an amount a then returns the discounted amount when the discount is 20%. The sub should use the function in Question 1. Create a button running the sub. 
+
+### Exercise - Worksheet functions {#ex-vba-worksheet-functions}
+
+The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-worksheet-functions-template.xlsm) contains a procedure to generate a set of numbers.
+
+Create a procedure `Summary` that uses worksheet functions to:
+
+- Find the maximum number and write it to cell D1. 
+- Find the minimum number and write it to cell D2. 
+- Find the sum of the numbers and write it to cell D3. 
+- Count the number of positives and write it to cell D4.
+- Find the row number with maximum value and write it to cell D5. 
+
+Google is a good place to start if you want to find a specific Excel function, e.g. try to search 'excel row with max value'.
+
+### Exercise - `ByRef` {#ex-vba-byref}
+
+The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-byref-template.xlsm) should be used as a starting point for this exercise. 
+
+  (1) Create a procedure `AryToVal` satisfying:
+      - Arguments are `ByRef ary As Variant, value As Variant`.
+      - All entries in the array are set to `value`. 
+      - The procedure work both if the dimension of the array is 1 or 2. You may use `AryDim` to find the dimension.
+      
+      Test the procedure using the `Main` procedure.
+  (2) Create a procedure `AryToValByVal` equal to `AryToVal` except that arguments are `ByVal ary As Variant, value As Variant`. Test the procedure using the `Main` procedure. What is the difference?
+  (3) Create a procedure `AryToSeq` satisfying:
+      - Arguments are `ByRef ary As Variant, lngFrom As Long, lngTo As Long, Optional lngIdx As Long = 1`.
+      - Entries in the array is set to values `lngFrom` to `lngTo`.
+      - Use `ReDim` to resize the array.
+     
+      Test the procedure using the `Main` procedure.
+  (4) Create a procedure `AryRead` satisfying:
+      - Arguments are `ByRef ary As Variant, ByRef rng As Range, Optional intStartIdx1 As Integer = 1, Optional intStartIdx2 As Integer = 1`
+      - Entries in the range `rng` are stored in the array `ary`. 
+      - Use `ReDim` to resize the array.
+     
+      Test the procedure using the `Main` procedure.
+
+
+```{r links, child="links.md", include=FALSE}
+```
+
+<script src="//unpkg.com/@highlightjs/cdn-assets@11.5.1/highlight.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/highlightjs-vba/dist/vba.min.js"></script>
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script> -->
+<script type="text/javascript">
+  hljs.initHighlightingOnLoad();
+  // hljs.initLineNumbersOnLoad({singleLine: true}); 
+</script>
