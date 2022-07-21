@@ -246,7 +246,7 @@ End Sub
 The structure of a `While` loop is:
       
 ```
-Do While {condition true}    
+Do While <condition true>  
     <code>
 Loop
 ```
@@ -270,7 +270,7 @@ End Sub
 You can use `Exit Do` to end a while loop prematurely (jump to the code after the loop):
 
 ```
-'' Write the 2, 4, ... in column C and exit after 21 or if equals 12
+'' Write 2, 4, ... in column C and exit after 21 or if equals 12
 Sub TM3_WriteNumbers3()
     Dim i As Integer, r As Integer
     
@@ -300,7 +300,7 @@ Sub TM3_EndlessLoop()
 End Sub
 ```
 
-An endless loop can be hard to stop depending on the operating system you use. Therefore always “save” before you “run” the code. Make sure the stopping criterion will be reached. You may try to stop the program using a shortcut. On `r icons::fontawesome$brands$windows` try Ctrl + Break or Ctrl + Alt + Delete. On `r icons::fontawesome$brands$apple` try ⌘., ⌃ +  Esc or  ⌘⌥ + Esc. 
+An endless loop can be hard to stop depending on the operating system you use. Therefore always “save” before you “run” the code. Make sure the stopping criterion will be reached. You may try to stop the program using a shortcut (`r icons::fontawesome$brands$windows` try Ctrl + Break or Ctrl + Alt + Delete. `r icons::fontawesome$brands$apple` try ⌘., ⌃ +  Esc or  ⌘⌥ + Esc.)
 
 Finally, the `For Each` loop has to be mentioned:
 
@@ -318,7 +318,7 @@ Sub TM3_ForEach()
 End Sub
 ```
 
-The loop is used for running trough a set of objects (we will have a closer look at objects in Section \@ref(vba-objects)). Here the `rngC` is used to run throug all the cells in the range and set values. Note a range is scanned left-down.
+The loop is used for running trough a set of objects (we will have a closer look at objects in Section \@ref(vba-objects)). Here `rngC` is used to run through all the cells in the range and set values. Note a range is scanned left-down.
 
 
 ## Conditional statements {#vba-cond}
@@ -336,7 +336,7 @@ Else
  <code>
 End If
 
-If <condition< Then <code> Else <code>  ' single line form
+If <condition> Then <code> Else <code>  ' single line form
 ```
 
 You can drop the `ElseIf` and `Else` code chunks. Other conditional statements exists but in general you can formulate them using an if-then-else statement. Let us try to use a conditional statement to separate persons in two groups:
@@ -363,7 +363,7 @@ We use variable `r` to store the row number we want to write to and then an if s
 knitr::include_graphics("./img/sep-persons-1.png") 
 ```
 
-If you want to separate both professors and associate professors from others, you may modify the if statement and use and `ElseIf`:
+If you want to separate both professors and associate professors from others, you may modify the if statement and use an `ElseIf`:
 
 ```
 '' Seperate persons into 3 groups (names are written in 3 columns)
@@ -416,7 +416,7 @@ knitr::include_graphics("./img/sep-persons-3.png")
 
 ## Example - Find Jen {#vba-ex-jen}
 
-Consider column A in Figure \@ref(fig:sep-2). Assume we want to check if Jen is in a name and output her position. We can use a for loop for this:
+Consider column A in Figure \@ref(fig:sep-5). Assume we want to check if Jen is in a name and output her position. We can use a for loop for this:
 
 ```
 '' Find cell with Jen using a For loop
@@ -433,7 +433,13 @@ Sub TM3_FindJen1()
 End Sub
 ```
 
-We scan all rows for Jen and return her position. If we found her, then we exit the for loop (no need to search further). What happens if we search for `"Jen"` and not `"Jen "`? The same can be done using a while loop:
+We scan all rows for Jen and return her position. If we found her, then we exit the for loop (no need to search further). What happens if we search for `"Jen"` and not `"Jen "`? 
+
+```{r jen1, echo = FALSE, out.width="300px", fig.cap="Search for Jen."} 
+knitr::include_graphics("./img/tm3-jen.png") 
+```
+ 
+The same can be done using a while loop:
 
 ```
 '' Find cell with Jen using a While loop
@@ -441,9 +447,9 @@ Sub TM3_FindJen2()
     Dim r As Integer
     
     r = 2
-    While InStr(Cells(r, 1), "Jen ") = 0
+    Do While InStr(Cells(r, 1), "Jen ") = 0
         r = r + 1
-    Wend
+    Loop
     MsgBox "Jen is a " & Cells(r, 2) & " (Row " & r & ")"
 End Sub
 ```
@@ -470,7 +476,7 @@ End Sub
 
 ## Example - A distance matrix {#vba-ex-dist-mat}
 
-Assume that you have a set of $n$ locations: 
+Assume that you have a set of $n=10$ locations: 
 
 ```{r, echo=FALSE}
 dat <- tibble::tribble(
@@ -547,7 +553,7 @@ End Sub
 First, row and column headers are written to the cells. Next, we use a nested for loop to calculate the distances and output them to the cells. Note we in fact calculate the same distance two times (the distance from $i$ to $j$ equals the distance from $j$ to $i$). Since we have symmetric distances there is no need to do this and it can be avoided by letting the inner loop in the nested loops be dependent on the outer loop: 
 
 ```
-'' Create a symetric distance matrix with only the upper right part filled in Sheet4 starting in column 6.
+'' Create a symetric distance matrix with only the upper right part filled starting in column 6.
 '
 ' @pre Assume that coordinates are stored in column B and C starting from row 2
 '      and that number of points are stored in E1.
@@ -631,16 +637,16 @@ link_excel_file_text(module_number_prefix, module_name)
 
 ### Exercise - Loops {#ex-vba-loops}
 
-The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-loops-template.xlsm) may be used as a starting point for this exercise. Use the sheet _Testing_ for output.
+Use the sheet _TM3_ for output.
 
-   (1) Create a for loop that writes numbers 1 to 4 in rows 1 to 4 in column A.  
-   (2) Create a while loop that writes numbers 1 to 4 in rows 1 to 4 in column B. 
-   (3) Create a do while loop that writes numbers 1 to 4 in rows 1 to 4 in column C.
-   (4) Create a loop that writes numbers 1 to 4 in rows 3 to 6 in column D.
-   (5) Create a loop that writes numbers -1 to -4 in rows 1 to 4 in column E.
-   (6) Create a loop that writes numbers 1 to 4 in rows 4 to 7 in column F, except if the number is 3 then the output should to a string `missing`.
-   (7) Create a do while loop that writes numbers i = 1, 2, ... in column G until i/5 + 3 = 8. Hint: you may use a `Exit Do` to quit the loop. 
-   (8) Create a sub `Main` that runs all the loops.
+   (1) Create a for loop that writes numbers 1 to 4 in rows 25 to 28 in column A.  
+   (2) Create a do while loop that writes numbers 1 to 4 in rows 25 to 28 in column B. 
+   (3) Create a loop that writes numbers 1 to 4 in rows 27 to 30 in column C.
+   (4) Create a loop that writes numbers -1 to -4 in rows 25 to 28 in column D.
+   (5) Create a loop that writes numbers 1 to 4 in rows 28 to 31 in column E, except if the number is 3 then the output should to a string `missing`.
+   (6) Create a do while loop that writes numbers i = 1, 2, ... in column G (starting in row 25) until i/5 + 3 = 8. Hint: you may use a `Exit Do` to quit the loop. 
+   (7) Create a sub that runs all the loops.
+
 
 ### Exercise - Flight search {#ex-vba-flight}
 
