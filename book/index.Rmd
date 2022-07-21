@@ -20,7 +20,21 @@ editor_options:
 ---
 
 
-# Introduction to the book {#mod-intro}
+```{r, include=FALSE, eval=FALSE}
+# render the book automatically (if preview = T then compile only chapter)
+bookdown::serve_book(dir = "book", output_dir = "_book", preview = FALSE, in_session = TRUE, quiet = TRUE)  
+bookdown::serve_book(dir = "book", output_dir = "_book", preview = TRUE, in_session = TRUE, quiet = TRUE)  
+```
+
+<script src="//unpkg.com/@highlightjs/cdn-assets@11.5.1/highlight.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/highlightjs-vba/dist/vba.min.js"></script>
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script> -->
+<script type="text/javascript">
+  hljs.initHighlightingOnLoad();
+  // hljs.initLineNumbersOnLoad({singleLine: true}); 
+</script> 
+            
+# Introduction to the course {#mod-intro}
 
 ```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
 ```
@@ -37,9 +51,9 @@ library(bsplus)
 ```
 
 
-This site/book contains course notes for the course "Tools for Analytics" held at [Aarhus BSS][BSS]. The book show the learning path for each week and contain. The course is an introductory course at the [Operations and Supply Chain Analytics programme][osca-programme] and intended to give knowledge about IT tools for Analytics. You can expect the book to be updated when the course runs. The date listed above is the last time the book was updated.
+This site contains course notes for the course "Tools for Analytics" held at [Aarhus BSS][BSS]. The notes show the learning path for each week and contain. The course is an introductory course at the [Operations and Supply Chain Analytics programme][osca-programme] and intended to give knowledge about IT tools for Analytics. Expect the notes to be updated when the course runs. The date listed above is the last time the notes was updated.
 
-__Learning path diagram__
+#### Learning path diagram {-}
 
 Click/hover the nodes to follow links and see details.
 
@@ -61,21 +75,22 @@ Click/hover the nodes to follow links and see details.
 g <- create_learning_path(
    url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
    sheet = "intro", 
-   x_legend = 4.43, y_legend = 0,
-   margin_node = 0.2)
-render_graph(g, height = 300)
+   x_legend = NULL)
+render_graph(g, height = 150)
 ```
+
+A detailed description of Business Analytics have been pointed out as an extra supplement in the learning path diagram. You may have a look at it if you like.
 
 ## Learning outcomes {#lo-intro}
 
 By the end of this module, you are expected to:
 
-* Memorize the purpose of the book.
+* Memorize the purpose of the course.
 * Describe what the term Business Analytics mean.
 * Identify pros and cons of using Excel, VBA and R.
 * Describe how a computer works.
 * Describe what an algorithm is.
-* Know how the book is organized.
+* Know how the course is organized.
 
 The learning outcomes relate to the [overall learning goals](#lg-course) number 1, 3 and 5 of the course.
 
@@ -84,7 +99,7 @@ The learning outcomes relate to the [overall learning goals](#lg-course) number 
 <!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
 <!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
 
-## Purpose for the book {#purpose}
+## Purpose for the course {#purpose}
 
 Since the amount of available data has increased extensively in many companies, there is a need for analysts with the ability to do tasks within Analytics. For instance, extract relevant data and perform valid quantitative analysis. Clearly, it is also important that the analyst can communicate the results of the analysis to their surroundings. This requires for the analyst to be particularly qualified in handling IT based tools beyond e.g. basic Excel. 
 
@@ -181,9 +196,9 @@ Cons:
 As a prerequisite for this course you need some basic knowledge about what a computer is. Have a look at these [slides](https://www.cs.princeton.edu/courses/archive/fall11/cos109/02inside.pdf) or this [video](https://youtu.be/p3q5zWCw8J4).
 
 
-## How this book is organized {#organization}
+## How the notes are organized {#organization}
 
-Module \@ref(mod-intro) (this module) gives a short introduction to the book. Next, the book consists of different parts each containing teaching modules about specific topics:
+Module \@ref(mod-intro) (this module) gives a short introduction to the course. The notes consists of different parts each containing teaching modules about specific topics:
 
    * [Part I](#mod-vba-intro) gives you an introduction to VBA and how to program using VBA in Excel.
    * [Part II](#mod-vba-datatypes) gives you an overview over programming in VBA including datatypes (Module \@ref(mod-vba-datatypes)), procedures (Module \@ref(mod-vba-procedures)), loop and conditional statements (Module \@ref(mod-vba-loops-cond)) and the object model (Module \@ref(mod-vba-object-model)).
@@ -203,7 +218,7 @@ The appendix contains different modules that may be helpful for you including hi
 
 ## Acknowledgements {#ack} 
 
-Some of the materials in this book are taken from various places
+Some of the materials in these notes are taken from various places
 
 * The bookdown skeleton and some notes are based on the [Stat545][stat-545] course.
 * Some parts in Module \@ref(mod-intro) are inspired by [Chapter 1](https://r4ds.had.co.nz/introduction.html) in @r4ds.

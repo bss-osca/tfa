@@ -29,6 +29,7 @@ library(conflicted)
 conflict_prefer("filter", "dplyr", quiet = TRUE)
 conflict_prefer("select", "dplyr", quiet = TRUE)
 conflict_prefer("lag", "dplyr", quiet = TRUE)
+library(kableExtra)
 
 options(
   width = 100,
@@ -237,14 +238,19 @@ add_graph_legend <- function(graph, x, y) {
 create_learning_path <- function(url, sheet, x_legend = 0, y_legend = 0, margin_node = 0.2) {
   gs4_deauth()
   dat <- read_sheet(url, sheet = sheet, col_types = "iccccccdd")
+  if (any(is.na(dat$id))) dat <- dat %>% filter(row_number() < min(which(is.na(dat$id))))  # remove all rows below an empty
   dat <- dat %>%
     mutate(link_to = map(link_to, ~rlang::parse_quo(str_c("c(", .x, ")"), env = baseenv()))) %>%
     mutate(link_to = map(link_to, ~rlang::eval_tidy(.x))) %>%
-    mutate(link_to = map(link_to, ~tibble(to = .x)))
+    mutate(link_to = map(link_to, ~tibble(to = .x))) %>%
+    mutate(idN = 1:n())
+  node_map <- dat %>% select(id, idN)
+  dat <- dat %>%
+    mutate(link_to = map(link_to, function(x) {inner_join(x, node_map, by = c("to" = "id")) %>% select(to = idN)}))
   nodes <- dat %>%
-    select(-link_to)
+    select(-link_to, -id, id = idN)
   edges <- dat %>%
-    select(from = id, to = link_to) %>%
+    select(from = idN, to = link_to) %>%
     unnest(cols = to) %>%
     filter(!is.na(to))
   edges <-
@@ -285,9 +291,56 @@ create_learning_path <- function(url, sheet, x_legend = 0, y_legend = 0, margin_
     mutate_edge_attrs(
       color = "black",
       alpha = 0.5,
-      arrowhead = "vee") %>%
-    add_graph_legend(x_legend, y_legend)
+      arrowhead = "vee")
+    if (all(c(!is.null(x_legend), !is.null(y_legend)))) {graph <- add_graph_legend(graph, x_legend, y_legend)}
   return(graph)
 }
 
 
+link_excel_file <- function(module_number, module_name) {
+   excel_file <- str_c(module_number, "-", module_name, "-template.xlsm")
+   module_name_underscore <- str_replace_all(module_name, "-", "_")
+   return(withTags({
+      a(
+         href = str_c(
+            "https://github.com/bss-osca/tfa/blob/master/vba/",
+            module_number,
+            "-",
+            module_name,
+            "-template.xlsm"
+         ),
+         target = "_blank",
+         excel_file
+      )
+   })
+   )
+}
+
+link_excel_file_text <- function(module_number_prefix, module_name) {
+   module_number <- as.numeric(module_number_prefix)
+   excel_file <- str_c(module_number_prefix, "-", module_name, "-template.xlsm")
+   module_name_underscore <- str_replace_all(module_name, "-", "_")
+   return(withTags({
+      div(
+         "A template with VBA code for this module is given in the file",
+         a(
+            href = str_c(
+               "https://github.com/bss-osca/tfa/blob/master/vba/",
+               module_number_prefix,
+               "-",
+               module_name,
+               "-template.xlsm"
+            ),
+            target = "_blank",
+            excel_file
+         ),
+         "(open it and use it while reading the notes). Have a look inside the module",
+         i(str_c("TM", module_number, "_", "ex")),
+         "for examples used in the notes and during lectures. Have a look at module",
+         i(str_c("TM", module_number, "_", "exercises"
+         )),
+         "for exercises. The template file for next teaching module will contain guiding answers for the exercises to this teaching module."
+      )
+   })
+   )
+}
