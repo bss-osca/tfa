@@ -647,69 +647,27 @@ Use the sheet _TM3_ for output.
    (6) Create a do while loop that writes numbers i = 1, 2, ... in column G (starting in row 25) until i/5 + 3 = 8. Hint: you may use a `Exit Do` to quit the loop. 
    (7) Create a sub that runs all the loops.
 
+### Exercise - Conditional statements
 
-### Exercise - Flight search {#ex-vba-flight}
+This is a slightly modified version an exam assignment (reexam 2022 A5).       
 
-The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-flight-template.xlsm) should be used as a starting point for this exercise. 
+Consider worksheet *TM3_Numbers*, which contains a set of numbers. 
 
-The sheet _Data_ contains a set of flights between different destinations. You task is to create a program that can search for matching flights given a set of origins and destinations. 
+   (1) Create a procedure with the following features
+       * Make a copy of the numbers with the upper left cell starting G1.
+       * Scan all the numbers and remove (clear the cell) all the negative numbers (you may use a `For Each` loop).
+       * Highlight all the numbers above 20 (using e.g. `rngC.Interior.ColorIndex = 37`).
+       * Add a button to worksheet *TM3_Numbers* that run the procedure. 
 
-   (1) Have a look at the results in sheet _Main_. The origin and destinations to search for are given in columns A and B and the search result in columns D, E and F. 
-   (2) Try pressing the **Clear Search** button and see what happens. Have a look at the code in the VBA editor for this sub and get an overview. You are not expected to understand all the code.
-   (3) Try to finish the first part of the `SearchFlights` sub and store the flights in arrays. Use the debugger to check if the values are stored correctly. 
+   (2) Create a procedure with the following features:
+       * Scan the numbers and find
+         - the sum of all non-negative numbers,
+         - the mean of all negative numbers.
+       * Use a message box to display the sum and mean calculated.
+       * Add a button to worksheet *TM3_Numbers* that run the procedure. 
 
-```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
- For o = 1 To intOrigins
-     For i = 0 To intFlights - 1
-         If Cells(5 + o, 1) = Origin(i) Then 
-             For d = 1 To intDestinations
-                 ___
-             Next 
-         End If
-     Next 
- Next 
-```
-```{r, hint=TRUE, eval=FALSE, title="Hint 1", text="You need nested loops (loop over origins, flights, destinations)"}
-```
-   
-   (4) Try to finish the second part of the `SearchFlights` sub and search for matching origin-destination pairs. Note origins and destinations listed to be searched for are also matching origin-destination pairs if they are not in the same row.
 
-### Exercise - Job sequencing {#ex-vba-job-seq}
 
-The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-job-sequence-template.xlsm) should be used as a starting point for this exercise. 
-
-Consider $i = 1,...,n$ jobs that has to be done on a machine and let $c_{ij}$ denote the setup cost of switching from job $i$ to job $j$. Moreover, let $c_{0i}$ denote the setup cost of setting up job $i$ when the machine is idle (index 0). Let $s = (0, s_1, \ldots, s_n)$ denote the sequence of jobs and $C$ the total setup costs, e.g. if $s = (0,1,3,2,6,5,4)$, then $C = c_{01} + c_{13} + c_{32} + c_{26} + c_{65} + c_{54}$. Different algorithms for finding a good strategy minimizing the total setup costs exists. A greedy algorithm is:
-
-<div class="box">
-**Step 0**: Select the first job as one with minimal idle setup cost.
-
-**Step 1**: Given current job $i$ select the unscheduled with minimal setup cost. 
-
-**Step 2**: If no unscheduled jobs then stop and output the found job sequence else go to Step 1.
-</div>
-
-Often a better algorithm is:
-
-<div class="box">
-**Step 0**: For each column $j$ find $\bar{c}_j = min(c_{0j},\ldots,c_{j-1,j},c_{j+1,j},\ldots,c_{nj})$ and define relative setup costs $\hat{c}_{ij} = c_{ij}-\bar{c}_{j}$ (the cost is subtracted the minimum value in that column).
-
-**Step 1**: Call the greedy algorithm using costs $\hat{c}_{ij}$.
-</div>
-
-Consider sheet _Main_ that contains the setup costs for a scheduling problem.
-
-   (1) Implement the greedy algorithm in a sub `Greedy` that store the setup costs in an ($n+1 \times n$) 2D array `costs` assuming the setup costs table start in cell A4. Next, call the sub `GreedyAlg(costs)` that takes the costs as input argument. The sub must
-       - Store the job sequence in an 1D array.
-       - Output the number of jobs in cell C1, the job sequence in cell C2 and the total setup costs in cell F1.
-       - Highlight the cells with setup costs used in the sequence.
-       
-   (2) Implement the better algorithm in a sub `Better` that
-       - Find and store the minimum setup costs for each column.
-       - Calculate the relative costs.
-       - Call the greedy algorithm using the relative costs.
-       - Correct the total setup costs by adding the minimum costs.
-   (3) Add three buttons to _Main_ that remove the solution, run greedy and run better.
-   (4) Try to use different datasets from the sheet _Data_ and paste it into A4 in _Main_.
 
 ```{r links, child="links.md", include=FALSE}
 ```

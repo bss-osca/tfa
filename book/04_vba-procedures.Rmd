@@ -510,6 +510,34 @@ Create a procedure `Summary` that uses worksheet functions to:
 
 Google is a good place to start if you want to find a specific Excel function, e.g. try to search 'excel row with max value'.
 
+
+### Exercise - Flight search {#ex-vba-flight}
+
+The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-flight-template.xlsm) should be used as a starting point for this exercise. 
+
+The sheet _Data_ contains a set of flights between different destinations. You task is to create a program that can search for matching flights given a set of origins and destinations. 
+
+   (1) Have a look at the results in sheet _Main_. The origin and destinations to search for are given in columns A and B and the search result in columns D, E and F. 
+   (2) Try pressing the **Clear Search** button and see what happens. Have a look at the code in the VBA editor for this sub and get an overview. You are not expected to understand all the code.
+   (3) Try to finish the first part of the `SearchFlights` sub and store the flights in arrays. Use the debugger to check if the values are stored correctly. 
+
+```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
+ For o = 1 To intOrigins
+     For i = 0 To intFlights - 1
+         If Cells(5 + o, 1) = Origin(i) Then 
+             For d = 1 To intDestinations
+                 ___
+             Next 
+         End If
+     Next 
+ Next 
+```
+```{r, hint=TRUE, eval=FALSE, title="Hint 1", text="You need nested loops (loop over origins, flights, destinations)"}
+```
+   
+   (4) Try to finish the second part of the `SearchFlights` sub and search for matching origin-destination pairs. Note origins and destinations listed to be searched for are also matching origin-destination pairs if they are not in the same row.
+
+
 ### Exercise - `ByRef` {#ex-vba-byref}
 
 The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-byref-template.xlsm) should be used as a starting point for this exercise. 
