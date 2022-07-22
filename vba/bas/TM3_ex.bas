@@ -289,7 +289,7 @@ End Sub
 ' @param y1 y-coordinate of first point.
 ' @param x2 x-coordinate of second point.
 ' @param y2 y-coordinate of second point.
-Private Function TM3_Distance(x1, y1, x2, y2) As Double
+Function TM3_Distance(x1, y1, x2, y2) As Double
     Dim x As Double
     Dim y As Double
     
@@ -303,7 +303,7 @@ End Function
 '
 ' @pre Assume that coordinates are stored in column B and C starting from row 2
 '      and that number of points are stored in E1.
-Public Sub TM3_MakeDistanceMatrix()
+Sub TM3_MakeDistanceMatrix()
     Dim n As Integer
     Dim i As Integer
     Dim j As Integer
@@ -323,7 +323,7 @@ Public Sub TM3_MakeDistanceMatrix()
 End Sub
 
 
-'' Create a symetric distance matrix with only the upper right part filled in Sheet4 starting in column 6.
+'' Create a symetric distance matrix with only the upper right part filled starting in column 6.
 '
 ' @pre Assume that coordinates are stored in column B and C starting from row 2
 '      and that number of points are stored in E1.
@@ -387,4 +387,9 @@ End Sub
 Sub TM3_ClearDist()
     Call RngClear(Worksheets("TM3_DistanceMatrix").Range("F1:P11"), True)
 End Sub
+
+Sub TM3_ClearNumbers()
+   Call RngClear(Worksheets("TM3_Numbers").Range("G:M"))
+End Sub
+
 
