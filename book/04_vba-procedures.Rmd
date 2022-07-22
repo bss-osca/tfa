@@ -36,7 +36,7 @@ This module gives a short introduction to procedures. A procedure is a piece of 
 link_excel_file_text(module_number_prefix, module_name)
 ```
 
-During execution of procedures it may be useful to use the debugger to run the code step by step. A very short introduction to debugging in VBA is given in Section \@ref(#vba-debug). Read it before continuing this teaching module.
+During execution of procedures it may be useful to use the debugger to run the code step by step. A very short introduction to debugging in VBA is given in Section \@ref(vba-debug). Read it before continuing this teaching module.
 
 #### Learning path diagram {-}
 
@@ -46,11 +46,9 @@ Click/hover the nodes to follow links and see details.
 g <- create_learning_path(
    url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
    sheet = "vba-procedures", 
-   x_legend = 1.6, y_legend = 0.2)
-render_graph(g, height = 400)
+   x_legend = NULL)
+render_graph(g, height = 100)
 ```
-
-In general syllabus will point to chapters in @vba-book; however, there is a lot for videos about VBA online such as course [14-Hour VBA Course][vba-yt-course2]. You may have a look at these videos instead if you prefer a different learning style. In the learning path diagram, links to alternative online content will be pointed out. Note this is alternatives to the standard learning path that you may use instead. The learning path may also have extra content that is not a part of syllabus you can have a look at.
 
 
 ## Learning outcomes {#lo-vba-procedures}
@@ -189,7 +187,7 @@ End Sub
 ```
 
 
-## Optional arguments
+## Optional arguments {#vba-optional-arg}
 
 Often you define procedures that have arguments with a default value. You can do this using the `Optional` keyword:
 
@@ -275,7 +273,7 @@ knitr::include_graphics("./img/tm4-sheet.png")
 ```
 
 
-## Public and private procedures
+## Public and private procedures {#vba-pub-priv}
 
 You may use the keyword `Private` or `Public` (default) when you define a procedure. For instance:
 
@@ -346,7 +344,7 @@ End Sub
 ```
 
 
-## Built-in functions
+## Built-in functions {#vba-built-in}
 
 VBA has a set of [built-in functions](https://bettersolutions.com/vba/functions/complete-list.htm) such as `Abs`, `Log` and `Date`. You call them by just writing their name:
 
@@ -383,6 +381,98 @@ Sub TM4_TestWorksheetfunctions()
    Next
 End Sub
 ```
+
+## Example - Selection of test persons {#vba-test-persons}
+
+*This example is a slightly modified version an exam assignment (exam 2021-A6).*
+
+A virus has infected a number of persons. A possible cure has been developed, but the effect of it is expected to be dependent on the persons’ height. The cure can be tested on non-infected persons and the findings of this test can be directly transferred to any infected person whose height is within a range of 2 cm from the height of the tested person. For example, if the cure is tested on a non-infected person of height $172.2$, then any infected person whose height is in the interval $[170.2 ; 174.2]$ is *covered* by the test. 
+
+```{r test-persons, echo = FALSE, out.width="500px", fig.cap="Infected and test persons."} 
+knitr::include_graphics("./img/tm4-test-persons.png") 
+```
+
+Figure \@ref(fig:test-persons) shows the data in worksheet *TM4_Virus*:
+
+   * Cell D1 states the number of infected persons. Columns A and B provide the person’s ID and height for each person.
+   * Cell D2 states the number of non-infected persons volunteering to be test persons. Columns F and G provide their ID and height. 
+   * The testing process is extremely resource demanding, and thus it is only possible to test a limited number of test volunteers. This number is stated in cell D3.
+   
+Given a test person we make a function `TM4_TestCover` that takes person id as argument and return the number of new infected persons covered. A person is already covered if that person has a 1 in the *Covered* column.
+
+```
+Function TM4_TestCover(intId As Integer) As Integer
+   Dim intI As Integer     ' number of infected
+   Dim intC As Integer     ' number of covered
+   Dim dblHeight As Double ' height of test person
+   Dim r As Integer
+   
+   intI = Range("D1")
+   dblHeight = Range("G" & intId + 6)
+   intC = 0
+   For r = 7 To intI + 6    ' loop through all infected
+      If Cells(r, 2) >= dblHeight - 2 And Cells(r, 2) <= dblHeight + 2 And Cells(r, 3) <> 1 Then
+         intC = intC + 1
+      End If
+   Next
+   TM4_TestCover = intC
+End Function
+```
+
+First, note that given a test person id, the height is found in row `id + 6` and column G. Next, we use the counter `intC` to count new covered persons. This result is returned by the function.
+
+To find the right test persons the following greedy strategy is used:
+
+   - Step 1	Select the test person (not already selected) that can cover most new infected persons (not yet covered). If more than one test person have the same cover, select the one with the smallest ID. 
+   - Step 2 Add ones to the *Covered* column for all infected persons covered by the test person.
+   - Step 3 Go to Step 1 until found the test persons needed.
+ 
+We implement the the greedy strategy:
+
+```
+Sub TM4_FindTestPersons()
+   Dim intI As Integer  ' number of infected
+   Dim intT As Integer  ' number of test volunteers
+   Dim intS As Integer  ' number of selected persons
+   Dim intC As Integer  ' number of covered
+   Dim intBestId As Integer ' best id found
+   Dim intBestC As Integer  ' best cover value found
+   Dim r As Integer
+
+   Worksheets("TM4_Virus").Activate
+   intI = Range("D1")
+   intT = Range("D2")
+   intS = 0   ' no selected yet
+   Do While intS < Range("D3")    ' stop when have found needed test persons
+      intBestId = -1
+      intBestC = -1
+      For r = 7 To intT + 6       ' loop through all test volunteers
+         If Cells(r, 8) <> 1 Then ' not selected already
+            intC = TM4_TestCover(Cells(r, 6))
+            If intBestC < intC Then ' found a better person
+               intBestC = intC
+               intBestId = Cells(r, 6)
+            End If
+         End If
+      Next
+      Cells(intBestId + 6, 8) = 1  ' select best
+      For r = 7 To intI + 6  ' add ones in covered column
+          If Abs(Cells(r, 2) - Cells(intBestId + 6, 7)) <= 2 Then
+              Cells(r, 3) = 1
+          End If
+      Next
+      intS = intS + 1
+   Loop
+End Sub
+```
+
+First, the number of persons are stored in variables. Next, a `Do While` loop is used to find the test persons. We use two variables to store the best id and cover value. The first inner for loop scan the test persons and for each person (not yet selected) we find the cover (using `TM4_TestCover`), check if better than current and update. The second inner for loop add ones to the *Covered* column. The output is given in Figure \@ref(fig:test-persons-res).
+
+```{r test-persons-res, echo = FALSE, out.width="500px", fig.cap="Infected and test persons."} 
+knitr::include_graphics("./img/tm4-test-persons-res.png") 
+```
+
+In total 13 infected persons are covered by 3 test persons.
 
 
 ## Recap
@@ -468,7 +558,9 @@ End Sub
   sum = WorksheetFunction.Sum(Range("A1:D5"))
   ```
   
-You may also have a look at the [slides for this module](https://bss-osca.github.io/tfa/slides/02-02_vba-procedures-slides.html).
+```{r, echo=FALSE}
+link_slide_file_text(module_number_prefix, module_name)
+```
 
 
 ## Exercises {#ex-vba-procedures}
