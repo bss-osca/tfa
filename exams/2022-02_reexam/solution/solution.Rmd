@@ -1,0 +1,565 @@
+---
+title: "`r params$title`"
+author: "`r params$author`"
+date: "`r params$date`"
+output: 
+   html_document:
+     toc: false
+   pdf_document:
+      includes:
+         in_header: "preamble.tex"
+      # extra_dependencies:
+      #    a4wide: null
+      #    lmodern: null
+      #    newtxtext: ["scaled=1", "helvratio=0.95"]
+      #    newtxmath: null
+fontsize: 11pt
+classoption: a4paper
+# bibliography: litt.bib  
+params:
+  doc_output: solution
+  title: "Main file TFA reexam (R and VBA part)"
+  author: "Lars Relund Nielsen"
+  date: ""
+editor_options:
+  chunk_output_type: console
+---
+
+```{css, echo=FALSE}
+.solution {
+  background-color: aliceblue;
+  padding: 10px;
+}
+
+h2 {
+  font-size: large;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  message=FALSE)
+options(width = 90)
+
+library(tidyverse)
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  q_ctr <<- 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
+```
+
+```{r main, include=FALSE}
+doc_output <- params$doc_output
+
+if (doc_output == "solution") {
+  knitr::opts_hooks$set(solution = function(options) {
+    if (isTRUE(options$solution)) {
+      options$eval = TRUE
+    }
+    options
+  })
+  knitr::knit_hooks$set(solution = function(before, options, envir) {
+    if (before) {
+      paste0('\n<div class="solution">\nGuiding solution:\n\n')
+    } else {
+      paste0('\n</div>\n')
+    }
+  })
+}
+
+if (doc_output == "template") {
+  knitr::opts_hooks$set(output = function(options) {
+    if (!is.na(options$output)) {
+      if (options$output == "solution") {
+        options$code = "# Your code here"
+      }
+    }
+    options
+  })
+}
+
+if (doc_output == "exam") {
+  knitr::opts_hooks$set(solution = function(options) {
+    if (isTRUE(options$solution)) {
+      options$eval = FALSE
+      options$include = FALSE
+    }
+    options
+  })
+}
+```
+
+\includepdf[fitpaper=true, pagecommand={\pagestyle{fancy}}]{front.pdf}
+
+
+
+
+# R - `r ctrA()` (15%)
+ 
+```{r gen-data, eval=FALSE, include=FALSE, exam=TRUE}
+dat <- tibble(sex = "male", 
+   income = rnorm(1845, 43000, 12000) + rnorm(1845, 0, 1200)) %>% 
+   bind_rows(
+      tibble(sex = "female", 
+   income = rnorm(967, 36000, 10000) + rnorm(967, 0, 1200))
+   )
+write_csv(dat, "income.csv")
+```
+
+Consider the dataset in the file `income.csv` with the monthly income from a population. You can read the dataset file using
+
+```{r}
+library(tidyverse)
+dat <- read_csv("income.csv")
+head(dat)
+```
+
+## `r ctrQ()` 
+
+Fit probability distributions to data for both men and women. 
+
+<div class="solution">
+Guiding solution:
+
+The data are continuous and we try to fit a continuous distribution.
+
+**Male:**
+</div>
+
+```{r, solution=TRUE}
+library(fitdistrplus)
+datM <- dat %>% 
+   filter(sex == "male") %>% 
+   pull(income)
+plotdist(datM, histo = TRUE, demp = TRUE)
+descdist(datM)
+```
+
+<div class="solution">
+A normal distribution seem as a good choice.
+</div>
+
+```{r, solution=TRUE}
+fitM <- fitdist(datM, distr = "norm")
+summary(fitM)
+par(mfrow = c(2, 2))  # 4 plots in one figure
+pLegend <- c("normal")
+lst <- list(fitM)
+denscomp(lst, legendtext = pLegend)
+qqcomp(lst, legendtext = pLegend)
+cdfcomp(lst, legendtext = pLegend)
+ppcomp(lst, legendtext = pLegend)
+```
+
+<div class="solution">
+A normal distribution seem to fit very well.
+
+**Female**:
+</div>
+
+```{r, solution=TRUE}
+datF <- dat %>% 
+   filter(sex == "female") %>% 
+   pull(income)
+plotdist(datF, histo = TRUE, demp = TRUE)
+descdist(datF)
+```
+
+<div class="solution">
+A normal distribution seem as a good choice.
+</div>
+
+```{r, solution=TRUE}
+fitF <- fitdist(datF, distr = "norm")
+summary(fitF)
+par(mfrow = c(2, 2))  # 4 plots in one figure
+pLegend <- c("normal")
+lst <- list(fitF)
+denscomp(lst, legendtext = pLegend)
+qqcomp(lst, legendtext = pLegend)
+cdfcomp(lst, legendtext = pLegend)
+ppcomp(lst, legendtext = pLegend)
+```
+
+<div class="solution">
+A normal distribution seem to fit very well.
+</div>
+
+## `r ctrQ()` 
+
+Make a plot using `ggplot` of the two empirical densities with the following features:
+
+* Different fill colours are used for each sex.
+* Informative figure title and axis titles are given.
+
+Based on the plot and Question 1, is there any difference in the income for men and women? If yes on average how much?
+
+```{r, solution=TRUE}
+dat %>% 
+   ggplot(aes(x = income, fill = sex)) +
+   geom_density() +
+   labs(title = "Density for each sex",
+       x = "Income",
+       y = "",
+       fill = "Sex"
+    ) +
+   theme(legend.position = "bottom") 
+```
+
+<div class="solution">
+Based on the plot there seems to be a difference in income for men and women. We may use the mean values estimated to find the average difference:
+</div>
+
+```{r, solution = TRUE}
+fitM$estimate[1] - fitF$estimate[1]
+```
+
+
+
+
+
+
+
+# R - `r ctrA()` (18%)
+
+```{r get-data, eval=FALSE, include=FALSE, exam=TRUE}
+library(tidyverse)
+library(skimr)
+library(lubridate)
+dat <- read_csv("owid-covid-data.csv") %>%
+   select(
+      date,
+      country = location,
+      cases = new_cases,
+      deaths = new_deaths,
+      icu_patients,
+      hosp_patients,
+      tests = total_tests,
+      positive_rate,
+      vac = people_vaccinated,
+      fully_vac = people_fully_vaccinated,
+      population
+   ) %>%
+   filter(country %in% c("Denmark", "Germany", "Norway", "Sweeden", "United Kingdom"), cases >= 0 | is.na(cases)) %>%
+   mutate(month = month(date), year = year(date)) %>% 
+   write_csv("covid.csv")
+
+dat <- read.csv("covid.csv") %>% as_tibble()
+dat
+```
+
+Consider COVID-19 data obtained from Our World in Data in the file `covid.csv`. The dataset contains data from different countries. Some of the columns/variables are:
+
+  * `cases`: New confirmed cases of COVID-19.
+  * `deaths`:  New deaths attributed to COVID-19.
+  * `icu_patients`: Number of COVID-19 patients in intensive care units (ICUs) on a given day.
+  * `hosp_patients`: Number of COVID-19 patients in hospital on a given day.
+  * `tests`: Total tests for COVID-19.
+  * `positive_rate`: The share of COVID-19 tests that are positive, given as a rolling 7-day average.
+  * `vac`: Total number of people who received at least one vaccine dose.
+  * `fully_vac`: Total number of people who received all doses prescribed by the vaccination protocol.
+  * `population`: Country population.
+
+Other columns are `date`, `country`, `month` and `year`. You can read the dataset file using
+
+```{r}
+library(tidyverse)
+dat <- read_csv("covid.csv")
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames) and answer the following questions.
+
+
+## `r ctrQ()`
+
+Which countries are considered and what is the timespan of the data?
+
+```{r, solution=TRUE}
+res1 <- dat %>%
+   distinct(country) %>% 
+  print()
+
+res2 <- dat %>% 
+   ungroup() %>% 
+   summarise(start = min(date), end = max(date)) %>% 
+   print()
+```
+
+<div class="solution">
+We have a total of `r res1 %>% nrow()` countries with data from `r res2$start` to `r res2$end`.
+</div>
+
+
+
+## `r ctrQ()`
+
+What is the number of new confirmed cases November 22nd, 2021 in Denmark?
+
+
+
+```{r, solution=TRUE}
+res <- dat %>%
+   filter(country == "Denmark", date == "2021-11-22") %>% 
+  print()
+```
+
+<div class="solution">
+The number of confirmed cases was `r res$cases`.
+</div>
+
+
+## `r ctrQ()` 
+
+Calculate the total number of confirmed cases and deaths. Hint: you may use the `cumsum` function to add all cases up until a given date. You may here consider `NA` values in the `cases` and `deaths` columns as equal to zero (e.g. using `replace_na(cases, 0)`). 
+
+What is the total number of deaths in Norway up to October 10th, 2021?
+
+```{r, solution=TRUE}
+res1 <- dat %>%
+   group_by(country) %>%
+   mutate(total_cases = cumsum(replace_na(cases, 0)),
+          total_deaths = cumsum(replace_na(deaths, 0))) %>%
+   print()
+
+res2 <- res1 %>% 
+   filter(country == "Norway", date == "2021-10-10") %>% 
+   select(contains("total")) %>% 
+   print()
+```
+
+<div class="solution">
+The total number of deaths in Norway up to 10th October 2021 is `r res2$total_deaths`.
+</div>
+
+
+## `r ctrQ()`
+
+For each country calculate the number of tests done in each month in a given year. Which country had the highest number of tests per capita in March 2021?
+
+```{r, solution=TRUE}
+res1 <- dat %>%
+   group_by(country, month, year, population) %>% 
+   summarize(tests = max(tests, na.rm = TRUE) - min(tests, na.rm = TRUE)) %>% 
+   ungroup() %>% 
+   mutate(testsCap = tests/population) %>% 
+   arrange(desc(year), month) %>% 
+   print()
+
+res2 <- res1 %>% 
+   filter(year == 2021, month == 3) %>% 
+   arrange(desc(testsCap)) %>% 
+   print()
+```
+
+<div class="solution">
+The highest number of tests per capita in March 2021 was in `r res2$country[1]`.
+</div>
+
+
+## `r ctrQ()`
+
+Consider United Kingdom. Which month had the highest number of ICU patients on a given day?
+
+```{r, solution=TRUE}
+res <- dat %>%
+   filter(country == "United Kingdom") %>% 
+   group_by(country, year, month) %>% 
+   summarize(icu = max(icu_patients, na.rm = TRUE)) %>% 
+   arrange(desc(icu)) %>% 
+   print()
+```
+
+<div class="solution">
+The highest number of ICU patients on a given day was in January (`r res$icu[1]` patients).
+</div>
+
+
+
+
+
+
+
+
+
+# R - `r ctrA()` (17%)
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). We work with the dataset from Assignment 2 which can be read using:
+
+```{r}
+library(tidyverse)
+dat <- read_csv("covid.csv")
+```
+
+## `r ctrQ()`
+
+Create a visualization showing the number of cases for each date in Denmark with the following features:
+
+* A blue line is used to visualize the data.
+* Informative figure title and axis titles are given.
+
+Is the number of cases low or high in July 2020 in the plot?
+
+```{r, solution=TRUE}
+dat %>%
+   filter(country == "Denmark", !is.na(cases)) %>% 
+   ggplot(aes(y = cases, x = date)) +
+   geom_line(color = "blue") +
+   labs(title = "Number of cases in Denmark",
+       x = "Date",
+       y = "Cases"
+    )
+```
+
+<div class="solution">
+The number of cases in July 2020 are low.
+</div>
+
+
+## `r ctrQ()`
+
+Create a visualization showing the total number of deaths per 100000 capita as a function of date with the following features:
+
+* Different colours are used for each country.
+* Lines are used to visualize the data.
+* Legends are put at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+Hint: you may use the `cumsum` function to add all deaths up until a given date. You may here consider `NA` values in the `deaths` column as equal to zero (e.g. using `replace_na(deaths, 0)`). 
+
+Which country has the highest relative number of deaths in general? 
+
+```{r, solution=TRUE}
+dat %>%
+   group_by(country) %>%
+   mutate(total_deaths = cumsum(replace_na(deaths, 0))) %>%
+   mutate(total_deaths_cap = total_deaths/(population/100000)) %>% 
+   ggplot(aes(x = date, y = total_deaths_cap, color = country)) +
+   geom_line() +
+   labs(title = "Total number of deaths per 100000",
+       x = "Date",
+       y = "Deaths per 100000 capita",
+       color = "Country"
+    ) +
+   theme(legend.position = "bottom") 
+```
+
+<div class="solution">
+The highest relative number of deaths are for the United Kingdom.
+</div>
+
+
+## `r ctrQ()`
+
+Create a visualization showing the percentage of persons vaccinated as a function of date with the following features:
+
+* We consider 2021. 
+* Different colours are used to differ between vaccinated and fully vaccinated.
+* The plot is divided using `country` (facet).
+* Lines are used to visualize the data.
+* Informative figure title and axis titles are given.
+
+Hint: If you calculated the two percentages in two new columns `partly` and `full`, then the values can be joined to one column using
+
+```{r, eval=FALSE}
+dat %>% 
+   pivot_longer(cols = c(partly, full))
+```
+
+Which country has the highest percentage of vaccinated people and the lowest gap between partly and fully vaccinated?
+
+```{r, solution=TRUE}
+dat %>% 
+   filter(year == 2021) %>% 
+   mutate(partly = vac/population, 
+          full = fully_vac/population) %>%
+   pivot_longer(cols = c(partly, full)) %>% 
+   ggplot() + 
+   geom_line(aes(x = date, y = value, color = name)) + 
+   facet_wrap(vars(country)) +
+   labs(title = "Percentage of vaccinated people",
+       x = "Date",
+       y = "%",
+       color = "Vac. type") +
+   theme(legend.position = "bottom") 
+```
+
+<div class="solution">
+The plot showes that Denmark has the highest percentage of vaccinated people and the lowest gap between partly and full vaccinated.
+</div>
+
+
+## `r ctrQ()`
+
+Consider Germany. Create a visualization showing the variation in ICU patients with the following features:
+
+* A sub-plot is given for each month and year (facet).
+* Informative figure title and axis titles are given.
+
+In which year did the ICU have the most patients when considering October?
+
+```{r, solution=TRUE}
+dat %>%
+   filter(country == "Germany") %>% 
+  ggplot(aes(x = icu_patients)) +
+  geom_boxplot() +
+  facet_grid(month ~ year, scales = "free_y") +
+  labs(title = "ICU patients given year and month",
+       x = "",
+       y = "Patients") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(), 
+        legend.position = "bottom")
+```
+
+<div class="solution">
+In 2021 the mean value of the ICU patients was highest when considering October.
+</div>
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the total number of deaths per 100000 capita for each country and year with the following features:
+
+* The numbers are shown using columns for each country
+* Different fill colours are used for year. Hint: columns for each year can be shown beside each other using `position = position_dodge()`.
+* Informative figure title and axis titles are given.
+
+Which country had the lowest number of deaths in 2021?
+
+```{r, solution=TRUE}
+dat %>%
+   group_by(country, year) %>% 
+   summarise(deaths = sum(deaths/(population/100000) , na.rm = TRUE)) %>% 
+   ggplot(aes(y = deaths, x = country, fill = factor(year))) +
+   geom_col(position = position_dodge()) +
+   labs(title = "Total number of deaths",
+    x = "",
+    y = "Deaths",
+    fill = "Year") +
+   theme(legend.position = "bottom")
+```
+
+<div class="solution">
+Norway had the lowest number of deaths in 2021.
+</div>
+
+
+

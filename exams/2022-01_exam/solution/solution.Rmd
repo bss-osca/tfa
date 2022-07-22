@@ -1,0 +1,537 @@
+---
+title: "`r params$title`"
+author: "`r params$author`"
+date: "`r params$date`"
+output: 
+   html_document:
+      toc: false
+   pdf_document:
+      includes:
+         in_header: "preamble.tex"
+      # extra_dependencies:
+      #    a4wide: null
+      #    lmodern: null
+      #    newtxtext: ["scaled=1", "helvratio=0.95"]
+      #    newtxmath: null
+fontsize: 11pt
+classoption: a4paper
+# bibliography: litt.bib  
+params:
+  doc_output: solution
+  title: "TFA exam solution (R part)"
+  author: "Lars Relund Nielsen"
+  date: ""
+editor_options:
+  chunk_output_type: console
+---
+
+```{css, echo=FALSE}
+.solution {
+  background-color: aliceblue;
+  padding: 10px;
+}
+
+h2 {
+  font-size: large;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  message=FALSE)
+options(width = 90, scipen=999)
+
+library(tidyverse)
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  q_ctr <<- 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
+```
+
+```{r main, include=FALSE}
+doc_output <- params$doc_output
+
+if (doc_output == "solution") {
+  knitr::opts_hooks$set(solution = function(options) {
+    if (isTRUE(options$solution)) {
+      options$eval = TRUE
+    }
+    options
+  })
+  knitr::knit_hooks$set(solution = function(before, options, envir) {
+    if (before) {
+      paste0('\n<div class="solution">\nGuiding solution:\n\n')
+    } else {
+      paste0('\n</div>\n')
+    }
+  })
+}
+
+if (doc_output == "template") {
+  knitr::opts_hooks$set(output = function(options) {
+    if (!is.na(options$output)) {
+      if (options$output == "solution") {
+        options$code = "# Your code here"
+      }
+    }
+    options
+  })
+}
+
+if (doc_output == "exam") {
+  knitr::opts_hooks$set(solution = function(options) {
+    if (isTRUE(options$solution)) {
+      options$eval = FALSE
+      options$include = FALSE
+    }
+    options
+  })
+}
+```
+
+\includepdf[fitpaper=true, pagecommand={\pagestyle{fancy}}]{front.pdf}
+
+ 
+
+# R - `r ctrA()` (14%)
+
+## `r ctrQ()` 
+ 
+Make functions:
+
+  - `SecToMin` which takes an input argument `sec` in seconds and return the number converted to minutes.
+  - `SecToHours` which takes an input argument `sec` in seconds and return the number converted to hours.
+  - `MinToSec` which takes an input argument `min` in minutes and return the number converted to seconds.
+  - `MinToHours` which takes an input argument `min` in minutes and return the number converted to hours.
+  - `HoursToMin` which takes an input argument `hours` in hours and return the number converted to minutes.
+  - `HoursToSec` which takes an input argument `hours` in hours and return the number converted to seconds.
+
+All numbers may be decimal numbers, e.g. 90 seconds is 1.5 minutes and 1.5 hours is 90 minutes. 
+
+```{r, solution=TRUE}
+SecToMin <- function(sec) {
+   return(sec / 60)
+}
+
+SecToHours <- function(sec) {
+   return(sec / 60 / 60)
+}
+
+MinToSec <- function(min) {
+   return(min * 60)
+}
+
+MinToHours <- function(min) {
+   return(min / 60)
+}
+
+HoursToMin <- function(hours) {
+   return(hours * 60)
+}
+
+HoursToSec <- function(hours) {
+   return(hours * 60 * 60)
+}
+```
+
+
+
+
+## `r ctrQ()` 
+
+Make a function `ConvertTime` which takes two input arguments:
+
+  - `val` A number.
+  - `unit` A string that can take values "sec", "min" and "hours".
+
+The function should return `val` converted to seconds, minutes and hours with features:
+
+  - works for all possible values for `unit`,
+  - uses the functions in Question 1,
+  - returns a vector with 3 numbers (seconds, minutes and hours) or `NA` if `unit` does not equals "sec", "min" or "hours".
+
+
+
+```{r, solution=TRUE}
+ConvertTime <- function(val, unit) {
+   if (unit == "sec") {
+      return(c(sec = val, min = SecToMin(val), hours = SecToHours(val)))
+   } 
+   if (unit == "min") {
+      return(c(sec = MinToSec(val), min = val, hours = MinToHours(val)))
+   }
+   if (unit == "hours") {
+      return(c(sec = HoursToSec(val), min = HoursToMin(val), hours = val))
+   }
+   return(NA)
+}
+## We test the function:
+ConvertTime(val = 1.5, unit = "min")
+ConvertTime(val = 1.5, unit = "hours")
+ConvertTime(val = 1.5, unit = "kr")
+```
+
+
+
+
+# R - `r ctrA()` (18%)
+
+```{r get-data, eval=FALSE, include=FALSE, exam=TRUE}
+library(tidyverse)
+library(skimr)
+library(jsonlite)
+
+info <- function(tab_id) {
+   url <- str_c("https://api.statbank.dk/v1/tableinfo/", tab_id, "?lang=en")
+   lst <- read_json(url, simplifyVector = T) 
+   return(list(description = lst$description, unit = lst$unit, variables = lst$variables[,1:2]))
+}
+info("VALGK3")
+
+get_data <- function(tab_id, col_id = NULL) {
+   url <- str_c("https://api.statbank.dk/v1/tableinfo/", tab_id, "?lang=en")
+   lst <- read_json(url, simplifyVector = T) 
+   cols <- lst$variables$id
+   if (!is.null(col_id)) cols <- cols[col_id]
+   url <- str_c("https://api.statbank.dk/v1/data/", tab_id, "/CSV?lang=en&", str_c(cols, collapse = "=*&"), "=*") %>% 
+      URLencode()
+   dat <- read_csv2(url)
+   return(dat)
+}
+dat <- get_data("VALGK3")
+
+dat <- dat %>% 
+  rename(area = OMRÅDE, party = PARTI, voteType = STEMMER, year = TID, value = INDHOLD)
+dat <- dat %>% 
+  filter(area != "All Denmark", !str_detect(area, "Region"))
+dat <- dat %>% 
+  pivot_wider(names_from = voteType, values_from = value) %>% 
+  rename(validVotes = `Valid votes`, personalVotes = `Personal votes (total)`, listedMen = `Listed men`, listedWomen = `Listed women`, electedMen = `Elected men`, electedWomen = `Elected women`)
+write_csv(dat, "election.csv")
+```
+
+The dataset in the file `election.csv` lists election votes for municipal elections in Denmark. The column/variables are:
+
+* `area`: municipality,
+* `party`: political party,
+* `year`: election year,
+* `validVotes`: Number of (valid) votes, 
+* `personalVotes`: total number of personal votes, 
+* `listedMen`: men listed,
+* `listedWomen`: women listed, 
+* `electedMen`: elected men,
+* `electedWomen`: elected women.
+
+You can read the dataset file into the dataset `dat` using
+
+```{r}
+library(tidyverse)
+dat <- read_csv("elections.csv")
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (data frames) and answer the following questions.
+
+
+## `r ctrQ()`
+
+How many different municipalities were there in Denmark in 2017?
+
+```{r, solution=TRUE}
+res <- dat %>%
+  filter(year == 2017) %>% 
+  distinct(area) %>% 
+  nrow() %>% 
+  print()
+```
+
+<div class="solution">
+We have a total of `r res` municipalities.
+</div>
+
+
+
+## `r ctrQ()`
+
+In which election year was the total number of votes highest?
+
+```{r, solution=TRUE}
+res <- dat %>%
+  group_by(year) %>% 
+  summarize(votes = sum(validVotes)) %>% 
+  arrange(desc(votes)) %>% 
+  print()
+```
+
+<div class="solution">
+The highest number of votes was in `r res$year[1]`.
+</div>
+
+
+## `r ctrQ()` 
+
+Consider the 2017 election. How many votes and elected candidates did the different parties get in total (sort your result descending by votes)?
+
+```{r, solution=TRUE}
+res <- dat %>%
+  filter(year == 2017) %>% 
+  mutate(elected = electedMen + electedWomen) %>% 
+  group_by(party) %>% 
+  summarize(votes = sum(validVotes), elected = sum(elected)) %>% 
+  arrange(desc(votes)) %>% 
+  print()
+```
+
+<div class="solution">
+The highest number of votes was given to the `r res$party[1]` (`r res$votes[1]` votes)  who got `r res$elected[1]` elected.
+</div>
+
+
+## `r ctrQ()`
+
+Calculate the percentage of females listed for each year. Are there on average more women than men listed? Is there any tendency over the years?
+
+```{r, solution=TRUE}
+res <- dat %>%
+  group_by(year) %>% 
+  summarize(listedWomen = sum(listedWomen), listedMen = sum(listedMen)) %>% 
+  mutate(listedWomenPct = listedWomen/(listedMen + listedWomen)) %>% 
+  arrange(listedWomenPct) %>% 
+  print()
+```
+
+<div class="solution">
+The listed women is approx. `r round(mean(res$listedWomenPct)*100)`. That is, listed women is lower than listed men. This percentage seems to be almost constant over the years (but increasing very slowly).
+</div>
+
+
+## `r ctrQ()`
+
+Consider the 2017 election. In which municipality did the Liberal Democratic Party get the highest percentage of votes? 
+
+```{r, solution=TRUE}
+res <- dat %>%
+  filter(year == 2017) %>% 
+  group_by(area) %>% 
+  mutate(votesPct = validVotes/sum(validVotes)) %>% 
+  filter(party == "Liberal Democratic Party") %>% 
+  select(area, party, votesPct) %>% 
+  arrange(desc(votesPct)) %>% 
+  print()
+```
+
+<div class="solution">
+The Liberal Democratic Party got must relative votes in `r res$area[1]`.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# R - `r ctrA()` (18%)
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you might need dplyr for preparing the datasets you want to plot). We work with the dataset from Assignment 2 which can be read using:
+
+```{r}
+library(tidyverse)
+dat <- read_csv("elections.csv")
+```
+
+
+## `r ctrQ()`
+
+Create a visualization showing the total number of votes for each election year with the following features:
+
+* Number of votes is represented using columns.
+* Columns are filled with colours for each party.
+* Informative figure title and axis titles are given.
+
+Which year had the lowest number of votes?
+
+```{r, solution=TRUE}
+dat %>%
+  group_by(year, party) %>% 
+  summarise(votes = sum(validVotes)) %>% 
+  ggplot(aes(y = votes, x = factor(year), fill = party)) +
+  geom_col() +
+  labs(title = "Total number of votes",
+       x = "Year",
+       y = "Votes"
+    )
+```
+
+<div class="solution">
+The lowest number of votes was in 2009.
+</div>
+
+## `r ctrQ()`
+
+Create a visualization showing the relative number of elected women in each municipality with the following features:
+
+* The relative number of elected women is shown using columns.
+* Municipalities are rotated 90 degrees on the x-axis.
+* The columns are sorted increasing.
+* Informative figure title and axis titles are given.
+
+Which municipality has the lowest/highest percentage of women elected?
+
+```{r, solution=TRUE}
+dat %>%
+  group_by(area) %>% 
+  summarize(electedWomen = sum(electedWomen), electedMen = sum(electedMen)) %>% 
+  mutate(electedWomenPct = electedWomen/(electedMen + electedWomen)) %>% 
+  filter(!is.na(electedWomenPct)) %>% 
+  ggplot(aes(x = reorder(area, electedWomenPct), y = electedWomenPct)) +
+  geom_col() + 
+  labs(title = "Relative number of elected women",
+       x = "Municipality",
+       y = "%"
+    ) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+<div class="solution">
+The lowest number elected is in Ærø and the highest is in Gentofte.
+</div>
+
+
+## `r ctrQ()`
+
+Create a visualization showing the elected number of candidates as a function of election year with the following features:
+
+* We consider only municipalities Herning, Copenhagen and Aarhus.
+* We consider only the Social Democratic Party, Conservative Peoples Party and Liberal Democratic Party.
+* The plot is divided using `area` (facet).
+* Different colours are used for each party.
+* Informative figure title and axis titles are given.
+* Data points are given in the plot.
+* A line for each party is added.
+
+Consider the Social Democratic Party in Copenhagen. Based on the plot do the elected number of candidates increase or decrease over the election years?
+
+```{r, solution=TRUE}
+dat %>% 
+  filter(area %in% c("Herning", "Copenhagen", "Aarhus"), party %in% c("Social Democratic Party", "Conservative Peoples Party", "Liberal Democratic Party")) %>% 
+  mutate(elected = electedMen + electedWomen) %>% 
+  ggplot(aes(x = year, y = elected, color = party)) +
+  geom_point() +
+  geom_line() +
+  scale_x_binned(n.breaks = 4, nice.breaks = TRUE) +
+  facet_grid(. ~ area) +
+  labs(title = "Elected persons",
+       x = "Year",
+       y = "Elected",
+       color = "Party") +
+  theme(legend.position = "bottom") 
+```
+
+<div class="solution">
+The trend for the Social Democratic Party in Copenhagen is decreasing over the years.
+</div>
+
+## `r ctrQ()`
+
+Create a visualization showing the relative number of women elected compared to listed (e.g. if listed is 12 and elected is 4 then the number is 4/12) with the following features:
+
+* Columns are used for each party.
+* Colours are used to identify the party.
+* A sub-plot is given for each year.
+* Informative figure title and axis titles are given.
+
+Which party seems to get the highest number of the listed women elected? 
+
+```{r, solution=TRUE}
+dat %>%
+  mutate(electedW = electedWomen/listedWomen) %>% 
+  group_by(party, year) %>% 
+  summarize(electedW = mean(electedW, na.rm = T)) %>% 
+  ggplot(aes(x = reorder(party, electedW), y = electedW, fill = party)) +
+  geom_col() +
+  facet_grid(year ~ .) +
+  labs(title = "Releative number of women elected compared to listed.",
+       x = "Party",
+       y = "Percentage",
+       fill = "Party") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(), legend.position = "bottom")
+```
+
+<div class="solution">
+For all years the Social Democratic Party has the highest number of the listed women elected.
+</div>
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the variance in the relative number of personal votes compared to valid votes (i.e. divide the two numbers) with the following features:
+
+* We consider only municipalities Herning, Copenhagen and Aarhus.
+* Variation is shown using a box-plot for each municipality.
+* Informative figure title and axis titles are given.
+
+Which municipality has the highest median?
+
+```{r, solution=TRUE}
+dat %>%
+  filter(area %in% c("Herning", "Copenhagen", "Aarhus")) %>% 
+  mutate(personal = personalVotes/validVotes) %>% 
+    ggplot(aes(x = area, y = personal, fill = area)) +
+    geom_boxplot() +
+    labs(title = "Releative number of personal votes over all the election years.",
+       x = "Municipality",
+       y = "Personal votes (pct)",
+       fill = "Municipality") +
+    theme(legend.position = "none")
+
+
+```
+
+<div class="solution">
+Based on the plot Herning has the highest median of personal votes.
+</div>
+
+
+
+
+

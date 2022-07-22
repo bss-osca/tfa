@@ -1,0 +1,337 @@
+---
+title: "TFA exam - R part"
+---
+
+```{css, echo=FALSE}
+.solution {
+  background-color: aliceblue;
+  padding: 10px;
+}
+
+h2 {
+  font-size: large;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  message=FALSE)
+options(width = 90)
+
+library(tidyverse)
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  q_ctr <<- 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
+```
+
+
+
+
+
+
+
+# R - `r ctrA()` (15%)
+ 
+
+
+Consider the dataset in the file `income.csv` with the monthly income from a population. You can read the dataset file using
+
+```{r}
+library(tidyverse)
+dat <- read_csv("income.csv")
+head(dat)
+```
+
+## `r ctrQ()` 
+
+Fit probability distributions to data for both men and women. 
+
+[Your comment here]
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+## `r ctrQ()` 
+
+Make a plot of the two empirical densities with the following features:
+
+* Different fill colours are used for each sex.
+* Informative figure title and axis titles are given.
+
+Based on the plot and Question 1, is there any difference in the income for men and women? If yes on average how much?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+```{r}
+# your code here
+```
+
+
+
+
+
+
+
+# R - `r ctrA()` (18%)
+
+```{r get-data, eval=FALSE, include=FALSE, exam=TRUE}
+library(tidyverse)
+library(skimr)
+library(lubridate)
+dat <- read_csv("owid-covid-data.csv") %>%
+   select(
+      date,
+      country = location,
+      cases = new_cases,
+      deaths = new_deaths,
+      icu_patients,
+      hosp_patients,
+      tests = total_tests,
+      positive_rate,
+      vac = people_vaccinated,
+      fully_vac = people_fully_vaccinated,
+      population
+   ) %>%
+   filter(country %in% c("Denmark", "Germany", "Norway", "Sweeden", "United Kingdom"), cases >= 0 | is.na(cases)) %>%
+   mutate(month = month(date), year = year(date)) %>% 
+   write_csv("covid.csv")
+
+dat <- read.csv("covid.csv") %>% as_tibble()
+dat
+```
+
+Consider COVID-19 data obtained from Our World in Data in the file `covid.csv`. The dataset contains data from different countries. Some of the columns/variables are:
+
+  * `cases`: New confirmed cases of COVID-19.
+  * `deaths`:  New deaths attributed to COVID-19.
+  * `icu_patients`: Number of COVID-19 patients in intensive care units (ICUs) on a given day.
+  * `hosp_patients`: Number of COVID-19 patients in hospital on a given day.
+  * `tests`: Total tests for COVID-19.
+  * `positive_rate`: The share of COVID-19 tests that are positive, given as a rolling 7-day average.
+  * `vac`: Total number of people who received at least one vaccine dose.
+  * `fully_vac`: Total number of people who received all doses prescribed by the vaccination protocol.
+  * `population`: Country population.
+
+Other columns are `date`, `country`, `month` and `year`. You can read the dataset file using
+
+```{r}
+library(tidyverse)
+dat <- read_csv("covid.csv")
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames) and answer the following questions.
+
+
+## `r ctrQ()`
+
+Which countries are considered and what is the timespan of the data?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+## `r ctrQ()`
+
+What is the number of new confirmed cases November 22nd, 2021 in Denmark?
+
+
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()` 
+
+Calculate the total number of confirmed cases and deaths. Hint: you may use the `cumsum` function to add all cases up until a given date. You may here consider `NA` values in the `cases` and `deaths` columns as equal to zero. 
+
+What is the total number of deaths in Norway up to October 10th, 2021?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()`
+
+For each country calculate the number of tests in each month in a given year. Which country had the highest number of tests per capita in March 2021?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()`
+
+Consider United Kingdom. Which month had the highest number of ICU patients on a given day?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+
+
+
+
+# R - `r ctrA()` (17%)
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). We work with the dataset from Assignment 2 which can be read using:
+
+```{r}
+library(tidyverse)
+dat <- read_csv("covid.csv")
+```
+
+## `r ctrQ()`
+
+Create a visualization showing the number of cases for each date in Denmark with the following features:
+
+* A blue line is used to visualize the data.
+* Informative figure title and axis titles are given.
+
+Is the number of cases low or high in July 2020 in the plot?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()`
+
+Create a visualization showing the total number of deaths per 100000 capita as a function of date with the following features:
+
+* Different colours are used for each country.
+* Lines are used to visualize the data.
+* Legends are put at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+Which country has the highest relative number of deaths in general? 
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()`
+
+Create a visualization showing the percentage of persons vaccinated as a function of date with the following features:
+
+* We consider 2021. 
+* Different colours are used to differ between vaccinated and fully vaccinated.
+* The plot is divided using `country` (facet).
+* Lines are used to visualize the data.
+* Informative figure title and axis titles are given.
+
+Hint: If you calculated the two percentages in two new columns `partly` and `full`, then the values can be joined to one column using
+
+```{r, eval=FALSE}
+dat %>% 
+   pivot_longer(cols = c(partly, full))
+```
+
+Which country has the highest percentage of vaccinated people and the lowest gap between partly and full vaccinated?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()`
+
+Consider Germany. Create a visualization showing the variation in ICU patients with the following features:
+
+* A sub-plot is given for each month and year (facet).
+* Informative figure title and axis titles are given.
+
+In what year had the ICU the most patients when considering October?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the total number of deaths for each country and year with the following features:
+
+* The numbers are shown using columns for each country
+* Different fill colours are used for year. Hint: columns for each year can be shown beside each other using `position = position_dodge()`.
+* Informative figure title and axis titles are given.
+
+Which country had the lowest number of deaths in 2021?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
