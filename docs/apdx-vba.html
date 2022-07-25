@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 6 Generating random numbers | Tools for Analytics (TFA)</title>
+  <title>E VBA specific topics | Tools for Analytics (TFA)</title>
   <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 6 Generating random numbers | Tools for Analytics (TFA)" />
+  <meta property="og:title" content="E VBA specific topics | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
   <meta property="og:description" content="Course notes for the ‘Tools for Analytics’ course" />
   <meta name="github-repo" content="bss-osca/tfa" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 6 Generating random numbers | Tools for Analytics (TFA)" />
+  <meta name="twitter:title" content="E VBA specific topics | Tools for Analytics (TFA)" />
   
   <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course" />
   <meta name="twitter:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="mod-vba-datatypes.html"/>
-<link rel="next" href="groups.html"/>
+<link rel="prev" href="coding-convention.html"/>
+<link rel="next" href="lg-course.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -359,186 +359,26 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-vba-random-numbers" class="section level1 hasAnchor" number="6">
-<h1><span class="header-section-number">Module 6</span> Generating random numbers<a href="mod-vba-random-numbers.html#mod-vba-random-numbers" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This module gives a short introduction on how to generate random numbers and using them in a simulation.
-<strong>Learning path diagram</strong></p>
-<p>Click/hover the nodes to follow links and see details.</p>
-<div id="htmlwidget-f770516c4e5384037913" style="width:100%;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f770516c4e5384037913">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 Random numbers\", URL = \"#vba-random-numbers\", tooltip = \"Random numbers\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"2,1!\"] \n  \"2\" [label = \"📖 Simulation\", URL = \"#vba-simulation\", tooltip = \"Simulation\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"5,1!\"] \n  \"3\" [label = \"💻 Exercises\", URL = \"#ex-vba-random-numbers\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"8,1!\"] \n  \"4\" [label = \"\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"4.1,-0.34!\"] \n  \"5\" [label = \"Color:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"1.47,0!\"] \n  \"6\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"1.7,-0.4!\"] \n  \"7\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"2.7,-0.4!\"] \n  \"8\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"3.7,-0.4!\"] \n  \"9\" [label = \"Shape:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"4.9,0!\"] \n  \"10\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"1\", fillcolor = \"Grey40\", pos = \"5.2,-0.4!\"] \n  \"11\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", width = \"1\", fillcolor = \"Grey40\", pos = \"6.45,-0.4!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-<div id="lo-vba-random-numbers" class="section level2 hasAnchor" number="6.1">
-<h2><span class="header-section-number">6.1</span> Learning outcomes<a href="mod-vba-random-numbers.html#lo-vba-random-numbers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>By the end of this module, you are expected to be able to:</p>
-<ul>
-<li>Describe what a random number is.</li>
-<li>Generate a random number from a distribution.</li>
-<li>Run a simulation and compare/analyse results.</li>
-</ul>
-<p>The learning outcomes relate to the <a href="lg-course.html#lg-course">overall learning goals</a> number 2-4, 8-14 and 16 of the course.</p>
-<!-- SOLO increasing: identify · memorise · name · do simple procedure · collect data · -->
-<!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
-<!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
-<!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
+<div id="apdx-vba" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">E</span> VBA specific topics<a href="apdx-vba.html#apdx-vba" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="vba-debug" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">E.1</span> Debugging your code<a href="apdx-vba.html#vba-debug" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You debug you code to find errors and correct bugs in your program. VBA has a built-in debugger that you may use to step though you code and check if the values in memory are correct. You start and use the debugger using the debugger buttons in the VBA editor, e.g. set the cursor in the top of a sub and press the <strong>Step Into</strong> button (<svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"> <path d="M0 93.7l183.6-25.3v177.4H0V93.7zm0 324.6l183.6 25.3V268.4H0v149.9zm203.8 28L448 480V268.4H203.8v177.9zm0-380.6v180.1H448V32L203.8 65.7z"></path></svg> F8, <svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"> <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"></path></svg> ⇧⌘I). You can now repeatedly press the button to step though the code.</p>
+<p>In the <strong>Locals</strong> window you can see the values of the variables as you run you code.
+<!-- In the **Immediate** window you can add output using the [`Debug.Print`](https://www.automateexcel.com/vba/debug-print-immediate-window/) and test code.   --></p>
+<p>Finally, if you want to run the program until a specific line or code then insert a break-point by clicking the margin of that line in the VBA editor. Next, run you sub and the debugger will stop at that line.</p>
+<p>For more details you may have a look at Chapter 9 in <span class="citation">Wøhlk (<a href="#ref-vba-book" role="doc-biblioref">2010</a>)</span> or the videos <a href="https://youtu.be/AONXBZdx20Y">Debug toolbar</a>, <a href="https://youtu.be/BC8py7Ce2rg">Locals window</a> and <a href="https://youtu.be/k_1zrFdlZCU">Breakpoints</a>.</p>
 </div>
-<div id="vba-random-numbers" class="section level2 hasAnchor" number="6.2">
-<h2><span class="header-section-number">6.2</span> Generating random numbers<a href="mod-vba-random-numbers.html#vba-random-numbers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Often we want to model a system where some of the elements are uncertain. To simulate the system we want to generate some random numbers following different distributions. This can be done using the built-in VBA and Excel functions.</p>
-<p>Read Sections 18.1 of Chapter 18 in <span class="citation">Wøhlk (<a href="#ref-vba-book" role="doc-biblioref">2010</a>)</span>.</p>
+<div id="error-handling" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">E.2</span> Error handling<a href="apdx-vba.html#error-handling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>See <a href="https://excelmacromastery.com/vba-error-handling/" class="uri">https://excelmacromastery.com/vba-error-handling/</a></p>
 </div>
-<div id="vba-simulation" class="section level2 hasAnchor" number="6.3">
-<h2><span class="header-section-number">6.3</span> Simulation<a href="mod-vba-random-numbers.html#vba-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Given an uncertain system we simulate the system by constructing a deterministic model (that is we assume the random numbers have some specific values) and algorithms for solving it. Next, random numbers are generated and used to solve the model and store the results. This is repeated a number of times and statistics such as min, mean, standard deviation or max value of a statistic can be found.</p>
-<p>Read Sections 18.2 of Chapter 18 in <span class="citation">Wøhlk (<a href="#ref-vba-book" role="doc-biblioref">2010</a>)</span>.</p>
-</div>
-<div id="recap-3" class="section level2 hasAnchor" number="6.4">
-<h2><span class="header-section-number">6.4</span> Recap<a href="mod-vba-random-numbers.html#recap-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><p>Often we want to model a system where some of the elements are uncertain. To simulate the system we want to generate some random numbers following different distributions. This can be done using the built-in VBA and Excel functions.</p></li>
-<li><p>Initialize generation of random numbers using</p>
-<pre><code>Randomize()     &#39; chooses a random seed </code></pre>
-<p>Or</p>
-<pre><code>Randomize(100)     &#39; generate the same random numbers</code></pre>
-<p>We normally use the first option.</p></li>
-<li><p>When generating random numbers in VBA and writing them to the worksheet, they will NOT be changed when the worksheet is updated! Only when the code is executed!</p></li>
-<li><p>Examples on some distributions are</p>
-<ul>
-<li>Uniform between 0 and 1: <code>Rnd()</code></li>
-<li>Uniform between i and j: <code>i + (j - i) * Rnd</code></li>
-<li>Normal distribution: <code>WorksheetFunction.NormInv(Rnd, dblMean, dblSD)</code></li>
-<li>Binomial distribution: <code>WorksheetFunction.Binom_Inv(intTrials, dblPr, Rnd)</code></li>
-</ul></li>
-<li><p>Given an uncertain system we simulate the system by constructing a</p>
-<ul>
-<li>Deterministic model (that is we assume the random numbers have some specific values) and algorithms for solving it.</li>
-<li>Generate random numbers and used to solve the model and store the results.</li>
-<li>Repeat a number of times and calculate statistics such as min, mean and standard deviation.</li>
-</ul></li>
-</ul>
-<p>You may also have a look at the <a href="https://bss-osca.github.io/tfa/slides/03-01_vba-random-numbers-slides.html">slides for this module</a>.</p>
-</div>
-<div id="ex-vba-random-numbers" class="section level2 hasAnchor" number="6.5">
-<h2><span class="header-section-number">6.5</span> Exercises<a href="mod-vba-random-numbers.html#ex-vba-random-numbers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the <a href="help.html#help">help page</a>. Some of the solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up too early. Put some effort into finding a solution!</p>
-<div id="ex-vba-generate" class="section level3 hasAnchor" number="6.5.1">
-<h3><span class="header-section-number">6.5.1</span> Exercise - Generating random numbers<a href="mod-vba-random-numbers.html#ex-vba-generate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>This <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-generate-template.xlsm">file</a> should be used as a starting point for this exercise.</p>
-<ol style="list-style-type: decimal">
-<li>Create a procedure <code>GenNormal</code> with arguments <code>intSize</code>, <code>dblMean</code>, <code>dblSD</code> and <code>ary</code>. The procedure must generate <code>intSize</code> random numbers from a normal distribution with mean <code>dblMean</code> and standard deviation <code>dblSD</code>. The procedure must store the values in <code>ary</code>.</li>
-<li>Create a procedure <code>GenUniform</code> with arguments <code>intSize</code>, <code>dblMin</code>, <code>dblMax</code> and <code>ary</code>. The procedure must generate <code>intSize</code> random numbers from a uniform distribution in the range <code>dblMin</code> to <code>dblMax</code>. The procedure must store the values in <code>ary</code>.</li>
-<li>Create a procedure <code>GenBinomial</code> with arguments <code>intSize</code>, <code>intTrials</code>, <code>dblPr</code> and <code>ary</code>. The procedure must generate <code>intSize</code> random numbers from a binomial distribution using <code>intTrials</code> trials with <code>dblPr</code> probability of success. The procedure must store the values in <code>ary</code>.</li>
-<li>Create a procedure <code>GenPoisson</code> with arguments <code>intSize</code>, <code>dblLambda</code> and <code>ary</code>. The procedure must generate <code>intSize</code> random numbers from a poisson distribution with mean <code>dblLambda</code>. The procedure must store the values in <code>ary</code>. You may use the <code>PoissonInv</code> function.</li>
-<li>Create a procedure <code>GenDiscrete</code> with arguments <code>intSize</code>, <code>dblDens</code> and <code>ary</code>. The procedure must generate <code>intSize</code> random numbers from a discrete distribution with density <code>dblDens</code> (first column in the array contains the outcome and the second the probability). The procedure must store the values in <code>ary</code>. You may use the <code>DiscreteInv</code> function.</li>
-<li>Create a procedure <code>Main</code> that generate 5000 random numbers of
-<ul>
-<li>A normal distribution with mean 100 and standard deviation 20.</li>
-<li>An uniform distribution with range 10 to 500.</li>
-<li>A binomial distribution with 100 trials and a 0.2 probability of success.</li>
-<li>A poisson distribution with mean 5.</li>
-<li>Plot the results for each distribution using <code>CreatePlot</code>.</li>
-</ul></li>
-</ol>
-</div>
-<div id="ex-vba-tsp" class="section level3 hasAnchor" number="6.5.2">
-<h3><span class="header-section-number">6.5.2</span> Exercise - Traveling salesman problem<a href="mod-vba-random-numbers.html#ex-vba-tsp" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>This <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-tsp-template.xlsm">file</a> should be used as a starting point for this exercise.</p>
-<p>The <a href="https://en.wikipedia.org/wiki/Travelling_salesman_problem">travelling salesman problem</a> (TSP) asks the following question:</p>
-<blockquote>
-<p>Given a list of cities and the distances between each pair of the cities,
-what is the shortest possible route that visits each city exactly once
-and returns to the origin city?</p>
-</blockquote>
-<p>The problem is an NP-hard problem (worst case solution time grows exponential with the number of cities) in combinatorial optimization, important in theoretical computer science and operations research. The problem was first formulated in 1930 and is one of the most intensively studied problems in optimization. Even though the problem is computationally difficult, many heuristics and exact algorithms are known.</p>
-<p>The goal with this exercise is to test different heuristics on a set of problem instances. To see which one works best.</p>
-<ol style="list-style-type: decimal">
-<li>Create a procedure <code>GenTSPData</code> satisfying:
-<ul>
-<li>Arguments are <code>ByRef dblCoord() As Double, Optional intCities As Integer = 0, Optional blnPrint As Boolean = False</code>.</li>
-<li>Each city has an id number and a x and y-coordinate.</li>
-<li>The generated cities are stored in array <code>dblCoord</code> with <code>intCities</code> rows and three columns (column 1 store the city id, column 2 the x-coordinate and column 3 the y-coordinate)</li>
-<li>The x and y-coordinates are random numbers from an uniform distribution between 0 and 10.</li>
-<li>If <code>blnPrint</code> is true then coordinates are printed to the main sheet starting in cell A2.</li>
-<li>If <code>intCities</code> is zero then use an input box to ask for the number of cities.<br />
-</li>
-</ul></li>
-<li>Create a procedure <code>BtnGenTSPData</code> that calls <code>GenTSPData</code>, ask for the number of cities and print the result to cell A2. A button linking to the procedure has already been created in the template file.</li>
-<li>Create a procedure <code>CalcDistArray</code> satisfying:
-<ul>
-<li>Arguments are <code>ByRef dblDist() As Double, dblCoord() As Double</code> where <code>dblCoord</code> are the coordinates found using <code>GenTSPData</code>.</li>
-<li>The distance between two cities are stored in <code>dblDist</code>, i.e. <code>dblDist(i, j)</code> store the distance between city <code>i</code> and <code>j</code>.</li>
-<li>Symmetric distances are assumed, i.e. <code>dblDist(i, j) = dblDist(j, i)</code>.</li>
-</ul></li>
-<li>Create a procedure <code>SolveTSPIncX</code> satisfying:
-<ul>
-<li>Arguments are <code>dblCoord() As Double, dblDist() As Double, ByRef dblCost As Double, ByRef intSeq() As Integer</code></li>
-<li>Sort the array <code>dblCoord</code> increasing in the x-coordinate (you may use the procedure <code>ArySort</code> in module <code>ModuleAry</code> to do this).</li>
-<li>Visit the cities in the order of the sorted array and return to the starting city.</li>
-<li>The visiting city sequence are stored in <code>intSeq</code>.</li>
-<li>The total cost are stored in <code>dblCost</code>. You may use the <code>CalcCost</code> function to find the total cost.</li>
-</ul></li>
-<li>Create a procedure <code>BtnSolveTSPIncX</code> that calls <code>SolveTSPIncX</code> using the TSP data in the Main sheet and print out the total cost in cell H4. A button linking to the procedure has already been created.</li>
-<li>Create a procedure <code>SolveTSPIncY</code> satisfying:
-<ul>
-<li>Arguments are <code>dblCoord() As Double, dblDist() As Double, ByRef dblCost As Double, ByRef intSeq() As Integer</code></li>
-<li>Sort the array <code>dblCoord</code> increasing in the y-coordinate (you may use the procedure <code>ArySort</code> in module <code>ModuleAry</code> to do this).</li>
-<li>Visit the cities in the order of the sorted array and return to the starting city.</li>
-<li>The visiting city sequence are stored in <code>intSeq</code>.</li>
-<li>The total cost are stored in <code>dblCost</code>. You may use the <code>CalcCost</code> function to find the total cost.</li>
-</ul></li>
-<li>Create a procedure <code>BtnSolveTSPIncY</code> that calls <code>SolveTSPIncY</code> using the TSP data in the Main sheet and print out the total cost in cell H8. A button linking to the procedure has already been created.</li>
-<li>Create a procedure <code>SolveTSPRand</code> satisfying:
-<ul>
-<li>Arguments are <code>dblCoord() As Double, dblDist() As Double, ByRef dblCost As Double, ByRef intSeq() As Integer</code></li>
-<li>Visit the cities in the order of the <code>dblCoord</code> array and return to the starting city. This may seen as we visit the cities in random order since generate x and y-coordinate random.</li>
-<li>The visiting city sequence are stored in <code>intSeq</code>.</li>
-<li>The total cost are stored in <code>dblCost</code>. You may use the <code>CalcCost</code> function to find the total cost.</li>
-</ul></li>
-<li>Create a procedure <code>BtnSolveTSPRand</code> that calls <code>SolveTSPRand</code> using the TSP data in the Main sheet and print out the total cost in cell H11. A button linking to the procedure has already been created.</li>
-<li>Create a procedure <code>SolveTSPNN</code> satisfying:
-<ul>
-<li>Arguments are <code>dblCoord() As Double, dblDist() As Double, ByRef dblCost As Double, ByRef intSeq() As Integer</code></li>
-<li>Start in city 1.</li>
-<li>Given the current city find the next city (not already visited) as the city with shortest distance.</li>
-<li>The visiting city sequence are stored in <code>intSeq</code>.</li>
-<li>The total cost are stored in <code>dblCost</code>. You may use the <code>CalcCost</code> function to find the total cost.</li>
-</ul></li>
-<li>Create a procedure <code>BtnSolveTSPNN</code> that calls <code>SolveTSPNN</code> using the TSP data in the Main sheet and print out the total cost in cell H14. A button linking to the procedure has already been created.</li>
-<li>Create a procedure <code>Simulation</code> satisfying:
-<ul>
-<li>Generate an instance of TSP data with <code>intCities</code> cities which are chosen random between 10 and 500.</li>
-<li>Calculate the distance matrix.</li>
-<li>Solve the instance using all of the above solutions algorithms.</li>
-<li>Store the result in a row in the <em>Simulation</em> sheet.</li>
-<li>Repeat 100 times and calculate min, mean and max values for each solution algorithm.</li>
-</ul>
-Have a look at sheet <em>Simulation example</em> for an example. Note you do not have to print the coordinates out to the <em>Main</em> sheet.</li>
-<li>Which solution algorithm seems to give the shortest total travel distance?</li>
-</ol>
-</div>
-<div id="ex-vba-bakery" class="section level3 hasAnchor" number="6.5.3">
-<h3><span class="header-section-number">6.5.3</span> Exercise - Dan’s bakery<a href="mod-vba-random-numbers.html#ex-vba-bakery" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>This <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-bakery-template.xlsm">file</a> should be used as a starting point for this exercise.</p>
-<p>Dan owns a small bakery baking a single cold-rised bread. The demand level <span class="math inline">\(l\)</span> for bread is uncertain and on a given day the demand level equals <span class="math inline">\(l=1\)</span> (low) with probability 0.2, <span class="math inline">\(l=2\)</span> (medium) with probability 0.5 and <span class="math inline">\(l=3\)</span> (high) with probability 0.3. The actual demand (number of customers) depends on the demand level and is Poisson distributed with mean <span class="math inline">\(50 + 20l\)</span>. The sales price per bread is 45 DKK and production cost 7 DKK. If a customer arrives and Dan has no bread left then he estimates the loss of goodwill to be 10 DKK. A customer always buy one bread. Dan can have 20 breads in the oven a time and hence always produce a multiple of 20 breads.</p>
-<ol style="list-style-type: decimal">
-<li>Create a function <code>Profit</code> that returns the daily profit given a specific demand and production.</li>
-<li>Create a procedure <code>Simulate</code> that simulate the system for <span class="math inline">\(y\)</span> days given that Dan choose to produce <span class="math inline">\(x\)</span> breads each day. Number of runs (days), production, price, production cost, and lost goodwill cost instead of contribution margin and lost goodwill, average profit, standard deviation, min and max profit should be returned in an array. You may use functions <code>DiscreteInv</code> and <code>PoissonInv</code> to generate numbers.</li>
-<li>Create a procedure <code>BtnSimulate</code> that calls <code>Simulate</code> for different production levels and output the results in sheet <em>Simulation</em>.</li>
-<li>Is it best for Pierre to produce 80 or 120 breads?</li>
-<li>Create a function <code>OptimalProd</code> that search for the optimal production using the following steps:
-<ul>
-<li>Start with production of 20 bread.</li>
-<li>Calculate the average profit based on 500 simulations.</li>
-<li>Increase the production with 20 breads unit until no better average profit is found.</li>
-<li>Return the production found.</li>
-</ul></li>
-<li>Test it on the data in sheet <em>OptimalProd</em>.</li>
-</ol>
-
+<div id="vba-course-procedures" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">E.3</span> Course procedures<a href="apdx-vba.html#vba-course-procedures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The course have a set of <em>course procedures</em> that you may use ‘as is’ during the course and at the exam. I will explicitly state if you are not allowed to use them otherwise. A overview is given in Table ??. All procedures within a topic start with the same suffix so you easy can find them using auto complete in the VBA editor (Ctrl + Space). On a mac you may have to disable the default shortcut (Ctrl + Space) for switching input sources. You can go to the <em>System Preferences -&gt; Keyboard -&gt; Shortcuts -&gt; Input Sources</em> and disable it. For instance all procedures related to arrays start with suffix <code>Ary</code>. Similar the procedures are stored in module <code>ModAry</code>. The modules are stored in the template files for each teaching module (if used) and all course procedures can be found in ???. If you want to use a procedure copy the whole module containing the procedure to the Excel file.</p>
+<p>[Table here (e.g. read from tribble)]</p>
 </div>
 </div>
-</div>
-
-
-
 <h3>References</h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-vba-book" class="csl-entry">
@@ -550,8 +390,8 @@ Wøhlk, S. 2010. <em>VBA Programming in Business Economics</em>. DJØF Publishin
           </div>
         </div>
       </div>
-<a href="mod-vba-datatypes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="groups.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="coding-convention.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lg-course.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -572,7 +412,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/bss-osca/tfa/edit/master/book/06_vba-random-numbers.Rmd",
+"link": "https://github.com/bss-osca/tfa/edit/master/book/11-01_appdx.Rmd",
 "text": "Edit"
 },
 "history": {
