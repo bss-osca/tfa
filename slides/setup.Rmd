@@ -33,6 +33,23 @@ library(conflicted)
 conflict_prefer("filter", "dplyr")
 library(icons)
 library(tidyverse)
-
+library(htmltools)
 file.copy("../book/links.md", "links.md", overwrite = T)
+
+add_footer <- function(module_number_prefix, module_name) {
+   slide_file <- str_c(module_number_prefix, "_", module_name, "-slides.html")
+   return(
+      withTags({
+         div(class="my-footer",
+            span(
+               a(href=str_c("https://bss-osca.github.io/tfa/index.html"), target="_blank", "Notes"), 
+               " | ",
+               a(href=slide_file, target="_blank", "Slides"),    
+               " | ",
+               a(href=str_c("https://github.com/bss-osca/tfa/blob/master/slides/", module_number_prefix, "_", module_name, "-slides.Rmd"), target="_blank", "Source"),  
+            )
+         )
+      })   
+   )
+}
 ```
