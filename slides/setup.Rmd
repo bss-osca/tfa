@@ -36,25 +36,44 @@ library(tidyverse)
 library(htmltools)
 file.copy("../book/links.md", "links.md", overwrite = T)
 
-add_footer <- function(module_number_prefix, module_name, use_index = F) {
+add_footer <- function(module_number_prefix, module_name, use_index = F, use_excel = F) {
    slide_file <- str_c(module_number_prefix, "_", module_name, "-slides.html")
    if (use_index) {
       mod_file <- "https://bss-osca.github.io/tfa/index.html"
    } else {
-      mod_file = str_c("https://bss-osca.github.io/tfa/mod-", module_number_prefix, "_", module_name,)
+      mod_file = str_c("https://bss-osca.github.io/tfa/mod-", module_number_prefix, "_", module_name)
    }
-   return(
-      withTags({
-         div(class="my-footer",
-            span(
-               a(href=mod_file, target="_blank", "Notes"), 
-               " | ",
-               a(href=slide_file, target="_blank", "Slides"),    
-               " | ",
-               a(href=str_c("https://github.com/bss-osca/tfa/blob/master/slides/", module_number_prefix, "_", module_name, "-slides.Rmd"), target="_blank", "Source"),  
+   if (use_excel) {
+      excel_file <- str_c("https://github.com/bss-osca/tfa/blob/master/vba/", module_number_prefix, "-", module_name, "-template.xlsm")
+      return(
+         withTags({
+            div(class="my-footer",
+               span(
+                  a(href=mod_file, target="_blank", "Notes"), 
+                  " | ",
+                  a(href=slide_file, target="_blank", "Slides"),    
+                  " | ",
+                  a(href=str_c("https://github.com/bss-osca/tfa/blob/master/slides/", module_number_prefix, "_", module_name, "-slides.Rmd"), target="_blank", "Source"),  
+                  " | ",
+                  a(href=excel_file, target="_blank", "Excel file"),    
+               )
             )
-         )
-      })   
-   )
+         })   
+      )
+   } else {
+      return(
+         withTags({
+            div(class="my-footer",
+               span(
+                  a(href=mod_file, target="_blank", "Notes"), 
+                  " | ",
+                  a(href=slide_file, target="_blank", "Slides"),    
+                  " | ",
+                  a(href=str_c("https://github.com/bss-osca/tfa/blob/master/slides/", module_number_prefix, "_", module_name, "-slides.Rmd"), target="_blank", "Source") 
+               )
+            )
+         })   
+      )
+   }
 }
 ```
