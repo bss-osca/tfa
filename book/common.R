@@ -346,7 +346,6 @@ link_excel_file_text <- function(module_number_prefix, module_name) {
 }
 
 link_slide_file_text <- function(module_number_prefix, module_name) {
-   module_number <- as.numeric(module_number_prefix)
    slide_file <- str_c(module_number_prefix, "_", module_name, "-slides.html")
    return(withTags({
       div(
