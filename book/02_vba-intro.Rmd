@@ -286,7 +286,20 @@ intCtr = 10
 intCtr = intCtg + 10
 ```
 
-This will raise an error because `intCtg` is not defined (you have made a typo and meant `intCtr`). Without `Option Explicit` the code will run and assume that `intCtg` is another variable (initialized to zero). You declare variables using the `Dim` keyword:
+This will raise an error because `intCtg` is not defined (you have made a typo and meant `intCtr`). Without `Option Explicit` the code will run and assume that `intCtg` is another variable (initialized to zero). 
+
+As can be seen a double takes 4 times the memory compared to an integer. That is, you can save memory by considering what data type you need. Consider an example where you have 10000 customer locations on a map and you want to store the distance between customer $i$ and $j$. That is, you have to store $10000 \cdot 10000 = 100.000.000$ numbers. The memory 
+requirements given different data types are:
+
+Data type | Memory requirements
+-------- | -------------------------------------------------------
+Variant  | $(10000\cdot 10000\cdot 16)/1024/1024 \approx 1526$ MB 
+Double   | $(10000\cdot 10000\cdot 8)/1024/1024 \approx 763$ MB                                     
+Integer  | $(10000\cdot 10000\cdot 2)/1024/1024 \approx 191$ MB  
+
+If you do not think about memory usage a Variant data type would have been used taking up the double the size compared to using a Double (a decimal number). Moreover, if it is enough to measure the distance using an Integer between 0 and 32767, then we can reduce the memory requirements to only 191 MB. Often the free memory in your computer is around 5 GB, i.e. think about which data type you need! 
+
+You declare variables using the `Dim` keyword:
 
 ```
 '' Declare some variables
