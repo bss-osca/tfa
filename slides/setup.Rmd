@@ -36,13 +36,18 @@ library(tidyverse)
 library(htmltools)
 file.copy("../book/links.md", "links.md", overwrite = T)
 
-add_footer <- function(module_number_prefix, module_name) {
+add_footer <- function(module_number_prefix, module_name, use_index = F) {
    slide_file <- str_c(module_number_prefix, "_", module_name, "-slides.html")
+   if (use_index) {
+      mod_file <- "https://bss-osca.github.io/tfa/index.html"
+   } else {
+      mod_file = str_c("https://bss-osca.github.io/tfa/mod-", module_number_prefix, "_", module_name,)
+   }
    return(
       withTags({
          div(class="my-footer",
             span(
-               a(href=str_c("https://bss-osca.github.io/tfa/index.html"), target="_blank", "Notes"), 
+               a(href=mod_file, target="_blank", "Notes"), 
                " | ",
                a(href=slide_file, target="_blank", "Slides"),    
                " | ",
