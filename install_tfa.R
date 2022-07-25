@@ -3,3 +3,4 @@ remotes::install_github("bss-osca/tfa/tfa-package", upgrade = FALSE)      # gith
 renv::snapshot(prompt = FALSE, force = TRUE)
 
 remotes::install_github("rstudio/gradethis")
+remotes::install_github("lmullen/genderdata")
