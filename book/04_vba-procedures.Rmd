@@ -3,6 +3,7 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
+
 ```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
 ```
 
@@ -343,6 +344,15 @@ Private Sub TM4_TestBy()
 End Sub
 ```
 
+### Return values from a sub
+
+Since `ByRef` does not create a new copy of the argument in memory. We can return multiple values from a sub by
+
+   1) Pass arguments (variables) by reference in the sub.
+   2) Modify the variables inside the sub.
+   
+When the sub returns after it has been called the variables used a arguments contain the new updated values. See e.g `TM4_ProductSub` which returns the product in variable `dblV`. 
+
 
 ## Built-in functions {#vba-built-in}
 
@@ -400,7 +410,7 @@ Figure \@ref(fig:test-persons) shows the data in worksheet *TM4_Virus*:
    * Cell D2 states the number of non-infected persons volunteering to be test persons. Columns F and G provide their ID and height. 
    * The testing process is extremely resource demanding, and thus it is only possible to test a limited number of test volunteers. This number is stated in cell D3.
    
-Given a test person we make a function `TM4_TestCover` that takes person id as argument and return the number of new infected persons covered. A person is already covered if that person has a 1 in the *Covered* column.
+Given a test person we make a function `TM4_TestCover` that takes person id as argument and return the number of new infected persons covered. A person is already covered, if that person has a 1 in the *Covered* column.
 
 ```
 Function TM4_TestCover(intId As Integer) As Integer
