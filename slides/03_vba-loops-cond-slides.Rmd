@@ -1,0 +1,189 @@
+---
+title: "Loops and conditional statements (decisions)"
+author: "Lars Relund Nielsen"
+output:
+  xaringan::moon_reader:
+    css: "./libs/slides.css"
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+      highlightStyle: solarized-light
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, child = "setup.Rmd", echo=FALSE}
+```
+
+```{r include=FALSE, eval=FALSE}
+# to preview
+xaringan::inf_mr(cast_from = ".", quiet = T)
+```
+
+layout: true
+
+```{r, echo=FALSE}
+module_name <- "vba-loops-cond"
+module_number_prefix <- "03"
+module_number <- as.numeric(module_number_prefix)
+add_footer(module_number_prefix, module_name, use_excel = T)
+knitr::opts_chunk$set(fig.path=str_c("img/", module_name, "-"))
+``` 
+
+---
+
+## Relational (comparison) operators 
+
+```{r comp-ope, echo=FALSE}
+dat <- tibble::tribble(
+    ~Operator,                                                                                                                              ~Description,             ~Example,
+          "=", "Equal to.",                 "A = B ' False",
+         "<>", "Not equal to",              "A <> B ' True",
+          ">", "Greater than.",             "A > B ' False",
+          "<", "Less than.",                "A < B ' True",
+         ">=", "Greater than or equal to.", "A < B ' True",
+         "<=", "Less than or equal to.",    "A <= B ' True"
+   )
+kbl(dat, caption = "Comparison/relational operators.") %>%
+   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>% 
+   footnote(general = "Assume that A = 2 and B=4.", general_title = "", footnote_as_chunk = T, fixed_small_size = T) 
+```
+ 
+---
+
+## Logical operators 
+
+```{r logi-ope, echo=FALSE}
+dat <- tibble::tribble(
+   ~Operator,  ~Description,    ~Example,
+   "AND", "If both the conditions are True, then the expression is true.", "A<>0 AND B<>0 ' False",
+   "OR",  "If any of the two conditions are True, then the expression is true.", "A<>0 OR B<>0 ' True",
+   "NOT", "Reverse logical: if the expression is true, then the NOT operator returns false.", "NOT(A<>0 OR B<>0) ' False",
+   "XOR", "Logical Exclusion. If exactly one condition is True, the result is True.", "A<>0 XOR B<>0 ' True"
+)
+kbl(dat, caption = "Logical operators.") %>%
+   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>% 
+   footnote(general = "Assume that A = 0 and B=4.", general_title = "", footnote_as_chunk = T, fixed_small_size = T) 
+```
+
+---
+
+## Conditional statements (decisions)
+
+Used to redirect code execution based on the conditions. If the condition is met then the code is executed. The general layout of an if-then-else conditional statement is: 
+
+An if then statement:
+
+   ```
+   If <condition> Then
+    <code>
+   ElseIf <condition> Then
+    <code>
+   ElseIf <condition> Then
+    <code>
+   Else
+    <code>
+   End If
+   
+   If <condition> Then <code> Else <code>  ' single line form
+   ```
+
+You can drop the `ElseIf` and `Else` code chunks. Let us try to look at procedure `TM3_Logical` in the Excel file
+
+---
+
+## Loops
+
+Loops are used to repeat pieces of code. We will consider
+- For loops (repeat a number of times):
+      ```
+      For i = 1 To 10 
+          <code>
+      Next
+      ```
+- While loops (repeat until a condition is met):
+      ```
+      Do While {condition true}    
+          <code>
+      Loop
+      ```
+- Other loops exists but in general you can always use for or while loops instead.
+- Use `Exit for` and `Exit Do` to break a `For` and a `Do While` loop before it ends (jump to the code after the for loop).
+
+---
+
+## Nested loops
+
+Loops may be nested inside each other. For instance if some action needs to be performed for each day and each employee or for each project and each work package of that project.
+```
+Sub NestedLoops()
+    Dim i As Integer, j As Integer
+    For i = 1 To 2      ' days
+        For j = 1 To 3  ' employees 
+            MsgBox ("(" & i & "," & j & ")")
+        Next
+    Next
+End Sub
+```
+
+---
+
+## Beware of endless loops
+
+.pull-left[
+If the stopping criteria is NOT reached when using a while loop, the computer will keep going ... 
+
+- Always “save” before “run”
+- Make sure the stopping criterion will be reached.
+- On Windows you may try to stop the program using Ctrl + Break or Ctrl + Alt + Delete.
+- On a mac you may try ⌘ + ., ⌃ +  Esc or  ⌘⌥ + Esc.
+]
+
+.pull-right[
+```{r, echo = FALSE, out.width="80%"} 
+knitr::include_graphics("./img/loop.png") 
+```
+]
+
+---
+
+## The `For Each` loop
+
+The loop is used for running trough a set of objects (we will have a closer look at objects next week)
+
+```
+Sub TM3_ForEach()
+   Dim rngC As Range
+   Dim i As Integer
+   
+   Worksheets("TM3").Activate
+   i = 1
+   For Each rngC In Range("D6:E9")
+      rngC = i
+      i = i + 1
+   Next
+End Sub
+```
+
+Here `rngC` is used to run through all the cells in the range and set values.
+
+---
+
+## Examples
+
+In module `TM3_ex` there are examples using conditional statements and loops:
+
+- Separate persons into groups.
+- Find Jen.
+- Distance matrix calculations.
+
+  
+```{r copy to docs, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../docs/slides/", overwrite = T)
+file.copy("./slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../docs/slides/", recursive = T)
+file.copy("img", "../docs/slides/", recursive = T)
+system2("Rscript", args = "-e 'rmarkdown::render(\"index.Rmd\", quiet = TRUE)'")
+```
