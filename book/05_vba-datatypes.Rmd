@@ -875,6 +875,33 @@ You may also have a look at the [slides for this module](https://bss-osca.github
 
 `r strExercises`
 
+### Exercise - Flight search {#ex-vba-flight}
+
+The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-flight-template.xlsm) should be used as a starting point for this exercise. 
+
+The sheet _Data_ contains a set of flights between different destinations. You task is to create a program that can search for matching flights given a set of origins and destinations. 
+
+   (1) Have a look at the results in sheet _Main_. The origin and destinations to search for are given in columns A and B and the search result in columns D, E and F. 
+   (2) Try pressing the **Clear Search** button and see what happens. Have a look at the code in the VBA editor for this sub and get an overview. You are not expected to understand all the code.
+   (3) Try to finish the first part of the `SearchFlights` sub and store the flights in arrays. Use the debugger to check if the values are stored correctly. 
+
+```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
+ For o = 1 To intOrigins
+     For i = 0 To intFlights - 1
+         If Cells(5 + o, 1) = Origin(i) Then 
+             For d = 1 To intDestinations
+                 ___
+             Next 
+         End If
+     Next 
+ Next 
+```
+```{r, hint=TRUE, eval=FALSE, title="Hint 1", text="You need nested loops (loop over origins, flights, destinations)"}
+```
+   
+   (4) Try to finish the second part of the `SearchFlights` sub and search for matching origin-destination pairs. Note origins and destinations listed to be searched for are also matching origin-destination pairs if they are not in the same row.
+   
+
 ### Exercise - Product search {#ex-vba-search-products}
 
 The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-search-products-template.xlsm) contains a sheet _Products_ with a set of products with product code and price. Cell D1 contains the total number of products. 
@@ -956,6 +983,30 @@ Consider sheet _Main_ that contains the setup costs for a scheduling problem.
    (3) Add three buttons to _Main_ that remove the solution, run greedy and run better.
    (4) Try to use different datasets from the sheet _Data_ and paste it into A4 in _Main_.
 
+
+### Exercise - `ByRef` {#ex-vba-byref}
+
+The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-byref-template.xlsm) should be used as a starting point for this exercise. 
+
+  (1) Create a procedure `AryToVal` satisfying:
+      - Arguments are `ByRef ary As Variant, value As Variant`.
+      - All entries in the array are set to `value`. 
+      - The procedure work both if the dimension of the array is 1 or 2. You may use `AryDim` to find the dimension.
+      
+      Test the procedure using the `Main` procedure.
+  (2) Create a procedure `AryToValByVal` equal to `AryToVal` except that arguments are `ByVal ary As Variant, value As Variant`. Test the procedure using the `Main` procedure. What is the difference?
+  (3) Create a procedure `AryToSeq` satisfying:
+      - Arguments are `ByRef ary As Variant, lngFrom As Long, lngTo As Long, Optional lngIdx As Long = 1`.
+      - Entries in the array is set to values `lngFrom` to `lngTo`.
+      - Use `ReDim` to resize the array.
+     
+      Test the procedure using the `Main` procedure.
+  (4) Create a procedure `AryRead` satisfying:
+      - Arguments are `ByRef ary As Variant, ByRef rng As Range, Optional intStartIdx1 As Integer = 1, Optional intStartIdx2 As Integer = 1`
+      - Entries in the range `rng` are stored in the array `ary`. 
+      - Use `ReDim` to resize the array.
+     
+      Test the procedure using the `Main` procedure.
 
 ```{r links, child="links.md", include=FALSE}
 ```

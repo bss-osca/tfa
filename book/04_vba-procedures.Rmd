@@ -357,6 +357,8 @@ Sub TM4_TestVBAfunctions()
    MsgBox ("Floor of the number: " & Int(-4.2))
    MsgBox ("Natural logarithm: " & Log(16))
    MsgBox ("Random number [0,1[: " & Rnd())
+   MsgBox ("Current date: " & Date)
+   MsgBox ("Days from now: " & DateDiff("d", Date, DateValue("October, 28, 2022")))
 End Sub
 ```
 
@@ -567,32 +569,47 @@ link_slide_file_text(module_number_prefix, module_name)
 
 `r strExercises`
 
-### Exercise - Subs {#ex-vba-subs}
+```{r, echo=FALSE}
+link_excel_file_text(module_number_prefix, module_name)
+```
 
-The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-subs-template.xlsm) may be used as a starting point for this exercise. 
+### Exercise - Subs {#ex-vba-subs}
 
    (1) Create a sub `GetMsg` that takes a string and a Boolean as input and create a message box with the string content if the Boolean is true. Test the procedure using the `TestGetMsg` sub.
    (2) Modify the procedure so the Boolean have a default value equal to true.
    (3) Create a sub `PrintNameAge` that takes two arguments as input (name and age) and create a message box with the persons name and age.
    (4) Write a sub `TestPrintNameAge` that uses two input boxes to ask for name and age and then call sub `PrintNameAge`.
 
+
+### Exercise - Temperatures
+
+*This exercise is a slightly modified version an exam assignment (reexam 2022-A4).*
+
+Temperatures in Fahrenheit can be converted to Celsius using $$C = \frac{5(F-32)}{9}$$ 
+Similar temperatures in Celsius can be converted to Fahrenheit using $$F = \frac{9C}{5} + 32$$
+
+   (1) Make functions:
+       - `TM4_CelsiusToFahrenheit` that takes a double `dblVal` in Celsius as input argument and returns the number converted to Fahrenheit.
+       - `TM4_FahrenheitToCelsius` that takes a double `dblVal` in Fahrenheit as input argument and returns the number converted to Celsius.
+   (2) Make a function `TM4_ConvertTemp` with the following features:
+       - Input arguments are a double `dblVal` and a string `strIUnit`.
+       - If the input unit `strIUnit` equals "c" then the returned number is converted to Fahrenheit.
+       - If the input unit `strIUnit` equals "f" then the returned number is converted to Celsius.
+       - If the input unit `strIUnit` does not equals "f" or "c" then a message box is given with an error.
+   (3) Test function `TM4_ConvertTemp` on worksheet *TM4* (row 66).
+
+
 ### Exercise - Functions {#ex-vba-functions}
 
-The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-functions-template.xlsm) may be used as a starting point for this exercise. 
+   (1) Write a function `TM4_Discount` which takes a two input arguments (doubles): the discount percentage and the amount. The function returns the discounted value. For instance if the discount is 10 percent and amount 100 then the discounted value is $90 = 100\cdot(1-0.1)$. Have a look at the unfinished sub `TM4_Discount` for hints. Note the comments describing the function using the [coding convention](#coding-convention). Check the test results starting from row 47 in worksheet *TM4*.
+   (2) Write a function `Larger` which takes two integer arguments and returns true if the first is larger than the last; otherwise false. Check the test results starting from row 53 in worksheet *TM4*.
+   (3) Write a function `NumbDays` that takes a date as argument and return the number of days from today. Hint: Have a look at the [`DateDiff`](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/datediff-function) function. Check the test results starting from row 59 in worksheet *TM4*.
+   (4) Write a sub that uses an input box to ask for an amount a then returns the discounted amount when the discount is 20%. The sub should use the function in Question 1. Test it using the button in worksheet *TM4* (row 49).
 
-   (1) Write a function `Discount` which takes a two input arguments (doubles): the discount percentage and the amount and returns the discounted value. Have a look at the unfinished sub `Discount` for hints. Note the comments describing the function using the [coding convention](#coding-convention).
-   (2) Write a function `Larger` which takes two integer arguments and returns true if the first is larger than the last; otherwise false.
-   (3) Write a function `NumbDays` that takes a date as argument and return the number of days from today. Hint: Have a look at the `DateDiff` function. 
-   
-Test all the functions in the _Testing_ sheet.
-
-   (4) Write a sub that uses an input box to ask for an amount a then returns the discounted amount when the discount is 20%. The sub should use the function in Question 1. Create a button running the sub. 
 
 ### Exercise - Worksheet functions {#ex-vba-worksheet-functions}
 
-The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-worksheet-functions-template.xlsm) contains a procedure to generate a set of numbers.
-
-Create a procedure `Summary` that uses worksheet functions to:
+The worksheet *TM4_Numbers* contains a button that runs a procedure which generate a set of numbers. Create a procedure `TM4_Summary` that uses worksheet functions to:
 
 - Find the maximum number and write it to cell D1. 
 - Find the minimum number and write it to cell D2. 
@@ -600,59 +617,7 @@ Create a procedure `Summary` that uses worksheet functions to:
 - Count the number of positives and write it to cell D4.
 - Find the row number with maximum value and write it to cell D5. 
 
-Google is a good place to start if you want to find a specific Excel function, e.g. try to search 'excel row with max value'.
-
-
-### Exercise - Flight search {#ex-vba-flight}
-
-The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-flight-template.xlsm) should be used as a starting point for this exercise. 
-
-The sheet _Data_ contains a set of flights between different destinations. You task is to create a program that can search for matching flights given a set of origins and destinations. 
-
-   (1) Have a look at the results in sheet _Main_. The origin and destinations to search for are given in columns A and B and the search result in columns D, E and F. 
-   (2) Try pressing the **Clear Search** button and see what happens. Have a look at the code in the VBA editor for this sub and get an overview. You are not expected to understand all the code.
-   (3) Try to finish the first part of the `SearchFlights` sub and store the flights in arrays. Use the debugger to check if the values are stored correctly. 
-
-```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
- For o = 1 To intOrigins
-     For i = 0 To intFlights - 1
-         If Cells(5 + o, 1) = Origin(i) Then 
-             For d = 1 To intDestinations
-                 ___
-             Next 
-         End If
-     Next 
- Next 
-```
-```{r, hint=TRUE, eval=FALSE, title="Hint 1", text="You need nested loops (loop over origins, flights, destinations)"}
-```
-   
-   (4) Try to finish the second part of the `SearchFlights` sub and search for matching origin-destination pairs. Note origins and destinations listed to be searched for are also matching origin-destination pairs if they are not in the same row.
-
-
-### Exercise - `ByRef` {#ex-vba-byref}
-
-The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-byref-template.xlsm) should be used as a starting point for this exercise. 
-
-  (1) Create a procedure `AryToVal` satisfying:
-      - Arguments are `ByRef ary As Variant, value As Variant`.
-      - All entries in the array are set to `value`. 
-      - The procedure work both if the dimension of the array is 1 or 2. You may use `AryDim` to find the dimension.
-      
-      Test the procedure using the `Main` procedure.
-  (2) Create a procedure `AryToValByVal` equal to `AryToVal` except that arguments are `ByVal ary As Variant, value As Variant`. Test the procedure using the `Main` procedure. What is the difference?
-  (3) Create a procedure `AryToSeq` satisfying:
-      - Arguments are `ByRef ary As Variant, lngFrom As Long, lngTo As Long, Optional lngIdx As Long = 1`.
-      - Entries in the array is set to values `lngFrom` to `lngTo`.
-      - Use `ReDim` to resize the array.
-     
-      Test the procedure using the `Main` procedure.
-  (4) Create a procedure `AryRead` satisfying:
-      - Arguments are `ByRef ary As Variant, ByRef rng As Range, Optional intStartIdx1 As Integer = 1, Optional intStartIdx2 As Integer = 1`
-      - Entries in the range `rng` are stored in the array `ary`. 
-      - Use `ReDim` to resize the array.
-     
-      Test the procedure using the `Main` procedure.
+Google is a good place to start if you want to find a specific Excel function, e.g. try to search 'excel row with max value'. Test the procedure using the *Summary* button in worksheet *TM4_Numbers*.
 
 
 ```{r links, child="links.md", include=FALSE}
