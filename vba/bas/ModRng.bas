@@ -218,17 +218,20 @@ Sub RngPaste(rng As Range, rngUL As Range, Optional withFormat As Boolean = Fals
 End Sub
 
 
-'' Clear contents of a range.
+'' Clear a range
 '
-' @param rng The range to clear.
-' @param blnOnlyContent Clear only values not formatting.
+' @param rng Range to clear.
+' @param blnCells Delete cell contents, formats, comments, etc. (default).
+' @param blnContents Delete cell contents.
+' @param blnFormat Delete cell format.
 ' @author Lars Relund <lars@relund.dk>
-Sub RngClear(rng As Range, Optional blnOnlyContent As Boolean = False)
-    If blnOnlyContent Then
-       rng.ClearContents
-    Else
-       rng.Cells.Clear
-    End If
+Sub RngClear(rng As Range, _
+  Optional blnCells As Boolean = True, _
+  Optional blnContents As Boolean = False, _
+  Optional blnFormat As Boolean = False)
+   If blnCells Then rng.Cells.Clear
+   If blnContents Then rng.Cells.ClearContents
+   If blnFormat Then rng.Cells.ClearFormats
 End Sub
 
 
