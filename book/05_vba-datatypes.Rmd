@@ -19,7 +19,9 @@ sheet_name_prefix <- str_c("TM", module_number)
 
 # Advanced data types and usage {#mod-vba-datatypes}
 
-This module gives a short introduction to some of the more advanced data types. 
+Recall that variables are used to store information that is saved in memory. A variable may store different data types. Until now we have mostly considered basic data types such as an integer, a double or a string. In this module a short introduction to some of the more advanced data types is given such as a group of integers (an array), a range of cells in a worksheet (a range object) or a set of numbers (a collection). 
+
+<!-- You may visualize a variable as a box in memory (see Figure \@ref(fig:vba-memory)). The variable name can be seen as the label on the box. The box can contain for instance a number, a date or a boolean. That is, any data type defined by VBA. All basic data types can be seen in the [VBA documentation](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/data-type-summary). However, this course will focus on the ones stated above.  -->
 
 #### Learning path diagram {-}
 
@@ -29,22 +31,31 @@ Click/hover the nodes to follow links and see details.
 g <- create_learning_path(
    url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
    sheet = "vba-datatypes", 
-   x_legend = 3.5, y_legend = 4.5)
+   x_legend = NULL)
 render_graph(g, height = 400)
 ```
+
+If you like a different learning style there is a lot for videos about VBA online such as course [14-Hour VBA Course][vba-yt-course2]. The videos have been pointed out as extra online supplements in the learning path diagram. However, they are not necessary for the course. Since Excel change as new versions arrive and it work on different operating systems, the look in the screenshots and videos might be a bit different from your version. However, you still should be able to understand it. 
 
 ## Learning outcomes {#lo-vba-datatypes}
 
 By the end of this module, you are expected to be able to:
 
-* Describe what a variable is.
 * Name different data types and how they effect memory size.
 * Declare a variable as a data type.
-<!-- * Describe that scope for a variable means. -->
+* Declare and manipulate strings.
+* Describe what the object is.
+* Declare and set an object.
+* Manipulate worksheets (add, delete, clear).
+* Understand what a range is and extract info about it such as rows, start row, address, start column etc. 
+* Use the current region of a range to get information about the size for data.
+* Sort, paste and modify a range.
 * Declare and use an array with both fixed and dynamic dimension.
+* Sort, read and modify an array.
+* Explain why using arrays is often better than ranges.
 * Declare and use a collection.
-* Assign values to variables.
-<!-- * Formulate well-structured code. -->
+* Explain what a collection of objects are. 
+* Use a `For Each` loop to iterate though a collection of objects. 
 
 The learning outcomes relate to the [overall learning goals](#lg-course) number 1, 2, 4, 8 and 9 of the course.
 
@@ -53,117 +64,14 @@ The learning outcomes relate to the [overall learning goals](#lg-course) number 
 <!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
 <!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
 
-Recall that variables are used to store information that is saved in memory. A variable may store different data types such as an integer, a double, a string or an object (a group of variables). 
 
+## Strings {#vba-strings}
 
-
-You may visualize a variable as a box in memory (see Figure \@ref(fig:vba-memory)). The variable name can be seen as the label on the box. The box can contain for instance a number, a date or a boolean. That is, any data type defined by VBA. Some of the *basic data types* used by VBA is:
-
-Name    | Type      | Details                                                                        
-------- | --------- | -------------------------------------------------------------------------------
-Byte    | Numerical | Whole number between 0 and 255.                                                
-Integer | Numerical | Whole number between -32'768 and 32'767.                                       
-Long    | Numerical | Whole number between - 2'147'483'648 and 2'147'483'647.                        
-Double  | Numerical | Floating decimal number between -1.79769313486232E308 and 1.79769313486232E308.
-String  | Text      | Text.                                                                          
-Date    | Date      | Date and time.                                                                 
-Boolean | Boolean   | True or False.                                                                 
-Variant | Any type  | Any kind of data (default type if the variable is not declared). 
-
-All basic data types can be seen in the [VBA documentation](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/data-type-summary). However, this course will focus on the ones stated above. Note that some data types are numericals, i.e. they represent a number (either an integer or a decimal number), other data types represent a set of characters (a string), a boolean or a date. Variables can also contain *advanced data types* such as a group of integers (an array), a range of cells in a worksheet (an object) or a set of numbers (a collection). We will consider advanced data types in Sections ??-??.
-
-Always declare your variables explicit in VBA. This is good coding practice even though you do not have to do it. You can add `Option Explicit` in the top of your module. This ensures that undefined variables raise an error. You can add it by default by modifying the preferences for the VBA editor. Open the preferences/options **Excel -> Preferences -> Editor** (`r icons::fontawesome$brands$apple`) or **Tools -> Options -> Editor** (`r icons::fontawesome$brands$windows`) and check mark 'Require Variable Declaration'. Now the option is added automatically when you add a new module.
-
-
-## Why declare variables? 
-
-Your memory contains a limited amount of storage and it is therefore important to use it wisely. The computer memory can be seen as a group of bits (zero and ones) and we can measure the memory size by counting the number of bits. Often we use other measures such as: 8 Bits = 1 Byte, 1024 Bytes = 1 Kilobyte, 1024 Kilobytes = 1 Megabyte, 1024 Megabytes = 1 Gigabyte and 1024 Gigabytes = 1 Terabyte. Different data types take up different amounts of memory. For example, the memory requirements for some of the basic data types are:
-
-
-
-
-
-
-
-
-
-Data type                                 | Storage size            
------------------------------------------ | -------------------------
-Byte                                      | 1 byte                  
-Boolean                                   | 2 bytes                 
-Integer                                   | 2 bytes                 
-Long  (long integer)                      | 4 bytes                 
-Double  (double-precision floating-point) | 8 bytes                 
-Date                                      | 8 bytes                 
-String                                    | 10 bytes + string length * 2 bytes
-Variant  (a number)                       | 16 bytes                
-Variant  (a string)                       | 22 bytes + string length * 2 bytes
-
-<!-- Arrays require 20 bytes of memory plus 4 bytes for each array dimension plus the number of bytes occupied by the data itself. A Variant containing an array requires 12 bytes more than the array alone. -->
-
-As can be seen a double takes 4 times the memory compared to an integer. That is, you can save memory by considering what data type you need. Consider an example where you have 10000 customer locations on a map and you want to store the distance between customer $i$ and $j$. That is, you have to store $10000 \cdot 10000 = 100.000.000$ numbers. The memory 
-requirements given different data types are:
-
-Data type | Memory requirements
--------- | -------------------------------------------------------
-Variant  | $(10000\cdot 10000\cdot 16)/1024/1024 \approx 1526$ MB 
-Double   | $(10000\cdot 10000\cdot 8)/1024/1024 \approx 763$ MB                                     
-Integer  | $(10000\cdot 10000\cdot 2)/1024/1024 \approx 191$ MB  
-
-If you do not think about memory usage a Variant data type would have been used taking up the double the size compared to using a Double (a decimal number). Moreover, if it is enough to measure the distance using an Integer between 0 and 32767, then we can reduce the memory requirements to only 191 MB. Often the free memory in your computer is around 5 GB, i.e. think about which data type you need! 
-
-Another reason for declaring variables is that you avoid errors such as:
-
-```
-Option Explicit
-
-Dim intCtr as integer
-
-intCtr = 10
-intCtr = intCtg + 10
-```
-
-This will raise an error because `intCtg` is not defined (you have made a typo and meant `intCtr`). Without `Option Explicit` the code will run and assume that `intCtg` is another variable (initialized to zero).
-
-
-## Declare and assign values to variables 
-
-You declare variables using the `Dim` keyword: 
-
-```
-'' Declare some variables
-Sub TM03_DeclareVariables()
-    ' Always declare variables in the top of a procedure (memory is allocated)
-    Dim intPersons As Integer
-    Dim dblAmount As Double
-    Dim strText As String
-    
-    ' Here we assign values to the variables (modify the memory)
-    intPersons = 10
-    dblAmount = 27.4
-    strText = "Number of persons are "
-    
-    MsgBox (strText & intPersons & " which own " & dblAmount & "$")
-End Sub
-```
-
-Declaration is done in the top of the procedure (good coding practice) and we assign values to the variables afterwards. 
-
-Note VBA code is case-insensitive, i.e. `strText` and `strtext` is the same variable. It is good coding practice to be consistent and often the VBA editor will help you by changing `strtext` to `strText` automatically.
-
-
-
-<!-- ## Scope of variables  -->
-
-<!-- This is dropped (we do not use any global variables) -->
-
-## Strings
-
-Strings contain a group of characters (an empty string is of length zero). Memory requirements vary with the length of the string (10 bytes + length $\cdot$ 1 byte). We use the symbol `&` to concatenate strings (glue strings together):
+Strings contain a group of characters (an empty string is of length zero). Memory requirements vary with the length of the string (10 bytes + length $\cdot$ 2 byte). We use the symbol `&` to concatenate strings (glue strings together):
 
 ```
 '' Concatenate two strings
-Sub TM03_StrConcat()
+Sub TM5_StrConcat()
     Dim strX As String
     Dim strY As String
     Dim strRes As String
@@ -182,7 +90,7 @@ There are many [VBA functions that can be used to manipulate strings](https://do
 
 ```
 '' String functions
-Sub TM03_StrFunc()
+Sub TM5_StrFunc()
     Dim str As String
     
     str = "VBA Strings"
@@ -193,6 +101,7 @@ Sub TM03_StrFunc()
     MsgBox ("Compare: " & StrComp(str, "VBA Strings"))  ' result is 0 (equal)
     MsgBox ("Compare: " & StrComp(str, "Apple"))        ' result is 1 (str alfabetically after)
     MsgBox ("Compare: " & StrComp(str, "Wait"))         ' result is -1 (str alfabetically before)
+    MsgBox ("String is starting at char number: " & InStr(str, "String"))  ' result is 0 if not found
 End Sub
 ```
 
@@ -202,15 +111,15 @@ End Sub
 VBA have a lot of predefined objects you can use. Think of an object as a datatype that holds a group of variables. Examples of some objects are `Range`, `Worksheet`, and `WorksheetFunction`. Objects are grouped, nested and you refer to an object by specifying the path, e.g.:
 
 ```
-Workbooks("Jobs").Worksheets("Data values").Range("D4").value
+Workbooks("Jobs.xlsm").Worksheets("Data values").Range("D4").value
 ```
 
-Here we refer to the value in cell D4 in worksheet *Data values* in the file *Jobs*. You may skip parts of the path (VBA then uses the current active one):
+Here we refer to the value in cell D4 in worksheet *Data values* in the file *Jobs.xlsm*. You may skip parts of the path (VBA then uses the current active one):
 
 ```
-Workbooks("Jobs").Worksheets("Data values").Range("D4").value  ' full specification
-Worksheets("Data values").Range("D4").value  ' same result if Excel file "Jobs" is active
-Range("D4")  ' same result if Excel sheet "Data values" is active and "Jobs" file
+Workbooks("Jobs.xlsm").Worksheets("Data values").Range("D4").value  ' full specification
+Worksheets("Data values").Range("D4").value  ' same result if Excel file "Jobs.xlsm" is active
+Range("D4")  ' same result if Excel sheet "Data values" is active and "Jobs.xlsm" file
 ```
 
 Note `.value` has been dropped in the last line because it is the default, i.e. you do not have to write it explicit. 
@@ -240,19 +149,19 @@ Now `rng` is a reference to cell F7 and `wst` is a reference to worksheet *Data 
 In the next sections let us have a look at some relevant objects.
 
 
-## Worksheets
+## The Worksheet object {#vba-wst}
 
 The `Worksheet` object refer to a worksheet in the Excel file and you can use it to e.g. modify cells:
 
 ```
 Sub TM5_TestWorksheet()
    ThisWorkbook.Activate  ' activate this workbook
-   
    Worksheets("TM5_Test1").Range("B2") = "Testing Worksheet"  ' write to cell in sheet TM5_Test1
    Sheet_TM5_Test1.Range("B3") = "Use the sheets code name"   ' use the code name (also work if sheet renamed)
    'ThisWorkbook.Worksheets("Test3").Range("B5") = "Test"     ' Error since there is no sheet Test3 in this workbook
    Range("B4") = "Do you know which sheet is active?"         ' Active sheet
-   Worksheets("TM5_Test1").Activate  ' Make sheet active so know where is (good coding pratice)
+   ' Good coding pratice is always to specify the full path (as above) or make the sheet under considration active
+   Worksheets("TM5_Test1").Activate  ' Make sheet active so know where is
    Range("B5") = "I know which sheet is active!"
 End Sub
 ```
@@ -313,7 +222,7 @@ End Function
 
 We first use the function `WstExists` to check if there is a worksheet. If there is, we call the `.delete` method and delete the worksheet. Note since we do not want an alert stating if we really want to delete the worksheet this is disabled using the `Application` object. The function returns true if the worksheet has been deleted.
 
-Let us try to define a make a function that create a worksheet:
+Let us try to define a function that create a worksheet:
 
 ```
 '' Create a worksheet
@@ -379,7 +288,7 @@ Let us see them in action:
 ```
 '' Test the worksheet functions
 Sub TM5_TestWorksheetFunc()
-    If WstCreate("Test", blnForce:=True) Then MsgBox ("Created Test")
+    If WstCreate("Test", blnForce:=True) Then MsgBox ("Created Test")  
     If WstRename("Test", "Test1") Then MsgBox ("Renamed the Test to Test1")  ' only work if no Test1 sheet
     If WstClear("Test8") Then MsgBox ("Cleared Test8") ' no clearing since on sheet with that name
     If WstDelete("Test1") Then MsgBox ("Deleted Test1")
@@ -387,7 +296,7 @@ End Sub
 ```
 
 
-### Ranges
+## The Range object {#wst-rng}
 
 Ranges are objects that refer to parts of a worksheet e.g. a cell, a row, a column, or a rectangular selection of cells. Ranges can be used to read and write to cells
 
@@ -402,10 +311,10 @@ Sub TM5_RangeEx1()
    ' Modify a range to a fixed value
    Set rng = Range("G4:I6")
    rng = 145   ' cell value in rng
-   MsgBox rng.Address   ' range address ($A$1:$D$5)
+   MsgBox rng.Address   ' range address 
    ' Use for each to scan range (direction left-down)
    Set rng = Range("G8:I10")
-   i = 0
+   i = 1
    For Each cell In rng
       cell = "Entry " & i
       i = i + 1
@@ -416,7 +325,13 @@ Sub TM5_RangeEx1()
 End Sub
 ```
 
-The method `.Address` is used to return the cell address. Similar the number of rows can by found using `.rows.Count`:
+The method `.Address` is used to return the cell address. 
+
+```{r tm5-sheet, echo = FALSE, out.width="700px", fig.cap="TM5 worksheet."} 
+knitr::include_graphics("./img/tm5-sheet.png") 
+```
+
+Similar the number of rows can by found using `.rows.Count`:
 
 ```
 '' Rows in range
@@ -442,6 +357,8 @@ Sub TM5_RangeEx2()
 End Sub
 ```
 
+### Current region of a range
+
 An important method is the current region `.CurrentRegion` which expands the range until all cells surrounding the range is empty. This is very useful if don't know the size for data. Let us make a function that return the current region:
 
 ```
@@ -452,7 +369,7 @@ Function RngCurRegion(rng As Range) As Range
 End Function
 ```
 
-Note we have to use the `Set` keyword since the return value is a range (object). We can now test the course procedures starting with `RngGet`:
+Note we have to use the `Set` keyword since the return value is a range (object). We can now test the course procedures starting with prefix `RngGet`:
 
 ```
 Sub TM5_CurrentRegionEx1()
@@ -492,7 +409,11 @@ Sub TM5_CurrentRegionEx2()
 End Sub
 ```
 
-Note the difference in how `rng` is defined. You can also copy/paste, format and clear a range using the course procedures:
+Note the difference in how `rng` is defined.
+
+### Input and output
+
+You can read/write and copy/paste values to a range using the course procedures:
 
 ```
 Sub TM5_RangeEx3()
@@ -510,6 +431,69 @@ Sub TM5_RangeEx3()
     Call RngClear(rngNew)
 End Sub
 ```
+
+Here `RngPaste` is used to copy a range and paste it to another range. Note you may use `RngFormat` to format cells of a range.
+
+Moreover, you can read/write values from/to a csv file. A [comma-separated values (csv) file](https://en.wikipedia.org/wiki/Comma-separated_values) is a delimited text file that uses a delimiter to separate values. Each line of the file is a data record. Each record consists of one or more fields, separated by the delimiter. The file format is not fully standardized, i.e. the delimiter may be a semicolon, a colon or another delimiter. Moreover, a field may be surrounded with quotation marks. Let us have a look at a csv file `data1.csv` with a header using a semicolon as delimiter:
+
+```
+Year;Brand;Model
+1997;Ford;E350
+2000;Mercury;Cougar
+```
+
+and the csv file `data2.csv` without a header using a semicolon as delimiter:
+
+```
+55,18,34,1,81,26,90,11,46,32,93
+49,95,73,82,53,40,99,10,52,38,92
+59,90,97,100,59,73,88,33,78,61,24
+96,84,32,36,94,82,49,94,48,49,1
+59,21,24,57,3,78,54,79,57,42,8
+```
+
+Let us try to read the two files:
+
+```
+Sub TM5_RngFromCSVEx()
+    Dim rng As Range
+    
+    ThisWorkbook.Worksheets("TM5").Activate
+    Call TM5_ClearTestTM5    ' clear test cells so have empty cells
+    '' Read data1.csv file (NOTE you must know the separator in the csv file beforehand!)
+    Range("G3") = "Content of data1.csv:"
+    Set rng = RngFromCSV("data1.csv", Range("G4"), ";") ' paste file in range with upper left cell G4
+    MsgBox (RngGetAddress(rng))
+    '' Read data2.csv file (NOTE you must know the separator in the csv file beforehand!)
+    Range("G8") = "Content of data2.csv:"
+    Set rng = RngFromCSV("data2.csv", Range("G9"), ",") ' paste file in range with upper left cell G9
+    MsgBox (RngGetAddress(rng))
+End Sub
+```
+
+Here we use the course procedure `RngFromCSV` to read the file and specify the upper left corner cell of where to paste. Note the function returns the pasted range.  
+
+You can write the content of a range to a csv file using:
+
+```
+Sub TM5_RngToCSVEx()
+    Dim rng As Range
+    
+    ThisWorkbook.Worksheets("TM5").Activate
+    Call TM5_ClearTestTM5    ' clear test cells so have empty cells
+    '' Write to csv file
+    Set rng = Range("C4:E19")
+    Call RngToCSV("test.csv", rng, ";")     ' semicolon (;) separated file
+    '' Read test.csv file to check
+    Range("G3") = "Content of test.csv:"
+    Set rng = RngFromCSV("test.csv", Range("G4"), ";")
+End Sub
+```
+
+Here we use the course procedure `RngToCSV` to write the range to the file. Note you can specify different delimiters (here we use a semicolon).
+
+
+### Sorting a range
 
 Ranges can be sorted using the [`.Sort`](https://docs.microsoft.com/en-us/office/vba/api/excel.range.sort) method:
 
@@ -537,7 +521,7 @@ End Sub
 We use the `Key` arguments to identify which columns we want to sort and the `Header` argument to identify if the first row in the range is a header. Finally the ordering is given using the `Order` argument (either xlAscending (default) or xlDescending).
 
 
-## Arrays
+## Arrays {#vba-ary}
 
 Arrays are used to store groups of variables of a specific datatype: 
 
@@ -575,7 +559,9 @@ Array `intAry` contain 5 elements which can be accessed using index 0, 1, 2, ...
 knitr::include_graphics("./img/array.png") 
 ```
 
-Note the default start index is 0. If you want another start index you can use e.g. `Dim strAry(3 To 5) As String` which use indices 3-5 ($5-3+1$ elements). Moreover, if you want to start with index 1 as default then add `Option Base 1` to the top of your module.
+Note the default start index is 0. If you want another start index you can use e.g. `Dim strAry(3 To 5) As String` which use indices 3-5 ($3 = 5-3+1$ elements). Moreover, if you want to start with index 1 as default then add `Option Base 1` to the top of your module.
+
+Arrays require 20 bytes of memory plus 4 bytes for each array dimension plus the number of bytes occupied by the data itself. A Variant containing an array requires 12 bytes more than the array alone.
 
 
 
@@ -585,8 +571,7 @@ Note the default start index is 0. If you want another start index you can use e
 knitr::include_graphics("./img/3d-array.png") 
 ```
 
-.pull-left[
-An array can have different dimensions (see Figure \@ref(fig:vba-ary-3d)) e.g. and array with three dimensions: 
+An array can have different dimensions (see Figure \@ref(fig:vba-ary-3d)) e.g. and array with three dimensions is declared using: 
 
 ```
 Dim intOrderSize(52, 100, 50) As Integer  
@@ -628,35 +613,206 @@ We first assign random values to `intA` in the first loop. Note we use `LBound` 
 
 ### Dynamic arrays
 
+Often we do not know the size of the array we need when we start the program. For this we use dynamic arrays:
 
+```
+Sub TM5_DynArrayEx()
+    Dim ary() As String   ' dynamic array, note use empty ()
+    Dim i As Integer
+    
+    ThisWorkbook.Worksheets("TM5_Test3").Activate
+    ReDim ary(2 To 5)  ' create entries a(2) to a(5)
+    For i = 2 To 5
+        ary(i) = Cells(i + 1, 1)   ' read from Array sheet
+    Next
+    MsgBox ("Values are: " & AryToStr(ary))
+    MsgBox ("The lowest and higest index are " & LBound(ary) & " and " & UBound(ary))
+    
+    ReDim ary(3 To 5)  ' reallocate array, all values are set to default (empty string)
+    MsgBox ("Values are: " & AryToStr(ary))
+    For i = 3 To 5
+        ary(i) = Cells(i + 1, 1)
+    Next
+    MsgBox ("Values are: " & AryToStr(ary))
+    MsgBox ("The lowest and higest index are " & LBound(ary) & " and " & UBound(ary))
+End Sub
+```
+
+First, the dynamic array is declared using empty parenthesis `Dim ary() As String`. Next the `ReDim` keyword is used to set the dimension.
+
+
+### Input and output 
+
+A set of [course procedures](#vba-course-procedures) (module *ModAry*)  have been defined to read/set the values in an array and output the values of an array:
+
+```
+Sub TM5_IOAryEx()
+    Dim ary() As Integer
+    Dim strAry() As String
+    
+    ThisWorkbook.Worksheets("TM5").Activate
+    Call TM5_ClearTestTM5
+    '' Set to value single value
+    ReDim ary(2)
+    Call AryToVal(ary, 5)
+    Range("G4") = "A fixed value:"
+    Call AryPaste(ary, Range("G5")) ' the upper left cell is G5
+    '' Paste vertical
+    Range("K4") = "Paste vertical:"
+    Call AryPaste(ary, Range("K5"), False)
+    '' Set to sequence
+    Call AryToSeq(ary, 1, 6)
+    Range("G10") = "A sequence:"
+    Call AryPaste(ary, Range("G11"))
+    '' Read strings from a range
+    Call AryRead(strAry, Range("C31:D33"))  ' read a 2D array
+    Range("G31") = "Names in the " & AryDim(strAry) & "D array:"
+    Call AryPaste(strAry, Range("G32"))
+End Sub
+```
+
+You set all entries in the array to a single value using `AryToVal` and a sequence using `AryToSeq`. Moreover, use `AryRead` to read the values of a range into an array. Finally, `AryPaste` can be used to paste values of an array to a sheet. You just have to specify the upper left cell where you want to paste.
+
+Procedure `AryRead` can both read values into 1D and 2D arrays:
+
+```
+Sub TM5_AryReadEx()
+    Dim ary() As Integer
+
+    ThisWorkbook.Worksheets("TM5").Activate
+    Call TM5_ClearTestTM5
+    '' Read values from a range with only 1 column
+    Call AryRead(ary, Range("C5:C9"))
+    Range("G4") = AryDim(ary) & "D array:"
+    Call AryPaste(ary, Range("G5"), False)
+    '' Read values from a range with only 1 row
+    Call AryRead(ary, Range("C5:E5"))
+    Range("I4") = AryDim(ary) & "D array:"
+    Call AryPaste(ary, Range("I5"))
+    '' Read values from a range with only 1 column/row but use 2D array
+    Call AryRead(ary, Range("C11:C14"), blnReduceDim:=False)
+    Range("G10") = AryDim(ary) & "D array:"
+    Call AryPaste(ary, Range("G11"), False)
+    '' Use other start and end index
+    Call AryRead(ary, Range("C17:E19"), intStartIdx1:=2, intStartIdx2:=5)
+    Range("G16") = AryDim(ary) & "D array with start index " & LBound(ary, 1) & " and " & LBound(ary, 2) & ":"
+    Call AryPaste(ary, Range("G17"))
+End Sub
+```
+
+First, note that if the optional argument `blnReduceDim` is not set to false the array automatically becomes a 1D array if a range with one row or column is read. Next, you can use another start index of the array (default is 1) by specifying the optional arguments `intStartIdx1` and `intStartIdx2`.
+
+Procedure `AryRead` fails if we want to set values for arrays with more than 2 dimensions. For this the `AryReadLong` can be used which can read arrays until five dimensions:    
+
+```
+Sub TM5_AryReadLongEx()
+    Dim ary() As Integer
+    
+    ThisWorkbook.Worksheets("TM5").Activate
+    Call TM5_ClearTestTM5
+    '' Read 1D array
+    Call AryReadLong(ary, Range("A36:B38"), 3)   ' default value = 3
+    Range("G35") = "Values in the " & AryDim(ary) & "D array:"
+    Call AryPaste(ary, Range("G36"))
+    '' Read 2D array
+    Call AryReadLong(ary, Range("A41:C47"), 4)   ' default value = 4
+    Range("G40") = "Values in the " & AryDim(ary) & "D array:"
+    Call AryPaste(ary, Range("G41"))
+    '' Read 3D array (cannot be pasted to the sheet, have a look at it using the debugger)
+    Call AryReadLong(ary, Range("A50:D56"), 5)   ' default value = 5
+End Sub
+```
+
+Procedure `AryReadLong` assumes that you specify the values in long format, i.e. there is index values in all columns except the last which contains the values (see Figure \@ref(fig:tm5-arylong)). For instance, if we consider row 54, then the specification says that `ary(1,3,1) = 49`. Note we do not have to specify all combination of indices, e.g. in the specification A41:C47 the index (2,4) is missing and set to the default value 4. It is assumed that indices start from the lowest to highest index in each dimension.
+
+```{r tm5-arylong, echo = FALSE, out.width="800px", fig.cap="Reading values to an array using a long format (TM5 worksheet)."} 
+knitr::include_graphics("./img/tm5-arylong.png") 
+```
+
+You can also read a csv file into an array. Let us have a look at a csv file `data2.csv` using a semicolon as delimiter:
+
+```
+55,18,34,1,81,26,90,11,46,32,93
+49,95,73,82,53,40,99,10,52,38,92
+59,90,97,100,59,73,88,33,78,61,24
+96,84,32,36,94,82,49,94,48,49,1
+59,21,24,57,3,78,54,79,57,42,8
+```
+
+You can read the values into an array using `AryFromCSV`:
+
+```
+Sub TM5_AryReadCSVEx()
+    Dim rng As Range
+    Dim ary() As Integer
+    
+    ThisWorkbook.Worksheets("TM5").Activate
+    Call TM5_ClearTestTM5
+    '' Read csv file (NOTE you must know the separator in the csv file beforehand!)
+    Range("G3") = "Array values:"
+    Call AryFromCSV(ary, "data2.csv", ",")   ' know that it contains integers (otherwise use variant)
+    Call AryPaste(ary, Range("G4"))
+End Sub
+```
+
+### Sorting arrays
+
+Arrays can be sorted using `AryQuickSort`:
+
+```
+Sub TM5_ArySortEx()
+    Dim ary() As Integer
+    
+    ThisWorkbook.Worksheets("TM5").Activate
+    Call TM5_ClearTestTM5
+    
+    '' Read from a range and sort
+    Call AryRead(ary, Range("C5:E19"))
+    Call AryQuickSort(ary, 2)
+    Range("G3") = "Sort w.r.t. 2. column:"
+    Call RngPaste(Range("C4:E4"), Range("G4"))  ' copy header
+    Call AryPaste(ary, Range("G5"))
+End Sub
+```
+
+Here we sort based on the 2. column in the array.
 
 
 ### Use arrays instead of ranges
 
-- Speed up code (instead of storing in a sheet)
+Since a range represent a block of cells in a sheet, one may think of a range a some kind of 1D or 2D array. Hence one may use a range directly to read/write values instead of an array (we did that in Section \@ref(vba-test-persons)). However, often arrays are better to use than ranges:
 
+   * You can set indices as you like so they give a meaning to you, e.g. `intOrderSize(2, 10, 20)` denote the order size of product 20, in week 2 for customer 10.
+   * Arrays are much faster to update that ranges. It is much faster to  update the values many times in an array compared to a range.
+   * You worksheet and ranges may be seen as a place where you keep your data. Hence, when you run an algorithm, you first read the data into some arrays. Next, do some calculations (update the arrays) and finally output the result to a worksheet again. 
 
-'' Alternative (and faster) way to store a distance matrix is using an array
-Sub TM3_MakeDistArray()
+Consider for example the distance matrix calculations in Section \@ref(vba-ex-dist-mat). Here it would be faster to store the distance matrix in a 2D array:
+
+```
+Sub TM5_MakeDistArray()
     Dim n As Integer
-    Dim a() As Double
+    Dim aryDist() As Double
     Dim i As Integer
     Dim j As Integer
     
+    ThisWorkbook.Worksheets("TM3_DistanceMatrix").Activate
     n = Range("E1")
-    ReDim a(n, n)
+    ReDim aryDist(1 To n, 1 To n)
     For i = 1 To n
         For j = i + 1 To n
-           a(i, j) = Distance(i, j)
-           a(j, i) = a(i, j)
+           aryDist(i, j) = TM3_Distance(Cells(i + 1, 2), Cells(i + 1, 3), Cells(j + 1, 2), Cells(j + 1, 3))
+           aryDist(j, i) = aryDist(i, j)  ' set symetric value
         Next
     Next
 End Sub
+```
+
+Afterwards `aryDist` can be used during in an algorithm. 
 
 
-## Collections
+## Collections {#vba-coll}
 
-A useful data type not mentioned in Chapter 4 is a collection. Collections are a way of storing a group of items together (think of it as a set). Collections and arrays are both used to group variables. They both store a set of items e.g. a list of student marks or country names. If we compare collections against arrays:
+Collections are a way of storing a group of items together (think of it as a set). Collections and arrays are both used to group variables. They both store a set of items e.g. a list of student marks or country names. If we compare collections against arrays:
 
 - Collections are similar to arrays but better to use when the number of items is not fixed. With an array you normally set the size once. On the contrary you often add or remove items from a collection.
 - Collections are better when adding and removing items.
@@ -664,41 +820,73 @@ A useful data type not mentioned in Chapter 4 is a collection. Collections are a
 - Collection can be accessed using a key or an index (starting from 1).
 - Items of a collection do not have to share the same data type.
 
-Collections are a part of the [Object Model](#mod-vba-object-model) and hence a collection have to be defined in a special way. Let us consider an [example](https://github.com/bss-osca/tfa/blob/master/vba/vba-collection-examples.xlsm). First we declare and create a collection:
+Collections are a part of the predefined objects in VBA and hence a collection have to be defined in a special way. Let us consider an example:
+
+```
+Sub TM5_CollEx()
+    Dim col As New Collection   ' declare and create
+    Dim e As Variant
+    
+    ThisWorkbook.Worksheets("TM5").Activate
+    Call TM5_ClearTestTM5
+    '' Add items
+    Call col.Add("Apple")
+    Call col.Add("Pear")
+    Call col.Add(123)
+    Cells(4, 7) = "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+    '' Use For Each to scan elements
+    For Each e In col
+      MsgBox (e)
+    Next e
+    '' Access values in the collection using index
+    Cells(5, 7) = "The 1. item is: " & col(1)
+    Cells(6, 7) = "The 3. item is: " & col(3)
+    ' Remove items
+    Call col.Remove(2)
+    Cells(7, 7) = "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+    '' Note index of items has now changed (the 3. item has become the 2. item)
+    Cells(8, 7) = "The 1. item is: " & col(1)
+    Cells(9, 7) = "The 2. item is: " & col(2)
+    '' Clear collection
+    Set col = Nothing
+    Cells(10, 7) = "The collection now contains " & col.Count & " items."
+End Sub
+```
+
+First we declare and create a collection:
 ```
 Dim col As New Collection
 ```
 The collection (or set) is now defined with zero items. You can add items using
 ```
-col.Add "Apple"
-col.Add "Pear"
-col.Add 123
+Call col.Add("Apple")
+Call col.Add("Pear")
+Call col.Add(123)
 ```
 Let us create a function that prints the items of a collection as string:
 ```
-Function Coll2Str(col As Collection) As String
+Function Coll2Str(col As Collection, Optional strSep As String = ", ") As String
     Dim e As Variant
     Dim str As String
     
     For Each e In col
-        str = str & e & ", "
+        str = str & e & strSep
     Next e
-    str = Left(str, Len(str) - 1)
-    Coll2Str = str
+    Coll2Str = Left(str, Len(str) - Len(strSep))
 End Function
 ```
 Then the output of 
 ```
-Debug.Print "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+"The collection now contains " & col.Count & " items: " & Coll2Str(col)
 ```
-in the Immediate window becomes
+becomes
 ```
 The collection now contains 3 items: Apple, Pear, 123
 ```
 You can access values in the collection using index:
 ```
-Debug.Print "The 1. item is: " & col(1)
-Debug.Print "The 3. item is: " & col(3)
+"The 1. item is: " & col(1)
+"The 3. item is: " & col(3)
 ```
 ```
 The 1. item is: Apple
@@ -706,8 +894,8 @@ The 3. item is: 123
 ```
 Items are removed using:
 ```
-col.Remove (2)
-Debug.Print "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+Call col.Remove (2)
+"The collection now contains " & col.Count & " items: " & Coll2Str(col)
 ```
 
 ```
@@ -716,8 +904,8 @@ The collection now contains 2 items: Apple, 123
 
 Note index of items has now changed (the 3. item has become the 2. item):
 ```
-Debug.Print "The 1. item is: " & col(1)
-Debug.Print "The 2. item is: " & col(2)
+"The 1. item is: " & col(1)
+"The 2. item is: " & col(2)
 ```
 
 ```
@@ -728,20 +916,42 @@ The 2. item is: 123
 You clear a collection using:
 ```
 Set col = Nothing
-Debug.Print "The collection now contains " & col.Count & " items."
+"The collection now contains " & col.Count & " items."
 ```
 
 ```
 The collection now contains 0 items.
 ```
 
-An item in a collection can be given a key:
+An item in a collection can be given a key (think af a key as a name tag given to each item):
+
 ```
-col.Add "Hans Jørgensen", "ID123"   ' value, key
-col.Add "Jens Hansen", "ID234"
-col.Add "Lone Nielsen", "ID456"
-' col.Add "Sine Mikkelsen", "ID456" ' gives an error since already used the key
-Debug.Print "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+Sub TM5_CollKeyEx()
+    Dim col As New Collection   ' declare and create
+    Dim k As Variant
+    
+    ThisWorkbook.Worksheets("TM5").Activate
+    '' Add using keys
+    Call col.Add("Hans Jørgensen", "ID123")   ' value, key
+    Call col.Add("Jens Hansen", "ID234")
+    Call col.Add("Lone Nielsen", "ID456")
+    ' col.Add "Sine Mikkelsen", "ID456" ' gives an error since already used the key
+    Cells(12, 7) = "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+    '' Access values using keys
+    Cells(13, 7) = "The item with key ID123 is: " & col("ID123")
+    ' Remove items using keys
+    col.Remove "ID123"
+    Cells(14, 7) = "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+End Sub
+```
+
+Here we add items using a key:
+
+```
+Call col.Add("Hans Jørgensen", "ID123")   ' value, key
+Call col.Add("Jens Hansen", "ID234")
+Call col.Add("Lone Nielsen", "ID456")
+"The collection now contains " & col.Count & " items: " & Coll2Str(col)
 ```
 
 ```
@@ -749,7 +959,7 @@ The collection now contains 3 items: Hans Jørgensen, Jens Hansen, Lone Nielsen
 ```
 You can now access the item using the key:
 ```
-Debug.Print "The item with key ID123 is: " & col("ID123")
+"The item with key ID123 is: " & col("ID123")
 ```
 
 ```
@@ -757,8 +967,8 @@ The item with key ID123 is: Hans Jørgensen
 ```
 Similar you can remove an item using a key:
 ```
- col.Remove "ID123"
- Debug.Print "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+Call col.Remove("ID123")
+"The collection now contains " & col.Count & " items: " & Coll2Str(col)
 ```
 
 ```
@@ -774,115 +984,240 @@ It is recommended to use keys since using keys has three advantages:
 For more information about collections you may have a look at this [webpage](http://excelmacromastery.com/excel-vba-collections/).
 
 
-
-
-
-
-
-
-
-
-
-
-## How do I structure my code? {#vba-code-structure}
-
-When you program it is always a good idea to structure your code. The main reason for using a consistent set of coding conventions is to standardize the structure and coding style of an application so that you and others can easily read and understand the code. Good coding conventions result in precise, readable, and unambiguous source code that is consistent with other language conventions and as intuitive as possible. 
-
-Have a look at the [guidelines given here](#coding-convention).
+## Example -
 
 
 ## Recap
 
-- Variables are used to store information in a program. The information is saved in memory. A variable may store different data types such as an integer, a double, a string or an object (e.g. a range).
-- A selected set of data types are (see all in the [documentation](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/data-type-summary)):
+- Variables are used to store information that is saved in memory. A variable may store different data types such an integer, a double, a group of doubles (an array), a range of cells in a worksheet (a range object) or a set of numbers (a collection). 
 
-   Name    | Type      | Details                                                                        
-   ------- | --------- | -------------------------------------------------------------------------------
-   Byte    | Numerical | Whole number between 0 and 255.                                                
-   Integer | Numerical | Whole number between -32'768 and 32'767.                                       
-   Long    | Numerical | Whole number between - 2'147'483'648 and 2'147'483'647.                        
-   Double  | Numerical | Floating decimal number between -1.79769313486232E308 and 1.79769313486232E308.
-   String  | Text      | Text.                                                                          
-   Date    | Date      | Date and time.                                                                 
-   Boolean | Boolean   | True or False.                                                                 
-   Variant | Any type  | Any kind of data (default type if the variable is not declared). 
-
-- Memory consists of bits (binary digit) where a bit can take the value 0 or 1. 
-- Common naming of memory chunks are 8 Bits = 1 Byte, 1024 Bytes = 1 Kilobyte, 1024 Kilobytes = 1 Megabyte, 1024 Megabytes = 1 Gigabyte, 1024 Gigabytes = 1 Terabyte.
-- Variables take up different storage place in memory based on the data type they use. The size of selected data types:
-
-   Data type                                 | Storage size            
-   ----------------------------------------- | ------------------------
-   Byte                                      | 1 byte                  
-   Boolean                                   | 2 bytes                 
-   Integer                                   | 2 bytes                 
-   Long  (long integer)                      | 4 bytes                 
-   Double  (double-precision floating-point) | 8 bytes                 
-   Date                                      | 8 bytes                 
-   String                                    | 10 bytes + string length
-   Variant  (with numbers)                   | 16 bytes                
-   Variant  (with characters)                | 22 bytes + string length
-
-   Arrays require 20 bytes of memory plus 4 bytes for each array dimension plus the number of bytes occupied by the data itself. A Variant containing an array requires 12 bytes more than the array alone.
-
-- Variables must be declared by
-
-  ```
-  Dim {variable name} As {data type}
-  ```
-
-  Example:
-  ```
-  Dim intC As Integer		
-  intC = 2
-  Dim dblCost As Double		
-  dblCost = 2.45
-  Dim rng As Range			
-  Set rng = Range(“A3”)
-  ```
-
-  Note the `Set` keyword for setting object variables.
-
-- Declare varibles to optimize memory usage, avoid errors and speed up code (instead of storing in a sheet).
-- Use `Option Explicit` in the top of every module so the VBA editor will tell you if you forget to declare variables.
-- Variable scope:
-   - Global variables are known to the whole module or the whole file
-   - Declare global variables in the top of the file.
-   - In general try to avoid global variables!
-   - Local variables are local to a procedure and only known within that procedure.
-   - Declare local variables inside the procedure.
 - Strings are special variables with varying length.
+
 - Use the `&` to concatenate strings (glue strings together).
+
 - An empty string is of length zero.
+
+- VBA have a lot of predefined objects you can use. Think of an object as a datatype that holds a group of variables. Examples of some objects are `Range`, `Worksheet`, and `WorksheetFunction`. 
+
+- Refer to an object by specifying the path in the hierarchy e.g. 
+  ```
+  Workbooks("Jobs.xlsm").Worksheets("Data values").Range("D4").value
+  ```
+  You may skip parts of the path (VBA then uses the current active one).
+- Warning, you must know which sheet is active. Always specify what you want to be active	
+  ```
+  ThisWorkbook.Worksheets("Data values").Activate  ' activate the sheet
+  dbl = Range("D4")
+  ```
+- Declare object variables using:
+  ```
+  Dim rng As Range
+  Dim wst As Worksheet
+  ```
+- Set a reference to object variables using the keyword `Set`:
+  ```
+  Set rng = Range("F7")
+  Set wst = Worksheets("Data values")
+  ```
+- A `Worksheet` object refer to a worksheet and you can use it to e.g. modify cells:
+  ```
+  Worksheets("TM5_Test1").Range("B2") = "Testing Worksheet"  ' write to cell in sheet TM5_Test1
+  Set wst1 = ThisWorkbook.Worksheets("TM5_Test1")  ' set a reference to a worksheet
+  wst1.Range("B6") = "Writing using wst1"
+  ```
+- Different functions for worksheets is part of the *[course procedures](#vba-course-procedures)*. All the worksheet procedures start with `Wst` so you easy can find them using auto complete in the VBA editor. All worksheet procedures are stored in the `ModWst` module. You may open the module to have a look at the procedures. Examples:
+  ```
+  If WstCreate("Test", blnForce:=True) Then MsgBox ("Created Test")  
+  If WstRename("Test", "Test1") Then MsgBox ("Renamed the Test to Test1")  ' only work if no Test1 sheet
+  If WstClear("Test8") Then MsgBox ("Cleared Test8") ' clear sheet Test8 if exists
+  If WstDelete("Test1") Then MsgBox ("Deleted Test1")
+  ```
+
+- Ranges are objects that refer to parts of a worksheet e.g. a cell, a row, a column, or a rectangular selection of cells. 
+
+- Ranges can be used to read and write to cells
+  ```
+  Dim rng As Range
+  Set rng = Range("A1:D5")
+  rng = 145   ' cell value
+  MsgBox rng.Address   ' range address ($A$1:$D$5)
+  ```
+
+- You can use the [course procedures](#vba-course-procedures) (module *ModRng*) with prefix `RngGet` to retrieve info about the range: 
+  ```
+  Set rng = ThisWorkbook.Worksheets("TM5").Range("C4:E19")
+  MsgBox ("Number of rows: " & RngGetRows(rng))
+  MsgBox ("Number of cols: " & RngGetCols(rng))
+  MsgBox ("First column number: " & RngGetFirstCol(rng))
+  MsgBox ("First column letter: " & RngGetFirstCol(rng, asLetter:=True))
+  MsgBox ("Lower right cell: " & RngGetLowerRight(rng, asString:=True))
+  MsgBox ("Upper right cell: " & RngGetUpperRight(rng, asString:=True))
+  ```
+  
+- The current region of a range is found by expanding the range until all cells surrounding the range is empty
+  ```
+  rng = Range("D23").CurrentRegion
+  ```
+  This is useful if don't know the size for data.
+
+- You can use the [course procedures](#vba-course-procedures) (module *ModRng*) with prefix `RngGetCurRegion` to retrieve info about the current region of a range: 
+  ```
+  Set rng = Range("D7")  ' assume we know that data contains cell D7
+  MsgBox ("Address: " & RngGetCurRegionAddress(rng))
+  MsgBox ("Rows = " & RngGetCurRegionRows(rng) & " cols = " & RngGetCurRegionCols(rng))
+  MsgBox ("First row number = " & RngGetCurRegionFirstRow(rng) & ". Last row number = " & RngGetCurRegionLastRow(rng) & ".")
+  MsgBox ("First col number = " & RngGetCurRegionFirstCol(rng) & ". Last col number = " & RngGetCurRegionLastCol(rng) & ".")
+  MsgBox ("First col letter = " & RngGetCurRegionFirstCol(rng, True) & ". Last col letter = " & RngGetCurRegionLastCol(rng, True) & ".")
+  ```
+  
+- You copy/paste a range using:
+  ```
+  Set rng = Range("D7:E10")      
+  Set rngNew = RngPaste(rng, Range("H14"))    ' paste with upper left = H14, rngNew is now the new range
+  ```
+- You can read values from a csv file using:
+  ```
+  Set rng = RngFromCSV("data1.csv", Range("G4"), ";") ' paste file in range with upper left cell G4
+  ```
+- You can write values from a range to a csv file using:
+  ```
+  Call RngToCSV("test.csv", rng, ";")     ' semicolon (;) separated file
+  ```
+  
+- The columns in a range can be [sorted](https://docs.microsoft.com/en-us/office/vba/api/excel.range.sort). For instance sort a range ascending with respect to the second column and next descending with respect to the first column.
+  ```
+  Call rng.Sort(Key1:=rng.Columns(2), Order1:=xlAscending, _
+           Key2:=rng.Columns(1), Order2:=xlDescending, Header:=xlYes)
+  ```
+
 - An array store groups of variables of a specific data type. For example
   ```
   Dim intValues(8) As Integer
   ```
   The variable `intValues` is an array with 9 elements which can be accessed using index 0, 1, 2, ..., 8. 
-- The default start index of an array is 0. If you want to start with index 1 then add `Option Base 1` to the top of your module.
-- An array can have different dimensions, e.g.
+
+- The default start index of an array is 0. If you want to start with index 1 then add `Option Base 1` to the top of your module or use:
+  ```
+  Dim strAry(3 To 5) As String  ' define array with index 3-5
+  ```
+  
+- An array can have different dimensions, e.g. three:
   ```
   Dim intOrderSize(52, 100, 50) As Integer  
   ```
   where indices may be (week, customer, product) number. Let us assume that index start from 1 then we have an array with $52 \cdot 100 \cdot 50$ elements which can be accessed using e.g.
-
+  
   ```
   intOrderSize(2,10, 20)  ' order size week 2, customer 10, product 20 
   ```
-- Dynamic arrays are arrays where the dimension is unknown when they are declared. Use `ReDim` to set the dimension later:
- 
-   ```
-   Dim strPeople() As String
-   ...
-   n = 8
-   ReDim strPeople(n)
-   ```
 
-You may also have a look at the [slides for this module](https://bss-osca.github.io/tfa/slides/02-01_vba-datatypes-slides.html).
+- Arrays require 20 bytes of memory plus 4 bytes for each array dimension plus the number of bytes occupied by the data itself. A Variant containing an array requires 12 bytes more than the array alone.
+
+- Dynamic arrays are arrays where the dimension is unknown when they are declared. Use `ReDim` to set the dimension later:
+  ```
+  Dim strPeople() As String
+  ...
+  n = 8
+  ReDim strPeople(n)
+  ```
+
+- You can set values for an array by reading from a range:
+  ```
+  Dim ary() As Integer
+  Call AryRead(ary, Range("C5:E9"))
+  ```
+
+- You can paste values of an array to a range:
+  ```
+  Call AryPaste(ary, Range("G5")) ' the upper left cell is G5
+  ```
+
+- You can set values for an array with more than 2 dimensions by reading from a range:
+  ```
+  Dim ary() As Integer
+  Call AryReadLong(ary, Range("A36:B38"), 3)   ' default value = 3
+  ```
+  The procedure `AryReadLong` assumes that you specify the values in long format, i.e. there is index values in all columns except the last which contains the values. 
+
+- You can read a csv file into an array using:
+  ```
+  Dim ary() As Integer
+  Call AryFromCSV(ary, "data2.csv", ",")   ' know that it contains integers (otherwise use variant)
+  ```
+
+- Arrays can be sorted using:
+  ```
+  Dim ary() As Integer
+  Call AryQuickSort(ary, 2) ' sort w.r.t. 2. column
+  ```
+- Often arrays are better to use than ranges:
+  * You can set indices as you like so they give a meaning to you, e.g. `intOrderSize(2, 10, 20)` denote the order size of product 20, in week 2 for customer 10.
+  * Arrays are much faster to update that ranges. It is much faster to  update the values many times in an array compared to a range.
+  * You worksheet and ranges may be seen as a place where you keep your data. Hence, when you run an algorithm, you first read the data into some arrays. Next, do some calculations (update the arrays) and finally output the result to a worksheet again. 
+
+- Collections are used for storing a group of items together (think of it as a set). 
+
+- Collections and arrays are both used to group variables. If we compare collections against arrays:
+  - Collections are similar to arrays but better to use when the number of items is not fixed. With an array you normally set the size once. On the contrary you often add or remove items from a collection.
+  - Collections are better when adding and removing items.
+  - An item in a collection are read-only whereas an entry in an array are read/write.
+  - Collection can be accessed using a key or an index (starting from 1).
+  - Items of a collection do not have to share the same data type.
+
+- Declare and create a collection:
+  ```
+  Dim col As New Collection
+  ```
+ 
+- Add items using:
+  ```
+  Call col.Add("Apple")
+  Call col.Add("Pear")
+  ```
+  
+- Items are removed using:
+  ```
+  Call col.Remove (2)
+  ```
+
+- Clear a collection using:
+  ```
+  Set col = Nothing
+  ```
+
+- An item in a collection can be given a key (think af a key as a name tag given to each item):
+  ```
+  Call col.Add("Hans Jørgensen", "ID123")   ' value, key
+  Call col.Add("Jens Hansen", "ID234")
+  ```
+
+- You can now access the item using the key:
+  ```
+  "The item with key ID123 is: " & col("ID123")
+  ```
+
+- You can remove an item using a key:
+  ```
+  Call col.Remove("ID123")
+  ```
+
+- It is recommended to use keys since using keys has three advantages:
+  - If the order changes your code will still access the correct item
+  - You can directly access the item without reading through the entire collection
+  - It can make you code more readable
+
+```{r, echo=FALSE}
+link_slide_file_text(module_number_prefix, module_name)
+```
+
 
 ## Exercises {#ex-vba-datatypes}
 
 `r strExercises`
+
+```{r, echo=FALSE}
+link_excel_file_text(module_number_prefix, module_name)
+```
 
 ### Exercise - Flight search {#ex-vba-flight}
 
@@ -1019,3 +1354,11 @@ The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-byref-template.xl
 
 ```{r links, child="links.md", include=FALSE}
 ```
+
+<script src="//unpkg.com/@highlightjs/cdn-assets@11.5.1/highlight.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/highlightjs-vba/dist/vba.min.js"></script>
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script> -->
+<script type="text/javascript">
+  hljs.initHighlightingOnLoad();
+  // hljs.initLineNumbersOnLoad({singleLine: true}); 
+</script>
