@@ -984,7 +984,163 @@ It is recommended to use keys since using keys has three advantages:
 For more information about collections you may have a look at this [webpage](http://excelmacromastery.com/excel-vba-collections/).
 
 
-## Example -
+## Example - Job sequencing {#vba-ex-job-seq}
+
+Consider $i = 1,...,n$ jobs that has to be done on a machine and let $c_{ij}$ denote the setup cost of switching from job $i$ to job $j$. Moreover, let $c_{0i}$ denote the setup cost of setting up job $i$ when the machine is idle (index 0). Let $s = (0, s_1, \ldots, s_n)$ denote the sequence of jobs and $C$ the total setup costs, e.g. if $s = (0,1,3,2,6,5,4)$, then $C = c_{01} + c_{13} + c_{32} + c_{26} + c_{65} + c_{54}$. Different algorithms for finding a good strategy minimizing the total setup costs exists. A greedy algorithm is:
+
+<div class="box">
+**Step 0**: Select the first job as one with minimal idle setup cost.
+
+**Step 1**: Given current job $i$ select the unscheduled with minimal setup cost. 
+
+**Step 2**: If no unscheduled jobs then stop and output the found job sequence else go to Step 1.
+</div>
+
+Often a better algorithm is:
+
+<div class="box">
+**Step 0**: For each column $j$ find $\bar{c}_j = min(c_{0j},\ldots,c_{j-1,j},c_{j+1,j},\ldots,c_{nj})$ and define relative setup costs $\hat{c}_{ij} = c_{ij}-\bar{c}_{j}$ (the cost is subtracted the minimum value in that column).
+
+**Step 1**: Call the greedy algorithm using costs $\hat{c}_{ij}$.
+</div>
+
+Examples on how data could look like can be seen in worksheet *TM5_JobSeq* that contains the setup costs (Figure \@ref(fig:tm5-job-seq)). Columns M-T contain three datasets for which we want to calculate a job sequence.
+
+```{r tm5-job-seq, echo = FALSE, out.width="100%", fig.cap="Worksheet *TM5_JobSeq*."} 
+knitr::include_graphics("./img/tm5-job-seq.png") 
+```
+
+Let us try to implement the greedy algorithm which takes the cost array `costs` as arguments and output the job sequence and cost:
+
+```
+'' Job sequeceing using a cost array
+'
+' @param costs An array with setup costs
+' @param strSeq The job sequence found (returned ByRef).
+' @param dblCosts The total setup costs (returned ByRef).
+Sub TM5_GreedyAlg(costs() As Double, strSeq As String, dblCosts As Double)
+    Dim intJobs As Integer          ' number of jobs
+    Dim used() As Integer           ' an entry equals 1 if already scheduled
+    Dim intCurJob As Integer        ' current job
+    Dim intNextJob As Integer       ' best candidate for next job (= intM if not found yet)
+    Dim dblNextCost As Double       ' setup cost current to next job
+    Dim c As Integer                ' iterators
+    Dim intM As Integer             ' big number
+
+    '' Allocate arrays
+    intJobs = UBound(costs, 1)
+    ReDim used(1 To intJobs)    ' set size
+    Call AryToVal(used, 0)      ' set to 0
+    
+    '' Run greedy
+    strSeq = "0"  ' start idle
+    intM = 1000   ' a number bigger than largest cost
+    intCurJob = 0  ' start idle
+    dblCosts = 0
+    Do While True ' find next job given current
+        intNextJob = intM
+        dblNextCost = intM
+        For c = 1 To intJobs ' scan row in array to find next unused job with minimal cost
+            If used(c) <> 1 And costs(intCurJob, c) < dblNextCost Then
+                intNextJob = c
+                dblNextCost = costs(intCurJob, c)
+            End If
+        Next
+        If intNextJob = intM Then Exit Do  ' no new job found (all jobs used)
+        dblCosts = dblCosts + dblNextCost
+        used(intNextJob) = 1
+        intCurJob = intNextJob
+        strSeq = strSeq & ", " & intNextJob
+    Loop
+End Sub
+```
+
+First observe that the procedure have three arguments `costs`, `strSeq` and `dblCosts`. The array `costs` contain the setup costs and is an input argument to the algorithm. The last two arguments are output arguments. Since arguments are passed by reference by default (no new memory is allocated), we modify them with the solution. Next, to run the algorithm we need to keep track of which jobs have been used. We use the array `used` for this and set it to 0 (not used) and 1 (used). Finally, the `Do While` loop is used to scan a row in the cost array. We want to find the minimum cost and hence use a big number as starting value, then scan all unused jobs and choose the one with minimum cost. If no new job is found we finish; otherwise we update `strSeq` and `dblCosts`.
+
+Note that the procedure do not have any interaction with a worksheet. It simply takes an array as input argument and store the result in two output arguments. That is, the procedure is independent of where the data is from (could e.g. be an csv file instead of a worksheet).
+
+Let us try to link the greedy algorithm to the data in workheet *TM5_JobSeq*. Columns M-T contain three datasets for which we want to calculate a job sequence. First, let us make a procedure that copies a dataset to A4 (upper left cell):
+
+```
+Sub TM5_CopyData()
+   Dim str As String
+   
+   ThisWorkbook.Worksheets("TM5_JobSeq").Activate   ' so use the correct sheet
+   str = InputBox("Specify cell in data (e.g. N7)") ' get a cell value
+   Call TM5_CleanJobSeq                             ' delete previous data
+   Call RngPaste(RngCurRegion(Range(str)), Range("A4"), withFormat:=True) ' paste the current region
+End Sub
+```
+
+Note we use the current region of the cell value to retrieve the dataset. We can now run the greedy algorithm using the data starting in A4:
+
+```
+Sub TM5_RunGreedy()
+    Dim costs() As Double  ' setup costs
+    Dim strSeq As String   ' job seq
+    Dim dblCosts As Double ' total setup costs
+    Dim rng As Range
+
+    ThisWorkbook.Worksheets("TM5_JobSeq").Activate
+    ' Allocate costs to array
+    Set rng = RngCurRegion(Range("A4")) ' rng now is the whole dataset with headers
+    Set rng = Range("B5:" & RngGetLastCol(rng, asLetter:=True) & RngGetLastRow(rng)) ' rng now is the costs
+    Call AryRead(costs, rng, 0, 1) ' start index from 0 (first dim) and 1 (second dim)
+    ' Run algorithm
+    Call TM5_GreedyAlg(costs, strSeq, dblCosts)
+    ' Write results to sheet
+    Range("C1") = UBound(costs, 1)
+    Range("C2") = strSeq
+    Range("F1") = dblCosts
+End Sub
+```
+
+First, observe how we allocate values to the 'costs' array. We use the course procedure `AryRead` and hence first have to find the range containing the setup costs. This can be done may ways, but we know that the upper left cell is B5 and the lower right is found using the `RngGet` functions. Next, we call `AryRead` and set the index to start from 0 (first dimension) and 1 (second dimension). Given setup costs, we call the greedy algorithm which returns updated `strSeq` and `dblCosts`. Finally, we output the results to the worksheet. 
+
+To implement the 'better' algorithm we need to modify the `costs` array and subtract the minimum column value:
+
+```
+Sub TM5_RunBetter()
+    Dim minCol() As Double ' min value in col c
+    Dim intJobs As Integer ' number of jobs
+    Dim costs() As Double  ' setup costs
+    Dim strSeq As String   ' job seq
+    Dim dblCosts As Double ' total setup costs
+    Dim rng As Range
+    Dim dbl As Double
+    Dim r As Integer, c As Integer
+    
+    ThisWorkbook.Worksheets("TM5_JobSeq").Activate
+    ' Allocate costs to array
+    Set rng = RngCurRegion(Range("A4")) ' rng now is the whole dataset with headers
+    Set rng = Range("B5:" & RngGetLastCol(rng, asLetter:=True) & RngGetLastRow(rng)) ' rng now is the costs
+    Call AryRead(costs, rng, 0, 1) ' start index from 0 (first dim) and 1 (second dim)
+    ' Calc min value in each col
+    intJobs = UBound(costs, 1)
+    ReDim minCol(1 To intJobs)
+    For c = 1 To intJobs
+        dbl = 10000000   ' a big number
+        For r = 0 To intJobs
+            If costs(r, c) < dbl And r <> c Then dbl = costs(r, c)
+        Next
+        minCol(c) = dbl
+    Next
+    ' Calc relative
+    For c = 1 To intJobs
+        For r = 0 To intJobs
+            costs(r, c) = costs(r, c) - minCol(c)
+        Next
+    Next
+    ' Run algorithm
+    Call TM5_GreedyAlg(costs, strSeq, dblCosts)
+    ' Write results to sheet
+    Range("C1") = intJobs
+    Range("C2") = strSeq
+    Range("F1") = dblCosts + WorksheetFunction.Sum(minCol)
+End Sub
+```
+
+First, an array `minCol` is used to store the minimum values for each column. Next, we update the `costs` array with the relative values and the greedy algorithm is run with the relative setup cost values. Finally, we output the results. Note we have to add the minimum costs back to `dblCosts` (the sum of the `minCol` values). 
 
 
 ## Recap
@@ -1219,6 +1375,63 @@ link_slide_file_text(module_number_prefix, module_name)
 link_excel_file_text(module_number_prefix, module_name)
 ```
 
+### Exercise - Equal entries {#ex-vba-equal}
+
+*This exercise is a slightly modified version an exam assignment (exam 2021-A4).*
+
+Consider worksheet *TM5_Equal* with seven data sets. Each data set consists of a list of integer values and is contained in a single column. Your code should be able to run on any of these data sets, but only on one data set at a time. 
+
+The value in cell C1 states the column to use, so you can change the data set by changing this value (the values can be 1, 3, 5, ...). The data sets vary in size. If you need to know the number of values in the data set, it should be done as part of your vba code.
+
+Write a sub *TM5_Equal* that 
+
+   - stores the values of the data set indicated in cell C1 in an array;
+   - creates an array `equal`, where `equal(k,j)` is 1, if the k’th and j’th values are equal, and 0 otherwise.
+
+
+### Exercise - Product search {#ex-vba-search-products}
+
+Consider the worksheet *TM5_Products* containing a set of products with product code and price. 
+
+   (1) Create a sub `TM5_FindProduct` that 
+       * Declare two arrays to store the price and product code.
+       * Assign values to the arrays.
+       * Use an input box to ask for a product code.
+       * Use a for loop to search for the product and output the price in a message box. Hint: the [`Exit sub`](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/exit-statement) may be useful.
+   (3) Add a button to the worksheet that run the procedure.
+   (2) Test you code using different product codes.
+   (4) What happens if you write the product code without capital letters? If your code do not work, have a look at the [`UCase`](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/ucase-function) function.
+   (5) Modify your code so that if the product is not found then "Product not found!" is given in a message box. 
+   
+   
+### Exercise - Read collections {#ex-vba-read-collections}
+
+Consider worksheet *TM5_Coll* with numbers in column A to be read into a collection. Create a procedure `TM5_CollNoKeys` that:
+
+   (1) Create a collection `col` and add all the numbers.
+   (2) Print the collection in a message box (you may use the function `Coll2Str` here).
+   (3) Create another collection `colC` and add all the items in `col` with value below 5.
+
+Consider worksheet *TM5_Coll*  with some ID numbers and prices for a set of products in columns C-D. Create a procedure `TM5_CollKeys` that:
+
+   (1) Create a collection `col` and add all the prices using ID as key.
+   (2) Print the price of the product with ID92011 in a message box.
+   (3) What happens if you try to print the price of ID92?
+   
+
+### Exercise - Read arrays {#ex-vba-read-arrays}
+
+Consider the worksheet *TM5_Array* containing 3 datasets to be read into an array. The first two are in long format and the last in range format. 
+
+Write a procedure `TM5_ReadArrays` that use course procedures `AryRead` and `AryReadLong` to read the values into three arrays. Assume that 
+
+   * For the first dataset is the default array value 10. 
+   * For the second dataset is the default array value 5. 
+   * For the third dataset index must start from 3 (first dimension) and 5 (second dimension).
+   
+Use the debugger to inspect if the values have been read correctly into the arrays.
+
+
 ### Exercise - Flight search {#ex-vba-flight}
 
 The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-flight-template.xlsm) should be used as a starting point for this exercise. 
@@ -1246,87 +1459,11 @@ The sheet _Data_ contains a set of flights between different destinations. You t
    (4) Try to finish the second part of the `SearchFlights` sub and search for matching origin-destination pairs. Note origins and destinations listed to be searched for are also matching origin-destination pairs if they are not in the same row.
    
 
-### Exercise - Product search {#ex-vba-search-products}
 
-The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-search-products-template.xlsm) contains a sheet _Products_ with a set of products with product code and price. Cell D1 contains the total number of products. 
-
-   (1) Create a sub `FindProduct` that 
-       * Declare two arrays to store the price and product code.
-       * Uses `ReDim` to set the size of the arrays.
-       * Use a for loop to assign values to the arrays.
-       * Use an input box to ask for a product code.
-       * Use a for loop to search for the product and output the price in a message box.
-   (2) Test you code using different product codes
-   (3) Add a button to the Main sheet that run the procedure.
-   (4) What happens if you write the product code without capital letters? If your code do not work, have a look at the [`UCase`](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/ucase-function) function.
-   (5) Modify your code so that if the product is not found then "Product not found!" is given in a message box. Hint: the [`Exit sub`](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/exit-statement) may be useful inside the last for loop.
        
 
-### Exercise - Read arrays {#ex-vba-read-arrays}
 
-The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-read-arrays-template.xlsm) contains different sheets with numbers to be read into an array. 
-
-   (1) The sheet _1D Array_ contains an index number `i` (column A) and value `v` (column B) also known as a long format. Create an array `ary1D` (with index starting from 0) that store the values `v` in array entry `ary1D(i)`. Assume that the default array value is 10. Hint you need a for loop to iterate though the numbers. Have a look at the unfinished sub `Read1DAry` for further hints.
-   (2) The sheet _2D Array_ contains an array in matrix format where a cell in row `r` and column `c` contains the value to be stored in the array entry `ary2D(r, c)`. Create the array and store the values. Note `ary2D` start indexing from 1 and not 0. Have a look at the unfinished sub `Read2DAry` for further hints.
-   (3) Modify sub `Read2DAry` so that indexing start from 0 instead of 1, i.e. a cell in row `r` and column `c` contains the value to be stored in the array entry `ary2D(r - 1, c - 1)`.
-   (4) The sheet _4D Array_ contains values to be stored in a long format (column A:D indices and column E values). Create an array `ary4D` (with index starting from 0) that store the values. Assume that the default value is 5. Have a look at the unfinished sub `Read4DAry` for further hints.
    
-   
-### Exercise - Read collections {#ex-vba-read-collections}
-
-The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-read-collections-template.xlsm) contains different sheets with numbers to be read into a collection.
-
-Sheet _Data no keys_ contains some numbers. Create a procedure `CollNoKeys` that:
-
-   (1) Create a collection `col` and add all the numbers.
-   (2) Print the collection in a message box (you may use the function `Coll2Str` here).
-   (3) Create another collection and add all the items in `col` with value below 5.
-
-Sheet _Data with keys_ contains some ID numbers and prices for a set of products. Create a procedure `CollKeys` that:
-
-   (1) Create a collection `col` and add all the prices using ID as key.
-   (2) Print the price of the product with ID92011 in a message box.
-   (3) What happens if you try to print the price of ID92?
-   
-
-
-### Exercise - Job sequencing {#ex-vba-job-seq}
-
-The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-job-sequence-template.xlsm) should be used as a starting point for this exercise. 
-
-Consider $i = 1,...,n$ jobs that has to be done on a machine and let $c_{ij}$ denote the setup cost of switching from job $i$ to job $j$. Moreover, let $c_{0i}$ denote the setup cost of setting up job $i$ when the machine is idle (index 0). Let $s = (0, s_1, \ldots, s_n)$ denote the sequence of jobs and $C$ the total setup costs, e.g. if $s = (0,1,3,2,6,5,4)$, then $C = c_{01} + c_{13} + c_{32} + c_{26} + c_{65} + c_{54}$. Different algorithms for finding a good strategy minimizing the total setup costs exists. A greedy algorithm is:
-
-<div class="box">
-**Step 0**: Select the first job as one with minimal idle setup cost.
-
-**Step 1**: Given current job $i$ select the unscheduled with minimal setup cost. 
-
-**Step 2**: If no unscheduled jobs then stop and output the found job sequence else go to Step 1.
-</div>
-
-Often a better algorithm is:
-
-<div class="box">
-**Step 0**: For each column $j$ find $\bar{c}_j = min(c_{0j},\ldots,c_{j-1,j},c_{j+1,j},\ldots,c_{nj})$ and define relative setup costs $\hat{c}_{ij} = c_{ij}-\bar{c}_{j}$ (the cost is subtracted the minimum value in that column).
-
-**Step 1**: Call the greedy algorithm using costs $\hat{c}_{ij}$.
-</div>
-
-Consider sheet _Main_ that contains the setup costs for a scheduling problem.
-
-   (1) Implement the greedy algorithm in a sub `Greedy` that store the setup costs in an ($n+1 \times n$) 2D array `costs` assuming the setup costs table start in cell A4. Next, call the sub `GreedyAlg(costs)` that takes the costs as input argument. The sub must
-       - Store the job sequence in an 1D array.
-       - Output the number of jobs in cell C1, the job sequence in cell C2 and the total setup costs in cell F1.
-       - Highlight the cells with setup costs used in the sequence.
-       
-   (2) Implement the better algorithm in a sub `Better` that
-       - Find and store the minimum setup costs for each column.
-       - Calculate the relative costs.
-       - Call the greedy algorithm using the relative costs.
-       - Correct the total setup costs by adding the minimum costs.
-   (3) Add three buttons to _Main_ that remove the solution, run greedy and run better.
-   (4) Try to use different datasets from the sheet _Data_ and paste it into A4 in _Main_.
-
 
 ### Exercise - `ByRef` {#ex-vba-byref}
 
@@ -1351,6 +1488,48 @@ The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-byref-template.xl
       - Use `ReDim` to resize the array.
      
       Test the procedure using the `Main` procedure.
+
+
+
+
+
+<!-- ### Exercise - Job sequencing {#ex-vba-job-seq} -->
+
+<!-- The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-job-sequence-template.xlsm) should be used as a starting point for this exercise.  -->
+
+<!-- Consider $i = 1,...,n$ jobs that has to be done on a machine and let $c_{ij}$ denote the setup cost of switching from job $i$ to job $j$. Moreover, let $c_{0i}$ denote the setup cost of setting up job $i$ when the machine is idle (index 0). Let $s = (0, s_1, \ldots, s_n)$ denote the sequence of jobs and $C$ the total setup costs, e.g. if $s = (0,1,3,2,6,5,4)$, then $C = c_{01} + c_{13} + c_{32} + c_{26} + c_{65} + c_{54}$. Different algorithms for finding a good strategy minimizing the total setup costs exists. A greedy algorithm is: -->
+
+<!-- <div class="box"> -->
+<!-- **Step 0**: Select the first job as one with minimal idle setup cost. -->
+
+<!-- **Step 1**: Given current job $i$ select the unscheduled with minimal setup cost.  -->
+
+<!-- **Step 2**: If no unscheduled jobs then stop and output the found job sequence else go to Step 1. -->
+<!-- </div> -->
+
+<!-- Often a better algorithm is: -->
+
+<!-- <div class="box"> -->
+<!-- **Step 0**: For each column $j$ find $\bar{c}_j = min(c_{0j},\ldots,c_{j-1,j},c_{j+1,j},\ldots,c_{nj})$ and define relative setup costs $\hat{c}_{ij} = c_{ij}-\bar{c}_{j}$ (the cost is subtracted the minimum value in that column). -->
+
+<!-- **Step 1**: Call the greedy algorithm using costs $\hat{c}_{ij}$. -->
+<!-- </div> -->
+
+<!-- Consider sheet _Main_ that contains the setup costs for a scheduling problem. -->
+
+<!--    (1) Implement the greedy algorithm in a sub `Greedy` that store the setup costs in an ($n+1 \times n$) 2D array `costs` assuming the setup costs table start in cell A4. Next, call the sub `GreedyAlg(costs)` that takes the costs as input argument. The sub must -->
+<!--        - Store the job sequence in an 1D array. -->
+<!--        - Output the number of jobs in cell C1, the job sequence in cell C2 and the total setup costs in cell F1. -->
+<!--        - Highlight the cells with setup costs used in the sequence. -->
+
+<!--    (2) Implement the better algorithm in a sub `Better` that -->
+<!--        - Find and store the minimum setup costs for each column. -->
+<!--        - Calculate the relative costs. -->
+<!--        - Call the greedy algorithm using the relative costs. -->
+<!--        - Correct the total setup costs by adding the minimum costs. -->
+<!--    (3) Add three buttons to _Main_ that remove the solution, run greedy and run better. -->
+<!--    (4) Try to use different datasets from the sheet _Data_ and paste it into A4 in _Main_. -->
+
 
 ```{r links, child="links.md", include=FALSE}
 ```
