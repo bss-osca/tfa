@@ -1432,30 +1432,59 @@ Write a procedure `TM5_ReadArrays` that use course procedures `AryRead` and `Ary
 Use the debugger to inspect if the values have been read correctly into the arrays.
 
 
+### Exercise - Process numbers
+
+*This exercise is a slightly modified version an exam assignment (reexam 2022-A5).*
+
+Consider worksheet *TM5_ProcessData*, which contains a set of numbers. 
+
+(1) Create a procedure `TM5_Process` with the following features:
+   * Copy the numbers to worksheet *TM5_Process*.
+   * Scan all the numbers and remove (clear the cell) all the negative numbers.
+   * Highlight all the numbers above 20.
+   * Add a button to the worksheet *TM5_Process* that run the procedure. 
+   * The procedure should work for other datasets with a different size. You may assume that the data starts in cell A1.
+  
+(2) Create a procedure `TM5_Stat` with the following features:
+   * Scan the numbers and find
+      - the sum of all non-negative numbers,
+      - the mean of all negative numbers.
+   * Use a message box to display the sum and mean calculated.
+   * Add a button to the worksheet *TM5_ProcessData* that run the procedure. 
+   * The procedure should work for other datasets with a different size. You may assume that the data starts in cell A1.
+
+
+### Exercise - Search payments
+
+*This exercise is a slightly modified version an exam assignment (reexam 2022-A6).*
+
+Consider worksheet *TM5_PaymentsData* which contains a table with three columns. The table contains data about payments for clients at a set of dates.
+
+Create a procedure `TM5_SearchPayments` that searches the table with the following features:
+
+  * Read the _payment boolean_ in cell _B1_ (_TRUE_ or _FALSE_) and the _grouping string_ in cell _B2_ (_None_ or _Year_) on worksheet *TM5_Payments*.
+  * Only consider payments where cells in the _Payment_ column equals the payment boolean.
+  * If the grouping string equals _None_ then count the number of payments for each client. Next, output the results on worksheet *TM5_Payments*. See worksheet *TM5_PaymentsEx1* for an example.
+  * If the grouping string equals _Year_ then count the number of payments for each client and year. Next, output the results on worksheet *TM5_Payments*. See worksheet *TM5_PaymentsEx2*_ for an example.
+  * Add a button to worksheet *TM5_Payments* that run the procedure. 
+
+The procedure should work for other datasets with different number of rows too. 
+
+
 ### Exercise - Flight search {#ex-vba-flight}
 
-The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-flight-template.xlsm) should be used as a starting point for this exercise. 
+The worksheet *TM5_FlightData* contains a set of flights between different destinations. You task is to create a procedure `TM5_SearchFlights` that can search for matching flights given a set of origins and destinations. 
 
-The sheet _Data_ contains a set of flights between different destinations. You task is to create a program that can search for matching flights given a set of origins and destinations. 
+   (1) Have a look at the results in worksheet *TM5_FlightData*. The origin and destinations to search for are given in columns A and B and the search result in columns D, E and F. 
+   (2) Try pressing the **Clear Search** button and see what happens. Have a look at the code in the VBA editor for this sub and get an overview. 
+ 
 
-   (1) Have a look at the results in sheet _Main_. The origin and destinations to search for are given in columns A and B and the search result in columns D, E and F. 
-   (2) Try pressing the **Clear Search** button and see what happens. Have a look at the code in the VBA editor for this sub and get an overview. You are not expected to understand all the code.
-   (3) Try to finish the first part of the `SearchFlights` sub and store the flights in arrays. Use the debugger to check if the values are stored correctly. 
-
-```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
- For o = 1 To intOrigins
-     For i = 0 To intFlights - 1
-         If Cells(5 + o, 1) = Origin(i) Then 
-             For d = 1 To intDestinations
-                 ___
-             Next 
-         End If
-     Next 
- Next 
-```
-```{r, hint=TRUE, eval=FALSE, title="Hint 1", text="You need nested loops (loop over origins, flights, destinations)"}
+```{r, hint=TRUE, eval=FALSE, title="Hint", text="Set the range you want to read and use AryRead"}
 ```
    
+   (3) Try to finish the first part of the `TM5_SearchFlights` sub and store the flights in arrays. Use the debugger to check if the values are stored correctly. 
+
+
    (4) Try to finish the second part of the `SearchFlights` sub and search for matching origin-destination pairs. Note origins and destinations listed to be searched for are also matching origin-destination pairs if they are not in the same row.
    
 
@@ -1465,29 +1494,29 @@ The sheet _Data_ contains a set of flights between different destinations. You t
 
    
 
-### Exercise - `ByRef` {#ex-vba-byref}
+<!-- ### Exercise - `ByRef` {#ex-vba-byref} -->
 
-The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-byref-template.xlsm) should be used as a starting point for this exercise. 
+<!-- The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-byref-template.xlsm) should be used as a starting point for this exercise.  -->
 
-  (1) Create a procedure `AryToVal` satisfying:
-      - Arguments are `ByRef ary As Variant, value As Variant`.
-      - All entries in the array are set to `value`. 
-      - The procedure work both if the dimension of the array is 1 or 2. You may use `AryDim` to find the dimension.
-      
-      Test the procedure using the `Main` procedure.
-  (2) Create a procedure `AryToValByVal` equal to `AryToVal` except that arguments are `ByVal ary As Variant, value As Variant`. Test the procedure using the `Main` procedure. What is the difference?
-  (3) Create a procedure `AryToSeq` satisfying:
-      - Arguments are `ByRef ary As Variant, lngFrom As Long, lngTo As Long, Optional lngIdx As Long = 1`.
-      - Entries in the array is set to values `lngFrom` to `lngTo`.
-      - Use `ReDim` to resize the array.
-     
-      Test the procedure using the `Main` procedure.
-  (4) Create a procedure `AryRead` satisfying:
-      - Arguments are `ByRef ary As Variant, ByRef rng As Range, Optional intStartIdx1 As Integer = 1, Optional intStartIdx2 As Integer = 1`
-      - Entries in the range `rng` are stored in the array `ary`. 
-      - Use `ReDim` to resize the array.
-     
-      Test the procedure using the `Main` procedure.
+<!--   (1) Create a procedure `AryToVal` satisfying: -->
+<!--       - Arguments are `ByRef ary As Variant, value As Variant`. -->
+<!--       - All entries in the array are set to `value`.  -->
+<!--       - The procedure work both if the dimension of the array is 1 or 2. You may use `AryDim` to find the dimension. -->
+
+<!--       Test the procedure using the `Main` procedure. -->
+<!--   (2) Create a procedure `AryToValByVal` equal to `AryToVal` except that arguments are `ByVal ary As Variant, value As Variant`. Test the procedure using the `Main` procedure. What is the difference? -->
+<!--   (3) Create a procedure `AryToSeq` satisfying: -->
+<!--       - Arguments are `ByRef ary As Variant, lngFrom As Long, lngTo As Long, Optional lngIdx As Long = 1`. -->
+<!--       - Entries in the array is set to values `lngFrom` to `lngTo`. -->
+<!--       - Use `ReDim` to resize the array. -->
+
+<!--       Test the procedure using the `Main` procedure. -->
+<!--   (4) Create a procedure `AryRead` satisfying: -->
+<!--       - Arguments are `ByRef ary As Variant, ByRef rng As Range, Optional intStartIdx1 As Integer = 1, Optional intStartIdx2 As Integer = 1` -->
+<!--       - Entries in the range `rng` are stored in the array `ary`.  -->
+<!--       - Use `ReDim` to resize the array. -->
+
+<!--       Test the procedure using the `Main` procedure. -->
 
 
 
