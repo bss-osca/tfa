@@ -32,7 +32,7 @@ g <- create_learning_path(
    url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
    sheet = "vba-datatypes", 
    x_legend = NULL)
-render_graph(g, height = 400)
+render_graph(g, height = 200)
 ```
 
 If you like a different learning style there is a lot for videos about VBA online such as course [14-Hour VBA Course][vba-yt-course2]. The videos have been pointed out as extra online supplements in the learning path diagram. However, they are not necessary for the course. Since Excel change as new versions arrive and it work on different operating systems, the look in the screenshots and videos might be a bit different from your version. However, you still should be able to understand it. 
@@ -783,7 +783,7 @@ Here we sort based on the 2. column in the array.
 Since a range represent a block of cells in a sheet, one may think of a range a some kind of 1D or 2D array. Hence one may use a range directly to read/write values instead of an array (we did that in Section \@ref(vba-test-persons)). However, often arrays are better to use than ranges:
 
    * You can set indices as you like so they give a meaning to you, e.g. `intOrderSize(2, 10, 20)` denote the order size of product 20, in week 2 for customer 10.
-   * Arrays are much faster to update that ranges. It is much faster to  update the values many times in an array compared to a range.
+   * Arrays are much faster to update than ranges, More specific, it is much faster to update the values many times in an array compared to a range.
    * You worksheet and ranges may be seen as a place where you keep your data. Hence, when you run an algorithm, you first read the data into some arrays. Next, do some calculations (update the arrays) and finally output the result to a worksheet again. 
 
 Consider for example the distance matrix calculations in Section \@ref(vba-ex-dist-mat). Here it would be faster to store the distance matrix in a 2D array:
@@ -823,7 +823,7 @@ Collections are a way of storing a group of items together (think of it as a set
 Collections are a part of the predefined objects in VBA and hence a collection have to be defined in a special way. Let us consider an example:
 
 ```
-Sub TM5_CollEx()
+Sub TM5_ColEx()
     Dim col As New Collection   ' declare and create
     Dim e As Variant
     
@@ -833,7 +833,7 @@ Sub TM5_CollEx()
     Call col.Add("Apple")
     Call col.Add("Pear")
     Call col.Add(123)
-    Cells(4, 7) = "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+    Cells(4, 7) = "The collection now contains " & col.Count & " items: " & Col2Str(col)
     '' Use For Each to scan elements
     For Each e In col
       MsgBox (e)
@@ -843,7 +843,7 @@ Sub TM5_CollEx()
     Cells(6, 7) = "The 3. item is: " & col(3)
     ' Remove items
     Call col.Remove(2)
-    Cells(7, 7) = "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+    Cells(7, 7) = "The collection now contains " & col.Count & " items: " & Col2Str(col)
     '' Note index of items has now changed (the 3. item has become the 2. item)
     Cells(8, 7) = "The 1. item is: " & col(1)
     Cells(9, 7) = "The 2. item is: " & col(2)
@@ -865,19 +865,19 @@ Call col.Add(123)
 ```
 Let us create a function that prints the items of a collection as string:
 ```
-Function Coll2Str(col As Collection, Optional strSep As String = ", ") As String
+Function Col2Str(col As Collection, Optional strSep As String = ", ") As String
     Dim e As Variant
     Dim str As String
     
     For Each e In col
         str = str & e & strSep
     Next e
-    Coll2Str = Left(str, Len(str) - Len(strSep))
+    Col2Str = Left(str, Len(str) - Len(strSep))
 End Function
 ```
 Then the output of 
 ```
-"The collection now contains " & col.Count & " items: " & Coll2Str(col)
+"The collection now contains " & col.Count & " items: " & Col2Str(col)
 ```
 becomes
 ```
@@ -895,7 +895,7 @@ The 3. item is: 123
 Items are removed using:
 ```
 Call col.Remove (2)
-"The collection now contains " & col.Count & " items: " & Coll2Str(col)
+"The collection now contains " & col.Count & " items: " & Col2Str(col)
 ```
 
 ```
@@ -926,7 +926,7 @@ The collection now contains 0 items.
 An item in a collection can be given a key (think af a key as a name tag given to each item):
 
 ```
-Sub TM5_CollKeyEx()
+Sub TM5_ColKeyEx()
     Dim col As New Collection   ' declare and create
     Dim k As Variant
     
@@ -936,12 +936,12 @@ Sub TM5_CollKeyEx()
     Call col.Add("Jens Hansen", "ID234")
     Call col.Add("Lone Nielsen", "ID456")
     ' col.Add "Sine Mikkelsen", "ID456" ' gives an error since already used the key
-    Cells(12, 7) = "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+    Cells(12, 7) = "The collection now contains " & col.Count & " items: " & Col2Str(col)
     '' Access values using keys
     Cells(13, 7) = "The item with key ID123 is: " & col("ID123")
     ' Remove items using keys
     col.Remove "ID123"
-    Cells(14, 7) = "The collection now contains " & col.Count & " items: " & Coll2Str(col)
+    Cells(14, 7) = "The collection now contains " & col.Count & " items: " & Col2Str(col)
 End Sub
 ```
 
@@ -951,7 +951,7 @@ Here we add items using a key:
 Call col.Add("Hans Jørgensen", "ID123")   ' value, key
 Call col.Add("Jens Hansen", "ID234")
 Call col.Add("Lone Nielsen", "ID456")
-"The collection now contains " & col.Count & " items: " & Coll2Str(col)
+"The collection now contains " & col.Count & " items: " & Col2Str(col)
 ```
 
 ```
@@ -968,7 +968,7 @@ The item with key ID123 is: Hans Jørgensen
 Similar you can remove an item using a key:
 ```
 Call col.Remove("ID123")
-"The collection now contains " & col.Count & " items: " & Coll2Str(col)
+"The collection now contains " & col.Count & " items: " & Col2Str(col)
 ```
 
 ```
@@ -1406,13 +1406,13 @@ Consider the worksheet *TM5_Products* containing a set of products with product 
    
 ### Exercise - Read collections {#ex-vba-read-collections}
 
-Consider worksheet *TM5_Coll* with numbers in column A to be read into a collection. Create a procedure `TM5_CollNoKeys` that:
+Consider worksheet *TM5_Col* with numbers in column A to be read into a collection. Create a procedure `TM5_ColNoKeys` that:
 
    (1) Create a collection `col` and add all the numbers.
-   (2) Print the collection in a message box (you may use the function `Coll2Str` here).
+   (2) Print the collection in a message box (you may use the function `Col2Str` here).
    (3) Create another collection `colC` and add all the items in `col` with value below 5.
 
-Consider worksheet *TM5_Coll*  with some ID numbers and prices for a set of products in columns C-D. Create a procedure `TM5_CollKeys` that:
+Consider worksheet *TM5_Col*  with some ID numbers and prices for a set of products in columns C-D. Create a procedure `TM5_ColKeys` that:
 
    (1) Create a collection `col` and add all the prices using ID as key.
    (2) Print the price of the product with ID92011 in a message box.

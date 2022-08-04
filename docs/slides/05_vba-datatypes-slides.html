@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Advanced data types and usage</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Lars Relund Nielsen" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link rel="stylesheet" href="libs/slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Advanced data types and usage
+]
+.author[
+### Lars Relund Nielsen
+]
+
+---
+
+
+
+
+
+
+
+layout: true
+
+<div class="my-footer">
+<span>
+<a href="https://bss-osca.github.io/tfa/mod-05_vba-datatypes" target="_blank">Notes</a>
+ | 
+<a href="05_vba-datatypes-slides.html" target="_blank">Slides</a>
+ | 
+<a href="https://github.com/bss-osca/tfa/blob/master/slides/05_vba-datatypes-slides.Rmd" target="_blank">Source</a>
+ | 
+<a href="https://github.com/bss-osca/tfa/blob/master/vba/05-vba-datatypes-template.xlsm" target="_blank">Excel file</a>
+</span>
+</div>
+
+
+---
+
+## Variables
+
+.pull-left[
+- Variables are used to store information that is saved in memory.
+- A variable is a box that can contain 
+  - A number
+  - A string of text
+  - More advanced datatypes.
+- The variable name is the box label.
+- More advanced data types:
+  - A group of integers (an array) 
+  - A range of cells in a worksheet (a range object) 
+  - A set of numbers (a collection). 
+]
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="./img/storage.jpg" alt="Computer memory" width="120%" /&gt;
+&lt;p class="caption"&gt;Computer memory&lt;/p&gt;
+&lt;/div&gt;
+]
+
+---
+
+## Strings
+
+- Strings are special variables with varying length.
+- A few string functions:
+  ```
+    str = "VBA" &amp; " " &amp; "Strings"
+    MsgBox ("The length is: " &amp; Len(str))
+    MsgBox ("In lowercase: " &amp; LCase(str))
+    MsgBox ("Last 7 char: " &amp; Right(str, 7))
+    MsgBox ("Replace: " &amp; Replace(str, "Strings", "Rules"))
+    MsgBox ("Compare: " &amp; StrComp(str, "VBA Strings"))  ' result is 0 (equal)
+    MsgBox ("String is starting at char number: " &amp; _
+       InStr(str, "String"))  ' result is 0 if not found
+  ```
+- We use the `&amp;` to concatenate strings (glue strings together).
+- An empty string is of length zero.
+
+---
+
+## Objects
+
+- VBA have a lot of predefined objects you can use. 
+- An object is a datatype that holds a group of variables. 
+- Refer to an object by specifying the path in the hierarchy e.g. 
+  ```
+  Workbooks("Jobs.xlsm").Worksheets("Data values").Range("D4").value
+  ```
+  You may skip parts of the path (VBA then uses the current active one).
+- Warning, always specify what you want to be active (or the full path)	
+  ```
+  ThisWorkbook.Worksheets("Data values").Activate  ' activate the sheet
+  dbl = Range("D4")
+  ```
+
+---
+
+## Declaring and using an object variable
+
+- Declare object variables using:
+  ```
+  Dim rng As Range
+  Dim wst As Worksheet
+  ```
+- Set a reference to object variables using the keyword `Set`:
+  ```
+  Set rng = Range("F7")
+  Set wst = Worksheets("Data values")
+  ```
+- Now use the variable
+  ```
+  rng = 56
+  wst.Range("A2") = 56
+  ```
+
+---
+
+## The worksheet object
+
+- A `Worksheet` object refer to a worksheet and you can use it to e.g. modify cells:
+  ```
+  Worksheets("TM5_Test1").Range("B2") = "Testing Worksheet"  
+  Set wst1 = ThisWorkbook.Worksheets("TM5_Test1")  
+  wst1.Range("B6") = "Writing using wst1"
+  ```
+- Different functions for worksheets is part of the *[course procedures](#vba-course-procedures)* (start with `Wst`)
+- All worksheet procedures are stored in the `ModWst` module where further documentation is given.
+- Let us have a look at the examples in procedures `TM5_TestWorksheetVar` and `TM5_TestWorksheetFunc`.
+
+---
+
+## The range object
+
+- A range represents a cell, a row, a column, or a rectangular selection of cells. 
+  ```
+  Dim rng As Range
+  Set rng = Range("A1:D5")
+  rng = 145   ' cell value
+  MsgBox rng.Address   ' range address ($A$1:$D$5)
+  ```
+- You can use the [course procedures](#vba-course-procedures) (module *ModRng*) with prefix `RngGet` to retrieve info about the range: 
+  ```
+  Set rng = ThisWorkbook.Worksheets("TM5").Range("C4:E19")
+  MsgBox ("Number of rows: " &amp; RngGetRows(rng))
+  MsgBox ("Number of cols: " &amp; RngGetCols(rng))
+  MsgBox ("First column number: " &amp; RngGetFirstCol(rng))
+  MsgBox ("First column letter: " &amp; RngGetFirstCol(rng, asLetter:=True))
+  MsgBox ("Lower right cell: " &amp; RngGetLowerRight(rng, asString:=True))
+  MsgBox ("Upper right cell: " &amp; RngGetUpperRight(rng, asString:=True))
+  ```
+- Let us consider examples `TM5_RangeEx1` and `TM5_RangeEx2`.
+  
+---
+
+## Current region of a range
+
+.pull-left[
+The current region of a range is found by expanding the range until all cells surrounding the range is empty
+
+  ```
+  rng = Range("D23").CurrentRegion
+  MsgBox rng.Address  
+  ```
+This is useful if don't know the size for data.
+
+You can use the [course procedures](#vba-course-procedures) (module *ModRng*) with prefix `RngGetCurRegion` to retrieve info about the current region of a range.
+]
+.pull-right[
+Examples are given in procedures `TM5_CurrentRegionEx1` and `TM5_CurrentRegionEx2`.
+
+&lt;br/&gt;&lt;br/&gt;
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="./img/currentregion.png" alt="What is the current region of D23?" width="120%" /&gt;
+&lt;p class="caption"&gt;What is the current region of D23?&lt;/p&gt;
+&lt;/div&gt;
+]
+
+---
+  
+## Sorting a range
+
+We can [sort](https://docs.microsoft.com/en-us/office/vba/api/excel.range.sort) the columns in a range. For instance sort a range ascending with respect to the second column and next descending with respect to the first column.
+
+```
+Call rng.Sort(Key1:=rng.Columns(2), Order1:=xlAscending, _
+             Key2:=rng.Columns(1), Order2:=xlDescending, Header:=xlYes)
+```
+
+Examples can be seen in procedure `TM5_SortRangeEx`.
+
+---
+
+## Arrays
+
+.pull-left[
+* An array store groups of variables of a specific datatype.
+  ```
+  Dim intValues(4) As Integer
+  ```
+]
+.pull-right[
+&lt;img src="./img/array.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+* Access to value in the box with index 2:
+  ```
+  MsgBox(intValues(2))  ' return 222 
+  ```
+- The default start index of an array is 0. If you want to start with index 1 then add `Option Base 1` to the top of your module or use:
+  ```
+  Dim strAry(3 To 5) As String  ' define array with index 3-5
+  ```
+  
+Let us have look at procedures `TM5_ArrayEx`.
+
+---
+
+## Multidimension arrays
+
+.pull-left[
+An array can have different dimensions:
+  ```
+  Dim intOrderSize(52, 100, 50) As Integer  
+  ```
+where indices may be (week, customer, product) number. Let us assume that index start from 1 then we have an array with `\(52 \cdot 100 \cdot 50\)` elements which can be accessed using e.g.
+]
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="./img/3d-array.png" alt="Arrays with different dimensions." width="100%" /&gt;
+&lt;p class="caption"&gt;Arrays with different dimensions.&lt;/p&gt;
+&lt;/div&gt;
+]
+
+  ```
+  
+  MsgBox intOrderSize(2, 10, 20)  ' order size week 2, customer 10, product 20 
+  ```
+
+Let us have a look at procedure `TM5_MultiDimArrayEx`.
+
+---
+
+## Dynamic arrays
+
+Often we don't know the size of the array we need when we start the program. Use `ReDim` to set the dimension 
+ 
+```
+Dim strPeople() As String
+...
+n = 8
+ReDim strPeople(n)
+```
+
+Let us have a look at procedure `TM5_DynArrayEx`.
+
+You can always lowest and highest index using functions `LBound` and `UBound`
+
+---
+
+## Input and output
+
+A set of [course procedures](#vba-course-procedures) (module *ModAry*)  have been defined to read/set the values in an array and output the values of an array.
+
+Let us try to see some working examples using procedures `TM5_IOAryEx`, `TM5_AryReadEx` and `TM5_AryReadLongEx`.
+
+---
+
+## Use arrays instead of ranges
+
+Since a range represent a block of cells in a sheet, one may think of a range a some kind of 1D or 2D array. Hence one may use a range directly to read/write values instead of an array. However, often arrays are better to use than ranges:
+
+   * You can set indices as you like so they give a meaning to you, e.g. `intOrderSize(2, 10, 20)` denote the order size of product 20, in week 2 for customer 10.
+   * Arrays are much faster to update that ranges. It is much faster to  update the values many times in an array compared to a range.
+   * You worksheet and ranges may be seen as a place where you keep your data. Hence, when you run an algorithm, you first read the data into some arrays. Next, do some calculations (update the arrays) and finally output the result to a worksheet again. 
+
+
+---
+
+
+## Collections
+
+Collections are a way of storing a group of items together (think of it as a set). If we compare collections against arrays:
+
+- Collections are similar to arrays but better to use when the number of items is not fixed. With an array you normally set the size once. On the contrary you often add or remove items from a collection.
+- Collections are better when adding and removing items.
+- An item in a collection are read-only whereas an entry in an array are read/write.
+- Collection can be accessed using a key or an index (starting from 1).
+- Items of a collection do not have to share the same data type.
+
+Have a look at the examples in procedures `TM5_ColEx` and 
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightLines": true,
+"highlightStyle": "solarized-light",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
