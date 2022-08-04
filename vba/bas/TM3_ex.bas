@@ -304,19 +304,20 @@ End Function
 ' @pre Assume that coordinates are stored in column B and C starting from row 2
 '      and that number of points are stored in E1.
 Sub TM3_MakeDistanceMatrix()
-    Dim n As Integer
+    Dim N As Integer
     Dim i As Integer
     Dim j As Integer
       
-    n = Range("E1")
-    For i = 1 To n  ' add row and column numbers
+    ThisWorkbook.Worksheets("TM3_DistanceMatrix").Activate
+    N = Range("E1")
+    For i = 1 To N  ' add row and column numbers
         Cells(i + 1, 6) = Cells(1 + i, 1) ' row equals i+1
         Cells(1, 6 + i) = Cells(1 + i, 1) ' column equals i+6
     Next
     
     ' add distances
-    For i = 1 To n
-        For j = 1 To n
+    For i = 1 To N
+        For j = 1 To N
            Cells(i + 1, j + 6) = TM3_Distance(Cells(i + 1, 2), Cells(i + 1, 3), Cells(j + 1, 2), Cells(j + 1, 3))
         Next
     Next
@@ -328,18 +329,19 @@ End Sub
 ' @pre Assume that coordinates are stored in column B and C starting from row 2
 '      and that number of points are stored in E1.
 Public Sub TM3_MakeSymetricDistanceMatrix()
-    Dim n As Integer
+    Dim N As Integer
     Dim i As Integer
     Dim j As Integer
       
-    n = Range("E1")
-    For i = 1 To n
+    ThisWorkbook.Worksheets("TM3_DistanceMatrix").Activate
+    N = Range("E1")
+    For i = 1 To N
         Cells(i + 1, 6) = Cells(1 + i, 1)
         Cells(1, 6 + i) = Cells(1 + i, 1)
     Next
     
-    For i = 1 To n
-        For j = i + 1 To n
+    For i = 1 To N
+        For j = i + 1 To N
            Cells(i + 1, j + 6) = TM3_Distance(Cells(i + 1, 2), Cells(i + 1, 3), Cells(j + 1, 2), Cells(j + 1, 3))
         Next
     Next
@@ -385,7 +387,7 @@ Sub TM3_ClearPersons3()
 End Sub
 
 Sub TM3_ClearDist()
-    Call RngClear(Worksheets("TM3_DistanceMatrix").Range("F1:P11"), True)
+    Call RngClear(Worksheets("TM3_DistanceMatrix").Range("F1:P11"), blnCells:=False, blnContents:=True)
 End Sub
 
 Sub TM3_ClearNumbers()

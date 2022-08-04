@@ -163,17 +163,17 @@ End Function
 
 ' Try running it using F5 or the debugger (Ctrl + F8 (win) or cmd + shift + I (mac))
 Private Sub TM4_TestBy()
-    Dim n As Integer
+    Dim N As Integer
     Dim i As Integer
     
     i = 5
     MsgBox ("In the start i is " & i)
-    n = TM4_ByVal(i)
+    N = TM4_ByVal(i)
     MsgBox ("Try gussing the values of n and i")
-    MsgBox ("After TM4_ByVal i is " & i & " and " & n & " is returned.")
-    n = TM4_ByRef(i)
+    MsgBox ("After TM4_ByVal i is " & i & " and " & N & " is returned.")
+    N = TM4_ByRef(i)
     MsgBox ("Try gussing the values of n and i")
-    MsgBox ("After TM4_ByRef i is " & i & " and " & n & " is returned.")
+    MsgBox ("After TM4_ByRef i is " & i & " and " & N & " is returned.")
 End Sub
 
 
