@@ -1,0 +1,300 @@
+---
+title: "Advanced data types and usage"
+author: "Lars Relund Nielsen"
+output:
+  xaringan::moon_reader:
+    css: "./libs/slides.css"
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+      highlightStyle: solarized-light
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, child = "setup.Rmd", echo=FALSE}
+```
+
+```{r include=FALSE, eval=FALSE}
+# to preview
+xaringan::inf_mr(cast_from = ".", quiet = T)
+```
+
+layout: true
+
+```{r, echo=FALSE}
+module_name <- "vba-datatypes"
+module_number_prefix <- "05"
+module_number <- as.numeric(module_number_prefix)
+add_footer(module_number_prefix, module_name, use_excel = T)
+knitr::opts_chunk$set(fig.path=str_c("img/", module_name, "-"))
+``` 
+
+
+---
+
+## Variables
+
+.pull-left[
+- Variables are used to store information that is saved in memory.
+- A variable is a box that can contain 
+  - A number
+  - A string of text
+  - More advanced datatypes.
+- The variable name is the box label.
+- More advanced data types:
+  - A group of integers (an array) 
+  - A range of cells in a worksheet (a range object) 
+  - A set of numbers (a collection). 
+]
+
+.pull-right[
+```{r, echo = FALSE, out.width="120%", fig.cap="Computer memory"} 
+knitr::include_graphics("./img/storage.jpg", dpi = 250) 
+```
+]
+
+---
+
+## Strings
+
+- Strings are special variables with varying length.
+- A few string functions:
+  ```
+    str = "VBA" & " " & "Strings"
+    MsgBox ("The length is: " & Len(str))
+    MsgBox ("In lowercase: " & LCase(str))
+    MsgBox ("Last 7 char: " & Right(str, 7))
+    MsgBox ("Replace: " & Replace(str, "Strings", "Rules"))
+    MsgBox ("Compare: " & StrComp(str, "VBA Strings"))  ' result is 0 (equal)
+    MsgBox ("String is starting at char number: " & _
+       InStr(str, "String"))  ' result is 0 if not found
+  ```
+- We use the `&` to concatenate strings (glue strings together).
+- An empty string is of length zero.
+
+---
+
+## Objects
+
+- VBA have a lot of predefined objects you can use. 
+- An object is a datatype that holds a group of variables. 
+- Refer to an object by specifying the path in the hierarchy e.g. 
+  ```
+  Workbooks("Jobs.xlsm").Worksheets("Data values").Range("D4").value
+  ```
+  You may skip parts of the path (VBA then uses the current active one).
+- Warning, always specify what you want to be active (or the full path)	
+  ```
+  ThisWorkbook.Worksheets("Data values").Activate  ' activate the sheet
+  dbl = Range("D4")
+  ```
+
+---
+
+## Declaring and using an object variable
+
+- Declare object variables using:
+  ```
+  Dim rng As Range
+  Dim wst As Worksheet
+  ```
+- Set a reference to object variables using the keyword `Set`:
+  ```
+  Set rng = Range("F7")
+  Set wst = Worksheets("Data values")
+  ```
+- Now use the variable
+  ```
+  rng = 56
+  wst.Range("A2") = 56
+  ```
+
+---
+
+## The worksheet object
+
+- A `Worksheet` object refer to a worksheet and you can use it to e.g. modify cells:
+  ```
+  Worksheets("TM5_Test1").Range("B2") = "Testing Worksheet"  
+  Set wst1 = ThisWorkbook.Worksheets("TM5_Test1")  
+  wst1.Range("B6") = "Writing using wst1"
+  ```
+- Different functions for worksheets is part of the *[course procedures](#vba-course-procedures)* (start with `Wst`)
+- All worksheet procedures are stored in the `ModWst` module where further documentation is given.
+- Let us have a look at the examples in procedures `TM5_TestWorksheetVar` and `TM5_TestWorksheetFunc`.
+
+---
+
+## The range object
+
+- A range represents a cell, a row, a column, or a rectangular selection of cells. 
+  ```
+  Dim rng As Range
+  Set rng = Range("A1:D5")
+  rng = 145   ' cell value
+  MsgBox rng.Address   ' range address ($A$1:$D$5)
+  ```
+- You can use the [course procedures](#vba-course-procedures) (module *ModRng*) with prefix `RngGet` to retrieve info about the range: 
+  ```
+  Set rng = ThisWorkbook.Worksheets("TM5").Range("C4:E19")
+  MsgBox ("Number of rows: " & RngGetRows(rng))
+  MsgBox ("Number of cols: " & RngGetCols(rng))
+  MsgBox ("First column number: " & RngGetFirstCol(rng))
+  MsgBox ("First column letter: " & RngGetFirstCol(rng, asLetter:=True))
+  MsgBox ("Lower right cell: " & RngGetLowerRight(rng, asString:=True))
+  MsgBox ("Upper right cell: " & RngGetUpperRight(rng, asString:=True))
+  ```
+- Let us consider examples `TM5_RangeEx1` and `TM5_RangeEx2`.
+  
+---
+
+## Current region of a range
+
+.pull-left[
+The current region of a range is found by expanding the range until all cells surrounding the range is empty
+
+  ```
+  rng = Range("D23").CurrentRegion
+  MsgBox rng.Address  
+  ```
+This is useful if don't know the size for data.
+
+You can use the [course procedures](#vba-course-procedures) (module *ModRng*) with prefix `RngGetCurRegion` to retrieve info about the current region of a range.
+]
+.pull-right[
+Examples are given in procedures `TM5_CurrentRegionEx1` and `TM5_CurrentRegionEx2`.
+
+<br/><br/>
+
+```{r, echo = FALSE, out.width="120%", fig.cap="What is the current region of D23?"} 
+knitr::include_graphics("./img/currentregion.png") 
+```
+]
+
+---
+  
+## Sorting a range
+
+We can [sort](https://docs.microsoft.com/en-us/office/vba/api/excel.range.sort) the columns in a range. For instance sort a range ascending with respect to the second column and next descending with respect to the first column.
+
+```
+Call rng.Sort(Key1:=rng.Columns(2), Order1:=xlAscending, _
+             Key2:=rng.Columns(1), Order2:=xlDescending, Header:=xlYes)
+```
+
+Examples can be seen in procedure `TM5_SortRangeEx`.
+
+---
+
+## Arrays
+
+.pull-left[
+* An array store groups of variables of a specific datatype.
+  ```
+  Dim intValues(4) As Integer
+  ```
+]
+.pull-right[
+```{r, echo = FALSE, out.width="100%"} 
+knitr::include_graphics("./img/array.png") 
+```
+]
+
+* Access to value in the box with index 2:
+  ```
+  MsgBox(intValues(2))  ' return 222 
+  ```
+- The default start index of an array is 0. If you want to start with index 1 then add `Option Base 1` to the top of your module or use:
+  ```
+  Dim strAry(3 To 5) As String  ' define array with index 3-5
+  ```
+  
+Let us have look at procedures `TM5_ArrayEx`.
+
+---
+
+## Multidimension arrays
+
+.pull-left[
+An array can have different dimensions:
+  ```
+  Dim intOrderSize(52, 100, 50) As Integer  
+  ```
+where indices may be (week, customer, product) number. Let us assume that index start from 1 then we have an array with $52 \cdot 100 \cdot 50$ elements which can be accessed using e.g.
+]
+.pull-right[
+```{r, echo = FALSE, out.width="100%", fig.cap="Arrays with different dimensions."} 
+knitr::include_graphics("./img/3d-array.png") 
+```
+]
+
+  ```
+  
+  MsgBox intOrderSize(2, 10, 20)  ' order size week 2, customer 10, product 20 
+  ```
+
+Let us have a look at procedure `TM5_MultiDimArrayEx`.
+
+---
+
+## Dynamic arrays
+
+Often we don't know the size of the array we need when we start the program. Use `ReDim` to set the dimension 
+ 
+```
+Dim strPeople() As String
+...
+n = 8
+ReDim strPeople(n)
+```
+
+Let us have a look at procedure `TM5_DynArrayEx`.
+
+You can always lowest and highest index using functions `LBound` and `UBound`
+
+---
+
+## Input and output
+
+A set of [course procedures](#vba-course-procedures) (module *ModAry*)  have been defined to read/set the values in an array and output the values of an array.
+
+Let us try to see some working examples using procedures `TM5_IOAryEx`, `TM5_AryReadEx` and `TM5_AryReadLongEx`.
+
+---
+
+## Use arrays instead of ranges
+
+Since a range represent a block of cells in a sheet, one may think of a range a some kind of 1D or 2D array. Hence one may use a range directly to read/write values instead of an array. However, often arrays are better to use than ranges:
+
+   * You can set indices as you like so they give a meaning to you, e.g. `intOrderSize(2, 10, 20)` denote the order size of product 20, in week 2 for customer 10.
+   * Arrays are much faster to update that ranges. It is much faster to  update the values many times in an array compared to a range.
+   * You worksheet and ranges may be seen as a place where you keep your data. Hence, when you run an algorithm, you first read the data into some arrays. Next, do some calculations (update the arrays) and finally output the result to a worksheet again. 
+
+---
+
+## Collections
+
+Collections are a way of storing a group of items together (think of it as a set). If we compare collections against arrays:
+
+- Collections are similar to arrays but better to use when the number of items is not fixed. With an array you normally set the size once. On the contrary you often add or remove items from a collection.
+- Collections are better when adding and removing items.
+- An item in a collection are read-only whereas an entry in an array are read/write.
+- Collection can be accessed using a key or an index (starting from 1).
+- Items of a collection do not have to share the same data type.
+
+Have a look at the examples in procedures `TM5_ColEx` and `TM5_ColKeyEx`.
+
+
+
+
+
+```{r copy to docs, include=FALSE}
+file.copy(list.files(pattern = ".html"), "../docs/slides/", overwrite = T)
+file.copy("./slides.css", "./libs/", overwrite = T)
+file.copy("libs", "../docs/slides/", recursive = T)
+file.copy("img", "../docs/slides/", recursive = T)
+system2("Rscript", args = "-e 'rmarkdown::render(\"index.Rmd\", quiet = TRUE)'")
+```
