@@ -23,7 +23,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2022-08-04" />
+<meta name="date" content="2022-08-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -307,13 +307,17 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="6.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#lo-vba-random-numbers"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="6.2" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#vba-random-numbers"><i class="fa fa-check"></i><b>6.2</b> Generating random numbers</a></li>
-<li class="chapter" data-level="6.3" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#vba-simulation"><i class="fa fa-check"></i><b>6.3</b> Simulation</a></li>
+<li class="chapter" data-level="6.3" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#vba-simulation"><i class="fa fa-check"></i><b>6.3</b> Simulation</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#sec-vba-tsp"><i class="fa fa-check"></i><b>6.3.1</b> Example - Traveling salesman problem</a></li>
+</ul></li>
 <li class="chapter" data-level="6.4" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#recap-3"><i class="fa fa-check"></i><b>6.4</b> Recap</a></li>
 <li class="chapter" data-level="6.5" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-random-numbers"><i class="fa fa-check"></i><b>6.5</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-generate"><i class="fa fa-check"></i><b>6.5.1</b> Exercise - Generating random numbers</a></li>
-<li class="chapter" data-level="6.5.2" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-tsp"><i class="fa fa-check"></i><b>6.5.2</b> Exercise - Traveling salesman problem</a></li>
+<li class="chapter" data-level="6.5.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#exercise---two-random-integers"><i class="fa fa-check"></i><b>6.5.1</b> Exercise - Two random integers</a></li>
+<li class="chapter" data-level="6.5.2" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#exercise---swap-entries"><i class="fa fa-check"></i><b>6.5.2</b> Exercise - Swap entries</a></li>
 <li class="chapter" data-level="6.5.3" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-bakery"><i class="fa fa-check"></i><b>6.5.3</b> Exercise - Dan’s bakery</a></li>
+<li class="chapter" data-level="6.5.4" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-generate"><i class="fa fa-check"></i><b>6.5.4</b> Exercise - Generating random numbers</a></li>
 </ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -373,11 +377,22 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="mod-vba-random-numbers" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Module 6</span> Generating random numbers<a href="mod-vba-random-numbers.html#mod-vba-random-numbers" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This module gives a short introduction on how to generate random numbers and using them in a simulation.
-<strong>Learning path diagram</strong></p>
+<p>This module gives a short introduction on how to generate random numbers and using them in a simulation. Simulation studies that you do in Excel may be done easier using VBA toggeather with Excel. For more advanced simulation studies you may use dedicated programs (such as Arena) or Excel plugins (such as @Risk).</p>
+<div>
+A template with VBA code for this module is given in the file
+<a href="https://github.com/bss-osca/tfa/blob/master/vba/06-vba-random-numbers-template.xlsm" target="_blank">06-vba-random-numbers-template.xlsm</a>
+(open it and use it while reading the notes). Have a look inside the module
+<i>TM6_ex</i>
+in the VBA editor for examples used in the notes and during lectures. Have a look at module
+<i>TM6_exercises</i>
+for exercises. The template file for next teaching module will contain guiding answers for the exercises to this teaching module.
+</div>
+<div id="learning-path-diagram-5" class="section level4 unnumbered hasAnchor">
+<h4>Learning path diagram<a href="mod-vba-random-numbers.html#learning-path-diagram-5" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Click/hover the nodes to follow links and see details.</p>
-<div id="htmlwidget-baf8064d39f8a7880ba8" style="width:100%;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-baf8064d39f8a7880ba8">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 Random numbers\", URL = \"#vba-random-numbers\", tooltip = \"Random numbers\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"2,1!\"] \n  \"2\" [label = \"📖 Simulation\", URL = \"#vba-simulation\", tooltip = \"Simulation\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"5,1!\"] \n  \"3\" [label = \"💻 Exercises\", URL = \"#ex-vba-random-numbers\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"8,1!\"] \n  \"4\" [label = \"\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"4.1,-0.34!\"] \n  \"5\" [label = \"Color:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"1.47,0!\"] \n  \"6\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"1.7,-0.4!\"] \n  \"7\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"2.7,-0.4!\"] \n  \"8\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"3.7,-0.4!\"] \n  \"9\" [label = \"Shape:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"4.9,0!\"] \n  \"10\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"1\", fillcolor = \"Grey40\", pos = \"5.2,-0.4!\"] \n  \"11\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", width = \"1\", fillcolor = \"Grey40\", pos = \"6.45,-0.4!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-65c3579e212dc39c1bdf" style="width:100%;height:100px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-65c3579e212dc39c1bdf">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 Random numbers\", URL = \"#vba-random-numbers\", tooltip = \"Random numbers\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"2,1!\"] \n  \"2\" [label = \"📖 Simulation\", URL = \"#vba-simulation\", tooltip = \"Simulation\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"5,1!\"] \n  \"3\" [label = \"💻 Exercises\", URL = \"#ex-vba-random-numbers\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"8,1!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
 <div id="lo-vba-random-numbers" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> Learning outcomes<a href="mod-vba-random-numbers.html#lo-vba-random-numbers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>By the end of this module, you are expected to be able to:</p>
@@ -394,13 +409,350 @@ div.csl-indent {
 </div>
 <div id="vba-random-numbers" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Generating random numbers<a href="mod-vba-random-numbers.html#vba-random-numbers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Often we want to model a system where some of the elements are uncertain. To simulate the system we want to generate some random numbers following different distributions. This can be done using the built-in VBA and Excel functions.</p>
-<p>Read Sections 18.1 of Chapter 18 in <span class="citation">Wøhlk (<a href="#ref-vba-book" role="doc-biblioref">2010</a>)</span>.</p>
+<p>Often we want to model a system where some of the elements are uncertain. To simulate the system we want to generate some random numbers following different distributions. This can be done using the built-in VBA and Excel functions for most distributions. The <a href="apdx-vba.html#vba-course-procedures">course procedures</a> (module <em>ModRand</em>) contain a set of procedures for generating random numbers. Let us have a look at how to generate random numbers from a uniform distribution:</p>
+<pre><code>&#39;&#39; Generate random numbers from an uniform distribution
+&#39; @param intSize Random numbers generated
+&#39; @param dblMin Minimum number.
+&#39; @param dblMax Maximum number.
+&#39; @param ary Array to store the values in.
+Sub RandGenUniform(intSize As Integer, dblMin As Double, dblMax As Double, ary() As Double)
+    Dim i As Integer
+    ReDim ary(intSize) As Double
+    
+    Randomize &#39; initialize random-number generator
+    For i = 1 To intSize
+        ary(i) = dblMin + (dblMax - dblMin) * Rnd()
+    Next
+End Sub</code></pre>
+<p>First, observe that in the start of the procedure, the <code>Randomize</code> procedure is called. <code>Randomize</code> initialize the random-number generator and it is always a good idea to call it if you want true random numbers. Next, the <code>Rnd</code> function is used to generate random numbers in the interval <span class="math inline">\([0,1[\)</span>, i.e. a continuous uniform distribution. The <code>Rnd</code> function is a built-in VBA function. Finally, to generate random numbers between [<code>dblMin</code>, <code>dblMax</code>[, we use the formula <code>dblMin + (dblMax - dblMin) * Rnd()</code>. An array <code>ary</code> of <code>intSize</code> is used to store the random numbers. Similar you can generate random integers using the <code>RandBetween</code> Excel function.</p>
+<p>You can generate random numbers from a normal distribution using:</p>
+<pre><code>&#39;&#39; Generate random numbers from a normal distribution
+&#39; @param intSize Random numbers generated
+&#39; @param dblMean Mean.
+&#39; @param dblSD Standard deviation.
+&#39; @param ary Array to store the values in.
+Sub RandGenNormal(intSize As Integer, dblMean As Double, dblSD As Double, ary() As Double)
+    Dim i As Integer
+    ReDim ary(intSize) As Double
+    
+    Randomize
+    For i = 1 To intSize
+        ary(i) = Application.WorksheetFunction.NormInv(Rnd, dblMean, dblSD)
+    Next
+End Sub</code></pre>
+<p>The procedure takes the mean and standard deviation as arguments and store <code>intSize</code> random numbers in the output array <code>ary</code>.</p>
+<p>Similar procedures can be found for the uniform, binomial, poisson and a custom discrete distribution. Let us try some examples:</p>
+<pre><code>Sub TM6_RandDistEx()
+    Dim ary() As Double
+    Dim aryDens() As Double
+    Dim intSize As Integer
+    
+    ThisWorkbook.Worksheets(&quot;TM6&quot;).Activate
+    Call TM6_ClearTestTM6
+    Randomize    &#39; initialize random-number generator
+    intSize = 20 &#39; generate 20 numbers for each distribution
+    &#39; Normal
+    Call RandGenNormal(intSize, 100, 20, ary)
+    Range(&quot;A1&quot;) = &quot;Normal&quot;
+    Call AryPaste(ary, Range(&quot;A2&quot;), False)
+    &#39; Cont. uniform [10,500[
+    Call RandGenUniformCont(intSize, 10, 500, ary)
+    Range(&quot;B1&quot;) = &quot;Uniform&quot;
+    Call AryPaste(ary, Range(&quot;B2&quot;), False)
+    &#39; Discrete uniform 10,...,500
+    Call RandGenUniformDisc(intSize, 10, 500, ary)
+    Range(&quot;B1&quot;) = &quot;Uniform&quot;
+    Call AryPaste(ary, Range(&quot;B2&quot;), False)
+    &#39; Binomial 100 trials, pr = 0.2
+    Call RandGenBinomial(intSize, 100, 0.2, ary)
+    Range(&quot;C1&quot;) = &quot;Binomial&quot;
+    Call AryPaste(ary, Range(&quot;C2&quot;), False)
+    &#39; Poisson lambda = 5
+    Call RandGenPoisson(intSize, 5, ary)
+    Range(&quot;D1&quot;) = &quot;Poisson&quot;
+    Call AryPaste(ary, Range(&quot;D2&quot;), False)
+    &#39; Custom discrete
+    ReDim aryDens(1 To 4, 1 To 2)
+    aryDens(1, 1) = 3
+    aryDens(2, 1) = 4
+    aryDens(3, 1) = 5
+    aryDens(4, 1) = 6
+    aryDens(1, 2) = 0.1
+    aryDens(2, 2) = 0.3
+    aryDens(3, 2) = 0.5
+    aryDens(4, 2) = 0.1
+    Call RandGenDiscrete(intSize, aryDens, ary)
+    Range(&quot;E1&quot;) = &quot;Custom&quot;
+    Call AryPaste(ary, Range(&quot;E2&quot;), False)
+    Range(&quot;G3&quot;) = &quot;Custom distribution:&quot;
+    Range(&quot;G4&quot;) = &quot;Value&quot;
+    Range(&quot;H4&quot;) = &quot;Prob.&quot;
+    Call AryPaste(aryDens, Range(&quot;G5&quot;))
+End Sub</code></pre>
+<p>We generate 20 random numbers for the different distributions. For generating random numbers from a custom discrete distribution we need a 2D array where each row store the outcome and the probability. For instance here the probability of outcome 5 is 50%.</p>
 </div>
 <div id="vba-simulation" class="section level2 hasAnchor" number="6.3">
 <h2><span class="header-section-number">6.3</span> Simulation<a href="mod-vba-random-numbers.html#vba-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Given an uncertain system we simulate the system by constructing a deterministic model (that is we assume the random numbers have some specific values) and algorithms for solving it. Next, random numbers are generated and used to solve the model and store the results. This is repeated a number of times and statistics such as min, mean, standard deviation or max value of a statistic can be found.</p>
-<p>Read Sections 18.2 of Chapter 18 in <span class="citation">Wøhlk (<a href="#ref-vba-book" role="doc-biblioref">2010</a>)</span>.</p>
+<p>Given an uncertain system we simulate the system by:</p>
+<ol style="list-style-type: decimal">
+<li>constructing a deterministic model (that is we assume the random numbers have some specific values) and algorithms for solving it.</li>
+<li>Generate random numbers and use them to solve the model and store the results.</li>
+<li>Repeat a number of times and gather statistics such as min, mean, standard deviation or max value.</li>
+</ol>
+<p>Let us consider some examples in the next sections.</p>
+<div id="sec-vba-tsp" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Example - Traveling salesman problem<a href="mod-vba-random-numbers.html#sec-vba-tsp" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <a href="https://en.wikipedia.org/wiki/Travelling_salesman_problem">travelling salesman problem</a> (TSP) asks the following question:</p>
+<blockquote>
+<p>Given a list of cities and the distances between each pair of the cities,
+what is the shortest possible route that visits each city exactly once
+and returns to the origin city?</p>
+</blockquote>
+<p>The problem is an NP-hard problem (worst case solution time grows exponential with the number of cities) in combinatorial optimization, important in theoretical computer science and operations research. The problem was first formulated in 1930 and is one of the most intensively studied problems in optimization. Even though the problem is computationally difficult, many heuristics and exact algorithms are known.</p>
+<p>The goal with this example is to test different heuristics on a set of problem instances. To see which one works best.</p>
+<p>Let us first create a procedure <code>TM6_GenTSPData</code> that generate a TSP instance:</p>
+<pre><code>&#39;&#39; Generate cities for the TSP (a TSP problem instance)
+&#39; @param dblCoord A (cities x 3) array to store the generated id and coordinates in (output ByRef).
+&#39; @param intCities Number of cities to generate. If 0 then ask.
+&#39; @param blnPrint If true then print out the data in columns A:C in the TM6_TSP sheet.
+Sub TM6_GenTSPData(dblCoord() As Double, Optional intCities As Integer = 0, _
+                       Optional blnPrint As Boolean = False)
+    Dim dblMin As Double
+    Dim dblMax As Double
+    Dim i As Integer
+    Dim ary1() As Double, ary2() As Double
+    
+    Randomize
+    &#39; Min and max values for uniform distribution
+    dblMin = 0
+    dblMax = 10
+    &#39; Reallocate
+    If intCities = 0 Then intCities = InputBox(&quot;How many points should I generate?&quot;)
+    ReDim dblCoord(1 To intCities, 1 To 3)
+    &#39; Generate random numbers
+    Call RandGenUniformCont(intCities, dblMin, dblMax, ary1)
+    Call RandGenUniformCont(intCities, dblMin, dblMax, ary2)
+    For i = 1 To intCities
+        dblCoord(i, 1) = i
+        dblCoord(i, 2) = ary1(i)
+        dblCoord(i, 3) = ary2(i)
+    Next
+    &#39;&#39; Print data
+    If blnPrint Then
+        ThisWorkbook.Worksheets(&quot;TM6_TSP&quot;).Activate
+        Call TM6_ClearTestTSP
+        Cells(1, 1).value = &quot;City&quot;
+        Cells(1, 2).value = &quot;x-coord&quot;
+        Cells(1, 3).value = &quot;y-coord&quot;
+        For i = 1 To intCities
+            Cells(i + 1, 1).value = dblCoord(i, 1)
+            Cells(i + 1, 2).value = dblCoord(i, 2)
+            Cells(i + 1, 3).value = dblCoord(i, 3)
+        Next
+    End If
+End Sub</code></pre>
+<p>Note we specify the number of cities as an input argument. Each city has an id number and a <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>-coordinate and the result is stored in array <code>dblCoord</code> with <code>intCities</code> rows and three columns (column 1 store the city id, column 2 the <span class="math inline">\(x\)</span>-coordinate and column 3 the <span class="math inline">\(y\)</span>-coordinate). The <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>-coordinates are random numbers from an uniform distribution between 0 and 10. If <code>blnPrint</code> is true then coordinates are printed to the sheet and if <code>intCities</code> is zero then use an input box to ask for the number of cities.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tm6-tsp"></span>
+<img src="img/tm6-tsp.png" alt="TSP algorithms and cost (*TM6_TSP* worksheet)." width="600px" />
+<p class="caption">
+Figure 6.1: TSP algorithms and cost (<em>TM6_TSP</em> worksheet).
+</p>
+</div>
+<p>We now can create a procedure <code>BtnGenTSPData</code> that calls <code>GenTSPData</code>, ask for the number of cities and print the result to the sheet. A button linking to the procedure is made in worksheet <em>TM6_TSP</em> (see Figure <a href="mod-vba-random-numbers.html#fig:tm6-tsp">6.1</a>):</p>
+<pre><code>Sub TM6_BtnGenTSPData()
+    Dim dblCoord() As Double
+    Call TM6_GenTSPData(dblCoord, 0, True)
+End Sub</code></pre>
+<p>Given the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>-coordinates of a problem instance (stored in <code>dblCoord</code>) we need to calculate the distance matrix:</p>
+<pre><code>&#39;&#39; Calculate distance matrix
+&#39; @param dblDist The distance matrix to store distances (output ByRef).
+&#39; @param dblCoord A (cities x 3) array with id and coordinates.
+&#39; @pre Assume that dblCoord has not been sorted yet!
+&#39; @post Distances stored in dblDist.
+Sub TM6_CalcDistArray(ByRef dblDist() As Double, dblCoord() As Double)
+    Dim i As Integer, j As Integer
+    Dim dblDiffX As Double, dblDiffY As Double
+    Dim intCities As Integer
+    
+    intCities = UBound(dblCoord, 1)
+    ReDim dblDist(intCities, intCities)
+    For i = 1 To intCities
+        For j = i + 1 To intCities
+            dblDiffX = dblCoord(i, 2) - dblCoord(j, 2)
+            dblDiffY = dblCoord(i, 3) - dblCoord(j, 3)
+            dblDist(i, j) = Sqr((dblDiffX * dblDiffX) + (dblDiffY * dblDiffY))
+            dblDist(j, i) = dblDist(i, j)  &#39; assume symetric
+        Next
+    Next
+End Sub</code></pre>
+<p>The procedure takes the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>-coordinates (stored in <code>dblCoord</code>) and calculate the distance matrix stored in <code>dblDist</code>, i.e. <code>dblDist(i, j)</code> store the euclidean distance between city <code>i</code> and <code>j</code>. Symmetric distances are assumed, i.e. <code>dblDist(i, j) = dblDist(j, i)</code>.</p>
+<p>We are now ready to consider algorithms for calculating a TSP route. Let us first consider a procedure <code>TM6_SolveTSPIncX</code> that sort the array <code>dblCoord</code> increasing in the x-coordinate and visit the cities in the order of the sorted array and return to the starting city:</p>
+<pre><code>&#39;&#39; Calculate visiting sequence based on increasing x-coord
+&#39; @param dblCoord A (cities x 3) array with id and coordinates.
+&#39; @param dblDist The distance matrix.
+&#39; @param dblCost Total cost (output ByRef).
+&#39; @param intSeq The visiting sequence (output ByRef).
+&#39; @post The total cost and sequence returned.
+ Sub TM6_SolveTSPIncX(dblCoord() As Double, dblDist() As Double, _
+                      dblCost As Double, intSeq() As Integer)
+    Dim j As Integer
+    Dim intCities As Integer
+    
+    &#39; Sort
+    intCities = UBound(dblDist, 1)
+    ReDim intSeq(intCities)
+    Call AryQuickSort(dblCoord, 2)
+    &#39; Store visiting sequence
+    For j = 1 To intCities
+        intSeq(j) = dblCoord(j, 1)
+    Next
+    dblCost = TM6_CalcCost(dblDist, intSeq)
+End Sub</code></pre>
+<p>First, observe that we sort the array using course procedure <code>ArySort</code>. Next, the visiting city sequence are stored in <code>intSeq</code>. Finally, the total cost are stored in <code>dblCost</code> which call the function <code>TM6_CalcCost</code>:</p>
+<pre><code>&#39;&#39; Calculate the cost of a route
+&#39; @param dblDist The distance matrix.
+&#39; @param intSeq The visiting sequence (output ByRef).
+&#39; @return The cost of a route.
+Function TM6_CalcCost(dblDist() As Double, intSeq() As Integer) As Double
+    Dim dblCost As Double
+    Dim intCities As Integer
+    Dim j As Integer
+    
+    intCities = UBound(intSeq)
+    dblCost = 0
+    For j = 1 To intCities - 1
+        dblCost = dblCost + dblDist(intSeq(j), intSeq(j + 1))
+    Next
+    TM6_CalcCost = dblCost + dblDist(intSeq(intCities), intSeq(1))   &#39; cost + cost of returning to start
+End Function</code></pre>
+<p>If we want to use the algorithm on the data in sheet <em>TM6_TSP</em> we first need a procedure reading the data:</p>
+<pre><code>&#39;&#39; Read the coordinates into an 2D array
+&#39; @param dblCoord A (cities x 3) array to store the generated id and coordinates in.
+&#39; @post Generated data stored in dblCoord.
+Sub TM6_ReadCoord(dblCoord() As Double)
+    Dim rng As Range
+    
+    ThisWorkbook.Worksheets(&quot;TM6_TSP&quot;).Activate
+    Set rng = RngGetCurRegionRange(Range(&quot;A1&quot;), 2) &#39;current region except the header
+    Call AryRead(dblCoord, rng)
+End Sub</code></pre>
+<p>and then a procedure <code>TM6_BtnSolveTSPIncX</code> that calls <code>TM6_SolveTSPIncX</code> using the TSP data in the sheet and print out the total cost in cell H4. We include a button linking to the procedure (see Figure <a href="mod-vba-random-numbers.html#fig:tm6-tsp">6.1</a>):</p>
+<pre><code>Sub TM6_BtnSolveTSPIncX()
+    Dim dblCoord() As Double
+    Dim dblDist() As Double
+    Dim intSeq() As Integer
+    Dim dblCost As Double
+    
+    Call TM6_ReadCoord(dblCoord)
+    Call AryQuickSort(dblCoord, 1)  &#39; so sure sorted by id
+    Call TM6_CalcDistArray(dblDist, dblCoord)
+    Call TM6_SolveTSPIncX(dblCoord, dblDist, dblCost, intSeq)
+    Range(&quot;H3&quot;) = &quot;Cost:&quot;
+    Range(&quot;H5&quot;) = dblCost
+End Sub</code></pre>
+<p>Another algorithm <code>TM6_SolveTSPIncY</code> that sort the array <code>dblCoord</code> increasing in the <span class="math inline">\(y\)</span>-coordinate and visit the cities in the order of the sorted array and return to the starting city can be made similar to above (see Figure <a href="mod-vba-random-numbers.html#fig:tm6-tsp">6.1</a>). A possibility is also an algorithm that visit the cities in the order of the <code>dblCoord</code> array and return to the starting city. This may seen as we visit the cities in random order since we generate the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>-coordinate random.</p>
+<p>Finally, we will consider a nearest neighbour algorithm. We start in City 1. Given the current city, the next city (not already visited) is the city with the shortest distance:</p>
+<pre><code>&#39;&#39; Calculate visiting sequence based on nearest neighbour
+&#39; @param dblCoord A (cities x 3) array with id and coordinates.
+&#39; @param dblDist The distance matrix.
+&#39; @param dblCost Total cost.
+&#39; @param intSeq The visiting sequence.
+&#39; @post The total cost and sequence returned.
+ Sub TM6_SolveTSPNN(dblCoord() As Double, dblDist() As Double, ByRef dblCost As Double, ByRef intSeq() As Integer)
+    Dim i As Integer, id As Integer
+    Dim intCities As Integer, intCurCity As Integer, intBestCity As Integer
+    Dim dblMinDist As Double
+    Dim intUsed() As Integer       &#39; intUsed(id) = 1 if city id have been used in sequence
+    
+    intCities = UBound(dblDist, 1)
+    ReDim intSeq(intCities)
+    ReDim intUsed(intCities)
+    &#39; Find nearst neighbor
+    id = 1
+    intSeq(1) = id  &#39; start in city id = 1
+    intUsed(id) = 1
+    For i = 2 To intCities        &#39; find next city to add to intSeq(i)
+        dblMinDist = 1000000      &#39; large number
+        intCurCity = intSeq(i - 1)
+        For id = 2 To intCities   &#39; scan for next candidate (id = 1 already used)
+            If intUsed(id) = 0 And dblDist(intCurCity, id) &lt; dblMinDist Then   &#39; shorter distance found
+                intBestCity = id
+                dblMinDist = dblDist(intCurCity, id)
+            End If
+        Next
+        intSeq(i) = intBestCity
+        intUsed(intBestCity) = 1
+    Next
+    dblCost = TM6_CalcCost(dblDist, intSeq)
+End Sub</code></pre>
+<p>Here we need to have an array <code>intUsed</code> to store if a city already visited (equal 1 if yes). Nested loops is used to scan for the not-visited city nearest to the current one. The results for all the algorithms on an problem instance with 20 cities can be seen in Figure <a href="mod-vba-random-numbers.html#fig:tm6-tsp">6.1</a>.</p>
+<p>We now have a set of algorithms which can be tested on some problem instances that we can generate. On the problem instance we used above the nearest neighbour algorithm seems to find the best route (shortest cost). However, we can not state that this holds in general without testing on many problem instances. Hence we want to do a simulation study with steps:</p>
+<ul>
+<li>Generate a problem instance with <code>intCities</code> cities which are chosen random between 10 and 500.</li>
+<li>Calculate the distance matrix.</li>
+<li>Solve the instance using all of the above algorithms.</li>
+<li>Store the result in a row in the <em>TM6_TSPSim</em> sheet.</li>
+<li>Repeat 100 times and calculate min, mean and max values for each solution algorithm.</li>
+</ul>
+<p>This is done in procedure <code>TM6_TSPSim</code>:</p>
+<pre><code>Sub TM6_TSPSim()
+    Dim intCities As Integer
+    Dim s As Integer
+    Dim dblCoord() As Double
+    Dim dblDist() As Double
+    Dim intSeq() As Integer
+    Dim dblCost As Double
+    Dim intRow As Integer
+    
+    &#39; Setup sheet
+    ThisWorkbook.Worksheets(&quot;TM6_TSPSim&quot;).Activate
+    Call RngClear(Range(&quot;A:F&quot;))
+    Cells(1, 1) = &quot;Simulation results&quot;
+    Cells(3, 2) = &quot;Min&quot;
+    Cells(4, 2) = &quot;Mean&quot;
+    Cells(5, 2) = &quot;Max&quot;
+    intRow = 7
+    Cells(intRow, 1) = &quot;Run&quot;
+    Cells(intRow, 2) = &quot;Cities&quot;
+    Cells(intRow, 3) = &quot;IncX&quot;
+    Cells(intRow, 4) = &quot;IncY&quot;
+    Cells(intRow, 5) = &quot;Random&quot;
+    Cells(intRow, 6) = &quot;NN&quot;
+    &#39; Run simulation
+    For s = 1 To 100
+        Cells(s + intRow, 1) = s
+        intCities = WorksheetFunction.RandBetween(10, 500) &#39; number of cities
+        Cells(s + intRow, 2) = intCities
+        Call TM6_GenTSPData(dblCoord, intCities, False)
+        Call TM6_CalcDistArray(dblDist, dblCoord)
+        Call TM6_SolveTSPIncX(dblCoord, dblDist, dblCost, intSeq)
+        Cells(s + intRow, 3) = dblCost
+        Call TM6_SolveTSPIncY(dblCoord, dblDist, dblCost, intSeq)
+        Cells(s + intRow, 4) = dblCost
+        Call TM6_SolveTSPRand(dblCoord, dblDist, dblCost, intSeq)
+        Cells(s + intRow, 5) = dblCost
+        Call TM6_SolveTSPNN(dblCoord, dblDist, dblCost, intSeq)
+        Cells(s + intRow, 6) = dblCost
+    Next
+    &#39; Calc statistics
+    For s = 3 To 6
+        Cells(3, s) = WorksheetFunction.Min(Range(Cells(intRow + 1, s), Cells(intRow + 100, s)))
+        Cells(4, s) = WorksheetFunction.Average(Range(Cells(intRow + 1, s), Cells(intRow + 100, s)))
+        Cells(5, s) = WorksheetFunction.Max(Range(Cells(intRow + 1, s), Cells(intRow + 100, s)))
+    Next
+    &#39; Format cells
+    Call RngFormat(Cells(3, 2).CurrentRegion, &quot;green&quot;)
+    Call RngFormat(Cells(intRow, 1).CurrentRegion, &quot;orange&quot;, True)
+End Sub</code></pre>
+<p>First, we setup the worksheet <em>TM6_TSPSim</em> so it is ready for the results. Next, we run the simulation 100 times in a for loop. In each loop we first generate the number of instances, then a problem instance for which we find the distance matrix. The algorithms is then run on the problem instance and results are added to the worksheet. After the loop we calculate statistics for all the runs. Finally, the results are formatted for nice appearance.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tm6-tsp-sim"></span>
+<img src="img/tm6-tsp-sim.png" alt="Simulation comparing TSP algorithms (*TM6_TSPSim* worksheet)." width="600px" />
+<p class="caption">
+Figure 6.2: Simulation comparing TSP algorithms (<em>TM6_TSPSim</em> worksheet).
+</p>
+</div>
+<p>The results are given in Figure <a href="mod-vba-random-numbers.html#fig:tm6-tsp-sim">6.2</a>. As can be seen the nearest naighbour algorith is best and gives the shortest average distance.</p>
+</div>
 </div>
 <div id="recap-3" class="section level2 hasAnchor" number="6.4">
 <h2><span class="header-section-number">6.4</span> Recap<a href="mod-vba-random-numbers.html#recap-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -431,119 +783,96 @@ div.csl-indent {
 <div id="ex-vba-random-numbers" class="section level2 hasAnchor" number="6.5">
 <h2><span class="header-section-number">6.5</span> Exercises<a href="mod-vba-random-numbers.html#ex-vba-random-numbers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the <a href="help.html#help">help page</a>. Some of the solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up too early. Put some effort into finding a solution!</p>
-<div id="ex-vba-generate" class="section level3 hasAnchor" number="6.5.1">
-<h3><span class="header-section-number">6.5.1</span> Exercise - Generating random numbers<a href="mod-vba-random-numbers.html#ex-vba-generate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>This <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-generate-template.xlsm">file</a> should be used as a starting point for this exercise.</p>
+<div>
+A template with VBA code for this module is given in the file
+<a href="https://github.com/bss-osca/tfa/blob/master/vba/06-vba-random-numbers-template.xlsm" target="_blank">06-vba-random-numbers-template.xlsm</a>
+(open it and use it while reading the notes). Have a look inside the module
+<i>TM6_ex</i>
+in the VBA editor for examples used in the notes and during lectures. Have a look at module
+<i>TM6_exercises</i>
+for exercises. The template file for next teaching module will contain guiding answers for the exercises to this teaching module.
+</div>
+<div id="exercise---two-random-integers" class="section level3 hasAnchor" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> Exercise - Two random integers<a href="mod-vba-random-numbers.html#exercise---two-random-integers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><em>This exercise is a slightly modified version an exam assignment (reexam 2021-A4).</em></p>
+<p>Consider worksheet <em>TM6</em>.</p>
 <ol style="list-style-type: decimal">
-<li>Create a procedure <code>GenNormal</code> with arguments <code>intSize</code>, <code>dblMean</code>, <code>dblSD</code> and <code>ary</code>. The procedure must generate <code>intSize</code> random numbers from a normal distribution with mean <code>dblMean</code> and standard deviation <code>dblSD</code>. The procedure must store the values in <code>ary</code>.</li>
-<li>Create a procedure <code>GenUniform</code> with arguments <code>intSize</code>, <code>dblMin</code>, <code>dblMax</code> and <code>ary</code>. The procedure must generate <code>intSize</code> random numbers from a uniform distribution in the range <code>dblMin</code> to <code>dblMax</code>. The procedure must store the values in <code>ary</code>.</li>
-<li>Create a procedure <code>GenBinomial</code> with arguments <code>intSize</code>, <code>intTrials</code>, <code>dblPr</code> and <code>ary</code>. The procedure must generate <code>intSize</code> random numbers from a binomial distribution using <code>intTrials</code> trials with <code>dblPr</code> probability of success. The procedure must store the values in <code>ary</code>.</li>
-<li>Create a procedure <code>GenPoisson</code> with arguments <code>intSize</code>, <code>dblLambda</code> and <code>ary</code>. The procedure must generate <code>intSize</code> random numbers from a poisson distribution with mean <code>dblLambda</code>. The procedure must store the values in <code>ary</code>. You may use the <code>PoissonInv</code> function.</li>
-<li>Create a procedure <code>GenDiscrete</code> with arguments <code>intSize</code>, <code>dblDens</code> and <code>ary</code>. The procedure must generate <code>intSize</code> random numbers from a discrete distribution with density <code>dblDens</code> (first column in the array contains the outcome and the second the probability). The procedure must store the values in <code>ary</code>. You may use the <code>DiscreteInv</code> function.</li>
-<li>Create a procedure <code>Main</code> that generate 5000 random numbers of
-<ul>
-<li>A normal distribution with mean 100 and standard deviation 20.</li>
-<li>An uniform distribution with range 10 to 500.</li>
-<li>A binomial distribution with 100 trials and a 0.2 probability of success.</li>
-<li>A poisson distribution with mean 5.</li>
-<li>Plot the results for each distribution using <code>CreatePlot</code>.</li>
-</ul></li>
+<li><p>Write a sub <code>TM6_RandInt1</code> that reads two integer numbers, <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> (assume that <span class="math inline">\(a &lt; b\)</span>) from cells B24 and B25, and generates two random integer numbers, <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span>, uniformly between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> such that <span class="math inline">\(r_1 \neq r_2\)</span>. The sub should write <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> in cells D24 and D25 with the smaller of the two numbers in D24.</p></li>
+<li><p>Write a sub <code>TM6_RandInt2</code> that should take two integer arguments, <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, and generate two random numbers <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> following the same rules as in Question 1. However, <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> may not be written to the spreadsheet. Instead, they should be given as output to the sub calling <code>TM6_RandInt2</code>.</p></li>
+<li><p>Write a sub <code>TM6_RandInt2Main</code> that call <code>TM6_RandInt2</code> using <span class="math inline">\(a=2\)</span> and <span class="math inline">\(b=17\)</span> and output <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> in a message box.</p></li>
+<li><p>Is your code robust? What happens if <span class="math inline">\(a=b\)</span>?</p></li>
 </ol>
 </div>
-<div id="ex-vba-tsp" class="section level3 hasAnchor" number="6.5.2">
-<h3><span class="header-section-number">6.5.2</span> Exercise - Traveling salesman problem<a href="mod-vba-random-numbers.html#ex-vba-tsp" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>This <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-tsp-template.xlsm">file</a> should be used as a starting point for this exercise.</p>
-<p>The <a href="https://en.wikipedia.org/wiki/Travelling_salesman_problem">travelling salesman problem</a> (TSP) asks the following question:</p>
-<blockquote>
-<p>Given a list of cities and the distances between each pair of the cities,
-what is the shortest possible route that visits each city exactly once
-and returns to the origin city?</p>
-</blockquote>
-<p>The problem is an NP-hard problem (worst case solution time grows exponential with the number of cities) in combinatorial optimization, important in theoretical computer science and operations research. The problem was first formulated in 1930 and is one of the most intensively studied problems in optimization. Even though the problem is computationally difficult, many heuristics and exact algorithms are known.</p>
-<p>The goal with this exercise is to test different heuristics on a set of problem instances. To see which one works best.</p>
+<div id="exercise---swap-entries" class="section level3 hasAnchor" number="6.5.2">
+<h3><span class="header-section-number">6.5.2</span> Exercise - Swap entries<a href="mod-vba-random-numbers.html#exercise---swap-entries" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><em>This exercise is a slightly modified version an exam assignment (reexam 2021-A5).</em></p>
+<p>Consider worksheet <em>TM6_Swap</em> which contains a list of names (from A4) and two numbers between 1 and 20 (in B1 and B2). You may assume that the number in B2 is strictly larger than the one in B1. In the following, let <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> represent these two numbers. Sometimes, we need to change the order of the items in such lists, and in this assignment, you will be asked to do that in three different ways.</p>
 <ol style="list-style-type: decimal">
-<li>Create a procedure <code>GenTSPData</code> satisfying:
-<ul>
-<li>Arguments are <code>ByRef dblCoord() As Double, Optional intCities As Integer = 0, Optional blnPrint As Boolean = False</code>.</li>
-<li>Each city has an id number and a x and y-coordinate.</li>
-<li>The generated cities are stored in array <code>dblCoord</code> with <code>intCities</code> rows and three columns (column 1 store the city id, column 2 the x-coordinate and column 3 the y-coordinate)</li>
-<li>The x and y-coordinates are random numbers from an uniform distribution between 0 and 10.</li>
-<li>If <code>blnPrint</code> is true then coordinates are printed to the main sheet starting in cell A2.</li>
-<li>If <code>intCities</code> is zero then use an input box to ask for the number of cities.<br />
-</li>
-</ul></li>
-<li>Create a procedure <code>BtnGenTSPData</code> that calls <code>GenTSPData</code>, ask for the number of cities and print the result to cell A2. A button linking to the procedure has already been created in the template file.</li>
-<li>Create a procedure <code>CalcDistArray</code> satisfying:
-<ul>
-<li>Arguments are <code>ByRef dblDist() As Double, dblCoord() As Double</code> where <code>dblCoord</code> are the coordinates found using <code>GenTSPData</code>.</li>
-<li>The distance between two cities are stored in <code>dblDist</code>, i.e. <code>dblDist(i, j)</code> store the distance between city <code>i</code> and <code>j</code>.</li>
-<li>Symmetric distances are assumed, i.e. <code>dblDist(i, j) = dblDist(j, i)</code>.</li>
-</ul></li>
-<li>Create a procedure <code>SolveTSPIncX</code> satisfying:
-<ul>
-<li>Arguments are <code>dblCoord() As Double, dblDist() As Double, ByRef dblCost As Double, ByRef intSeq() As Integer</code></li>
-<li>Sort the array <code>dblCoord</code> increasing in the x-coordinate (you may use the procedure <code>ArySort</code> in module <code>ModuleAry</code> to do this).</li>
-<li>Visit the cities in the order of the sorted array and return to the starting city.</li>
-<li>The visiting city sequence are stored in <code>intSeq</code>.</li>
-<li>The total cost are stored in <code>dblCost</code>. You may use the <code>CalcCost</code> function to find the total cost.</li>
-</ul></li>
-<li>Create a procedure <code>BtnSolveTSPIncX</code> that calls <code>SolveTSPIncX</code> using the TSP data in the Main sheet and print out the total cost in cell H4. A button linking to the procedure has already been created.</li>
-<li>Create a procedure <code>SolveTSPIncY</code> satisfying:
-<ul>
-<li>Arguments are <code>dblCoord() As Double, dblDist() As Double, ByRef dblCost As Double, ByRef intSeq() As Integer</code></li>
-<li>Sort the array <code>dblCoord</code> increasing in the y-coordinate (you may use the procedure <code>ArySort</code> in module <code>ModuleAry</code> to do this).</li>
-<li>Visit the cities in the order of the sorted array and return to the starting city.</li>
-<li>The visiting city sequence are stored in <code>intSeq</code>.</li>
-<li>The total cost are stored in <code>dblCost</code>. You may use the <code>CalcCost</code> function to find the total cost.</li>
-</ul></li>
-<li>Create a procedure <code>BtnSolveTSPIncY</code> that calls <code>SolveTSPIncY</code> using the TSP data in the Main sheet and print out the total cost in cell H8. A button linking to the procedure has already been created.</li>
-<li>Create a procedure <code>SolveTSPRand</code> satisfying:
-<ul>
-<li>Arguments are <code>dblCoord() As Double, dblDist() As Double, ByRef dblCost As Double, ByRef intSeq() As Integer</code></li>
-<li>Visit the cities in the order of the <code>dblCoord</code> array and return to the starting city. This may seen as we visit the cities in random order since generate x and y-coordinate random.</li>
-<li>The visiting city sequence are stored in <code>intSeq</code>.</li>
-<li>The total cost are stored in <code>dblCost</code>. You may use the <code>CalcCost</code> function to find the total cost.</li>
-</ul></li>
-<li>Create a procedure <code>BtnSolveTSPRand</code> that calls <code>SolveTSPRand</code> using the TSP data in the Main sheet and print out the total cost in cell H11. A button linking to the procedure has already been created.</li>
-<li>Create a procedure <code>SolveTSPNN</code> satisfying:
-<ul>
-<li>Arguments are <code>dblCoord() As Double, dblDist() As Double, ByRef dblCost As Double, ByRef intSeq() As Integer</code></li>
-<li>Start in city 1.</li>
-<li>Given the current city find the next city (not already visited) as the city with shortest distance.</li>
-<li>The visiting city sequence are stored in <code>intSeq</code>.</li>
-<li>The total cost are stored in <code>dblCost</code>. You may use the <code>CalcCost</code> function to find the total cost.</li>
-</ul></li>
-<li>Create a procedure <code>BtnSolveTSPNN</code> that calls <code>SolveTSPNN</code> using the TSP data in the Main sheet and print out the total cost in cell H14. A button linking to the procedure has already been created.</li>
-<li>Create a procedure <code>Simulation</code> satisfying:
-<ul>
-<li>Generate an instance of TSP data with <code>intCities</code> cities which are chosen random between 10 and 500.</li>
-<li>Calculate the distance matrix.</li>
-<li>Solve the instance using all of the above solutions algorithms.</li>
-<li>Store the result in a row in the <em>Simulation</em> sheet.</li>
-<li>Repeat 100 times and calculate min, mean and max values for each solution algorithm.</li>
-</ul>
-Have a look at sheet <em>Simulation example</em> for an example. Note you do not have to print the coordinates out to the <em>Main</em> sheet.</li>
-<li>Which solution algorithm seems to give the shortest total travel distance?</li>
+<li><p>Write a sub <code>TM6_Swap1</code> that, given values of <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> (to be read from B1 and B2), swaps the <span class="math inline">\(r_1\)</span>’th and the <span class="math inline">\(r_2\)</span>’th name in the list. Print the result in column D.</p></li>
+<li><p>Write a sub <code>TM6_Swap2</code> that, given values of <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> (to be read from B1 and B2), reverses the sequence from the <span class="math inline">\(r_1\)</span>’th to the <span class="math inline">\(r_2\)</span>’th name in the list. Print the result in column E.</p></li>
+<li><p>Write a sub <code>TM6_Swap3</code> that changes the order of the names so they appear in random order. Print the result in column F.</p></li>
 </ol>
+<p>Figure <a href="mod-vba-random-numbers.html#fig:exc-swap">6.3</a> gives an example on the swap operations.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:exc-swap"></span>
+<img src="img/exc-swap.png" alt="Swap entries (*TM6_Swap* worksheet)." width="500px" />
+<p class="caption">
+Figure 6.3: Swap entries (<em>TM6_Swap</em> worksheet).
+</p>
+</div>
 </div>
 <div id="ex-vba-bakery" class="section level3 hasAnchor" number="6.5.3">
 <h3><span class="header-section-number">6.5.3</span> Exercise - Dan’s bakery<a href="mod-vba-random-numbers.html#ex-vba-bakery" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>This <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-bakery-template.xlsm">file</a> should be used as a starting point for this exercise.</p>
-<p>Dan owns a small bakery baking a single cold-rised bread. The demand level <span class="math inline">\(l\)</span> for bread is uncertain and on a given day the demand level equals <span class="math inline">\(l=1\)</span> (low) with probability 0.2, <span class="math inline">\(l=2\)</span> (medium) with probability 0.5 and <span class="math inline">\(l=3\)</span> (high) with probability 0.3. The actual demand (number of customers) depends on the demand level and is Poisson distributed with mean <span class="math inline">\(50 + 20l\)</span>. The sales price per bread is 45 DKK and production cost 7 DKK. If a customer arrives and Dan has no bread left then he estimates the loss of goodwill to be 10 DKK. A customer always buy one bread. Dan can have 20 breads in the oven a time and hence always produce a multiple of 20 breads.</p>
+<p>Dan owns a small bakery baking a single cold-rised bread. The demand level <span class="math inline">\(l\)</span> for bread is uncertain and on a given day the demand level equals <span class="math inline">\(l=1\)</span> (low) with probability 0.2, <span class="math inline">\(l=2\)</span> (medium) with probability 0.5 and <span class="math inline">\(l=3\)</span> (high) with probability 0.3. The actual demand (number of customers) depends on the demand level and is Poisson distributed with mean <span class="math inline">\(50 + 60l\)</span>.</p>
+<p>Currently, the sales price per bread is 45 DKK and production cost 7 DKK. If a customer arrives and Dan has no bread left then he estimates the loss of goodwill to be 10 DKK.</p>
+<p>A customer always buy one bread. Dan can have 20 breads in the oven a time and hence always produce a multiple of 20 breads.</p>
 <ol style="list-style-type: decimal">
-<li>Create a function <code>Profit</code> that returns the daily profit given a specific demand and production.</li>
-<li>Create a procedure <code>Simulate</code> that simulate the system for <span class="math inline">\(y\)</span> days given that Dan choose to produce <span class="math inline">\(x\)</span> breads each day. Number of runs (days), production, price, production cost, and lost goodwill cost instead of contribution margin and lost goodwill, average profit, standard deviation, min and max profit should be returned in an array. You may use functions <code>DiscreteInv</code> and <code>PoissonInv</code> to generate numbers.</li>
-<li>Create a procedure <code>BtnSimulate</code> that calls <code>Simulate</code> for different production levels and output the results in sheet <em>Simulation</em>.</li>
-<li>Is it best for Pierre to produce 80 or 120 breads?</li>
-<li>Create a function <code>OptimalProd</code> that search for the optimal production using the following steps:
+<li><p>Create a function <code>TM6_DanProfit</code> that returns the daily profit given a specific demand and production. The profit given demand <span class="math inline">\(d\)</span> and production <span class="math inline">\(p\)</span> using the current prices and costs is <span class="math display">\[(45-7)\min(d,p) - 7\max(0,p-d) - 10\max(0,d-p).\]</span> Let the arguments of the function be:</p>
+<pre><code>&#39; @param dblDemand Demand.
+&#39; @param dblProd Production.
+&#39; @param dblPrice Sales price.
+&#39; @param dblCost Production costs.
+&#39; @param dblGW Lost goodwill cost.</code></pre></li>
+<li><p>Create a procedure <code>TM6_DanSim</code> that simulate the system for <span class="math inline">\(y\)</span> days given that Dan choose to produce <span class="math inline">\(x\)</span> breads each day. The procedure arguments are:</p>
+<pre><code>&#39; @param dblProd Production (x).
+&#39; @param dblPrice Sales price.
+&#39; @param dblCost Production costs.
+&#39; @param dblGW Lost goodwill cost.
+&#39; @param aryDens Demand level density array (needed for RandGenDiscrete).
+&#39; @param intDays Days to simulate (y).
+&#39; @param aryStat Array to store the output statistics (output ByRef).</code></pre>
+<p>The result array <code>aryProfit</code> has entries:</p>
 <ul>
-<li>Start with production of 20 bread.</li>
-<li>Calculate the average profit based on 500 simulations.</li>
-<li>Increase the production with 20 breads unit until no better average profit is found.</li>
-<li>Return the production found.</li>
+<li>number of runs (days),</li>
+<li>production</li>
+<li>sales price</li>
+<li>production cost</li>
+<li>lost goodwill cost</li>
+<li>average profit</li>
+<li>standard deviation</li>
+<li>min and max profit</li>
 </ul></li>
-<li>Test it on the data in sheet <em>OptimalProd</em>.</li>
+<li><p>Create a procedure <code>TM6_DanBtnSim</code> that calls <code>TM6_DanSim</code> for production levels 20, 40, …, 400 and output the results in worksheet <em>TM6_DanSim</em>. The procedure must use the demand level distribution, prices and cost given in the worksheet.</p></li>
+<li><p>What is the best production level?</p></li>
+<li><p>What is the best production level if the demand levels changes to low with probability 0.7, medium with probability 0.2 and high with probability 0.1?</p></li>
 </ol>
+</div>
+<div id="ex-vba-generate" class="section level3 hasAnchor" number="6.5.4">
+<h3><span class="header-section-number">6.5.4</span> Exercise - Generating random numbers<a href="mod-vba-random-numbers.html#ex-vba-generate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Create a procedure <code>TM6_GenRandNumb</code> that generate 5000 random numbers of</p>
+<ul>
+<li>A normal distribution with mean 100 and standard deviation 20.</li>
+<li>An continuous uniform distribution with range 10 to 500.</li>
+<li>A binomial distribution with 100 trials and a 0.2 probability of success.</li>
+<li>A poisson distribution with mean 5.</li>
+<li>Plot the results for each distribution using <code>TM6_PlotFreq</code> (given).</li>
+</ul>
+<script src="//unpkg.com/@highlightjs/cdn-assets@11.5.1/highlight.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/highlightjs-vba/dist/vba.min.js"></script>
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script> -->
+<script type="text/javascript">
+  hljs.initHighlightingOnLoad();
+  // hljs.initLineNumbersOnLoad({singleLine: true}); 
+</script>
 
 </div>
 </div>
@@ -551,12 +880,6 @@ Have a look at sheet <em>Simulation example</em> for an example. Note you do not
 
 
 
-<h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-vba-book" class="csl-entry">
-Wøhlk, S. 2010. <em>VBA Programming in Business Economics</em>. DJØF Publishing.
-</div>
-</div>
             </section>
 
           </div>
