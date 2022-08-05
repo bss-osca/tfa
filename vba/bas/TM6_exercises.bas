@@ -181,7 +181,7 @@ Sub TM6_DanSim(dblProd As Double, dblPrice As Double, dblCost As Double, dblGW A
     ' Simulate
     ReDim aryProfit(1 To intDays)
     For i = 1 To intDays
-        dblDemand = RandPoissonInv(50 + RandDiscreteInv(aryDens) * 60)
+        dblDemand = RandInvPoisson(50 + RandInvDiscrete(aryDens) * 60)
         aryProfit(i) = TM6_DanProfit(dblDemand, dblProd, dblPrice, dblCost, dblGW)
     Next
     ' Store statistics
