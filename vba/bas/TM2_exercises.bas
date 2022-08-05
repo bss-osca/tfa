@@ -49,13 +49,13 @@ End Sub
 
 Sub TM2_FindMax()
     Dim intM As Integer
-    Dim r As Integer
+    Dim R As Integer
     
     Worksheets("TM2_Numbers").Activate
     intM = 0
-    For r = 1 To 40
-        If Cells(r, 1) > intM Then
-            intM = Cells(r, 1)
+    For R = 1 To 40
+        If Cells(R, 1) > intM Then
+            intM = Cells(R, 1)
         End If
     Next
     Range("D1") = intM
@@ -63,13 +63,13 @@ End Sub
 
 Sub TM2_FindMin()
     Dim intM As Integer
-    Dim r As Integer
+    Dim R As Integer
     
     Worksheets("TM2_Numbers").Activate
     intM = 1001
-    For r = 1 To 40
-        If Cells(r, 1) < intM Then
-            intM = Cells(r, 1)
+    For R = 1 To 40
+        If Cells(R, 1) < intM Then
+            intM = Cells(R, 1)
         End If
     Next
     Range("D2") = intM
@@ -78,17 +78,17 @@ End Sub
 Sub TM2_FindRange()
     Dim intM1 As Integer
     Dim intM2 As Integer
-    Dim r As Integer
+    Dim R As Integer
     
     Worksheets("TM2_Numbers").Activate
     intM1 = 1001
     intM2 = 0
-    For r = 1 To 40
-        If Cells(r, 1) < intM1 Then
-            intM1 = Cells(r, 1)
+    For R = 1 To 40
+        If Cells(R, 1) < intM1 Then
+            intM1 = Cells(R, 1)
         End If
-        If Cells(r, 1) > intM2 Then
-            intM2 = Cells(r, 1)
+        If Cells(R, 1) > intM2 Then
+            intM2 = Cells(R, 1)
         End If
     Next
     Range("D3") = "[" & intM1 & "," & intM2 & "]"
@@ -96,12 +96,12 @@ End Sub
 
 Sub TM2_CountPositives()
     Dim intN As Integer
-    Dim r As Integer
+    Dim R As Integer
     
     Worksheets("TM2_Numbers").Activate
     intN = 0
-    For r = 1 To 40
-        If Cells(r, 1) > 0 Then
+    For R = 1 To 40
+        If Cells(R, 1) > 0 Then
             intN = intN + 1
         End If
     Next
@@ -111,14 +111,14 @@ End Sub
 Sub TM2_RowMax()
     Dim intM As Integer
     Dim intN As Integer
-    Dim r As Integer
+    Dim R As Integer
     
     Worksheets("TM2_Numbers").Activate
     intM = 0
-    For r = 1 To 40
-        If Cells(r, 1) > intM Then
-            intM = Cells(r, 1)
-            intN = r
+    For R = 1 To 40
+        If Cells(R, 1) > intM Then
+            intM = Cells(R, 1)
+            intN = R
         End If
     Next
     Range("D5") = intN
@@ -127,14 +127,14 @@ End Sub
 Sub TM2_RowMin()
     Dim intM As Integer
     Dim intN As Integer
-    Dim r As Integer
+    Dim R As Integer
     
     Worksheets("TM2_Numbers").Activate
     intM = 1001
-    For r = 1 To 40
-        If Cells(r, 1) < intM Then
-            intM = Cells(r, 1)
-            intN = r
+    For R = 1 To 40
+        If Cells(R, 1) < intM Then
+            intM = Cells(R, 1)
+            intN = R
         End If
     Next
     Range("D6") = intN

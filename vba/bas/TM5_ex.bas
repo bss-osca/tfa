@@ -230,7 +230,7 @@ End Sub
 '' Define an array (run using the debugger - step into)
 ' How to check the content of an array?
 ' Use the Locals window together with debug mode or a message box
-Sub TM5_ArrayEx1()
+Sub TM5_ArrayEx()
    Dim intAry(4) As Integer      ' define array of integers with index 0-4
    Dim strAry(3 To 5) As String  ' define array of strings with index 3-5
    Dim i As Integer
@@ -572,7 +572,7 @@ Sub TM5_RunBetter()
     Dim dblCosts As Double ' total setup costs
     Dim rng As Range
     Dim dbl As Double
-    Dim r As Integer, c As Integer
+    Dim R As Integer, c As Integer
     
     ThisWorkbook.Worksheets("TM5_JobSeq").Activate
     ' Allocate costs to array
@@ -584,15 +584,15 @@ Sub TM5_RunBetter()
     ReDim minCol(1 To intJobs)
     For c = 1 To intJobs
         dbl = 10000000   ' a big number
-        For r = 0 To intJobs
-            If costs(r, c) < dbl And r <> c Then dbl = costs(r, c)
+        For R = 0 To intJobs
+            If costs(R, c) < dbl And R <> c Then dbl = costs(R, c)
         Next
         minCol(c) = dbl
     Next
     ' Calc relative
     For c = 1 To intJobs
-        For r = 0 To intJobs
-            costs(r, c) = costs(r, c) - minCol(c)
+        For R = 0 To intJobs
+            costs(R, c) = costs(R, c) - minCol(c)
         Next
     Next
     ' Run algorithm

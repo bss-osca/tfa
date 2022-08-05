@@ -127,16 +127,16 @@ End Sub
 
 '' Run using F5
 Sub TM4_SeeColorIndex()
-   Dim r As Integer
+   Dim R As Integer
    Dim c As Integer
    Dim i As Integer
    
    Worksheets("TM4").Activate
    i = 1
-   For r = 18 To 40
+   For R = 18 To 40
       For c = 2 To 5
-         Cells(r, c) = i
-         Call TM4_FormatCell(rng:=Cells(r, c), intInteriorColor:=i, intFontColor:=1 + i Mod 4)
+         Cells(R, c) = i
+         Call TM4_FormatCell(rng:=Cells(R, c), intInteriorColor:=i, intFontColor:=1 + i Mod 4)
          If i = 56 Then
             Exit Sub
          End If
@@ -180,7 +180,7 @@ End Sub
 '' Test worksheetfunctions
 ' You can always get help by putting the crusor in the function name and press F1
 Sub TM4_TestWorksheetfunctions()
-   Dim r As Integer
+   Dim R As Integer
    Dim c As Integer
    
    Worksheets("TM4").Activate
@@ -188,9 +188,9 @@ Sub TM4_TestWorksheetfunctions()
    MsgBox ("Sumproduct: " & WorksheetFunction.SumProduct(Range("B33:E33"), Range("B34:E34")))
    MsgBox ("Max: " & WorksheetFunction.Max(Range("B33:E38")))
    
-   For r = 40 To 45
+   For R = 40 To 45
       For c = 2 To 4
-         Cells(r, c) = WorksheetFunction.RandBetween(0, 9)
+         Cells(R, c) = WorksheetFunction.RandBetween(0, 9)
       Next
    Next
 End Sub
@@ -216,13 +216,13 @@ Function TM4_TestCover(intId As Integer) As Integer
    Dim intI As Integer     ' number of infected
    Dim intC As Integer     ' number of covered
    Dim dblHeight As Double ' height of test person
-   Dim r As Integer
+   Dim R As Integer
    
    intI = Range("D1")
    dblHeight = Range("G" & intId + 6)
    intC = 0
-   For r = 7 To intI + 6    ' loop through all infected
-      If Cells(r, 2) >= dblHeight - 2 And Cells(r, 2) <= dblHeight + 2 And Cells(r, 3) <> 1 Then
+   For R = 7 To intI + 6    ' loop through all infected
+      If Cells(R, 2) >= dblHeight - 2 And Cells(R, 2) <= dblHeight + 2 And Cells(R, 3) <> 1 Then
          intC = intC + 1
       End If
    Next
@@ -238,7 +238,7 @@ Sub TM4_FindTestPersons()
    Dim intC As Integer  ' number of covered
    Dim intBestId As Integer ' best id found
    Dim intBestC As Integer  ' best cover value found
-   Dim r As Integer
+   Dim R As Integer
 
    Worksheets("TM4_Virus").Activate
    intI = Range("D1")
@@ -247,19 +247,19 @@ Sub TM4_FindTestPersons()
    Do While intS < Range("D3")    ' stop when have found needed test persons
       intBestId = -1
       intBestC = -1
-      For r = 7 To intT + 6       ' loop through all test volunteers
-         If Cells(r, 8) <> 1 Then ' not selected already
-            intC = TM4_TestCover(Cells(r, 6))
+      For R = 7 To intT + 6       ' loop through all test volunteers
+         If Cells(R, 8) <> 1 Then ' not selected already
+            intC = TM4_TestCover(Cells(R, 6))
             If intBestC < intC Then ' found a better person
                intBestC = intC
-               intBestId = Cells(r, 6)
+               intBestId = Cells(R, 6)
             End If
          End If
       Next
       Cells(intBestId + 6, 8) = 1  ' select best
-      For r = 7 To intI + 6  ' add ones in covered column
-          If Abs(Cells(r, 2) - Cells(intBestId + 6, 7)) <= 2 Then
-              Cells(r, 3) = 1
+      For R = 7 To intI + 6  ' add ones in covered column
+          If Abs(Cells(R, 2) - Cells(intBestId + 6, 7)) <= 2 Then
+              Cells(R, 3) = 1
           End If
       Next
       intS = intS + 1
