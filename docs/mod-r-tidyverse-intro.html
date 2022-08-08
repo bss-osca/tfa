@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Module 11 Introduction to tidyverse and RMarkdown | Tools for Analytics (TFA)</title>
+  <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Module 11 Introduction to tidyverse and RMarkdown | Tools for Analytics (TFA)" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
+  <meta property="og:description" content="Course notes for the ‘Tools for Analytics’ course" />
+  <meta name="github-repo" content="bss-osca/tfa" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Module 11 Introduction to tidyverse and RMarkdown | Tools for Analytics (TFA)" />
+  
+  <meta name="twitter:description" content="Course notes for the ‘Tools for Analytics’ course" />
+  <meta name="twitter:image" content="https://bss-osca.github.io/tfa//assets/logo.png" />
+
+<meta name="author" content="Lars Relund Nielsen" />
+
+
+<meta name="date" content="2022-08-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="mod-r-functions.html"/>
+<link rel="next" href="mod-r-io.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
+<link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
+<script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
+<link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.23/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<html>
+<head>
+<script>
+  $(document).ready(function() {
+
+  // Section anchors
+  $('.section h1, .section h2, .section h3, .section h4, .section h5').each(function() {
+    anchor = '#' + $(this).parent().attr('id');
+    $(this).addClass("hasAnchor").prepend('<a href="' + anchor + '" class="anchor"></a>');
+  });
+});
+</script>
+<script src="https://hypothes.is/embed.js" async></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+</html>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="assets/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="./"><img src="img/logo.png"></a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction to the course</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#lo-intro"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#purpose"><i class="fa fa-check"></i><b>1.2</b> Purpose for the course</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#r-vs-vba"><i class="fa fa-check"></i><b>1.3</b> R vs Excel/VBA</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#computer"><i class="fa fa-check"></i><b>1.4</b> How a computer works</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#organization"><i class="fa fa-check"></i><b>1.5</b> How the notes are organized</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#ack"><i class="fa fa-check"></i><b>1.6</b> Acknowledgements</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#ex-intro"><i class="fa fa-check"></i><b>1.7</b> Exercises</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="index.html"><a href="index.html#ex-annotate"><i class="fa fa-check"></i><b>1.7.1</b> Exercise - How to annotate</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>I VBA</b></span></li>
+<li class="chapter" data-level="2" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html"><i class="fa fa-check"></i><b>2</b> An introduction to VBA</a><ul>
+<li class="chapter" data-level="2.1" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#lo-vba-intro"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="2.2" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-what"><i class="fa fa-check"></i><b>2.2</b> What is VBA</a></li>
+<li class="chapter" data-level="2.3" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-setup"><i class="fa fa-check"></i><b>2.3</b> Setup Excel for VBA</a></li>
+<li class="chapter" data-level="2.4" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-hello"><i class="fa fa-check"></i><b>2.4</b> Your first program</a></li>
+<li class="chapter" data-level="2.5" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-macro"><i class="fa fa-check"></i><b>2.5</b> The macro recorder</a></li>
+<li class="chapter" data-level="2.6" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-overview"><i class="fa fa-check"></i><b>2.6</b> VBA - A short overview</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#variables"><i class="fa fa-check"></i><b>2.6.1</b> Variables</a></li>
+<li class="chapter" data-level="2.6.2" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#procedures"><i class="fa fa-check"></i><b>2.6.2</b> Procedures</a></li>
+<li class="chapter" data-level="2.6.3" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#input-and-output"><i class="fa fa-check"></i><b>2.6.3</b> Input and output</a></li>
+<li class="chapter" data-level="2.6.4" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#conditional-statements"><i class="fa fa-check"></i><b>2.6.4</b> Conditional statements</a></li>
+<li class="chapter" data-level="2.6.5" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#loops"><i class="fa fa-check"></i><b>2.6.5</b> Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-coding-practice"><i class="fa fa-check"></i><b>2.7</b> Good coding pratice</a></li>
+<li class="chapter" data-level="2.8" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#rc-vba-intro"><i class="fa fa-check"></i><b>2.8</b> Recap</a></li>
+<li class="chapter" data-level="2.9" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-intro"><i class="fa fa-check"></i><b>2.9</b> Exercises</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-hello"><i class="fa fa-check"></i><b>2.9.1</b> Exercise - Hello</a></li>
+<li class="chapter" data-level="2.9.2" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-macro"><i class="fa fa-check"></i><b>2.9.2</b> Exercise - Record a macro</a></li>
+<li class="chapter" data-level="2.9.3" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-user-input"><i class="fa fa-check"></i><b>2.9.3</b> Exercise - User input</a></li>
+<li class="chapter" data-level="2.9.4" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-max-min"><i class="fa fa-check"></i><b>2.9.4</b> Exercise - Max and min number</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html"><i class="fa fa-check"></i><b>3</b> Loops and conditional statements</a><ul>
+<li class="chapter" data-level="3.1" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#lo-vba-loops-cond"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="3.2" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#vba-operators"><i class="fa fa-check"></i><b>3.2</b> Relational and logical operators</a></li>
+<li class="chapter" data-level="3.3" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#vba-loops"><i class="fa fa-check"></i><b>3.3</b> Loops</a></li>
+<li class="chapter" data-level="3.4" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#vba-cond"><i class="fa fa-check"></i><b>3.4</b> Conditional statements</a></li>
+<li class="chapter" data-level="3.5" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#vba-ex-jen"><i class="fa fa-check"></i><b>3.5</b> Example - Find Jen</a></li>
+<li class="chapter" data-level="3.6" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#vba-ex-dist-mat"><i class="fa fa-check"></i><b>3.6</b> Example - A distance matrix</a></li>
+<li class="chapter" data-level="3.7" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#recap"><i class="fa fa-check"></i><b>3.7</b> Recap</a></li>
+<li class="chapter" data-level="3.8" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#ex-vba-loops-cond"><i class="fa fa-check"></i><b>3.8</b> Exercises</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#ex-vba-loops"><i class="fa fa-check"></i><b>3.8.1</b> Exercise - Loops</a></li>
+<li class="chapter" data-level="3.8.2" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#ex-vba-cond"><i class="fa fa-check"></i><b>3.8.2</b> Exercise - Conditional statements</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html"><i class="fa fa-check"></i><b>4</b> Procedures</a><ul>
+<li class="chapter" data-level="4.1" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#lo-vba-procedures"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="4.2" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#vba-subs-functions"><i class="fa fa-check"></i><b>4.2</b> Subs and functions - The basics</a></li>
+<li class="chapter" data-level="4.3" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#vba-optional-arg"><i class="fa fa-check"></i><b>4.3</b> Optional arguments</a></li>
+<li class="chapter" data-level="4.4" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#vba-pub-priv"><i class="fa fa-check"></i><b>4.4</b> Public and private procedures</a></li>
+<li class="chapter" data-level="4.5" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#vba-byref"><i class="fa fa-check"></i><b>4.5</b> Passing arguments by reference or by value</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#return-values-from-a-sub"><i class="fa fa-check"></i><b>4.5.1</b> Return values from a sub</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#vba-built-in"><i class="fa fa-check"></i><b>4.6</b> Built-in functions</a></li>
+<li class="chapter" data-level="4.7" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#vba-test-persons"><i class="fa fa-check"></i><b>4.7</b> Example - Selection of test persons</a></li>
+<li class="chapter" data-level="4.8" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#recap-1"><i class="fa fa-check"></i><b>4.8</b> Recap</a></li>
+<li class="chapter" data-level="4.9" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#ex-vba-procedures"><i class="fa fa-check"></i><b>4.9</b> Exercises</a><ul>
+<li class="chapter" data-level="4.9.1" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#ex-vba-subs"><i class="fa fa-check"></i><b>4.9.1</b> Exercise - Subs</a></li>
+<li class="chapter" data-level="4.9.2" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#exercise---temperatures"><i class="fa fa-check"></i><b>4.9.2</b> Exercise - Temperatures</a></li>
+<li class="chapter" data-level="4.9.3" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#ex-vba-functions"><i class="fa fa-check"></i><b>4.9.3</b> Exercise - Functions</a></li>
+<li class="chapter" data-level="4.9.4" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#ex-vba-worksheet-functions"><i class="fa fa-check"></i><b>4.9.4</b> Exercise - Worksheet functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html"><i class="fa fa-check"></i><b>5</b> Advanced data types and usage</a><ul>
+<li class="chapter" data-level="5.1" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#lo-vba-datatypes"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="5.2" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#vba-strings"><i class="fa fa-check"></i><b>5.2</b> Strings</a></li>
+<li class="chapter" data-level="5.3" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#vba-objects"><i class="fa fa-check"></i><b>5.3</b> Objects</a></li>
+<li class="chapter" data-level="5.4" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#vba-wst"><i class="fa fa-check"></i><b>5.4</b> The Worksheet object</a></li>
+<li class="chapter" data-level="5.5" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#wst-rng"><i class="fa fa-check"></i><b>5.5</b> The Range object</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#current-region-of-a-range"><i class="fa fa-check"></i><b>5.5.1</b> Current region of a range</a></li>
+<li class="chapter" data-level="5.5.2" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#input-and-output-1"><i class="fa fa-check"></i><b>5.5.2</b> Input and output</a></li>
+<li class="chapter" data-level="5.5.3" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#sorting-a-range"><i class="fa fa-check"></i><b>5.5.3</b> Sorting a range</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#vba-ary"><i class="fa fa-check"></i><b>5.6</b> Arrays</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#multi-dimensional-arrays"><i class="fa fa-check"></i><b>5.6.1</b> Multi-dimensional arrays</a></li>
+<li class="chapter" data-level="5.6.2" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#dynamic-arrays"><i class="fa fa-check"></i><b>5.6.2</b> Dynamic arrays</a></li>
+<li class="chapter" data-level="5.6.3" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#input-and-output-2"><i class="fa fa-check"></i><b>5.6.3</b> Input and output</a></li>
+<li class="chapter" data-level="5.6.4" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#sorting-arrays"><i class="fa fa-check"></i><b>5.6.4</b> Sorting arrays</a></li>
+<li class="chapter" data-level="5.6.5" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#use-arrays-instead-of-ranges"><i class="fa fa-check"></i><b>5.6.5</b> Use arrays instead of ranges</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#vba-coll"><i class="fa fa-check"></i><b>5.7</b> Collections</a></li>
+<li class="chapter" data-level="5.8" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#vba-ex-job-seq"><i class="fa fa-check"></i><b>5.8</b> Example - Job sequencing</a></li>
+<li class="chapter" data-level="5.9" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#recap-2"><i class="fa fa-check"></i><b>5.9</b> Recap</a></li>
+<li class="chapter" data-level="5.10" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-datatypes"><i class="fa fa-check"></i><b>5.10</b> Exercises</a><ul>
+<li class="chapter" data-level="5.10.1" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-equal"><i class="fa fa-check"></i><b>5.10.1</b> Exercise - Equal entries</a></li>
+<li class="chapter" data-level="5.10.2" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-search-products"><i class="fa fa-check"></i><b>5.10.2</b> Exercise - Product search</a></li>
+<li class="chapter" data-level="5.10.3" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-read-collections"><i class="fa fa-check"></i><b>5.10.3</b> Exercise - Read collections</a></li>
+<li class="chapter" data-level="5.10.4" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-read-arrays"><i class="fa fa-check"></i><b>5.10.4</b> Exercise - Read arrays</a></li>
+<li class="chapter" data-level="5.10.5" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-process"><i class="fa fa-check"></i><b>5.10.5</b> Exercise - Process numbers</a></li>
+<li class="chapter" data-level="5.10.6" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-search-pay"><i class="fa fa-check"></i><b>5.10.6</b> Exercise - Search payments</a></li>
+<li class="chapter" data-level="5.10.7" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-flight"><i class="fa fa-check"></i><b>5.10.7</b> Exercise - Flight search</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html"><i class="fa fa-check"></i><b>6</b> Generating random numbers</a><ul>
+<li class="chapter" data-level="6.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#lo-vba-random-numbers"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="6.2" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#vba-random-numbers"><i class="fa fa-check"></i><b>6.2</b> Generating random numbers</a></li>
+<li class="chapter" data-level="6.3" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#vba-simulation"><i class="fa fa-check"></i><b>6.3</b> Simulation</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#sec-vba-tsp"><i class="fa fa-check"></i><b>6.3.1</b> Example - Traveling salesman problem</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#recap-3"><i class="fa fa-check"></i><b>6.4</b> Recap</a></li>
+<li class="chapter" data-level="6.5" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-random-numbers"><i class="fa fa-check"></i><b>6.5</b> Exercises</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-random-int"><i class="fa fa-check"></i><b>6.5.1</b> Exercise - Two random integers</a></li>
+<li class="chapter" data-level="6.5.2" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-swap"><i class="fa fa-check"></i><b>6.5.2</b> Exercise - Swap entries</a></li>
+<li class="chapter" data-level="6.5.3" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-bakery"><i class="fa fa-check"></i><b>6.5.3</b> Exercise - Dan’s bakery</a></li>
+<li class="chapter" data-level="6.5.4" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-generate"><i class="fa fa-check"></i><b>6.5.4</b> Exercise - Generating random numbers</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II R</b></span></li>
+<li class="chapter" data-level="7" data-path="mod-r-install.html"><a href="mod-r-install.html"><i class="fa fa-check"></i><b>7</b> Setting up R</a><ul>
+<li class="chapter" data-level="7.1" data-path="mod-r-install.html"><a href="mod-r-install.html#lo-r-install"><i class="fa fa-check"></i><b>7.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="7.2" data-path="mod-r-install.html"><a href="mod-r-install.html#r-install"><i class="fa fa-check"></i><b>7.2</b> Install R and RStudio</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="mod-r-install.html"><a href="mod-r-install.html#test-your-installation"><i class="fa fa-check"></i><b>7.2.1</b> Test your installation</a></li>
+<li class="chapter" data-level="7.2.2" data-path="mod-r-install.html"><a href="mod-r-install.html#add-on-packages"><i class="fa fa-check"></i><b>7.2.2</b> Add-on packages</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="mod-r-install.html"><a href="mod-r-install.html#r-cloud"><i class="fa fa-check"></i><b>7.3</b> Setup and test RStudio Cloud</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html"><i class="fa fa-check"></i><b>8</b> R basics and workflows</a><ul>
+<li class="chapter" data-level="8.1" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#lo-r-workflow"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="8.2" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#working-with-r-at-the-command-line-in-rstudio"><i class="fa fa-check"></i><b>8.2</b> Working with R at the command line in RStudio</a></li>
+<li class="chapter" data-level="8.3" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#your-first-datacamp-course"><i class="fa fa-check"></i><b>8.3</b> Your first DataCamp course</a></li>
+<li class="chapter" data-level="8.4" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#pipes"><i class="fa fa-check"></i><b>8.4</b> Pipes</a></li>
+<li class="chapter" data-level="8.5" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#rprojs"><i class="fa fa-check"></i><b>8.5</b> RStudio projects</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#storing-your-code-in-a-script-file"><i class="fa fa-check"></i><b>8.5.1</b> Storing your code in a script file</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#rc-r-workflow"><i class="fa fa-check"></i><b>8.6</b> Recap</a></li>
+<li class="chapter" data-level="8.7" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#ex-r-workflow"><i class="fa fa-check"></i><b>8.7</b> Exercises</a><ul>
+<li class="chapter" data-level="8.7.1" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#exercise-group-work"><i class="fa fa-check"></i><b>8.7.1</b> Exercise (group work)</a></li>
+<li class="chapter" data-level="8.7.2" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#exercise-piping"><i class="fa fa-check"></i><b>8.7.2</b> Exercise (piping)</a></li>
+<li class="chapter" data-level="8.7.3" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#exercise-working-dir"><i class="fa fa-check"></i><b>8.7.3</b> Exercise (working dir)</a></li>
+<li class="chapter" data-level="8.7.4" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#exercise-vectors"><i class="fa fa-check"></i><b>8.7.4</b> Exercise (vectors)</a></li>
+<li class="chapter" data-level="8.7.5" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#exercise-matrices"><i class="fa fa-check"></i><b>8.7.5</b> Exercise (matrices)</a></li>
+<li class="chapter" data-level="8.7.6" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#exercise-data-frames"><i class="fa fa-check"></i><b>8.7.6</b> Exercise (data frames)</a></li>
+<li class="chapter" data-level="8.7.7" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#exercise-lists"><i class="fa fa-check"></i><b>8.7.7</b> Exercise (lists)</a></li>
+<li class="chapter" data-level="8.7.8" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#ex-strings"><i class="fa fa-check"></i><b>8.7.8</b> Exercise (string management)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="mod-r-loops-cond.html"><a href="mod-r-loops-cond.html"><i class="fa fa-check"></i><b>9</b> Loops and conditionals</a><ul>
+<li class="chapter" data-level="9.1" data-path="mod-r-loops-cond.html"><a href="mod-r-loops-cond.html#lo-loops"><i class="fa fa-check"></i><b>9.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="9.2" data-path="mod-r-loops-cond.html"><a href="mod-r-loops-cond.html#r-dc-loops-cond"><i class="fa fa-check"></i><b>9.2</b> Conditionals and control flow</a></li>
+<li class="chapter" data-level="9.3" data-path="mod-r-loops-cond.html"><a href="mod-r-loops-cond.html#r-loops"><i class="fa fa-check"></i><b>9.3</b> Loops</a></li>
+<li class="chapter" data-level="9.4" data-path="mod-r-loops-cond.html"><a href="mod-r-loops-cond.html#rc-r-loops-cond"><i class="fa fa-check"></i><b>9.4</b> Recap</a></li>
+<li class="chapter" data-level="9.5" data-path="mod-r-loops-cond.html"><a href="mod-r-loops-cond.html#ex-r-loops-cond"><i class="fa fa-check"></i><b>9.5</b> Exercises</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="mod-r-loops-cond.html"><a href="mod-r-loops-cond.html#exercise-conditional-expressions"><i class="fa fa-check"></i><b>9.5.1</b> Exercise (conditional expressions)</a></li>
+<li class="chapter" data-level="9.5.2" data-path="mod-r-loops-cond.html"><a href="mod-r-loops-cond.html#exercise-loops"><i class="fa fa-check"></i><b>9.5.2</b> Exercise (loops)</a></li>
+<li class="chapter" data-level="9.5.3" data-path="mod-r-loops-cond.html"><a href="mod-r-loops-cond.html#ex-dist"><i class="fa fa-check"></i><b>9.5.3</b> Exercise (calculating distances)</a></li>
+<li class="chapter" data-level="9.5.4" data-path="mod-r-loops-cond.html"><a href="mod-r-loops-cond.html#exercise-expand_grid"><i class="fa fa-check"></i><b>9.5.4</b> Exercise (<code>expand_grid</code>)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="mod-r-functions.html"><a href="mod-r-functions.html"><i class="fa fa-check"></i><b>10</b> Functions</a><ul>
+<li class="chapter" data-level="10.1" data-path="mod-r-functions.html"><a href="mod-r-functions.html#lo-r-functions"><i class="fa fa-check"></i><b>10.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="10.2" data-path="mod-r-functions.html"><a href="mod-r-functions.html#r-dc-functions"><i class="fa fa-check"></i><b>10.2</b> DataCamp course</a></li>
+<li class="chapter" data-level="10.3" data-path="mod-r-functions.html"><a href="mod-r-functions.html#r-functions-extra"><i class="fa fa-check"></i><b>10.3</b> Functions returning multiple objects</a></li>
+<li class="chapter" data-level="10.4" data-path="mod-r-functions.html"><a href="mod-r-functions.html#r-functions-arg"><i class="fa fa-check"></i><b>10.4</b> The <code>...</code> argument</a></li>
+<li class="chapter" data-level="10.5" data-path="mod-r-functions.html"><a href="mod-r-functions.html#r-functions-doc"><i class="fa fa-check"></i><b>10.5</b> Documenting your functions</a></li>
+<li class="chapter" data-level="10.6" data-path="mod-r-functions.html"><a href="mod-r-functions.html#rc-functions"><i class="fa fa-check"></i><b>10.6</b> Recap</a></li>
+<li class="chapter" data-level="10.7" data-path="mod-r-functions.html"><a href="mod-r-functions.html#ex-r-functions"><i class="fa fa-check"></i><b>10.7</b> Exercises</a><ul>
+<li class="chapter" data-level="10.7.1" data-path="mod-r-functions.html"><a href="mod-r-functions.html#exercise-defining-functions"><i class="fa fa-check"></i><b>10.7.1</b> Exercise (defining functions)</a></li>
+<li class="chapter" data-level="10.7.2" data-path="mod-r-functions.html"><a href="mod-r-functions.html#exercise-scope"><i class="fa fa-check"></i><b>10.7.2</b> Exercise (scope)</a></li>
+<li class="chapter" data-level="10.7.3" data-path="mod-r-functions.html"><a href="mod-r-functions.html#exercise-job-sequencing"><i class="fa fa-check"></i><b>10.7.3</b> Exercise (job sequencing)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III R - IO, tidy and transform</b></span></li>
+<li class="chapter" data-level="11" data-path="mod-r-tidyverse-intro.html"><a href="mod-r-tidyverse-intro.html"><i class="fa fa-check"></i><b>11</b> Introduction to tidyverse and RMarkdown</a><ul>
+<li class="chapter" data-level="11.1" data-path="mod-r-tidyverse-intro.html"><a href="mod-r-tidyverse-intro.html#lo-tidyverse-intro"><i class="fa fa-check"></i><b>11.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="11.2" data-path="mod-r-tidyverse-intro.html"><a href="mod-r-tidyverse-intro.html#r-tidyverse-intro"><i class="fa fa-check"></i><b>11.2</b> The tidyverse package</a></li>
+<li class="chapter" data-level="11.3" data-path="mod-r-tidyverse-intro.html"><a href="mod-r-tidyverse-intro.html#r-markdown-intro"><i class="fa fa-check"></i><b>11.3</b> Writing reproducible reports</a></li>
+<li class="chapter" data-level="11.4" data-path="mod-r-tidyverse-intro.html"><a href="mod-r-tidyverse-intro.html#r-tibbles-intro"><i class="fa fa-check"></i><b>11.4</b> Tibbles</a></li>
+<li class="chapter" data-level="11.5" data-path="mod-r-tidyverse-intro.html"><a href="mod-r-tidyverse-intro.html#rc-tidyverse-intro"><i class="fa fa-check"></i><b>11.5</b> Recap</a></li>
+<li class="chapter" data-level="11.6" data-path="mod-r-tidyverse-intro.html"><a href="mod-r-tidyverse-intro.html#ex-tidyverse-intro"><i class="fa fa-check"></i><b>11.6</b> Exercises</a><ul>
+<li class="chapter" data-level="11.6.1" data-path="mod-r-tidyverse-intro.html"><a href="mod-r-tidyverse-intro.html#exercise-your-first-rmarkdown-exercise"><i class="fa fa-check"></i><b>11.6.1</b> Exercise (your first RMarkdown exercise)</a></li>
+<li class="chapter" data-level="11.6.2" data-path="mod-r-tidyverse-intro.html"><a href="mod-r-tidyverse-intro.html#exercise-tibbles"><i class="fa fa-check"></i><b>11.6.2</b> Exercise (tibbles)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="mod-r-io.html"><a href="mod-r-io.html"><i class="fa fa-check"></i><b>12</b> Importing and exporting data</a><ul>
+<li class="chapter" data-level="12.1" data-path="mod-r-io.html"><a href="mod-r-io.html#lo-r-io"><i class="fa fa-check"></i><b>12.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="12.2" data-path="mod-r-io.html"><a href="mod-r-io.html#r-io-csv"><i class="fa fa-check"></i><b>12.2</b> CSV files</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="mod-r-io.html"><a href="mod-r-io.html#reading-a-csv-file"><i class="fa fa-check"></i><b>12.2.1</b> Reading a CSV file</a></li>
+<li class="chapter" data-level="12.2.2" data-path="mod-r-io.html"><a href="mod-r-io.html#writing-to-csv-files"><i class="fa fa-check"></i><b>12.2.2</b> Writing to CSV files</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="mod-r-io.html"><a href="mod-r-io.html#r-io-excel"><i class="fa fa-check"></i><b>12.3</b> Excel</a></li>
+<li class="chapter" data-level="12.4" data-path="mod-r-io.html"><a href="mod-r-io.html#r-io-google"><i class="fa fa-check"></i><b>12.4</b> Google Sheets</a></li>
+<li class="chapter" data-level="12.5" data-path="mod-r-io.html"><a href="mod-r-io.html#r-io-text"><i class="fa fa-check"></i><b>12.5</b> Text files</a></li>
+<li class="chapter" data-level="12.6" data-path="mod-r-io.html"><a href="mod-r-io.html#r-io-r"><i class="fa fa-check"></i><b>12.6</b> R’s native binary format</a></li>
+<li class="chapter" data-level="12.7" data-path="mod-r-io.html"><a href="mod-r-io.html#r-io-json"><i class="fa fa-check"></i><b>12.7</b> Json</a></li>
+<li class="chapter" data-level="12.8" data-path="mod-r-io.html"><a href="mod-r-io.html#rc-r-io"><i class="fa fa-check"></i><b>12.8</b> Recap</a></li>
+<li class="chapter" data-level="12.9" data-path="mod-r-io.html"><a href="mod-r-io.html#ex-r-io"><i class="fa fa-check"></i><b>12.9</b> Exercises</a><ul>
+<li class="chapter" data-level="12.9.1" data-path="mod-r-io.html"><a href="mod-r-io.html#exercise-statistikbanken"><i class="fa fa-check"></i><b>12.9.1</b> Exercise (Statistikbanken)</a></li>
+<li class="chapter" data-level="12.9.2" data-path="mod-r-io.html"><a href="mod-r-io.html#exercise-tuples-in-opl"><i class="fa fa-check"></i><b>12.9.2</b> Exercise (tuples in OPL)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="mod-r-transform.html"><a href="mod-r-transform.html"><i class="fa fa-check"></i><b>13</b> Transforming data</a><ul>
+<li class="chapter" data-level="13.1" data-path="mod-r-transform.html"><a href="mod-r-transform.html#lo-r-transform"><i class="fa fa-check"></i><b>13.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="13.2" data-path="mod-r-transform.html"><a href="mod-r-transform.html#r-transform-tidyverse"><i class="fa fa-check"></i><b>13.2</b> Working with data in the tidyverse</a></li>
+<li class="chapter" data-level="13.3" data-path="mod-r-transform.html"><a href="mod-r-transform.html#r-transform-joins"><i class="fa fa-check"></i><b>13.3</b> Mutating joins</a></li>
+<li class="chapter" data-level="13.4" data-path="mod-r-transform.html"><a href="mod-r-transform.html#rc-r-transform"><i class="fa fa-check"></i><b>13.4</b> Recap</a></li>
+<li class="chapter" data-level="13.5" data-path="mod-r-transform.html"><a href="mod-r-transform.html#ex-r-transform"><i class="fa fa-check"></i><b>13.5</b> Exercises</a><ul>
+<li class="chapter" data-level="13.5.1" data-path="mod-r-transform.html"><a href="mod-r-transform.html#ex-gapminder1"><i class="fa fa-check"></i><b>13.5.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="13.5.2" data-path="mod-r-transform.html"><a href="mod-r-transform.html#ex-babynames1"><i class="fa fa-check"></i><b>13.5.2</b> Exercise (babynames)</a></li>
+<li class="chapter" data-level="13.5.3" data-path="mod-r-transform.html"><a href="mod-r-transform.html#ex-profit1"><i class="fa fa-check"></i><b>13.5.3</b> Exercise (profit)</a></li>
+<li class="chapter" data-level="13.5.4" data-path="mod-r-transform.html"><a href="mod-r-transform.html#ex-fish"><i class="fa fa-check"></i><b>13.5.4</b> Exercise (fisheries)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Visualization</b></span></li>
+<li class="chapter" data-level="14" data-path="mod-r-plot.html"><a href="mod-r-plot.html"><i class="fa fa-check"></i><b>14</b> Data visualization using ggplot</a><ul>
+<li class="chapter" data-level="14.1" data-path="mod-r-plot.html"><a href="mod-r-plot.html#lo-plot"><i class="fa fa-check"></i><b>14.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="14.2" data-path="mod-r-plot.html"><a href="mod-r-plot.html#r-plot-intro"><i class="fa fa-check"></i><b>14.2</b> Introduction to data visualization</a></li>
+<li class="chapter" data-level="14.3" data-path="mod-r-plot.html"><a href="mod-r-plot.html#r-plot-multi"><i class="fa fa-check"></i><b>14.3</b> Combining plots into one using <em>patchwork</em></a></li>
+<li class="chapter" data-level="14.4" data-path="mod-r-plot.html"><a href="mod-r-plot.html#r-plot-save"><i class="fa fa-check"></i><b>14.4</b> Saving graphics</a></li>
+<li class="chapter" data-level="14.5" data-path="mod-r-plot.html"><a href="mod-r-plot.html#rc-r-plot"><i class="fa fa-check"></i><b>14.5</b> Recap</a></li>
+<li class="chapter" data-level="14.6" data-path="mod-r-plot.html"><a href="mod-r-plot.html#ex-r-plot"><i class="fa fa-check"></i><b>14.6</b> Exercises</a><ul>
+<li class="chapter" data-level="14.6.1" data-path="mod-r-plot.html"><a href="mod-r-plot.html#ex-gapminder2"><i class="fa fa-check"></i><b>14.6.1</b> Exercise (gapminder)</a></li>
+<li class="chapter" data-level="14.6.2" data-path="mod-r-plot.html"><a href="mod-r-plot.html#ex-profit2"><i class="fa fa-check"></i><b>14.6.2</b> Exercise (profit)</a></li>
+<li class="chapter" data-level="14.6.3" data-path="mod-r-plot.html"><a href="mod-r-plot.html#ex-covid19"><i class="fa fa-check"></i><b>14.6.3</b> Exercise (COVID-19)</a></li>
+<li class="chapter" data-level="14.6.4" data-path="mod-r-plot.html"><a href="mod-r-plot.html#ex-lego"><i class="fa fa-check"></i><b>14.6.4</b> Exercise (Lego and sales)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>V Extra</b></span></li>
+<li class="chapter" data-level="15" data-path="mod-r-dist-fit.html"><a href="mod-r-dist-fit.html"><i class="fa fa-check"></i><b>15</b> Fitting probability distributions</a><ul>
+<li class="chapter" data-level="15.1" data-path="mod-r-dist-fit.html"><a href="mod-r-dist-fit.html#lo-r-dist-fit"><i class="fa fa-check"></i><b>15.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="15.2" data-path="mod-r-dist-fit.html"><a href="mod-r-dist-fit.html#sec-r-dist-fit-intro"><i class="fa fa-check"></i><b>15.2</b> Introduction</a></li>
+<li class="chapter" data-level="15.3" data-path="mod-r-dist-fit.html"><a href="mod-r-dist-fit.html#sec-r-dist-fit-cont"><i class="fa fa-check"></i><b>15.3</b> Fitting distributions to continuous data</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="mod-r-dist-fit.html"><a href="mod-r-dist-fit.html#example-breakdown-times"><i class="fa fa-check"></i><b>15.3.1</b> Example: breakdown times</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="mod-r-dist-fit.html"><a href="mod-r-dist-fit.html#sec-r-dist-fit-discrete"><i class="fa fa-check"></i><b>15.4</b> Fitting distributions to discrete data</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="mod-r-dist-fit.html"><a href="mod-r-dist-fit.html#example-sales-of-lottery-tickets"><i class="fa fa-check"></i><b>15.4.1</b> Example: sales of lottery tickets</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="mod-r-dist-fit.html"><a href="mod-r-dist-fit.html#sec-dist-fit-pois"><i class="fa fa-check"></i><b>15.5</b> The Poisson process</a></li>
+<li class="chapter" data-level="15.6" data-path="mod-r-dist-fit.html"><a href="mod-r-dist-fit.html#rc-r-dist-fit"><i class="fa fa-check"></i><b>15.6</b> Recap</a></li>
+<li class="chapter" data-level="15.7" data-path="mod-r-dist-fit.html"><a href="mod-r-dist-fit.html#ex-r-dist-fit"><i class="fa fa-check"></i><b>15.7</b> Exercises</a><ul>
+<li class="chapter" data-level="15.7.1" data-path="mod-r-dist-fit.html"><a href="mod-r-dist-fit.html#exercise---call-center"><i class="fa fa-check"></i><b>15.7.1</b> Exercise - Call center</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="mod-r-maps.html"><a href="mod-r-maps.html"><i class="fa fa-check"></i><b>16</b> Spatial data and maps</a><ul>
+<li class="chapter" data-level="16.1" data-path="mod-r-maps.html"><a href="mod-r-maps.html#lo-maps"><i class="fa fa-check"></i><b>16.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="16.2" data-path="mod-r-maps.html"><a href="mod-r-maps.html#sec-map-api-key"><i class="fa fa-check"></i><b>16.2</b> Services for obtatining spatial data</a></li>
+<li class="chapter" data-level="16.3" data-path="mod-r-maps.html"><a href="mod-r-maps.html#calculating-distances"><i class="fa fa-check"></i><b>16.3</b> Calculating distances</a><ul>
+<li class="chapter" data-level="16.3.1" data-path="mod-r-maps.html"><a href="mod-r-maps.html#using-google-maps"><i class="fa fa-check"></i><b>16.3.1</b> Using Google Maps</a></li>
+<li class="chapter" data-level="16.3.2" data-path="mod-r-maps.html"><a href="mod-r-maps.html#using-bing-maps"><i class="fa fa-check"></i><b>16.3.2</b> Using Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="mod-r-maps.html"><a href="mod-r-maps.html#geocoding-and-reverse-geocoding"><i class="fa fa-check"></i><b>16.4</b> Geocoding and reverse geocoding</a><ul>
+<li class="chapter" data-level="16.4.1" data-path="mod-r-maps.html"><a href="mod-r-maps.html#using-google-maps-1"><i class="fa fa-check"></i><b>16.4.1</b> Using Google maps</a></li>
+<li class="chapter" data-level="16.4.2" data-path="mod-r-maps.html"><a href="mod-r-maps.html#use-bing-maps"><i class="fa fa-check"></i><b>16.4.2</b> Use Bing Maps</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="mod-r-maps.html"><a href="mod-r-maps.html#adding-markers-and-routes-to-a-map"><i class="fa fa-check"></i><b>16.5</b> Adding markers and routes to a map</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="groups.html"><a href="groups.html"><i class="fa fa-check"></i><b>A</b> Working in groups</a><ul>
+<li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#joint-r-project-structure"><i class="fa fa-check"></i>Joint R project structure</a></li>
+<li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#using-git"><i class="fa fa-check"></i>Using Git together with GitHub</a><ul>
+<li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#register-a-free-github-account"><i class="fa fa-check"></i>Register a free GitHub account</a></li>
+<li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#install-git"><i class="fa fa-check"></i>Install Git</a></li>
+<li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#check-your-installation"><i class="fa fa-check"></i>Check your installation</a></li>
+<li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#setup-projects-using-git-and-github"><i class="fa fa-check"></i>Setup projects using Git and GitHub</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="annotate.html"><a href="annotate.html"><i class="fa fa-check"></i><b>B</b> Annotate the course notes</a></li>
+<li class="chapter" data-level="C" data-path="help.html"><a href="help.html"><i class="fa fa-check"></i><b>C</b> Getting help</a></li>
+<li class="chapter" data-level="D" data-path="coding-convention.html"><a href="coding-convention.html"><i class="fa fa-check"></i><b>D</b> Coding/naming convention</a><ul>
+<li class="chapter" data-level="D.1" data-path="coding-convention.html"><a href="coding-convention.html#commenting-your-code"><i class="fa fa-check"></i><b>D.1</b> Commenting your code</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="apdx-vba.html"><a href="apdx-vba.html"><i class="fa fa-check"></i><b>E</b> VBA specific topics</a><ul>
+<li class="chapter" data-level="E.1" data-path="apdx-vba.html"><a href="apdx-vba.html#vba-debug"><i class="fa fa-check"></i><b>E.1</b> Debugging your code</a></li>
+<li class="chapter" data-level="E.2" data-path="apdx-vba.html"><a href="apdx-vba.html#error-handling"><i class="fa fa-check"></i><b>E.2</b> Error handling</a></li>
+<li class="chapter" data-level="E.3" data-path="apdx-vba.html"><a href="apdx-vba.html#vba-course-procedures"><i class="fa fa-check"></i><b>E.3</b> Course procedures</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="lg-course.html"><a href="lg-course.html"><i class="fa fa-check"></i><b>F</b> Learning goals</a></li>
+<li class="chapter" data-level="G" data-path="ba.html"><a href="ba.html"><i class="fa fa-check"></i><b>G</b> Business Analytics</a></li>
+<li class="chapter" data-level="H" data-path="colophon.html"><a href="colophon.html"><i class="fa fa-check"></i><b>H</b> Colophon</a></li>
+<li class="divider"></li>
+<li><center>
+  <a rel="license" href="./index.html#ack">
+    License: CC BY-NC-SA<br>
+    <i class = "fab fa-creative-commons fa-2x"></i>
+    <i class = "fab fa-creative-commons-by fa-2x"></i>
+    <i class = "fab fa-creative-commons-nc fa-2x"></i>
+    <i class = "fab fa-creative-commons-sa fa-2x"></i>
+  </a>
+</li></center>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Tools for Analytics (TFA)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mod-r-tidyverse-intro" class="section level1 hasAnchor">
+<h1><span class="header-section-number">Module 11</span> Introduction to tidyverse and RMarkdown<a href="mod-r-tidyverse-intro.html#mod-r-tidyverse-intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The <a href="https://www.tidyverse.org">tidyverse</a> is a collection of R packages designed for data science. RMarkdown documents support the concept of <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a> where you weave R code together with text (written in Markdown) to produce elegantly formatted documents.</p>
+<p>We are all different and you may like different learning styles compared to others. In the learning path diagram, there may be links to alternative online content. Note this is an alternative to the standard learning path that you may use instead. The learning path may also have extra content, that is not a part of syllabus, you can have a look at.</p>
+<div id="htmlwidget-72c9294f7846caa93498" style="width:100%;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-72c9294f7846caa93498">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 Tidyverse\", URL = \"#r-tidyverse-intro\", tooltip = \"The tidyverse package\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"0,2!\"] \n  \"2\" [label = \"📖 Reproducible\\nreports\", URL = \"#r-markdown-intro\", tooltip = \"Writing reproducible reports\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"2,2!\"] \n  \"3\" [label = \"💡 RMarkdown\", URL = \"https://campus.datacamp.com/courses/communicating-with-data-in-the-tidyverse/introduction-to-rmarkdown?ex=1\", tooltip = \"An introduction to RMarkdown (do Chapters 3 and 4)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"4.5,2!\"] \n  \"4\" [label = \"📖 Tibbles\", URL = \"#r-tibbles-intro\", tooltip = \"A short introduction to tibbles\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"7,2!\"] \n  \"5\" [label = \"💻 Exercises\", URL = \"#ex-tidyverse-intro\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"9.5,2!\"] \n  \"6\" [label = \"📖 RMarkdown\", URL = \"https://rbasics.netlify.app/4-rmarkdown.html\", tooltip = \"Chapter 4 in Ismay and Kennedy (2019) gives an overview of R Markdown with videos included.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"3,0!\"] \n  \"7\" [label = \"💡 RMarkdown\", URL = \"https://campus.datacamp.com/courses/reporting-with-rmarkdown/getting-started-with-r-markdown?ex=1\", tooltip = \"The interactive DataCamp course Reporting with R Markdown (a bit longer).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"5,0!\"] \n  \"8\" [label = \"💡 Markdown\", URL = \"https://commonmark.org/help/tutorial/\", tooltip = \"An interactive markdown tutorial.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"4.5,4!\"] \n  \"9\" [label = \"📖 Reproducible\\nreports\", URL = \"https://rpubs.com/glennwithtwons/reproducible-r-toolbox\", tooltip = \"Glenn Moncrieff gives a nice detailed overview on how to create reproducible projects.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"2,4!\"] \n  \"10\" [label = \"🎬 Tibbles\", URL = \"https://www.youtube.com/watch?v=EBk6PnvE1R4\", tooltip = \"An introduction to tibbles and differences to data frames is given in the video by Hefin Rhys.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"7,4!\"] \n  \"11\" [label = \"📖 Tibbles\", URL = \"https://r4ds.had.co.nz/tibbles.html\", tooltip = \"Chapter 10 in Wickham (2017) gives an introduction to tibbles.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"7,0!\"] \n  \"12\" [label = \"\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"2.4,5.66!\"] \n  \"13\" [label = \"Color:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"-0.23,6!\"] \n  \"14\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"0,5.6!\"] \n  \"15\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"1,5.6!\"] \n  \"16\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"2,5.6!\"] \n  \"17\" [label = \"Shape:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"3.2,6!\"] \n  \"18\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"1\", fillcolor = \"Grey40\", pos = \"3.5,5.6!\"] \n  \"19\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", width = \"1\", fillcolor = \"Grey40\", pos = \"4.75,5.6!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"9\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"10\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"11\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<!-- * [Chapter 4](https://rbasics.netlify.app/4-rmarkdown.html) in @rbasics gives an overview of RMarkdown with videos included.  -->
+<!-- * You may also do the interactive DataCamp [Reporting with RMarkdown][datacamp-r-rmarkdown] which is a bit longer than the suggested course.  -->
+<!-- * If **Help > Markdown Quick Reference** not is enough, then try out this [interactive markdown tutorial][tutorial-markdown]. -->
+<!-- * Glenn Moncrieff gives a nice detailed overview on how to create [reproducible projects](https://rpubs.com/glennwithtwons/reproducible-r-toolbox).   -->
+<!-- * If you are interested in trying Git and GitHub, see @hgit for detailed help. -->
+<!-- * An introduction to tibbles and differences to data frames is given in the video [Working with tibbles in R][video-tibble-vs-df] by Hefin Rhys. -->
+<!-- * [Chapter 10](https://r4ds.had.co.nz/tibbles.html) in @r4ds gives an introduction to tibbles. -->
+<div id="lo-tidyverse-intro" class="section level2 hasAnchor">
+<h2><span class="header-section-number">11.1</span> Learning outcomes<a href="mod-r-tidyverse-intro.html#lo-tidyverse-intro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By the end of this module, you are expected to be able to:</p>
+<ul>
+<li>Describe what the tidyverse package is.</li>
+<li>Explain the ideas behind reproducible reports and literal programming.</li>
+<li>Create your first RMarkdown document and add some code and text.</li>
+</ul>
+<p>The learning outcomes relate to the <a href="lg-course.html#lg-course">overall learning goals</a> number 7, 17 and 18 of the course.</p>
+<!-- SOLO increasing: identify · memorize · name · do simple procedure · collect data · -->
+<!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
+<!-- algorithms · compare · contrast · explain causes · analyze · relate · derive · -->
+<!-- evaluate · apply · argue · theorize · generalize · hypothesis · solve · reflect -->
+</div>
+<div id="r-tidyverse-intro" class="section level2 hasAnchor">
+<h2><span class="header-section-number">11.2</span> The tidyverse package<a href="mod-r-tidyverse-intro.html#r-tidyverse-intro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <a href="https://www.tidyverse.org">tidyverse</a> is a collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.</p>
+<p>The <a href="https://www.tidyverse.org/packages/#core-tidyverse">core tidyverse</a> includes the packages that you are likely to use in everyday data analyses. In tidyverse 1.3.0, the following packages are included in the core tidyverse:</p>
+<ul>
+<li><p><a href="https://dplyr.tidyverse.org/">dplyr</a> provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges. We are going to use dplyr in Module <a href="mod-r-transform.html#mod-r-transform">13</a>.</p></li>
+<li><p><a href="https://ggplot2.tidyverse.org/">ggplot2</a> is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details. We are going to use ggplot in Module <a href="mod-r-plot.html#mod-r-plot">14</a>.</p></li>
+<li><p><a href="https://tidyr.tidyverse.org/">tidyr</a> provides a set of functions that help you get to tidy data. Tidy data is data with a consistent form: in brief, every variable goes in a column, and every column is a variable.</p></li>
+<li><p><a href="https://readr.tidyverse.org/">readr</a> provides a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. We are going to use dplyr in Module <a href="mod-r-io.html#mod-r-io">12</a>.</p></li>
+<li><p><a href="https://purrr.tidyverse.org/">purrr</a> enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors. Once you master the basic concepts, purrr allows you to replace many for loops with code that is easier to write and more expressive. This package is not covered in this course.</p></li>
+<li><p><a href="https://tibble.tidyverse.org/">tibble</a> is a modern re-imagining of the data frame, keeping what time has proven to be effective, and throwing out what has not. Tibbles are data frames that are lazy and surly: they do less and complain more forcing you to confront problems earlier, typically leading to cleaner, more expressive code. We are going to use tibbles in Module <a href="mod-r-transform.html#mod-r-transform">13</a>.</p></li>
+<li><p><a href="https://stringr.tidyverse.org/">stringr</a> provides a cohesive set of functions designed to make working with strings as easy as possible. You have already worked a bit with stringr in Exercise <a href="mod-r-workflow.html#ex-strings">8.7.8</a></p></li>
+<li><p><a href="https://forcats.tidyverse.org/">forcats</a> provides a suite of useful tools that solve common problems with factors. R uses factors to handle categorical variables, variables that have a fixed and known set of possible values. This package is not covered in this course.</p></li>
+</ul>
+<p>Small introductions (with examples) to the packages are given on their documentation pages (follow the links above). The tidyverse also includes many <a href="https://www.tidyverse.org/packages/">other packages</a> with more specialized usage. They are not loaded automatically with <code>library(tidyverse)</code>, so you will need to load each one with its own call to <code>library()</code>.</p>
+</div>
+<div id="r-markdown-intro" class="section level2 hasAnchor">
+<h2><span class="header-section-number">11.3</span> Writing reproducible reports<a href="mod-r-tidyverse-intro.html#r-markdown-intro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The concept of <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a> was originally introduced by Donald Knuth in 1984. In a nutshell, Knuth envisioned a new programming paradigm where computer scientists focus on weaving code together with text as documentation.</p>
+<p>That is, when we do an Analytics project, we are interested in writing reports containing both R code for importing data, wrangling and analysis. Moreover, at the same time, the document should contain our comments about the code, plots, analysis, results, etc. The document is then rendered to an output format such as html, pdf or Word which is presented to the decision maker. Note the document can be seen as the “the source code” for the report communicated to the decision maker.</p>
+<p>Some developers have created tools to enable others to write better literate programs. They use a markup language made for authoring. We are going to focus on <a href="https://rmarkdown.rstudio.com/">RMarkdown</a>. In RMarkdown documents you can weave R code together with text (written in Markdown) to produce elegantly formatted output.</p>
+<p>In fact this book is written in RMarkdown by using</p>
+<ul>
+<li>a set of RMarkdown documents bound together as a collection using the <a href="https://bookdown.org/yihui/bookdown/">bookdown</a> package,</li>
+<li>rendered to a web page using RStudio,</li>
+<li>shared on <a href="https://github.com/">GitHub</a>,</li>
+<li>built by <a href="https://github.com/features/actions">GitHub Actions</a>,</li>
+<li>and published on <a href="https://pages.github.com/">GitHub Pages</a>.</li>
+</ul>
+<p>This may seem complicated at first. However, after setup, it makes life much easier, since we can</p>
+<ul>
+<li>update the book easier,</li>
+<li>share and collaborate on the book easier,</li>
+<li>update the web page automatically,</li>
+<li>keep history of the book source,</li>
+<li>keep the book source at a single location.</li>
+</ul>
+<p>RMarkdown documents are reproducible. Anybody who works with data has at some point heard a colleague say ‘Well, it works on my computer’, expressing dismay at the fact that you cannot reproduce their results. Ultimately, reproducible means that the results can be reproduced given access to the original data, software, and code. In practice it may be hard to make your project totally reproducible. For instance, people may be using a different operating system, other versions of the software, etc. That is, there are different levels of reproducibility. In this course, we will focus on RMarkdown only. See Module <a href="mod-r-tidyverse-intro.html#mod-r-tidyverse-intro">11</a> for more info about levels of reproducibility.</p>
+<p>An introduction to RMarkdown is given in Chapters <a href="https://campus.datacamp.com/courses/communicating-with-data-in-the-tidyverse/introduction-to-rmarkdown">3</a> and <a href="https://campus.datacamp.com/courses/communicating-with-data-in-the-tidyverse/customizing-your-rmarkdown-report">4</a> of the <a href="https://www.datacamp.com/">DataCamp</a> course <a href="https://learn.datacamp.com/courses/communicating-with-data-in-the-tidyverse">Communicating with Data in the Tidyverse</a>. Note that you may skip Chapters 1 and 2 and still understand most of the questions in Chapters 3 and 4 (otherwise just see the solution). You are expected to have completed the chapters before continuing this module!</p>
+<p>The RMarkdown cheatsheet may be useful. Find the newest version in RStudio <strong>Help &gt; Cheatsheets</strong>. All chunk options for R code can be seen <a href="https://yihui.org/knitr/options/">here</a>.</p>
+</div>
+<div id="r-tibbles-intro" class="section level2 hasAnchor">
+<h2><span class="header-section-number">11.4</span> Tibbles<a href="mod-r-tidyverse-intro.html#r-tibbles-intro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Tibbles are a modern data frame, keeping what time has proven to be effective, and throwing out what is not. Tibbles are more strict compared to data frames e.g. they do not change variable names or types, do not do partial matching and complain more e.g. when a variable does not exist. This forces you to confront problems earlier, typically leading to cleaner, more expressive code. Moreover, tibbles have an enhanced <code>print</code> method and can have columns that are lists.</p>
+<p>Let us see a few examples:</p>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="mod-r-tidyverse-intro.html#cb361-1"></a>tbl1 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Lars&quot;</span>, <span class="st">&quot;Susan&quot;</span>, <span class="st">&quot;Hans&quot;</span>), <span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">23</span>, <span class="dv">56</span>, <span class="dv">45</span>))</span>
+<span id="cb361-2"><a href="mod-r-tidyverse-intro.html#cb361-2"></a>tbl1</span>
+<span id="cb361-3"><a href="mod-r-tidyverse-intro.html#cb361-3"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span id="cb361-4"><a href="mod-r-tidyverse-intro.html#cb361-4"></a><span class="co">#&gt;   name    age</span></span>
+<span id="cb361-5"><a href="mod-r-tidyverse-intro.html#cb361-5"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt;</span></span>
+<span id="cb361-6"><a href="mod-r-tidyverse-intro.html#cb361-6"></a><span class="co">#&gt; 1 Lars     23</span></span>
+<span id="cb361-7"><a href="mod-r-tidyverse-intro.html#cb361-7"></a><span class="co">#&gt; 2 Susan    56</span></span>
+<span id="cb361-8"><a href="mod-r-tidyverse-intro.html#cb361-8"></a><span class="co">#&gt; 3 Hans     45</span></span>
+<span id="cb361-9"><a href="mod-r-tidyverse-intro.html#cb361-9"></a>tbl2 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>))</span>
+<span id="cb361-10"><a href="mod-r-tidyverse-intro.html#cb361-10"></a>tbl2</span>
+<span id="cb361-11"><a href="mod-r-tidyverse-intro.html#cb361-11"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span id="cb361-12"><a href="mod-r-tidyverse-intro.html#cb361-12"></a><span class="co">#&gt;       x y         </span></span>
+<span id="cb361-13"><a href="mod-r-tidyverse-intro.html#cb361-13"></a><span class="co">#&gt;   &lt;int&gt; &lt;list&gt;    </span></span>
+<span id="cb361-14"><a href="mod-r-tidyverse-intro.html#cb361-14"></a><span class="co">#&gt; 1     1 &lt;int [5]&gt; </span></span>
+<span id="cb361-15"><a href="mod-r-tidyverse-intro.html#cb361-15"></a><span class="co">#&gt; 2     2 &lt;int [10]&gt;</span></span>
+<span id="cb361-16"><a href="mod-r-tidyverse-intro.html#cb361-16"></a><span class="co">#&gt; 3     3 &lt;int [20]&gt;</span></span>
+<span id="cb361-17"><a href="mod-r-tidyverse-intro.html#cb361-17"></a>tbl3 &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(mtcars)</span>
+<span id="cb361-18"><a href="mod-r-tidyverse-intro.html#cb361-18"></a>tbl3</span>
+<span id="cb361-19"><a href="mod-r-tidyverse-intro.html#cb361-19"></a><span class="co">#&gt; # A tibble: 33 × 12</span></span>
+<span id="cb361-20"><a href="mod-r-tidyverse-intro.html#cb361-20"></a><span class="co">#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb col  </span></span>
+<span id="cb361-21"><a href="mod-r-tidyverse-intro.html#cb361-21"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
+<span id="cb361-22"><a href="mod-r-tidyverse-intro.html#cb361-22"></a><span class="co">#&gt;  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4 &lt;NA&gt; </span></span>
+<span id="cb361-23"><a href="mod-r-tidyverse-intro.html#cb361-23"></a><span class="co">#&gt;  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4 green</span></span>
+<span id="cb361-24"><a href="mod-r-tidyverse-intro.html#cb361-24"></a><span class="co">#&gt;  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1 blue </span></span>
+<span id="cb361-25"><a href="mod-r-tidyverse-intro.html#cb361-25"></a><span class="co">#&gt;  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1 red  </span></span>
+<span id="cb361-26"><a href="mod-r-tidyverse-intro.html#cb361-26"></a><span class="co">#&gt;  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2 &lt;NA&gt; </span></span>
+<span id="cb361-27"><a href="mod-r-tidyverse-intro.html#cb361-27"></a><span class="co">#&gt;  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1 blue </span></span>
+<span id="cb361-28"><a href="mod-r-tidyverse-intro.html#cb361-28"></a><span class="co">#&gt;  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4 green</span></span>
+<span id="cb361-29"><a href="mod-r-tidyverse-intro.html#cb361-29"></a><span class="co">#&gt;  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2 blue </span></span>
+<span id="cb361-30"><a href="mod-r-tidyverse-intro.html#cb361-30"></a><span class="co">#&gt;  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2 red  </span></span>
+<span id="cb361-31"><a href="mod-r-tidyverse-intro.html#cb361-31"></a><span class="co">#&gt; 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4 red  </span></span>
+<span id="cb361-32"><a href="mod-r-tidyverse-intro.html#cb361-32"></a><span class="co">#&gt; # … with 23 more rows</span></span>
+<span id="cb361-33"><a href="mod-r-tidyverse-intro.html#cb361-33"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span>
+<span id="cb361-34"><a href="mod-r-tidyverse-intro.html#cb361-34"></a>tbl4 &lt;-<span class="st"> </span><span class="kw">tribble</span>(</span>
+<span id="cb361-35"><a href="mod-r-tidyverse-intro.html#cb361-35"></a>  <span class="op">~</span>x, <span class="op">~</span>y, <span class="op">~</span>z,</span>
+<span id="cb361-36"><a href="mod-r-tidyverse-intro.html#cb361-36"></a>  <span class="co">#--|--|----</span></span>
+<span id="cb361-37"><a href="mod-r-tidyverse-intro.html#cb361-37"></a>  <span class="st">&quot;a&quot;</span>, <span class="dv">2</span>, <span class="fl">3.6</span>,</span>
+<span id="cb361-38"><a href="mod-r-tidyverse-intro.html#cb361-38"></a>  <span class="st">&quot;b&quot;</span>, <span class="dv">1</span>, <span class="fl">8.5</span></span>
+<span id="cb361-39"><a href="mod-r-tidyverse-intro.html#cb361-39"></a>)</span>
+<span id="cb361-40"><a href="mod-r-tidyverse-intro.html#cb361-40"></a>tbl4</span>
+<span id="cb361-41"><a href="mod-r-tidyverse-intro.html#cb361-41"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span id="cb361-42"><a href="mod-r-tidyverse-intro.html#cb361-42"></a><span class="co">#&gt;   x         y     z</span></span>
+<span id="cb361-43"><a href="mod-r-tidyverse-intro.html#cb361-43"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb361-44"><a href="mod-r-tidyverse-intro.html#cb361-44"></a><span class="co">#&gt; 1 a         2   3.6</span></span>
+<span id="cb361-45"><a href="mod-r-tidyverse-intro.html#cb361-45"></a><span class="co">#&gt; 2 b         1   8.5</span></span></code></pre></div>
+<p>Note that we can always coerce a data frame to a tibble (<code>tbl3</code>) or create it directly using <code>tibble</code>. Another way to create a tibble is with <code>tribble</code>. Here column headings are defined by formulas (i.e. they start with ~), and entries are separated by commas. This makes it possible to lay out small amounts of data in easy to read form.</p>
+<p>Tibbles have a refined print method that shows only the first 10 rows along with the number of columns that will fit on your screen. This makes it much easier to work with large data. In addition to its name, each column reports its type. Hence, your console is not overwhelmed with data. To see a full view of the data, you can use RStudio’s built-in data viewer:</p>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="mod-r-tidyverse-intro.html#cb362-1"></a><span class="kw">View</span>(tbl3)</span></code></pre></div>
+</div>
+<div id="rc-tidyverse-intro" class="section level2 hasAnchor">
+<h2><span class="header-section-number">11.5</span> Recap<a href="mod-r-tidyverse-intro.html#rc-tidyverse-intro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p><a href="https://www.tidyverse.org">tidyverse</a> is a collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.</p></li>
+<li><p>RMarkdown is an example of literate programming.</p></li>
+<li><p>The <a href="https://www.tidyverse.org/packages/#core-tidyverse">core tidyverse</a> includes the packages that you are likely to use in everyday data analyses.</p></li>
+<li><p>The concept of <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a> is a programming paradigm which focuses on weaving code together with text as documentation. That is, we are interested in writing reports containing both text and R code for importing data, wrangling and analysis.</p></li>
+<li><p>Reproducibility means that the results can be reproduced given access to the original data, software, and code.</p></li>
+<li><p>In practice it may be hard to make your project totally reproducible. That is, there are different levels of reproducibility.</p></li>
+<li><p>RMarkdown documents are an attempt to make reproducible documents and combine R code and markdown text.</p></li>
+<li><p>All chunk options for R code in RMarkdown documents can be seen <a href="https://yihui.org/knitr/options/">here</a>.</p></li>
+<li><p>The RMarkdown cheatsheet may be useful. Find the newest version in RStudio <strong>Help &gt; Cheatsheets</strong>. For Markdown syntax see <strong>Help &gt; Markdown Quick Reference</strong>.</p></li>
+<li><p>Tibbles are a modern data frame, keeping what time has proven to be effective, and throwing out what is not.</p></li>
+<li><p>Tibbles are more strict compared to data frames e.g. they do not change variable names or types, do not do partial matching and complain more e.g. when a variable does not exist.</p></li>
+<li><p>Tibbles have an enhanced <code>print</code> method and can have columns that are lists.</p></li>
+</ul>
+<p>You may also have a look at the <a href="https://bss-osca.github.io/tfa/slides/07-01_r-tidyverse-intro-slides.html">slides for this module</a>.</p>
+</div>
+<div id="ex-tidyverse-intro" class="section level2 hasAnchor">
+<h2><span class="header-section-number">11.6</span> Exercises<a href="mod-r-tidyverse-intro.html#ex-tidyverse-intro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the <a href="help.html#help">help page</a>. Some of the solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up too early. Put some effort into finding a solution!</p>
+<p><a href="https://rstudio.cloud/spaces/176810/project/3020509">Link to the project on RStudio Cloud for this module</a>.</p>
+<div id="exercise-your-first-rmarkdown-exercise" class="section level3 hasAnchor">
+<h3><span class="header-section-number">11.6.1</span> Exercise (your first RMarkdown exercise)<a href="mod-r-tidyverse-intro.html#exercise-your-first-rmarkdown-exercise" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Load the tfa package:</p>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="mod-r-tidyverse-intro.html#cb363-1"></a><span class="co"># remotes::install_github(&quot;bss-osca/tfa/tfa-package&quot;, upgrade = FALSE)  # run to upgrade</span></span>
+<span id="cb363-2"><a href="mod-r-tidyverse-intro.html#cb363-2"></a><span class="kw">library</span>(tfa)</span></code></pre></div>
+<p>The package contains templates for exercises etc. Go to <strong>File &gt; New File &gt; R Markdown…</strong>. In the pop-up box select <strong>From template</strong> in the left column and then <strong>TFA Exercise</strong>. Press <em>Ok</em> and a new RMarkdown document will be opened.</p>
+<ol style="list-style-type: decimal">
+<li><p>Change the meta text (e.g. the title and add your name) in the yaml.</p></li>
+<li><p>Render/compile the document by pressing the <em>Knit</em> button (or Ctrl+Shift+K).</p></li>
+</ol>
+<div id="fmlf7qcpA0KGpv7ubOfl" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="fmlf7qcpA0KGpv7ubOfl-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="fmlf7qcpA0KGpv7ubOfl-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<p>
+All the code is now hidden. But not the output.
+</p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#fmlf7qcpA0KGpv7ubOfl">
+Solution
+</button>
+<ol start="3" style="list-style-type: decimal">
+<li>Change <code>echo = TRUE</code> to <code>echo = FALSE</code> in the first chunk <code>setup</code> and render the document. What has happened?</li>
+</ol>
+<p>You can easily go to a chunk using the navigation in the bottom left of the source window.</p>
+<p><img src="img/win_chunk_selection.png" width="50%" style="display: block; margin: auto;" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Try to change <code>fig.asp = 0.25</code> to e.g. 0.5 in Chunk 10. What happens?</p></li>
+<li><p>Create a new section <code>## Question 4</code> and add text in italic: <em>What is the sum of all setup costs?</em></p></li>
+</ol>
+<div id="WOx39hj6SdOzgJ9I51Jk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="WOx39hj6SdOzgJ9I51Jk-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="WOx39hj6SdOzgJ9I51Jk-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="mod-r-tidyverse-intro.html#cb364-1"></a>total &lt;-<span class="st"> </span><span class="kw">sum</span>(setup_costs)</span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#WOx39hj6SdOzgJ9I51Jk">
+Solution
+</button>
+<ol start="6" style="list-style-type: decimal">
+<li>Add a code chunk solving Question 5 above.</li>
+</ol>
+<div id="xPW4dLQxgiACspiHDUWD" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="xPW4dLQxgiACspiHDUWD-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="xPW4dLQxgiACspiHDUWD-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<p>
+The sum of all setup costs are ̀r total ̀.
+</p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#xPW4dLQxgiACspiHDUWD">
+Solution
+</button>
+<ol start="7" style="list-style-type: decimal">
+<li>Add a line of text with the result.</li>
+</ol>
+</div>
+<div id="exercise-tibbles" class="section level3 hasAnchor">
+<h3><span class="header-section-number">11.6.2</span> Exercise (tibbles)<a href="mod-r-tidyverse-intro.html#exercise-tibbles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Solve this exercise using an R script file.</p>
+<div id="l1iqvfGDr1qWQvAN89fY" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="l1iqvfGDr1qWQvAN89fY-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="l1iqvfGDr1qWQvAN89fY-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="mod-r-tidyverse-intro.html#cb365-1"></a>airquality <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>()</span>
+<span id="cb365-2"><a href="mod-r-tidyverse-intro.html#cb365-2"></a><span class="co">#&gt; # A tibble: 153 × 6</span></span>
+<span id="cb365-3"><a href="mod-r-tidyverse-intro.html#cb365-3"></a><span class="co">#&gt;    Ozone Solar.R  Wind  Temp Month   Day</span></span>
+<span id="cb365-4"><a href="mod-r-tidyverse-intro.html#cb365-4"></a><span class="co">#&gt;    &lt;int&gt;   &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb365-5"><a href="mod-r-tidyverse-intro.html#cb365-5"></a><span class="co">#&gt;  1    41     190   7.4    67     5     1</span></span>
+<span id="cb365-6"><a href="mod-r-tidyverse-intro.html#cb365-6"></a><span class="co">#&gt;  2    36     118   8      72     5     2</span></span>
+<span id="cb365-7"><a href="mod-r-tidyverse-intro.html#cb365-7"></a><span class="co">#&gt;  3    12     149  12.6    74     5     3</span></span>
+<span id="cb365-8"><a href="mod-r-tidyverse-intro.html#cb365-8"></a><span class="co">#&gt;  4    18     313  11.5    62     5     4</span></span>
+<span id="cb365-9"><a href="mod-r-tidyverse-intro.html#cb365-9"></a><span class="co">#&gt;  5    NA      NA  14.3    56     5     5</span></span>
+<span id="cb365-10"><a href="mod-r-tidyverse-intro.html#cb365-10"></a><span class="co">#&gt;  6    28      NA  14.9    66     5     6</span></span>
+<span id="cb365-11"><a href="mod-r-tidyverse-intro.html#cb365-11"></a><span class="co">#&gt;  7    23     299   8.6    65     5     7</span></span>
+<span id="cb365-12"><a href="mod-r-tidyverse-intro.html#cb365-12"></a><span class="co">#&gt;  8    19      99  13.8    59     5     8</span></span>
+<span id="cb365-13"><a href="mod-r-tidyverse-intro.html#cb365-13"></a><span class="co">#&gt;  9     8      19  20.1    61     5     9</span></span>
+<span id="cb365-14"><a href="mod-r-tidyverse-intro.html#cb365-14"></a><span class="co">#&gt; 10    NA     194   8.6    69     5    10</span></span>
+<span id="cb365-15"><a href="mod-r-tidyverse-intro.html#cb365-15"></a><span class="co">#&gt; # … with 143 more rows</span></span>
+<span id="cb365-16"><a href="mod-r-tidyverse-intro.html#cb365-16"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#l1iqvfGDr1qWQvAN89fY">
+Solution
+</button>
+<ol style="list-style-type: decimal">
+<li>Convert the dataset <code>airquality</code> to a tibble.</li>
+</ol>
+<div id="ToxVhBM396HOdhKxh9MI" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ToxVhBM396HOdhKxh9MI-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="ToxVhBM396HOdhKxh9MI-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="mod-r-tidyverse-intro.html#cb366-1"></a>airquality <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>()</span>
+<span id="cb366-2"><a href="mod-r-tidyverse-intro.html#cb366-2"></a><span class="co">#&gt; # A tibble: 153 × 6</span></span>
+<span id="cb366-3"><a href="mod-r-tidyverse-intro.html#cb366-3"></a><span class="co">#&gt;    Ozone Solar.R  Wind  Temp Month   Day</span></span>
+<span id="cb366-4"><a href="mod-r-tidyverse-intro.html#cb366-4"></a><span class="co">#&gt;    &lt;int&gt;   &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb366-5"><a href="mod-r-tidyverse-intro.html#cb366-5"></a><span class="co">#&gt;  1    41     190   7.4    67     5     1</span></span>
+<span id="cb366-6"><a href="mod-r-tidyverse-intro.html#cb366-6"></a><span class="co">#&gt;  2    36     118   8      72     5     2</span></span>
+<span id="cb366-7"><a href="mod-r-tidyverse-intro.html#cb366-7"></a><span class="co">#&gt;  3    12     149  12.6    74     5     3</span></span>
+<span id="cb366-8"><a href="mod-r-tidyverse-intro.html#cb366-8"></a><span class="co">#&gt;  4    18     313  11.5    62     5     4</span></span>
+<span id="cb366-9"><a href="mod-r-tidyverse-intro.html#cb366-9"></a><span class="co">#&gt;  5    NA      NA  14.3    56     5     5</span></span>
+<span id="cb366-10"><a href="mod-r-tidyverse-intro.html#cb366-10"></a><span class="co">#&gt;  6    28      NA  14.9    66     5     6</span></span>
+<span id="cb366-11"><a href="mod-r-tidyverse-intro.html#cb366-11"></a><span class="co">#&gt;  7    23     299   8.6    65     5     7</span></span>
+<span id="cb366-12"><a href="mod-r-tidyverse-intro.html#cb366-12"></a><span class="co">#&gt;  8    19      99  13.8    59     5     8</span></span>
+<span id="cb366-13"><a href="mod-r-tidyverse-intro.html#cb366-13"></a><span class="co">#&gt;  9     8      19  20.1    61     5     9</span></span>
+<span id="cb366-14"><a href="mod-r-tidyverse-intro.html#cb366-14"></a><span class="co">#&gt; 10    NA     194   8.6    69     5    10</span></span>
+<span id="cb366-15"><a href="mod-r-tidyverse-intro.html#cb366-15"></a><span class="co">#&gt; # … with 143 more rows</span></span>
+<span id="cb366-16"><a href="mod-r-tidyverse-intro.html#cb366-16"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span>
+<span id="cb366-17"><a href="mod-r-tidyverse-intro.html#cb366-17"></a>airquality</span>
+<span id="cb366-18"><a href="mod-r-tidyverse-intro.html#cb366-18"></a><span class="co">#&gt;     Ozone Solar.R Wind Temp Month Day</span></span>
+<span id="cb366-19"><a href="mod-r-tidyverse-intro.html#cb366-19"></a><span class="co">#&gt; 1      41     190  7.4   67     5   1</span></span>
+<span id="cb366-20"><a href="mod-r-tidyverse-intro.html#cb366-20"></a><span class="co">#&gt; 2      36     118  8.0   72     5   2</span></span>
+<span id="cb366-21"><a href="mod-r-tidyverse-intro.html#cb366-21"></a><span class="co">#&gt; 3      12     149 12.6   74     5   3</span></span>
+<span id="cb366-22"><a href="mod-r-tidyverse-intro.html#cb366-22"></a><span class="co">#&gt; 4      18     313 11.5   62     5   4</span></span>
+<span id="cb366-23"><a href="mod-r-tidyverse-intro.html#cb366-23"></a><span class="co">#&gt; 5      NA      NA 14.3   56     5   5</span></span>
+<span id="cb366-24"><a href="mod-r-tidyverse-intro.html#cb366-24"></a><span class="co">#&gt; 6      28      NA 14.9   66     5   6</span></span>
+<span id="cb366-25"><a href="mod-r-tidyverse-intro.html#cb366-25"></a><span class="co">#&gt; 7      23     299  8.6   65     5   7</span></span>
+<span id="cb366-26"><a href="mod-r-tidyverse-intro.html#cb366-26"></a><span class="co">#&gt; 8      19      99 13.8   59     5   8</span></span>
+<span id="cb366-27"><a href="mod-r-tidyverse-intro.html#cb366-27"></a><span class="co">#&gt; 9       8      19 20.1   61     5   9</span></span>
+<span id="cb366-28"><a href="mod-r-tidyverse-intro.html#cb366-28"></a><span class="co">#&gt; 10     NA     194  8.6   69     5  10</span></span>
+<span id="cb366-29"><a href="mod-r-tidyverse-intro.html#cb366-29"></a><span class="co">#&gt; 11      7      NA  6.9   74     5  11</span></span>
+<span id="cb366-30"><a href="mod-r-tidyverse-intro.html#cb366-30"></a><span class="co">#&gt; 12     16     256  9.7   69     5  12</span></span>
+<span id="cb366-31"><a href="mod-r-tidyverse-intro.html#cb366-31"></a><span class="co">#&gt; 13     11     290  9.2   66     5  13</span></span>
+<span id="cb366-32"><a href="mod-r-tidyverse-intro.html#cb366-32"></a><span class="co">#&gt; 14     14     274 10.9   68     5  14</span></span>
+<span id="cb366-33"><a href="mod-r-tidyverse-intro.html#cb366-33"></a><span class="co">#&gt; 15     18      65 13.2   58     5  15</span></span>
+<span id="cb366-34"><a href="mod-r-tidyverse-intro.html#cb366-34"></a><span class="co">#&gt; 16     14     334 11.5   64     5  16</span></span>
+<span id="cb366-35"><a href="mod-r-tidyverse-intro.html#cb366-35"></a><span class="co">#&gt; 17     34     307 12.0   66     5  17</span></span>
+<span id="cb366-36"><a href="mod-r-tidyverse-intro.html#cb366-36"></a><span class="co">#&gt; 18      6      78 18.4   57     5  18</span></span>
+<span id="cb366-37"><a href="mod-r-tidyverse-intro.html#cb366-37"></a><span class="co">#&gt; 19     30     322 11.5   68     5  19</span></span>
+<span id="cb366-38"><a href="mod-r-tidyverse-intro.html#cb366-38"></a><span class="co">#&gt; 20     11      44  9.7   62     5  20</span></span>
+<span id="cb366-39"><a href="mod-r-tidyverse-intro.html#cb366-39"></a><span class="co">#&gt; 21      1       8  9.7   59     5  21</span></span>
+<span id="cb366-40"><a href="mod-r-tidyverse-intro.html#cb366-40"></a><span class="co">#&gt; 22     11     320 16.6   73     5  22</span></span>
+<span id="cb366-41"><a href="mod-r-tidyverse-intro.html#cb366-41"></a><span class="co">#&gt; 23      4      25  9.7   61     5  23</span></span>
+<span id="cb366-42"><a href="mod-r-tidyverse-intro.html#cb366-42"></a><span class="co">#&gt; 24     32      92 12.0   61     5  24</span></span>
+<span id="cb366-43"><a href="mod-r-tidyverse-intro.html#cb366-43"></a><span class="co">#&gt; 25     NA      66 16.6   57     5  25</span></span>
+<span id="cb366-44"><a href="mod-r-tidyverse-intro.html#cb366-44"></a><span class="co">#&gt; 26     NA     266 14.9   58     5  26</span></span>
+<span id="cb366-45"><a href="mod-r-tidyverse-intro.html#cb366-45"></a><span class="co">#&gt; 27     NA      NA  8.0   57     5  27</span></span>
+<span id="cb366-46"><a href="mod-r-tidyverse-intro.html#cb366-46"></a><span class="co">#&gt; 28     23      13 12.0   67     5  28</span></span>
+<span id="cb366-47"><a href="mod-r-tidyverse-intro.html#cb366-47"></a><span class="co">#&gt; 29     45     252 14.9   81     5  29</span></span>
+<span id="cb366-48"><a href="mod-r-tidyverse-intro.html#cb366-48"></a><span class="co">#&gt; 30    115     223  5.7   79     5  30</span></span>
+<span id="cb366-49"><a href="mod-r-tidyverse-intro.html#cb366-49"></a><span class="co">#&gt; 31     37     279  7.4   76     5  31</span></span>
+<span id="cb366-50"><a href="mod-r-tidyverse-intro.html#cb366-50"></a><span class="co">#&gt; 32     NA     286  8.6   78     6   1</span></span>
+<span id="cb366-51"><a href="mod-r-tidyverse-intro.html#cb366-51"></a><span class="co">#&gt; 33     NA     287  9.7   74     6   2</span></span>
+<span id="cb366-52"><a href="mod-r-tidyverse-intro.html#cb366-52"></a><span class="co">#&gt; 34     NA     242 16.1   67     6   3</span></span>
+<span id="cb366-53"><a href="mod-r-tidyverse-intro.html#cb366-53"></a><span class="co">#&gt; 35     NA     186  9.2   84     6   4</span></span>
+<span id="cb366-54"><a href="mod-r-tidyverse-intro.html#cb366-54"></a><span class="co">#&gt; 36     NA     220  8.6   85     6   5</span></span>
+<span id="cb366-55"><a href="mod-r-tidyverse-intro.html#cb366-55"></a><span class="co">#&gt; 37     NA     264 14.3   79     6   6</span></span>
+<span id="cb366-56"><a href="mod-r-tidyverse-intro.html#cb366-56"></a><span class="co">#&gt; 38     29     127  9.7   82     6   7</span></span>
+<span id="cb366-57"><a href="mod-r-tidyverse-intro.html#cb366-57"></a><span class="co">#&gt; 39     NA     273  6.9   87     6   8</span></span>
+<span id="cb366-58"><a href="mod-r-tidyverse-intro.html#cb366-58"></a><span class="co">#&gt; 40     71     291 13.8   90     6   9</span></span>
+<span id="cb366-59"><a href="mod-r-tidyverse-intro.html#cb366-59"></a><span class="co">#&gt; 41     39     323 11.5   87     6  10</span></span>
+<span id="cb366-60"><a href="mod-r-tidyverse-intro.html#cb366-60"></a><span class="co">#&gt; 42     NA     259 10.9   93     6  11</span></span>
+<span id="cb366-61"><a href="mod-r-tidyverse-intro.html#cb366-61"></a><span class="co">#&gt; 43     NA     250  9.2   92     6  12</span></span>
+<span id="cb366-62"><a href="mod-r-tidyverse-intro.html#cb366-62"></a><span class="co">#&gt; 44     23     148  8.0   82     6  13</span></span>
+<span id="cb366-63"><a href="mod-r-tidyverse-intro.html#cb366-63"></a><span class="co">#&gt; 45     NA     332 13.8   80     6  14</span></span>
+<span id="cb366-64"><a href="mod-r-tidyverse-intro.html#cb366-64"></a><span class="co">#&gt; 46     NA     322 11.5   79     6  15</span></span>
+<span id="cb366-65"><a href="mod-r-tidyverse-intro.html#cb366-65"></a><span class="co">#&gt; 47     21     191 14.9   77     6  16</span></span>
+<span id="cb366-66"><a href="mod-r-tidyverse-intro.html#cb366-66"></a><span class="co">#&gt; 48     37     284 20.7   72     6  17</span></span>
+<span id="cb366-67"><a href="mod-r-tidyverse-intro.html#cb366-67"></a><span class="co">#&gt; 49     20      37  9.2   65     6  18</span></span>
+<span id="cb366-68"><a href="mod-r-tidyverse-intro.html#cb366-68"></a><span class="co">#&gt; 50     12     120 11.5   73     6  19</span></span>
+<span id="cb366-69"><a href="mod-r-tidyverse-intro.html#cb366-69"></a><span class="co">#&gt; 51     13     137 10.3   76     6  20</span></span>
+<span id="cb366-70"><a href="mod-r-tidyverse-intro.html#cb366-70"></a><span class="co">#&gt; 52     NA     150  6.3   77     6  21</span></span>
+<span id="cb366-71"><a href="mod-r-tidyverse-intro.html#cb366-71"></a><span class="co">#&gt; 53     NA      59  1.7   76     6  22</span></span>
+<span id="cb366-72"><a href="mod-r-tidyverse-intro.html#cb366-72"></a><span class="co">#&gt; 54     NA      91  4.6   76     6  23</span></span>
+<span id="cb366-73"><a href="mod-r-tidyverse-intro.html#cb366-73"></a><span class="co">#&gt; 55     NA     250  6.3   76     6  24</span></span>
+<span id="cb366-74"><a href="mod-r-tidyverse-intro.html#cb366-74"></a><span class="co">#&gt; 56     NA     135  8.0   75     6  25</span></span>
+<span id="cb366-75"><a href="mod-r-tidyverse-intro.html#cb366-75"></a><span class="co">#&gt; 57     NA     127  8.0   78     6  26</span></span>
+<span id="cb366-76"><a href="mod-r-tidyverse-intro.html#cb366-76"></a><span class="co">#&gt; 58     NA      47 10.3   73     6  27</span></span>
+<span id="cb366-77"><a href="mod-r-tidyverse-intro.html#cb366-77"></a><span class="co">#&gt; 59     NA      98 11.5   80     6  28</span></span>
+<span id="cb366-78"><a href="mod-r-tidyverse-intro.html#cb366-78"></a><span class="co">#&gt; 60     NA      31 14.9   77     6  29</span></span>
+<span id="cb366-79"><a href="mod-r-tidyverse-intro.html#cb366-79"></a><span class="co">#&gt; 61     NA     138  8.0   83     6  30</span></span>
+<span id="cb366-80"><a href="mod-r-tidyverse-intro.html#cb366-80"></a><span class="co">#&gt; 62    135     269  4.1   84     7   1</span></span>
+<span id="cb366-81"><a href="mod-r-tidyverse-intro.html#cb366-81"></a><span class="co">#&gt; 63     49     248  9.2   85     7   2</span></span>
+<span id="cb366-82"><a href="mod-r-tidyverse-intro.html#cb366-82"></a><span class="co">#&gt; 64     32     236  9.2   81     7   3</span></span>
+<span id="cb366-83"><a href="mod-r-tidyverse-intro.html#cb366-83"></a><span class="co">#&gt; 65     NA     101 10.9   84     7   4</span></span>
+<span id="cb366-84"><a href="mod-r-tidyverse-intro.html#cb366-84"></a><span class="co">#&gt; 66     64     175  4.6   83     7   5</span></span>
+<span id="cb366-85"><a href="mod-r-tidyverse-intro.html#cb366-85"></a><span class="co">#&gt; 67     40     314 10.9   83     7   6</span></span>
+<span id="cb366-86"><a href="mod-r-tidyverse-intro.html#cb366-86"></a><span class="co">#&gt; 68     77     276  5.1   88     7   7</span></span>
+<span id="cb366-87"><a href="mod-r-tidyverse-intro.html#cb366-87"></a><span class="co">#&gt; 69     97     267  6.3   92     7   8</span></span>
+<span id="cb366-88"><a href="mod-r-tidyverse-intro.html#cb366-88"></a><span class="co">#&gt; 70     97     272  5.7   92     7   9</span></span>
+<span id="cb366-89"><a href="mod-r-tidyverse-intro.html#cb366-89"></a><span class="co">#&gt; 71     85     175  7.4   89     7  10</span></span>
+<span id="cb366-90"><a href="mod-r-tidyverse-intro.html#cb366-90"></a><span class="co">#&gt; 72     NA     139  8.6   82     7  11</span></span>
+<span id="cb366-91"><a href="mod-r-tidyverse-intro.html#cb366-91"></a><span class="co">#&gt; 73     10     264 14.3   73     7  12</span></span>
+<span id="cb366-92"><a href="mod-r-tidyverse-intro.html#cb366-92"></a><span class="co">#&gt; 74     27     175 14.9   81     7  13</span></span>
+<span id="cb366-93"><a href="mod-r-tidyverse-intro.html#cb366-93"></a><span class="co">#&gt; 75     NA     291 14.9   91     7  14</span></span>
+<span id="cb366-94"><a href="mod-r-tidyverse-intro.html#cb366-94"></a><span class="co">#&gt; 76      7      48 14.3   80     7  15</span></span>
+<span id="cb366-95"><a href="mod-r-tidyverse-intro.html#cb366-95"></a><span class="co">#&gt; 77     48     260  6.9   81     7  16</span></span>
+<span id="cb366-96"><a href="mod-r-tidyverse-intro.html#cb366-96"></a><span class="co">#&gt; 78     35     274 10.3   82     7  17</span></span>
+<span id="cb366-97"><a href="mod-r-tidyverse-intro.html#cb366-97"></a><span class="co">#&gt; 79     61     285  6.3   84     7  18</span></span>
+<span id="cb366-98"><a href="mod-r-tidyverse-intro.html#cb366-98"></a><span class="co">#&gt; 80     79     187  5.1   87     7  19</span></span>
+<span id="cb366-99"><a href="mod-r-tidyverse-intro.html#cb366-99"></a><span class="co">#&gt; 81     63     220 11.5   85     7  20</span></span>
+<span id="cb366-100"><a href="mod-r-tidyverse-intro.html#cb366-100"></a><span class="co">#&gt; 82     16       7  6.9   74     7  21</span></span>
+<span id="cb366-101"><a href="mod-r-tidyverse-intro.html#cb366-101"></a><span class="co">#&gt; 83     NA     258  9.7   81     7  22</span></span>
+<span id="cb366-102"><a href="mod-r-tidyverse-intro.html#cb366-102"></a><span class="co">#&gt; 84     NA     295 11.5   82     7  23</span></span>
+<span id="cb366-103"><a href="mod-r-tidyverse-intro.html#cb366-103"></a><span class="co">#&gt; 85     80     294  8.6   86     7  24</span></span>
+<span id="cb366-104"><a href="mod-r-tidyverse-intro.html#cb366-104"></a><span class="co">#&gt; 86    108     223  8.0   85     7  25</span></span>
+<span id="cb366-105"><a href="mod-r-tidyverse-intro.html#cb366-105"></a><span class="co">#&gt; 87     20      81  8.6   82     7  26</span></span>
+<span id="cb366-106"><a href="mod-r-tidyverse-intro.html#cb366-106"></a><span class="co">#&gt; 88     52      82 12.0   86     7  27</span></span>
+<span id="cb366-107"><a href="mod-r-tidyverse-intro.html#cb366-107"></a><span class="co">#&gt; 89     82     213  7.4   88     7  28</span></span>
+<span id="cb366-108"><a href="mod-r-tidyverse-intro.html#cb366-108"></a><span class="co">#&gt; 90     50     275  7.4   86     7  29</span></span>
+<span id="cb366-109"><a href="mod-r-tidyverse-intro.html#cb366-109"></a><span class="co">#&gt; 91     64     253  7.4   83     7  30</span></span>
+<span id="cb366-110"><a href="mod-r-tidyverse-intro.html#cb366-110"></a><span class="co">#&gt; 92     59     254  9.2   81     7  31</span></span>
+<span id="cb366-111"><a href="mod-r-tidyverse-intro.html#cb366-111"></a><span class="co">#&gt; 93     39      83  6.9   81     8   1</span></span>
+<span id="cb366-112"><a href="mod-r-tidyverse-intro.html#cb366-112"></a><span class="co">#&gt; 94      9      24 13.8   81     8   2</span></span>
+<span id="cb366-113"><a href="mod-r-tidyverse-intro.html#cb366-113"></a><span class="co">#&gt; 95     16      77  7.4   82     8   3</span></span>
+<span id="cb366-114"><a href="mod-r-tidyverse-intro.html#cb366-114"></a><span class="co">#&gt; 96     78      NA  6.9   86     8   4</span></span>
+<span id="cb366-115"><a href="mod-r-tidyverse-intro.html#cb366-115"></a><span class="co">#&gt; 97     35      NA  7.4   85     8   5</span></span>
+<span id="cb366-116"><a href="mod-r-tidyverse-intro.html#cb366-116"></a><span class="co">#&gt; 98     66      NA  4.6   87     8   6</span></span>
+<span id="cb366-117"><a href="mod-r-tidyverse-intro.html#cb366-117"></a><span class="co">#&gt; 99    122     255  4.0   89     8   7</span></span>
+<span id="cb366-118"><a href="mod-r-tidyverse-intro.html#cb366-118"></a><span class="co">#&gt; 100    89     229 10.3   90     8   8</span></span>
+<span id="cb366-119"><a href="mod-r-tidyverse-intro.html#cb366-119"></a><span class="co">#&gt; 101   110     207  8.0   90     8   9</span></span>
+<span id="cb366-120"><a href="mod-r-tidyverse-intro.html#cb366-120"></a><span class="co">#&gt; 102    NA     222  8.6   92     8  10</span></span>
+<span id="cb366-121"><a href="mod-r-tidyverse-intro.html#cb366-121"></a><span class="co">#&gt; 103    NA     137 11.5   86     8  11</span></span>
+<span id="cb366-122"><a href="mod-r-tidyverse-intro.html#cb366-122"></a><span class="co">#&gt; 104    44     192 11.5   86     8  12</span></span>
+<span id="cb366-123"><a href="mod-r-tidyverse-intro.html#cb366-123"></a><span class="co">#&gt; 105    28     273 11.5   82     8  13</span></span>
+<span id="cb366-124"><a href="mod-r-tidyverse-intro.html#cb366-124"></a><span class="co">#&gt; 106    65     157  9.7   80     8  14</span></span>
+<span id="cb366-125"><a href="mod-r-tidyverse-intro.html#cb366-125"></a><span class="co">#&gt; 107    NA      64 11.5   79     8  15</span></span>
+<span id="cb366-126"><a href="mod-r-tidyverse-intro.html#cb366-126"></a><span class="co">#&gt; 108    22      71 10.3   77     8  16</span></span>
+<span id="cb366-127"><a href="mod-r-tidyverse-intro.html#cb366-127"></a><span class="co">#&gt; 109    59      51  6.3   79     8  17</span></span>
+<span id="cb366-128"><a href="mod-r-tidyverse-intro.html#cb366-128"></a><span class="co">#&gt; 110    23     115  7.4   76     8  18</span></span>
+<span id="cb366-129"><a href="mod-r-tidyverse-intro.html#cb366-129"></a><span class="co">#&gt; 111    31     244 10.9   78     8  19</span></span>
+<span id="cb366-130"><a href="mod-r-tidyverse-intro.html#cb366-130"></a><span class="co">#&gt; 112    44     190 10.3   78     8  20</span></span>
+<span id="cb366-131"><a href="mod-r-tidyverse-intro.html#cb366-131"></a><span class="co">#&gt; 113    21     259 15.5   77     8  21</span></span>
+<span id="cb366-132"><a href="mod-r-tidyverse-intro.html#cb366-132"></a><span class="co">#&gt; 114     9      36 14.3   72     8  22</span></span>
+<span id="cb366-133"><a href="mod-r-tidyverse-intro.html#cb366-133"></a><span class="co">#&gt; 115    NA     255 12.6   75     8  23</span></span>
+<span id="cb366-134"><a href="mod-r-tidyverse-intro.html#cb366-134"></a><span class="co">#&gt; 116    45     212  9.7   79     8  24</span></span>
+<span id="cb366-135"><a href="mod-r-tidyverse-intro.html#cb366-135"></a><span class="co">#&gt; 117   168     238  3.4   81     8  25</span></span>
+<span id="cb366-136"><a href="mod-r-tidyverse-intro.html#cb366-136"></a><span class="co">#&gt; 118    73     215  8.0   86     8  26</span></span>
+<span id="cb366-137"><a href="mod-r-tidyverse-intro.html#cb366-137"></a><span class="co">#&gt; 119    NA     153  5.7   88     8  27</span></span>
+<span id="cb366-138"><a href="mod-r-tidyverse-intro.html#cb366-138"></a><span class="co">#&gt; 120    76     203  9.7   97     8  28</span></span>
+<span id="cb366-139"><a href="mod-r-tidyverse-intro.html#cb366-139"></a><span class="co">#&gt; 121   118     225  2.3   94     8  29</span></span>
+<span id="cb366-140"><a href="mod-r-tidyverse-intro.html#cb366-140"></a><span class="co">#&gt; 122    84     237  6.3   96     8  30</span></span>
+<span id="cb366-141"><a href="mod-r-tidyverse-intro.html#cb366-141"></a><span class="co">#&gt; 123    85     188  6.3   94     8  31</span></span>
+<span id="cb366-142"><a href="mod-r-tidyverse-intro.html#cb366-142"></a><span class="co">#&gt; 124    96     167  6.9   91     9   1</span></span>
+<span id="cb366-143"><a href="mod-r-tidyverse-intro.html#cb366-143"></a><span class="co">#&gt; 125    78     197  5.1   92     9   2</span></span>
+<span id="cb366-144"><a href="mod-r-tidyverse-intro.html#cb366-144"></a><span class="co">#&gt; 126    73     183  2.8   93     9   3</span></span>
+<span id="cb366-145"><a href="mod-r-tidyverse-intro.html#cb366-145"></a><span class="co">#&gt; 127    91     189  4.6   93     9   4</span></span>
+<span id="cb366-146"><a href="mod-r-tidyverse-intro.html#cb366-146"></a><span class="co">#&gt; 128    47      95  7.4   87     9   5</span></span>
+<span id="cb366-147"><a href="mod-r-tidyverse-intro.html#cb366-147"></a><span class="co">#&gt; 129    32      92 15.5   84     9   6</span></span>
+<span id="cb366-148"><a href="mod-r-tidyverse-intro.html#cb366-148"></a><span class="co">#&gt; 130    20     252 10.9   80     9   7</span></span>
+<span id="cb366-149"><a href="mod-r-tidyverse-intro.html#cb366-149"></a><span class="co">#&gt; 131    23     220 10.3   78     9   8</span></span>
+<span id="cb366-150"><a href="mod-r-tidyverse-intro.html#cb366-150"></a><span class="co">#&gt; 132    21     230 10.9   75     9   9</span></span>
+<span id="cb366-151"><a href="mod-r-tidyverse-intro.html#cb366-151"></a><span class="co">#&gt; 133    24     259  9.7   73     9  10</span></span>
+<span id="cb366-152"><a href="mod-r-tidyverse-intro.html#cb366-152"></a><span class="co">#&gt; 134    44     236 14.9   81     9  11</span></span>
+<span id="cb366-153"><a href="mod-r-tidyverse-intro.html#cb366-153"></a><span class="co">#&gt; 135    21     259 15.5   76     9  12</span></span>
+<span id="cb366-154"><a href="mod-r-tidyverse-intro.html#cb366-154"></a><span class="co">#&gt; 136    28     238  6.3   77     9  13</span></span>
+<span id="cb366-155"><a href="mod-r-tidyverse-intro.html#cb366-155"></a><span class="co">#&gt; 137     9      24 10.9   71     9  14</span></span>
+<span id="cb366-156"><a href="mod-r-tidyverse-intro.html#cb366-156"></a><span class="co">#&gt; 138    13     112 11.5   71     9  15</span></span>
+<span id="cb366-157"><a href="mod-r-tidyverse-intro.html#cb366-157"></a><span class="co">#&gt; 139    46     237  6.9   78     9  16</span></span>
+<span id="cb366-158"><a href="mod-r-tidyverse-intro.html#cb366-158"></a><span class="co">#&gt; 140    18     224 13.8   67     9  17</span></span>
+<span id="cb366-159"><a href="mod-r-tidyverse-intro.html#cb366-159"></a><span class="co">#&gt; 141    13      27 10.3   76     9  18</span></span>
+<span id="cb366-160"><a href="mod-r-tidyverse-intro.html#cb366-160"></a><span class="co">#&gt; 142    24     238 10.3   68     9  19</span></span>
+<span id="cb366-161"><a href="mod-r-tidyverse-intro.html#cb366-161"></a><span class="co">#&gt; 143    16     201  8.0   82     9  20</span></span>
+<span id="cb366-162"><a href="mod-r-tidyverse-intro.html#cb366-162"></a><span class="co">#&gt; 144    13     238 12.6   64     9  21</span></span>
+<span id="cb366-163"><a href="mod-r-tidyverse-intro.html#cb366-163"></a><span class="co">#&gt; 145    23      14  9.2   71     9  22</span></span>
+<span id="cb366-164"><a href="mod-r-tidyverse-intro.html#cb366-164"></a><span class="co">#&gt; 146    36     139 10.3   81     9  23</span></span>
+<span id="cb366-165"><a href="mod-r-tidyverse-intro.html#cb366-165"></a><span class="co">#&gt; 147     7      49 10.3   69     9  24</span></span>
+<span id="cb366-166"><a href="mod-r-tidyverse-intro.html#cb366-166"></a><span class="co">#&gt; 148    14      20 16.6   63     9  25</span></span>
+<span id="cb366-167"><a href="mod-r-tidyverse-intro.html#cb366-167"></a><span class="co">#&gt; 149    30     193  6.9   70     9  26</span></span>
+<span id="cb366-168"><a href="mod-r-tidyverse-intro.html#cb366-168"></a><span class="co">#&gt; 150    NA     145 13.2   77     9  27</span></span>
+<span id="cb366-169"><a href="mod-r-tidyverse-intro.html#cb366-169"></a><span class="co">#&gt; 151    14     191 14.3   75     9  28</span></span>
+<span id="cb366-170"><a href="mod-r-tidyverse-intro.html#cb366-170"></a><span class="co">#&gt; 152    18     131  8.0   76     9  29</span></span>
+<span id="cb366-171"><a href="mod-r-tidyverse-intro.html#cb366-171"></a><span class="co">#&gt; 153    20     223 11.5   68     9  30</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#ToxVhBM396HOdhKxh9MI">
+Solution
+</button>
+<ol start="2" style="list-style-type: decimal">
+<li>Print the tibble and the original data frame and compare the difference.</li>
+</ol>
+<div id="SpEOy7dhaz2zkR9RBQo3" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="SpEOy7dhaz2zkR9RBQo3-title">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+<h4 class="modal-title" id="SpEOy7dhaz2zkR9RBQo3-title">
+Solution
+</h4>
+</div>
+<div class="modal-body">
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="mod-r-tidyverse-intro.html#cb367-1"></a><span class="co"># here misc is a list with lists</span></span>
+<span id="cb367-2"><a href="mod-r-tidyverse-intro.html#cb367-2"></a>dat &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Hans&quot;</span>, <span class="st">&quot;Ole&quot;</span>), </span>
+<span id="cb367-3"><a href="mod-r-tidyverse-intro.html#cb367-3"></a>              <span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">23</span>, <span class="dv">45</span>), </span>
+<span id="cb367-4"><a href="mod-r-tidyverse-intro.html#cb367-4"></a>              <span class="dt">misc =</span> <span class="kw">list</span>(</span>
+<span id="cb367-5"><a href="mod-r-tidyverse-intro.html#cb367-5"></a>                 <span class="kw">list</span>(<span class="dt">status =</span> <span class="dv">1</span>, <span class="dt">comment =</span> <span class="st">&quot;To young&quot;</span>), </span>
+<span id="cb367-6"><a href="mod-r-tidyverse-intro.html#cb367-6"></a>                 <span class="kw">list</span>(<span class="dt">comment =</span> <span class="st">&quot;Potential candidate&quot;</span>)))</span>
+<span id="cb367-7"><a href="mod-r-tidyverse-intro.html#cb367-7"></a>dat</span>
+<span id="cb367-8"><a href="mod-r-tidyverse-intro.html#cb367-8"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span id="cb367-9"><a href="mod-r-tidyverse-intro.html#cb367-9"></a><span class="co">#&gt;   name    age misc            </span></span>
+<span id="cb367-10"><a href="mod-r-tidyverse-intro.html#cb367-10"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;list&gt;          </span></span>
+<span id="cb367-11"><a href="mod-r-tidyverse-intro.html#cb367-11"></a><span class="co">#&gt; 1 Hans     23 &lt;named list [2]&gt;</span></span>
+<span id="cb367-12"><a href="mod-r-tidyverse-intro.html#cb367-12"></a><span class="co">#&gt; 2 Ole      45 &lt;named list [1]&gt;</span></span>
+<span id="cb367-13"><a href="mod-r-tidyverse-intro.html#cb367-13"></a>dat<span class="op">$</span>misc[[<span class="dv">1</span>]]</span>
+<span id="cb367-14"><a href="mod-r-tidyverse-intro.html#cb367-14"></a><span class="co">#&gt; $status</span></span>
+<span id="cb367-15"><a href="mod-r-tidyverse-intro.html#cb367-15"></a><span class="co">#&gt; [1] 1</span></span>
+<span id="cb367-16"><a href="mod-r-tidyverse-intro.html#cb367-16"></a><span class="co">#&gt; </span></span>
+<span id="cb367-17"><a href="mod-r-tidyverse-intro.html#cb367-17"></a><span class="co">#&gt; $comment</span></span>
+<span id="cb367-18"><a href="mod-r-tidyverse-intro.html#cb367-18"></a><span class="co">#&gt; [1] &quot;To young&quot;</span></span></code></pre></div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#SpEOy7dhaz2zkR9RBQo3">
+Solution
+</button>
+<ol start="3" style="list-style-type: decimal">
+<li>Create a tibble with 3 columns of data type string/character, double and list.</li>
+</ol>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mod-r-functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mod-r-io.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/bss-osca/tfa/edit/master/book/11_r-tidyverse-intro.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
