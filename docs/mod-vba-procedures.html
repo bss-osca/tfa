@@ -49,7 +49,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
@@ -59,6 +58,8 @@
 <script src="libs/grViz-binding-1.0.9/grViz.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.3.1/css/all.min.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.3.1/css/v4-shims.min.css" rel="stylesheet" />
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.23/datatables.js"></script>
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -92,18 +93,18 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -123,7 +124,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -156,6 +157,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="assets/style.css" type="text/css" />
 </head>
@@ -173,25 +196,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="toc-logo"><a href="./"><img src="img/logo.png"></a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction to the course</a><ul>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction to the course</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#lo-intro"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#purpose"><i class="fa fa-check"></i><b>1.2</b> Purpose for the course</a></li>
 <li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#r-vs-vba"><i class="fa fa-check"></i><b>1.3</b> R vs Excel/VBA</a></li>
 <li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#computer"><i class="fa fa-check"></i><b>1.4</b> How a computer works</a></li>
 <li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#organization"><i class="fa fa-check"></i><b>1.5</b> How the notes are organized</a></li>
 <li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#ack"><i class="fa fa-check"></i><b>1.6</b> Acknowledgements</a></li>
-<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#ex-intro"><i class="fa fa-check"></i><b>1.7</b> Exercises</a><ul>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#ex-intro"><i class="fa fa-check"></i><b>1.7</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="1.7.1" data-path="index.html"><a href="index.html#ex-annotate"><i class="fa fa-check"></i><b>1.7.1</b> Exercise - How to annotate</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>I VBA</b></span></li>
-<li class="chapter" data-level="2" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html"><i class="fa fa-check"></i><b>2</b> An introduction to VBA</a><ul>
+<li class="chapter" data-level="2" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html"><i class="fa fa-check"></i><b>2</b> An introduction to VBA</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#lo-vba-intro"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="2.2" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-what"><i class="fa fa-check"></i><b>2.2</b> What is VBA</a></li>
 <li class="chapter" data-level="2.3" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-setup"><i class="fa fa-check"></i><b>2.3</b> Setup Excel for VBA</a></li>
 <li class="chapter" data-level="2.4" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-hello"><i class="fa fa-check"></i><b>2.4</b> Your first program</a></li>
 <li class="chapter" data-level="2.5" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-macro"><i class="fa fa-check"></i><b>2.5</b> The macro recorder</a></li>
-<li class="chapter" data-level="2.6" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-overview"><i class="fa fa-check"></i><b>2.6</b> VBA - A short overview</a><ul>
+<li class="chapter" data-level="2.6" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-overview"><i class="fa fa-check"></i><b>2.6</b> VBA - A short overview</a>
+<ul>
 <li class="chapter" data-level="2.6.1" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#variables"><i class="fa fa-check"></i><b>2.6.1</b> Variables</a></li>
 <li class="chapter" data-level="2.6.2" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#procedures"><i class="fa fa-check"></i><b>2.6.2</b> Procedures</a></li>
 <li class="chapter" data-level="2.6.3" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#input-and-output"><i class="fa fa-check"></i><b>2.6.3</b> Input and output</a></li>
@@ -200,14 +227,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.7" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#vba-coding-practice"><i class="fa fa-check"></i><b>2.7</b> Good coding pratice</a></li>
 <li class="chapter" data-level="2.8" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#rc-vba-intro"><i class="fa fa-check"></i><b>2.8</b> Recap</a></li>
-<li class="chapter" data-level="2.9" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-intro"><i class="fa fa-check"></i><b>2.9</b> Exercises</a><ul>
+<li class="chapter" data-level="2.9" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-intro"><i class="fa fa-check"></i><b>2.9</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="2.9.1" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-hello"><i class="fa fa-check"></i><b>2.9.1</b> Exercise - Hello</a></li>
 <li class="chapter" data-level="2.9.2" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-macro"><i class="fa fa-check"></i><b>2.9.2</b> Exercise - Record a macro</a></li>
 <li class="chapter" data-level="2.9.3" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-user-input"><i class="fa fa-check"></i><b>2.9.3</b> Exercise - User input</a></li>
 <li class="chapter" data-level="2.9.4" data-path="mod-vba-intro.html"><a href="mod-vba-intro.html#ex-vba-max-min"><i class="fa fa-check"></i><b>2.9.4</b> Exercise - Max and min number</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html"><i class="fa fa-check"></i><b>3</b> Loops and conditional statements</a><ul>
+<li class="chapter" data-level="3" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html"><i class="fa fa-check"></i><b>3</b> Loops and conditional statements</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#lo-vba-loops-cond"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="3.2" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#vba-operators"><i class="fa fa-check"></i><b>3.2</b> Relational and logical operators</a></li>
 <li class="chapter" data-level="3.3" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#vba-loops"><i class="fa fa-check"></i><b>3.3</b> Loops</a></li>
@@ -215,40 +244,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#vba-ex-jen"><i class="fa fa-check"></i><b>3.5</b> Example - Find Jen</a></li>
 <li class="chapter" data-level="3.6" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#vba-ex-dist-mat"><i class="fa fa-check"></i><b>3.6</b> Example - A distance matrix</a></li>
 <li class="chapter" data-level="3.7" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#recap"><i class="fa fa-check"></i><b>3.7</b> Recap</a></li>
-<li class="chapter" data-level="3.8" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#ex-vba-loops-cond"><i class="fa fa-check"></i><b>3.8</b> Exercises</a><ul>
+<li class="chapter" data-level="3.8" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#ex-vba-loops-cond"><i class="fa fa-check"></i><b>3.8</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="3.8.1" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#ex-vba-loops"><i class="fa fa-check"></i><b>3.8.1</b> Exercise - Loops</a></li>
 <li class="chapter" data-level="3.8.2" data-path="mod-vba-loops-cond.html"><a href="mod-vba-loops-cond.html#ex-vba-cond"><i class="fa fa-check"></i><b>3.8.2</b> Exercise - Conditional statements</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html"><i class="fa fa-check"></i><b>4</b> Procedures</a><ul>
+<li class="chapter" data-level="4" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html"><i class="fa fa-check"></i><b>4</b> Procedures</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#lo-vba-procedures"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="4.2" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#vba-subs-functions"><i class="fa fa-check"></i><b>4.2</b> Subs and functions - The basics</a></li>
 <li class="chapter" data-level="4.3" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#vba-optional-arg"><i class="fa fa-check"></i><b>4.3</b> Optional arguments</a></li>
 <li class="chapter" data-level="4.4" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#vba-pub-priv"><i class="fa fa-check"></i><b>4.4</b> Public and private procedures</a></li>
-<li class="chapter" data-level="4.5" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#vba-byref"><i class="fa fa-check"></i><b>4.5</b> Passing arguments by reference or by value</a><ul>
+<li class="chapter" data-level="4.5" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#vba-byref"><i class="fa fa-check"></i><b>4.5</b> Passing arguments by reference or by value</a>
+<ul>
 <li class="chapter" data-level="4.5.1" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#return-values-from-a-sub"><i class="fa fa-check"></i><b>4.5.1</b> Return values from a sub</a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#vba-built-in"><i class="fa fa-check"></i><b>4.6</b> Built-in functions</a></li>
 <li class="chapter" data-level="4.7" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#vba-test-persons"><i class="fa fa-check"></i><b>4.7</b> Example - Selection of test persons</a></li>
 <li class="chapter" data-level="4.8" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#recap-1"><i class="fa fa-check"></i><b>4.8</b> Recap</a></li>
-<li class="chapter" data-level="4.9" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#ex-vba-procedures"><i class="fa fa-check"></i><b>4.9</b> Exercises</a><ul>
+<li class="chapter" data-level="4.9" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#ex-vba-procedures"><i class="fa fa-check"></i><b>4.9</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="4.9.1" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#ex-vba-subs"><i class="fa fa-check"></i><b>4.9.1</b> Exercise - Subs</a></li>
 <li class="chapter" data-level="4.9.2" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#exercise---temperatures"><i class="fa fa-check"></i><b>4.9.2</b> Exercise - Temperatures</a></li>
 <li class="chapter" data-level="4.9.3" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#ex-vba-functions"><i class="fa fa-check"></i><b>4.9.3</b> Exercise - Functions</a></li>
 <li class="chapter" data-level="4.9.4" data-path="mod-vba-procedures.html"><a href="mod-vba-procedures.html#ex-vba-worksheet-functions"><i class="fa fa-check"></i><b>4.9.4</b> Exercise - Worksheet functions</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html"><i class="fa fa-check"></i><b>5</b> Advanced data types and usage</a><ul>
+<li class="chapter" data-level="5" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html"><i class="fa fa-check"></i><b>5</b> Advanced data types and usage</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#lo-vba-datatypes"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="5.2" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#vba-strings"><i class="fa fa-check"></i><b>5.2</b> Strings</a></li>
 <li class="chapter" data-level="5.3" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#vba-objects"><i class="fa fa-check"></i><b>5.3</b> Objects</a></li>
 <li class="chapter" data-level="5.4" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#vba-wst"><i class="fa fa-check"></i><b>5.4</b> The Worksheet object</a></li>
-<li class="chapter" data-level="5.5" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#wst-rng"><i class="fa fa-check"></i><b>5.5</b> The Range object</a><ul>
+<li class="chapter" data-level="5.5" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#wst-rng"><i class="fa fa-check"></i><b>5.5</b> The Range object</a>
+<ul>
 <li class="chapter" data-level="5.5.1" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#current-region-of-a-range"><i class="fa fa-check"></i><b>5.5.1</b> Current region of a range</a></li>
 <li class="chapter" data-level="5.5.2" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#input-and-output-1"><i class="fa fa-check"></i><b>5.5.2</b> Input and output</a></li>
 <li class="chapter" data-level="5.5.3" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#sorting-a-range"><i class="fa fa-check"></i><b>5.5.3</b> Sorting a range</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#vba-ary"><i class="fa fa-check"></i><b>5.6</b> Arrays</a><ul>
+<li class="chapter" data-level="5.6" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#vba-ary"><i class="fa fa-check"></i><b>5.6</b> Arrays</a>
+<ul>
 <li class="chapter" data-level="5.6.1" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#multi-dimensional-arrays"><i class="fa fa-check"></i><b>5.6.1</b> Multi-dimensional arrays</a></li>
 <li class="chapter" data-level="5.6.2" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#dynamic-arrays"><i class="fa fa-check"></i><b>5.6.2</b> Dynamic arrays</a></li>
 <li class="chapter" data-level="5.6.3" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#input-and-output-2"><i class="fa fa-check"></i><b>5.6.3</b> Input and output</a></li>
@@ -258,7 +294,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.7" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#vba-coll"><i class="fa fa-check"></i><b>5.7</b> Collections</a></li>
 <li class="chapter" data-level="5.8" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#vba-ex-job-seq"><i class="fa fa-check"></i><b>5.8</b> Example - Job sequencing</a></li>
 <li class="chapter" data-level="5.9" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#recap-2"><i class="fa fa-check"></i><b>5.9</b> Recap</a></li>
-<li class="chapter" data-level="5.10" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-datatypes"><i class="fa fa-check"></i><b>5.10</b> Exercises</a><ul>
+<li class="chapter" data-level="5.10" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-datatypes"><i class="fa fa-check"></i><b>5.10</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="5.10.1" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-equal"><i class="fa fa-check"></i><b>5.10.1</b> Exercise - Equal entries</a></li>
 <li class="chapter" data-level="5.10.2" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-search-products"><i class="fa fa-check"></i><b>5.10.2</b> Exercise - Product search</a></li>
 <li class="chapter" data-level="5.10.3" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-read-collections"><i class="fa fa-check"></i><b>5.10.3</b> Exercise - Read collections</a></li>
@@ -268,24 +305,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.10.7" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-flight"><i class="fa fa-check"></i><b>5.10.7</b> Exercise - Flight search</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html"><i class="fa fa-check"></i><b>6</b> Generating random numbers</a><ul>
+<li class="chapter" data-level="6" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html"><i class="fa fa-check"></i><b>6</b> Generating random numbers</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#lo-vba-random-numbers"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="6.2" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#vba-random-numbers"><i class="fa fa-check"></i><b>6.2</b> Generating random numbers</a></li>
-<li class="chapter" data-level="6.3" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#vba-simulation"><i class="fa fa-check"></i><b>6.3</b> Simulation</a><ul>
+<li class="chapter" data-level="6.3" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#vba-simulation"><i class="fa fa-check"></i><b>6.3</b> Simulation</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#sec-vba-tsp"><i class="fa fa-check"></i><b>6.3.1</b> Example - Traveling salesman problem</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#recap-3"><i class="fa fa-check"></i><b>6.4</b> Recap</a></li>
-<li class="chapter" data-level="6.5" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-random-numbers"><i class="fa fa-check"></i><b>6.5</b> Exercises</a><ul>
+<li class="chapter" data-level="6.5" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-random-numbers"><i class="fa fa-check"></i><b>6.5</b> Exercises</a>
+<ul>
 <li class="chapter" data-level="6.5.1" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-random-int"><i class="fa fa-check"></i><b>6.5.1</b> Exercise - Two random integers</a></li>
 <li class="chapter" data-level="6.5.2" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-swap"><i class="fa fa-check"></i><b>6.5.2</b> Exercise - Swap entries</a></li>
 <li class="chapter" data-level="6.5.3" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-bakery"><i class="fa fa-check"></i><b>6.5.3</b> Exercise - Dan’s bakery</a></li>
 <li class="chapter" data-level="6.5.4" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html#ex-vba-generate"><i class="fa fa-check"></i><b>6.5.4</b> Exercise - Generating random numbers</a></li>
 </ul></li>
 </ul></li>
+<li class="part"><span><b>II R</b></span></li>
+<li class="chapter" data-level="7" data-path="mod-r-install.html"><a href="mod-r-install.html"><i class="fa fa-check"></i><b>7</b> Setting up R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="mod-r-install.html"><a href="mod-r-install.html#lo-r-install"><i class="fa fa-check"></i><b>7.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="7.2" data-path="mod-r-install.html"><a href="mod-r-install.html#r-install"><i class="fa fa-check"></i><b>7.2</b> Install R and RStudio</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="mod-r-install.html"><a href="mod-r-install.html#test-your-installation"><i class="fa fa-check"></i><b>7.2.1</b> Test your installation</a></li>
+<li class="chapter" data-level="7.2.2" data-path="mod-r-install.html"><a href="mod-r-install.html#add-on-packages"><i class="fa fa-check"></i><b>7.2.2</b> Add-on packages</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="mod-r-install.html"><a href="mod-r-install.html#r-cloud"><i class="fa fa-check"></i><b>7.3</b> Setup and test RStudio Cloud</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html"><i class="fa fa-check"></i><b>8</b> R basics and workflows</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#lo-r-workflow"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="8.2" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#working-with-r-at-the-command-line-in-rstudio"><i class="fa fa-check"></i><b>8.2</b> Working with R at the command line in RStudio</a></li>
+<li class="chapter" data-level="8.3" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#your-first-datacamp-course"><i class="fa fa-check"></i><b>8.3</b> Your first DataCamp course</a></li>
+<li class="chapter" data-level="8.4" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#pipes"><i class="fa fa-check"></i><b>8.4</b> Pipes</a></li>
+<li class="chapter" data-level="8.5" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#rprojs"><i class="fa fa-check"></i><b>8.5</b> RStudio projects</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#storing-your-code-in-a-script-file"><i class="fa fa-check"></i><b>8.5.1</b> Storing your code in a script file</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#rc-r-workflow"><i class="fa fa-check"></i><b>8.6</b> Recap</a></li>
+<li class="chapter" data-level="8.7" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#ex-r-workflow"><i class="fa fa-check"></i><b>8.7</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#exercise-group-work"><i class="fa fa-check"></i><b>8.7.1</b> Exercise (group work)</a></li>
+<li class="chapter" data-level="8.7.2" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#exercise-piping"><i class="fa fa-check"></i><b>8.7.2</b> Exercise (piping)</a></li>
+<li class="chapter" data-level="8.7.3" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#exercise-working-dir"><i class="fa fa-check"></i><b>8.7.3</b> Exercise (working dir)</a></li>
+<li class="chapter" data-level="8.7.4" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#exercise-vectors"><i class="fa fa-check"></i><b>8.7.4</b> Exercise (vectors)</a></li>
+<li class="chapter" data-level="8.7.5" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#exercise-matrices"><i class="fa fa-check"></i><b>8.7.5</b> Exercise (matrices)</a></li>
+<li class="chapter" data-level="8.7.6" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#exercise-data-frames"><i class="fa fa-check"></i><b>8.7.6</b> Exercise (data frames)</a></li>
+<li class="chapter" data-level="8.7.7" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#exercise-lists"><i class="fa fa-check"></i><b>8.7.7</b> Exercise (lists)</a></li>
+<li class="chapter" data-level="8.7.8" data-path="mod-r-workflow.html"><a href="mod-r-workflow.html#ex-strings"><i class="fa fa-check"></i><b>8.7.8</b> Exercise (string management)</a></li>
+</ul></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="groups.html"><a href="groups.html"><i class="fa fa-check"></i><b>A</b> Working in groups</a><ul>
+<li class="chapter" data-level="A" data-path="groups.html"><a href="groups.html"><i class="fa fa-check"></i><b>A</b> Working in groups</a>
+<ul>
 <li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#joint-r-project-structure"><i class="fa fa-check"></i>Joint R project structure</a></li>
-<li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#using-git"><i class="fa fa-check"></i>Using Git together with GitHub</a><ul>
+<li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#using-git"><i class="fa fa-check"></i>Using Git together with GitHub</a>
+<ul>
 <li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#register-a-free-github-account"><i class="fa fa-check"></i>Register a free GitHub account</a></li>
 <li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#install-git"><i class="fa fa-check"></i>Install Git</a></li>
 <li class="chapter" data-level="" data-path="groups.html"><a href="groups.html#check-your-installation"><i class="fa fa-check"></i>Check your installation</a></li>
@@ -294,10 +370,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="B" data-path="annotate.html"><a href="annotate.html"><i class="fa fa-check"></i><b>B</b> Annotate the course notes</a></li>
 <li class="chapter" data-level="C" data-path="help.html"><a href="help.html"><i class="fa fa-check"></i><b>C</b> Getting help</a></li>
-<li class="chapter" data-level="D" data-path="coding-convention.html"><a href="coding-convention.html"><i class="fa fa-check"></i><b>D</b> Coding/naming convention</a><ul>
+<li class="chapter" data-level="D" data-path="coding-convention.html"><a href="coding-convention.html"><i class="fa fa-check"></i><b>D</b> Coding/naming convention</a>
+<ul>
 <li class="chapter" data-level="D.1" data-path="coding-convention.html"><a href="coding-convention.html#commenting-your-code"><i class="fa fa-check"></i><b>D.1</b> Commenting your code</a></li>
 </ul></li>
-<li class="chapter" data-level="E" data-path="apdx-vba.html"><a href="apdx-vba.html"><i class="fa fa-check"></i><b>E</b> VBA specific topics</a><ul>
+<li class="chapter" data-level="E" data-path="apdx-vba.html"><a href="apdx-vba.html"><i class="fa fa-check"></i><b>E</b> VBA specific topics</a>
+<ul>
 <li class="chapter" data-level="E.1" data-path="apdx-vba.html"><a href="apdx-vba.html#vba-debug"><i class="fa fa-check"></i><b>E.1</b> Debugging your code</a></li>
 <li class="chapter" data-level="E.2" data-path="apdx-vba.html"><a href="apdx-vba.html#error-handling"><i class="fa fa-check"></i><b>E.2</b> Error handling</a></li>
 <li class="chapter" data-level="E.3" data-path="apdx-vba.html"><a href="apdx-vba.html#vba-course-procedures"><i class="fa fa-check"></i><b>E.3</b> Course procedures</a></li>
@@ -333,25 +411,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mod-vba-procedures" class="section level1 hasAnchor">
+<div id="mod-vba-procedures" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Module 4</span> Procedures<a href="mod-vba-procedures.html#mod-vba-procedures" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This module gives a short introduction to procedures. A procedure is a piece of code stored in a module which contains a series of computational steps that will be carried out when the procedure is called. VBA has two kinds of procedures subs (short for subroutine) and functions. Both are basic building blocks in programming. The main differences between a sub and a function is:</p>
 <p><strong>Subs</strong></p>
 <ul>
-<li>Can make changes to the worksheet.
-<ul>
+<li>Can make changes to the worksheet.</li>
 <li>Can modify its surroundings.</li>
 <li>Can be executed by a button (a macro - if no arguments).</li>
 <li>Cannot return anything.</li>
-</ul></li>
 </ul>
 <p><strong>Functions</strong></p>
 <ul>
-<li>Can return something.
-<ul>
+<li>Can return something.</li>
 <li>Can be used in Excel.</li>
 <li>Cannot be used as a macro.</li>
-</ul></li>
 </ul>
 <div>
 A template with VBA code for this module is given in the file
@@ -366,10 +440,10 @@ for exercises. The template file for next teaching module will contain guiding a
 <div id="learning-path-diagram-3" class="section level4 unnumbered hasAnchor">
 <h4>Learning path diagram<a href="mod-vba-procedures.html#learning-path-diagram-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Click/hover the nodes to follow links and see details.</p>
-<div id="htmlwidget-b4cf8c713a11e2dd391d" style="width:100%;height:100px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b4cf8c713a11e2dd391d">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"💡 Subs and functions\\nThe basics\", URL = \"#vba-subs-functions\", tooltip = \"Subs and functions\\nThe basics (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"2,0!\"] \n  \"2\" [label = \"💡 Optional\\narguments\", URL = \"#vba-optional-arg\", tooltip = \"Optional\\narguments (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"4.7,0!\"] \n  \"3\" [label = \"📖 Public and private\\nprocedures\", URL = \"#vba-pub-priv\", tooltip = \"Public and private\\nprocedures (reading)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"7,0!\"] \n  \"4\" [label = \"💡 Passing arguments\\nby reference\\nor by value\", URL = \"#vba-byref\", tooltip = \"Passing arguments\\nby reference\\nor by value (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"10,0!\"] \n  \"5\" [label = \"💡 Built-in\\nfunctions\", URL = \"#vba-built-in\", tooltip = \"Built-in\\nfunctions (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"12.7,0!\"] \n  \"6\" [label = \"💡 Example\\nSelection\\nof test persons\", URL = \"#vba-test-persons\", tooltip = \"Example\\nSelection\\nof test persons (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"15,0!\"] \n  \"7\" [label = \"💻 Exercises\", URL = \"#ex-vba-procedures\", tooltip = \"Exercises (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"17.5,0!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"5\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"6\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-071005fb53d4c36ae31d" style="width:100%;height:100px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-071005fb53d4c36ae31d">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"💡 Subs and functions\\nThe basics\", URL = \"#vba-subs-functions\", tooltip = \"Subs and functions\\nThe basics (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"2,0!\"] \n  \"2\" [label = \"💡 Optional\\narguments\", URL = \"#vba-optional-arg\", tooltip = \"Optional\\narguments (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"4.7,0!\"] \n  \"3\" [label = \"📖 Public and private\\nprocedures\", URL = \"#vba-pub-priv\", tooltip = \"Public and private\\nprocedures (reading)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"7,0!\"] \n  \"4\" [label = \"💡 Passing arguments\\nby reference\\nor by value\", URL = \"#vba-byref\", tooltip = \"Passing arguments\\nby reference\\nor by value (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"10,0!\"] \n  \"5\" [label = \"💡 Built-in\\nfunctions\", URL = \"#vba-built-in\", tooltip = \"Built-in\\nfunctions (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"12.7,0!\"] \n  \"6\" [label = \"💡 Example\\nSelection\\nof test persons\", URL = \"#vba-test-persons\", tooltip = \"Example\\nSelection\\nof test persons (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"15,0!\"] \n  \"7\" [label = \"💻 Exercises\", URL = \"#ex-vba-procedures\", tooltip = \"Exercises (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"17.5,0!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"5\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"6\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="lo-vba-procedures" class="section level2 hasAnchor">
+<div id="lo-vba-procedures" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Learning outcomes<a href="mod-vba-procedures.html#lo-vba-procedures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>By the end of this module, you are expected to be able to:</p>
 <ul>
@@ -387,7 +461,7 @@ for exercises. The template file for next teaching module will contain guiding a
 <!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
 <!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
 </div>
-<div id="vba-subs-functions" class="section level2 hasAnchor">
+<div id="vba-subs-functions" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Subs and functions - The basics<a href="mod-vba-procedures.html#vba-subs-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A sub is declared using:</p>
 <pre><code>Sub SubName(arg1 As &lt;datatype&gt;, arg2 As &lt;datatype&gt;)
@@ -468,7 +542,7 @@ Sub TM4_TestDivisionSub()
     Call TM4_DivisionSub(8, 0)  &#39; gives an error message
 End Sub</code></pre>
 </div>
-<div id="vba-optional-arg" class="section level2 hasAnchor">
+<div id="vba-optional-arg" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Optional arguments<a href="mod-vba-procedures.html#vba-optional-arg" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Often you define procedures that have arguments with a default value. You can do this using the <code>Optional</code> keyword:</p>
 <pre><code>&#39;&#39; Convert kilograms to grams or pounds
@@ -541,7 +615,7 @@ Figure 4.1: TM4 worksheet.
 </p>
 </div>
 </div>
-<div id="vba-pub-priv" class="section level2 hasAnchor">
+<div id="vba-pub-priv" class="section level2 hasAnchor" number="4.4">
 <h2><span class="header-section-number">4.4</span> Public and private procedures<a href="mod-vba-procedures.html#vba-pub-priv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>You may use the keyword <code>Private</code> or <code>Public</code> (default) when you define a procedure. For instance:</p>
 <pre><code>Private Sub SubName(arg1 As &lt;datatype&gt;, arg2 As &lt;datatype&gt;)
@@ -556,7 +630,7 @@ Public Sub SubName(arg1 As &lt;datatype&gt;, arg2 As &lt;datatype&gt;) &#39; sam
    &lt;code&gt;
 End Sub</code></pre>
 </div>
-<div id="vba-byref" class="section level2 hasAnchor">
+<div id="vba-byref" class="section level2 hasAnchor" number="4.5">
 <h2><span class="header-section-number">4.5</span> Passing arguments by reference or by value<a href="mod-vba-procedures.html#vba-byref" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are two ways of passing arguments to procedures:</p>
 <pre><code>Sub SubName(ByRef arg1 As &lt;datatype&gt;, ByVal arg2 As &lt;datatype&gt;)
@@ -593,19 +667,17 @@ Private Sub TM4_TestBy()
     MsgBox (&quot;Try gussing the values of n and i&quot;)
     MsgBox (&quot;After TM4_ByRef i is &quot; &amp; i &amp; &quot; and &quot; &amp; n &amp; &quot; is returned.&quot;)
 End Sub</code></pre>
-<div id="return-values-from-a-sub" class="section level3 hasAnchor">
+<div id="return-values-from-a-sub" class="section level3 hasAnchor" number="4.5.1">
 <h3><span class="header-section-number">4.5.1</span> Return values from a sub<a href="mod-vba-procedures.html#return-values-from-a-sub" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Since <code>ByRef</code> does not create a new copy of the argument in memory. We can return multiple values from a sub by</p>
 <ol style="list-style-type: decimal">
-<li>Pass arguments (variables) by reference in the sub.
-<ol start="2" style="list-style-type: decimal">
+<li>Pass arguments (variables) by reference in the sub.</li>
 <li>Modify the variables inside the sub.</li>
-</ol></li>
 </ol>
 <p>When the sub returns after it has been called the variables used a arguments contain the new updated values. See e.g <code>TM4_ProductSub</code> which returns the product in variable <code>dblV</code>.</p>
 </div>
 </div>
-<div id="vba-built-in" class="section level2 hasAnchor">
+<div id="vba-built-in" class="section level2 hasAnchor" number="4.6">
 <h2><span class="header-section-number">4.6</span> Built-in functions<a href="mod-vba-procedures.html#vba-built-in" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>VBA has a set of <a href="https://bettersolutions.com/vba/functions/complete-list.htm">built-in functions</a> such as <code>Abs</code>, <code>Log</code> and <code>Date</code>. You call them by just writing their name:</p>
 <pre><code>&#39;&#39; Test VBA functions
@@ -638,7 +710,7 @@ Sub TM4_TestWorksheetfunctions()
    Next
 End Sub</code></pre>
 </div>
-<div id="vba-test-persons" class="section level2 hasAnchor">
+<div id="vba-test-persons" class="section level2 hasAnchor" number="4.7">
 <h2><span class="header-section-number">4.7</span> Example - Selection of test persons<a href="mod-vba-procedures.html#vba-test-persons" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><em>This example is a slightly modified version an exam assignment (exam 2021-A6).</em></p>
 <p>A virus has infected a number of persons. A possible cure has been developed, but the effect of it is expected to be dependent on the persons’ height. The cure can be tested on non-infected persons and the findings of this test can be directly transferred to any infected person whose height is within a range of 2 cm from the height of the tested person. For example, if the cure is tested on a non-infected person of height <span class="math inline">\(172.2\)</span>, then any infected person whose height is in the interval <span class="math inline">\([170.2 ; 174.2]\)</span> is <em>covered</em> by the test.</p>
@@ -650,11 +722,9 @@ Figure 4.2: Infected and test persons.
 </div>
 <p>Figure <a href="mod-vba-procedures.html#fig:test-persons">4.2</a> shows the data in worksheet <em>TM4_Virus</em>:</p>
 <ul>
-<li>Cell D1 states the number of infected persons. Columns A and B provide the person’s ID and height for each person.
-<ul>
+<li>Cell D1 states the number of infected persons. Columns A and B provide the person’s ID and height for each person.</li>
 <li>Cell D2 states the number of non-infected persons volunteering to be test persons. Columns F and G provide their ID and height.</li>
 <li>The testing process is extremely resource demanding, and thus it is only possible to test a limited number of test volunteers. This number is stated in cell D3.</li>
-</ul></li>
 </ul>
 <p>Given a test person we make a function <code>TM4_TestCover</code> that takes person id as argument and return the number of new infected persons covered. A person is already covered, if that person has a 1 in the <em>Covered</em> column.</p>
 <pre><code>Function TM4_TestCover(intId As Integer) As Integer
@@ -724,7 +794,7 @@ Figure 4.3: Infected and test persons.
 </div>
 <p>In total 13 infected persons are covered by 3 test persons.</p>
 </div>
-<div id="recap-1" class="section level2 hasAnchor">
+<div id="recap-1" class="section level2 hasAnchor" number="4.8">
 <h2><span class="header-section-number">4.8</span> Recap<a href="mod-vba-procedures.html#recap-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p>A procedure is a piece of code stored in a module.</p></li>
@@ -796,7 +866,7 @@ You may also have a look at the
 .
 </div>
 </div>
-<div id="ex-vba-procedures" class="section level2 hasAnchor">
+<div id="ex-vba-procedures" class="section level2 hasAnchor" number="4.9">
 <h2><span class="header-section-number">4.9</span> Exercises<a href="mod-vba-procedures.html#ex-vba-procedures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the <a href="help.html#help">help page</a>. Some of the solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up too early. Put some effort into finding a solution!</p>
 <div>
@@ -808,7 +878,7 @@ in the VBA editor for examples used in the notes and during lectures. Have a loo
 <i>TM4_exercises</i>
 for exercises. The template file for next teaching module will contain guiding answers for the exercises to this teaching module.
 </div>
-<div id="ex-vba-subs" class="section level3 hasAnchor">
+<div id="ex-vba-subs" class="section level3 hasAnchor" number="4.9.1">
 <h3><span class="header-section-number">4.9.1</span> Exercise - Subs<a href="mod-vba-procedures.html#ex-vba-subs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
 <li>Create a sub <code>GetMsg</code> that takes a string and a Boolean as input and create a message box with the string content if the Boolean is true. Test the procedure using the <code>TestGetMsg</code> sub.</li>
@@ -817,7 +887,7 @@ for exercises. The template file for next teaching module will contain guiding a
 <li>Write a sub <code>TestPrintNameAge</code> that uses two input boxes to ask for name and age and then call sub <code>PrintNameAge</code>.</li>
 </ol>
 </div>
-<div id="exercise---temperatures" class="section level3 hasAnchor">
+<div id="exercise---temperatures" class="section level3 hasAnchor" number="4.9.2">
 <h3><span class="header-section-number">4.9.2</span> Exercise - Temperatures<a href="mod-vba-procedures.html#exercise---temperatures" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><em>This exercise is a slightly modified version an exam assignment (reexam 2022-A4).</em></p>
 <p>Temperatures in Fahrenheit can be converted to Celsius using <span class="math display">\[C = \frac{5(F-32)}{9}\]</span>
@@ -838,7 +908,7 @@ Similar temperatures in Celsius can be converted to Fahrenheit using <span class
 <li>Test function <code>TM4_ConvertTemp</code> on worksheet <em>TM4</em> (row 66).</li>
 </ol>
 </div>
-<div id="ex-vba-functions" class="section level3 hasAnchor">
+<div id="ex-vba-functions" class="section level3 hasAnchor" number="4.9.3">
 <h3><span class="header-section-number">4.9.3</span> Exercise - Functions<a href="mod-vba-procedures.html#ex-vba-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
 <li>Write a function <code>TM4_Discount</code> which takes a two input arguments (doubles): the discount percentage and the amount. The function returns the discounted value. For instance if the discount is 10 percent and amount 100 then the discounted value is <span class="math inline">\(90 = 100\cdot(1-0.1)\)</span>. Have a look at the unfinished sub <code>TM4_Discount</code> for hints. Note the comments describing the function using the <a href="coding-convention.html#coding-convention">coding convention</a>. Check the test results starting from row 47 in worksheet <em>TM4</em>.</li>
@@ -847,7 +917,7 @@ Similar temperatures in Celsius can be converted to Fahrenheit using <span class
 <li>Write a sub that uses an input box to ask for an amount a then returns the discounted amount when the discount is 20%. The sub should use the function in Question 1. Test it using the button in worksheet <em>TM4</em> (row 49).</li>
 </ol>
 </div>
-<div id="ex-vba-worksheet-functions" class="section level3 hasAnchor">
+<div id="ex-vba-worksheet-functions" class="section level3 hasAnchor" number="4.9.4">
 <h3><span class="header-section-number">4.9.4</span> Exercise - Worksheet functions<a href="mod-vba-procedures.html#ex-vba-worksheet-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The worksheet <em>TM4_Numbers</em> contains a button that runs a procedure which generate a set of numbers. Create a procedure <code>TM4_Summary</code> that uses worksheet functions to:</p>
 <ul>
