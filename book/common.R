@@ -34,7 +34,6 @@ library(kableExtra)
 ## If problems with fontawesome in the icons package try
 # icons::download_fontawesome()
 # cp -a ~/Library/Application\ Support/rpkg_icon/fontawesome/. ~/github/tfa/renv/library/R-4.2/x86_64-apple-darwin17.0/shiny/www/shared/fontawesome/
-library(icons)
 
 options(
   width = 100,
@@ -224,7 +223,7 @@ addIconOld <- function(name, attrib = NULL, lib = "font-awesome")
 }
 
 addIconTasks <- function() {
-   icon_style(fontawesome("tasks"), scale = 8, float = "right", fill = "darkkhaki")
+   icons::icon_style(icons::fontawesome("tasks"), scale = 8, float = "right", fill = "darkkhaki")
 }
 
 strLPath <- "We are all different and you may like different learning styles compared to others. You may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be useful for you. Note these suggestions are not a part of syllabus!"
