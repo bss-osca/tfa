@@ -61,7 +61,7 @@
 #'
 #' @format A vector with houses.
 #'
-#' @example
+#' @examples
 #' lottery
 "lottery"
 
@@ -77,6 +77,6 @@
 #'   * **service** Service considered.
 #'   * **solved_how** How solved.
 #'
-#' @example
+#' @examples
 #' calls
 "calls"
