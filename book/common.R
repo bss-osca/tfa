@@ -34,6 +34,7 @@ library(kableExtra)
 ## If problems with fontawesome in the icons package try
 # icons::download_fontawesome()
 # cp -a ~/Library/Application\ Support/rpkg_icon/fontawesome/. ~/github/tfa/renv/library/R-4.2/x86_64-apple-darwin17.0/shiny/www/shared/fontawesome/
+library(icons)
 
 options(
   width = 100,
@@ -156,7 +157,7 @@ knit_hooks$set(hint = function(before, options, envir) {
 #' addIcon("calendar", attrib = list(title = "See calendar"))
 #' addIcon("calendar", attrib = list(title = "See calendar", style="font-size: 3em; color: Tomato;"))
 #' addIcon("credit-card", attrib = list(title = "Card"), lib = "glyphicon")
-addIcon <- function(name, attrib = NULL, lib = "font-awesome")
+addIconFix <- function(name, attrib = NULL, lib = "font-awesome")
 {
   prefixes <- list(`font-awesome` = "fa", glyphicon = "glyphicon")
   prefix <- prefixes[[lib]]
@@ -181,16 +182,49 @@ addIcon <- function(name, attrib = NULL, lib = "font-awesome")
         stylesheet = c("css/all.min.css", "css/v4-shims.min.css")
       )
   }
-  if (lib == "glyphicon") {
-    iconTag <- do.call(htmltools::tags$span, attrib)
-    # htmltools::htmlDependencies(iconTag) <-
-    #   htmltools::htmlDependency("bootstrap", "3.3.7",
-    #                             c(href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7"),
-    #                             stylesheet = "css/bootstrap.min.css",
-    #                             script = "js/bootstrap.min.js",
-    #                             all_files = F)
-  }
+
   htmltools::browsable(iconTag)
+}
+
+addIconOld <- function(name, attrib = NULL, lib = "font-awesome")
+{
+   prefixes <- list(`font-awesome` = "fa", glyphicon = "glyphicon")
+   prefix <- prefixes[[lib]]
+   if (is.null(prefix)) {
+      stop("Unknown font library '", lib, "' specified. Must be one of ",
+           paste0("\"", names(prefixes), "\"", collapse = ", "))
+   }
+   prefix_class <- prefix
+   if (prefix_class == "fas" && name %in% shiny:::font_awesome_brands) {
+      prefix_class <- "fab"
+   } else if (prefix_class == "fa") prefix_class <- "fas"
+   iconClass <- str_c(prefix_class, " ", prefix, "-", name)
+   attrib$class = str_c(attrib$class, iconClass, sep=" ")
+   if (lib == "font-awesome") {
+      iconTag <- do.call(htmltools::tags$i, attrib)
+      htmltools::htmlDependencies(iconTag) <-
+         htmltools::htmlDependency(
+            "font-awesome",
+            "5.3.1",
+            "www/shared/fontawesome",
+            package = "shiny",
+            stylesheet = c("css/all.min.css", "css/v4-shims.min.css")
+         )
+   }
+   if (lib == "glyphicon") {
+      iconTag <- do.call(htmltools::tags$span, attrib)
+      # htmltools::htmlDependencies(iconTag) <-
+      #   htmltools::htmlDependency("bootstrap", "3.3.7",
+      #                             c(href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7"),
+      #                             stylesheet = "css/bootstrap.min.css",
+      #                             script = "js/bootstrap.min.js",
+      #                             all_files = F)
+   }
+   htmltools::browsable(iconTag)
+}
+
+addIconTasks <- function() {
+   icon_style(fontawesome("tasks"), scale = 8, float = "right", fill = "darkkhaki")
 }
 
 strLPath <- "We are all different and you may like different learning styles compared to others. You may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be useful for you. Note these suggestions are not a part of syllabus!"
