@@ -1,0 +1,473 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
+```
+
+# Spatial data and maps {#mod-r-maps}
+
+Spatial data, also known as geospatial data, is a term used to describe any data related to or containing information about a specific location on a surface (often a map). We will consider *distance matrix* calculations for finding the shortest distance/travel time between a set of origins and destinations, *geocoding* which is the process of converting an address to geographic coordinates (latitude, longitude) and *reverse geocoding* which is the opposite process of converting a location as described by geographic coordinates (latitude, longitude) to a human-readable address or place name. Finally, we consider how to display spatial data on a map.
+
+
+## Learning outcomes {#lo-maps}
+
+By the end of this module, you are expected to be able to:
+
+* Calculate euclidean, manhattan, etc. distances.
+* Calculate a distance matrix, i.e. shortest paths between places using the Google and Bing API.
+* Geocode an address using the Google and Bing API.
+* Add markers and routes (lines) on a map.
+
+
+<!-- SOLO increasing: identify · memorise · name · do simple procedure · collect data · -->
+<!-- enumerate · describe · interpret · formulate · list · paraphrase · combine · do -->
+<!-- algorithms · compare · contrast · explain causes · analyse · relate · derive · -->
+<!-- evaluate · apply · argue · theorise · generalise · hypothesise · solve · reflect -->
+
+
+## Services for obtatining spatial data {#sec-map-api-key}
+
+Often you need to connect to a service using an API for obtaining spatial data. The most common is Google and Bing (Microsoft) and to use the services you need an API key. Another service is also [Here](https://developer.here.com/).
+
+If you use Google Maps you can obtain an API key [here](https://cloud.google.com/maps-platform/). Modest to light use is free; however, you need a valid credit card. Note you must enable the APIs you intend to use. Google in fact has several services for geo-related solutions. For example, the Maps Static API provides map images, while the Geocoding API provides geocoding and reverse geocoding services. You need to enable the APIs before you use them. You will only need to do that once, and then they will be ready for you to use. Enabling the APIs just means clicking a few radio buttons on the Google Maps Platform web interface.
+
+We will be using the **ggmap** package for Google services. You can add the API key using:
+
+```{r, eval=FALSE}
+library(ggmap)
+register_google(key = "[your key]", write = TRUE)
+Sys.getenv("GGMAP_GOOGLE_API_KEY")
+```
+
+Note the key is stored in the environment object `GGMAP_GOOGLE_API_KEY`. Moreover, it is saved in the file `.Renviron` so that it is automatically reloaded when you restart R. 
+
+If you use Bing Maps you can obtain an API key [here](https://www.bingmapsportal.com/). No credit card is needed. You can add the API key using:
+
+```{r, eval=FALSE}
+usethis::edit_r_environ()  # opens the .Renviron file
+Sys.setenv(BING_MAPS_API_KEY=[your key]) # so you don't have to restart R
+```
+
+Add the line `BING_MAPS_API_KEY=[your key]` and save the file. 
+
+Note your API keys is private and unique to you, so be careful not to share it online!
+
+
+## Calculating distances
+
+If you need to calculate euclidean, manhattan, etc. distances, you can use the `dist` R function:
+
+```{r}
+coord <- matrix(c(0,0, 0,1, 1,0, 1,1), ncol = 2, byrow = TRUE)
+coord
+dist(coord)
+as.matrix(dist(coord))
+```
+
+However, euclidean distances are often a poor approximation of shortest path lengths. 
+
+
+### Using Google Maps
+
+Remember to have [set your API key](#sec-map-api-key) and activate the *Distance Matrix API* service on the Google Cloud Platform. We consider the following places:
+
+```{r}
+library(ggmap)
+library(tidyverse)
+dat <- tibble::tribble(
+      ~Id,              ~Shop,                                        ~Address,
+       1L,    "Bilka Esbjerg",          "Stormgade 157, 6715 Esbjerg, Denmark",
+       2L,    "Bilka Herning",              "Golfvej 5, 7400 Herning, Denmark",
+       3L,   "Bilka Hillerød",     "Slotsarkaderne 26, 3400 Hillerød, Denmark",
+       4L,   "Bilka Hjørring",  "A.F Heidemannsvej 20, 9800 Hjørring, Denmark",
+       5L,  "Bilka Holstebro",         "Nyholmvej 20, 7500 Holstebro, Denmark",
+      )
+dat
+```
+
+To calculate a distance matrix we use the `mapdist` function:
+
+```{r}
+mapdist(from = "Stormgade 157, 6715 Esbjerg, Denmark", 
+        to = "Golfvej 5, 7400 Herning, Denmark")
+```
+
+Note Google returns results for the fastest path between the two points. Let us try to define a function which calculate all the distances:
+
+```{r}
+#' Calculate the distance matrix in long format.
+#'
+#' @param address A vector of addresses.
+#' @param mode Driving, bicycling, walking, or transit.
+#' @param symmetric Use symmetric distances (half the number of queries).
+#' @return A data frame with the results
+#' @note The API returns results for the fastest route.  
+goo_calc_distances <- function(address, mode = "driving", symmetric = TRUE) {
+   datDist <- expand_grid(id_from = 1:length(address), id_to = 1:length(address))
+   datDist <- datDist %>% filter(id_from != id_to)
+   if (symmetric) datDist <- datDist %>% filter(id_from < id_to)
+   datDist <- datDist %>% mutate(from = address[id_from], to = address[id_to])
+   res <- mapdist(from = datDist %>% pull(from), to = datDist %>% pull(to), mode = mode)
+   return(left_join(datDist, res, by = c("from", "to")))
+}
+datDistGoo <- goo_calc_distances(dat$Address)
+datDistGoo
+```
+
+Note that only the calculated distances are returned. If you want to have the whole distance matrix we define function:
+
+```{r}
+#' Convert the data frame returned from calling a `___calc_distances` function to a distance matrix.
+#'
+#' @param dat The data frame returned from calling `___calc_distances`.
+#' @param value_col The column containing the distances.
+#' @return The distance matrix
+as_dist_matrix <- function(dat, value_col) {
+   lgt <- max(dat$id_from, dat$id_to)
+   distanceMat<-matrix(NA, nrow=lgt, ncol = lgt)
+   diag(distanceMat) <- 0
+   map(1:nrow(dat), function(r) {
+      distanceMat[dat$id_from[r], dat$id_to[r]] <<- dat[[value_col]][r]
+   })
+   idx <- which(is.na(distanceMat), arr.ind = TRUE)
+   map(1:nrow(idx), function(r) {
+      distanceMat[idx[r, "row"], idx[r, "col"]] <<- distanceMat[idx[r, "col"], idx[r, "row"]]
+   })
+   return(distanceMat)
+}
+as_dist_matrix(datDistGoo, "km")  # distances in km
+as_dist_matrix(datDistGoo, "seconds")  # travel time in seconds 
+```
+
+
+### Using Bing Maps
+
+Remember to have [set your API key](#mod-map-api-key). We first define a `bing_mapdist` function:
+
+```{r}
+library(jsonlite)
+#' Distance between two locations.
+#'
+#' @param from From address.
+#' @param to To address.
+#' @param mode Walking, driving or transit.
+#' @param optimize Optimize either `distance` or `time`.
+#' @return
+bing_mapdist <- function(from, to, mode = "driving", optimize = "time") {
+   if (is.data.frame(from)) {
+     stopifnot(all(c("from", "to") %in% names(from)))
+     from_to_df <- from %>% select("from", "to") %>% as_tibble()
+   }
+   else {
+     from_to_df <- tibble(from = from, to = to)
+   }
+   dat <- map_dfr(1:nrow(from_to_df), function(r) {
+      url <- 
+         str_c("http://dev.virtualearth.net/REST/V1/Routes/", mode, "?wp.0=", from_to_df$from[r], "&wp.1=", from_to_df$to[r], 
+               "&optimize=", optimize, "&ra=excludeItinerary&rpo=None&ig=false&du=km", 
+               "&avoid=minimizeTolls&key=", Sys.getenv("BING_MAPS_API_KEY"))
+      url <- URLencode(url)
+      lst <- fromJSON(url)
+      if (lst$statusCode != 200) return(tibble(km = NA, seconds = NA, mode = NA))
+      df <- lst$resourceSets$resources[[1]]
+      return(tibble(km = df$travelDistance, seconds = df$travelDuration, mode = df$travelMode))
+   })
+   return(bind_cols(from_to_df, dat))
+}
+bing_mapdist(from = "Stormgade 157, 6715 Esbjerg, Denmark", 
+             to = "A.F Heidemannsvej 20, 9800 Hjørring, Denmark")
+bing_mapdist(from = "Stormgade 157, 6715 Esbjerg, Denmark", 
+             to = "A.F Heidemannsvej 20, 9800 Hjørring, Denmark", 
+             optimize = "distance")
+```
+
+Note we here can get both the shortest and fastest path between two points. Next, we use the `bing_mapdist` function for calculating distances:
+
+```{r}
+#' Calculate the distance matrix in long format.
+#'
+#' @param address A vector of addresses.
+#' @param symmetric Use symmetric distances (only half the number of queries).
+#' @param ... Further parameters passed to `bing_mapdist`.
+#' @return A data frame with the results
+#' @note The API returns results for the fastest route.  
+bing_calc_distances <- function(address, symmetric = TRUE, ...) {
+   datDist <- expand_grid(id_from = 1:length(address), id_to = 1:length(address))
+   datDist <- datDist %>% filter(id_from != id_to)
+   if (symmetric) datDist <- datDist %>% filter(id_from < id_to)
+   datDist <- datDist %>% mutate(from = address[id_from], to = address[id_to])
+   res <- bing_mapdist(datDist %>% select(from, to), ...)
+   return(bind_cols(datDist %>%  select(id_from, id_to), res))
+}
+datDistBing <- bing_calc_distances(dat$Address)
+datDistBing
+```
+
+Note in general results from the API services are based on a set of assumptions and hence the results from different services may not be the same. You may use the different services to check if the distances are correct, by checking the results from different services:
+
+```{r}
+# Difference in minutes
+abs(as_dist_matrix(datDistGoo, "seconds") - as_dist_matrix(datDistBing, "seconds"))/60
+# Km from 1 to 3
+mapdist(from = "Stormgade 157, 6715 Esbjerg, Denmark", 
+        to = "Slotsarkaderne 26, 3400 Hillerød, Denmark")
+bing_mapdist(from = "Stormgade 157, 6715 Esbjerg, Denmark", 
+        to = "Slotsarkaderne 26, 3400 Hillerød, Denmark")
+```
+
+
+## Geocoding and reverse geocoding
+
+### Using Google maps
+
+Remember to enable the *Geocoding API*. To get the coordinates of an address we use the `geocode` function:
+
+```{r}
+geocode("Stormgade 157, 6715 Esbjerg, Denmark")
+```
+
+We may use `mutate_geocode` to add the coordinates to a dataset:
+
+```{r}
+dat <- dat %>% 
+  mutate_geocode(Address)
+dat
+```
+
+To reverse geocode use the `revgeocode` function:
+
+```{r}
+revgeocode(c(dat$lon[1], dat$lat[1]))
+```
+
+To apply it to the dataset use:
+
+```{r}
+dat <- dat %>% 
+   mutate(AddressGeoGoo = 
+             map_chr(1:n(), function(i) {
+               revgeocode(c(lon = lon[i], lat = lat[i]))
+             }))
+dat
+```
+
+
+### Use Bing Maps
+
+To get the coordinates of an address we define the `bing_geocode` function:
+
+```{r}
+#' Geocode addresses
+#'
+#' @param address Address(es) to geocode.
+#' @return The coordinates as a data frame.
+bing_geocode <- function(address) {
+   dat <- map_dfr(address, function(s) {
+      url <- str_c("http://dev.virtualearth.net/REST/v1/Locations?q=", 
+                   s, "&key=", Sys.getenv("BING_MAPS_API_KEY"))
+      url <- URLencode(url)
+      lst <- fromJSON(url)
+      if (lst$statusCode != 200) return(tibble(lon = NA, lat = NA))
+      v <- lst$resourceSets$resources[[1]]$point$coordinates[[1]]
+      if (is.null(v)) return(tibble(lon = NA, lat = NA))
+      return(tibble(lon = v[2], lat = v[1]))
+   })
+   return(dat)
+}
+bing_geocode("A.F. Heidemannsvej 20, 9800 Hjørring, Denmark")
+bing_geocode(dat$Address)
+```
+
+We may use `bing_mutate_geocode` to add the coordinates to a dataset:
+
+```{r}
+dat <- dat %>% select(-lat, -lon)
+mutate_bing_geocode <- function (data, address, ...) {
+    adr <- data[[deparse(substitute(Address))]]
+    gcdf <- bing_geocode(adr)
+    bind_cols(data, gcdf)
+}
+
+dat <- dat %>% 
+  mutate_bing_geocode(Address)
+dat
+```
+
+To reverse geocode use the `bing_revgeocode` function:
+
+```{r}
+#' Reverse geocode coordinates
+#'
+#' @param coordinates A vector with two elements (lon, lat).
+#' @return The address as a data frame.
+bing_revgeocode <- function(coordinates) {
+   url <- str_c("http://dev.virtualearth.net/REST/v1/Locations/", 
+                coordinates[2], ",", coordinates[1],
+                "?key=", Sys.getenv("BING_MAPS_API_KEY"))
+   url <- URLencode(url)
+   lst <- fromJSON(url)
+   if (lst$statusCode != 200) return(NA)
+   v <- lst$resourceSets$resources[[1]]$address$formattedAddress
+   if (is.null(v)) return(NA)
+   return(v)
+}
+bing_revgeocode(c(dat$lon[1], dat$lat[1]))
+```
+
+To apply it to the dataset use:
+
+```{r}
+dat <- dat %>% 
+   mutate(AddressGeoBing = 
+             map_chr(1:n(), function(i) {
+               bing_revgeocode(c(lon = lon[i], lat = lat[i]))
+             }))
+dat 
+```
+
+
+## Adding markers and routes to a map
+
+[Leaflet](http://leafletjs.com) is an open-source JavaScript library for interactive maps. It’s used by websites ranging from The New York Times and The Washington Post to GitHub and Flickr, as well as GIS specialists like OpenStreetMap, Mapbox, and CartoDB. The [leaflet](https://rstudio.github.io/leaflet/) package makes it easy to create Leaflet maps from R.
+
+Note Leaflet is open-source and free so you do not need an API key for making maps. If you would like to use Google maps instead then have a look at the [googleway](http://symbolixau.github.io/googleway/) package instead. 
+
+First let us create a map with two base layers
+
+```{r}
+library(leaflet)
+library(htmlwidgets)
+m <- leaflet() %>% 
+   # Base maps
+   addTiles(group = "Map") %>%
+   addProviderTiles('Esri.WorldImagery', group = "Satelite") %>% 
+   addProviderTiles("CartoDB.PositronOnlyLabels", group = "Map") %>% 
+   # Center and zoom
+   setView(10.2, 56.2,  zoom = 7) %>% 
+   # Layer control
+   addLayersControl(
+    baseGroups = c("Map", "Satelite"),
+    options = layersControlOptions(collapsed = TRUE)
+   ) 
+ m
+```
+
+Next, let us add the places:
+
+```{r}
+dat <- tibble::tribble(
+      ~Id,              ~Shop,                                        ~Address,
+       1L,    "Bilka Esbjerg",          "Stormgade 157, 6715 Esbjerg, Denmark",
+       2L,    "Bilka Herning",              "Golfvej 5, 7400 Herning, Denmark",
+       3L,   "Bilka Hillerød",     "Slotsarkaderne 26, 3400 Hillerød, Denmark",
+       4L,   "Bilka Hjørring",  "A.F Heidemannsvej 20, 9800 Hjørring, Denmark",
+       5L,  "Bilka Holstebro",         "Nyholmvej 20, 7500 Holstebro, Denmark",
+      )
+dat <- dat %>% mutate_geocode(Address)
+m <- m %>% 
+   addMarkers(~lon, ~lat, popup = ~Address, label = ~str_c(Id, "  - ", Shop), data = dat)
+m
+```
+
+To add a line between a set of points use the `addPolylines` function:
+
+```{r}
+routeIds <- c(2, 5, 1, 2)
+route <- dat[routeIds,] 
+m %>% addPolylines(lng = ~lon, lat = ~lat, data = route, weight = 2, label = "Route 1")
+```
+
+A more advanced setup is to use the `addFlows` function from the [leaflet.minicharts](https://github.com/rte-antares-rpackage/leaflet.minicharts) package. First let us define some lines:
+
+```{r}
+datLines <- tibble(FromId = c(2, 5, 1, 2, 4, 3), ToId = c(5, 1, 2, 4, 3, 2))
+datLines <- left_join(datLines, dat %>% select(-Shop, -Address), by = c("FromId" = "Id")) %>% 
+   rename("FromLat" = "lat", "FromLon" = "lon") %>% 
+   left_join(dat %>% select(-Shop, -Address), by = c("ToId" = "Id")) %>% 
+   rename("ToLat" = "lat", "ToLon" = "lon")
+datLines
+```
+
+Note we have a from/to pair in each row. We add the lines to the map:
+
+```{r}
+library(leaflet.minicharts)
+m %>% addFlows(datLines$FromLon, datLines$FromLat, datLines$ToLon, datLines$ToLat,
+               flow = 1, maxFlow = 20, opacity = 0.5, popup = popupArgs(noPopup = TRUE))
+```
+
+Let us define a function for adding routes:
+
+```{r}
+add_route <- function(dat = NULL, route, solution = 1) {
+   route_id = if_else(is.null(dat), 1, max(dat$RouteId) + 1)
+   tmp <- tibble(From = route[1:(length(route)-1)], To = route[2:length(route)])
+   tmp <- tmp %>% mutate(Sol = solution, RouteId = route_id)
+   dat <- bind_rows(dat, tmp)
+}
+
+datLines <- add_route(route = c(2, 5, 1, 2)) %>% 
+   add_route(route = c(2, 4, 3, 2)) %>% 
+   add_route(route = c(2, 3, 1, 2), solution = 2) %>% 
+   add_route(route = c(2, 5, 4, 2), solution = 2)
+datLines <- left_join(datLines, dat %>% select(-Shop, -Address), by = c("From" = "Id")) %>% 
+   rename("FromLat" = "lat", "FromLon" = "lon") %>% 
+   left_join(dat %>% select(-Shop, -Address), by = c("To" = "Id")) %>% 
+   rename("ToLat" = "lat", "ToLon" = "lon") %>% 
+   mutate(group = str_c("Solution ", Sol))
+datLines
+```
+
+A map with Solution 1:
+
+```{r}
+col_pal <- rainbow(max(datLines$RouteId))
+datP <- datLines %>% filter(Sol == 1)
+m %>% addFlows(datP$FromLon, datP$FromLat, datP$ToLon, datP$ToLat,
+               flow = datP$RouteId, maxThickness = 2, color = col_pal[datP$RouteId],
+               opacity = 0.5, popup = popupArgs(labels = "Route"))
+```
+
+A map with Solution 2:
+
+```{r}
+col_pal <- rainbow(max(datLines$RouteId))
+datP <- datLines %>% filter(Sol == 2)
+m %>% addFlows(datP$FromLon, datP$FromLat, datP$ToLon, datP$ToLat,
+               flow = datP$RouteId, maxThickness = 2, color = col_pal[datP$RouteId],
+               opacity = 0.5, popup = popupArgs(labels = "Route"))
+```
+
+An interactive map with both solutions:
+
+```{r}
+mm <- m
+res <- map(1:nrow(datLines), function(i) {
+   tmp <- tibble(lat = c(datLines$FromLat[i], datLines$ToLat[i]), lon = c(datLines$FromLon[i], datLines$ToLon[i]))
+   mm <<- mm %>% addPolylines(lng = ~lon, lat = ~lat, 
+                              color = col_pal[datLines$Sol[i]], group = datLines$group[i],
+                              data = tmp, weight = 2, label = datLines$group[i])
+   return(invisible(NULL))
+})
+mm <- mm %>% 
+  # Layer control
+  addLayersControl(
+    baseGroups = c("Map", "Satelite"),
+    overlayGroups = unique(datLines$group),
+    options = layersControlOptions(collapsed = FALSE)
+  ) %>% 
+  hideGroup(unique(datLines$group)) %>% 
+  showGroup("Solution 1")
+mm
+```
+
+Note unfortunately arrows cannot be shown in this case.
+
+
+
+
+
+
+

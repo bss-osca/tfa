@@ -156,35 +156,6 @@ knit_hooks$set(hint = function(before, options, envir) {
 #' addIcon("calendar", attrib = list(title = "See calendar"))
 #' addIcon("calendar", attrib = list(title = "See calendar", style="font-size: 3em; color: Tomato;"))
 #' addIcon("credit-card", attrib = list(title = "Card"), lib = "glyphicon")
-addIconFix <- function(name, attrib = NULL, lib = "font-awesome")
-{
-  prefixes <- list(`font-awesome` = "fa", glyphicon = "glyphicon")
-  prefix <- prefixes[[lib]]
-  if (is.null(prefix)) {
-    stop("Unknown font library '", lib, "' specified. Must be one of ",
-         paste0("\"", names(prefixes), "\"", collapse = ", "))
-  }
-  prefix_class <- prefix
-  if (prefix_class == "fas" && name %in% shiny:::font_awesome_brands) {
-    prefix_class <- "fab"
-  } else if (prefix_class == "fa") prefix_class <- "fas"
-  iconClass <- str_c(prefix_class, " ", prefix, "-", name)
-  attrib$class = str_c(attrib$class, iconClass, sep=" ")
-  if (lib == "font-awesome") {
-    iconTag <- do.call(htmltools::tags$i, attrib)
-    htmltools::htmlDependencies(iconTag) <-
-      htmltools::htmlDependency(
-        "font-awesome",
-        "5.3.1",
-        "www/shared/fontawesome",
-        package = "shiny",
-        stylesheet = c("css/all.min.css", "css/v4-shims.min.css")
-      )
-  }
-
-  htmltools::browsable(iconTag)
-}
-
 addIconOld <- function(name, attrib = NULL, lib = "font-awesome")
 {
    prefixes <- list(`font-awesome` = "fa", glyphicon = "glyphicon")
