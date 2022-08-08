@@ -1,6 +1,6 @@
 devtools::install("tfa-package", quick = T, force = T)   # local
-remotes::install_github("bss-osca/tfa/tfa-package", upgrade = FALSE)      # github
-remotes::install_github("bss-osca/tfa/tfa-package", upgrade = TRUE, build = FALSE)      # github
+remotes::install_github("bss-osca/tfa-package", upgrade = FALSE)      # github
+remotes::install_github("bss-osca/tfa-package", upgrade = TRUE, build = FALSE)      # github
 
 renv::snapshot(prompt = FALSE, force = TRUE)
 
