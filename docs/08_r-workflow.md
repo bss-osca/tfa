@@ -13,8 +13,8 @@ We are all different and you may like different learning styles compared to othe
 
 
 ```{=html}
-<div id="htmlwidget-9a407c42bea549af5484" style="width:100%;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9a407c42bea549af5484">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 Command line\\noperatons\", URL = \"#working-with-r-at-the-command-line-in-rstudio\", tooltip = \"Command line operatons\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"0,2!\"] \n  \"2\" [label = \"💡 Intro to R\", URL = \"#your-first-datacamp-course\", tooltip = \"Datacamp tutorial\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"2,2!\"] \n  \"3\" [label = \"📖 Pipes\", URL = \"#pipes\", tooltip = \"Pipes\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"4,2!\"] \n  \"4\" [label = \"📖 RStudio\\nProjects\", URL = \"#rprojs\", tooltip = \"RStudio\\nProjects\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"5.5,2!\"] \n  \"5\" [label = \"📖 Global\\nOptions\", URL = \"#global-options\", tooltip = \"Global\\nOptions\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"7,2!\"] \n  \"6\" [label = \"📖 Working Dir\", URL = \"#working-directory\", tooltip = \"Working Dir\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"8.5,2!\"] \n  \"7\" [label = \"🎬 Intro to R (I)\", URL = \"https://www.youtube.com/watch?v=vGY5i_J2c-c&ab_channel=RogerPeng\", tooltip = \"Introduction by Roger Peng on YouTube about data types and basic operations.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"1,3!\"] \n  \"8\" [label = \"🎬 Intro to R (II)\", URL = \"https://www.youtube.com/watch?v=w8_XdYI3reU&ab_channel=RogerPeng\", tooltip = \"Introduction by Roger Peng on YouTube about data types (vectors, matrices and lists).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"1,4!\"] \n  \"9\" [label = \"🎬 Intro to R (III)\", URL = \"https://www.youtube.com/watch?v=NuY6jY4qE7I&ab_channel=RogerPeng\", tooltip = \"Introduction by Roger Peng on YouTube about data types (factors, missing values and data frames).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"1,5!\"] \n  \"10\" [label = \"💻 Exercises\", URL = \"#ex-r-basics\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"10.5,2!\"] \n  \"11\" [label = \"📖 Intro to R\", URL = \"https://bookdown.org/rdpeng/rprogdatascience/r-nuts-and-bolts.html\", tooltip = \"An introduction to R is given in Chapter 4 of Peng (2018).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"3,3!\"] \n  \"12\" [label = \"📖 Subsetting\", URL = \"https://bookdown.org/rdpeng/rprogdatascience/subsetting-r-objects.html\", tooltip = \"A detailed tutorial given in Chapter 9 of Peng (2018).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"1.5,1!\"] \n  \"13\" [label = \"📖 Factors\", URL = \"https://r4ds.had.co.nz/factors.html\", tooltip = \"A longer tutorial given in Chapter 15 of H. Wickham (2017).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"2.75,1!\"] \n  \"14\" [label = \"📖 Pipes\", URL = \"https://r4ds.had.co.nz/pipes.html\", tooltip = \"A detailed introduction to pipes in Chapter 18 in H. Wickham (2017).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"4,1!\"] \n  \"15\" [label = \"💡 String\\nManipulation\", URL = \"https://learn.datacamp.com/courses/string-manipulation-with-stringr-in-r\", tooltip = \"DataCamp - String Manipulation with stringr in R.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"10.5,0.75!\"] \n  \"16\" [label = \"📖 Coding\\nConvention\", URL = \"https://discdown.org/rprogramming/style-guide.html\", tooltip = \"An introduction to good coding conventions (Chapter 16 of Stauffer, Simon, and Zeileis, 2020).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"0,1!\"] \n  \"17\" [label = \"\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"7.4,4.81!\"] \n  \"18\" [label = \"Color:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"4.77,5.15!\"] \n  \"19\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"5,4.75!\"] \n  \"20\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"6,4.75!\"] \n  \"21\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"7,4.75!\"] \n  \"22\" [label = \"Shape:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"8.2,5.15!\"] \n  \"23\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"1\", fillcolor = \"Grey40\", pos = \"8.5,4.75!\"] \n  \"24\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", width = \"1\", fillcolor = \"Grey40\", pos = \"9.75,4.75!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"16\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"11\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"12\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"13\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"14\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"5\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"6\"->\"10\" [color = \"black\", arrowhead = \"vee\"] \n\"7\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n\"8\"->\"9\" [color = \"black\", arrowhead = \"vee\"] \n\"10\"->\"15\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0bacf9191f17c237b930" style="width:100%;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0bacf9191f17c237b930">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 Command line\\noperatons\", URL = \"#working-with-r-at-the-command-line-in-rstudio\", tooltip = \"Command line operatons\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"0,2!\"] \n  \"2\" [label = \"💡 Intro to R\", URL = \"#your-first-datacamp-course\", tooltip = \"Datacamp tutorial\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"2,2!\"] \n  \"3\" [label = \"📖 Pipes\", URL = \"#pipes\", tooltip = \"Pipes\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"4,2!\"] \n  \"4\" [label = \"📖 RStudio\\nProjects\", URL = \"#rprojs\", tooltip = \"RStudio\\nProjects\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"5.5,2!\"] \n  \"5\" [label = \"📖 Global\\nOptions\", URL = \"#global-options\", tooltip = \"Global\\nOptions\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"7,2!\"] \n  \"6\" [label = \"📖 Working Dir\", URL = \"#working-directory\", tooltip = \"Working Dir\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"8.5,2!\"] \n  \"7\" [label = \"🎬 Intro to R (I)\", URL = \"https://www.youtube.com/watch?v=vGY5i_J2c-c&ab_channel=RogerPeng\", tooltip = \"Introduction by Roger Peng on YouTube about data types and basic operations.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"1,3!\"] \n  \"8\" [label = \"🎬 Intro to R (II)\", URL = \"https://www.youtube.com/watch?v=w8_XdYI3reU&ab_channel=RogerPeng\", tooltip = \"Introduction by Roger Peng on YouTube about data types (vectors, matrices and lists).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"1,4!\"] \n  \"9\" [label = \"🎬 Intro to R (III)\", URL = \"https://www.youtube.com/watch?v=NuY6jY4qE7I&ab_channel=RogerPeng\", tooltip = \"Introduction by Roger Peng on YouTube about data types (factors, missing values and data frames).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"1,5!\"] \n  \"10\" [label = \"💻 Exercises\", URL = \"#ex-r-basics\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"10.5,2!\"] \n  \"11\" [label = \"📖 Intro to R\", URL = \"https://bookdown.org/rdpeng/rprogdatascience/r-nuts-and-bolts.html\", tooltip = \"An introduction to R is given in Chapter 4 of Peng (2018).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"3,3!\"] \n  \"12\" [label = \"📖 Subsetting\", URL = \"https://bookdown.org/rdpeng/rprogdatascience/subsetting-r-objects.html\", tooltip = \"A detailed tutorial given in Chapter 9 of Peng (2018).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"1.5,1!\"] \n  \"13\" [label = \"📖 Factors\", URL = \"https://r4ds.had.co.nz/factors.html\", tooltip = \"A longer tutorial given in Chapter 15 of H. Wickham (2017).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"2.75,1!\"] \n  \"14\" [label = \"📖 Pipes\", URL = \"https://r4ds.had.co.nz/pipes.html\", tooltip = \"A detailed introduction to pipes in Chapter 18 in H. Wickham (2017).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"4,1!\"] \n  \"15\" [label = \"💡 String\\nManipulation\", URL = \"https://learn.datacamp.com/courses/string-manipulation-with-stringr-in-r\", tooltip = \"DataCamp - String Manipulation with stringr in R.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"10.5,0.75!\"] \n  \"16\" [label = \"📖 Coding\\nConvention\", URL = \"https://discdown.org/rprogramming/style-guide.html\", tooltip = \"An introduction to good coding conventions (Chapter 16 of Stauffer, Simon, and Zeileis, 2020).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"0,1!\"] \n  \"17\" [label = \"\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"7.4,4.81!\"] \n  \"18\" [label = \"Color:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"4.77,5.15!\"] \n  \"19\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"5,4.75!\"] \n  \"20\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"6,4.75!\"] \n  \"21\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"7,4.75!\"] \n  \"22\" [label = \"Shape:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"8.2,5.15!\"] \n  \"23\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"1\", fillcolor = \"Grey40\", pos = \"8.5,4.75!\"] \n  \"24\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", width = \"1\", fillcolor = \"Grey40\", pos = \"9.75,4.75!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"16\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"11\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"12\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"13\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"14\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"5\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"6\"->\"10\" [color = \"black\", arrowhead = \"vee\"] \n\"7\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n\"8\"->\"9\" [color = \"black\", arrowhead = \"vee\"] \n\"10\"->\"15\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 <!-- ## Different learning paths {#lp-r-workflow} -->
@@ -487,7 +487,7 @@ mtcars %>% select(cyl, gear, hp, mpg) %>% filter(gear == 4 & cyl == 4)
 selects the columns related to cylinders, gears, horse power and miles, and then rows with cars having four cylinders and (operator `&`) gears. 
 
 
-<div class="modal fade bs-example-modal-lg" id="YdyJdKH7iRsHkA3pOWEO" tabindex="-1" role="dialog" aria-labelledby="YdyJdKH7iRsHkA3pOWEO-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="YdyJdKH7iRsHkA3pOWEO-title">Solution</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="iFjshOi7Jc5inriOGOdX" tabindex="-1" role="dialog" aria-labelledby="iFjshOi7Jc5inriOGOdX-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="iFjshOi7Jc5inriOGOdX-title">Solution</h4></div><div class="modal-body">
 
 ```r
 mtcars %>% 
@@ -528,9 +528,9 @@ mtcars %>%
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#YdyJdKH7iRsHkA3pOWEO">Solution</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#iFjshOi7Jc5inriOGOdX">Solution</button>
 
-<div class="modal fade bs-example-modal-lg" id="SPKvwJWksGi7nnfNIca9" tabindex="-1" role="dialog" aria-labelledby="SPKvwJWksGi7nnfNIca9-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="SPKvwJWksGi7nnfNIca9-title">Hint</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="KHYs9RBxWyXgtsdLGMov" tabindex="-1" role="dialog" aria-labelledby="KHYs9RBxWyXgtsdLGMov-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="KHYs9RBxWyXgtsdLGMov-title">Hint</h4></div><div class="modal-body">
 
 ```r
 mtcars %>% 
@@ -538,13 +538,13 @@ mtcars %>%
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#SPKvwJWksGi7nnfNIca9">Hint</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#KHYs9RBxWyXgtsdLGMov">Hint</button>
 
 1) Create a pipe that selects columns related to miles, horsepower, transmission and gears.
 
 
 
-<div class="modal fade bs-example-modal-lg" id="0hOZb0vTL9ktIMEiWbMX" tabindex="-1" role="dialog" aria-labelledby="0hOZb0vTL9ktIMEiWbMX-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="0hOZb0vTL9ktIMEiWbMX-title">Solution</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="zD5tPXgsvTxWZPu7Sz36" tabindex="-1" role="dialog" aria-labelledby="zD5tPXgsvTxWZPu7Sz36-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="zD5tPXgsvTxWZPu7Sz36-title">Solution</h4></div><div class="modal-body">
 
 ```r
 mtcars %>% 
@@ -556,9 +556,9 @@ mtcars %>%
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#0hOZb0vTL9ktIMEiWbMX">Solution</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#zD5tPXgsvTxWZPu7Sz36">Solution</button>
 
-<div class="modal fade bs-example-modal-lg" id="cOhu9B9nmeLpx4qvu9bz" tabindex="-1" role="dialog" aria-labelledby="cOhu9B9nmeLpx4qvu9bz-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="cOhu9B9nmeLpx4qvu9bz-title">Hint</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="rii0ScTIl1h59Ktvmhuz" tabindex="-1" role="dialog" aria-labelledby="rii0ScTIl1h59Ktvmhuz-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="rii0ScTIl1h59Ktvmhuz-title">Hint</h4></div><div class="modal-body">
 
 ```r
 mtcars %>% 
@@ -567,14 +567,14 @@ mtcars %>%
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#cOhu9B9nmeLpx4qvu9bz">Hint</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#rii0ScTIl1h59Ktvmhuz">Hint</button>
 
 2) Given the answer in 1), filter so cars have miles less than 20 and 4 gears.
 
 
 
 
-<div class="modal fade bs-example-modal-lg" id="PtXJcohw5iunyIMn87bZ" tabindex="-1" role="dialog" aria-labelledby="PtXJcohw5iunyIMn87bZ-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="PtXJcohw5iunyIMn87bZ-title">Solution</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="Fa6UkL7e3SQVh8FM61vg" tabindex="-1" role="dialog" aria-labelledby="Fa6UkL7e3SQVh8FM61vg-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="Fa6UkL7e3SQVh8FM61vg-title">Solution</h4></div><div class="modal-body">
 
 ```r
 mtcars %>% 
@@ -612,9 +612,9 @@ mtcars %>%
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#PtXJcohw5iunyIMn87bZ">Solution</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Fa6UkL7e3SQVh8FM61vg">Solution</button>
 
-<div class="modal fade bs-example-modal-lg" id="NJ1IAzwPW0quLhP1NmUz" tabindex="-1" role="dialog" aria-labelledby="NJ1IAzwPW0quLhP1NmUz-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="NJ1IAzwPW0quLhP1NmUz-title">Hint</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="7CNx1ny5S1TnwQnj4qa9" tabindex="-1" role="dialog" aria-labelledby="7CNx1ny5S1TnwQnj4qa9-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="7CNx1ny5S1TnwQnj4qa9-title">Hint</h4></div><div class="modal-body">
 
 ```r
 mtcars %>% 
@@ -623,13 +623,13 @@ mtcars %>%
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#NJ1IAzwPW0quLhP1NmUz">Hint</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#7CNx1ny5S1TnwQnj4qa9">Hint</button>
 
 3) Given the answer in 1), filter so cars have miles less than 20 or 4 gears. The "or" operator in R is `|`.
 
 
 
-<div class="modal fade bs-example-modal-lg" id="HBhbq1XG3f0cSXLcmn12" tabindex="-1" role="dialog" aria-labelledby="HBhbq1XG3f0cSXLcmn12-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="HBhbq1XG3f0cSXLcmn12-title">Solution</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="lsbDIDko3Z05g7jkOvPE" tabindex="-1" role="dialog" aria-labelledby="lsbDIDko3Z05g7jkOvPE-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="lsbDIDko3Z05g7jkOvPE-title">Solution</h4></div><div class="modal-body">
 
 ```r
 mtcars %>% 
@@ -641,9 +641,9 @@ mtcars %>%
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#HBhbq1XG3f0cSXLcmn12">Solution</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#lsbDIDko3Z05g7jkOvPE">Solution</button>
 
-<div class="modal fade bs-example-modal-lg" id="W6253ZeDgp5vSScfFvBs" tabindex="-1" role="dialog" aria-labelledby="W6253ZeDgp5vSScfFvBs-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="W6253ZeDgp5vSScfFvBs-title">Hint</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="KJsuA5SEMutAd7gYoOdP" tabindex="-1" role="dialog" aria-labelledby="KJsuA5SEMutAd7gYoOdP-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="KJsuA5SEMutAd7gYoOdP-title">Hint</h4></div><div class="modal-body">
 
 ```r
 mtcars %>% 
@@ -652,14 +652,14 @@ mtcars %>%
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#W6253ZeDgp5vSScfFvBs">Hint</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#KJsuA5SEMutAd7gYoOdP">Hint</button>
 
 4) Create a pipe that filters the cars having miles less than 20 and 4 gears and selects columns related to weight and engine.
 
 
 
 
-<div class="modal fade bs-example-modal-lg" id="mYNvQGo15Ra5El2lVQOL" tabindex="-1" role="dialog" aria-labelledby="mYNvQGo15Ra5El2lVQOL-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="mYNvQGo15Ra5El2lVQOL-title">Solution</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="zbQznHRnVCinAZKKj6r4" tabindex="-1" role="dialog" aria-labelledby="zbQznHRnVCinAZKKj6r4-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="zbQznHRnVCinAZKKj6r4-title">Solution</h4></div><div class="modal-body">
 
 ```r
 dat <- mtcars 
@@ -672,9 +672,9 @@ dat
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#mYNvQGo15Ra5El2lVQOL">Solution</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#zbQznHRnVCinAZKKj6r4">Solution</button>
 
-<div class="modal fade bs-example-modal-lg" id="GjjLKvq4u3X1bvhn2bO3" tabindex="-1" role="dialog" aria-labelledby="GjjLKvq4u3X1bvhn2bO3-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="GjjLKvq4u3X1bvhn2bO3-title">Hint</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="UgwtT52NEb90w3p5X5iy" tabindex="-1" role="dialog" aria-labelledby="UgwtT52NEb90w3p5X5iy-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="UgwtT52NEb90w3p5X5iy-title">Hint</h4></div><div class="modal-body">
 
 ```r
 dat <- mtcars 
@@ -684,7 +684,7 @@ dat
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#GjjLKvq4u3X1bvhn2bO3">Hint</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#UgwtT52NEb90w3p5X5iy">Hint</button>
 
 5) Solve Question 4 without the pipe operator. 
 
@@ -718,23 +718,23 @@ read_file("test1.txt")
 
 
 
-<div class="modal fade bs-example-modal-lg" id="QmFHKLRwWdxFcPDbKYtN" tabindex="-1" role="dialog" aria-labelledby="QmFHKLRwWdxFcPDbKYtN-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="QmFHKLRwWdxFcPDbKYtN-title">Solution</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="jU2XHogpL5GmHDipmd1G" tabindex="-1" role="dialog" aria-labelledby="jU2XHogpL5GmHDipmd1G-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="jU2XHogpL5GmHDipmd1G-title">Solution</h4></div><div class="modal-body">
 
 ```r
 read_file("subfolder/test2.txt")
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#QmFHKLRwWdxFcPDbKYtN">Solution</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#jU2XHogpL5GmHDipmd1G">Solution</button>
 
-<div class="modal fade bs-example-modal-lg" id="x1Ru5M1arPrA5rlxqBCB" tabindex="-1" role="dialog" aria-labelledby="x1Ru5M1arPrA5rlxqBCB-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="x1Ru5M1arPrA5rlxqBCB-title">Hint</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="iOHe44DuAc93Ov5CF542" tabindex="-1" role="dialog" aria-labelledby="iOHe44DuAc93Ov5CF542-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="iOHe44DuAc93Ov5CF542-title">Hint</h4></div><div class="modal-body">
 
 ```r
 read_file("subfolder/___")
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#x1Ru5M1arPrA5rlxqBCB">Hint</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#iOHe44DuAc93Ov5CF542">Hint</button>
 
 2) Read the file `test2.txt`.
 
@@ -745,7 +745,7 @@ read_file("subfolder/___")
 
 
 
-<div class="modal fade bs-example-modal-lg" id="s7yyG47PmwD0MJu8Vjnp" tabindex="-1" role="dialog" aria-labelledby="s7yyG47PmwD0MJu8Vjnp-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="s7yyG47PmwD0MJu8Vjnp-title">Solution</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="GGs6dQQLNVeeDXWVv3Xg" tabindex="-1" role="dialog" aria-labelledby="GGs6dQQLNVeeDXWVv3Xg-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="GGs6dQQLNVeeDXWVv3Xg-title">Solution</h4></div><div class="modal-body">
 
 ```r
 setwd("subfolder")  # done in Q3
@@ -754,9 +754,9 @@ read_file("test2.txt")
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#s7yyG47PmwD0MJu8Vjnp">Solution</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#GGs6dQQLNVeeDXWVv3Xg">Solution</button>
 
-<div class="modal fade bs-example-modal-lg" id="F5BcWs77TxpoXzmQBZ6W" tabindex="-1" role="dialog" aria-labelledby="F5BcWs77TxpoXzmQBZ6W-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="F5BcWs77TxpoXzmQBZ6W-title">Hint</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="j0LWyuvG5L3pIilAoZCb" tabindex="-1" role="dialog" aria-labelledby="j0LWyuvG5L3pIilAoZCb-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="j0LWyuvG5L3pIilAoZCb-title">Hint</h4></div><div class="modal-body">
 
 ```r
 setwd("subfolder")  # done in Q3
@@ -765,7 +765,7 @@ read_file("___")
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#F5BcWs77TxpoXzmQBZ6W">Hint</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#j0LWyuvG5L3pIilAoZCb">Hint</button>
 
 4) Read files `test1.txt` and `test2.txt`. Note that in relative paths `../` means going to the parent folder.  What is different compared to Question 2?
 
@@ -779,7 +779,7 @@ read_file("___")
 *Solve this exercise using a script file.*
 
 
-<div class="modal fade bs-example-modal-lg" id="kyPdk2ehjMtpC1IlvVli" tabindex="-1" role="dialog" aria-labelledby="kyPdk2ehjMtpC1IlvVli-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="kyPdk2ehjMtpC1IlvVli-title">Solution</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="yzIj3dblvs4umvs0gTxC" tabindex="-1" role="dialog" aria-labelledby="yzIj3dblvs4umvs0gTxC-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="yzIj3dblvs4umvs0gTxC-title">Solution</h4></div><div class="modal-body">
 
 ```r
 n <- 100
@@ -788,13 +788,13 @@ n * (n+1) / 2
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#kyPdk2ehjMtpC1IlvVli">Solution</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#yzIj3dblvs4umvs0gTxC">Solution</button>
 
 1) What is the sum of the first 100 positive integers? The formula for the sum of integers $1$ through $n$ is $n(n+1)/2$. Define $n=100$ and then use R to compute the sum of $1$ through $100$ using the formula. What is the sum?
 
 
 
-<div class="modal fade bs-example-modal-lg" id="mb3F6EbwsVXtG8baweTz" tabindex="-1" role="dialog" aria-labelledby="mb3F6EbwsVXtG8baweTz-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="mb3F6EbwsVXtG8baweTz-title">Solution</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="36pkynl2eNKxiNGH8L1h" tabindex="-1" role="dialog" aria-labelledby="36pkynl2eNKxiNGH8L1h-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="36pkynl2eNKxiNGH8L1h-title">Solution</h4></div><div class="modal-body">
 
 ```r
 n <- 1000
@@ -803,18 +803,18 @@ n * (n+1) / 2
 ```
 
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#mb3F6EbwsVXtG8baweTz">Solution</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#36pkynl2eNKxiNGH8L1h">Solution</button>
 
 2) Now use the same formula to compute the sum of the integers from 1 through 1000.
 
 
 
 
-<div class="modal fade bs-example-modal-lg" id="WGk9ZO3cNJOWx5fj5kmf" tabindex="-1" role="dialog" aria-labelledby="WGk9ZO3cNJOWx5fj5kmf-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="WGk9ZO3cNJOWx5fj5kmf-title">Solution</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="MHfnCNJNic3vOm9gXpjl" tabindex="-1" role="dialog" aria-labelledby="MHfnCNJNic3vOm9gXpjl-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="MHfnCNJNic3vOm9gXpjl-title">Solution</h4></div><div class="modal-body">
 
 <p>The answer is b).</p>
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#WGk9ZO3cNJOWx5fj5kmf">Solution</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#MHfnCNJNic3vOm9gXpjl">Solution</button>
 
 3) Look at the result of typing the following code into R:
 
@@ -834,11 +834,11 @@ n * (n+1) / 2
 
 
 
-<div class="modal fade bs-example-modal-lg" id="wctCsA68DkFBU2rJoxXC" tabindex="-1" role="dialog" aria-labelledby="wctCsA68DkFBU2rJoxXC-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="wctCsA68DkFBU2rJoxXC-title">Solution</h4></div><div class="modal-body">
+<div class="modal fade bs-example-modal-lg" id="1M11JCgKnwW64TxKXmm9" tabindex="-1" role="dialog" aria-labelledby="1M11JCgKnwW64TxKXmm9-title"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="1M11JCgKnwW64TxKXmm9-title">Solution</h4></div><div class="modal-body">
 
 <p>Sample 30 integers in the range [1, 100].</p>
 
-</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#wctCsA68DkFBU2rJoxXC">Solution</button>
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div><button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#1M11JCgKnwW64TxKXmm9">Solution</button>
 
 4) Run code. What does `sample.int` do (try running `?sample.int`)?
 
