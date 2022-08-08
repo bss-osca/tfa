@@ -6,6 +6,9 @@ editor_options:
 ```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
 ```
 
+```{r, include=FALSE}
+here::i_am(str_c("book/99_apdx.Rmd"))
+```
 
 # (APPENDIX) Appendix {-} 
 
@@ -532,7 +535,7 @@ This version of the book was built with:
 
 ```{r message = FALSE, warning = FALSE, echo = FALSE}
 # needed because new_session is set to true in _bookdown.yml
-all_pkgs <- renv::dependencies(path = "DESCRIPTION") %>% 
+all_pkgs <- renv::dependencies() %>% 
   pull(Package) 
 
 session <- devtools::session_info(pkgs = all_pkgs)
