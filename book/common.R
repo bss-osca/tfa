@@ -31,6 +31,10 @@ conflict_prefer("select", "dplyr", quiet = TRUE)
 conflict_prefer("lag", "dplyr", quiet = TRUE)
 library(kableExtra)
 
+## If problems with fontawesome in the icons package try
+# icons::download_fontawesome()
+# cp -a ~/Library/Application\ Support/rpkg_icon/fontawesome/. ~/github/tfa/renv/library/R-4.2/x86_64-apple-darwin17.0/shiny/www/shared/fontawesome/
+
 options(
   width = 100,
   digits = 3,
@@ -359,4 +363,50 @@ link_slide_file_text <- function(module_number_prefix, module_name) {
       )
    })
    )
+}
+
+
+
+function (lib, url, svg_path, svg_pattern = "\\.svg$", svg_dest = NULL,
+          meta)
+{
+   dl_file <- tempfile("icon_dl")
+   dir.create(dl_dir <- tempfile("icon_dl"), showWarnings = FALSE)
+   on.exit(unlink(c(dl_file, dl_dir)))
+   download.file(url, dl_file)
+   utils::unzip(dl_file, exdir = dl_dir)
+   if (is.character(svg_path)) {
+      path <- do.call(file.path, c(list(list.dirs(dl_dir, recursive = FALSE)),
+                                   svg_path))
+   }
+   else if (is.function(svg_path)) {
+      path <- svg_path(dl_dir)
+   }
+   files <- list.files(path, pattern = svg_pattern, recursive = TRUE,
+                       full.names = TRUE)
+   dest_dir <- icon_path(lib)
+   unlink(dest_dir, recursive = TRUE)
+   dest_svg <- if (is.function(svg_dest)) {
+      svg_dest(files)
+   }else {
+      substring(files, nchar(path) + 2)
+   }
+   files <- files[!is.na(dest_svg)]
+   dest_svg <- dest_svg[!is.na(dest_svg)]
+   dest <- file.path(dest_dir, dest_svg)
+   lapply(unique(dirname(dest)), dir.create, recursive = TRUE,
+          showWarnings = FALSE)
+   file.copy(files, dest)
+   if (is.character(meta)) {
+      if (basename(meta) != "package.json") {
+         abort("Expected package.json metadata file.")
+      }
+      meta <- jsonlite::read_json(file.path(list.dirs(dl_dir,
+                                                      recursive = FALSE), meta))
+      meta <- list(name = meta$name, version = meta$version,
+                   license = meta$license)
+   }
+   saveRDS(meta, file.path(dest_dir, "meta.rds"))
+   update_icon(lib, silent = FALSE)
+   return(dl_dir)
 }
