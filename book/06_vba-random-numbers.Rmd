@@ -18,7 +18,7 @@ sheet_name_prefix <- str_c("TM", module_number)
 
 # Generating random numbers {#mod-vba-random-numbers}
 
-This module gives a short introduction on how to generate random numbers and using them in a simulation. Simulation studies that you do in Excel may be done easier using VBA toggeather with Excel. For more advanced simulation studies you may use dedicated programs (such as Arena) or Excel plugins (such as \@Risk).
+This module gives a short introduction on how to generate random numbers and using them in a simulation. Simulation studies that you do in Excel may be done easier using VBA together with Excel. For more advanced simulation studies you may use dedicated programs (such as Arena) or Excel plugins (such as \@Risk).
 
 ```{r, echo=FALSE}
 link_excel_file_text(module_number_prefix, module_name)
@@ -55,28 +55,51 @@ The learning outcomes relate to the [overall learning goals](#lg-course) number 
 
 ## Generating random numbers {#vba-random-numbers}
 
-Often we want to model a system where some of the elements are uncertain. To simulate the system we want to generate some random numbers following different distributions. This can be done using the built-in VBA and Excel functions for most distributions. The [course procedures](#vba-course-procedures) (module *ModRand*) contain a set of procedures for generating random numbers. Let us have a look at how to generate random numbers from a uniform distribution:
+Often we want to model a system where some of the elements are uncertain. To simulate the system we want to generate some random numbers following different distributions. This can be done using the built-in VBA and Excel functions for most distributions. The [course procedures](#vba-course-procedures) (module *ModRand*) contain a set of procedures for generating random numbers. Let us have a look at how to generate random numbers from a continuous uniform distribution:
 
 ```
-'' Generate random numbers from an uniform distribution
+'' Generate a random number from a continuous uniform distribution
+' @param dblMin Minimum number.
+' @param dblMax Maximum number (not included).
+Function RandInvUniformCont(dblMin As Double, dblMax As Double) As Double
+    RandInvUniformCont = dblMin + (dblMax - dblMin) * Rnd()
+End Function
+```
+
+Here a single random number is returned. The `Rnd` function is used to generate random numbers in the interval $[0,1[$, i.e. a continuous uniform distribution. The `Rnd` function is a built-in VBA function. To generate random numbers between [`dblMin`, `dblMax`[, we use the formula `dblMin + (dblMax - dblMin) * Rnd()`. 
+
+If you need more than a single random number, you can use the almost same procedure with `Gen` in its name instead of `Inv`:
+
+```
+'' Generate random numbers from a continuous uniform distribution
 ' @param intSize Random numbers generated
 ' @param dblMin Minimum number.
-' @param dblMax Maximum number.
+' @param dblMax Maximum number (not included).
 ' @param ary Array to store the values in.
-Sub RandGenUniform(intSize As Integer, dblMin As Double, dblMax As Double, ary() As Double)
+Sub RandGenUniformCont(intSize As Integer, dblMin As Double, dblMax As Double, ary() As Double)
     Dim i As Integer
     ReDim ary(intSize) As Double
     
-    Randomize ' initialize random-number generator
     For i = 1 To intSize
         ary(i) = dblMin + (dblMax - dblMin) * Rnd()
     Next
 End Sub
 ```
 
-First, observe that in the start of the procedure, the `Randomize` procedure is called. `Randomize` initialize the random-number generator and it is always a good idea to call it if you want true random numbers. Next, the `Rnd` function is used to generate random numbers in the interval $[0,1[$, i.e. a continuous uniform distribution. The `Rnd` function is a built-in VBA function. Finally, to generate random numbers between [`dblMin`, `dblMax`[, we use the formula `dblMin + (dblMax - dblMin) * Rnd()`. An array `ary` of `intSize` is used to store the random numbers. Similar you can generate random integers using the `RandBetween` Excel function.
+The difference is that an array `ary` of `intSize` is used to store the random numbers. 
 
-You can generate random numbers from a normal distribution using:
+Let us consider another example, the normal distribution:
+
+```
+'' Generate a random number from a normal distribution
+' @param dblMean Mean.
+' @param dblSD Standard deviation.
+Function RandInvNormal(dblMean As Double, dblSD As Double) As Double
+    RandInvNormal = Application.WorksheetFunction.NormInv(Rnd, dblMean, dblSD)
+End Function
+```
+
+The procedure takes the mean and standard deviation as arguments and return a random number. Multiple random numbers are found using:
 
 ```
 '' Generate random numbers from a normal distribution
@@ -88,19 +111,50 @@ Sub RandGenNormal(intSize As Integer, dblMean As Double, dblSD As Double, ary() 
     Dim i As Integer
     ReDim ary(intSize) As Double
     
-    Randomize
     For i = 1 To intSize
         ary(i) = Application.WorksheetFunction.NormInv(Rnd, dblMean, dblSD)
     Next
 End Sub
 ```
 
-The procedure takes the mean and standard deviation as arguments and store `intSize` random numbers in the output array `ary`. 
+Here `intSize` random numbers in stored in the output array `ary`. 
 
-Similar procedures can be found for the uniform, binomial, poisson and a custom discrete distribution. Let us try some examples:
+Similar procedures can be found for the uniform (discrete), binomial, poisson and a custom discrete distribution. Let us try some examples:
 
 ```
 Sub TM6_RandDistEx()
+    Dim aryDens() As Double
+
+    Randomize    ' initialize random-number generator
+    MsgBox ("Normal: " & RandInvNormal(100, 20))
+    ' Cont. uniform [10,500[
+    MsgBox ("Uniform (continuous): " & RandInvUniformCont(10, 500))
+    ' Discrete uniform 10,...,500
+    MsgBox ("Uniform (discrete): " & RandInvUniformDisc(10, 500))
+    ' Binomial 100 trials, pr = 0.2
+    MsgBox ("Binomial: " & RandInvBinomial(100, 0.2))
+    ' Poisson lambda = 5
+    MsgBox ("Poisson: " & RandInvPoisson(5))
+    ' Custom discrete
+    ReDim aryDens(1 To 4, 1 To 2)
+    aryDens(1, 1) = 3
+    aryDens(2, 1) = 4
+    aryDens(3, 1) = 5
+    aryDens(4, 1) = 6
+    aryDens(1, 2) = 0.1
+    aryDens(2, 2) = 0.3
+    aryDens(3, 2) = 0.5
+    aryDens(4, 2) = 0.1
+    MsgBox ("Custom (discrete): " & RandInvDiscrete(aryDens))
+End Sub
+```
+
+First, observe that in the start of the procedure, the `Randomize` procedure is called. `Randomize` initialize the random-number generator and it is always a good idea to call it if you want true random numbers. Next we generate a random number from the different distributions. For generating random numbers from a custom discrete distribution we need a 2D array where each row store the outcome and the probability. For instance here the probability of outcome 5 is 50%. 
+
+Let us try to generate 20 random numbers from each distribution:
+
+```
+Sub TM6_RandDistAryEx()
     Dim ary() As Double
     Dim aryDens() As Double
     Dim intSize As Integer
@@ -149,18 +203,14 @@ Sub TM6_RandDistEx()
 End Sub
 ```
 
-We generate 20 random numbers for the different distributions. For generating random numbers from a custom discrete distribution we need a 2D array where each row store the outcome and the probability. For instance here the probability of outcome 5 is 50%. 
-
-
-
 
 ## Simulation {#vba-simulation}
 
 Given an uncertain system we simulate the system by:
 
-   1) constructing a deterministic model (that is we assume the random numbers have some specific values) and algorithms for solving it. 
+   1) Constructing a deterministic model (that is we assume the random numbers have some specific values) and algorithms for solving it. 
    2) Generate random numbers and use them to solve the model and store the results. 
-   3) Repeat a number of times and gather statistics such as min, mean, standard deviation or max value.
+   3) Repeat a number of times and gather statistics such as minimum, mean, standard deviation or maximum value.
 
 Let us consider some examples in the next sections.
 
@@ -458,36 +508,28 @@ knitr::include_graphics("./img/tm6-tsp-sim.png")
 The results are given in Figure \@ref(fig:tm6-tsp-sim). As can be seen the nearest naighbour algorith is best and gives the shortest average distance.  
 
 
-
-
 ## Recap
 
-- Often we want to model a system where some of the elements are uncertain. To simulate the system we want to generate some random numbers following different distributions. This can be done using the built-in VBA and Excel functions.
+- Often we want to model a system where some of the elements are uncertain. To simulate the system we want to generate some random numbers following different distributions. This can be done using the built-in VBA and Excel functions for most distributions. 
 - Initialize generation of random numbers using 
   ```
   Randomize()     ' chooses a random seed 
   ```
   Or
   ```
-  Randomize(100)     ' generate the same random numbers
+  Randomize(100)     ' generate the same sequence of random numbers
   ```
   We normally use the first option.
 - When generating random numbers in VBA and writing them to the worksheet, they will NOT be changed when the worksheet is updated! Only when the code is executed!
-- Examples on some distributions are
-   - Uniform between 0 and 1: `Rnd()`
-   - Uniform between i and j:  `i + (j - i) * Rnd`
-   - Normal distribution: `WorksheetFunction.NormInv(Rnd, dblMean, dblSD)`
-   - Binomial distribution: `WorksheetFunction.Binom_Inv(intTrials, dblPr, Rnd)`
-- The [course procedures](#vba-course-procedures) (module *ModRand*) contain a set of procedures for generating random numbers that are stored in an array. 
-   
-   
-- Given an uncertain system we simulate the system by constructing a 
-   - Deterministic model (that is we assume the random numbers have some specific values) and algorithms for solving it. 
-   - Generate random numbers and used to solve the model and store the results. 
-   - Repeat a number of times and calculate statistics such as min, mean and standard deviation.
+- The [course procedures](#vba-course-procedures) (module *ModRand*) also contain a set of procedures for generating random numbers that are stored in an array. 
+- Given an uncertain system we simulate the system by:
+   1) Constructing a deterministic model (that is we assume the random numbers have some specific values) and algorithms for solving it. 
+   2) Generate random numbers and use them to solve the model and store the results. 
+   3) Repeat a number of times and gather statistics such as minimum, mean, standard deviation or maximum value.
 
-You may also have a look at the [slides for this module](https://bss-osca.github.io/tfa/slides/03-01_vba-random-numbers-slides.html).
-
+```{r, echo=FALSE}
+link_slide_file_text(module_number_prefix, module_name)
+```
 
 ## Exercises {#ex-vba-random-numbers}
 
