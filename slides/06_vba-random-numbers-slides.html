@@ -13,8 +13,12 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Generating random numbers
+]
+.author[
 ### Lars Relund Nielsen
+]
 
 ---
 
@@ -26,18 +30,24 @@ class: center, middle, inverse, title-slide
 
 layout: true
 
-&lt;div class="my-footer"&gt;
-&lt;span&gt;
-&lt;a href="https://bss-osca.github.io/tfa/mod-vba-random-numbers-model" target="_blank"&gt;Book&lt;/a&gt; | &lt;a href="https://bss-osca.github.io/tfa/slides/03-01_vba-random-numbers-model-slides.html" target="_blank"&gt;Slides&lt;/a&gt; | &lt;a href="https://github.com/bss-osca/tfa/blob/master/slides/03-01_vba-random-numbers-model-slides.Rmd" target="_blank"&gt;Source&lt;/a&gt; | &lt;a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-random-numbers-template.xlsm" target="_blank"&gt;Excel&lt;/a&gt;
-&lt;/span&gt;
-&lt;/div&gt; 
+<div class="my-footer">
+<span>
+<a href="https://bss-osca.github.io/tfa/mod-06_vba-random-numbers" target="_blank">Notes</a>
+ | 
+<a href="06_vba-random-numbers-slides.html" target="_blank">Slides</a>
+ | 
+<a href="https://github.com/bss-osca/tfa/blob/master/slides/06_vba-random-numbers-slides.Rmd" target="_blank">Source</a>
+ | 
+<a href="https://github.com/bss-osca/tfa/blob/master/vba/06-vba-random-numbers-template.xlsm" target="_blank">Excel file</a>
+</span>
+</div>
 
 ---
 
 ## Generating random numbers
 
 - Often we want to model a system where some of the elements are uncertain. 
-- To simulate the system we want to generate some random numbers following different distributions. This can be done using the built-in VBA and Excel functions.
+- To simulate the system we want to generate some random numbers following different distributions. 
 - Initialize generation of random numbers using 
   ```
   Randomize()     ' chooses a random seed 
@@ -51,14 +61,56 @@ layout: true
 
 ---
 
-## Examples on distributions
+## Examples on built-in distributions
+
+VBA and Excel have some built-in VBA and Excel functions:
 
 - Uniform between 0 and 1: `Rnd()`
 - Uniform between i and j:  `i + (j - i) * Rnd`
 - Normal distribution: `WorksheetFunction.NormInv(Rnd, dblMean, dblSD)`
 - Binomial distribution: `WorksheetFunction.Binom_Inv(intTrials, dblPr, Rnd)`
 
-Let us try some examples using module `A_Random` in this [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-random-numbers-template.xlsm).
+---
+
+## Course procedures
+
+The [course procedures](#vba-course-procedures) (module *ModRand*) contain a set of procedures for generating random numbers (which are based on the built-in functions). For instance a continuous uniform distribution:
+
+   ```
+   '' Generate a random number from a continuous uniform distribution
+   ' @param dblMin Minimum number.
+   ' @param dblMax Maximum number (not included).
+   Function RandInvUniformCont(dblMin As Double, dblMax As Double) As Double
+       RandInvUniformCont = dblMin + (dblMax - dblMin) * Rnd()
+   End Function
+   ```
+
+Let us consider examples `TM6_RandDistEx`.
+
+---
+
+## Course procedures (multiple random numbers)
+
+If you need more than a single random number, you can use the almost same procedure with `Gen` in its name instead of `Inv`:
+
+   ```
+   '' Generate random numbers from a continuous uniform distribution
+   ' @param intSize Random numbers generated
+   ' @param dblMin Minimum number.
+   ' @param dblMax Maximum number (not included).
+   ' @param ary Array to store the values in.
+   Sub RandGenUniformCont(intSize As Integer, dblMin As Double, dblMax As Double, ary() As Double)
+       Dim i As Integer
+       ReDim ary(intSize) As Double
+       
+       For i = 1 To intSize
+           ary(i) = dblMin + (dblMax - dblMin) * Rnd()
+       Next
+   End Sub
+   ```
+
+The difference is that an array `ary` of `intSize` is used to store the random numbers. Let us consider examples `TM6_RandDistAryEx`.
+
 ---
 
 ## Simulation
@@ -69,7 +121,34 @@ Given an uncertain system we simulate the system by constructing a
 - Generate random numbers and used to solve the model and store the results. 
 - Repeat a number of times and calculate statistics such as min, mean and standard deviation.
 
-For example if the profit is `\(f(x) = 2x^2 + 5x + 123\)` and x is normal distributed with mean 100 and std. dev. 20. We may simulate the profit. See module `B_Simulation` in this [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-random-numbers-template.xlsm).
+For example if the profit is `\(f(x) = 2x^2 + 5x + 123\)` and `\(x\)` is normal distributed with mean 100 and std. dev. 20. We may simulate the profit see `TM6_SimFunc`.
+
+---
+
+## Traveling Salesman Problem (TSP)
+
+The [travelling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem) (TSP) asks the following question: 
+
+&gt; Given a list of cities and the distances between each pair of the cities, 
+&gt; what is the shortest possible route that visits each city exactly once 
+&gt; and returns to the origin city?
+
+
+The problem is an NP-hard problem (worst case solution time grows exponential with the number of cities) and is one of the most intensively studied problems in optimization. Many heuristics and exact algorithms are known. 
+
+Assume we want to test different algorithms to check which one works best. For this we need a set of test instances, i.e. a set of TSP problems to be solved. The goal is to find the algorithm that works best on average. 
+
+---
+
+## Generating an instance
+
+- Input: number of cities
+- Output: and 2D array with coordinates
+- For each city generate `\(x\)` and `\(y\)` coordinate uniform random between 0 and 10.
+
+Let us consider procedures `TM6_GenTSPData` and `TM6_BtnGenTSPData`.
+
+
 
 
     </textarea>
@@ -120,6 +199,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

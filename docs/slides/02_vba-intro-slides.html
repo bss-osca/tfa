@@ -13,8 +13,12 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # An introduction to VBA
+]
+.author[
 ### Lars Relund Nielsen
+]
 
 ---
 
@@ -25,12 +29,18 @@ class: center, middle, inverse, title-slide
 
 
 layout: true
-  
-&lt;div class="my-footer"&gt;
-&lt;span&gt;
-&lt;a href="https://bss-osca.github.io/tfa/mod-vba-intro.html" target="_blank"&gt;Book&lt;/a&gt; | &lt;a href="https://bss-osca.github.io/tfa/slides/01-01_vba-intro-slides.html" target="_blank"&gt;Slides&lt;/a&gt; | &lt;a href="https://github.com/bss-osca/tfa/blob/master/slides/01-01_vba-intro-slides.Rmd" target="_blank"&gt;Source&lt;/a&gt; | &lt;a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-intro-template.xlsm" target="_blank"&gt;Excel&lt;/a&gt;
-&lt;/span&gt;
-&lt;/div&gt;
+
+<div class="my-footer">
+<span>
+<a href="https://bss-osca.github.io/tfa/mod-02_vba-intro" target="_blank">Notes</a>
+ | 
+<a href="02_vba-intro-slides.html" target="_blank">Slides</a>
+ | 
+<a href="https://github.com/bss-osca/tfa/blob/master/slides/02_vba-intro-slides.Rmd" target="_blank">Source</a>
+ | 
+<a href="https://github.com/bss-osca/tfa/blob/master/vba/02-vba-intro-template.xlsm" target="_blank">Excel file</a>
+</span>
+</div>
 
 ---
 
@@ -79,7 +89,7 @@ A few useful shortcuts:
 ## Let us try it out
 
 .midi[
-An __algorithm__ is a finite sequence of well-defined instructions to solve a specific problem or to perform a computation. Let us try to program this algorithm written in pseudocode:
+An __algorithm__ is a finite sequence of well-defined instructions to solve a specific problem or to perform a computation. Let us try to program [this algorithm](https://github.com/bss-osca/tfa/blob/master/vba/vba-groups.xlsm) written in pseudocode:
 
 .instructions[
 **Precondition**: A list of student names and a 2-dim array `pref` with group preferences. Entry `pref(i,j)` equals one if student `i` like to be in group with student `j` and zero otherwise.
@@ -92,15 +102,45 @@ An __algorithm__ is a finite sequence of well-defined instructions to solve a sp
 - Step 4: Merge groups with 2 students into a group with 4 students
 - Step 5: Consider the remaining students and create a group by adding students that want to be together until the group size is 4.
 - Step 6: Return the student names of each group.
-]
+]]
 
-Let us have a look at the [implementation](https://github.com/bss-osca/tfa/blob/master/vba/vba-groups.xlsm).
-]
 ---
 
 ## Say Hello World
 
 Let us try to create our first procedure in VBA.
+
+1. Add a new module by clicking the *Insert Module* icon.
+2. Rename the module (named *Module1*) to *TM2_hello* (note you have to use underscores).
+3. Open the module by double clicking on the module in the Process Explorer.
+4. Add the code 
+
+```
+' Your first program/macro
+Sub TM2_SayHello()
+    MsgBox ("Say hello world :-)")
+End Sub
+```
+
+---
+
+## The macro recorder
+
+Good idea as supplement to coding in the following cases:
+- Forgot syntax for font, format, color etc.
+- Help to make charts
+
+Note: Recorded code must be cleaned up and often changed. In many other cases, recording is NOT a good idea.
+
+Always indicate in your VBA code when something is recorded!
+  ```
+  ' Start of recorded code
+  ...
+  
+  ' End of recorded code
+  ```
+
+Have a look at the sub `TM2_MacroRecorder` in the Excel file.
 
 ---
 
@@ -108,11 +148,9 @@ Let us try to create our first procedure in VBA.
 
 - _Variables_ store stuff in memory.
 - _Procedures_ (functions and subs) execute a set of instructions.
-- _Conditional statements_ (decisions) are used to execute different instructions depending on a true/false statement.
+- _Conditional statements_ are used to execute different instructions depending on a true/false statement.
 - _Loops_ are used to execute code repeatedly. 
 - _Input/output_ are needed to read data and output the result.
-
-Let us try some examples using this [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-intro-template.xlsm) template.
 
 ---
 
@@ -135,7 +173,66 @@ Let us try some examples using this [Excel file](https://github.com/bss-osca/tfa
 &lt;/div&gt;
 ]
 
-Run the procedure `DeclareVariables` in the Excel file.
+---
+
+## Basic datatypes
+
+A selected set of datatypes are (see all in the [documentation](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/data-type-summary)):
+
+Name    | Type      | Details                                                                        
+------- | --------- | -------------------------------------------------------------------------------
+Byte    | Numerical | Whole number between 0 and 255.                                                
+Integer | Numerical | Whole number between -32'768 and 32'767.                                       
+Long    | Numerical | Whole number between - 2'147'483'648 and 2'147'483'647.                        
+Double  | Numerical | Floating decimal number between -1.79769313486232E308 and 1.79769313486232E308.
+String  | Text      | Text.                                                                          
+Date    | Date      | Date and time.                                                                 
+Boolean | Boolean   | True or False.                                                                 
+Variant | Any type  | Any kind of data (default type if the variable is not declared). 
+
+---
+
+## Memory
+
+.midi[
+- Variables take up different storage place in memory. 
+- Memory consists of bits (0/1). 1 Bit = Binary Digit, 8 Bits = 1 Byte, 1024 Bytes = 1 Kilobyte, 1024 Kilobytes = 1 Megabyte, 1024 Megabytes = 1 Gigabyte, 1024 Gigabytes = 1 Terabyte.
+- Size of selected datatypes:
+
+
+Data type                                 | Storage size            
+----------------------------------------- | ------------------------
+Boolean                                   | 2 bytes                 
+Integer                                   | 2 bytes                 
+Long  (long integer)                      | 4 bytes                 
+Double  (double-precision floating-point) | 8 bytes                 
+String                                    | 10 bytes + string length * 2 bytes
+Variant  (with numbers)                   | 16 bytes                
+Variant  (with characters)                | 22 bytes + string length * 2 bytes
+]
+
+- Declaring variables is good coding practice since it reduces the memory requirements and avoid type errors (use `Option explicit`).
+
+---
+
+## Declare variables
+
+Variables must be declared by
+
+  ```
+  Dim {variable name} As {data type}
+  ```
+
+Example:
+  ```
+  Dim intC As Integer		
+  intC = 2
+  Dim dblCost As Double		
+  dblCost = 2.45
+  ```
+
+Run the procedure `TM2_DeclareVariables` in the Excel file.
+
 ---
 
 ## Procedures
@@ -155,7 +252,45 @@ In VBA we deal with two kinds of procedures:
   End Function
   ```
 
-Have a look at the function `StringJoin` in the Excel file.
+Have a look at the function `TM2_StringJoin` in the Excel file.
+
+---
+
+## Using built-in functions
+
+Three types of functions:
+
+- Functions that are build into VBA
+- Excel functions (Worksheet/application functions)
+- Custom functions (yours or mine)
+  ```
+  Now()  ' VBA function - Date and time right now  
+  Rnd()  ' VBA function - Random number between 0 and 1
+  WorksheetFunction.Sum(Range("D2:E5"))  ' Excel function - Sum of range
+  ```
+
+Have a look at the sub `TM2_ExcelFunction` and `TM2_VBAFunction` in the Excel file.
+
+---
+
+## Communicate with the user
+
+- Simple message box: 
+  ```
+  MsgBox(“You are done!”)
+  ```
+- More advanced message box:
+  ```
+  intAns = MsgBox("Delete Sheet 1 permanently?", vbOKCancel + vbQuestion)
+  ```
+  Different buttons and their value can be seen in the [documentation](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/msgbox-function)
+- Input box:
+  ```
+  strAns = InputBox("What is your name?")
+  ```
+  Return what is typed in as a string (if press Cancel then return an empty string)
+
+Have a look at the sub `TM2_Dialog` in the Excel file.
 
 ---
 
@@ -182,28 +317,7 @@ As an alternative you may use `Cells`:
   Cells(2,3) = 107  ' Write 107 to cell in row 2 and column 3 (C2) 
   ```
 
-Have a look at the sub `ReadWrite` in the Excel file.
-
----
-
-## Communicate with the user
-
-- Simple message box: 
-  ```
-  MsgBox(“You are done!”)
-  ```
-- More advanced message box:
-  ```
-  intAns = MsgBox("Delete Sheet 1 permanently?", vbOKCancel + vbQuestion)
-  ```
-  Different buttons and their value can be seen in the [documentation](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/msgbox-function)
-- Input box:
-  ```
-  strAns = InputBox("What is your name?")
-  ```
-  Return what what is typed in as a string (if press Cancel then return an empty string)
-
-Have a look at the sub `Dialog` in the Excel file.
+Have a look at the sub `TM2_ReadWriteSheet` in the Excel file.
 
 ---
 
@@ -221,7 +335,7 @@ Else
 End If
 ```
 
-Have a look at the sub `CondStatement` in the Excel file.
+Have a look at the sub `TM2_CondStatement` in the Excel file.
 
 ---
 
@@ -237,47 +351,7 @@ Used to execute code repeatedly:
   End Sub
   ```
 
-Have a look at the sub `Loops` in the Excel file.
-
----
-
-## Using built-in functions
-
-Three types of functions:
-
-- Functions that are build into VBA
-- Excel functions (Worksheet/application functions)
-- Custom functions (yours or mine)
-  ```
-  Now()  ' VBA function - Date and time right now  
-  Rnd()  ' VBA function - Random number between 0 and 1
-  WorksheetFunction.Sum(Range("D2:E5"))  ' Excel function - Sum of range
-  ```
-
-Have a look at the sub `ExcelFunction` in the Excel file.
-
----
-
-## The macro recorder
-
-Good idea as supplement to coding in the following cases:
-- Forgot syntax for font, format, color etc.
-- Help to make charts
-
-Note: Recorded code must be cleaned up and often changed. In many other cases, recording is NOT a good idea.
-
-Always indicate in your VBA code when something is recorded!
-  ```
-  ' Start of recorded code
-  ...
-  
-  ' End of recorded code
-  ```
-
-Have a look at the sub `MacroRecorder` in the Excel file.
-
-
-
+Have a look at the sub `TM2_Loops` in the Excel file.
 
 
 
@@ -329,6 +403,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
