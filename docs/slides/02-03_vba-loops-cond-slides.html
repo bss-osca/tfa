@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Loops and conditional statements (decisions)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Lars Relund Nielsen" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link rel="stylesheet" href="libs/slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Loops and conditional statements (decisions)
+### Lars Relund Nielsen
+
+---
+
+
+
+
+
+
+
+layout: true
+
+&lt;div class="my-footer"&gt;
+&lt;span&gt;
+&lt;a href="https://bss-osca.github.io/tfa/mod-vba-loops-cond" target="_blank"&gt;Book&lt;/a&gt; | &lt;a href="https://bss-osca.github.io/tfa/slides/02-03_vba-loops-cond-slides.html" target="_blank"&gt;Slides&lt;/a&gt; | &lt;a href="https://github.com/bss-osca/tfa/blob/master/slides/02-03_vba-loops-cond-slides.Rmd" target="_blank"&gt;Source&lt;/a&gt; | &lt;a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-loops-cond-template.xlsm" target="_blank"&gt;Excel&lt;/a&gt;
+&lt;/span&gt;
+&lt;/div&gt; 
+
+---
+
+## Loops
+
+.midi[
+Loops are used to repeat pieces of code. We will consider
+- For loops (repeat a number of times):
+      ```
+      For i = 1 To 10 
+          &lt;code&gt;
+      Next
+      ```
+- While loops (repeat until a condition is met - two versions):
+
+.pull-left[
+      ```
+      While {condition true}    
+          &lt;code&gt;
+      Wend
+      ```
+]
+.pull-right[
+      ```
+      Do While {condition true}    
+          &lt;code&gt;
+      Loop
+      ```
+]
+- Other loops exists but in general you can always use for or while loops instead.
+- Use `Exit for` and `Exit Do` to break a `For` and a `Do While` loop before it ends (jump to the code after the for loop).
+
+Let us try to make some loops using the module `A_Loops` in the [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-loops-cond-template.xlsm).
+]
+
+---
+
+## Beware of endless loops
+
+.pull-left[
+If the stopping criteria is NOT reached when using a while loop, the computer will keep going ... 
+
+- Always “save” before “run”
+- Make sure the stopping criterion will be reached.
+- On Windows you may try to stop the program using Ctrl + Break or Ctrl + Alt + Delete.
+- On a mac you may try ⌘ + ., ⌃ +  Esc or  ⌘⌥ + Esc.
+]
+
+.pull-right[
+&lt;img src="./img/loop.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Nested loops
+
+Loops may be nested inside each other. For instance if some action needs to be performed for each day and each employee or for each project and each work package of that project.
+```
+Sub NestedLoops()
+    Dim i As Integer, j As Integer
+    For i = 1 To 2      ' days
+        For j = 1 To 3  ' employees 
+            MsgBox ("(" &amp; i &amp; "," &amp; j &amp; ")")
+        Next
+    Next
+End Sub
+```
+
+---
+
+## Conditional statements (decisions)
+
+Conditional statements are used to make decisions based on the conditions. If the condition is met then the code is executed. 
+
+An if then statement:
+
+  ```
+  If k &lt;= 10 Then
+    &lt;code&gt;
+  ElseIf k &lt;= 13 Then
+    &lt;code&gt;
+  Else
+    &lt;code&gt;
+  End If
+  ```
+
+You can drop the `ElseIf` and `Else` code chunks. Other conditional statements exists but in general you can formulate them using an if then statement.
+
+Let us try to make some statements using the module `B_IfThen` in the [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-loops-cond-template.xlsm).
+
+---
+
+## Examples
+
+- Have a look at the module `C_SearchPerson` in the [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-loops-cond-template.xlsm) which gives examples on how to search for a person in sheet _Separate1_.
+- Have a look at the module `D_DistanceMatrix` in the [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-loops-cond-template.xlsm) which gives examples on how calculate a distance matrix (sheet _DistanceMatrix_).
+
+  
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightLines": true,
+"highlightStyle": "solarized-light",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

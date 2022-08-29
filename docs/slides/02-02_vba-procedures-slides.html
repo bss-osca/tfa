@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Procedures</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Lars Relund Nielsen" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link rel="stylesheet" href="libs/slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Procedures
+### Lars Relund Nielsen
+
+---
+
+
+
+
+
+
+
+layout: true
+
+&lt;div class="my-footer"&gt;
+&lt;span&gt;
+&lt;a href="https://bss-osca.github.io/tfa/mod-procedures.html" target="_blank"&gt;Book&lt;/a&gt; | &lt;a href="https://bss-osca.github.io/tfa/slides/02-02_vba-procedures-slides.html" target="_blank"&gt;Slides&lt;/a&gt; | &lt;a href="https://github.com/bss-osca/tfa/blob/master/slides/02-02_vba-procedures-slides.Rmd" target="_blank"&gt;Source&lt;/a&gt; | &lt;a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-procedures-template.xlsm" target="_blank"&gt;Excel&lt;/a&gt;
+&lt;/span&gt;
+&lt;/div&gt; 
+
+---
+
+## Procedures
+
+- A procedure is a piece of code stored in a module. 
+- A procedure contains a series of computational steps that will be carried out when the procedure is called. 
+
+VBA has two kinds of procedures:
+.pull-left[
+Subs:
+  - Can make changes to the worksheet.
+  - Can modify its surroundings.
+  - Can be executed by a button (a macro - if no arguments).
+  - Cannot return anything.
+]
+.pull-right[
+Functions:
+  - Can return something.
+  - Can be used in Excel.
+  - Cannot be used as a macro.
+]
+
+---
+
+## Declaring a procedure
+
+Sub:
+
+  ```
+  Sub MySub(arg1 As {datatype}, arg2 As {datatype})
+    ' Some code
+  End Sub
+  ```
+
+Function:
+
+  ```
+  Function MyFunction(arg1 As {datatype}, arg2 As {datatype}) As {return datatype}
+    ' Some code
+    MyFunciton = value  ' assign a return value to the function
+  End Sub
+  ```
+
+Hint: You can use `Exit Sub`/`Exit Function` to exit the sub/function early in the code.
+
+---
+
+## Public and Private Procedures
+
+Procedures can be either public or private:
+
+- Public (default): Can be used from other modules, from other files and from Excel.
+  ```
+  Public Sub MySub()
+    ...
+  End Sub
+  ```
+- Private: Can only be used from within its own module.
+  ```
+  Private Sub MySub()
+    ...
+  End Sub
+  ```
+
+It is good coding practice to use `Private` as much as possible.
+
+---
+
+## Calling a prodedure
+
+Use the `Call` keyword to call a sub:
+
+  ```
+  Call MySub(arg1, arg2)
+  ```
+
+Call a function by assigning its return value to a variable
+
+  ```
+  result = MyFunction(arg1, arg2)
+  ```
+
+Let us try some examples in the modules `A_SimpleEx` and `B_InputArgEx` using this [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-procedures-template.xlsm).
+
+---
+
+## Input `ByRef` or `ByVal`
+
+.midi[
+There are two ways of passing arguments to procedures:
+  ```
+  Sub MySub(ByRef arg1 As {datatype}, ByVal arg2 As {datatype})
+    ' Some code
+  End Sub
+  ```
+
+Argument `arg1` is passed **by reference** (default). That is, no new memory is allocated when the procedure is called and hence the procedure can have changed the value of `arg1` when the procedure stops. Note since the default, the result is the same if we omitted the keyword `ByRef`. Argument `arg2` is passed **by value**. That is, a copy of the variable is created in memory with local scope. Hence the procedure cannot change the value of `arg2` when the procedure stops (the local variables is deleted). 
+
+Using `ByRef` is faster and saves memory since we do not have to allocate new memory. We may use `ByRef` to return updated values of the input arguments e.g calling a sub `ReadArrays` that takes an unallocated array as input and afterwards the arrays has been allocated and values from a sheet stored in the array. 
+
+Let us try to guess the output by running the procedure in module `C_ByRefValEx` in the [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-procedures-template.xlsm).
+]
+
+---
+
+## Default input arguments
+
+A procedure may often be called with the same input argument value. To avoid always specifying the value, you may set a default value using the `Optional` keyword:
+  ```
+  Sub MySub(arg1 As {datatype}, Optional arg2 As {datatype} = defaultValue)  
+  ```
+You can now call the procedure using:
+  ```
+  Call MySub(arg1)  ' assume that arg2 = defaultValue
+  ```
+Note: Every parameter following an optional parameter in the procedure definition must also be optional.
+
+Let us try to format some cells by running the procedures in module `D_DefaultArgs` in the [Excel file](https://github.com/bss-osca/tfa/blob/master/vba/vba-procedures-template.xlsm).
+
+---
+
+## Using built-in functions
+
+- VBA has a set of [built-in functions](https://bettersolutions.com/vba/functions/complete-list.htm) such as `Abs`, `Log` and `Date`. You call them by just writing their name:
+  ```
+  dtm as Date
+  dtm = Date()
+  ```
+- You can also use the [worksheet functions](https://docs.microsoft.com/en-us/office/vba/excel/concepts/events-worksheetfunctions-shapes/list-of-worksheet-functions-available-to-visual-basic) in Excel. You call them using the `WorksheetFunction` object:
+  ```
+  sum = WorksheetFunction.Sum(Range("A1:D5"))
+  ```
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightLines": true,
+"highlightStyle": "solarized-light",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
