@@ -4,9 +4,37 @@ Attribute VB_Name = "TM6_ex"
 Option Explicit
 
 
-'' Generate random numbers for different distributions
-' Note sheet is only updated when rerun VBA code!
+'' Generate a single random number of different distributions
 Sub TM6_RandDistEx()
+    Dim aryDens() As Double
+
+    Randomize    ' initialize random-number generator
+    MsgBox ("Normal: " & RandInvNormal(100, 20))
+    ' Cont. uniform [10,500[
+    MsgBox ("Uniform (continuous): " & RandInvUniformCont(10, 500))
+    ' Discrete uniform 10,...,500
+    MsgBox ("Uniform (discrete): " & RandInvUniformDisc(10, 500))
+    ' Binomial 100 trials, pr = 0.2
+    MsgBox ("Binomial: " & RandInvBinomial(100, 0.2))
+    ' Poisson lambda = 5
+    MsgBox ("Poisson: " & RandInvPoisson(5))
+    ' Custom discrete
+    ReDim aryDens(1 To 4, 1 To 2)
+    aryDens(1, 1) = 3
+    aryDens(2, 1) = 4
+    aryDens(3, 1) = 5
+    aryDens(4, 1) = 6
+    aryDens(1, 2) = 0.1
+    aryDens(2, 2) = 0.3
+    aryDens(3, 2) = 0.5
+    aryDens(4, 2) = 0.1
+    MsgBox ("Custom (discrete): " & RandInvDiscrete(aryDens))
+End Sub
+
+
+'' Generate random numbers for different distributions which are stored in an array
+' Note sheet is only updated when rerun VBA code!
+Sub TM6_RandDistAryEx()
     Dim ary() As Double
     Dim aryDens() As Double
     Dim intSize As Integer
@@ -419,3 +447,5 @@ End Sub
 Sub TM6_ClearGenRand()
    Call WstClear("TM6_GenRand", blnObjects:=True)
 End Sub
+
+

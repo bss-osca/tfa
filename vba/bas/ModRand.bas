@@ -56,7 +56,6 @@ End Sub
 ' @param dblMin Minimum number.
 ' @param dblMax Maximum number (not included).
 Function RandInvUniformCont(dblMin As Double, dblMax As Double) As Double
-    Randomize
     RandInvUniformCont = dblMin + (dblMax - dblMin) * Rnd()
 End Function
 
@@ -177,6 +176,7 @@ Function RandInvDiscrete(ary() As Double) As Double
     Next
     RandInvDiscrete = ary(i, 1)
 End Function
+
 
 
 
