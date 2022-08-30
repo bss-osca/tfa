@@ -23,7 +23,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2022-08-29" />
+<meta name="date" content="2022-08-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -487,8 +487,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Module 15</span> Fitting probability distributions<a href="mod-r-dist-fit.html#mod-r-dist-fit" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Fitting distributions to data is a very common task in statistics and consists in choosing a probability distribution modelling the random variable, as well as finding parameter estimates for that distribution. This requires judgment and expertise and generally needs an iterative process of distribution choice, parameter estimation, and quality of fit assessment. In this module we will limit us to univariate data, i.e. univariate distributions such as normal, uniform, Poisson and exponential distributions. We will use the <a href="https://lbbe.univ-lyon1.fr/fr/fitdistrplus"><code>fitdistrplus</code></a> package for fitting distributions.</p>
 <p>We are all different and you may like different learning styles compared to others. In the learning path diagram, there may be links to alternative online content. Note this is an alternative to the standard learning path that you may use instead. The learning path may also have extra content, that is not a part of syllabus, you can have a look at.</p>
-<div id="htmlwidget-b4edb744f7f53528a360" style="width:100%;height:288px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b4edb744f7f53528a360">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 Introduction\", URL = \"#sec-r-dist-fit-intro\", tooltip = \"Introduction\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"0,2!\"] \n  \"2\" [label = \"📖 Continuous data\", URL = \"#sec-r-dist-fit-cont\", tooltip = \"Continuous data\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"2,2!\"] \n  \"3\" [label = \"📖 Discrete data\", URL = \"#sec-r-dist-fit-discrete\", tooltip = \"Discrete data\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"4,2!\"] \n  \"4\" [label = \"📖 The Poisson process\", URL = \"#sec-dist-fit-pois\", tooltip = \"The Poisson process\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"6,2!\"] \n  \"5\" [label = \"💻 Exercises\", URL = \"#ex-r-dist-fit\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"8.5,2!\"] \n  \"6\" [label = \"\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"2.4,0.21!\"] \n  \"7\" [label = \"Color:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"-0.23,0.55!\"] \n  \"8\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"0,0.15!\"] \n  \"9\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"1,0.15!\"] \n  \"10\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"2,0.15!\"] \n  \"11\" [label = \"Shape:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"3.2,0.55!\"] \n  \"12\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"1\", fillcolor = \"Grey40\", pos = \"3.5,0.15!\"] \n  \"13\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", width = \"1\", fillcolor = \"Grey40\", pos = \"4.75,0.15!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-87dcbf204aefc5a62f9c" style="width:100%;height:288px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-87dcbf204aefc5a62f9c">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 Introduction\", URL = \"#sec-r-dist-fit-intro\", tooltip = \"Introduction\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"0,2!\"] \n  \"2\" [label = \"📖 Continuous data\", URL = \"#sec-r-dist-fit-cont\", tooltip = \"Continuous data\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"2,2!\"] \n  \"3\" [label = \"📖 Discrete data\", URL = \"#sec-r-dist-fit-discrete\", tooltip = \"Discrete data\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"4,2!\"] \n  \"4\" [label = \"📖 The Poisson process\", URL = \"#sec-dist-fit-pois\", tooltip = \"The Poisson process\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"6,2!\"] \n  \"5\" [label = \"💻 Exercises\", URL = \"#ex-r-dist-fit\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"8.5,2!\"] \n  \"6\" [label = \"\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"2.4,0.21!\"] \n  \"7\" [label = \"Color:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"-0.23,0.55!\"] \n  \"8\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"0,0.15!\"] \n  \"9\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"1,0.15!\"] \n  \"10\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"2,0.15!\"] \n  \"11\" [label = \"Shape:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"3.2,0.55!\"] \n  \"12\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"1\", fillcolor = \"Grey40\", pos = \"3.5,0.15!\"] \n  \"13\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", width = \"1\", fillcolor = \"Grey40\", pos = \"4.75,0.15!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <div id="lo-r-dist-fit" class="section level2 hasAnchor">
 <h2><span class="header-section-number">15.1</span> Learning outcomes<a href="mod-r-dist-fit.html#lo-r-dist-fit" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>By the end of this module, you are expected to:</p>
@@ -531,8 +531,8 @@ histogram (or density plot), which can be obtained with the <code>plotdist</code
 plots where the left-hand plot is by default the histogram on a density scale and the
 right-hand plot the empirical cumulative distribution function (CDF).</p>
 <div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="mod-r-dist-fit.html#cb624-1"></a><span class="kw">plotdist</span>(dat, <span class="dt">histo =</span> <span class="ot">TRUE</span>, <span class="dt">demp =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-505"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-505-1.png" alt="Empirical density and distribution." width="672" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-507"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-507-1.png" alt="Empirical density and distribution." width="672" />
 <p class="caption">
 Figure 15.1: Empirical density and distribution.
 </p>
@@ -582,8 +582,8 @@ distributions.</p>
 <span id="cb625-7"><a href="mod-r-dist-fit.html#cb625-7"></a><span class="co">#&gt; estimated sd:  35.9 </span></span>
 <span id="cb625-8"><a href="mod-r-dist-fit.html#cb625-8"></a><span class="co">#&gt; estimated skewness:  0.735 </span></span>
 <span id="cb625-9"><a href="mod-r-dist-fit.html#cb625-9"></a><span class="co">#&gt; estimated kurtosis:  3.55</span></span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-506"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-506-1.png" alt="Skewness-kurtosis plot for a continuous variable (`groundbeef`)." width="672" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-508"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-508-1.png" alt="Skewness-kurtosis plot for a continuous variable (`groundbeef`)." width="672" />
 <p class="caption">
 Figure 15.2: Skewness-kurtosis plot for a continuous variable (<code>groundbeef</code>).
 </p>
@@ -643,8 +643,8 @@ against the fitted distribution function (x-axis).</li>
 <span id="cb628-5"><a href="mod-r-dist-fit.html#cb628-5"></a><span class="kw">qqcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span>
 <span id="cb628-6"><a href="mod-r-dist-fit.html#cb628-6"></a><span class="kw">cdfcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span>
 <span id="cb628-7"><a href="mod-r-dist-fit.html#cb628-7"></a><span class="kw">ppcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-509"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-509-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the serving size data." width="100%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-511"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-511-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the serving size data." width="100%" />
 <p class="caption">
 Figure 15.3: Four Goodness-of-fit plots for various distributions fitted to the serving size data.
 </p>
@@ -663,7 +663,7 @@ distributions also have the lowest AIC values.</p>
 <div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="mod-r-dist-fit.html#cb629-1"></a><span class="kw">library</span>(tfa)  <span class="co"># update to latest version using remotes::install_github(&quot;bss-osca/tfa/tfa-package&quot;, upgrade = FALSE) </span></span>
 <span id="cb629-2"><a href="mod-r-dist-fit.html#cb629-2"></a>dat &lt;-<span class="st"> </span>breakdown</span>
 <span id="cb629-3"><a href="mod-r-dist-fit.html#cb629-3"></a><span class="kw">plotdist</span>(dat, <span class="dt">histo =</span> <span class="ot">TRUE</span>, <span class="dt">demp =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-510-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-512-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Since breakdown times may be seen as a continuous variable we try to fit a continuous variable. First we try to find distribution candidates:</p>
 <div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="mod-r-dist-fit.html#cb630-1"></a><span class="kw">descdist</span>(dat)</span>
 <span id="cb630-2"><a href="mod-r-dist-fit.html#cb630-2"></a><span class="co">#&gt; summary statistics</span></span>
@@ -674,7 +674,7 @@ distributions also have the lowest AIC values.</p>
 <span id="cb630-7"><a href="mod-r-dist-fit.html#cb630-7"></a><span class="co">#&gt; estimated sd:  30.7 </span></span>
 <span id="cb630-8"><a href="mod-r-dist-fit.html#cb630-8"></a><span class="co">#&gt; estimated skewness:  0.0503 </span></span>
 <span id="cb630-9"><a href="mod-r-dist-fit.html#cb630-9"></a><span class="co">#&gt; estimated kurtosis:  3.32</span></span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-511-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-513-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The observation is close to the normal and lognormal values and we try to fit these two distributions:</p>
 <div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="mod-r-dist-fit.html#cb631-1"></a>fitN &lt;-<span class="st"> </span><span class="kw">fitdist</span>(dat, <span class="dt">distr =</span> <span class="st">&quot;norm&quot;</span>)</span>
 <span id="cb631-2"><a href="mod-r-dist-fit.html#cb631-2"></a>fitL &lt;-<span class="st"> </span><span class="kw">fitdist</span>(dat, <span class="dt">distr =</span> <span class="st">&quot;lnorm&quot;</span>)</span>
@@ -707,8 +707,8 @@ distributions also have the lowest AIC values.</p>
 <span id="cb631-29"><a href="mod-r-dist-fit.html#cb631-29"></a><span class="kw">qqcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span>
 <span id="cb631-30"><a href="mod-r-dist-fit.html#cb631-30"></a><span class="kw">cdfcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span>
 <span id="cb631-31"><a href="mod-r-dist-fit.html#cb631-31"></a><span class="kw">ppcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-512"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-512-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-514"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-514-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
 <p class="caption">
 Figure 15.4: Four Goodness-of-fit plots for various distributions fitted to the breakdown data.
 </p>
@@ -730,7 +730,7 @@ Figure 15.4: Four Goodness-of-fit plots for various distributions fitted to the 
 <p>Consider data of the number of houses that must be visited before selling 20 lottery tickets (assuming only one is sold at a time).</p>
 <div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="mod-r-dist-fit.html#cb632-1"></a>dat &lt;-<span class="st"> </span>lottery</span>
 <span id="cb632-2"><a href="mod-r-dist-fit.html#cb632-2"></a><span class="kw">plotdist</span>(dat, <span class="dt">discrete =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-513-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-515-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Since the number of houses that must be visited (trials) is unknown, a negative binomial distribution seems as a good choice (with 20 successes). The fit of a discrete distribution to discrete data requires the same procedure as for continuous data.</p>
 <div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="mod-r-dist-fit.html#cb633-1"></a>fit &lt;-<span class="st"> </span><span class="kw">fitdist</span>(dat, <span class="dt">distr =</span> <span class="st">&quot;nbinom&quot;</span>, <span class="dt">discrete =</span> <span class="ot">TRUE</span>, <span class="dt">fix.arg =</span> <span class="kw">list</span>(<span class="dt">size =</span> <span class="dv">20</span>))</span>
 <span id="cb633-2"><a href="mod-r-dist-fit.html#cb633-2"></a><span class="kw">summary</span>(fit)</span>
@@ -747,8 +747,8 @@ Figure 15.4: Four Goodness-of-fit plots for various distributions fitted to the 
 <span id="cb633-13"><a href="mod-r-dist-fit.html#cb633-13"></a>lst &lt;-<span class="st"> </span><span class="kw">list</span>(fit)</span>
 <span id="cb633-14"><a href="mod-r-dist-fit.html#cb633-14"></a><span class="kw">denscomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span>
 <span id="cb633-15"><a href="mod-r-dist-fit.html#cb633-15"></a><span class="kw">cdfcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-514"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-514-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-516"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-516-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
 <p class="caption">
 Figure 15.5: Four Goodness-of-fit plots for various distributions fitted to the breakdown data.
 </p>
@@ -828,7 +828,7 @@ Figure 15.5: Four Goodness-of-fit plots for various distributions fitted to the 
 <span id="cb637-33"><a href="mod-r-dist-fit.html#cb637-33"></a><span class="co">#&gt; estimated sd:  4.72 </span></span>
 <span id="cb637-34"><a href="mod-r-dist-fit.html#cb637-34"></a><span class="co">#&gt; estimated skewness:  1.85 </span></span>
 <span id="cb637-35"><a href="mod-r-dist-fit.html#cb637-35"></a><span class="co">#&gt; estimated kurtosis:  8.86</span></span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-518-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-518-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-520-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-520-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The observation is close to the exponential and lognormal values. However, a lognormal distribution cannot equal zero values:</p>
 <div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="mod-r-dist-fit.html#cb638-1"></a>fitE1 &lt;-<span class="st"> </span><span class="kw">fitdist</span>(dat, <span class="dt">distr =</span> <span class="st">&quot;exp&quot;</span>)</span>
 <span id="cb638-2"><a href="mod-r-dist-fit.html#cb638-2"></a><span class="kw">summary</span>(fitE1)</span>
@@ -844,8 +844,8 @@ Figure 15.5: Four Goodness-of-fit plots for various distributions fitted to the 
 <span id="cb638-12"><a href="mod-r-dist-fit.html#cb638-12"></a><span class="kw">qqcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span>
 <span id="cb638-13"><a href="mod-r-dist-fit.html#cb638-13"></a><span class="kw">cdfcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span>
 <span id="cb638-14"><a href="mod-r-dist-fit.html#cb638-14"></a><span class="kw">ppcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-519"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-519-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-521"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-521-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
 <p class="caption">
 Figure 15.6: Four Goodness-of-fit plots for various distributions fitted to the breakdown data.
 </p>
@@ -865,7 +865,7 @@ Figure 15.6: Four Goodness-of-fit plots for various distributions fitted to the 
 <span id="cb639-11"><a href="mod-r-dist-fit.html#cb639-11"></a><span class="co">#&gt; estimated sd:  7.26 </span></span>
 <span id="cb639-12"><a href="mod-r-dist-fit.html#cb639-12"></a><span class="co">#&gt; estimated skewness:  2 </span></span>
 <span id="cb639-13"><a href="mod-r-dist-fit.html#cb639-13"></a><span class="co">#&gt; estimated kurtosis:  8.4</span></span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-520-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-520-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-522-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-522-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The observation is close to the exponential values:</p>
 <div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="mod-r-dist-fit.html#cb640-1"></a>fitE2 &lt;-<span class="st"> </span><span class="kw">fitdist</span>(dat, <span class="dt">distr =</span> <span class="st">&quot;exp&quot;</span>)</span>
 <span id="cb640-2"><a href="mod-r-dist-fit.html#cb640-2"></a><span class="kw">summary</span>(fitE2)</span>
@@ -881,8 +881,8 @@ Figure 15.6: Four Goodness-of-fit plots for various distributions fitted to the 
 <span id="cb640-12"><a href="mod-r-dist-fit.html#cb640-12"></a><span class="kw">qqcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span>
 <span id="cb640-13"><a href="mod-r-dist-fit.html#cb640-13"></a><span class="kw">cdfcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span>
 <span id="cb640-14"><a href="mod-r-dist-fit.html#cb640-14"></a><span class="kw">ppcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-521"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-521-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-523"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-523-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
 <p class="caption">
 Figure 15.7: Four Goodness-of-fit plots for various distributions fitted to the breakdown data.
 </p>
@@ -894,7 +894,7 @@ Figure 15.7: Four Goodness-of-fit plots for various distributions fitted to the 
 <span id="cb641-2"><a href="mod-r-dist-fit.html#cb641-2"></a><span class="st">  </span><span class="kw">filter</span>(product <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb641-3"><a href="mod-r-dist-fit.html#cb641-3"></a><span class="st">  </span><span class="kw">pull</span>(demand)</span>
 <span id="cb641-4"><a href="mod-r-dist-fit.html#cb641-4"></a><span class="kw">plotdist</span>(dat, <span class="dt">histo =</span> <span class="ot">TRUE</span>, <span class="dt">demp =</span> <span class="ot">TRUE</span>, <span class="dt">discrete =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-522-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-524-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Let us try to fit the negative binomial, Poisson and geometric distribution:</p>
 <div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="mod-r-dist-fit.html#cb642-1"></a>fitN2 &lt;-<span class="st"> </span><span class="kw">fitdist</span>(dat, <span class="dt">distr =</span> <span class="st">&quot;nbinom&quot;</span>)</span>
 <span id="cb642-2"><a href="mod-r-dist-fit.html#cb642-2"></a>fitP2 &lt;-<span class="st"> </span><span class="kw">fitdist</span>(dat, <span class="dt">distr =</span> <span class="st">&quot;pois&quot;</span>)</span>
@@ -927,8 +927,8 @@ Figure 15.7: Four Goodness-of-fit plots for various distributions fitted to the 
 <span id="cb642-29"><a href="mod-r-dist-fit.html#cb642-29"></a>lst &lt;-<span class="st"> </span><span class="kw">list</span>(fitN2, fitP2, fitG2)</span>
 <span id="cb642-30"><a href="mod-r-dist-fit.html#cb642-30"></a><span class="kw">denscomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span>
 <span id="cb642-31"><a href="mod-r-dist-fit.html#cb642-31"></a><span class="kw">cdfcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-523"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-523-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-525"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-525-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
 <p class="caption">
 Figure 15.8: Four Goodness-of-fit plots for various distributions fitted to the breakdown data.
 </p>
@@ -968,7 +968,7 @@ Figure 15.8: Four Goodness-of-fit plots for various distributions fitted to the 
 <table style='width: auto;'
       class='table table-condensed'>
 <caption>
-<span id="tab:unnamed-chunk-524">Table 15.1: </span>Data summary
+<span id="tab:unnamed-chunk-526">Table 15.1: </span>Data summary
 </caption>
 <tbody>
 <tr>
@@ -1402,7 +1402,7 @@ Solution
 <span id="cb645-6"><a href="mod-r-dist-fit.html#cb645-6"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></span>
 <span id="cb645-7"><a href="mod-r-dist-fit.html#cb645-7"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>wday) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb645-8"><a href="mod-r-dist-fit.html#cb645-8"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;calls/hour&quot;</span>)</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-527-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-529-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="oXknCHcEJAtm3cnTuR0l" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="oXknCHcEJAtm3cnTuR0l-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -1501,7 +1501,7 @@ Solution
 <span id="cb646-53"><a href="mod-r-dist-fit.html#cb646-53"></a><span class="kw">qqcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span>
 <span id="cb646-54"><a href="mod-r-dist-fit.html#cb646-54"></a><span class="kw">cdfcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span>
 <span id="cb646-55"><a href="mod-r-dist-fit.html#cb646-55"></a><span class="kw">ppcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-529-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-529-2.png" width="672" style="display: block; margin: auto;" />
+<img src="TFA_files/figure-html/unnamed-chunk-531-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-531-2.png" width="672" style="display: block; margin: auto;" />
 <p>
 For a Poisson process the inter arrival times should follow an exponential distribution. It seems to be a good fit here.
 </p>
@@ -1622,7 +1622,7 @@ Solution
 <span id="cb648-53"><a href="mod-r-dist-fit.html#cb648-53"></a><span class="kw">qqcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span>
 <span id="cb648-54"><a href="mod-r-dist-fit.html#cb648-54"></a><span class="kw">cdfcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span>
 <span id="cb648-55"><a href="mod-r-dist-fit.html#cb648-55"></a><span class="kw">ppcomp</span>(lst, <span class="dt">legendtext =</span> pLegend)</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-531-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-531-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TFA_files/figure-html/unnamed-chunk-533-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-533-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
