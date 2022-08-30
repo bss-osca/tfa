@@ -6,11 +6,23 @@ editor_options:
 ```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
 ```
 
+```{r, include=FALSE}
+module_number_prefix <- "08"
+module_number <- as.numeric(module_number_prefix)
+module_name <- "r-workflow"
+here::i_am(str_c("book/", module_number_prefix, "_", module_name, ".Rmd"))
+project_name_prefix <- str_c("TM", module_number)
+```
+
+
 # R basics and workflows {#mod-r-workflow}
 
 This module contains an introduction to using R, the syntax, data types etc. Coding in R is, as VBA, best learnt by trying it out and learn by trial and error. Hence the modules often contains links to interactive tutorials.
 
-We are all different and you may like different learning styles compared to others. In the learning path diagram, there may be links to alternative online content. Note this is an alternative to the standard learning path that you may use instead. The learning path may also have extra content, that is not a part of syllabus, you can have a look at. 
+A template project for this module is given on [RStudio Cloud][r-cloud-mod8] (open it and use it while reading the notes).
+
+
+#### Learning path diagram {-}
 
 ```{r, echo=FALSE, out.width="100%", fig.asp=NA}
 g <- create_learning_path(
@@ -19,6 +31,8 @@ g <- create_learning_path(
    x_legend = 5, y_legend = 5.15)
 render_graph(g)
 ```
+
+It is recommended that you follow the green learning path; however, you may like a different learning style. In the learning path diagram, there are be links to alternative online content (video or reading). Note this is an alternative to the standard learning path that you may use instead (you should not do both). The learning path may also have extra content, that is NOT a part of syllabus (only look at it if you want more info)!
 
 <!-- ## Different learning paths {#lp-r-workflow} -->
 
@@ -71,7 +85,7 @@ Compared to VBA, R is an [interpreted language][wiki-interpreted]; users typical
 <!-- knitr::include_graphics("img/R_vs_RStudio.png") -->
 <!-- ``` -->
 
-Launch [RStudio][r-cloud-mod12] (follow this link to get to the correct project). An personal copy of the _01-module-12_ project is now created for you. Consider the panes:
+Launch [RStudio Cloud][r-cloud-mod8] (follow this link to get to the correct project). An personal copy of the project is now created for you. Consider the panes:
 
 * Console (left)
 * Environment/History (tabbed in upper right)
@@ -98,7 +112,7 @@ and in my head I hear, e.g., "x equals 12". You will make lots of assignments an
 
 Note that RStudio automatically surrounds `<-` with spaces, which demonstrates a useful code formatting practice. Give your eyes a break and use spaces.
 
-RStudio offers many handy [keyboard shortcuts][rstudio-key-shortcuts]. Also, Alt+Shift+K brings up a keyboard shortcut reference card.
+RStudio offers many handy [keyboard shortcuts][rstudio-key-shortcuts]. Also, check **Tools > Keyboard Shortcuts Help** which brings up a keyboard shortcut reference card.
 
 Object names cannot start with a digit and cannot contain certain other characters such as a comma or a space. You are advised to adopt a naming convention; some use [snake case][wiki-snake-case] others use [camel case][wiki-camel-case]. Choose the naming convention you like best in your study group. But stick only to one of them.
 
@@ -176,7 +190,7 @@ or click the broom in RStudio's Environment pane.
 
 ## Your first DataCamp course
 
-[DataCamp] is an online platform for learning data science. We are going to use the platform for online tutorials. First, sign up to the organization __Tools for analytics__ at DataCamp __using your university e-mail__ [here](https://www.datacamp.com/groups/shared_links/27a2552c6f9759a23e473bf403548817d731fde6478552ff871c65dc4350ef30) (IMPORTANT do this before running the course/tutorial below!). 
+[DataCamp] is an online platform for learning data science. We are going to use the platform for online tutorials. First, sign up to the organization __Tools for analytics__ at DataCamp __using your university e-mail__ [here](https://www.datacamp.com/groups/shared_links/60bd2d6fc3c87dc0fa7a10141105b0ba7b3e48a070e4e016a8489bca94fc5b5e) (IMPORTANT do this before running the course/tutorial below!). 
 
 DataCamp runs all the courses in your browser. That is, R is run on a server and you do not use RStudio here. The first course gives an [Introduction to R][datacamp-r-intro]. You are expected to have completed [the course][datacamp-r-intro] before continuing this module! 
 
@@ -809,7 +823,7 @@ glimpse(mtcars)
 ?mtcars
 ```
 
-1) Use the `head` and `tail` functions to have a look at the data.
+1) Use the `head` and `tail` functions to have a look at the data. 
 
 
 ```{r, solution=TRUE}
@@ -828,13 +842,13 @@ mtcars$___
 
 
 ```{r, solution=TRUE}
-mtcars <- rbind(mtcars, 
+mtcars1 <- rbind(mtcars, 
    c(34, 3, 87, 112, 4.5, 1.515, 167, 1, 1, 5, 3))
-rownames(mtcars)[33] <- "Phantom XE"
+rownames(mtcars1)[33] <- "Phantom XE"
 ```
 ```{r, hint=TRUE, eval=FALSE}
-mtcars <- rbind(mtcars, ___)
-rownames(mtcars)[___] <- "Phantom XE"
+mtcars1 <- rbind(mtcars, ___)
+rownames(mtcars1)[___] <- "Phantom XE"
 ```
 
 3) Update `mtcars` by adding row `c(34, 3, 87, 112, 4.5, 1.515, 167, 1, 1, 5, 3)`. Name the row 'Phantom XE'.
@@ -845,13 +859,13 @@ col <- c(NA, "green", "blue", "red", NA, "blue", "green", "blue", "red", "red",
    "blue", "green", "blue", "blue", "green", "red", "red", NA, NA, "red", 
    "green", "red", "red", NA, "green", NA, "blue", "green", "green", "red", 
    "green", "blue", NA)
-mtcars <- cbind(mtcars, col)
-class(mtcars$col)
+mtcars1 <- cbind(mtcars1, col)
+class(mtcars1$col)
 ```
 ```{r, hint=TRUE, eval=FALSE}
 col <- c(NA, "green", ......)
-mtcars <- cbind(mtcars, ___)
-class(mtcars$___)
+mtcars1 <- cbind(mtcars1, ___)
+class(mtcars1$___)
 ```
 
 4) Update `mtcars` by adding column:
@@ -868,14 +882,13 @@ class(mtcars$___)
 
 
 ```{r, solution=TRUE}
-mtcars[mtcars$vs == 0,]
+mtcars1[mtcars1$vs == 0,]
 ```
 ```{r, hint=TRUE, eval=FALSE}
-mtcars[mtcars$___ == 0,]
+mtcars1[mtcars1$___ == 0,]
 ```
 
 5) Select cars with a V-shaped engine.
-
 
 
 

@@ -353,6 +353,18 @@ link_excel_file_text <- function(module_number_prefix, module_name) {
    )
 }
 
+
+# link_rcloud_text <- function(module_number) {
+#    return(withTags({
+#       div(
+#          str_c("A template project for this module is given on [RStudio Cloud][r-cloud-mod", module_number, "]"),
+#          "(open it and use it while reading the notes)."
+#       )
+#    })
+#    )
+# }
+
+
 link_slide_file_text <- function(module_number_prefix, module_name) {
    slide_file <- str_c(module_number_prefix, "_", module_name, "-slides.html")
    return(withTags({

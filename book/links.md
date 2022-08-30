@@ -58,9 +58,9 @@
 
 [R]: https://www.r-project.org
 [RStudio]: https://rstudio.com
-[rstudio-cloud]: https://rstudio.cloud/spaces/176810/join?access_code=LSGnG2EXTuzSyeYaNXJE77vP33DZUoeMbC0xhfCz
-[r-cloud-mod12]: https://rstudio.cloud/spaces/176810/project/2963819
-[r-cloud-mod13]: https://rstudio.cloud/spaces/176810/project/3020139
+[rstudio-cloud]: https://rstudio.cloud/spaces/274292/join?access_code=iLqcFGfYZ43En9-eMNzu7zPusybjK7Mdj0vyazWH
+[r-cloud-mod7]: https://rstudio.cloud/spaces/274292/content/4411754
+[r-cloud-mod8]: https://rstudio.cloud/spaces/274292/content/4411755
 [r-cloud-mod14]: https://rstudio.cloud/spaces/176810/project/3020322
 [r-cloud-mod15]: https://rstudio.cloud/spaces/176810/project/3020509
 [r-cloud-mod16]: https://rstudio.cloud/spaces/176810/project/3026754
