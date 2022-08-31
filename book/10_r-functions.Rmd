@@ -145,10 +145,8 @@ In RStudio you can insert a [Roxygen](https://cran.r-project.org/web/packages/ro
 #'
 #' @param x 
 #' @param y 
-#'
 #' @return
 #' @export
-#'
 #' @examples
 subtract <- function(x, y) {
   return(x-y)
@@ -162,10 +160,8 @@ You now can modify your documentation to
 #'
 #' @param x First vector.
 #' @param y Vector to be subtracted.
-#'
 #' @return The difference.
 #' @export
-#'
 #' @examples
 #' subtract(x = c(5,5), y = c(2,3))
 subtract <- function(x, y) {
@@ -181,6 +177,111 @@ Note
 * Ignore the `@export` tag. This is used if you include your function in your own package. Package development is beyond the scope of this course. If you are interested, have a look at the book @r-pkgs. 
 
 A list of further tags can be seen in the vignette [Rd (documentation) tags](https://roxygen2.r-lib.org/articles/rd.html).
+
+
+## Example - Job sequencing
+
+Recall the job sequencing problem in Section \@ref(vba-ex-job-seq) that consider a problem of determining the best sequencing of jobs on a machine. A set of startup costs are given for 5 machines:
+
+```{r}
+startup_costs <- c(27, 28, 32, 35, 26)
+startup_costs
+```
+
+Moreover, when changing from one job to another job, the setup costs are given as:
+
+```{r}
+setup_costs <- matrix(c(
+  NA, 35, 22, 44, 12,
+  49, NA, 46, 38, 17,
+  46, 12, NA, 29, 41,
+  23, 37, 31, NA, 26,
+  17, 23, 28, 34, NA), 
+  byrow = T, nrow = 5)
+setup_costs
+```
+
+For instance, the setup cost from Job 2 to Job 4 is `r setup_costs[2,4]`.
+
+The goal of the problem is to determine a sequence of jobs which minimizes the total setup cost including the startup cost.
+
+One possible way to find a sequence is the use a greedy strategy:
+
+```
+Greedy Algorithm
+Step 0: Start with the job which has minimal startup cost.
+Step 1: Select the next job as the job not already done 
+        with minimal setup cost given current job. 
+Step 2: Set next job in Step 1 to current job and 
+        go to Step 1 if not all jobs are done.
+```
+
+In R the greedy algorithm can be implemented as:
+
+```{r}
+#' Calculate a job sequence based on a greedy algorithm
+#' 
+#' @param startup Startup costs.
+#' @param setup Setup costs.
+#' @return A list with the job sequence and total setup costs.
+greedy <- function(startup, setup) {
+  jobs <- nrow(setup)
+  cur_job <- which.min(startup)
+  cost <- startup[cur_job]
+  # cat("Start job:", cur_job, "\n")
+  job_seq <- cur_job
+  setup[, cur_job] <- NA
+  for (i in 1:(jobs-1)) {
+    next_job <- which.min(setup[cur_job, ])
+    # cat("Next job:", next_job, "\n") 
+    cost <- cost + setup[cur_job, next_job]
+    job_seq <- c(job_seq, next_job)
+    cur_job <- next_job
+    setup[, cur_job] <- NA
+  }
+  # print(setup)
+  return(list(seq = job_seq, cost = cost))
+}
+greedy(startup_costs, setup_costs)
+```
+
+First, the job with minimum startup cost is found using function `which.min` and we define cost as the startup cost. We use `cat` to make some debugging statements and initialize `job_seq` with the first job. Next, we have to find a way of ignoring jobs already done. We do that here by setting the columns of setup cost equal to NA for jobs already done. Hence, they will not be selected by `which.min`. The `for` loop runs 4 times and selects jobs and accumulate the total cost. Finally, the job sequence and the total cost is returned as a list.
+
+A well-known better strategy is to:
+
+```
+Better Algorithm
+Step 0: Subtract minimum of startup and setup cost for each job from setup and 
+        startup costs (that is columnwise)
+Step 1: Call the greedy algorithm with the modified costs. Note that the total 
+        cost returned has to be modified a bit.
+```
+
+The better strategy implemented in R:
+
+```{r}
+#' Calculate a job sequence based on a better (greedy) algorithm
+#' 
+#' @param startup Startup costs.
+#' @param setup Setup costs.
+#' @return A list with the job sequence and total setup costs.
+better <- function(startup, setup) {
+  jobs <- nrow(setup)
+  min_col_val <- apply(rbind(startup, setup), 2, min, na.rm = T)  
+  startup <- startup - min_col_val
+  min_mat <- matrix(rep(min_col_val, jobs), ncol = jobs, byrow = T)
+  setup <- setup - min_mat
+  lst <- greedy(startup, setup)
+  lst$cost <- lst$cost + sum(min_col_val)
+  return(lst)
+}
+better(startup_costs, setup_costs)
+```
+
+First the number of jobs are identified. 
+Next, we need to find the minimum value in each column. Here we use the `apply` function. The first argument is the setup matrix with the startup costs added as a row. The second argument is 2 indicating that we should apply the third argument to each column (if was equal 1 then to each row). The third argument is the function to apply to each column (here `min`). The last argument is an optional argument passed to the `min` function. With the current values `min_col_val` equals `r knitr::combine_words(apply(rbind(startup_costs, setup_costs), 2, min, na.rm = T))`.
+Afterwards the minimum values are subtracted in each column. Note for subtracting the minimum values from the setup cost, we first need to create a matrix with the minimum values (`min_mat`).
+Finally, we call the greedy algorithm with the new costs and correct the returned result with the minimum values.  
 
 
 ## Recap {#rc-functions}
@@ -211,7 +312,7 @@ You may also have a look at the [slides for this module](https://bss-osca.github
 
 `r exercises_r_text(project_name_prefix)`
 
-### Exercise (defining functions)
+### Exercise (defining functions) {#ex-r-def-func}
 
 *Solve this exercise using a script file.*
 
@@ -590,127 +691,6 @@ my_func <- function(y){
 }
 my_func(7)
 ```
-
-
-### Exercise (job sequencing)
-
-*Solve this exercise using a script file.*
-
-This exercise is based on Exercise 6.12 in @vba-book. 
-
-Consider a problem of determining the best sequencing of jobs on a machine. A set of startup costs are given for 5 machines:
-
-```{r}
-startup_costs <- c(27, 28, 32, 35, 26)
-startup_costs
-```
-
-Moreover, when changing from one job to another job, the setup costs are given as:
-
-```{r}
-setup_costs <- matrix(c(
-  NA, 35, 22, 44, 12,
-  49, NA, 46, 38, 17,
-  46, 12, NA, 29, 41,
-  23, 37, 31, NA, 26,
-  17, 23, 28, 34, NA), 
-  byrow = T, nrow = 5)
-setup_costs
-```
-
-The goal of the problem is to determine a sequence of jobs which minimizes the total setup cost including the startup cost.
-
-One possible way to find a sequence is the use a greedy strategy:
-
-```
-Greedy Algorithm
-Step 0: Start with the job which has minimal startup cost.
-Step 1: Select the next job as the job not already done 
-        with minimal setup cost given current job. 
-Step 2: Set next job in Step 1 to current job and 
-        go to Step 1 if not all jobs are done.
-```
-
-In R the greedy algorithm can be implemented as:
-
-```{r}
-greedy <- function(startup, setup) {
-  jobs <- nrow(setup)
-  cur_job <- which.min(startup)
-  cost <- startup[cur_job]
-  # cat("Start job:", cur_job, "\n")
-  job_seq <- cur_job
-  setup[, cur_job] <- NA
-  for (i in 1:(jobs-1)) {
-    next_job <- which.min(setup[cur_job, ])
-    # cat("Next job:", next_job, "\n") 
-    cost <- cost + setup[cur_job, next_job]
-    job_seq <- c(job_seq, next_job)
-    cur_job <- next_job
-    setup[, cur_job] <- NA
-  }
-  # print(setup)
-  return(list(seq = job_seq, cost = cost))
-}
-greedy(startup_costs, setup_costs)
-```
-
-First, the job with minimum startup cost is found using function `which.min` and we define cost as the startup cost. We use `cat` to make some debugging statements and initialize `job_seq` with the first job. Next, we have to find a way of ignoring jobs already done. We do that here by setting the columns of setup cost equal to NA for jobs already done. Hence, they will not be selected by `which.min`. The `for` loop runs 4 times and selects jobs and accumulate the total cost.
-
-A well-known better strategy is to:
-
-```
-Better Algorithm
-Step 0: Subtract minimum of startup and setup cost for each job from setup and 
-        startup costs (that is columnwise)
-Step 1: Call the greedy algorithm with the modified costs. Note that the total 
-        cost returned has to be modified a bit.
-```
-
-```{r, solution=TRUE}
-better <- function(startup, setup) {
-  jobs <- nrow(setup)
-  min_col_val <- apply(rbind(startup, setup), 2, min, na.rm = T)
-  startup <- startup - min_col_val
-  min_mat <- matrix(rep(min_col_val, jobs), 
-                    ncol = jobs, byrow = T)
-  setup <- setup - min_mat
-  lst <- greedy(startup, setup)
-  lst$cost <- lst$cost + sum(min_col_val)
-  return(lst)
-}
-better(startup_costs, setup_costs)
-```
-```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
-better <- function(startup, setup) {
-  jobs <- nrow(setup)
-  min_col_val <- apply(rbind(startup, setup), 2, min, na.rm = T)
-  startup <- startup - min_col_val
-  min_mat <- matrix(rep(min_col_val, jobs), 
-                    ncol = jobs, byrow = T)
-  setup <- setup - ___
-  lst <- greedy(startup, setup)
-  lst$cost <- lst$cost + sum(___)
-  return(lst)
-}
-better(startup_costs, setup_costs)
-```
-```{r, hint=TRUE, eval=FALSE, title="Hint 1"}
-better <- function(startup, setup) {
-  jobs <- nrow(setup)
-  min_col_val <- apply(___)
-  startup <- startup - ___
-  min_mat <- matrix(rep(min_col_val, jobs), 
-                    ncol = ___, byrow = T)
-  setup <- setup - ___
-  lst <- greedy(___, ___)
-  lst$cost <- lst$cost + ___
-  return(lst)
-}
-better(startup_costs, setup_costs)
-```
-
-Implement a `better` function calculating a better strategy. Hint: to find the minimum column costs, you may use `apply(rbind(startup, setup), 2, min, na.rm = T)`.
 
 
 ```{r links, child="links.md"}
