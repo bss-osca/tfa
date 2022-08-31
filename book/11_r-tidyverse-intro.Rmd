@@ -3,8 +3,17 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
+
 ```{r include = FALSE, cache=FALSE}
 source("common.R")
+```
+
+```{r, include=FALSE}
+module_number_prefix <- "11"
+module_number <- as.numeric(module_number_prefix)
+module_name <- "r-tidyverse-intro"
+here::i_am(str_c("book/", module_number_prefix, "_", module_name, ".Rmd"))
+project_name_prefix <- str_c("TM", module_number)
 ```
 
 ```{r links, child="links.md"}
@@ -16,7 +25,9 @@ source("common.R")
 
 The [tidyverse][tidyverse-main-page] is a collection of R packages designed for data science. RMarkdown documents support the concept of [literate programming][wiki-literate-programming] where you weave R code together with text (written in Markdown) to produce elegantly formatted documents. 
 
-We are all different and you may like different learning styles compared to others. In the learning path diagram, there may be links to alternative online content. Note this is an alternative to the standard learning path that you may use instead. The learning path may also have extra content, that is not a part of syllabus, you can have a look at. 
+`r link_rcloud_text(module_number)`
+
+#### Learning path diagram {-}
 
 ```{r, echo=FALSE, out.width="100%", fig.asp=NA, include=TRUE}
 g <- create_learning_path(
@@ -24,6 +35,7 @@ g <- create_learning_path(
    sheet = "r-tidyverse-intro", 
    x_legend = 0, y_legend = 6)
 render_graph(g)
+learning_path_text_r()
 ```
 
 <!-- * [Chapter 4](https://rbasics.netlify.app/4-rmarkdown.html) in @rbasics gives an overview of RMarkdown with videos included.  -->
@@ -171,9 +183,7 @@ You may also have a look at the [slides for this module](https://bss-osca.github
 
 ## Exercises {#ex-tidyverse-intro}
 
-`r strExercises`
-
-[Link to the project on RStudio Cloud for this module][r-cloud-mod15]. 
+`r exercises_r_text(project_name_prefix)`
 
 
 ### Exercise (your first RMarkdown exercise)

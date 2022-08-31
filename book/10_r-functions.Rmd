@@ -3,10 +3,18 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
+
 ```{r include = FALSE, cache=FALSE}
 source("common.R")
 ```
 
+```{r, include=FALSE}
+module_number_prefix <- "10"
+module_number <- as.numeric(module_number_prefix)
+module_name <- "r-functions"
+here::i_am(str_c("book/", module_number_prefix, "_", module_name, ".Rmd"))
+project_name_prefix <- str_c("TM", module_number)
+```
 
 # Functions {#mod-r-functions}
 
@@ -22,7 +30,9 @@ Writing functions is a core activity of an R programmer. It represents the key s
 
 Functions are often used to encapsulate a sequence of expressions that needs to be executed numerous times, perhaps under slightly different conditions. In programming, functional programming is a programming paradigm, a style of how code is written. Rather than repeating the code, functions and control structures allow one to build code in blocks. As a result, your code becomes more structured, more readable and much easier to maintain and debug (find errors).
 
-We are all different and you may like different learning styles compared to others. In the learning path diagram, there may be links to alternative online content. Note this is an alternative to the standard learning path that you may use instead. The learning path may also have extra content, that is not a part of syllabus, you can have a look at. 
+`r link_rcloud_text(module_number)`
+
+#### Learning path diagram {-}
 
 ```{r, echo=FALSE, out.width="100%", fig.asp=NA, include=TRUE}
 g <- create_learning_path(
@@ -30,9 +40,8 @@ g <- create_learning_path(
    sheet = "r-functions", 
    x_legend = 3.5, y_legend = 4.25)
 render_graph(g)
+learning_path_text_r()
 ```
-
-
 
 <!-- `r strLPath` -->
 
@@ -200,9 +209,7 @@ You may also have a look at the [slides for this module](https://bss-osca.github
 
 ## Exercises {#ex-r-functions}
 
-`r strExercises`
-
-[Link to the project on RStudio Cloud for this module][r-cloud-mod14]. 
+`r exercises_r_text(project_name_prefix)`
 
 ### Exercise (defining functions)
 
@@ -429,7 +436,103 @@ costs <- function(total, ...) {
 
   
   
-  
+
+### Exercise (euclidean distances) {#ex-r-euclidean-distances}
+
+*This exercise is a slightly modified version an exam assignment (exam 2021-A1).*
+
+The euclidean distance between two points $p = (p_1,p_2)$ and $q = (q_1,q_2)$ can be calculated using formula $$ d(p,q) = \sqrt{(p_1-q_1)^2 + (p_2-q_2)^2}.$$
+
+<!-- Q1 -->
+```{r, solution=TRUE, text = "The distance is 9.22."}
+p <- c(10,10)
+q <- c(4,3)
+sqrt((p[1] - q[1])^2 + (p[2] - q[2])^2)
+```
+
+1) Calculate the distance between points $p = (10,10)$ and $q = (4,3)$ using the formula.
+
+<!-- Q2 -->
+```{r, include=FALSE}
+p_mat <- matrix(c(0, 7, 8, 2, 10, 16, 8, 12), nrow = 4)
+```
+   
+```{r, solution=TRUE, text="The distance matrix is given above."}
+d_mat = matrix(NA, nrow = nrow(p_mat), ncol = nrow(p_mat))
+for (i in 1:nrow(d_mat)) {
+  for (j in 1:ncol(d_mat)) {
+    # if (i>j) {d_mat[i,j] <- d_mat[j,i]; next}   # assume symmetric distances
+    # if (!is.na(d_mat[i,j])) next          # value already calculated 
+    if (i==j) {d_mat[i,j] <- 0; next}
+    d_mat[i,j] <- sqrt((p_mat[i,1] - p_mat[j,1])^2 + (p_mat[i,2] - p_mat[j,2])^2)
+  }
+}
+d_mat
+```
+
+2) Consider 4 points in a matrix (one in each row):
+
+   ```{r}
+   p_mat <- matrix(c(0, 7, 8, 2, 10, 16, 8, 12), nrow = 4)
+   p_mat
+   ```
+
+   The distance matrix of `p_mat` is a 4 times 4 matrix where entry (i,j) contains the distance from the point in row `i` to the point in row `j`. 
+
+   Calculate the distance matrix of `p_mat`.
+
+<!-- Q3 -->
+```{r, solution=TRUE, text="The function with test are given above."}
+calc_distances <- function(p_mat, from = 1:nrow(p_mat), to = 1:nrow(p_mat)) {
+  d_mat <- matrix(NA, nrow = nrow(p_mat), ncol = nrow(p_mat))
+  ite <- expand_grid(from = from, to = to)
+  for (r in 1:nrow(ite)) {
+    i <- ite$from[r]
+    j <- ite$to[r]
+    if (!is.na(d_mat[i,j])) next          # value already calculated 
+    if (i==j) {d_mat[i,j] <- 0; next}
+    d_mat[i,j] <- sqrt((p_mat[i,1] - p_mat[j,1])^2 + (p_mat[i,2] - p_mat[j,2])^2)
+  }
+  return(d_mat)
+}
+p_mat <- matrix(c(10, 9, 15, 15, 11, 19, 12, 11, 7, 15), nrow = 5)
+calc_distances(p_mat)
+calc_distances(p_mat, to = 3:4)
+calc_distances(p_mat, from = c(1, nrow(p_mat)), to = 3:4)
+```
+
+```{r, hint=TRUE, eval=FALSE}
+calc_distances <- function(p_mat, from = 1:nrow(p_mat), to = 1:nrow(p_mat)) {
+  d_mat <- matrix(NA, nrow = ___, ncol =  ___)
+  ite <- expand_grid(___)
+  for (r in 1:nrow(ite)) {
+    i <- ___
+    j <- ___
+    if (!is.na(d_mat[i,j])) next          # value already calculated 
+    if (i==j) {d_mat[i,j] <- 0; next}
+    d_mat[i,j] <- ___
+  }
+  return(d_mat)
+}
+```
+
+3) Create a function `calc_distances` with the following features (implement as many as you can):
+
+   * Takes a matrix `p_mat` with a point in each row as input argument.
+   * Takes two additional input arguments `from` and `to` with default values `1:nrow(p_mat)`
+   * Return the distance matrix with values calculated for rows in the `from` input argument and columns in the `to` input argument. The other entries equals `NA`.
+   * The function should work for different `p_mat` (you may assume that the matrix always have two columns).
+
+   You may test your code using:
+
+   ```{r, eval=FALSE}
+   p_mat <- matrix(c(10, 9, 15, 15, 11, 19, 12, 11, 7, 15), nrow = 5)
+   calc_distances(p_mat)
+   calc_distances(p_mat, to = 3:4)
+   calc_distances(p_mat, from = c(1, nrow(p_mat)), to = 3:4)
+   ```
+
+
 ### Exercise (scope)
 
 ```{r, solution=TRUE, text = "That value is still 3 since `x` defined inside the function is a local variable."}

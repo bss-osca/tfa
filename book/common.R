@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 
 library(tidyverse)
 options(dplyr.summarise.inform = FALSE)
+options(readr.show_col_types = FALSE)
 library(bsplus)
 library(htmltools)
 # To install igraph on OSX you may have to run 'brew unlink suite-sparse', install igraph and finally 'brew link suite-sparse' to re-enable.
@@ -199,7 +200,7 @@ addIconTasks <- function() {
 
 strLPath <- "We are all different and you may like different learning styles compared to others. You may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be useful for you. Note these suggestions are not a part of syllabus!"
 
-strExercises <- "Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the [help page](#help). Some of the solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up too early. Put some effort into finding a solution!"
+strExercises <- "Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the [help page](#help). Some of the solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up too early. Put some effort into finding a solution! Practice using shortcuts in RStudio (use Shift+Alt+K to get an overview). Go to the [Tools for Analytics][rstudio-cloud] workspace and download/export the `r project_name_prefix` project. Open it on your laptop and have a look at the files in the `exercises` folder which can be used as a starting point."
 
 ctrSol <- 0
 addSolution <- function(code = "", text = "", title = "Solution", evalCode = TRUE) {
@@ -304,6 +305,10 @@ create_learning_path <- function(url, sheet, x_legend = 0, y_legend = 0, margin_
   return(graph)
 }
 
+learning_path_text_r <- function() {
+   return(tags$div(str_c("It is recommended that you follow the green learning path; however, you may like a different learning style. In the learning path diagram, there are links to alternative online content (video or reading). Note this is an alternative to the standard learning path that you may use instead (you should not do both). The learning path may also have extra content, that is NOT a part of syllabus (only look at it if you want more info)!")))
+}
+
 
 link_excel_file <- function(module_number, module_name) {
    excel_file <- str_c(module_number, "-", module_name, "-template.xlsm")
@@ -354,15 +359,11 @@ link_excel_file_text <- function(module_number_prefix, module_name) {
 }
 
 
-# link_rcloud_text <- function(module_number) {
-#    return(withTags({
-#       div(
-#          str_c("A template project for this module is given on [RStudio Cloud][r-cloud-mod", module_number, "]"),
-#          "(open it and use it while reading the notes)."
-#       )
-#    })
-#    )
-# }
+link_rcloud_text <- function(module_number) {
+   return(str_c("A template project for this module is given on [RStudio Cloud][r-cloud-mod", module_number, "]",
+         "(open it and use it while reading the notes).")
+   )
+}
 
 
 link_slide_file_text <- function(module_number_prefix, module_name) {
@@ -382,47 +383,9 @@ link_slide_file_text <- function(module_number_prefix, module_name) {
 }
 
 
-
-function (lib, url, svg_path, svg_pattern = "\\.svg$", svg_dest = NULL,
-          meta)
-{
-   dl_file <- tempfile("icon_dl")
-   dir.create(dl_dir <- tempfile("icon_dl"), showWarnings = FALSE)
-   on.exit(unlink(c(dl_file, dl_dir)))
-   download.file(url, dl_file)
-   utils::unzip(dl_file, exdir = dl_dir)
-   if (is.character(svg_path)) {
-      path <- do.call(file.path, c(list(list.dirs(dl_dir, recursive = FALSE)),
-                                   svg_path))
-   }
-   else if (is.function(svg_path)) {
-      path <- svg_path(dl_dir)
-   }
-   files <- list.files(path, pattern = svg_pattern, recursive = TRUE,
-                       full.names = TRUE)
-   dest_dir <- icon_path(lib)
-   unlink(dest_dir, recursive = TRUE)
-   dest_svg <- if (is.function(svg_dest)) {
-      svg_dest(files)
-   }else {
-      substring(files, nchar(path) + 2)
-   }
-   files <- files[!is.na(dest_svg)]
-   dest_svg <- dest_svg[!is.na(dest_svg)]
-   dest <- file.path(dest_dir, dest_svg)
-   lapply(unique(dirname(dest)), dir.create, recursive = TRUE,
-          showWarnings = FALSE)
-   file.copy(files, dest)
-   if (is.character(meta)) {
-      if (basename(meta) != "package.json") {
-         abort("Expected package.json metadata file.")
-      }
-      meta <- jsonlite::read_json(file.path(list.dirs(dl_dir,
-                                                      recursive = FALSE), meta))
-      meta <- list(name = meta$name, version = meta$version,
-                   license = meta$license)
-   }
-   saveRDS(meta, file.path(dest_dir, "meta.rds"))
-   update_icon(lib, silent = FALSE)
-   return(dl_dir)
+exercises_r_text <- function(project_name_prefix) {
+   return(str_c(
+      "Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the [help page](#help). Some of the solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up too early. Put some effort into finding a solution! Always practice using shortcuts in RStudio (see **Tools > Keyboard Shortcuts Help**).\n\n",
+      "Go to the [Tools for Analytics][rstudio-cloud] workspace and download/export the ", project_name_prefix, " project. Open it on your laptop and have a look at the files in the `exercises` folder which can be used as a starting point."
+   ))
 }

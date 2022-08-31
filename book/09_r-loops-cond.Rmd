@@ -3,7 +3,16 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
+
 ```{r, code = readLines("common.R"), cache = FALSE, include=FALSE}
+```
+
+```{r, include=FALSE}
+module_number_prefix <- "09"
+module_number <- as.numeric(module_number_prefix)
+module_name <- "r-loops-cond"
+here::i_am(str_c("book/", module_number_prefix, "_", module_name, ".Rmd"))
+project_name_prefix <- str_c("TM", module_number)
 ```
 
 
@@ -14,7 +23,9 @@ editor_options:
 
 This module considers programming with loops and conditional statements in R.
 
-We are all different and you may like different learning styles compared to others. In the learning path diagram, there may be links to alternative online content. Note this is an alternative to the standard learning path that you may use instead. The learning path may also have extra content, that is not a part of syllabus, you can have a look at. 
+`r link_rcloud_text(module_number)`
+
+#### Learning path diagram {-}
 
 ```{r, echo=FALSE, out.width="100%", fig.asp=NA, include=TRUE}
 g <- create_learning_path(
@@ -22,6 +33,7 @@ g <- create_learning_path(
    sheet = "r-loops-cond", 
    x_legend = 3.5, y_legend = 4.25)
 render_graph(g)
+learning_path_text_r()
 ```
 
 
@@ -250,11 +262,9 @@ You may also have a look at the [slides for this module](https://bss-osca.github
 
 ## Exercises {#ex-r-loops-cond}
 
-`r strExercises`
+`r exercises_r_text(project_name_prefix)`
 
-[Link to the project on RStudio Cloud for this module][r-cloud-mod13]. 
-
-### Exercise (conditional expressions)
+### Exercise (conditional expressions) {#ex-r-conditional-expressions}
 
 *Solve this exercise using a script file*
 
@@ -360,7 +370,7 @@ y
 
 
 
-### Exercise (loops)
+### Exercise (loops) {#ex-r-loops}
 
 ```{r, solution=TRUE}
 x <- rep(NA,4)
@@ -434,6 +444,57 @@ ___   # Q2
 
 4) Solve Questions 1 and 2 using a vectorized alternative. 
 
+
+
+
+
+### Exercise (search vector) {#ex-r-search-vector}
+
+*This exercise is a slightly modified version an exam assignment (reexam 2021-A1).*
+
+Consider the vector:
+
+```{r}
+v <- c(9, 19, 2, 8, NA, 12, 9, 23, NA, 34)
+v
+```
+
+<!-- Q1 -->
+```{r, solution=TRUE, text="Yes since the vector contains 2."}
+any(v <= 2)
+```
+
+1) Is any of the entries in `v` below or equal to 2?
+
+<!-- Q2 -->
+```{r, solution=TRUE, text="We don't know since we have missing values."}
+all(v >= 2)
+```
+
+2) Is all of the entries in `v` above or equal to 2?
+
+<!-- Q3 -->
+```{r, solution=TRUE, text="Yes, since `v` contains `NA` values."}
+any(is.na(v))
+```
+
+3) Does `v` have missing values?
+
+<!-- Q4 -->
+```{r, solution=TRUE, text="The indicies are show above."}
+which(v > 10)
+```
+
+4) Which entries in `v` are above 10? You must return the indices, e.g. the index of `v[3]` is 3.
+
+
+<!-- Q5 -->
+```{r, solution=TRUE, text = "We use `if_else` to set values."}
+res <- if_else(v < 10, v, 0, 0)
+res
+```
+
+5) Create a vector `res` where `res[i]` is equal to `v[i]` if `v[i]` is less than 10 and otherwise zero (also if `v[i]` is `NA`).  
 
 
 
