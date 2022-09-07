@@ -361,7 +361,7 @@ link_excel_file_text <- function(module_number_prefix, module_name) {
 
 link_rcloud_text <- function(module_number) {
    return(str_c("A template project for this module is given on [RStudio Cloud][r-cloud-mod", module_number, "]",
-         "(open it and use it while reading the notes).")
+         " (open it and use it while reading the notes).")
    )
 }
 
