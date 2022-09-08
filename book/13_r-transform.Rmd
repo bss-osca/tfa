@@ -9,6 +9,14 @@ editor_options:
 ```{r links, child="links.md"}
 ```
 
+```{r, include=FALSE}
+module_number_prefix <- "13"
+module_number <- as.numeric(module_number_prefix)
+module_name <- "r-transform"
+here::i_am(str_c("book/", module_number_prefix, "_", module_name, ".Rmd"))
+project_name_prefix <- str_c("TM", module_number)
+```
+
 # Transforming data {#mod-r-transform}
 
 In this module, we consider transformation of data. In general raw data may be messy and need to be structured in a __tidy__ way. Tidying your data means storing it in a structured form suitable for analysis. This is done using a tibble (data frame) where each column is a variable, and each row is an observation. Tidy data is important because the consistent structure lets you focus your struggle on questions about the data.
@@ -1274,6 +1282,210 @@ ggplot(fisheries_summary_continent,
 8) If you already have read the module about visualizations, then try to make some relevant plots.
 
 
+
+
+
+
+
+### Exercise (company ranking) {#ex-company}
+
+*This exercise is a slightly modified version an exam assignment (exam 2021-A2).*
+
+The dataset `companies`, in the `tfa` package, lists approx. 1000 of the world's biggest companies, measured by sales, profits, assets and market value. The column/variables are:
+
+* `name`: the name of the company.
+* `country`: the country the company is situated in.
+* `category`: the products the company produces.
+* `sales`: the amount of sales of the company in billion USD.
+* `profits`: the profit of the company in billion USD.
+* `assets`: the assets of the company in billion USD.
+* `marketvalue`: the market value of the company in billion USD.
+
+You can load the dataset using:
+
+```{r}
+# remotes::install_github("bss-osca/tfa-package", build = FALSE)  # run if tfa not installed
+library(tidyverse)
+companies <- read_csv(system.file("extdata/companies.csv", package = "tfa"))
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (data frames) and answer the following questions.
+
+<!-- Q1 -->
+```{r, solution=TRUE, text="1002 rows and 7 columns."}
+companies
+```
+
+1) How many rows and columns do the dataset have?
+
+
+<!-- Q2 -->
+```{r, solution=TRUE, text="From the output we can see that there are 1002 different companies (one for each row) 27 different product categories and 42 different countries."}
+library(skimr)
+skim(companies)
+```
+
+2) How many different companies are we considering, how many different product categories and how many different countries? Hint: the *skimr* package might be useful. 
+
+<!-- Q3 -->
+```{r, solution=TRUE, text="The 3 biggest companies are listed in the `name` column."}
+dat <- companies %>% 
+  arrange(desc(marketvalue)) %>% 
+  head(n = 3) %>% 
+  print()
+# or
+# companies %>% 
+#   slice_max(marketvalue, n = 3)
+```
+
+3) What are the 3 biggest companies with respect to market value?
+
+
+<!-- Q4 -->
+```{r, solution=TRUE, text="The company with highest profit for each country is listed above. In Denmark the company is Den Danske Bank."}
+dat <- companies %>% 
+  group_by(country) %>% 
+  slice_max(profits, n = 1) %>% 
+  print()
+```
+
+4) For each country find the company with highest profit. What company has the highest profit in Denmark?
+
+
+<!-- Q5 -->
+```{r, solution=TRUE, text="The 4 product categories that have the highest total market value are given in the `category` column."}
+dat <- companies %>% 
+  group_by(category) %>% 
+  summarise(marketvalue = sum(marketvalue)) %>% 
+  slice_max(marketvalue, n = 4) %>% 
+  print()
+```
+
+5) Which 4 product categories have the highest total market value?
+
+
+<!-- Q6 -->
+```{r, solution=TRUE, text="The companies can be seen above. The company with lowest value is Novo-Nordisk (or TDC Group)."}
+dat <- companies %>% 
+  filter(country == "Denmark") %>% 
+  mutate(value = profits + assets + marketvalue) %>% 
+  select(name, category, value) %>% 
+  print()
+```
+
+6) Create a new data frame only containing rows from Denmark and with columns `name`, `category` and a column `value` which equals the sum of columns `profits`, `assets` and `marketvalue`. Which company have the lowest value?
+
+
+### Exercise (Titanic) {#ex-titanic}
+
+*This exercise is a slightly modified version an exam assignment (reexam 2021-A2).*
+
+The dataset `titanic`, given in the appendix, lists approx. 1300 passengers on Titanic. The column/variables are:
+
+* `pclass`: Passenger class (1 = 1st; 2 = 2nd; 3 = 3rd).
+* `survived`: Survival (0 = No; 1 = Yes).
+* `name`: Name.
+* `sex`: Sex.
+* `age`: Age.
+* `fare`: Passenger Fare.
+* `cabin`: Cabin number.
+* `embarked`: Port of embarkation (C = Cherbourg; Q = Queenstown; S = Southampton).
+* `boat`: Lifeboat number.
+
+You can read the dataset file `titanic.csv` into the dataset `dat` using
+
+```{r}
+# remotes::install_github("bss-osca/tfa-package", build = FALSE)  # run if tfa not installed
+library(tidyverse)
+dat <- read_csv(system.file("extdata/titanic.csv", package = "tfa"))
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (data frames) and answer the following questions.
+
+
+<!-- Q1 -->
+```{r, solution=TRUE, text="We use `if_else` to set the new column."}
+dat <- dat %>% 
+  mutate(male = if_else(sex == "male", TRUE, FALSE))
+dat
+```
+
+1) Create a new column named `male` which is true if the person is a male. 
+
+
+
+<!-- Q2 -->
+```{r, solution=TRUE, text="From the output we can consider 1309 persons of which approx 64% are males. Approx. 38% of the passangers survived."}
+library(skimr)
+skim(dat)
+```
+
+2) How many persons are we considering, how many men (in percentage) and how many survived? 
+
+
+
+
+<!-- Q3 -->
+```{r, solution=TRUE, text="The survival rate for women and men are 73 and 19 percent, respectively."}
+dat %>% 
+  group_by(sex, survived) %>% 
+  count() %>% 
+  group_by(sex) %>% 
+  mutate(rate = n/sum(n))
+# Alternatively
+res <- dat %>% 
+  group_by(male) %>% 
+  summarise(survived = sum(survived)/n()) %>% 
+  print()
+```
+
+3) How many of the females survived in percent (and how many males)?
+
+
+
+<!-- Q4 -->
+```{r solution=TRUE, text="95 childern survived."}
+res <- dat %>% 
+  filter(age < 19, survived == TRUE) %>% 
+  nrow() %>% 
+  print()
+```
+
+4) Define children as people with age below 19. How many children survived?
+
+
+
+<!-- Q5 -->
+```{r, solution=TRUE, text="There seems to be a big difference in survival rate between first class (62%) and third class (26%)."}
+res <- dat %>% 
+  group_by(pclass) %>% 
+  summarise(rate = sum(survived)/n()) %>% 
+  print()
+```
+
+5) Did relatively more people survive at first class compared to third class?
+
+
+
+<!-- Q6 -->
+```{r, solution=TRUE, text="The survival rate when entered the lifeboat was high. Only 1.85% died."}
+res <- dat %>% 
+  filter(!is.na(boat)) %>% 
+  summarise(rate = 1-sum(survived)/n()) %>% 
+  print()
+```
+
+6) How many persons that entered a lifeboat did die in percent? 
+
+
+
+<!-- Q7 -->
+```{r, solution=TRUE, text="Only a single person survived."}
+dat %>% 
+  filter(str_detect(name, "Hansen"))
+```
+
+7) How many persons with `Hansen` in their name survived?
 
 
 
