@@ -61,12 +61,10 @@
 [rstudio-cloud]: https://rstudio.cloud/spaces/274292/join?access_code=iLqcFGfYZ43En9-eMNzu7zPusybjK7Mdj0vyazWH
 [r-cloud-mod7]: https://rstudio.cloud/spaces/274292/content/4411754
 [r-cloud-mod8]: https://rstudio.cloud/spaces/274292/content/4411755
-[r-cloud-mod14]: https://rstudio.cloud/spaces/176810/project/3020322
-[r-cloud-mod15]: https://rstudio.cloud/spaces/176810/project/3020509
-[r-cloud-mod16]: https://rstudio.cloud/spaces/176810/project/3026754
-[r-cloud-mod17]: https://rstudio.cloud/spaces/176810/project/3034015
-[r-cloud-mod18]: https://rstudio.cloud/spaces/176810/project/3130795
-[r-cloud-mod19]: https://rstudio.cloud/spaces/176810/project/3266132
+[r-cloud-mod9]: https://rstudio.cloud/spaces/274292/content/4411756
+[r-cloud-mod10]: https://rstudio.cloud/spaces/274292/content/4411757
+[r-cloud-mod11]: https://rstudio.cloud/spaces/274292/content/4411758
+[r-cloud-mod12]: https://rstudio.cloud/spaces/274292/content/4411759
 [rstudio-download]: https://rstudio.com/products/rstudio/download/#download
 [rstudio-customizing]: https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio
 [rstudio-key-shortcuts]: https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts
