@@ -214,6 +214,7 @@ Use the *exercise R markdown template* to solve this exercise (**File > New File
 The gapminder data set provides values for life expectancy, GDP per capita, and population, every five years, from 1952 to 2007 for 142 countries. The data can be loaded using the gapminder package:
 
 ```{r message = FALSE, warning = FALSE}
+library(gapminder)
 data(gapminder, package = "gapminder")
 gapminder
 ```
@@ -1487,5 +1488,115 @@ dat %>%
 
 7) How many persons with `Hansen` in their name survived?
 
+
+
+
+
+
+### Exercise (covid) {#ex-r-covid}
+
+*This exercise is a slightly modified version an exam assignment (reexam 2022-A2).*
+
+Consider COVID-19 data obtained from Our World in Data in the file `covid.csv`. The dataset contains data from different countries. Some of the columns/variables are:
+
+  * `cases`: New confirmed cases of COVID-19.
+  * `deaths`:  New deaths attributed to COVID-19.
+  * `icu_patients`: Number of COVID-19 patients in intensive care units (ICUs) on a given day.
+  * `hosp_patients`: Number of COVID-19 patients in hospital on a given day.
+  * `tests`: Total tests for COVID-19.
+  * `positive_rate`: The share of COVID-19 tests that are positive, given as a rolling 7-day average.
+  * `vac`: Total number of people who received at least one vaccine dose.
+  * `fully_vac`: Total number of people who received all doses prescribed by the vaccination protocol.
+  * `population`: Country population.
+
+Other columns are `date`, `country`, `month` and `year`. You can read the dataset file using
+
+```{r}
+# remotes::install_github("bss-osca/tfa-package", build = FALSE)  # run if tfa not installed
+library(tidyverse)
+dat <- read_csv(system.file("extdata/covid.csv", package = "tfa"))
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames) and answer the following questions.
+
+
+<!-- Q1 -->
+```{r, solution=TRUE, text="We have a total of 4 countries with data from 2020-01-27 to 2021-11-24."}
+res1 <- dat %>%
+   distinct(country) %>% 
+  print()
+
+res2 <- dat %>% 
+   ungroup() %>% 
+   summarise(start = min(date), end = max(date)) %>% 
+   print()
+```
+
+1) Which countries are considered and what is the timespan of the data?
+
+
+
+<!-- Q2 -->
+```{r, solution=TRUE, text="The number of confirmed cases was 3810."}
+res <- dat %>%
+   filter(country == "Denmark", date == "2021-11-22") %>% 
+  print()
+```
+
+2) What is the number of new confirmed cases November 22nd, 2021 in Denmark?
+
+
+
+<!-- Q3 -->
+```{r, solution=TRUE, text="The total number of deaths in Norway up to 10th October 2021 is 871."}
+res1 <- dat %>%
+   group_by(country) %>%
+   mutate(total_cases = cumsum(replace_na(cases, 0)),
+          total_deaths = cumsum(replace_na(deaths, 0))) %>%
+   print()
+
+res2 <- res1 %>% 
+   filter(country == "Norway", date == "2021-10-10") %>% 
+   select(contains("total")) %>% 
+   print()
+```
+
+3) Calculate the total number of confirmed cases and deaths. Hint: you may use the `cumsum` function to add all cases up until a given date. You may here consider `NA` values in the `cases` and `deaths` columns as equal to zero (e.g. using `replace_na(cases, 0)`). 
+
+What is the total number of deaths in Norway up to October 10th, 2021?
+
+
+
+<!-- Q4 -->
+```{r, solution=TRUE, text="The highest number of tests per capita in March 2021 was in Denmark."}
+res1 <- dat %>%
+   group_by(country, month, year, population) %>% 
+   summarize(tests = max(tests, na.rm = TRUE) - min(tests, na.rm = TRUE)) %>% 
+   ungroup() %>% 
+   mutate(testsCap = tests/population) %>% 
+   arrange(desc(year), month) %>% 
+   print()
+
+res2 <- res1 %>% 
+   filter(year == 2021, month == 3) %>% 
+   arrange(desc(testsCap)) %>% 
+   print()
+```
+
+4) For each country calculate the number of tests done in each month in a given year. Which country had the highest number of tests per capita in March 2021?
+
+
+
+<!-- Q5 -->
+```{r, solution=TRUE, text="The highest number of ICU patients on a given day was in January (4077 patients)."}
+res <- dat %>%
+   filter(country == "United Kingdom") %>% 
+   group_by(country, year, month) %>% 
+   summarize(icu = max(icu_patients, na.rm = TRUE)) %>% 
+   arrange(desc(icu)) %>% 
+   print()
+```
+
+5) Consider United Kingdom. Which month had the highest number of ICU patients on a given day?
 
 
