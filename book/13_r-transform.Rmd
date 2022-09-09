@@ -1325,6 +1325,10 @@ companies
 library(skimr)
 skim(companies)
 ```
+```{r, hint=TRUE}
+library(skimr)
+skim(___)
+```
 
 2) How many different companies are we considering, how many different product categories and how many different countries? Hint: the *skimr* package might be useful. 
 
@@ -1338,6 +1342,10 @@ dat <- companies %>%
 # companies %>% 
 #   slice_max(marketvalue, n = 3)
 ```
+```{r, hint=TRUE}
+companies %>% 
+   slice_max(___)
+```
 
 3) What are the 3 biggest companies with respect to market value?
 
@@ -1347,6 +1355,12 @@ dat <- companies %>%
 dat <- companies %>% 
   group_by(country) %>% 
   slice_max(profits, n = 1) %>% 
+  print()
+```
+```{r, hint=TRUE}
+dat <- companies %>% 
+  group_by(___) %>% 
+  slice_max(___) %>% 
   print()
 ```
 
@@ -1361,6 +1375,13 @@ dat <- companies %>%
   slice_max(marketvalue, n = 4) %>% 
   print()
 ```
+```{r, hint=TRUE}
+dat <- companies %>% 
+  group_by(___) %>% 
+  summarise(__) %>% 
+  slice_max(___) %>% 
+  print()
+```
 
 5) Which 4 product categories have the highest total market value?
 
@@ -1371,6 +1392,13 @@ dat <- companies %>%
   filter(country == "Denmark") %>% 
   mutate(value = profits + assets + marketvalue) %>% 
   select(name, category, value) %>% 
+  print()
+```
+```{r, hint=TRUE}
+dat <- companies %>% 
+  filter(___) %>% 
+  mutate(___) %>% 
+  select(___) %>% 
   print()
 ```
 
@@ -1410,6 +1438,11 @@ dat <- dat %>%
   mutate(male = if_else(sex == "male", TRUE, FALSE))
 dat
 ```
+```{r, hint=TRUE}
+dat <- dat %>% 
+  mutate(male = if_else(___))
+dat
+```
 
 1) Create a new column named `male` which is true if the person is a male. 
 
@@ -1419,6 +1452,10 @@ dat
 ```{r, solution=TRUE, text="From the output we can consider 1309 persons of which approx 64% are males. Approx. 38% of the passangers survived."}
 library(skimr)
 skim(dat)
+```
+```{r, hint=TRUE}
+library(skimr)
+___
 ```
 
 2) How many persons are we considering, how many men (in percentage) and how many survived? 
@@ -1439,6 +1476,13 @@ res <- dat %>%
   summarise(survived = sum(survived)/n()) %>% 
   print()
 ```
+```{r, hint=TRUE}
+dat %>% 
+  group_by(___) %>% 
+  count() %>% 
+  group_by(___) %>% 
+  mutate(rate = ___)
+```
 
 3) How many of the females survived in percent (and how many males)?
 
@@ -1448,6 +1492,12 @@ res <- dat %>%
 ```{r solution=TRUE, text="95 childern survived."}
 res <- dat %>% 
   filter(age < 19, survived == TRUE) %>% 
+  nrow() %>% 
+  print()
+```
+```{r hint=TRUE}
+res <- dat %>% 
+  filter(___) %>% 
   nrow() %>% 
   print()
 ```
@@ -1463,6 +1513,12 @@ res <- dat %>%
   summarise(rate = sum(survived)/n()) %>% 
   print()
 ```
+```{r, hint=TRUE}
+res <- dat %>% 
+  group_by(___) %>% 
+  summarise(rate = ___) %>% 
+  print()
+```
 
 5) Did relatively more people survive at first class compared to third class?
 
@@ -1475,6 +1531,12 @@ res <- dat %>%
   summarise(rate = 1-sum(survived)/n()) %>% 
   print()
 ```
+```{r, hint=TRUE}
+res <- dat %>% 
+  filter(___) %>% 
+  summarise(rate = ___) %>% 
+  print()
+```
 
 6) How many persons that entered a lifeboat did die in percent? 
 
@@ -1484,6 +1546,10 @@ res <- dat %>%
 ```{r, solution=TRUE, text="Only a single person survived."}
 dat %>% 
   filter(str_detect(name, "Hansen"))
+```
+```{r, hint=TRUE}
+dat %>% 
+  filter(str_detect(___))
 ```
 
 7) How many persons with `Hansen` in their name survived?
@@ -1531,6 +1597,16 @@ res2 <- dat %>%
    summarise(start = min(date), end = max(date)) %>% 
    print()
 ```
+```{r, hint=TRUE}
+res1 <- dat %>%
+   distinct(___) %>% 
+  print()
+
+res2 <- dat %>% 
+   ungroup() %>% 
+   summarise(start = ___, end = ___) %>% 
+   print()
+```
 
 1) Which countries are considered and what is the timespan of the data?
 
@@ -1540,6 +1616,11 @@ res2 <- dat %>%
 ```{r, solution=TRUE, text="The number of confirmed cases was 3810."}
 res <- dat %>%
    filter(country == "Denmark", date == "2021-11-22") %>% 
+  print()
+```
+```{r, hint=TRUE}
+res <- dat %>%
+   filter(___) %>% 
   print()
 ```
 
@@ -1560,6 +1641,19 @@ res2 <- res1 %>%
    select(contains("total")) %>% 
    print()
 ```
+```{r, hint=TRUE}
+res1 <- dat %>%
+   group_by(___) %>%
+   mutate(total_cases = cumsum(replace_na(cases, 0)),
+          total_deaths = ___) %>%
+   print()
+
+res2 <- res1 %>% 
+   filter(___) %>% 
+   select(contains(___)) %>% 
+   print()
+```
+
 
 3) Calculate the total number of confirmed cases and deaths. Hint: you may use the `cumsum` function to add all cases up until a given date. You may here consider `NA` values in the `cases` and `deaths` columns as equal to zero (e.g. using `replace_na(cases, 0)`). What is the total number of deaths in Norway up to October 10th, 2021?
 
@@ -1579,6 +1673,20 @@ res2 <- res1 %>%
    arrange(desc(testsCap)) %>% 
    print()
 ```
+```{r, hint=TRUE}
+res1 <- dat %>%
+   group_by(___) %>% 
+   summarize(tests = max(___, na.rm = TRUE) - min(___, na.rm = TRUE)) %>% 
+   ungroup() %>% 
+   mutate(testsCap = ___) %>% 
+   arrange(desc(___), month) %>% 
+   print()
+
+res2 <- res1 %>% 
+   filter(___) %>% 
+   arrange(desc(___)) %>% 
+   print()
+```
 
 4) For each country calculate the number of tests done in each month in a given year. Which country had the highest number of tests per capita in March 2021?
 
@@ -1591,6 +1699,14 @@ res <- dat %>%
    group_by(country, year, month) %>% 
    summarize(icu = max(icu_patients, na.rm = TRUE)) %>% 
    arrange(desc(icu)) %>% 
+   print()
+```
+```{r, hint=TRUE}
+res <- dat %>%
+   filter(___) %>% 
+   group_by(___) %>% 
+   summarize(icu = max(___, na.rm = TRUE)) %>% 
+   arrange(desc(___)) %>% 
    print()
 ```
 

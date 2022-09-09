@@ -1234,6 +1234,16 @@ companies %>%
        y = "") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
+```{r, hint=TRUE}
+companies %>% 
+  count(___) %>% 
+  ggplot(aes(x = reorder(___, -n), y = n)) +
+  geom_col() +
+  labs(title = "Number of companies in each product category",
+       x = "Product category",
+       y = "") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
 
 1) Create a visualization showing the number of companies for each product category with the following features:
 
@@ -1257,6 +1267,19 @@ companies %>%
        color = "Product Category") +
   theme(legend.position = "bottom")
 ```
+```{r, hint=TRUE}
+companies %>% 
+  filter(category %in% c(___)) %>% 
+  ggplot(aes(x = ___, y = ___, color = ___)) +
+  geom_point() +
+  geom_smooth() +
+  labs(title = "Profit given sales",
+       x = "Sales (billion USD)",
+       y = "Profit (billion USD)",
+       color = "Product Category") +
+  theme(legend.position = "bottom")
+```
+
 
 2) Consider product categories `Drugs & biotechnology` and `Media`. Create a visualization showing the profit given sales of each company with the following features:
 
@@ -1295,6 +1318,20 @@ companies %>%
        fill = "Product Category") +
   theme(legend.position = "bottom")
 ```
+```{r, hint=TRUE}
+companies <- companies %>% 
+  mutate(ratio = ___) 
+
+companies %>% 
+  filter(category %in% c(___)) %>% 
+  ggplot(aes(y = ___, color = ___)) +
+  geom_boxplot() +
+  labs(title = "Ratio of profit/sales",
+       x = "",
+       y = "Profit/sales ratio",
+       color = "Product Category") +
+  theme(legend.position = "bottom")
+```
 
 3) Consider product categories `Banking` and `Aerospace & defense`. Let `ratio` denote a variable/column that equals profit divided by sales. Create a visualization showing the variation in `ratio` with the following features:
 
@@ -1316,6 +1353,22 @@ companies %>%
   geom_point() +
   geom_smooth(method = lm) +
   facet_wrap(vars(category), scales = "free") +
+  labs(title = "Assets given market value",
+       x = "Market value (billion USD)",
+       y = "Assets (billion USD)",
+       color = "Continent") +
+  theme(legend.position = "bottom")
+```
+```{r, hint=TRUE}
+continents <- read_csv(system.file("extdata/continents.csv", package = "tfa"))
+companies %>% 
+  left_join(___) %>% 
+  filter(continent %in% c(___)) %>% 
+  filter(category %in% c(___)) %>% 
+  ggplot(aes(x = ___, y = ___, color = ___)) +
+  geom_point() +
+  geom_smooth(method = lm) +
+  facet_wrap(vars(___), scales = "free") +
   labs(title = "Assets given market value",
        x = "Market value (billion USD)",
        y = "Assets (billion USD)",
@@ -1386,6 +1439,20 @@ dat %>%
        x = "Harbor",
        y = "Persons") 
 ```
+```{r, hint=TRUE}
+dat <- dat %>% mutate(harbor = case_when(
+  embarked == "C" ~ "Cherbourg",
+  embarked == "Q" ~ "Queenstown",
+  embarked == "S" ~ "Southampton",
+  TRUE ~ NA_character_
+))
+dat %>% 
+  ggplot(aes(x = ___)) +
+  geom_bar() +
+  labs(title = "Number of persons embarking each departure harbor",
+       x = "Harbor",
+       y = "Persons") 
+```
 
 1) Create a visualization showing the number of persons embarking the different harbors with the following features:
 
@@ -1405,6 +1472,14 @@ dat %>%
        x = "Age",
        y = "Persons") 
 ```
+```{r, hint=TRUE}
+dat %>% 
+  ggplot(aes(x = ___)) +
+  geom_histogram(binwidth = 2) +
+  labs(title = "Age distribution",
+       x = "Age",
+       y = "Persons") 
+```
 
 2) Create a visualization showing the age distribution of the persons with the following features:
 
@@ -1417,6 +1492,16 @@ dat %>%
 <!-- Q3 -->
 ```{r, solution=TRUE, text="Based on the trend lines females in general pays more than males."}
 dat %>% ggplot(aes(x = age, y = fare, color = sex)) +
+  geom_point() + 
+  geom_smooth() +
+  labs(title = "Fare prices given age",
+       x = "Age",
+       y = "Price",
+       color = "Sex") + 
+  theme(legend.position = "bottom")
+```
+```{r, hint=TRUE}
+dat %>% ggplot(aes(x = ___, y = ___, color = ___)) +
   geom_point() + 
   geom_smooth() +
   labs(title = "Fare prices given age",
@@ -1447,6 +1532,16 @@ dat %>%
        fill = "Survived") + 
   theme(legend.position = "bottom")
 ```
+```{r, hint=TRUE}
+dat %>% 
+  ggplot(aes(x = ___, fill = as.logical(___))) +
+  geom_bar(position="fill") +
+  labs(title = "Survival rate given passenger class",
+       x = "Class",
+       y = "",
+       fill = "Survived") + 
+  theme(legend.position = "bottom")
+```
 
 4) Create a visualization showing the survival rate for each passenger class with the following features:
 
@@ -1465,6 +1560,14 @@ dat <- dat %>%
 
   dat %>% filter(!is.na(level)) %>% 
     ggplot(aes(x = level, y = fare)) +
+    geom_boxplot() 
+```
+```{r, hint=TRUE}
+dat <- dat %>% 
+  mutate(level = str_sub(cabin, 1, 1)) 
+
+  dat %>% filter(!is.na(___)) %>% 
+    ggplot(aes(x = ___, y = ___)) +
     geom_boxplot() 
 ```
 
@@ -1515,6 +1618,16 @@ dat %>%
        y = "Cases"
     )
 ```
+```{r, hint=TRUE}
+dat %>%
+   filter(___) %>% 
+   ggplot(aes(y = ___, x = ___)) +
+   geom_line(color = "blue") +
+   labs(title = "Number of cases in Denmark",
+       x = "Date",
+       y = "Cases"
+    )
+```
 
 1) Create a visualization showing the number of cases for each date in Denmark with the following features:
 
@@ -1532,6 +1645,20 @@ dat %>%
    mutate(total_deaths = cumsum(replace_na(deaths, 0))) %>%
    mutate(total_deaths_cap = total_deaths/(population/100000)) %>% 
    ggplot(aes(x = date, y = total_deaths_cap, color = country)) +
+   geom_line() +
+   labs(title = "Total number of deaths per 100000",
+       x = "Date",
+       y = "Deaths per 100000 capita",
+       color = "Country"
+    ) +
+   theme(legend.position = "bottom") 
+```
+```{r, hint=TRUE}
+dat %>%
+   group_by(___) %>%
+   mutate(total_deaths = cumsum(replace_na(deaths, 0))) %>%
+   mutate(total_deaths_cap = ___) %>% 
+   ggplot(aes(x = ___, y = ___, color = ___)) +
    geom_line() +
    labs(title = "Total number of deaths per 100000",
        x = "Date",
@@ -1564,6 +1691,21 @@ dat %>%
    ggplot() + 
    geom_line(aes(x = date, y = value, color = name)) + 
    facet_wrap(vars(country)) +
+   labs(title = "Percentage of vaccinated people",
+       x = "Date",
+       y = "%",
+       color = "Vac. type") +
+   theme(legend.position = "bottom") 
+```
+```{r, hint=TRUE}
+dat %>% 
+   filter(___) %>% 
+   mutate(partly = ___, 
+          full = ___) %>%
+   pivot_longer(cols = c(partly, full)) %>% 
+   ggplot() + 
+   geom_line(aes(x = ___, y = ___, color = ___)) + 
+   facet_wrap(vars(___)) +
    labs(title = "Percentage of vaccinated people",
        x = "Date",
        y = "%",
@@ -1605,6 +1747,21 @@ dat %>%
         axis.ticks.x=element_blank(), 
         legend.position = "bottom")
 ```
+```{r, hint=TRUE}
+dat %>%
+   filter(___) %>% 
+  ggplot(aes(y = ___)) +
+  geom_boxplot() +
+  facet_grid(___ ~ ___, scales = "free_y") +
+  labs(title = "ICU patients given year and month",
+       x = "",
+       y = "Patients") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(), 
+        legend.position = "bottom")
+```
+
 
 4) Consider Germany. Create a visualization showing the variation in ICU patients with the following features:
 
@@ -1620,6 +1777,18 @@ dat %>%
    group_by(country, year) %>% 
    summarise(deaths = sum(deaths/(population/100000) , na.rm = TRUE)) %>% 
    ggplot(aes(y = deaths, x = country, fill = factor(year))) +
+   geom_col(position = position_dodge()) +
+   labs(title = "Total number of deaths",
+    x = "",
+    y = "Deaths",
+    fill = "Year") +
+   theme(legend.position = "bottom")
+```
+```{r, hint=TRUE}
+dat %>%
+   group_by(___) %>% 
+   summarise(deaths = sum(___ , na.rm = TRUE)) %>% 
+   ggplot(aes(y = ___, x = ___, fill = factor(___))) +
    geom_col(position = position_dodge()) +
    labs(title = "Total number of deaths",
     x = "",
