@@ -388,6 +388,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.5.2" data-path="mod-r-transform.html"><a href="mod-r-transform.html#ex-babynames1"><i class="fa fa-check"></i><b>13.5.2</b> Exercise (babynames)</a></li>
 <li class="chapter" data-level="13.5.3" data-path="mod-r-transform.html"><a href="mod-r-transform.html#ex-profit1"><i class="fa fa-check"></i><b>13.5.3</b> Exercise (profit)</a></li>
 <li class="chapter" data-level="13.5.4" data-path="mod-r-transform.html"><a href="mod-r-transform.html#ex-fish"><i class="fa fa-check"></i><b>13.5.4</b> Exercise (fisheries)</a></li>
+<li class="chapter" data-level="13.5.5" data-path="mod-r-transform.html"><a href="mod-r-transform.html#ex-company"><i class="fa fa-check"></i><b>13.5.5</b> Exercise (company ranking)</a></li>
+<li class="chapter" data-level="13.5.6" data-path="mod-r-transform.html"><a href="mod-r-transform.html#ex-titanic"><i class="fa fa-check"></i><b>13.5.6</b> Exercise (Titanic)</a></li>
+<li class="chapter" data-level="13.5.7" data-path="mod-r-transform.html"><a href="mod-r-transform.html#ex-r-covid"><i class="fa fa-check"></i><b>13.5.7</b> Exercise (covid)</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="mod-r-plot.html"><a href="mod-r-plot.html"><i class="fa fa-check"></i><b>14</b> Data visualization using ggplot</a><ul>
@@ -531,11 +534,11 @@ Members will now have access to this project where you can share code. NOTE you 
 <h4>macOS<a href="groups.html#macos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Option 1</strong> (<em>highly recommended</em>): Install the Xcode command line tools (<strong>not all of Xcode</strong>), which includes Git.</p>
 <p>Go to the shell and enter one of these commands to elicit an offer to install developer command line tools:</p>
-<div class="sourceCode" id="cb687"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb687-1"><a href="groups.html#cb687-1"></a><span class="fu">git</span> --version</span>
-<span id="cb687-2"><a href="groups.html#cb687-2"></a><span class="fu">git</span> config</span></code></pre></div>
+<div class="sourceCode" id="cb708"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb708-1"><a href="groups.html#cb708-1"></a><span class="fu">git</span> --version</span>
+<span id="cb708-2"><a href="groups.html#cb708-2"></a><span class="fu">git</span> config</span></code></pre></div>
 <p>Accept the offer! Click on “Install”.</p>
 <p>Here’s another way to request this installation, more directly:</p>
-<div class="sourceCode" id="cb688"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb688-1"><a href="groups.html#cb688-1"></a><span class="ex">xcode-select</span> --install</span></code></pre></div>
+<div class="sourceCode" id="cb709"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb709-1"><a href="groups.html#cb709-1"></a><span class="ex">xcode-select</span> --install</span></code></pre></div>
 <p>We just happen to find this Git-based trigger apropos.</p>
 <p>Note also that, after upgrading macOS, you might need to re-do the above and/or re-agree to the Xcode license agreement. We have seen this cause the RStudio Git pane to disappear on a system where it was previously working. Use commands like those above to tickle Xcode into prompting you for what it needs, then restart RStudio.</p>
 <p><strong>Option 2</strong> (<em>recommended</em>): Install Git from here: <a href="http://git-scm.com/downloads" class="uri">http://git-scm.com/downloads</a>.</p>
@@ -555,9 +558,9 @@ Members will now have access to this project where you can share code. NOTE you 
 <h4>Linux<a href="groups.html#linux" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Install Git via your distro’s package manager.</p>
 <p>Ubuntu or Debian Linux:</p>
-<div class="sourceCode" id="cb690"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb690-1"><a href="groups.html#cb690-1"></a><span class="fu">sudo</span> apt-get install git</span></code></pre></div>
+<div class="sourceCode" id="cb711"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb711-1"><a href="groups.html#cb711-1"></a><span class="fu">sudo</span> apt-get install git</span></code></pre></div>
 <p>Fedora or RedHat Linux:</p>
-<div class="sourceCode" id="cb691"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb691-1"><a href="groups.html#cb691-1"></a><span class="fu">sudo</span> yum install git</span></code></pre></div>
+<div class="sourceCode" id="cb712"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb712-1"><a href="groups.html#cb712-1"></a><span class="fu">sudo</span> yum install git</span></code></pre></div>
 <p>A comprehensive list for various Linux and Unix package managers: <a href="https://git-scm.com/download/linux" class="uri">https://git-scm.com/download/linux</a></p>
 </div>
 </div>
@@ -572,11 +575,11 @@ Members will now have access to this project where you can share code. NOTE you 
 <!-- ``` -->
 <!-- substituting your name and **the email associated with your GitHub account**. -->
 <p>You can set your Git user name and email from within R using the <a href="https://usethis.r-lib.org">usethis package</a>:</p>
-<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="groups.html#cb692-1"></a><span class="co">## install if needed (do this exactly once):</span></span>
-<span id="cb692-2"><a href="groups.html#cb692-2"></a><span class="co">## install.packages(&quot;usethis&quot;)</span></span>
-<span id="cb692-3"><a href="groups.html#cb692-3"></a></span>
-<span id="cb692-4"><a href="groups.html#cb692-4"></a><span class="kw">library</span>(usethis)</span>
-<span id="cb692-5"><a href="groups.html#cb692-5"></a><span class="kw">use_git_config</span>(<span class="dt">user.name =</span> <span class="st">&quot;Jane Doe&quot;</span>, <span class="dt">user.email =</span> <span class="st">&quot;jane@example.org&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb713-1"><a href="groups.html#cb713-1"></a><span class="co">## install if needed (do this exactly once):</span></span>
+<span id="cb713-2"><a href="groups.html#cb713-2"></a><span class="co">## install.packages(&quot;usethis&quot;)</span></span>
+<span id="cb713-3"><a href="groups.html#cb713-3"></a></span>
+<span id="cb713-4"><a href="groups.html#cb713-4"></a><span class="kw">library</span>(usethis)</span>
+<span id="cb713-5"><a href="groups.html#cb713-5"></a><span class="kw">use_git_config</span>(<span class="dt">user.name =</span> <span class="st">&quot;Jane Doe&quot;</span>, <span class="dt">user.email =</span> <span class="st">&quot;jane@example.org&quot;</span>)</span></code></pre></div>
 <p>What user name should you give to Git? This does not have to be your GitHub user name, although it can be. Another good option is your actual first name and last name. If you commit from different machines, sometimes people work that info into the user name. Your commits will be labelled with this user name, so make it informative to potential collaborators and future you.</p>
 <p>What email should you give to Git? This <strong>must</strong> be the email associated with your GitHub account.</p>
 <p>These commands return nothing. You can check that Git understood what you typed by looking at the output of <code>git config --global --list</code> from a shell. An easy way to get into a shell from RStudio is **Tools &gt; Terminal* or *Tools &gt; Shell**. If you have any problems go though Chapters 4-14 on the <a href="https://happygitwithr.com">Happy Git site</a>.</p>
@@ -651,10 +654,10 @@ Members will now have access to this project where you can share code. NOTE you 
 <p>Why? Establish this habit for the future! If you make changes to the repo in the browser or from another machine or (one day) a collaborator has pushed, you will be happier if you pull those changes in before you attempt to push.</p>
 <p>Click the blue “Pull” button in the “Git” tab in RStudio. I doubt anything will happen, i.e. you’ll get the message “Already up-to-date.” This is just to establish a habit.</p>
 <p>Click the green “Push” button to send your local changes to GitHub. You should see some message along these lines.</p>
-<div class="sourceCode" id="cb693"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb693-1"><a href="groups.html#cb693-1"></a>[<span class="ex">master</span> dc671f0] blah</span>
-<span id="cb693-2"><a href="groups.html#cb693-2"></a> <span class="ex">3</span> files changed, 22 insertions(+)</span>
-<span id="cb693-3"><a href="groups.html#cb693-3"></a> <span class="ex">create</span> mode 100644 .gitignore</span>
-<span id="cb693-4"><a href="groups.html#cb693-4"></a> <span class="ex">create</span> mode 100644 myrepo.Rproj</span></code></pre></div>
+<div class="sourceCode" id="cb714"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb714-1"><a href="groups.html#cb714-1"></a>[<span class="ex">master</span> dc671f0] blah</span>
+<span id="cb714-2"><a href="groups.html#cb714-2"></a> <span class="ex">3</span> files changed, 22 insertions(+)</span>
+<span id="cb714-3"><a href="groups.html#cb714-3"></a> <span class="ex">create</span> mode 100644 .gitignore</span>
+<span id="cb714-4"><a href="groups.html#cb714-4"></a> <span class="ex">create</span> mode 100644 myrepo.Rproj</span></code></pre></div>
 <p><strong>Step 5</strong>: Confirm the local change propagated to the GitHub remote</p>
 <p>Go back to the browser. I assume we’re still viewing your new GitHub repo.</p>
 <p>Refresh.</p>
