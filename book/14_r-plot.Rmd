@@ -9,6 +9,14 @@ editor_options:
 ```{r links, child="links.md"}
 ```
 
+```{r, include=FALSE}
+module_number_prefix <- "14"
+module_number <- as.numeric(module_number_prefix)
+module_name <- "r-plot"
+here::i_am(str_c("book/", module_number_prefix, "_", module_name, ".Rmd"))
+project_name_prefix <- str_c("TM", module_number)
+```
+
 # Data visualization using ggplot {#mod-r-plot}
 
 This module considers visualization of your data using the [ggplot2][tidyverse-ggplot2] package which is a part of [tidyverse][tidyverse-main-page]. R has several systems for making plots, but ggplot2 is one of the most elegant and most versatile. Using ggplot2 you can make plots faster by learning one system and applying it in many different plot types.
@@ -1188,5 +1196,443 @@ following categories: "18 and under", "19 - 25", "26 - 35", "36 - 50", "51 and o
 Then, create a data visualization that answers the question, and explain how 
 your visualization answers the question.
 
+
+
+
+### Exercise (company ranking) {#ex-company-plot}
+
+*This exercise is a slightly modified version an exam assignment (exam 2021-A3).*
+
+The dataset `companies`, in the `tfa` package, lists approx. 1000 of the world's biggest companies, measured by sales, profits, assets and market value. The column/variables are:
+
+* `name`: the name of the company.
+* `country`: the country the company is situated in.
+* `category`: the products the company produces.
+* `sales`: the amount of sales of the company in billion USD.
+* `profits`: the profit of the company in billion USD.
+* `assets`: the assets of the company in billion USD.
+* `marketvalue`: the market value of the company in billion USD.
+
+You can load the dataset using:
+
+```{r}
+# remotes::install_github("bss-osca/tfa-package", build = FALSE)  # run if tfa not installed
+library(tidyverse)
+companies <- read_csv(system.file("extdata/companies.csv", package = "tfa"))
+```
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you might need dplyr for preparing the datasets you want to plot). 
+
+<!-- Q1 -->
+```{r, solution=TRUE, text="Based on the plot, the lowest number of companies are in the _Trading companies_ category."}
+companies %>% 
+  count(category) %>% 
+  ggplot(aes(x = reorder(category, -n), y = n)) +
+  geom_col() +
+  labs(title = "Number of companies in each product category",
+       x = "Product category",
+       y = "") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+1) Create a visualization showing the number of companies for each product category with the following features:
+
+   * Number of companies is represented using bars and sorted increasingly or decreasingly.
+   * Informative figure title and axis titles are given.
+   * The labels on the x-axis are rotated 90 degrees.
+
+   What product category has the lowest number of companies?
+
+
+<!-- Q2 -->
+```{r, solution=TRUE, text="Based on the plot the _Drugs & biotechnology_ product category gives the best profit."}
+companies %>% 
+  filter(category %in% c("Drugs & biotechnology", "Media")) %>% 
+  ggplot(aes(x = sales, y = profits, color = category)) +
+  geom_point() +
+  geom_smooth() +
+  labs(title = "Profit given sales",
+       x = "Sales (billion USD)",
+       y = "Profit (billion USD)",
+       color = "Product Category") +
+  theme(legend.position = "bottom")
+```
+
+2) Consider product categories `Drugs & biotechnology` and `Media`. Create a visualization showing the profit given sales of each company with the following features:
+
+   * Different colors are used for each product category. 
+   * Informative figure title and axis titles are given.
+   * A trend line for each category is added using `geom_smooth`.
+   
+   Based on the trend lines which product category gives the best profit? 
+
+
+
+<!-- Q3 -->
+```{r, solution=TRUE, text="Given the plot above, it can be seen that the highest ratio with respect to the mean and the median is for _Banking_. However, the variation is also highest here."}
+companies <- companies %>% 
+  mutate(ratio = profits/sales) 
+
+# Option 1 - Use a boxplot
+companies %>% 
+  filter(category %in% c("Banking", "Aerospace & defense")) %>% 
+  ggplot(aes(y = ratio, color = category)) +
+  geom_boxplot() +
+  labs(title = "Ratio of profit/sales",
+       x = "",
+       y = "Profit/sales ratio",
+       color = "Product Category") +
+  theme(legend.position = "bottom")
+
+# Option 2 - Use a density plot
+companies %>% 
+  filter(category %in% c("Banking", "Aerospace & defense")) %>% 
+  ggplot(aes(x = ratio, fill = category)) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Ratio of profit/sales",
+       y = "Density",
+       x = "Profit/sales ratio",
+       fill = "Product Category") +
+  theme(legend.position = "bottom")
+```
+
+3) Consider product categories `Banking` and `Aerospace & defense`. Let `ratio` denote a variable/column that equals profit divided by sales. Create a visualization showing the variation in `ratio` with the following features:
+
+   * Different colors are used for each product category. 
+   * Informative figure title and axis titles are given.
+   
+   Based on the visualization comment on the variation and median. Which product category gives the highest ratio? 
+
+
+<!-- Q4 -->
+```{r, solution=TRUE, warning=FALSE, text="By considering the trend lines for _Banking_, it seems that if compare companies with the same marketvalue, then companies in Europe have more assets."}
+continents <- read_csv(system.file("extdata/continents.csv", package = "tfa"))
+companies %>% 
+  left_join(continents) %>% 
+  filter(continent %in% c("Americas", "Europe")) %>% 
+  filter(category %in% c("Banking", "Aerospace & defense", 
+                         "Telecommunications services", "Semiconductors")) %>% 
+  ggplot(aes(x = marketvalue, y = assets, color = continent)) +
+  geom_point() +
+  geom_smooth(method = lm) +
+  facet_wrap(vars(category), scales = "free") +
+  labs(title = "Assets given market value",
+       x = "Market value (billion USD)",
+       y = "Assets (billion USD)",
+       color = "Continent") +
+  theme(legend.position = "bottom")
+```
+
+4) The `continents` dataset matches countries to continents and contains two columns:
+
+   * `country`: the country.
+   * `continent`: the corresponding continent.
+   
+   You can load the dataset using:
+   
+   ```{r}
+   continents <- read_csv(system.file("extdata/continents.csv", package = "tfa"))
+   ```
+   
+   Consider product categories `Banking`, `Aerospace & defense`, `Telecommunications services` and `Semiconductors`. Create a visualization showing assets given market value for each company with the following features (hint: you may need to do a mutating join):
+   
+   * Two continents `Americas` and `Europe` are considered.
+   * Different colors are used for each continent. 
+   * A plot is given for each product category (facet).
+   * Informative figure title and axis titles are given.
+   * A trend line for each category is added using `geom_smooth(method = lm)`.
+   
+   Based on the visualization consider the trend lines for _Banking_ and comment.
+
+
+### Exercise (Titanic) {#ex-titanic-plot}
+
+*This exercise is a slightly modified version an exam assignment (reexam 2021-A3).*
+
+The dataset `titanic`, given in the appendix, lists approx. 1300 passengers on Titanic. The column/variables are:
+
+* `pclass`: Passenger class (1 = 1st; 2 = 2nd; 3 = 3rd).
+* `survived`: Survival (0 = No; 1 = Yes).
+* `name`: Name.
+* `sex`: Sex.
+* `age`: Age.
+* `fare`: Passenger Fare.
+* `cabin`: Cabin number.
+* `embarked`: Port of embarkation (C = Cherbourg; Q = Queenstown; S = Southampton).
+* `boat`: Lifeboat number.
+
+You can read the dataset file `titanic.csv` into the dataset `dat` using
+
+```{r}
+# remotes::install_github("bss-osca/tfa-package", build = FALSE)  # run if tfa not installed
+library(tidyverse)
+dat <- read_csv(system.file("extdata/titanic.csv", package = "tfa"))
+```
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you might need dplyr for preparing the datasets you want to plot). 
+
+<!-- Q1 -->
+```{r, solution=TRUE, text="The main harbor was Southampton."}
+dat <- dat %>% mutate(harbor = case_when(
+  embarked == "C" ~ "Cherbourg",
+  embarked == "Q" ~ "Queenstown",
+  embarked == "S" ~ "Southampton",
+  TRUE ~ NA_character_
+))
+dat %>% 
+  ggplot(aes(x = harbor)) +
+  geom_bar() +
+  labs(title = "Number of persons embarking each departure harbor",
+       x = "Harbor",
+       y = "Persons") 
+```
+
+1) Create a visualization showing the number of persons embarking the different harbors with the following features:
+
+   * Number of persons is represented using bars.
+   * Informative figure title and axis titles are given.
+   * The labels on the x-axis are the harbor names (not abbreviations).
+   
+   What harbor was the main departure harbor?
+
+
+<!-- Q2 -->
+```{r, solution=TRUE, text="There where most people in their twenties."}
+dat %>% 
+  ggplot(aes(x = age)) +
+  geom_histogram(binwidth = 2) +
+  labs(title = "Age distribution",
+       x = "Age",
+       y = "Persons") 
+```
+
+2) Create a visualization showing the age distribution of the persons with the following features:
+
+   * Number of persons is represented using a histogram.
+   * Informative figure title and axis titles are given.
+   
+   Where there most people on board in their twenties or thirties?
+
+
+<!-- Q3 -->
+3) Create a visualization showing the fare as a function of age with the following features:
+
+   * Different colors are used for each sex. 
+   * Informative figure title and axis titles are given.
+   * A trend line for each sex is added using `geom_smooth`.
+   
+   Based on the trend lines, do females in general pay more for a ticket?
+
+```{r, solution=TRUE, text="Based on the trend lines females in general pays more than males."}
+dat %>% ggplot(aes(x = age, y = fare, color = sex)) +
+  geom_point() + 
+  geom_smooth() +
+  labs(title = "Fare prices given age",
+       x = "Age",
+       y = "Price",
+       color = "Sex") + 
+  theme(legend.position = "bottom")
+```
+
+
+<!-- Q4 -->
+```{r, solution=TRUE, text="Based on the plot most people survived at first classs."}
+dat %>% 
+  ggplot(aes(x = pclass, fill = as.logical(survived))) +
+  geom_bar(position="fill") +
+  labs(title = "Survival rate given passenger class",
+       x = "Class",
+       y = "",
+       fill = "Survived") + 
+  theme(legend.position = "bottom")
+```
+
+4) Create a visualization showing the survival rate for each passenger class with the following features:
+
+   * Bars are used for each passenger class. 
+   * All bars have same height (100 %).
+   * Colors are used to identify who survived and did not survived.
+   * Informative figure title and axis titles are given.
+   
+   Is the survival rate different on first and third class?
+
+
+<!-- Q5 -->
+```{r, solution=TRUE, text="Based on the plot the fare prices at B and C level are more or less the same."}
+dat <- dat %>% 
+  mutate(level = str_sub(cabin, 1, 1)) 
+
+  dat %>% filter(!is.na(level)) %>% 
+    ggplot(aes(x = level, y = fare)) +
+    geom_boxplot() 
+```
+
+5) Let column `level` denote the the first letter in `cabin`. Create a visualization showing the variance in fare prices with the following features:
+
+   * Ignore rows with missing `level`.
+   * Variation is shown using a boxplot. 
+   * Informative figure title and axis titles are given.
+   
+   Is the fare price different at the B and C level?
+
+
+
+### Exercise (covid) {#ex-r-covid-plot}
+
+*This exercise is a slightly modified version an exam assignment (reexam 2022-A3).*
+
+Consider COVID-19 data obtained from Our World in Data in the file `covid.csv`. The dataset contains data from different countries. Some of the columns/variables are:
+
+  * `cases`: New confirmed cases of COVID-19.
+  * `deaths`:  New deaths attributed to COVID-19.
+  * `icu_patients`: Number of COVID-19 patients in intensive care units (ICUs) on a given day.
+  * `hosp_patients`: Number of COVID-19 patients in hospital on a given day.
+  * `tests`: Total tests for COVID-19.
+  * `positive_rate`: The share of COVID-19 tests that are positive, given as a rolling 7-day average.
+  * `vac`: Total number of people who received at least one vaccine dose.
+  * `fully_vac`: Total number of people who received all doses prescribed by the vaccination protocol.
+  * `population`: Country population.
+
+Other columns are `date`, `country`, `month` and `year`. You can read the dataset file using
+
+```{r}
+# remotes::install_github("bss-osca/tfa-package", build = FALSE)  # run if tfa not installed
+library(tidyverse)
+dat <- read_csv(system.file("extdata/covid.csv", package = "tfa"))
+```
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). 
+
+<!-- Q1 -->
+```{r, solution=TRUE, text="The number of cases in July 2020 are low."}
+dat %>%
+   filter(country == "Denmark", !is.na(cases)) %>% 
+   ggplot(aes(y = cases, x = date)) +
+   geom_line(color = "blue") +
+   labs(title = "Number of cases in Denmark",
+       x = "Date",
+       y = "Cases"
+    )
+```
+
+1) Create a visualization showing the number of cases for each date in Denmark with the following features:
+
+   * A blue line is used to visualize the data.
+   * Informative figure title and axis titles are given.
+   
+   Is the number of cases low or high in July 2020 in the plot?
+
+
+
+<!-- Q2 -->
+```{r, solution=TRUE, text="The highest relative number of deaths are for the United Kingdom."}
+dat %>%
+   group_by(country) %>%
+   mutate(total_deaths = cumsum(replace_na(deaths, 0))) %>%
+   mutate(total_deaths_cap = total_deaths/(population/100000)) %>% 
+   ggplot(aes(x = date, y = total_deaths_cap, color = country)) +
+   geom_line() +
+   labs(title = "Total number of deaths per 100000",
+       x = "Date",
+       y = "Deaths per 100000 capita",
+       color = "Country"
+    ) +
+   theme(legend.position = "bottom") 
+```
+
+2) Create a visualization showing the total number of deaths per 100000 capita as a function of date with the following features:
+
+   * Different colours are used for each country.
+   * Lines are used to visualize the data.
+   * Legends are put at the bottom of the plot.
+   * Informative figure title and axis titles are given.
+   
+   Hint: you may use the `cumsum` function to add all deaths up until a given date. You may here consider `NA` values in the `deaths` column as equal to zero (e.g. using `replace_na(deaths, 0)`). 
+   
+   Which country has the highest relative number of deaths in general? 
+
+
+
+<!-- Q3 -->
+```{r, solution=TRUE, text="The plot showes that Denmark has the highest percentage of vaccinated people and the lowest gap between partly and full vaccinated."}
+dat %>% 
+   filter(year == 2021) %>% 
+   mutate(partly = vac/population, 
+          full = fully_vac/population) %>%
+   pivot_longer(cols = c(partly, full)) %>% 
+   ggplot() + 
+   geom_line(aes(x = date, y = value, color = name)) + 
+   facet_wrap(vars(country)) +
+   labs(title = "Percentage of vaccinated people",
+       x = "Date",
+       y = "%",
+       color = "Vac. type") +
+   theme(legend.position = "bottom") 
+```
+
+3) Create a visualization showing the percentage of persons vaccinated as a function of date with the following features:
+
+   * We consider 2021. 
+   * Different colours are used to differ between vaccinated and fully vaccinated.
+   * The plot is divided using `country` (facet).
+   * Lines are used to visualize the data.
+   * Informative figure title and axis titles are given.
+   
+   Hint: If you calculated the two percentages in two new columns `partly` and `full`, then the values can be joined to one column using
+   
+   ```{r, eval=FALSE}
+   dat %>% 
+      pivot_longer(cols = c(partly, full))
+   ```
+   
+   Which country has the highest percentage of vaccinated people and the lowest gap between partly and fully vaccinated?
+
+
+
+<!-- Q4 -->
+```{r, solution=TRUE, text="In 2021 the mean value of the ICU patients was highest when considering October."}
+dat %>%
+   filter(country == "Germany") %>% 
+  ggplot(aes(y = icu_patients)) +
+  geom_boxplot() +
+  facet_grid(month ~ year, scales = "free_y") +
+  labs(title = "ICU patients given year and month",
+       x = "",
+       y = "Patients") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(), 
+        legend.position = "bottom")
+```
+
+4) Consider Germany. Create a visualization showing the variation in ICU patients with the following features:
+
+   * A sub-plot is given for each month and year (facet).
+   * Informative figure title and axis titles are given.
+   
+   In which year did the ICU have the most patients when considering October?
+
+
+<!-- Q5 -->
+```{r, solution=TRUE, text="Norway had the lowest number of deaths in 2021."}
+dat %>%
+   group_by(country, year) %>% 
+   summarise(deaths = sum(deaths/(population/100000) , na.rm = TRUE)) %>% 
+   ggplot(aes(y = deaths, x = country, fill = factor(year))) +
+   geom_col(position = position_dodge()) +
+   labs(title = "Total number of deaths",
+    x = "",
+    y = "Deaths",
+    fill = "Year") +
+   theme(legend.position = "bottom")
+```
+
+5) Create a visualization showing the total number of deaths per 100000 capita for each country and year with the following features:
+
+   * The numbers are shown using columns for each country
+   * Different fill colours are used for year. Hint: columns for each year can be shown beside each other using `position = position_dodge()`.
+   * Informative figure title and axis titles are given.
+   
+   Which country had the lowest number of deaths in 2021?
 
 
