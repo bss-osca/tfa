@@ -106,7 +106,7 @@ End Sub
 and a simple function with two arguments:
 
 ```
-Function TM4_SimpleFunc(dblA As Double, dblB As Double) As Integer
+Function TM4_SimpleFunc(dblA As Double, dblB As Double) As Double
    TM4_SimpleFunc = dblA + dblB  ' return variable equals function name
 End Function
 ```
@@ -121,7 +121,7 @@ Sub TM4_CallSimpleProc()
    MsgBox ("Ready")
    Call TM4_SimpleSub("SimpleSub")  ' call a sub within a procedure
    dblV = TM4_SimpleFunc(3, 4)      ' call a function within a procedure
-   MsgBox ("Value is " & intV)
+   MsgBox ("Value is " & dblV)
 End Sub
 ```
 
@@ -230,14 +230,14 @@ Sub TM4_FormatCell(rng As Range, Optional intInteriorColor As Integer = 0, _
 End Sub
 
 '' Run using F5
-Sub TestingFormatCell()
+Sub TM4_TestingFormatCell()
     Dim rng As Range
     
     Worksheets("TM4").Activate
-    Call FormatCell(Range("A16"))       ' use default values
-    Call FormatCell(Range("B16"), 46)   ' use background color index 46
-    Call FormatCell(Range("C16"), , 21) ' set font color
-    Call FormatCell(rng:=Range("D16"), intFontSize:=16, intFontColor:=23)  ' call sub using argument names explicit
+    Call TM4_FormatCell(Range("A16"))  ' use default values
+    Call TM4_FormatCell(Range("B16"), 46)       ' use background color index 46
+    Call TM4_FormatCell(Range("C16"), , 21)      ' set font color
+    Call TM4_FormatCell(rng:=Range("D16"), intFontSize:=16, intFontColor:=23)   ' call sub using argument names explicit
 End Sub
 ```
 
