@@ -21,7 +21,7 @@ Function Col2Str(col As Collection, Optional strSep As String = ", ") As String
     For Each e In col
         str = str & e & strSep
     Next e
-    Coll2Str = Left(str, Len(str) - Len(strSep))
+    Col2Str = Left(str, Len(str) - Len(strSep))
 End Function
 
 

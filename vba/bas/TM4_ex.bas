@@ -9,7 +9,7 @@ Sub TM4_SimpleSub(str As String)
 End Sub
 
 
-Function TM4_SimpleFunc(dblA As Double, dblB As Double) As Integer
+Function TM4_SimpleFunc(dblA As Double, dblB As Double) As Double
    TM4_SimpleFunc = dblA + dblB  ' return variable equals function name
 End Function
 
@@ -21,7 +21,7 @@ Sub TM4_CallSimpleProc()
    MsgBox ("Ready")
    Call TM4_SimpleSub("SimpleSub")  ' call a sub within a procedure
    dblV = TM4_SimpleFunc(3, 4)      ' call a function within a procedure
-   MsgBox ("Value is " & intV)
+   MsgBox ("Value is " & dblV)
 End Sub
 
 
@@ -38,7 +38,7 @@ End Function
 '' Product of two numbers which are stored in dblV (since ByRef is the default).
 ' @param i First number.
 ' @param j Second number.
-' @param dblV Stores the product.
+' @param dblV Stores the product (return ByRef).
 ' @remarks The numbers are doubles.
 Sub TM4_ProductSub(i As Double, j As Double, dblV As Double)
     dblV = i * j
@@ -118,25 +118,25 @@ Sub TM4_TestingFormatCell()
     Dim rng As Range
     
     Worksheets("TM4").Activate
-    Call FormatCell(Range("A16"))  ' use default values
-    Call FormatCell(Range("B16"), 46)       ' use background color index 46
-    Call FormatCell(Range("C16"), , 21)      ' set font color
-    Call FormatCell(rng:=Range("D16"), intFontSize:=16, intFontColor:=23)   ' call sub using argument names explicit
+    Call TM4_FormatCell(Range("A16"))  ' use default values
+    Call TM4_FormatCell(Range("B16"), 46)       ' use background color index 46
+    Call TM4_FormatCell(Range("C16"), , 21)      ' set font color
+    Call TM4_FormatCell(rng:=Range("D16"), intFontSize:=16, intFontColor:=23)   ' call sub using argument names explicit
 End Sub
 
 
 '' Run using F5
 Sub TM4_SeeColorIndex()
-   Dim R As Integer
+   Dim r As Integer
    Dim c As Integer
    Dim i As Integer
    
    Worksheets("TM4").Activate
    i = 1
-   For R = 18 To 40
+   For r = 18 To 40
       For c = 2 To 5
-         Cells(R, c) = i
-         Call TM4_FormatCell(rng:=Cells(R, c), intInteriorColor:=i, intFontColor:=1 + i Mod 4)
+         Cells(r, c) = i
+         Call TM4_FormatCell(rng:=Cells(r, c), intInteriorColor:=i, intFontColor:=1 + i Mod 4)
          If i = 56 Then
             Exit Sub
          End If
@@ -163,24 +163,24 @@ End Function
 
 ' Try running it using F5 or the debugger (Ctrl + F8 (win) or cmd + shift + I (mac))
 Private Sub TM4_TestBy()
-    Dim N As Integer
+    Dim n As Integer
     Dim i As Integer
     
     i = 5
     MsgBox ("In the start i is " & i)
-    N = TM4_ByVal(i)
+    n = TM4_ByVal(i)
     MsgBox ("Try gussing the values of n and i")
-    MsgBox ("After TM4_ByVal i is " & i & " and " & N & " is returned.")
-    N = TM4_ByRef(i)
+    MsgBox ("After TM4_ByVal i is " & i & " and " & n & " is returned.")
+    n = TM4_ByRef(i)
     MsgBox ("Try gussing the values of n and i")
-    MsgBox ("After TM4_ByRef i is " & i & " and " & N & " is returned.")
+    MsgBox ("After TM4_ByRef i is " & i & " and " & n & " is returned.")
 End Sub
 
 
 '' Test worksheetfunctions
 ' You can always get help by putting the crusor in the function name and press F1
 Sub TM4_TestWorksheetfunctions()
-   Dim R As Integer
+   Dim r As Integer
    Dim c As Integer
    
    Worksheets("TM4").Activate
@@ -188,9 +188,9 @@ Sub TM4_TestWorksheetfunctions()
    MsgBox ("Sumproduct: " & WorksheetFunction.SumProduct(Range("B33:E33"), Range("B34:E34")))
    MsgBox ("Max: " & WorksheetFunction.Max(Range("B33:E38")))
    
-   For R = 40 To 45
+   For r = 40 To 45
       For c = 2 To 4
-         Cells(R, c) = WorksheetFunction.RandBetween(0, 9)
+         Cells(r, c) = WorksheetFunction.RandBetween(0, 9)
       Next
    Next
 End Sub
@@ -209,20 +209,25 @@ Sub TM4_TestVBAfunctions()
 End Sub
 
 
+
+
+
 '''' Example - Selection of test persons
 
 '' Find cover of test person
+' @param intId Test person id.
+' @return Number of new infected persons covered.
 Function TM4_TestCover(intId As Integer) As Integer
    Dim intI As Integer     ' number of infected
    Dim intC As Integer     ' number of covered
    Dim dblHeight As Double ' height of test person
-   Dim R As Integer
+   Dim r As Integer
    
    intI = Range("D1")
    dblHeight = Range("G" & intId + 6)
    intC = 0
-   For R = 7 To intI + 6    ' loop through all infected
-      If Cells(R, 2) >= dblHeight - 2 And Cells(R, 2) <= dblHeight + 2 And Cells(R, 3) <> 1 Then
+   For r = 7 To intI + 6    ' loop through all infected
+      If Cells(r, 2) >= dblHeight - 2 And Cells(r, 2) <= dblHeight + 2 And Cells(r, 3) <> 1 Then
          intC = intC + 1
       End If
    Next
@@ -238,7 +243,7 @@ Sub TM4_FindTestPersons()
    Dim intC As Integer  ' number of covered
    Dim intBestId As Integer ' best id found
    Dim intBestC As Integer  ' best cover value found
-   Dim R As Integer
+   Dim r As Integer
 
    Worksheets("TM4_Virus").Activate
    intI = Range("D1")
@@ -247,19 +252,19 @@ Sub TM4_FindTestPersons()
    Do While intS < Range("D3")    ' stop when have found needed test persons
       intBestId = -1
       intBestC = -1
-      For R = 7 To intT + 6       ' loop through all test volunteers
-         If Cells(R, 8) <> 1 Then ' not selected already
-            intC = TM4_TestCover(Cells(R, 6))
+      For r = 7 To intT + 6       ' loop through all test volunteers
+         If Cells(r, 8) <> 1 Then ' not selected already
+            intC = TM4_TestCover(Cells(r, 6))
             If intBestC < intC Then ' found a better person
                intBestC = intC
-               intBestId = Cells(R, 6)
+               intBestId = Cells(r, 6)
             End If
          End If
       Next
       Cells(intBestId + 6, 8) = 1  ' select best
-      For R = 7 To intI + 6  ' add ones in covered column
-          If Abs(Cells(R, 2) - Cells(intBestId + 6, 7)) <= 2 Then
-              Cells(R, 3) = 1
+      For r = 7 To intI + 6  ' add ones in covered column
+          If Abs(Cells(r, 2) - Cells(intBestId + 6, 7)) <= 2 Then
+              Cells(r, 3) = 1
           End If
       Next
       intS = intS + 1
@@ -288,3 +293,5 @@ Sub TM4_ClearSheetTM4Virus()
     Call RngClear(Worksheets("TM4_Virus").Range("C7:C36"), False, True)
     Call RngClear(Worksheets("TM4_Virus").Range("H7:H16"), False, True)
 End Sub
+
+

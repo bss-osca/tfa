@@ -105,14 +105,14 @@ End Sub
 
 '' Write the row number in column A and exit after row 10 even though the loop runs to 20
 Sub TM3_WriteNumbers1()
-   Dim R As Integer
+   Dim r As Integer
    
    Worksheets("TM3").Activate  ' activate the sheet we want to use
-   For R = 6 To 20
-      If R > 10 Then
+   For r = 6 To 20
+      If r > 10 Then
          Exit For
       End If
-      Cells(R, 1) = R  ' write to row r, col 1 (A)
+      Cells(r, 1) = r  ' write to row r, col 1 (A)
    Next
 End Sub
 
@@ -132,30 +132,30 @@ End Sub
 
 '' Write the row number in column B and exit after row 10
 Sub TM3_WriteNumbers2()
-    Dim R As Integer
+    Dim r As Integer
     
     Worksheets("TM3").Activate
-    R = 6
-    Do While R < 11
-        Cells(R, 2) = R ' write to row r, col 2 (B)
-        R = R + 1
+    r = 6
+    Do While r < 11
+        Cells(r, 2) = r ' write to row r, col 2 (B)
+        r = r + 1
     Loop
 End Sub
 
 
 '' Write the 2, 4, ... in column C and exit after 21 or if equals 12
 Sub TM3_WriteNumbers3()
-    Dim i As Integer, R As Integer
+    Dim i As Integer, r As Integer
     
     Worksheets("TM3").Activate
-    R = 6
+    r = 6
     i = 2
     Do While i < 21
-        Cells(R, 3) = i ' write to row r, col 3 (C)
+        Cells(r, 3) = i ' write to row r, col 3 (C)
         If i = 12 Then
             Exit Do
         End If
-        R = R + 1
+        r = r + 1
         i = i + 2
     Loop
 End Sub
@@ -186,14 +186,14 @@ End Sub
 
 '' Seperate persons into two groups (names are written in 2 columns)
 Sub TM3_SeparatePersons1()
-    Dim R As Integer
+    Dim r As Integer
     
     Worksheets("TM3_Separate1").Activate ' activate the correct sheet
-    For R = 2 To 12 ' scan rows 2-12
-        If Cells(R, 2) = "Professor" Then
-            Cells(R, 3) = Cells(R, 1) ' output in row C
+    For r = 2 To 12 ' scan rows 2-12
+        If Cells(r, 2) = "Professor" Then
+            Cells(r, 3) = Cells(r, 1) ' output in row C
         Else
-            Cells(R, 4) = Cells(R, 1) ' output in row D
+            Cells(r, 4) = Cells(r, 1) ' output in row D
         End If
     Next
 End Sub
@@ -201,16 +201,16 @@ End Sub
 
 '' Seperate persons into 3 groups (names are written in 3 columns)
 Sub TM3_SeparatePersons2()
-    Dim R As Integer
+    Dim r As Integer
     
     Worksheets("TM3_Separate2").Activate ' activate the correct sheet
-    For R = 2 To 12
-        If Cells(R, 2) = "Professor" Then
-            Cells(R, 3) = Cells(R, 1) ' output in row C
-        ElseIf Cells(R, 2) = "Associate Professor" Then
-            Cells(R, 4) = Cells(R, 1) ' output in row D
+    For r = 2 To 12
+        If Cells(r, 2) = "Professor" Then
+            Cells(r, 3) = Cells(r, 1) ' output in row C
+        ElseIf Cells(r, 2) = "Associate Professor" Then
+            Cells(r, 4) = Cells(r, 1) ' output in row D
         Else
-            Cells(R, 5) = Cells(R, 1) ' output in row E
+            Cells(r, 5) = Cells(r, 1) ' output in row E
         End If
     Next
 End Sub
@@ -218,20 +218,20 @@ End Sub
 
 '' Seperate persons into 5 groups (names are written in 5 columns)
 Sub TM3_SeparatePersons3()
-    Dim R As Integer
+    Dim r As Integer
     
     Worksheets("TM3_Separate3").Activate ' activate the correct sheet
-    For R = 2 To 12
-        If Cells(R, 2) = "Professor" Then
-            Cells(R, 3) = Cells(R, 1)
-        ElseIf Sheet1.Cells(R, 2) = "Associate Professor" Then
-            Cells(R, 4) = Cells(R, 1)
-        ElseIf Sheet1.Cells(R, 2) = "Post Doc" Then
-            Cells(R, 5) = Cells(R, 1)
-        ElseIf Sheet1.Cells(R, 2) = "PhD student" Then
-            Cells(R, 6) = Cells(R, 1)
+    For r = 2 To 12
+        If Cells(r, 2) = "Professor" Then
+            Cells(r, 3) = Cells(r, 1)
+        ElseIf Sheet1.Cells(r, 2) = "Associate Professor" Then
+            Cells(r, 4) = Cells(r, 1)
+        ElseIf Sheet1.Cells(r, 2) = "Post Doc" Then
+            Cells(r, 5) = Cells(r, 1)
+        ElseIf Sheet1.Cells(r, 2) = "PhD student" Then
+            Cells(r, 6) = Cells(r, 1)
         Else
-            Cells(R, 7) = Cells(R, 1)
+            Cells(r, 7) = Cells(r, 1)
         End If
     Next
 End Sub
@@ -241,12 +241,12 @@ End Sub
 
 '' Find cell with Jen using a For loop
 Sub TM3_FindJen1()
-    Dim R As Integer
+    Dim r As Integer
     
     Worksheets("TM3_Separate1").Activate ' activate the correct sheet
-    For R = 2 To 12
-        If InStr(Cells(R, 1), "Jen ") > 0 Then  ' InStr returns first char position at which match is found (0 if no match)
-            MsgBox "Jen is a " & Cells(R, 2) & " (Row " & R & ")"
+    For r = 2 To 12
+        If InStr(Cells(r, 1), "Jen ") > 0 Then  ' InStr returns first char position at which match is found (0 if no match)
+            MsgBox "Jen is a " & Cells(r, 2) & " (Row " & r & ")"
             Exit For   ' exit the loop
         End If
     Next
@@ -255,28 +255,28 @@ End Sub
 
 '' Find cell with Jen using a While loop
 Sub TM3_FindJen2()
-    Dim R As Integer
+    Dim r As Integer
     
-    R = 2
-    Do While InStr(Cells(R, 1), "Jen ") = 0
-        R = R + 1
+    r = 2
+    Do While InStr(Cells(r, 1), "Jen ") = 0
+        r = r + 1
     Loop
-    MsgBox "Jen is a " & Cells(R, 2) & " (Row " & R & ")"
+    MsgBox "Jen is a " & Cells(r, 2) & " (Row " & r & ")"
 End Sub
 
 
 '' Find cell with Jen using a While loop and better stopping criteria
 Sub TM3_FindJen3()
-    Dim R As Integer
+    Dim r As Integer
     
-    R = 2
-    Do While InStr(Cells(R, 1), "Jen ") = 0 And R < 13
-        R = R + 1
+    r = 2
+    Do While InStr(Cells(r, 1), "Jen ") = 0 And r < 13
+        r = r + 1
     Loop
-    If (R = 13) Then
+    If (r = 13) Then
         MsgBox ("Jen not found")
     Else
-        MsgBox "Jen is a " & Cells(R, 2) & " (Cell A" & R & ")"
+        MsgBox "Jen is a " & Cells(r, 2) & " (Cell A" & r & ")"
     End If
 End Sub
 
@@ -304,20 +304,20 @@ End Function
 ' @pre Assume that coordinates are stored in column B and C starting from row 2
 '      and that number of points are stored in E1.
 Sub TM3_MakeDistanceMatrix()
-    Dim N As Integer
+    Dim n As Integer
     Dim i As Integer
     Dim j As Integer
       
     ThisWorkbook.Worksheets("TM3_DistanceMatrix").Activate
-    N = Range("E1")
-    For i = 1 To N  ' add row and column numbers
+    n = Range("E1")
+    For i = 1 To n  ' add row and column numbers
         Cells(i + 1, 6) = Cells(1 + i, 1) ' row equals i+1
         Cells(1, 6 + i) = Cells(1 + i, 1) ' column equals i+6
     Next
     
     ' add distances
-    For i = 1 To N
-        For j = 1 To N
+    For i = 1 To n
+        For j = 1 To n
            Cells(i + 1, j + 6) = TM3_Distance(Cells(i + 1, 2), Cells(i + 1, 3), Cells(j + 1, 2), Cells(j + 1, 3))
         Next
     Next
@@ -329,19 +329,19 @@ End Sub
 ' @pre Assume that coordinates are stored in column B and C starting from row 2
 '      and that number of points are stored in E1.
 Public Sub TM3_MakeSymetricDistanceMatrix()
-    Dim N As Integer
+    Dim n As Integer
     Dim i As Integer
     Dim j As Integer
       
     ThisWorkbook.Worksheets("TM3_DistanceMatrix").Activate
-    N = Range("E1")
-    For i = 1 To N
+    n = Range("E1")
+    For i = 1 To n
         Cells(i + 1, 6) = Cells(1 + i, 1)
         Cells(1, 6 + i) = Cells(1 + i, 1)
     Next
     
-    For i = 1 To N
-        For j = i + 1 To N
+    For i = 1 To n
+        For j = i + 1 To n
            Cells(i + 1, j + 6) = TM3_Distance(Cells(i + 1, 2), Cells(i + 1, 3), Cells(j + 1, 2), Cells(j + 1, 3))
         Next
     Next

@@ -83,15 +83,15 @@ End Sub
 
 '' Exercise - Conditional statements
 Sub TM3_CondQ1()
-   Dim R As Integer
+   Dim r As Integer
    Dim c As Integer
    Dim rngC As Range
    
    Worksheets("TM3_Numbers").Activate
    ' Copy numbers
-   For R = 1 To 35
+   For r = 1 To 35
      For c = 1 To 5
-        Cells(R, c + 6) = Cells(R, c)
+        Cells(r, c + 6) = Cells(r, c)
      Next
    Next
    ' Remove and format numbers

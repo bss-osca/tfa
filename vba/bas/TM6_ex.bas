@@ -83,6 +83,21 @@ Sub TM6_RandDistAryEx()
 End Sub
 
 
+' Simulate function values 1000 times and calculate mean and std. dev.
+Sub TM6_SimFunc()
+    Dim ary() As Double
+    Dim i As Integer
+    Dim dblX As Double
+    
+    Randomize    ' initialize random-number generator
+    Call RandGenNormal(1000, 100, 20, ary)
+    For i = 1 To 1000
+      dblX = ary(i)
+      ary(i) = 2 * dblX * dblX + 5 * dblX + 123
+    Next
+    MsgBox ("Mean: " & WorksheetFunction.Average(ary))
+    MsgBox ("Std. dev.: " & WorksheetFunction.StDev_S(ary))
+End Sub
 
 
 '''' Example - Traveling salesman problem

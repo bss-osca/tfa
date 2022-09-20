@@ -402,16 +402,16 @@ End Sub
 
 '' Alternative (and faster) way to store a distance matrix is using an array
 Sub TM5_MakeDistArray()
-    Dim N As Integer
+    Dim n As Integer
     Dim aryDist() As Double
     Dim i As Integer
     Dim j As Integer
     
     ThisWorkbook.Worksheets("TM3_DistanceMatrix").Activate
-    N = Range("E1")
-    ReDim aryDist(1 To N, 1 To N)
-    For i = 1 To N
-        For j = i + 1 To N
+    n = Range("E1")
+    ReDim aryDist(1 To n, 1 To n)
+    For i = 1 To n
+        For j = i + 1 To n
            aryDist(i, j) = TM3_Distance(Cells(i + 1, 2), Cells(i + 1, 3), Cells(j + 1, 2), Cells(j + 1, 3))
            aryDist(j, i) = aryDist(i, j)  ' set symetric value
         Next
@@ -572,7 +572,7 @@ Sub TM5_RunBetter()
     Dim dblCosts As Double ' total setup costs
     Dim rng As Range
     Dim dbl As Double
-    Dim R As Integer, c As Integer
+    Dim r As Integer, c As Integer
     
     ThisWorkbook.Worksheets("TM5_JobSeq").Activate
     ' Allocate costs to array
@@ -584,15 +584,15 @@ Sub TM5_RunBetter()
     ReDim minCol(1 To intJobs)
     For c = 1 To intJobs
         dbl = 10000000   ' a big number
-        For R = 0 To intJobs
-            If costs(R, c) < dbl And R <> c Then dbl = costs(R, c)
+        For r = 0 To intJobs
+            If costs(r, c) < dbl And r <> c Then dbl = costs(r, c)
         Next
         minCol(c) = dbl
     Next
     ' Calc relative
     For c = 1 To intJobs
-        For R = 0 To intJobs
-            costs(R, c) = costs(R, c) - minCol(c)
+        For r = 0 To intJobs
+            costs(r, c) = costs(r, c) - minCol(c)
         Next
     Next
     ' Run algorithm

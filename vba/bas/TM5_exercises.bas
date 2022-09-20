@@ -8,7 +8,7 @@ Option Explicit
 
 '' Find equal entries
 Sub TM5_Equal()
-    Dim R As Integer, c As Integer
+    Dim r As Integer, c As Integer
     Dim numbers() As Integer
     Dim equal() As Integer
     Dim rng As Range
@@ -18,10 +18,10 @@ Sub TM5_Equal()
     Call AryRead(numbers, rng)  ' read into array
     ' Set values in equal array
     ReDim equal(LBound(numbers) To UBound(numbers), LBound(numbers) To UBound(numbers))
-    For R = LBound(numbers) To UBound(numbers)
+    For r = LBound(numbers) To UBound(numbers)
         For c = LBound(numbers) To UBound(numbers)
-            If numbers(R) = numbers(c) Then
-                equal(R, c) = 1
+            If numbers(r) = numbers(c) Then
+                equal(r, c) = 1
             End If
         Next
     Next
@@ -72,17 +72,17 @@ End Sub
 Sub TM5_ColNoKeys()
     Dim col As New Collection   ' declare and create
     Dim colC As New Collection
-    Dim R As Integer
+    Dim r As Integer
     
     ThisWorkbook.Worksheets("TM5_Col").Activate  ' now we know what is active
-    For R = 2 To RngGetCurRegionLastRow(Range("A1"))
-        Call col.Add(Cells(R, 1))
+    For r = 2 To RngGetCurRegionLastRow(Range("A1"))
+        Call col.Add(Cells(r, 1))
     Next
     MsgBox ("The collection contains: " & Col2Str(col))
     
     ' Copy all items with value below 5
-    For R = 1 To col.Count
-        If col(R) < 5 Then Call colC.Add(col(R))
+    For r = 1 To col.Count
+        If col(r) < 5 Then Call colC.Add(col(r))
     Next
     MsgBox ("The collection contains: " & Col2Str(colC))
 End Sub
@@ -91,11 +91,11 @@ End Sub
 '' Collection with keys
 Sub TM5_ColKeys()
     Dim col As New Collection   ' declare and create
-    Dim R As Integer
+    Dim r As Integer
     
     ThisWorkbook.Worksheets("TM5_Col").Activate  ' now we know what is active
-    For R = 2 To RngGetCurRegionLastRow(Range("C1"))
-        Call col.Add(Cells(R, 4), Cells(R, 3)) ' value, key
+    For r = 2 To RngGetCurRegionLastRow(Range("C1"))
+        Call col.Add(Cells(r, 4), Cells(r, 3)) ' value, key
     Next
     MsgBox ("The collection contains: " & Col2Str(col))
     
@@ -134,7 +134,7 @@ End Sub
 
 '' Process numbers
 Sub TM5_Process()
-    Dim R As Integer, c As Integer
+    Dim r As Integer, c As Integer
     Dim rng As Range
     Dim wstTo As Worksheet, wstFrom As Worksheet
     
@@ -145,10 +145,10 @@ Sub TM5_Process()
     ThisWorkbook.Worksheets("TM5_Process").Activate
     Set rng = RngCurRegion(Range("A1"))
     ' scan range
-    For R = 1 To rng.Rows.Count
+    For r = 1 To rng.Rows.Count
         For c = 1 To rng.Columns.Count
-            If rng(R, c) < 0 Then rng(R, c).Clear
-            If rng(R, c) > 20 Then rng(R, c).Interior.ColorIndex = 37
+            If rng(r, c) < 0 Then rng(r, c).Clear
+            If rng(r, c) > 20 Then rng(r, c).Interior.ColorIndex = 37
         Next
     Next
 End Sub
@@ -156,18 +156,18 @@ End Sub
 
 '' Statistics of numbers
 Sub TM5_Stat()
-    Dim R As Integer, c As Integer
+    Dim r As Integer, c As Integer
     Dim rng As Range
     Dim dblM As Double, dblS As Double, dblCtr As Double
     
     Worksheets("TM5_ProcessData").Activate
     Set rng = RngCurRegion(Range("A1"))
 
-    For R = 1 To rng.Rows.Count
+    For r = 1 To rng.Rows.Count
         For c = 1 To rng.Columns.Count
-            If rng(R, c) > 0 Then dblS = dblS + rng(R, c)
-            If rng(R, c) < 0 Then
-                dblM = dblM + rng(R, c)
+            If rng(r, c) > 0 Then dblS = dblS + rng(r, c)
+            If rng(r, c) < 0 Then
+                dblM = dblM + rng(r, c)
                 dblCtr = dblCtr + 1
             End If
         Next
@@ -188,7 +188,7 @@ Sub TM5_SearchPayments()
     Dim intSize As Integer
     Dim rng As Range
     Dim ary() As Integer
-    Dim R As Integer, j As Integer, i As Integer
+    Dim r As Integer, j As Integer, i As Integer
     Dim intCMin As Integer, intCMax As Integer
     Dim intYMin As Integer, intYMax As Integer, intY As Integer
     
@@ -204,9 +204,9 @@ Sub TM5_SearchPayments()
     
     If strG = "None" Then  ' no grouping
         ReDim ary(intCMin To intCMax)  ' use array to store count for each client
-        For R = 2 To RngGetCurRegionLastRow(Range("A1"))  ' scan clients
-            If Cells(R, 3) = blnPay Then
-                ary(Cells(R, 2)) = ary(Cells(R, 2)) + 1
+        For r = 2 To RngGetCurRegionLastRow(Range("A1"))  ' scan clients
+            If Cells(r, 3) = blnPay Then
+                ary(Cells(r, 2)) = ary(Cells(r, 2)) + 1
             End If
         Next
         ' Output results
@@ -214,17 +214,17 @@ Sub TM5_SearchPayments()
         Call RngClear(Range("A5:C10000"))
         Cells(5, 1) = "Client"
         Cells(5, 2) = "Count"
-        R = 6
+        r = 6
         For j = LBound(ary) To UBound(ary)
-           Cells(R, 1) = j
-           Cells(R, 2) = ary(j)
-           R = R + 1
+           Cells(r, 1) = j
+           Cells(r, 2) = ary(j)
+           r = r + 1
         Next
     ElseIf strG = "Year" Then  ' group by year
         ' Find min and max year
         intYMin = 3000
-        For R = 2 To RngGetCurRegionLastRow(Range("A1"))
-            intY = Year(Cells(R, 1))
+        For r = 2 To RngGetCurRegionLastRow(Range("A1"))
+            intY = Year(Cells(r, 1))
             If intYMin > intY Then
                 intYMin = intY
             End If
@@ -233,9 +233,9 @@ Sub TM5_SearchPayments()
             End If
         Next
         ReDim ary(intCMin To intCMax, intYMin To intYMax)  ' use array to store count for each client and year
-        For R = 2 To RngGetCurRegionLastRow(Range("A1"))   ' scan clients
-            If Cells(R, 3) = blnPay Then
-                ary(Cells(R, 2), Year(Cells(R, 1))) = ary(Cells(R, 2), Year(Cells(R, 1))) + 1
+        For r = 2 To RngGetCurRegionLastRow(Range("A1"))   ' scan clients
+            If Cells(r, 3) = blnPay Then
+                ary(Cells(r, 2), Year(Cells(r, 1))) = ary(Cells(r, 2), Year(Cells(r, 1))) + 1
             End If
         Next
         ' Output results
@@ -244,13 +244,13 @@ Sub TM5_SearchPayments()
         Cells(5, 1) = "Client"
         Cells(5, 2) = "Year"
         Cells(5, 3) = "Count"
-        R = 6
+        r = 6
         For j = LBound(ary, 1) To UBound(ary, 1)
             For i = LBound(ary, 2) To UBound(ary, 2)
-                Cells(R, 1) = j
-                Cells(R, 2) = i
-                Cells(R, 3) = ary(j, i)
-                R = R + 1
+                Cells(r, 1) = j
+                Cells(r, 2) = i
+                Cells(r, 3) = ary(j, i)
+                r = r + 1
             Next
         Next
     Else
