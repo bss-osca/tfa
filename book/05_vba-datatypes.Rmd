@@ -757,6 +757,64 @@ Sub TM5_AryReadCSVEx()
 End Sub
 ```
 
+#### Example - Reading values from a sheet
+
+*This example is a slightly modified version an exam assignment (exam 2022-A4).*
+
+Consider the data in worksheet *TM5_AryData*. Our goal is to create a procedure that reads the strings in the worksheet into a 2D array with the following features:
+
+  * Indexing must start from 1 in both dimensions.
+  * The procedure should work for other datasets with a different number of columns and rows. You may assume that the data starts in cell A1.
+  * A message box should be given after the data has been read with the value of array entry (1,3). If the entry does not exists a warning should be given instead.
+  * A button in worksheet *TM5_AryData* should run the procedure. 
+
+If you are not allowed to read the data into an array using the course procedure `AryRead`, but only plain VBA you must use for loop(s) to assign values to the array:
+
+```
+Sub TM5_AryReadValuesPlainVBA()
+   Dim ary() As String
+   Dim rng As Range
+   Dim r As Integer, c As Integer
+   
+   Worksheets("TM5_AryData").Activate
+   Set rng = RngCurRegion(Range("A1"))  ' get current region
+   ReDim ary(1 To RngGetLastRow(rng), 1 To RngGetLastCol(rng))  ' redim array
+   ' allocate values
+   For r = 1 To RngGetLastRow(rng)
+       For c = 1 To RngGetLastCol(rng)
+           ary(r, c) = Cells(r, c)
+       Next
+   Next
+   ' print ary(1,3)
+   If (UBound(ary, 2) < 3) Then
+       MsgBox ("Array does not have 3 columns!")
+       Exit Sub
+   End If
+   MsgBox ("Value entry (1,3) is: " & ary(1, 3))
+End Sub
+```
+
+If you are allowed to use `AryRead` then you can skip the for loop:
+
+```
+Sub TM5_AryReadValues()
+   Dim ary() As String
+   Dim rng As Range
+   Dim r As Integer, c As Integer
+   
+   Worksheets("TM5_AryData").Activate
+   Set rng = RngCurRegion(Range("A1"))  ' get current region
+   Call AryRead(ary, rng)               ' allocate values
+   ' print ary(1,3)
+   If (UBound(ary, 2) < 3) Then
+       MsgBox ("Array does not have 3 columns!")
+       Exit Sub
+   End If
+   MsgBox ("Value entry (1,3) is: " & ary(1, 3))
+End Sub
+```
+
+
 ### Sorting arrays
 
 Arrays can be sorted using `AryQuickSort`:
