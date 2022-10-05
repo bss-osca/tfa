@@ -478,7 +478,6 @@ End Sub
 
 '''' Example - Job sequencing
 
-
 '' Job sequeceing using a cost array
 '
 ' @param costs An array with setup costs
@@ -608,6 +607,54 @@ End Sub
 
 
 
+'''' Example - Reading values from a sheet
+
+'' Read values using plain VBA
+Sub TM5_AryReadValuesPlainVBA()
+   Dim ary() As String
+   Dim rng As Range
+   Dim r As Integer, c As Integer
+   
+   Worksheets("TM5_AryData").Activate
+   Set rng = RngCurRegion(Range("A1"))  ' get current region
+   ReDim ary(1 To RngGetLastRow(rng), 1 To RngGetLastCol(rng))  ' redim array
+   ' allocate values
+   For r = 1 To RngGetLastRow(rng)
+       For c = 1 To RngGetLastCol(rng)
+           ary(r, c) = Cells(r, c)
+       Next
+   Next
+   ' print ary(1,3)
+   If (UBound(ary, 2) < 3) Then
+       MsgBox ("Array does not have 3 columns!")
+       Exit Sub
+   End If
+   MsgBox ("Value entry (1,3) is: " & ary(1, 3))
+End Sub
+
+
+'' Read values using ReadAry
+Sub TM5_AryReadValues()
+   Dim ary() As String
+   Dim rng As Range
+   Dim r As Integer, c As Integer
+   
+   Worksheets("TM5_AryData").Activate
+   Set rng = RngCurRegion(Range("A1"))  ' get current region
+   Call AryRead(ary, rng)               ' allocate values
+   ' print ary(1,3)
+   If (UBound(ary, 2) < 3) Then
+       MsgBox ("Array does not have 3 columns!")
+       Exit Sub
+   End If
+   MsgBox ("Value entry (1,3) is: " & ary(1, 3))
+End Sub
+
+
+
+
+
+
 
 
 
@@ -625,3 +672,5 @@ End Sub
 Sub TM5_ClearTestTM5()
    Call RngClear(ThisWorkbook.Worksheets("TM5").Range("F:S"))
 End Sub
+
+

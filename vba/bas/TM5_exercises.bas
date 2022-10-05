@@ -332,6 +332,70 @@ End Sub
 
 
 
+'''' Exercise - Search table
+
+'' Search table
+Sub TM5_Search1()
+    Dim strName As String
+    Dim dblAmount As Double
+    Dim r As Integer       ' row in sheet
+    Dim rO As Integer      ' row in output sheet
+    Dim wst As Worksheet
+    
+    ' prepare sheet
+    Worksheets("TM5_Search").Activate
+    Call WstClear("TM5_SearchOutput")        ' clean output sheet
+    Set wst = Worksheets("TM5_SearchOutput")       ' set reference to output sheet
+    Call RngPaste(Range("A1:C1"), wst.Range("A1")) ' paste the header
+    ' ask for input
+    strName = ""
+    dblAmount = -1000000
+    If MsgBox("Search for a name?", vbYesNo) = vbYes Then
+        strName = InputBox("Type the name")
+    End If
+    If MsgBox("Search for an amount?", vbYesNo) = vbYes Then
+        dblAmount = InputBox("Type the amount")
+    End If
+    ' search for matches
+    rO = 2
+    For r = 2 To RngGetCurRegionLastRow(Range("A1"))
+        If Cells(r, 1) = strName Or strName = "" Then
+            If Cells(r, 3) >= dblAmount Then
+                Call RngPaste(Range("A" & r & ":C" & r), wst.Range("A" & rO))
+                rO = rO + 1
+            End If
+        End If
+    Next
+    wst.Activate
+End Sub
+
+
+'' Copy and sort table
+Sub TM5_Search2()
+    Dim dblAmount As Double
+    Dim r As Integer
+    Dim wst As Worksheet
+    Dim rng As Range
+    
+    ' prepare and copy
+    Worksheets("TM5_Search").Activate
+    Set rng = RngCurRegion(Range("A1"))
+    Call WstClear("TM5_SearchOutput")        ' clean output sheet
+    Set wst = Worksheets("TM5_SearchOutput") ' set reference to output sheet
+    Set rng = RngPaste(rng, wst.Range("A1"), withFormat:=True)  ' paste rng to other sheet and set it to that range
+    Call RngFormat(rng, color:="none", fit:=True)
+    wst.Activate
+    ' sort
+    Call rng.Sort(Key1:=rng.Columns(3), Order1:=xlDescending, Key2:=rng.Columns(2))
+    ' highlight
+    dblAmount = InputBox("Type the amount")
+    For r = 2 To RngGetLastRow(rng)
+        If Cells(r, 3) < dblAmount Then
+            Call RngFormat(Range("A" & r & ":C" & r), "orange")
+        End If
+    Next
+End Sub
+
 
 
 

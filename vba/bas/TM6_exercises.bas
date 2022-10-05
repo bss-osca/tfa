@@ -20,10 +20,10 @@ Sub TM6_RandInt1()
     intA = Range("B24")
     intB = Range("B25")
     Randomize
-    intR1 = Application.WorksheetFunction.RandBetween(intA, intB)
+    intR1 = RandInvUniformDisc(intA, intB)   ' or Application.WorksheetFunction.RandBetween(intA, intB)
     intR2 = intR1
     For i = 1 To 1000  ' try 1000 times
-        intR2 = Application.WorksheetFunction.RandBetween(intA, intB)
+        intR2 = RandInvUniformDisc(intA, intB)
         If intR2 <> intR1 Then Exit For
     Next
     If intR1 < intR2 Then
@@ -40,10 +40,10 @@ Sub TM6_RandInt2(intA As Integer, intB As Integer, intR1 As Integer, intR2 As In
     Dim i As Integer
 
     Randomize
-    intR1 = Application.WorksheetFunction.RandBetween(intA, intB)
+    intR1 = RandInvUniformDisc(intA, intB) ' or Application.WorksheetFunction.RandBetween(intA, intB)
     intR2 = intR1
     For i = 1 To 1000  ' try 1000 times
-        intR2 = Application.WorksheetFunction.RandBetween(intA, intB)
+        intR2 = RandInvUniformDisc(intA, intB)
         If intR2 <> intR1 Then Exit For
     Next
     If intR1 > intR2 Then
@@ -135,7 +135,7 @@ Sub TM6_Swap3()
    Next
    ' Swap using sort based on random number
    Call AryQuickSort(ary, 1)
-   ary = WorksheetFunction.Index(ary, 0, 2) ' use Index to remove 1. col
+   ary = WorksheetFunction.Index(ary, 0, 2) ' use Index to remove 1. col (you could also have used a for loop in the output instead)
    ' output
    Range("F3") = "Q3"
    Call AryPaste(ary, Range("F4"), False)

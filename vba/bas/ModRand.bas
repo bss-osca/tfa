@@ -66,22 +66,23 @@ End Function
 ' @param dblMin Minimum number.
 ' @param dblMax Maximum number.
 ' @param ary Array to store the values in.
-Sub RandGenUniformDisc(intSize As Integer, dblMin As Double, dblMax As Double, ary() As Double)
+Sub RandGenUniformDisc(intSize As Integer, vntMin As Variant, vntMax As Variant, ary() As Variant)
     Dim i As Integer
     ReDim ary(intSize) As Double
     
     For i = 1 To intSize
-        ary(i) = WorksheetFunction.RandBetween(dblMin, dblMax)
+        ary(i) = WorksheetFunction.RandBetween(vntMin, vntMax)
     Next
 End Sub
+
 
 
 '' Generate a random number from a discrete uniform distribution
 '
 ' @param dblMin Minimum number.
 ' @param dblMax Maximum number.
-Function RandInvUniformDisc(dblMin As Double, dblMax As Double) As Double
-    RandInvUniformDisc = WorksheetFunction.RandBetween(dblMin, dblMax)
+Function RandInvUniformDisc(vntMin As Variant, vntMax As Variant) As Variant
+    RandInvUniformDisc = WorksheetFunction.RandBetween(vntMin, vntMax)
 End Function
 
 
