@@ -198,8 +198,9 @@ df1 %>% semi_join(df2, by = "x") %>% nrow()
 
 * The 'Data transformation with dplyr' cheatsheet is very useful. Find the newest version in RStudio **Help > Cheatsheets**.
 
-You may also have a look at the [slides for this module](https://bss-osca.github.io/tfa/slides/07-03_r-transform-slides.html).
-
+```{r, echo=FALSE}
+link_slide_file_text(module_number_prefix, module_name)
+```
 
 ## Exercises {#ex-r-transform}
 
@@ -324,7 +325,7 @@ gapminder %>%
 
 ```{r, solution=TRUE}
 gapminder %>% 
-   filter((gdpPercap > 40000 & continent == "Europe") | (gdpPercap < 400 & continent == "Africa")) %>% 
+   filter((gdpPercap > 40000 & continent == "Europe") | (gdpPercap < 500 & continent == "Africa")) %>% 
    # print(n=Inf) %>%   # if want to see the intermediate results
    select(continent, country, gdpPercap) # %>% print(n=Inf)
 ```   
