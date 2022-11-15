@@ -1,0 +1,298 @@
+---
+title: "Exercise 13.5.1 - Gapminder"
+author: "Lars Relund Nielsen"
+date: "`r Sys.Date()`"
+output: pdf_document
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      cache = TRUE, autodep = TRUE)
+options(width = 100)  # set output width
+```
+
+## Exercise (gapminder) 
+
+The gapminder data set provides values for life expectancy, GDP per capita, and population, every five years, from 1952 to 2007 for 142 countries. The data can be loaded using the gapminder package:
+
+```{r message = FALSE, warning = FALSE}
+library(tidyverse)
+library(gapminder)
+data(gapminder, package = "gapminder")
+gapminder
+```
+
+Let us try to examine the dataset (use pipes `%>%` as much as possible). 
+
+### 1 - Use `glimpse`, `summary` and `tail` to examine the data.
+
+```{r}
+gapminder %>% glimpse()
+gapminder %>% summary()
+gapminder %>% tail()
+```
+
+
+### 2 - Use `count` to count the number of
+   
+   a) countries, 
+```{r}
+gapminder %>% 
+  count(country) %>% 
+  nrow()
+```
+
+   b) continents,
+       
+```{r}
+gapminder %>% 
+  count(continent) %>% 
+  nrow()
+```
+
+   c) countries per continent. 
+       
+```{r}
+gapminder %>% 
+  count(continent, country) %>% 
+  count(continent)     # or
+gapminder %>% 
+  distinct(continent, country) %>% 
+  count(continent)
+```
+
+
+### 3 - Retrieve a vector with all distinct continent values. Hint: you can use `pull` to extract a single column.
+
+```{r}
+gapminder %>% 
+  distinct(continent) %>% 
+  pull(continent) %>% 
+  as.character()
+```   
+
+   
+### 4 - Subset rows to find
+   
+   a) all rows with life expectancy less that 29 years.
+   
+```{r}
+gapminder %>% 
+  filter(lifeExp < 29)
+```
+
+   b) all rows for Rwanda after year 1979,
+
+```{r}
+gapminder %>% 
+  filter(country == "Rwanda", year > 1979)
+```
+
+   c) all rows for Rwanda, Afghanistan or France.
+
+```{r}
+gapminder %>%  
+  filter(country %in% c("Rwanda", "Afghanistan", "France"))
+```
+
+
+### 5 - Select columns 
+
+   a) year and life expectancy:
+
+```{r}
+gapminder %>% 
+  select(year, lifeExp)
+```  
+
+b) country and GDP per capita:
+
+```{r}
+gapminder %>% 
+  select(country, gdpPercap)
+```   
+
+
+### 6 - Subset your data set to find all rows with GDP per capita greater than 40000 in Europe or with GDP per capita less than 500 in Africa.
+
+```{r}
+gapminder %>% 
+   filter((gdpPercap > 40000 & continent == "Europe") | (gdpPercap < 500 & continent == "Africa")) %>% 
+   # print(n=Inf) %>%   # if want to see the intermediate results
+   select(continent, country, gdpPercap) # %>% print(n=Inf)
+```   
+```{r, hint=TRUE, eval=FALSE, include=FALSE}
+# gapminder %>% 
+#    filter((gdpPercap > ___ & continent == ___) | (___)) %>% 
+#    # print(n=Inf) %>%   # if want to see the intermediate results
+#    select(continent, ___, ___) # %>% print(n=Inf)
+```   
+
+
+
+
+### 7 - Use `mutate` to calculate each country's GDP (population times GDP per capita).
+
+```{r}
+gapminder %>%
+  mutate(gdp = pop * gdpPercap)
+```   
+
+In general GDP numbers are large and abstract. Let us try to calculate relative numbers.
+
+
+### 8 - Use `mutate` to calculate GDP per capita relative to mean GDP per capita in Denmark over the whole period (`gdpPercap` divided by the mean of Danish `gdpPercap`). 
+
+```{r, text = "The relative GDP per capita numbers are, in general, well below 1. We see that most of the countries covered by this dataset have substantially lower GDP per capita, relative to Denmark, across the entire time period."}
+mean_dk <- gapminder %>% 
+  filter(country == "Denmark") %>% 
+  pull(gdpPercap) %>% 
+  mean()
+dat <- gapminder %>% 
+  mutate(gdpPercapRel = gdpPercap/mean_dk)
+```  
+```{r, title = "Hint 2", hint=TRUE, eval=FALSE, include=FALSE}
+# dat <- gapminder %>% 
+#   mutate(gdpPercapRel = ___)
+``` 
+```{r, title = "Hint 1", hint=TRUE, eval=FALSE, eval=FALSE, text = "First you must calculate the mean of Danish `gdpPercap` and next use that to add a new column `gdpPercapRel`."}
+# mean_dk <- gapminder %>% 
+#   filter(country == "Denmark") %>% 
+#   pull(___) %>% 
+#   mean()
+``` 
+
+Have a look at the calculated data. Does the numbers seem reasonable? I perceive Denmark to be a "high GDP" country, so I predict that the distribution of `gdpPercapRel` is located below 1, possibly even well below. 
+
+
+### 9 - Use `arrange` to order 
+
+   a) data by year then country, as opposed to current by country then year,
+
+```{r}
+gapminder %>% 
+  arrange(year, country)
+``` 
+
+   b) data from 2007, sorted on life expectancy,
+
+```{r}
+gapminder %>%
+  filter(year == 2007) %>%
+  arrange(lifeExp)
+``` 
+
+   c) data from 2007, sorted on life expectancy in **desc**ending order. Hint: use `desc()` inside `arrange`.
+
+```{r}
+gapminder %>%
+  filter(year == 2007) %>%
+  arrange(desc(lifeExp))
+```
+
+
+### 10 - Use `select` to 
+
+   a) rename `year` to `yr` and keep all other columns (the select helper `everything` may be used):
+   
+```{r}
+gapminder %>% 
+  select(yr = year, everything())
+``` 
+
+   b) remove `pop`,
+ 
+```{r}
+gapminder %>% 
+  select(-pop)
+``` 
+
+   c) reorder columns in order `year`, `pop`, ... (remaining).
+
+```{r}
+gapminder %>% 
+  select(year, pop, everything())
+``` 
+
+### 11 - Use `group_by` and `summarize` to find the
+
+   a) number of observations per continent,
+  
+```{r}
+gapminder %>% 
+  group_by(continent) %>% 
+  summarize(n = n())
+```  
+
+   b) number of countries per continent (use `n_distinct` inside `summarize` to count the number of distinct observations),
+
+```{r}
+gapminder %>% 
+  group_by(continent) %>% 
+  summarize(n = n(), n_countries = n_distinct(country))
+``` 
+
+   c) average life expectancy by continent,
+
+```{r}
+gapminder %>% 
+  group_by(continent) %>% 
+  summarize(avg_lifeExp = mean(lifeExp))
+```
+
+   d) minimum and maximum life expectancies seen by year in Asia.
+
+```{r}
+gapminder %>% 
+  filter(continent == "Asia") %>% 
+  group_by(year) %>% 
+  summarize(min_lifeExp = min(lifeExp), max_lifeExp = max(lifeExp))
+``` 
+
+
+### 12 - Sometimes you do not want to collapse the $n$ rows for each group into one row. That is, you do not want to use `summarize` but `mutate` within your groups. Try to make a new variable that is the years of life expectancy gained (lost) relative to 1952, for each individual country. 
+
+```{r}
+gapminder %>% 
+  group_by(country) %>%                 # group by country
+  select(country, year, lifeExp) %>%    # select relevant columns
+  arrange(year, .by_group = TRUE) %>%   # make sure that data is sorted correct
+  mutate(lifeExp_gain = lifeExp - first(lifeExp)) %>%       
+  filter(year < 1963)                   # just for nice printing
+``` 
+```{r, hint=TRUE, eval=FALSE, include=FALSE, text = "The `first` function may be helpful to extract the first value from a vector in each group."}
+# gapminder %>% 
+#   group_by(country) %>%                 # group by country
+#   select(country, year, lifeExp) %>%    # select relevant columns
+#   arrange(year, .by_group = TRUE) %>%   # make sure that data is sorted correct
+#   mutate(lifeExp_gain = ___) %>%        # define new variable
+#   filter(year < 1963)                   # just for nice printing
+``` 
+
+
+### 13 - Which country experienced the sharpest 5-year drop in life expectancy in each continent? Recall that the Gapminder data only has data every five years, e.g. for 1952, 1957, etc. So this really means looking at life expectancy changes between adjacent timepoints. 
+
+```{r, text = "Mostly you are seeing what genocide looks like in dry statistics on average life expectancy."}
+gapminder %>%
+  select(country, year, continent, lifeExp) %>%     
+  group_by(continent, country) %>%                  
+  mutate(le_delta = lifeExp - lag(lifeExp)) %>%
+  summarize(worst_le_delta = min(le_delta, na.rm = TRUE)) %>%
+  slice_min(worst_le_delta) %>%
+  arrange(worst_le_delta)
+``` 
+```{r, hint=TRUE, eval=FALSE, includel=FALSE, text = "The `lag` function is useful to select the value in the previous row. Positive values of `le_delta` means lifeExp went up, negative means it went down. Break the code into pieces, starting at the top, and inspect the intermediate results. These commands are built up gradually, with lots of errors and refinements along the way."}
+# gapminder %>%
+#   select(country, year, continent, lifeExp) %>%             # select relevant columns
+#   group_by(continent, country) %>%                          # group
+#   mutate(le_delta = ___) %>%                                # within country, take (lifeExp in year i) - (lifeExp in year i - 1)
+#   summarize(worst_le_delta = min(___, na.rm = TRUE)) %>%    # find lowest value
+#   slice_min(worst_le_delta) %>%                             # find min in each continent
+#   arrange(worst_le_delta)                                   # arrange 
+```
+      
+      
+
+

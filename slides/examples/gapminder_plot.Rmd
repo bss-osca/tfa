@@ -1,0 +1,555 @@
+---
+title: "Exercise 14.6.1 - Gapminder"
+author: "Lars Relund Nielsen"
+date: "`r Sys.Date()`"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      cache = TRUE, autodep = TRUE)
+options(width = 100)  # set output width
+```
+
+## Exercise (gapminder) 
+
+In this exercise, we will demonstrate how relatively simple ggplot2 code can create insightful and aesthetically pleasing plots. As motivation we will create plots that help us better understand trends in world health and economics. 
+
+[Hans Rosling](https://en.wikipedia.org/wiki/Hans_Rosling) was the co-founder of the [Gapminder Foundation](http://www.gapminder.org/), an organization dedicated to educating the public by using data to dispel common myths about the so-called developing world. Hans Rosling conveyed actual data-based trends in a dramatic way of his own, using effective data visualization. Here we will try to answer two questions:
+
+* Is it a fair characterization of today's world to say it is divided into Western rich nations and the developing world in Africa, Asia, and Latin America? 
+* Has income inequality across countries worsened during the last 40 years? 
+
+To answer these questions, we will be using the `gapminder` dataset provided in the dslabs package. This dataset was created using a number of spreadsheets available from the Gapminder Foundation. You can access the table like this:
+
+```{r load libraries, message=FALSE, echo=TRUE, cache=FALSE}
+library(tidyverse)
+library(dslabs)
+data(gapminder)
+gapminder %>% as_tibble()
+```
+
+We start by testing our knowledge regarding differences in child mortality across different countries. For each of the six pairs of countries below, which country do you think had the highest child mortality rates in 2015? Which pairs do you think are most similar?
+
+* Sri Lanka or Turkey
+* Poland or South Korea
+* Malaysia or Russia
+* Pakistan or Vietnam
+* Thailand or South Africa
+
+When answering these questions without data, the non-European countries are typically picked as having higher child mortality rates: Sri Lanka over Turkey, South Korea over Poland, and Malaysia over Russia. It is also common to assume that countries considered to be part of the developing world: Pakistan, Vietnam, Thailand, and South Africa, have similarly high mortality rates. 
+
+To answer these questions __with data__, we can use __dplyr__. For example, for the first comparison we see that:
+
+```{r, message=FALSE}
+gapminder %>%
+  filter(year == 2015 & country %in% c("Sri Lanka","Turkey")) %>%
+  select(country, infant_mortality)
+```
+Turkey has the higher infant mortality rate.
+
+We can use this code on all comparisons and find the following:
+```{r, echo = FALSE}
+comp_table <- tibble(comparison = rep(1:5, each = 2),
+           country = c("Sri Lanka", "Turkey", "Poland", "South Korea", "Malaysia", "Russia", "Pakistan","Vietnam","Thailand","South Africa"))
+
+tmp <- gapminder %>%
+  filter(year == 2015) %>%
+  select(country, infant_mortality) %>%
+  mutate(country = as.character(country)) ##to match characters to characters
+
+tab <- inner_join(comp_table, tmp, by = "country") %>% select(-comparison)
+
+tmp <- bind_cols(slice(tab,seq(1,9,2)), slice(tab,seq(2,10,2)))
+names(tmp) <- c("country", "infant mortality", "country", "infant mortality")
+
+knitr::kable(tmp, "html") %>%
+    kableExtra::kable_styling(bootstrap_options = "striped", full_width = FALSE)
+
+```
+
+We see that the European countries on this list have higher child mortality rates: Poland has a higher rate than South Korea, and Russia has a higher rate than Malaysia. We also see that Pakistan has a much higher rate than Vietnam, and South Africa has a much higher rate than Thailand. It turns out that when Hans Rosling gave this quiz to educated groups of people, the average score was less than 2.5 out of 5, worse than what they would have obtained had they guessed randomly. This implies that we are misinformed. We will try to use visualization to help us being more informed.
+
+
+
+#### The west vs. the developing world {-}
+
+There is a preconceived notion that the world is divided into two groups: the Western world (Western Europe and North America), characterized by long life spans and small families, versus the developing world (Africa, Asia, and Latin America) characterized by short life spans and large families. But do the data support this dichotomous view?
+
+   1) Make a scatterplot of life expectancy versus fertility rates (average number of children per woman) in 1962. Use continent as color aesthetic. 
+   
+```{r}
+filter(gapminder, year == 1962) %>%
+  ggplot( aes(fertility, life_expectancy, color = continent)) +
+  geom_point() 
+``` 
+
+*Most points fall into two distinct categories: 1. Life expectancy around 70 years and 3 or fewer children per family. 2. Life expectancy lower than 65 years and more than 5 children per family. 3. Countries are from the regions we expect.*
+
+```{r,include = FALSE, eval=FALSE}
+# filter(gapminder, year == ___) %>%
+#   ggplot( aes(___, ___, color = ___)) +
+#   geom_point() 
+``` 
+
+
+   
+   2) In 1962, "the West versus developing world" view was grounded in some reality. Is this still the case 50 years later? We could easily plot the 2012 data in the same way we did for 1962. To make comparisons, side by side plots are preferable. In __ggplot2__, we can achieve this by _faceting_ variables and making a plot for each year. That is, you must filter by years 1962 and 2012 and add the layer `facet_grid`, which automatically separates the plots.
+
+```{r}
+filter(gapminder, year %in% c(1962, 2012)) %>%
+  ggplot(aes(fertility, life_expectancy, col = continent)) +
+  geom_point() +
+  facet_grid(cols = vars(year))
+``` 
+
+*This plot clearly shows that the majority of countries have moved from the _developing world_ cluster to the _western world_ one. In 2012, the western versus developing world view no longer makes sense. This is particularly clear when comparing Europe to Asia, the latter of which includes several countries that have made great improvements.*
+
+```{r,include = FALSE, eval=FALSE}
+# filter(gapminder, ___ %in% c(1962, 2012)) %>%
+#   ggplot(aes(___, ___, col = ___)) +
+#   geom_point() +
+#   facet_grid(cols = vars(___))
+``` 
+
+
+
+
+   3) To explore the transformation through the years, make a plot for the years 1962, 1970, 1980, 1990, 2000, and 2012 considering Europe and Asia. How has Asia transformed through the years compared to Europe? Since we consider many years, we will not want all the plots on the same row. Instead, we will want to use multiple rows and columns. The function `facet_wrap` permits us to do this by automatically wrapping the series of plots.
+    
+```{r}
+years <- c(1962, 1970, 1980, 1990, 2000, 2012)
+continents <- c("Europe", "Asia")
+gapminder %>% 
+  filter(year %in% years & continent %in% continents) %>%
+  ggplot( aes(fertility, life_expectancy, col = continent)) +
+  geom_point() +
+  facet_wrap(vars(year)) 
+``` 
+
+*The plot clearly shows how most Asian countries have improved at a much faster rate than European ones.*
+
+```{r,include = FALSE, eval=FALSE}
+# gapminder %>% 
+#   filter(year %in% ___ & continent %in% ___) %>%
+#   ggplot(aes(___)) +
+#   geom_point() +
+#   facet_wrap(___) 
+``` 
+   
+
+      
+  
+<div class = "box">
+
+#### Infobox - Scales {-}
+
+The default choice of the range of the axes is important. When not using `facet`, this range is determined by the data shown in the plot. When using `facet`, this range is determined by the data shown in all plots and therefore kept fixed across plots. This makes comparisons across plots much easier. For example, in the above plot, we can see that life expectancy has increased and the fertility has decreased across most countries. We see this because the cloud of points moves. This is not the case if we adjust the scales:
+
+```{r, echo=FALSE, warning=FALSE}
+filter(gapminder, year%in%c(1962, 2012)) %>%
+  ggplot(aes(fertility, life_expectancy, col = continent)) +
+  geom_point() +
+  facet_wrap(. ~ year, scales = "free")
+```
+
+In the plot above, we have to pay special attention to the range to notice that the plot on the right has a larger life expectancy. 
+</div>
+
+  4) Illustrate the transformation for Asia using a single plot where year is used as color aesthetic. 
+
+```{r}
+gapminder %>% 
+  filter(continent == "Asia") %>%
+  ggplot(aes(fertility, life_expectancy, col = year)) +
+  geom_point()  
+``` 
+
+```{r,include = FALSE, eval=FALSE}
+# gapminder %>% 
+#   filter(___) %>%
+#   ggplot(aes(___)) +
+#   geom_point() 
+``` 
+
+
+
+#### Time series plots {-}
+
+The visualizations above effectively illustrate that data no longer supports the Western versus developing world view. Once we see these plots, new questions emerge. For example, which countries are improving more and which ones less? Was the improvement constant during the last 50 years or was it more accelerated during certain periods? For a closer look that may help answer these questions, we introduce _time series plots_.
+
+Time series plots have time in the x-axis and an outcome or measurement of interest on the y-axis. For example, here is a trend plot of United States fertility rates:
+
+```{r fertility-time-series-plot-points, warning=FALSE}
+gapminder %>% 
+  filter(country == "United States") %>% 
+  ggplot(aes(year, fertility)) +
+  geom_point()
+```
+
+We see that the trend is not linear at all. Instead there is sharp drop during the 1960s and 1970s to below 2. Then the trend comes back to 2 and stabilizes during the 1990s.
+
+When the points are regularly and densely spaced, as they are here, we create curves by joining the points with lines, to convey that these data are from a single series, here a country. To do this, we use the `geom_line` function instead of `geom_point`. 
+
+  5) Make a lineplot showing the time series of fertility versus year for United States.
+  
+```{r, solution=TRUE}
+gapminder %>% 
+  filter(country == "United States") %>% 
+  ggplot(aes(year, fertility)) +
+  geom_line()
+``` 
+
+
+  6) Lineplots is particularly helpful when we look at more countries. Make a lineplot showing the time series of fertility versus year for South Korea and Germany. Use country as color aesthetic. 
+ 
+```{r}
+countries <- c("South Korea", "Germany")
+gapminder %>% filter(country %in% countries) %>% 
+  ggplot(aes(year, fertility, col = country)) +
+  geom_line() 
+``` 
+
+*The plot clearly shows how South Korea's fertility rate dropped drastically during the 1960s and 1970s, and by 1990 had a similar rate to that of Germany.*
+
+```{r,include = FALSE, eval=FALSE}
+# gapminder %>% filter(country %in% ___) %>% 
+#   ggplot(aes(year, fertility, col = ___)) +
+#   geom_line()
+``` 
+
+ 
+  7) Make a lineplot showing the time series of life expectancy versus year for South Korea and Germany. Use country as color aesthetic. 
+  
+```{r}
+gapminder %>% 
+  filter(country %in% countries) %>% 
+  ggplot(aes(year, life_expectancy, col = country)) +
+  geom_line() 
+``` 
+
+*The plot clearly shows how an improvement in life expectancy followed the drops in fertility rates. In 1960, Germans lived 15 years longer than South Koreans, although by 2010 the gap is completely closed. It exemplifies the improvement that many non-western countries have achieved in the last 40 years.*
+
+  
+  
+  
+#### Data transformations {-}
+
+We now shift our attention to the second question related to the commonly held notion that wealth distribution across the world has become worse during the last decades. When general audiences are asked if poor countries have become poorer and rich countries become richer, the majority answers yes. By using stratification, histograms, smooth densities, and boxplots, we will be able to understand if this is in fact the case. First we learn how transformations can sometimes help provide more informative summaries and plots.
+
+The `gapminder` data table includes a column with the countries' gross domestic product (GDP). GDP measures the market value of goods and services produced by a country in a year. The GDP per person is often used as a rough summary of a country's wealth. Here we divide this quantity by 365 to obtain the more interpretable measure _dollars per day_.  Using current U.S. dollars as a unit, a person surviving on an income of less than $2 a day, is defined to be living in _absolute poverty_. We add this variable to the data table:
+
+```{r}
+gapminder <- gapminder %>%  
+  mutate(dollars_per_day = gdp/population/365)
+```
+
+The GDP values are adjusted for inflation and represent current U.S. dollar, so these values are meant to be comparable across the years. Of course, these are country averages and within each country there is much variability. All the graphs and insights described below relate to country averages and not to individuals.
+
+Here is a histogram of per day incomes from 1970:
+
+```{r dollars-per-day-distribution}
+past_year <- 1970
+gapminder %>% 
+  filter(year == past_year & !is.na(gdp)) %>%
+  ggplot(aes(dollars_per_day)) + 
+  geom_histogram(binwidth = 1, color = "black")
+```
+
+We use the `color = "black"` argument to draw a boundary and clearly distinguish the bins.
+
+In this plot, we see that for the majority of countries, averages are below \$10 a day. However, the majority of the x-axis is dedicated to the `r filter(gapminder, year == past_year & !is.na(gdp)) %>% summarise(x = sum(dollars_per_day>10)) %>% pull(x)` countries with averages above \$10. So the plot is not very informative about countries with values below \$10 a day.
+
+It might be more informative to quickly be able to see how many countries have average daily incomes of about $1 (extremely poor), \$2 (very poor), \$4 (poor), \$8 (middle), \$16 (well off), \$32 (rich), \$64 (very rich) per day. These changes are multiplicative and log transformations convert multiplicative changes into additive ones: when using base 2, a doubling of a value turns into an increase by 1. 
+
+  8) Make a histogram of `log2(dollars_per_day)` from 1970. 
+  
+```{r}
+gapminder %>% 
+  filter(year == past_year & !is.na(gdp)) %>%
+  ggplot(aes(log2(dollars_per_day))) + 
+  geom_histogram(binwidth = 1, color = "black")
+``` 
+
+*This provides a _close-up_ of the mid to lower income countries.*
+
+
+<div class = "box">
+
+#### Infobox - Which base? {-}
+
+In the case above, we used base 2 in the log transformations. Other common choices are base $\mathrm{e}$ (the natural log) and base 10.
+
+In general, we do not recommend using the natural log for data exploration and visualization. This is because while $2^2, 2^3, 2^4, \dots$ or $10^2, 10^3, \dots$ are easy to compute in our heads, the same is not true for  $\mathrm{e}^2, \mathrm{e}^3, \dots$, so the scale is not intuitive or easy to interpret.
+
+In the dollars per day example, we used base 2 instead of base 10 because the resulting range is easier to interpret. The range of the values being plotted is `r with(filter(gapminder, year==past_year), range(dollars_per_day, na.rm=TRUE))`. 
+
+In base 10, this turns into a range that includes very few integers: just 0 and 1. 
+With base two, our range includes -2, -1, 0, 1, 2, 3, 4, and 5. It is easier to compute $2^x$ and $10^x$ when $x$ is an integer and between -10 and 10, so we prefer to have smaller integers in the scale. Another consequence of a limited range is that choosing the binwidth is more challenging. With log base 2, we know that a binwidth of 1 will translate to a bin with range $x$ to $2x$.
+
+For an example in which base 10 makes more sense, consider population sizes. A log base 10 is preferable since the range for these is:
+
+```{r}
+filter(gapminder, year == past_year) %>%
+  summarize(min = min(population), max = max(population))
+```
+
+Here is the histogram of the transformed values:
+
+```{r population-histogram-log10}
+gapminder %>% 
+  filter(year == past_year) %>%
+  ggplot(aes(log10(population))) +
+  geom_histogram(binwidth = 0.5, color = "black")
+```
+
+In the above, we quickly see that country populations range between ten thousand and ten billion.
+</div>
+
+There are two ways we can use log transformations in plots. We can log the values before plotting them or use log scales on the axes. Both approaches are useful and have different strengths. If we log the data, we can more easily interpret intermediate values in the scale. For example, if we see:  
+
+`----1----x----2--------3----`
+
+for log transformed data, we know that the value of $x$ is about 1.5. If the scales are logged:
+
+`----1----x----10------100---`
+
+then, to determine `x`, we need to compute $10^{1.5}$, which is not easy to do in our heads. The advantage of using logged scales is that we see the original values on the axes. However, the advantage of showing logged scales is that the original values are displayed in the plot, which are easier to interpret. For example, we would see "32 dollars a day" instead of "5 log base 2 dollars a day".
+
+  9) Make a histogram of `dollars_per_day` from 1970 using a log2 scale on the x-axis. Compare it to the plot from Question 8. _Hint: you can use the `scale_x_continuous` function with `trans = "log2"`._
+  
+```{r}
+gapminder %>% 
+  filter(year == past_year & !is.na(gdp)) %>%
+  ggplot(aes(dollars_per_day)) + 
+  geom_histogram(binwidth = 1, color = "black") +
+  scale_x_continuous(trans = "log2")
+``` 
+
+*The plot from Q8 is the same except the values on the x-axis.*
+
+
+The histograms in Questions 8 and 9 have two _bumps_: one at about 4 and another at about 32. In statistics these bumps are sometimes referred to as _modes_. The mode of a distribution is the value with the highest frequency. The mode of the normal distribution is the average. When a distribution, like the one above, does not monotonically decrease from the mode, we call the locations where it goes up and down again _local modes_ and say that the distribution has _multiple modes_ indicating different distributions for different groups.
+
+The histogram above suggests that the 1970 country income distribution has two modes: one at about 2 dollars per day (1 in the log 2 scale) and another at about 32 dollars per day (5 in the log 2 scale). However, the histogram does not show us if the two groups of countries are _west_ versus the _rest_. Let us create the `group` column:
+
+```{r}
+gapminder <- gapminder %>% 
+  mutate(group = case_when(
+    region %in% c("Western Europe", "Northern Europe","Southern Europe", 
+                  "Northern America", "Australia and New Zealand") ~ "West",
+    TRUE ~ "Rest")) %>% 
+  as_tibble()
+```
+
+
+  10) Make a histogram of `dollars_per_day` from 1970 using a log2 scale and _facet_ it by group. Is there a _west_ versus the _rest_ dichotomy?
+
+```{r}
+gapminder %>% 
+  filter(year == past_year & !is.na(gdp)) %>%
+  ggplot(aes(dollars_per_day)) + 
+  geom_histogram(binwidth = 1, color = "black") +
+  facet_grid(cols = vars(group)) +
+  scale_x_continuous(trans = "log2")
+``` 
+
+*The plot confirms the west vs the rest dichotomy.*
+
+```{r,include = FALSE, eval=FALSE}
+# gapminder %>% 
+#   filter(year == past_year & !is.na(gdp)) %>%
+#   ggplot(aes(dollars_per_day)) + 
+#   geom_histogram(binwidth = 1, color = "black") +
+#   facet_grid(cols = ___) +
+#   scale_x_continuous(trans = "log2")
+``` 
+
+
+  
+The exploratory data analysis above has revealed two characteristics about average income distribution in 1970. Using a histogram, we found a bimodal distribution with the modes relating to poor and rich countries. We will try to visualize these summaries in one plot. 
+
+
+  11) Make a boxplot (`geom_boxplot`) of `dollars_per_day` (y-axis) versus `group` (x-axis) from 1970 using a log2 scale. Also add a the data using `geom_point()`.
+  
+```{r, solution=TRUE}
+gapminder %>% 
+  filter(year == past_year & !is.na(gdp)) %>%
+  ggplot(aes(group, dollars_per_day)) +
+  geom_boxplot() +
+  scale_y_continuous(trans = "log2") + 
+  geom_point()
+``` 
+
+```{r,include = FALSE, eval=FALSE}
+# gapminder %>% 
+#   filter(year == past_year & !is.na(gdp)) %>%
+#   ggplot(aes(group, dollars_per_day)) +
+#   geom____() +
+#   scale_y_continuous(trans = "log2") + 
+#   geom____()
+``` 
+
+
+  
+
+Data exploration clearly shows that in 1970 there was a "west versus the rest" dichotomy. But does this dichotomy persist? We first have to be a little careful here since there are more countries represented in 2010 than in 1970: the total counts are larger. One reason for this is that several countries were founded after 1970. For example, the Soviet Union divided into several countries during the 1990s. Another reason is that data was available for more countries in 2010. Hence we only have to consider the countries with data available for both years:
+
+```{r}
+past_year <- 1970
+present_year <- 2010
+years <- c(past_year, present_year)
+country_list_1 <- gapminder %>% 
+  filter(year == past_year & !is.na(dollars_per_day)) %>% 
+  pull(country)
+
+country_list_2 <- gapminder %>% 
+  filter(year == present_year & !is.na(dollars_per_day)) %>% 
+  pull(country)
+      
+country_list <- intersect(country_list_1, country_list_2)
+```
+
+We can now filter the rows by `years` and `country_list`.
+
+
+  12) Make a histogram of `dollars_per_day` from 1970 and 2010 using a log2 scale and _facet_ it by group and year. Does the dichotomy persist? 
+  
+```{r, solution=TRUE}
+gapminder %>% 
+  filter(year %in% years & country %in% country_list) %>%
+  ggplot(aes(dollars_per_day)) +
+  geom_histogram(binwidth = 1, color = "black") +
+  scale_x_continuous(trans = "log2") + 
+  facet_grid(year ~ group)
+``` 
+
+*The income gap between rich and poor countries has narrowed considerably during the last 40 years*
+
+```{r,include = FALSE, eval=FALSE}
+# gapminder %>% 
+#   filter(year %in% ___ & country %in% ___) %>%
+#   ggplot(aes(dollars_per_day)) +
+#   geom_histogram(binwidth = 1, color = "black") +
+#   scale_x_continuous(trans = "log2") + 
+#   facet_grid(___)
+``` 
+
+
+   13) Make a boxplot of `dollars_per_day` versus `group` from 1970 and 2010 using a log2 scale. Use year as fill aesthetic. 
+  
+      _Hint: you must convert year to a factor using `mutate(year = factor(year))`._
+
+```{r}
+gapminder %>% 
+  filter(year %in% years & country %in% country_list) %>%
+  mutate(year = factor(year)) %>%
+  ggplot(aes(group, dollars_per_day, fill = year)) +
+  geom_boxplot() +
+  scale_y_continuous(trans = "log2") 
+``` 
+
+*We now see that the rich countries have become a bit richer, but percentage-wise, the poor countries appear to have improved more. In particular, we see that the proportion of _developing_ countries earning more than $16 a day increased substantially.*
+
+```{r,include = FALSE, eval=FALSE}
+# gapminder %>% 
+#   filter(year %in% years & country %in% country_list) %>%
+#   mutate(year = factor(___)) %>%
+#   ggplot(aes(group, dollars_per_day, fill = ___)) +
+#   geom_boxplot() +
+#   scale_y_continuous(trans = "log2") 
+``` 
+
+
+
+
+
+The previous data exploration suggested that the income gap between rich and poor countries has narrowed considerably during the last 40 years. 
+We used a series of histograms and boxplots to see this. Let us now shift to density plots. Let us start by noting that density plots for income distribution in `r past_year` and `r present_year` deliver the message that the gap is closing:
+
+```{r income-smooth-density-by-year}
+gapminder %>% 
+  filter(year %in% years & country %in% country_list) %>%
+  ggplot(aes(dollars_per_day)) +
+  geom_density(fill = "grey") + 
+  scale_x_continuous(trans = "log2") + 
+  facet_grid(cols = vars(year))
+```
+
+In the `r past_year` plot, we see two clear modes: poor and rich countries. In `r present_year`, it appears that some of the poor countries have shifted towards the right, closing the gap. 
+
+```{r, echo=FALSE, include=FALSE}
+tmp <- gapminder %>% 
+  filter(year == past_year & country %in% country_list) %>%
+  mutate(group = ifelse(group == "West", "West", "Developing")) %>% 
+  group_by(group) %>% 
+  summarize(n=n()) %>%
+  spread(group, n)
+```
+
+
+The next message we need to convey is that the reason for this change in distribution is that several poor countries became richer, rather than some rich countries becoming poorer. To do this, we can assign a color to the groups we identified during data exploration. 
+
+```{r income-smooth-density-by-year-west-v-developing}
+gapminder %>% 
+  filter(year %in% years & country %in% country_list) %>%
+  ggplot(aes(dollars_per_day, fill = group)) +
+  scale_x_continuous(trans = "log2") +
+  geom_density(alpha = 0.2) + 
+  facet_grid(cols = vars(year))
+```
+
+Note the default is to have the area represented by each distribution add up to 1, regardless of the size of each group: the number of countries in the 'west' group is `r tmp[1,2]` and in the 'rest' group is `r tmp[1,1]`. We may use count on the y-axis instead:
+
+  14) To get densities smoother, use `bw = 0.75` argument so that the same bandwidth is used in each density. Comment on the plot.
+  
+```{r income-smooth-density-counts}
+p <- gapminder %>% 
+  filter(year %in% years & country %in% country_list) %>%
+  ggplot(aes(dollars_per_day, y = ..count.., fill = group)) +
+  scale_x_continuous(trans = "log2", limit = c(0.125, 300)) +
+  facet_grid(cols = vars(year))
+p + geom_density(alpha = 0.2) 
+```
+
+
+```{r}
+p + geom_density(alpha = 0.2, bw = 0.75)
+``` 
+
+*This plot now shows that the developing world distribution is changing.*
+
+
+As a final point, we note that in these distributions the weight of every country is the same. So if most of the population is improving, but living in a very large country, such as China, we might not appreciate this. We can actually weight the smooth densities using the `weight` mapping argument. We modify the dataset:
+
+```{r}
+gapminder <- gapminder %>% 
+  filter(year %in% years & country %in% country_list) %>%
+  group_by(year) %>%
+  mutate(weight = population/sum(population)*2) %>%
+  ungroup() 
+```
+
+
+  15) Modify the ggplot function with a weight argument and plot the density (with area equal 1). 
+
+```{r}
+gapminder %>% 
+  ggplot(aes(dollars_per_day, fill = group, weight = weight)) +
+  scale_x_continuous(trans = "log2", limit = c(0.125, 300)) + 
+  geom_density(alpha = 0.2, bw = 0.75) + 
+  facet_grid(cols = vars(year))
+``` 
+
+*We now see that the rich countries have become a bit richer, but percentage-wise, the poor countries appear to have improved more. In particular, we see that the proportion of _developing_ countries earning more than $16 a day increased substantially.*
+
+```{r,include = FALSE, eval=FALSE}
+# gapminder %>% 
+#   ggplot(aes(dollars_per_day, fill = group, weight = ___)) +
+#   scale_x_continuous(trans = "log2", limit = c(0.125, 300)) + 
+#   geom_density(alpha = 0.2, bw = 0.75) + 
+#   facet_grid(cols = vars(year))
+``` 
+
+
