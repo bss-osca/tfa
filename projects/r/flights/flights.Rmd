@@ -1,0 +1,676 @@
+---
+title: "New York City flights"
+author:
+  - name: [First author name]
+    #url: https://example.com/norajones
+    affiliation: cand.merc (OSCA)
+    #affiliation_url: https://example.com/spacelysprokets
+  - name: [Second author name]
+    affiliation: cand.merc (?)
+  - name: [Third author name]
+    affiliation: cand.merc (?)
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+date: "`r Sys.Date()`"
+---
+
+```{r, include=FALSE}
+if (interactive()) setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # set working dir to current file location
+knitr::opts_chunk$set(
+  # cache = TRUE, autodep = TRUE,  # use this option so compile the document faster (you may comment it out at the final report)
+  echo = TRUE, 
+  fig.width = 12
+  )
+```
+
+<!-- Some css for the comments -->
+```{css, echo=FALSE}
+.comment {
+  color: #F1948A;
+  border-color: black;
+  border-style: dashed;
+  border-width: thin;
+  padding: 10px;
+}
+
+aside {
+   color: green;
+}
+```
+
+<div class="comment">
+This document contains the instructions on how to do the project report. Delete the parts with comments (such as this one) when you hand in your final report. You can use this R markdown file as a template for the report.
+
+You must hand in (in groups) the R markdown file (source code file) and the rendered/knitted html file (the report output). Moreover, you must do individual peergrading afterwards. 
+
+The learning goal of doing a project, is to work with a larger assignment in R or VBA. The assignment will be more extensive than the exam and is not mandatory/part of curriculum. Do not expect such a large assignment at the exam. However, by working on the project you will improve your R/VBA skills which may be beneficial at the exam or when write your Master thesis. 
+
+A few useful help links:
+
+- For Markdown basics see **Help > Markdown Quick Reference** in RStudio.
+- For R Markdown basics see the **Help > Cheatsheets > R Markdown Cheat Sheet** in RStudio.
+- To see the possible options for R chunks see <https://yihui.org/knitr/options/>.
+</div>
+
+<aside>
+The green text in the `aside` tag contains meta information which is comments that may help you in writing this report. Delete the meta information before you hand in your final report.
+
+You have as an analyst been asked to take over the analysis of the `nycflights13` datasets from a former college. Your task is to finish the analysis started in this R Markdown report. 
+</aside>
+
+## Introduction
+
+We consider the datasets available from the package `nycflights13` that contains information about every flight that departed from New York City in 2013. Let us have a look at the datasets. First, we load the packages need for this report:
+
+```{r, cache=FALSE, message=FALSE}
+library(tidyverse)
+library(nycflights13)
+library(skimr)
+library(knitr)
+library(kableExtra)
+library(directlabels)
+library(patchwork)
+library(rmarkdown)
+library(lubridate)
+```
+
+The datasets in the `nycflights13` package are:
+
+```{r, fig.align='center', echo=FALSE}
+res <- data(package = "nycflights13", verbose = T)
+res$results %>% 
+  as_tibble() %>% 
+  select(Dataset = Item, Description = Title) %>% 
+  kable() %>% 
+  kable_styling(position = "center")
+```
+
+Let us try to do some descriptive analytics on the different datasets.
+
+
+
+## Flights
+
+I this section we will focus on the `flights` data set, which lists all domestic flights out of the New York area in 2013. We run `skim` to get an overview:
+
+```{r, warning=FALSE}
+skim(flights)
+```
+
+The variables in this dataset are:
+
+* `year, month, day` Date of departure
+* `dep_time,arr_time` Actual departure and arrival times.
+* `sched_dep_time, sched_arr_time` Scheduled departure and arrival times.
+* `dep_delay, arr_delay` delays in minutes
+* `hour, minute` Time of scheduled departure
+* `carrier` carrier abbreviation
+* `tailnum` Tail number of plane.
+* `flight` flight number.
+* `origin, dest` Origin and Destination
+* `air_time` Time spent in air.
+* `distance` Distance flown.
+* `time_hour` scheduled date and hour of flight.
+
+For further details about the dataset see `?flights` or the [online documentation](https://www.rdocumentation.org/packages/nycflights13/versions/1.0.1/topics/flights).
+
+The skim output indicate that some flights are canceled. We remove these observations from the dataset:
+
+```{r}
+dat <- flights %>%
+  filter(!is.na(dep_time))
+```
+
+### Joining datasets
+
+Let us first try to do some [mutating joins](https://bss-osca.github.io/tfa/sec-transform.html#mutating-joins) and combine variables from multiple tables. In `flights` we have flight information with an abbreviation for carrier (`carrier`), and in `airlines` we have a mapping between abbreviations and full names (`name`). You can use a join to add the carrier names to the flight data:
+
+```{r, warning = FALSE}
+dat <- dat %>% 
+  left_join(airlines) %>% 
+  rename(carrier_name = name) %>% 
+  print()
+```
+
+Note we here join by the column `carrier` represented in both data frames. That is, the default argument `by = c("carrier" = "carrier")` is used. If we want the full name of origin airport, we need to specify which one we want to join to since each flight has an origin and destination `airport`. Afterwards we do the same for the destination airport. 
+
+```{r}
+dat <- dat %>% 
+  left_join(airports %>% select(faa, name), 
+            by = c("origin" = "faa")) %>% 
+  rename(origin_name = name) %>% 
+  left_join(airports %>% select(faa, name), 
+            by = c("dest" = "faa")) %>% 
+  rename(dest_name = name) %>% 
+  select(month, carrier_name, origin_name, dest_name, sched_dep_time, dep_delay, arr_delay, distance, tailnum) %>% 
+  print()
+```
+
+We now have the flights data we need stored in the data frame `dat`. Let us try to answer some questions.
+
+
+### How many flights leave each New York airport for each carrier? 
+
+We first calculate a summary table:
+
+```{r}
+dat %>% 
+  count(origin_name, carrier_name, sort = TRUE) %>% 
+  paged_table()
+```
+
+Let us visualize the numbers. First we facet by airport and use `geom_bar`:
+
+<aside>
+Remember always to include a informative plot title and axis labels including units (e.g. hours).  
+</aside>
+
+```{r, fig.asp=0.75}
+dat %>% 
+  ggplot(aes(carrier_name)) +
+  geom_bar() + 
+  facet_grid(rows = vars(origin_name)) + 
+  labs(
+    title = "Number of flights",
+    x = "Carrier",
+    y = "Flights"
+  ) + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+We can also compare the two categorical variables by using `geom_count`:
+
+<aside>
+Uncomment the code and finish it. 
+</aside>
+
+```{r, eval=FALSE}
+# dat %>%
+#   ggplot(aes(___, ___)) + 
+#   geom____() + 
+#   labs(
+#     title = "Number of flights",
+#     y = "Carrier",
+#     x = "Departure airport",
+#     size = "Flights"
+#   ) 
+```
+
+Finally, we can use a heatmap by using `geom_tile`. In this case, `geom_tile` doesn't offer a way to calculate counts on it's own, so we use the function `count` in our pipe:
+
+```{r}
+dat %>%
+  count(origin_name, carrier_name) %>%
+  ggplot(aes(origin_name, carrier_name, fill = n)) + 
+  geom_tile() + 
+  labs(
+    title = "Number of flights",
+    y = "Carrier",
+    x = "Departure airport",
+    fill = "Flights"
+  ) 
+```
+
+
+
+### How many carrier flights per month?
+
+Summaries are: 
+
+```{r}
+# dat %>%
+#   ___ %>%
+#   paged_table()
+```
+We will try to visualize the numbers using a line plot with carrier as color aesthetic:
+
+<aside>
+We here will use the package *directlabels* to add the labels directly beside the lines. See [here]( http://directlabels.r-forge.r-project.org/docs/lineplot/plots/lars.html) for info.   
+</aside>
+
+```{r}
+# dat %>%
+#   count(month, carrier_name) %>%
+#   ggplot(mapping = aes(x = ___, y = ___, color = ___)) +
+#   geom_line() +
+#   geom_point() +
+#   geom_dl(aes(label = ___), method = list(dl.trans(x = x + .3), "last.bumpup")) + 
+#   scale_x_continuous(breaks = 1:12, limits = c(1,17)) + 
+#   labs(
+#     title = "Number of flights",
+#     y = "Flights",
+#     x = "Month"
+#   ) + 
+#   theme(legend.position = "none") 
+```
+
+### Which carriers/airlines have the worst delays?
+
+Note that delays columns are in minutes. We first convert delays to hours:
+
+```{r}
+dat <- dat %>% 
+  mutate(across(contains("delay"), ~ .x / 60))
+```
+
+Next, we answer the question by looking at different measures.
+
+#### Average delay
+
+Let us first have a look at the average departure delay by airline. The `dplyr` package has two functions that make it easy to do that: the `group_by` and the `summarize` functions. We use the two together and groups the rows of the dataset together based on the `carrier` and then uses `summarise` and the `mean` function to calculate the average delay:
+
+```{r}
+dat %>%
+  group_by(carrier_name) %>%
+  summarise(ave_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  arrange(desc(ave_delay)) %>%
+  paged_table()
+```
+
+Note the `mean` function have a `na.rm` argument which ignores the missing values otherwise the average delays could not be calculated. We can visualize our summary (a continuous-categorical comparison) by piping the table into a column plot:
+
+```{r}
+dat %>% 
+  group_by(carrier_name) %>% 
+  summarise(ave_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  ggplot(aes(carrier_name, ave_delay)) + 
+  geom_col()
+```
+To get a better visualization we reorder the categorical x-axis by average delay, use the full names of the airlines (which are rotated) and add some informative labels:
+
+```{r, echo=TRUE}
+# code here
+```
+
+To conclude, Frontier (F9) and Express Jet (EV) have the highest average delay. However, using `mean` to summarize a value can be dangerous, because it's sensitive to outliers!
+
+
+
+
+
+#### Variation
+
+We should *always* ask about the variation in the variables in our data sets, but it's especially important to do so if we're going to use averages to summarize them.
+
+First let us calculate the standard deviation for each carrier:
+
+```{r}
+# code here
+```
+
+What is the distribution of departure delays by airline? Visualized as a density distribution using carrier as fill aesthetic:
+
+```{r warning=FALSE}
+# dat %>%
+#   ggplot(aes(___, fill = ___)) + 
+#   geom_density(alpha = 0.5) + 
+#   labs(
+#     title = "___",
+#     x = "Delay (hours)",
+#     y = "Density",
+#     fill = "Carrier"
+#   ) + 
+#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) 
+```
+
+We can see that there is a small number of HUGE outliers which makes using `mean` possibly very misleading. 
+
+
+Lets us try to make a plot of the empirical cumulative distributions for each carrier using carrier as color aesthetic and a zoom of at most 3 hours delay:
+
+<aside>
+Have a look [here](http://rstudio-pubs-static.s3.amazonaws.com/209392_437ec4da7fa2432d831320f3591e7491.html) to see how to zoom.
+</aside>
+
+```{r}
+# dat %>%
+#   ggplot() + 
+#   stat_ecdf(aes(x = ___, color = ___), alpha = 0.75) +
+#   coord_cartesian(___) +  
+#   ___
+```
+Note, the higher upper-left the distribution is, the better. That is, a carrier dominates other carriers if the line is above the other carriers. Comparing this to the standard deviations, we see that the standard deviations is not a good measure for delays.
+
+Variation in data like these where the outliers are very sparse is hard to visualize using density plots. We may also use a boxplot:
+
+```{r}
+# code here
+```
+
+We can see that most flights have a median around zero. However, some carriers have larger delays compared to others. Is the variation in departure delay different given departure airport? We use departure airport as color aesthetic:
+
+```{r}
+# code here
+```
+
+[Comment on the results here]
+
+
+
+
+#### Median
+
+he boxplot shows median values in the center. What would happen if we used `median` instead of average delay time and make a column plot? 
+
+```{r}
+# dat %>% 
+#   group_by(carrier_name) %>% 
+#   summarise(median_delay = ___) %>%
+#   ggplot(___) + 
+#   ___ + 
+#   labs(
+#     title = "Median departure delay for each carrier",
+#     x = "Carrier",
+#     y = "Median delay (hours)"
+#   ) + 
+#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+That tells a bit of a different story!  [Comment on the results here]
+
+
+
+#### Delays of more than an hour
+
+How many flights were **really** delayed and how does that break down by airline carrier?  Being delayed more than an hour really sucks, so let's use that as our cutoff:
+
+```{r}
+# code here
+```
+
+That's a lot of flights!  We can use the `dplyr` function named `count` to give us a summary of the number of rows of a that correspond to each carrier:
+
+```{r}
+# code here
+```
+
+Note that `count` has created a column named `n` which contains the counts and we ask it to sort that column for us.
+
+We can visualize it with a column plot (note we don't need to reorder because `count` has done that for us):
+
+```{r}
+# code here
+```
+
+[Comment on the results here]
+
+
+
+### What is the relationship between departure delay and arrival delay?
+
+We plot the delays against each other as points. 
+
+```{r}
+# code here
+```
+
+The large mass of points near (0, 0) can cause some confusion since it is hard to tell the true number of points that are plotted. This is the result of a phenomenon called overplotting. As one may guess, this corresponds to points being plotted on top of each other over and over again. When overplotting occurs, it is difficult to know the number of points being plotted. We adjust the transparency of the points by setting `alpha = 0.1`
+
+[Comment on the results here]
+
+
+### Are flight delays worse at different New York airports? 
+
+If you're flying out of New York you might want to know which airport has the worst delays on average. We first calculate median and average delays:
+
+```{r}
+# dat %>% 
+#   group_by(origin_name) %>% 
+#   summarize(___)
+```
+
+As we can see La Guardia seems to have the smallest delays. However, the difference is small. Lets us try to make a plot of the empirical cumulative distributions for each airport using airport as color aesthetic and a zoom of at most 2 hours:
+
+```{r}
+# code here
+```
+
+The median values can be found at y = 0.5. Note that La Gaardia is above the other lines indicating that it has the smallest delays no matter what fractile we consider. Another way to visialize this covariation in a categorical (airport) and a continuous (delay) variable is with a boxplot. We use a little scaling to get a better picture of the average delay and zoom so the y variable is between at most half and hour.
+
+```{r}
+# code here
+```
+
+
+### Are carrier flight delays different at New York airports? 
+
+We first calculate median and average delays:
+
+```{r}
+# dat %>% 
+#   ___
+#   paged_table()
+```
+
+There are some differences. Let us try to do a heat map of the average delays:
+
+```{r}
+# dat %>%
+#   group_by(origin_name, carrier_name) %>%
+#   ___
+#   scale_fill_continuous(low = "#31a354", high = "#e5f5e0") + 
+#   labs(
+#     title = "Average departure delays",
+#     x = "Departure airport",
+#     y = "Carrier",
+#     fill = "Ave. delay (min)"
+#   ) 
+```
+For each carrier this give a good insight into the differences at each airport. Another way to visualize the covariation is with a boxplot. We use a little scaling to get a better picture of the delay and zoom so the delay is a most half an hour.
+
+```{r}
+# code here
+```
+
+We may also try to plot the empirical cumulative distributions for each carrier (facet) using airport as color aesthetic and a zoom of the delay is at most 1 hour:
+
+```{r}
+# code here
+```
+
+
+
+### Does departure time affect flight delays? 
+
+First, note that the `sched_dep_time` is a number in the format HHMM. We convert it into a hour:minutes data type and afterwards to hours since midnight:
+
+```{r}
+dat <- dat %>% 
+  mutate(sched_dep_time = hm(str_replace(sched_dep_time, "^(.*)(..)$", "\\1:\\2"))) %>% 
+  mutate(sched_dep_time = as.numeric(sched_dep_time)/60/60)
+```
+
+
+To explore covariation in two continuous (quantitative) variables, we can use a scatter plot:
+
+```{r}
+# code here
+```
+
+[Comment on the results here]
+
+
+
+### Does travel distance affect departure and arrival delay?
+
+We use the patchwork package to plot distance against the two delays. Moreover we also add a smoothed line using `geom_smooth`:
+
+```{r}
+# p1 <- dat %>% 
+#   ggplot(aes(x=distance, y= dep_delay)) + 
+#   ___
+# 
+# p2 <- dat %>% 
+#   ggplot(aes(x=distance, y= arr_delay)) + 
+#   ___
+# 
+# p1 + p2
+```
+
+[Comment on the results here]
+
+
+
+
+
+
+
+## Planes
+
+Let us do a mutation join so we have a bit more information about each airplane:
+
+```{r}
+dat <- dat %>% 
+  left_join(planes %>% 
+              select(tailnum, plane_manufacturer = manufacturer, plane_model = model))
+```
+
+### What is the monthly usage of all the aircrafts? 
+
+This could be useful for some kind of maintenance activity that needs to be done after x number of trips. The summary table is (based on `tailnum`):
+
+```{r}
+# code here
+```
+
+As an example, consider the plane N355NB:
+
+```{r}
+dat1 <- dat %>% 
+  filter(tailnum=="N355NB") 
+```
+
+The specifications are:
+
+```{r}
+filter(planes, tailnum=="N355NB")
+```
+
+We see that it is an Airbus 319 with 145 seats. The plane flew `r nrow(dat1)` flights in 2013 with a total distance of `r sum(dat1$distance)`.   
+Let us have a look at the destinations:
+
+```{r}
+# dat1 %>% 
+#   ___
+#   geom_col()
+```
+
+
+## Weather
+
+I this section we will focus on the `weather` data set, which lists hourly meterological data for LGA, JFK and EWR. We run `skim` to get an overview:
+
+```{r, warning=FALSE}
+skim(weather)
+```
+
+For further details see `View(weather)` or read the associated help file by running `?weather` to bring up the help file.
+
+Observe that there is a variable called temp of hourly temperature recordings in Fahrenheit at weather stations near all three major airports in New York City: Newark (origin code EWR), John F. Kennedy International (JFK), and LaGuardia (LGA). Let us transform the temperature to celsius:
+
+```{r}
+dat_w <- weather %>% 
+  left_join(airports %>% select(faa, name), 
+            by = c("origin" = "faa")) %>% 
+  rename(origin_name = name) %>% 
+  mutate(temp = (temp - 32) * (5/9) ) %>% 
+  select(origin_name, time_hour, month, temp)
+```
+
+### How are the temperature fluctutating over the year?
+
+We start by plotting temperature over the year with airport/origin as color aesthetic. We also add a smoothing line:
+
+```{r}
+# code here
+```
+
+Note that we have used the `alpha` aesthetic to make the lines more transparent. [Comment on the results here]
+
+### Are the temparatures different in the airports? 
+
+Let us start by plotting the density for each airport:
+
+```{r}
+# code here
+```
+
+Note the mean temparature is more or less the same (vertical lines). There is a bit fluctuations on Newark compared to for instance JFK airport (lowest spread).
+
+A closer look can be done by faceting by month:
+
+```{r}
+# code here
+```
+
+Finally, let us consider a boxplot of temparature for each month:
+
+```{r}
+# code here
+```
+
+[Comment on the results here]
+
+What does the dot at the bottom of the plot for May correspond to?  Explain what might have occurred in May to produce this point.
+
+
+
+## Any insights on canceled flights?
+
+The canceled flights are:
+
+```{r}
+dat_c <- flights %>%
+  filter(is.na(dep_time))
+```
+
+Let us do some analysis.
+
+<aside>
+Add a few plots you think are important.
+</aside>
+
+## Other insights?
+
+<aside>
+Include further analysis you think are important.
+</aside>
+
+
+
+
+
+## Colophon 
+<!-- Always keep this section -->
+
+This report has been created inside [RStudio](http://www.rstudio.com/ide/) using [R Markdown](https://rmarkdown.rstudio.com/) and the [distill](https://rstudio.github.io/distill/) format. 
+
+The report was built using:
+
+```{r message = FALSE, warning = FALSE, echo = FALSE}
+session <- devtools::session_info()
+session$platform
+```
+
+Along with these packages:
+
+```{r message = FALSE, warning = FALSE, echo = FALSE}
+session$packages %>% 
+  select(package, loadedversion, date, source) %>% 
+  DT::datatable(rownames = FALSE,
+                class = 'cell-border stripe',
+                filter = list(position = 'top'),
+                options = list(pageLength = 5, 
+                           autoWidth = FALSE,
+                           bInfo = FALSE,
+                           paging = TRUE))
+```
+
+
+
+
+
+
+
+
