@@ -1,0 +1,434 @@
+---
+title: "TFA exam - Guiding solution"
+author: "Lars Relund Nielsen"
+---
+
+```{css, echo=FALSE}
+.solution {
+  background-color: aliceblue;
+  padding: 10px;
+}
+
+h2 {
+  font-size: large;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  message=FALSE)
+options(width = 90, scipen = 1, digits = 2)
+
+library(tidyverse)
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  q_ctr <<- 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+# R - `r ctrA()` (40%)
+ 
+Consider the dataset in the file `jobs.csv` with engine maintenance jobs for a group of ships. 
+
+The dataset contains a row for each item used. The columns/variables are:
+
+  - `ship`: The ship considered.
+  - `job_id`: Maintenance job id. A job is a collection of items replaced.
+  - `job_desc`: Job description.
+  - `item_id`: Item id.
+  - `item_name`: Item name.
+  - `item_quantity`: Number of items used.
+  - `item_manufaturer`: Item manufacturer.
+  - `component_id`: Engine component id.
+  - `component_desc`: Engine component description.
+  - `done_date`: Date the job finished.
+  - `year`: Year of done date.
+  - `days`: Days since the item was last used for maintenance on the ship.
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames) and answer/complete the following questions/tasks.
+
+
+
+
+## `r ctrQ()`
+
+Find the delimiter used in the csv file and load the file into a tibble/data frame called `dat`.
+
+```{r, solution=TRUE}
+# load packages
+library(tidyverse)
+library(skimr)
+
+lines <- read_lines("jobs.csv", n_max = 3)
+lines
+dat <- read_csv("jobs.csv")
+```
+
+<div class="solution">
+It can be seen that a comma (`,`) is used a delimiter. That is, the dataset is loaded using `read_csv`.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+Provide a short overview of the data. How many rows are there in the data, what is the number of different ships, and what is the range of dates?
+
+```{r, solution=TRUE, warning=FALSE}
+skim(dat)
+```
+
+<div class="solution">
+We have a total of `r dat %>% nrow()` rows/observations for 9 ships over a period from 2015-01-24 to 2020-04-21.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+What is the total number of different jobs, number of different jobs per ship, and average number of jobs per ship? Hint: The function `n_distinct` may be used to find distinct values within a group.
+
+```{r, solution=TRUE}
+res1 <- dat %>% 
+   distinct(job_id) %>% 
+   nrow() %>% 
+   print()
+
+res2 <- dat %>% 
+   group_by(ship) %>% 
+   summarise(jobs = n_distinct(job_id)) %>% 
+   print()
+
+res3 <- res2 %>% 
+   summarise(avg_jobs = mean(jobs)) %>% 
+   print()
+```
+
+<div class="solution">
+We have a total of `r res1` jobs, the number of jobs for each ship can be seen using `res2` with and average of `r res3[1,1]` jobs per ship.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+What is the minimum, average, and  maximum number of *different* items considered at each job? What is the minimum, average, and  maximum number of items used for maintenance at each job?
+
+```{r, solution=TRUE}
+res1 <- dat %>% 
+   distinct(job_id, item_id) %>% 
+   count(job_id) %>% 
+   summarise(min = min(n), avg = mean(n), max = max(n)) %>% 
+   print()
+
+res2 <- dat %>% 
+   group_by(job_id) %>% 
+   summarise(n = sum(item_quantity)) %>% 
+   summarise(min = min(n), avg = mean(n), max = max(n)) %>% 
+   print()
+```
+
+<div class="solution">
+The range and average of unique items considered can be seen using `res1` and the range and average of items used can be seen using `res2`. Note some jobs don't use the allocated item.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+It seems that some items considered in a job are not used anyway. Which ship has most jobs where an item should have been used, but has not (quantity is zero)?
+
+```{r, solution=TRUE}
+res <- dat %>% 
+   filter(item_quantity == 0) %>% 
+   group_by(ship) %>%
+   summarise(jobs = n_distinct(job_id)) %>% 
+   arrange(desc(jobs)) %>% 
+   print()
+```
+
+<div class="solution">
+`r res$ship[1]` have a lot of jobs where the items scheduled in a job, have not been used.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+Which item is the most used one for maintenance?
+
+```{r, solution=TRUE}
+res <- dat %>% 
+   group_by(item_id) %>%  
+   summarize(n = sum(item_quantity), item_name = first(item_name)) %>% 
+   arrange(desc(n)) %>% 
+   print()
+```
+
+<div class="solution">
+Item `r res$item_id[1]` a `r res$item_name[1]` is used most.
+</div>
+
+
+
+
+
+
+# R - `r ctrA()` (40%)
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). We work with the dataset from Assignment 1, which can be read using:
+
+
+```{r}
+library(tidyverse)
+dat <- read_csv("jobs.csv")
+```
+
+
+
+
+## `r ctrQ()`
+
+For each year and job id, identify the ship the job was done on. Hint: The `first` function may be used to select the first item within a group. Use this to create a visualization showing the number of maintenance jobs for each year with the following features:
+
+   * Bars are used for each year.
+   * Fill colors are used to identify the ship.
+   * Legends are put at the bottom of the plot.
+   * Informative figure title and axis titles are given.
+
+Which year had the most jobs?
+
+```{r, solution=TRUE}
+dat %>% 
+   group_by(year, job_id) %>% 
+   summarise(ship = first(ship)) %>% 
+   ggplot(aes(x = year, fill = ship)) +
+   geom_bar() +
+   labs(title = "Total number of jobs",
+    x = "Year",
+    y = "Jobs",
+    fill = "Ship") +
+   theme(legend.position = "bottom")
+```
+
+<div class="solution">
+Most jobs where done in 2018.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the number of different items used for each ship with the following features:
+
+* The numbers are shown using columns.
+* Reorder the columns so they increase along the x-axis.
+* Informative figure title and axis titles are given.
+
+Which ship uses most items? 
+
+```{r, solution=TRUE}
+res <- dat %>% 
+   group_by(ship) %>% 
+   summarize(n = n_distinct(item_id)) %>% 
+   arrange(desc(n)) 
+res %>% 
+   ggplot(aes(x = reorder(ship, n), y = n)) +
+   geom_col() +
+   labs(title = "Number of unique items used",
+    x = "Ship",
+    y = "Items") +
+   theme(legend.position = "bottom")
+```
+
+<div class="solution">
+Most items are used for `r res$ship[1]`.
+</div>
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the number of items used as a function of done date with the following features:
+
+* The numbers are shown using columns with a fixed line width of 1 and a blue color. 
+* The plot is divided using `ship` (facet). Hint: You may use `scales = "free_y"`. 
+* Informative figure title and axis titles are given.
+
+Which ship has most items used at a specific date?
+
+```{r, solution=TRUE, warning=FALSE}
+res <- dat %>% 
+   group_by(ship, done_date) %>% 
+   summarize(n = sum(item_quantity)) 
+res %>% 
+   ggplot(aes(x = done_date, y = n)) +
+   geom_col(linewidth = 1, color = "blue") +
+   facet_wrap(~ ship, scales = "free_y") +
+   labs(title = "Number of items used",
+    x = "Date",
+    y = "Items used") 
+```
+
+<div class="solution">
+On a specific date must items are used for Ship-12.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+Consider two items with id:
+
+```{r}
+items <- c("601.004.006", "601.026.128")
+```
+
+Create a visualization showing the variation of demand (item quantity) of each item with the following features:
+
+* A density is plotted for each item with a fixed bandwidth (`bw`) of 1 and transparency (`alpha`) of 0.5. 
+* Item name is used as fill. 
+* The plot is divided using `year` (facet).
+* Informative figure title and axis titles are given.
+
+Over the years, is it consistent that on average the demand of one of the items is higher than the other?
+
+```{r, solution=TRUE}
+res <- dat %>% 
+   filter(item_id %in% items)
+res %>% 
+   ggplot(aes(item_quantity, fill = item_name)) + 
+   geom_density(bw = 1, alpha = 0.5) +
+   facet_wrap(~ year) +
+   labs(title = "Demand density",
+    x = "Demand",
+    y = "",
+    fill = "Item") +
+   theme(legend.position = "bottom")
+```
+
+<div class="solution">
+It can be seen that over the years, the demand peak of the Piston Ring is higher that for the O-Ring, i.e. it seems to hold. 
+</div>
+
+
+
+
+## `r ctrQ()`
+
+Consider two items with id:
+
+```{r}
+items <- c("601.004.006", "601.026.128")
+```
+
+Create a visualization showing the variation of days since last used for maintenance given an item with the following features:
+
+* A violin is used to plot days since last used given an item. 
+* Item name is used as fill. 
+* Informative figure title and axis titles are given.
+
+Comment on the plot.
+
+```{r, solution=TRUE}
+dat %>% 
+    filter(item_id %in% items) %>% 
+   ggplot(aes(y = days, x = item_id, fill = item_name)) + 
+   geom_violin() + 
+   labs(title = "Violin density",
+    x = "Item id",
+    y = "Days",
+    fill = "Item") +
+   theme(legend.position = "bottom")
+```
+
+<div class="solution">
+Most often there are less than 100 days between a repeated usage of the item, but there can be over 600 days. The Piston Ring have in general a lower number of days in between than the O-Ring on average.
+</div>
+
+
+
+
+
+# R - `r ctrA()` (20%)
+
+Create a function `process` with the following features:
+
+   * The arguments are:
+     - `v`: A vector with numbers (may contain missing values,`NA`s).
+     - `find`: A number to search for. Default value is `NULL` indicating not to search for a number.
+     - `replace`: A number. If `find` is a number, then replace all occurrences of `find` in the vector with `replace` (if any). Default value is `NULL` indicating not to replace anything.
+   * The function returns a list with 
+     - the original vector `v`, 
+     - the length of `v`, 
+     - the number of missing values,
+     - if find is a number, the number of times the number is found, and
+     - if replace is a number, the new vector with the replaced numbers.
+   * Document your function. 
+
+```{r, solution=TRUE}
+#' Process a vector
+#'
+#' @param v The vector.
+#' @param find A number to search for. Default value is `NULL` indicating not to 
+#'        search for a number.
+#' @param replace A number. If `find` is a number then replace all these numbers 
+#'        with `replace`. Default value is `NULL` indicating not to replace anything.
+#' @return A list with the processed vector and some info.
+process <- function(v, find = NULL, replace = NULL) {
+   lst <-list(original = v, length = length(v), missing = sum(is.na(v)))
+   if (!is.null(find)) {
+      idx <- which(v == find)
+      lst$found <- length(idx)
+      if (!is.null(replace)) {
+         v[idx] <- replace
+         lst$new <- v
+      }
+   }
+   return(lst)
+}
+v <- c(8, 19, -2, 8, NA, 12, 9, 23, NA, -34)
+process(v)
+process(v, find = 1)
+process(v, find = 8)
+process(v, find = 8, replace = 5)
+```
+
+
+
+
+

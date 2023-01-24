@@ -1,0 +1,295 @@
+---
+title: "TFA exam"
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  message=FALSE)
+options(width = 90, scipen = 1, digits = 2)
+
+library(tidyverse)
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  q_ctr <<- 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+# R - `r ctrA()` (40%)
+ 
+Consider the dataset in the file `jobs.csv` with engine maintenance jobs for a group of ships. 
+
+The dataset contains a row for each item used. The columns/variables are:
+
+  - `ship`: The ship considered.
+  - `job_id`: Maintenance job id. A job is a collection of items replaced.
+  - `job_desc`: Job description.
+  - `item_id`: Item id.
+  - `item_name`: Item name.
+  - `item_quantity`: Number of items used.
+  - `item_manufaturer`: Item manufacturer.
+  - `component_id`: Engine component id.
+  - `component_desc`: Engine component description.
+  - `done_date`: Date the job finished.
+  - `year`: Year of done date.
+  - `days`: Days since the item was last used for maintenance on the ship.
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames) and answer/complete the following questions/tasks.
+
+
+
+
+## `r ctrQ()`
+
+Find the delimiter used in the csv file and load the file into a tibble/data frame called `dat`.
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+Provide a short overview of the data. How many rows are there in the data, what is the number of different ships, and what is the range of dates?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+What is the total number of different jobs, number of different jobs per ship, and average number of jobs per ship? Hint: The function `n_distinct` may be used to find distinct values within a group.
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+What is the minimum, average, and  maximum number of *different* items considered at each job? What is the minimum, average, and  maximum number of items used for maintenance at each job?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+It seems that some items considered in a job are not used anyway. Which ship has most jobs where an item should have been used, but has not (quantity is zero)?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+Which item is the most used one for maintenance?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+
+# R - `r ctrA()` (40%)
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). We work with the dataset from Assignment 1, which can be read using:
+
+
+```{r}
+library(tidyverse)
+dat <- read_csv("jobs.csv")
+```
+
+
+
+
+## `r ctrQ()`
+
+For each year and job id, identify the ship the job was done on. Hint: The `first` function may be used to select the first item within a group. Use this to create a visualization showing the number of maintenance jobs for each year with the following features:
+
+   * Bars are used for each year.
+   * Fill colors are used to identify the ship.
+   * Legends are put at the bottom of the plot.
+   * Informative figure title and axis titles are given.
+
+Which year had the most jobs?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the number of different items used for each ship with the following features:
+
+* The numbers are shown using columns.
+* Reorder the columns so they increase along the x-axis.
+* Informative figure title and axis titles are given.
+
+Which ship uses most items? 
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the number of items used as a function of done date with the following features:
+
+* The numbers are shown using columns with a fixed line width of 1 and a blue color. 
+* The plot is divided using `ship` (facet). Hint: You may use `scales = "free_y"`. 
+* Informative figure title and axis titles are given.
+
+Which ship has most items used at a specific date?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+Consider two items with id:
+
+```{r}
+items <- c("601.004.006", "601.026.128")
+```
+
+Create a visualization showing the variation of demand (item quantity) of each item with the following features:
+
+* A density is plotted for each item with a fixed bandwidth (`bw`) of 1 and transparency (`alpha`) of 0.5. 
+* Item name is used as fill. 
+* The plot is divided using `year` (facet).
+* Informative figure title and axis titles are given.
+
+Over the years, is it consistent that on average the demand of one of the items is higher than the other?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+Consider two items with id:
+
+```{r}
+items <- c("601.004.006", "601.026.128")
+```
+
+Create a visualization showing the variation of days since last used for maintenance given an item with the following features:
+
+* A violin is used to plot days since last used given an item. 
+* Item name is used as fill. 
+* Informative figure title and axis titles are given.
+
+Comment on the plot.
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+# R - `r ctrA()` (20%)
+
+Create a function `process` with the following features:
+
+   * The arguments are:
+     - `v`: A vector with numbers (may contain missing values,`NA`s).
+     - `find`: A number to search for. Default value is `NULL` indicating not to search for a number.
+     - `replace`: A number. If `find` is a number, then replace all occurrences of `find` in the vector with `replace` (if any). Default value is `NULL` indicating not to replace anything.
+   * The function returns a list with 
+     - the original vector `v`, 
+     - the length of `v`, 
+     - the number of missing values,
+     - if find is a number, the number of times the number is found, and
+     - if replace is a number, the new vector with the replaced numbers.
+   * Document your function. 
+
+```{r}
+# your code here
+```
+
+
+
+
+
