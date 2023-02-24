@@ -1,0 +1,449 @@
+---
+title: "TFA exam - Guiding solution"
+author: "Lars Relund Nielsen"
+---
+
+```{css, echo=FALSE}
+.solution {
+  background-color: aliceblue;
+  padding: 10px;
+}
+
+h2 {
+  font-size: large;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  message=FALSE)
+options(width = 90, scipen = 10, digits = 2)
+
+library(tidyverse)
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  q_ctr <<- 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# R - `r ctrA()` (50%)
+ 
+Consider the dataset in the file `orders.csv` with purchase orders for a group of ships. 
+
+The dataset contains a row for each item used in an order. The columns/variables are:
+
+  - `ship`: The ship considered.
+  - `order_id`: Order id. An order is a group of items purchased in one batch from a single supplier.
+  - `item_id`: Item id.
+  - `item_desc`: Item description.
+  - `quantity`: Number of items ordered.
+  - `price`: Price per unit.
+  - `order_date`: Order date.
+  - `delivery_date`: Expected delivery date when order is made.
+  - `delivery_place`: Delivery place.
+  - `recieved_date`: Actual date the order is recieved.
+  - `supplier`: Supplier for the order.
+  - `delivery_cost`: Delivery cost.
+  - `order_year`: Year the order was placed. 
+
+The dataset can be read using:
+
+```{r, warning=FALSE}
+library(tidyverse)
+dat <- read_csv("orders.csv") 
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames) and answer/complete the following questions/tasks:
+
+
+## `r ctrQ()`
+
+How many ships, suppliers, and different items are considered?
+
+```{r, solution=TRUE, warning=FALSE}
+# load packages
+library(tidyverse)
+library(skimr)
+skim(dat)
+```
+
+<div class="solution">
+Orders are for 9 ships and from 31 suppliers. A total of 550 different items are considered.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+Do all orders use a single supplier and delivery place? 
+
+```{r, solution=TRUE}
+dat %>% 
+   count(order_id, supplier) %>% 
+   count(order_id) %>% 
+   filter(n > 1)
+
+dat %>% 
+   count(order_id, delivery_place) %>% 
+   count(order_id) %>% 
+   filter(n > 1)
+```
+
+<div class="solution">
+I count the number of suppliers per order id. Since there is only a single supplier per order id, orders are sent from a single supplier as expected. Similar for delivery place.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+For each order, calculate/find the number of different items, number of items, total price, total delivery cost, and order year (missing values are assumed zero). 
+
+Which order has the highest delivery cost?
+
+```{r, solution=TRUE}
+res <- dat %>% 
+   group_by(order_id) %>% 
+   summarise(
+      items = n(), 
+      quantity = sum(quantity, na.rm = T),
+      price = sum(price * quantity, na.rm = T), 
+      delivery_cost = sum(delivery_cost, na.rm = T),
+      year = first(order_year)) %>% 
+   arrange(desc(delivery_cost)) %>% 
+   print()
+```
+
+<div class="solution">
+The highest delivery cost is `r res$delivery_cost[1]` for order `r res$order_id[1]`.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+For each order, find the supplier and delivery place. Hint: The `first` function may be used to select the first item within a group. 
+
+Which supplier and delivery place is used most?
+
+```{r, solution=TRUE}
+res1 <- dat %>% 
+   group_by(order_id) %>% 
+   summarise(supplier = first(supplier), delivery_place = first(delivery_place)) 
+res2 <- res1 %>% 
+   count(supplier, sort = T) %>% 
+   print()
+res3 <- res1 %>% 
+   count(delivery_place, sort = T) %>% 
+   print()
+```
+
+<div class="solution">
+The supplier used most is `r res2$supplier[1]`. The delivery place used most is `r res3$delivery_place[1]`.
+</div>
+
+
+
+
+
+## `r ctrQ()`
+
+Add a column to the dataset equal the *value* of the items in a row calculated as the price times the quantity. Next, create a summary table named `res1` that for each item id calculates the aggregated value and arrange them in descending order. 
+
+Which item is the most costly one with respect to the calculated value in `res1`?
+
+```{r, solution=TRUE}
+res1 <- dat %>% 
+   mutate(val = price * quantity) %>% 
+   group_by(item_id) %>% 
+   summarise(val = sum(val), item_desc = first(item_desc)) %>% 
+   arrange(desc(val)) %>% 
+   print()
+```
+
+<div class="solution">
+The most costly item is `r res1$item_id[1]` a `r res1$item_desc[1]`. 
+</div>
+
+Given the dataset `res1`, add two new columns:
+
+   - The relative value for each item as the ratio between the item's value and the total value of all items.
+   - The cumulative relative value. Hint: You can use the `cumsum` function here.
+
+```{r, solution=TRUE}
+res1 <- res1 %>% 
+   ungroup() %>%
+   mutate(pct = val/sum(val), cum_pct = cumsum(pct)) %>%
+   print() 
+```
+
+<div class="solution">
+The two new columns have been added. 
+</div>
+
+Consider the most costly item with respect to the calculated value in `res1`. At which ships is the item used and how many times?
+
+```{r, solution=TRUE}
+item <- res1$item_id[1]
+res2 <- dat %>% 
+   filter(item_id == item) %>% 
+   group_by(ship) %>% 
+   summarise(n = sum(quantity)) %>% 
+   arrange(desc(n)) %>% 
+   print() 
+```
+
+<div class="solution">
+The item is used at `r nrow(res2)` ships (most on ship `r res2$ship[1]`).
+</div>
+
+
+
+
+
+# R - `r ctrA()` (50%)
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). We work with the dataset from Assignment 1, which can be read using:
+
+```{r}
+library(tidyverse)
+dat <- read_csv("orders.csv")
+```
+
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the number of purchase orders for each year with the following features:
+
+* Bars are used for each year.
+* Fill colors are used to identify the ship. 
+* Legends are put at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+Which year had the most orders?
+
+```{r, solution=TRUE}
+dat %>% 
+   group_by(order_year, order_id) %>% 
+   summarise(ship = first(ship)) %>% 
+   ggplot(aes(x = order_year, fill = ship)) +
+   geom_bar() +
+   labs(title = "Number of orders",
+    x = "Year",
+    y = "Orders",
+    col = "Ship") +
+   theme(legend.position = "bottom")
+# or
+# dat %>%
+#    count(order_year, order_id, ship) %>%
+#    ggplot(aes(x = order_year, fill = ship)) +
+#    geom_bar()
+```
+
+<div class="solution">
+Most orders are in 2018.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the total number of items ordered for each ship with the following features:
+
+* The numbers are shown using columns.
+* Reorder the columns so they increase along the x-axis.
+* Informative figure title and axis titles are given.
+
+Which ship uses most items? 
+
+```{r, solution=TRUE}
+res <- dat %>% 
+   group_by(ship) %>% 
+   summarize(n = sum(quantity)) %>% 
+   arrange(desc(n)) 
+res %>% 
+   ggplot(aes(x = reorder(ship, n), y = n)) +
+   geom_col() +
+   labs(title = "Total number of items used",
+    x = "Ship",
+    y = "Items") +
+   theme(legend.position = "bottom")
+```
+
+<div class="solution">
+Most items are used for `r res$ship[1]`.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+For each ship, create a visualization showing the number of items used as a function of done date with the following features:
+
+* The numbers are shown using columns with a fixed line width of 1 and a blue color. 
+* The plot is divided using `ship` (facet). Hint: You may use `scales = "free_y"`. 
+* Informative figure title and axis titles are given.
+
+Which ship has most items used at a specific date?
+
+```{r, solution=TRUE, warning=FALSE}
+res <- dat %>% 
+   group_by(ship, order_date) %>% 
+   summarize(n = sum(quantity)) 
+res %>% 
+   ggplot(aes(x = order_date, y = n)) +
+   geom_col(linewidth = 1, color = "blue") +
+   facet_wrap(~ ship, scales = "free_y") +
+   labs(title = "Number of items used",
+    x = "Date",
+    y = "Items used") 
+```
+
+<div class="solution">
+On a specific date must items are used for Ship-13.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+Consider items with id:
+
+```{r}
+items <- c("601.003.004" ,"601.004.006", "601.026.128", "601.026.052")
+```
+
+For each row in the dataset, calculate an index variable as price divided with the maximum item id price. Hint: Group by item id and use `mutate` to add the column. Create a visualization showing the index as a function of order year with the following features:
+
+* The numbers are shown using points.
+* The plot is divided using item id (facet). 
+* A trend line is added.
+* Informative figure title and axis titles are given.
+
+Take a closer look at the item with most price fluctuations. Are the prices reasonable for a singe product? 
+
+```{r, solution=TRUE}
+res <- dat %>% 
+   filter(item_id %in% items) %>% 
+   group_by(item_id) %>% 
+   mutate(idx = price/max(price))
+res %>% 
+   ggplot(aes(y = idx, x = order_year)) + 
+   geom_point() +
+   geom_smooth(se = F) +
+   facet_wrap(~ item_id) +
+   labs(title = "Price index (index 1 = max price)",
+    x = "Order year",
+    y = "Index") 
+dat %>% 
+   filter(item_id %in% "601.026.128")  
+```
+
+<div class="solution">
+If consider item 601.026.128 it can be seen that prices are very different. By considering item description it can be seen that the item is in fact not a single product, i.e we have a misclassification of item id!
+</div>
+
+
+
+
+
+
+
+
+## `r ctrQ()`
+
+Make a summary table in the following way:
+
+* Add a column `val` with the value of an item in a row equaling the price times quantity.
+* Group each item id and set the total value `total_value` to the sum of `val` and calculate the total quantity purchased. 
+* Arrange the total value in descending order.
+* Add columns:
+   - Relative total value equals `total_val/sum(total_val)`.
+   - Relative item number equals `row_number()/n()`.
+   - Cumulative relative total value (`cum_pct_val`). Hint: You can use the `cumsum` function here.
+   - Class equals `class = case_when(cum_pct_val <= 0.8 ~ "A", cum_pct_val <= 0.95  ~ "B", TRUE ~ "C")` classifying items in A (high value items), B (middle), and C (low value items). 
+
+Create a visualization showing the cumulative relative total value as a function of relative item number with the following features:
+
+* Data points are given in the plot.
+* Different colors are used for each class.
+* Different sizes are used for each quantity.
+* A line is added with black color and fixed size 0.3. 
+* Informative figure title and axis titles are given.
+
+How many items contribute to 80% of the total value?  
+
+```{r, solution=TRUE, warning=FALSE}
+res1 <- dat %>% 
+   mutate(val = price * quantity) %>% 
+   group_by(item_id) %>% 
+   summarise(total_val = sum(val), item_desc = first(item_desc), quantity = sum(quantity)) %>% 
+   arrange(desc(total_val)) %>% 
+   mutate(pct_val = total_val/sum(total_val), 
+          pct_item = row_number()/n(),
+          cum_pct_val = cumsum(pct_val), 
+          class = case_when(
+            cum_pct_val <= 0.8 ~ "A",
+            cum_pct_val <= 0.95  ~ "B",
+            TRUE ~ "C"
+         )) %>% 
+   # tail() %>% 
+   print() 
+
+res1 %>% 
+   ggplot(aes(x = pct_item, y = cum_pct_val, col = class, size = quantity)) +
+   geom_point() +
+   geom_line(col = "black", size = 0.3) +
+   labs(title = "Usage of items (one point per item)",
+    x = "Item percentage",
+    y = "Cumulative value",
+    col = "Class",
+    size = "Purchased") 
+```
+
+<div class="solution">
+Items in the A class (80% of value) are approx. 7% of the total items. 
+</div>
+
+
+
+
+

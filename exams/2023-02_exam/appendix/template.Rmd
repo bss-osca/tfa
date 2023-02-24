@@ -1,0 +1,303 @@
+---
+title: "TFA exam"
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  message=FALSE)
+options(width = 90, scipen = 10, digits = 2)
+
+library(tidyverse)
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  q_ctr <<- 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# R - `r ctrA()` (50%)
+ 
+Consider the dataset in the file `orders.csv` with purchase orders for a group of ships. 
+
+The dataset contains a row for each item used in an order. The columns/variables are:
+
+  - `ship`: The ship considered.
+  - `order_id`: Order id. An order is a group of items purchased in one batch from a single supplier.
+  - `item_id`: Item id.
+  - `item_desc`: Item description.
+  - `quantity`: Number of items ordered.
+  - `price`: Price per unit.
+  - `order_date`: Order date.
+  - `delivery_date`: Expected delivery date when order is made.
+  - `delivery_place`: Delivery place.
+  - `recieved_date`: Actual date the order is recieved.
+  - `supplier`: Supplier for the order.
+  - `delivery_cost`: Delivery cost.
+  - `order_year`: Year the order was placed. 
+
+The dataset can be read using:
+
+```{r, warning=FALSE}
+library(tidyverse)
+dat <- read_csv("orders.csv") 
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames) and answer/complete the following questions/tasks:
+
+
+## `r ctrQ()`
+
+How many ships, suppliers, and different items are considered?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+Do all orders use a single supplier and delivery place? 
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+For each order, calculate/find the number of different items, number of items, total price, total delivery cost, and order year (missing values are assumed zero). 
+
+Which order has the highest delivery cost?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+For each order, find the supplier and delivery place. Hint: The `first` function may be used to select the first item within a group. 
+
+Which supplier and delivery place is used most?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+## `r ctrQ()`
+
+Add a column to the dataset equal the *value* of the items in a row calculated as the price times the quantity. Next, create a summary table named `res1` that for each item id calculates the aggregated value and arrange them in descending order. 
+
+Which item is the most costly one with respect to the calculated value in `res1`?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+Given the dataset `res1`, add two new columns:
+
+   - The relative value for each item as the ratio between the item's value and the total value of all items.
+   - The cumulative relative value. Hint: You can use the `cumsum` function here.
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+Consider the most costly item with respect to the calculated value in `res1`. At which ships is the item used and how many times?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+# R - `r ctrA()` (50%)
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). We work with the dataset from Assignment 1, which can be read using:
+
+```{r}
+library(tidyverse)
+dat <- read_csv("orders.csv")
+```
+
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the number of purchase orders for each year with the following features:
+
+* Bars are used for each year.
+* Fill colors are used to identify the ship. 
+* Legends are put at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+Which year had the most orders?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the total number of items ordered for each ship with the following features:
+
+* The numbers are shown using columns.
+* Reorder the columns so they increase along the x-axis.
+* Informative figure title and axis titles are given.
+
+Which ship uses most items? 
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+For each ship, create a visualization showing the number of items used as a function of done date with the following features:
+
+* The numbers are shown using columns with a fixed line width of 1 and a blue color. 
+* The plot is divided using `ship` (facet). Hint: You may use `scales = "free_y"`. 
+* Informative figure title and axis titles are given.
+
+Which ship has most items used at a specific date?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+Consider items with id:
+
+```{r}
+items <- c("601.003.004" ,"601.004.006", "601.026.128", "601.026.052")
+```
+
+For each row in the dataset, calculate an index variable as price divided with the maximum item id price. Hint: Group by item id and use `mutate` to add the column. Create a visualization showing the index as a function of order year with the following features:
+
+* The numbers are shown using points.
+* The plot is divided using item id (facet). 
+* A trend line is added.
+* Informative figure title and axis titles are given.
+
+Take a closer look at the item with most price fluctuations. Are the prices reasonable for a singe product? 
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+
+
+
+## `r ctrQ()`
+
+Make a summary table in the following way:
+
+* Add a column `val` with the value of an item in a row equaling the price times quantity.
+* Group each item id and set the total value `total_value` to the sum of `val` and calculate the total quantity purchased. 
+* Arrange the total value in descending order.
+* Add columns:
+   - Relative total value equals `total_val/sum(total_val)`.
+   - Relative item number equals `row_number()/n()`.
+   - Cumulative relative total value (`cum_pct_val`). Hint: You can use the `cumsum` function here.
+   - Class equals `class = case_when(cum_pct_val <= 0.8 ~ "A", cum_pct_val <= 0.95  ~ "B", TRUE ~ "C")` classifying items in A (high value items), B (middle), and C (low value items). 
+
+Create a visualization showing the cumulative relative total value as a function of relative item number with the following features:
+
+* Data points are given in the plot.
+* Different colors are used for each class.
+* Different sizes are used for each quantity.
+* A line is added with black color and fixed size 0.3. 
+* Informative figure title and axis titles are given.
+
+How many items contribute to 80% of the total value?  
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
