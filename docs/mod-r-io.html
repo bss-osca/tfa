@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 12 Importing and exporting data | Tools for Analytics (TFA)</title>
   <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
-  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 12 Importing and exporting data | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2023-02-24" />
+<meta name="date" content="2023-07-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,10 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <script src="libs/viz-1.8.2/viz.js"></script>
 <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-<script src="libs/grViz-binding-1.0.9/grViz.js"></script>
+<script src="libs/grViz-binding-1.0.10/grViz.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
@@ -64,17 +64,17 @@
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.1.2/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.2/leaflet-providers-plugin.js"></script>
 <link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
 <script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
 <link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.23/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
 <link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
@@ -167,6 +167,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -562,8 +566,8 @@ div.csl-indent {
 <p>A template project for this module is given on <a href="https://rstudio.cloud/spaces/274292/content/4411759">RStudio Cloud</a> (open it and use it while reading the notes).</p>
 <div id="learning-path-diagram-11" class="section level4 unnumbered hasAnchor">
 <h4>Learning path diagram<a href="mod-r-io.html#learning-path-diagram-11" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div id="htmlwidget-a63a36bb70773f0d818c" style="width:1000px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a63a36bb70773f0d818c">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 CSV files\", URL = \"#r-io-csv\", tooltip = \"CSV files\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"0,2!\"] \n  \"2\" [label = \"📖 Excel\", URL = \"#r-io-excel\", tooltip = \"Excel\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"2,2!\"] \n  \"3\" [label = \"📖 Google\\nsheets\", URL = \"#r-io-google\", tooltip = \"Google\\nsheets\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"4,2!\"] \n  \"4\" [label = \"📖 Text\\nfiles\", URL = \"#r-io-text\", tooltip = \"Text\\nfiles\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"6,2!\"] \n  \"5\" [label = \"📖 R\", URL = \"#r-io-r\", tooltip = \"Rs native binary format\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"7.5,2!\"] \n  \"6\" [label = \"📖 Json\", URL = \"#r-io-json\", tooltip = \"Json\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"9,2!\"] \n  \"7\" [label = \"💻 Exercises\", URL = \"#ex-r-io\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"11,2!\"] \n  \"8\" [label = \"📖 Importing\\ndata\", URL = \"https://rafalab.github.io/dsbook/importing-data.html\", tooltip = \"Chapter 5 in Irizarry (2020) gives an alternative introduction to importing data.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"4,0!\"] \n  \"9\" [label = \"\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"2.4,3.66!\"] \n  \"10\" [label = \"Color:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"-0.23,4!\"] \n  \"11\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"0,3.6!\"] \n  \"12\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"1,3.6!\"] \n  \"13\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"2,3.6!\"] \n  \"14\" [label = \"Shape:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"3.2,4!\"] \n  \"15\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"1\", fillcolor = \"Grey40\", pos = \"3.5,3.6!\"] \n  \"16\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", width = \"1\", fillcolor = \"Grey40\", pos = \"4.75,3.6!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n\"5\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"6\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-fd423c16998a2b40eb1c" style="width:1000px;height:480px;" class="grViz html-widget "></div>
+<script type="application/json" data-for="htmlwidget-fd423c16998a2b40eb1c">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 CSV files\", URL = \"#r-io-csv\", tooltip = \"CSV files\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"0,2!\"] \n  \"2\" [label = \"📖 Excel\", URL = \"#r-io-excel\", tooltip = \"Excel\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"2,2!\"] \n  \"3\" [label = \"📖 Google\\nsheets\", URL = \"#r-io-google\", tooltip = \"Google\\nsheets\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"4,2!\"] \n  \"4\" [label = \"📖 Text\\nfiles\", URL = \"#r-io-text\", tooltip = \"Text\\nfiles\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"6,2!\"] \n  \"5\" [label = \"📖 R\", URL = \"#r-io-r\", tooltip = \"Rs native binary format\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"7.5,2!\"] \n  \"6\" [label = \"📖 Json\", URL = \"#r-io-json\", tooltip = \"Json\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"9,2!\"] \n  \"7\" [label = \"💻 Exercises\", URL = \"#ex-r-io\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"11,2!\"] \n  \"8\" [label = \"📖 Importing\\ndata\", URL = \"https://rafalab.github.io/dsbook/importing-data.html\", tooltip = \"Chapter 5 in Irizarry (2020) gives an alternative introduction to importing data.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"4,0!\"] \n  \"9\" [label = \"\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"2.4,3.66!\"] \n  \"10\" [label = \"Color:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"-0.23,4!\"] \n  \"11\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"0,3.6!\"] \n  \"12\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"1,3.6!\"] \n  \"13\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"2,3.6!\"] \n  \"14\" [label = \"Shape:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"3.2,4!\"] \n  \"15\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"1\", fillcolor = \"Grey40\", pos = \"3.5,3.6!\"] \n  \"16\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", width = \"1\", fillcolor = \"Grey40\", pos = \"4.75,3.6!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n\"5\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"6\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <div>It is recommended that you follow the green learning path; however, you may like a different learning style. In the learning path diagram, there are links to alternative online content (video or reading). Note this is an alternative to the standard learning path that you may use instead (you should not do both). The learning path may also have extra content, that is NOT a part of syllabus (only look at it if you want more info)!</div>
 <!-- * [Chapter 5](https://rafalab.github.io/dsbook/importing-data.html) in @dsbook gives an alternative introduction to importing data. -->
 </div>
@@ -696,55 +700,52 @@ div.csl-indent {
 <span id="cb392-14"><a href="mod-r-io.html#cb392-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8          5           3.4          1.5         0.2 setosa </span></span>
 <span id="cb392-15"><a href="mod-r-io.html#cb392-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9          4.4         2.9          1.4         0.2 setosa </span></span>
 <span id="cb392-16"><a href="mod-r-io.html#cb392-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10          4.9         3.1          1.5         0.1 setosa </span></span>
-<span id="cb392-17"><a href="mod-r-io.html#cb392-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 140 more rows</span></span>
-<span id="cb392-18"><a href="mod-r-io.html#cb392-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span>
-<span id="cb392-19"><a href="mod-r-io.html#cb392-19" aria-hidden="true" tabindex="-1"></a>xlsx <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(xlsx_file, <span class="at">sheet =</span> <span class="dv">2</span>)   <span class="co"># reads the second sheet</span></span>
-<span id="cb392-20"><a href="mod-r-io.html#cb392-20" aria-hidden="true" tabindex="-1"></a>xlsx</span>
-<span id="cb392-21"><a href="mod-r-io.html#cb392-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 32 × 11</span></span>
-<span id="cb392-22"><a href="mod-r-io.html#cb392-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span></span>
-<span id="cb392-23"><a href="mod-r-io.html#cb392-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb392-24"><a href="mod-r-io.html#cb392-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4</span></span>
-<span id="cb392-25"><a href="mod-r-io.html#cb392-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4</span></span>
-<span id="cb392-26"><a href="mod-r-io.html#cb392-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1</span></span>
-<span id="cb392-27"><a href="mod-r-io.html#cb392-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1</span></span>
-<span id="cb392-28"><a href="mod-r-io.html#cb392-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2</span></span>
-<span id="cb392-29"><a href="mod-r-io.html#cb392-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1</span></span>
-<span id="cb392-30"><a href="mod-r-io.html#cb392-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4</span></span>
-<span id="cb392-31"><a href="mod-r-io.html#cb392-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2</span></span>
-<span id="cb392-32"><a href="mod-r-io.html#cb392-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2</span></span>
-<span id="cb392-33"><a href="mod-r-io.html#cb392-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4</span></span>
-<span id="cb392-34"><a href="mod-r-io.html#cb392-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 22 more rows</span></span>
-<span id="cb392-35"><a href="mod-r-io.html#cb392-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span>
-<span id="cb392-36"><a href="mod-r-io.html#cb392-36" aria-hidden="true" tabindex="-1"></a>xlsx <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(xlsx_file, <span class="at">sheet =</span> <span class="st">&quot;quakes&quot;</span>)   <span class="co"># reads a named sheet</span></span>
-<span id="cb392-37"><a href="mod-r-io.html#cb392-37" aria-hidden="true" tabindex="-1"></a>xlsx</span>
-<span id="cb392-38"><a href="mod-r-io.html#cb392-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,000 × 5</span></span>
-<span id="cb392-39"><a href="mod-r-io.html#cb392-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      lat  long depth   mag stations</span></span>
-<span id="cb392-40"><a href="mod-r-io.html#cb392-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb392-41"><a href="mod-r-io.html#cb392-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 -20.4  182.   562   4.8       41</span></span>
-<span id="cb392-42"><a href="mod-r-io.html#cb392-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 -20.6  181.   650   4.2       15</span></span>
-<span id="cb392-43"><a href="mod-r-io.html#cb392-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 -26    184.    42   5.4       43</span></span>
-<span id="cb392-44"><a href="mod-r-io.html#cb392-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 -18.0  182.   626   4.1       19</span></span>
-<span id="cb392-45"><a href="mod-r-io.html#cb392-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 -20.4  182.   649   4         11</span></span>
-<span id="cb392-46"><a href="mod-r-io.html#cb392-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 -19.7  184.   195   4         12</span></span>
-<span id="cb392-47"><a href="mod-r-io.html#cb392-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 -11.7  166.    82   4.8       43</span></span>
-<span id="cb392-48"><a href="mod-r-io.html#cb392-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 -28.1  182.   194   4.4       15</span></span>
-<span id="cb392-49"><a href="mod-r-io.html#cb392-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 -28.7  182.   211   4.7       35</span></span>
-<span id="cb392-50"><a href="mod-r-io.html#cb392-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 -17.5  180.   622   4.3       19</span></span>
-<span id="cb392-51"><a href="mod-r-io.html#cb392-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 990 more rows</span></span>
-<span id="cb392-52"><a href="mod-r-io.html#cb392-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span>
-<span id="cb392-53"><a href="mod-r-io.html#cb392-53" aria-hidden="true" tabindex="-1"></a>xlsx <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(xlsx_file, <span class="at">sheet =</span> <span class="st">&quot;mtcars&quot;</span>, <span class="at">range =</span> <span class="st">&quot;A5:G11&quot;</span>, <span class="at">col_names =</span> F)   <span class="co"># reads a range</span></span>
-<span id="cb392-54"><a href="mod-r-io.html#cb392-54" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(xlsx) <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(xlsx_file, <span class="at">sheet =</span> <span class="st">&quot;mtcars&quot;</span>, <span class="at">range =</span> <span class="st">&quot;A1:G1&quot;</span>, <span class="at">col_names =</span> F)   <span class="co"># reads the column names</span></span>
-<span id="cb392-55"><a href="mod-r-io.html#cb392-55" aria-hidden="true" tabindex="-1"></a>xlsx</span>
-<span id="cb392-56"><a href="mod-r-io.html#cb392-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 7 × 7</span></span>
-<span id="cb392-57"><a href="mod-r-io.html#cb392-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     mpg   cyl  disp    hp  drat    wt  qsec</span></span>
-<span id="cb392-58"><a href="mod-r-io.html#cb392-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb392-59"><a href="mod-r-io.html#cb392-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  21.4     6  258    110  3.08  3.22  19.4</span></span>
-<span id="cb392-60"><a href="mod-r-io.html#cb392-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  18.7     8  360    175  3.15  3.44  17.0</span></span>
-<span id="cb392-61"><a href="mod-r-io.html#cb392-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  18.1     6  225    105  2.76  3.46  20.2</span></span>
-<span id="cb392-62"><a href="mod-r-io.html#cb392-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  14.3     8  360    245  3.21  3.57  15.8</span></span>
-<span id="cb392-63"><a href="mod-r-io.html#cb392-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  24.4     4  147.    62  3.69  3.19  20  </span></span>
-<span id="cb392-64"><a href="mod-r-io.html#cb392-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  22.8     4  141.    95  3.92  3.15  22.9</span></span>
-<span id="cb392-65"><a href="mod-r-io.html#cb392-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  19.2     6  168.   123  3.92  3.44  18.3</span></span></code></pre></div>
+<span id="cb392-17"><a href="mod-r-io.html#cb392-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 140 more rows</span></span>
+<span id="cb392-18"><a href="mod-r-io.html#cb392-18" aria-hidden="true" tabindex="-1"></a>xlsx <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(xlsx_file, <span class="at">sheet =</span> <span class="dv">2</span>)   <span class="co"># reads the second sheet</span></span>
+<span id="cb392-19"><a href="mod-r-io.html#cb392-19" aria-hidden="true" tabindex="-1"></a>xlsx</span>
+<span id="cb392-20"><a href="mod-r-io.html#cb392-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 32 × 11</span></span>
+<span id="cb392-21"><a href="mod-r-io.html#cb392-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span></span>
+<span id="cb392-22"><a href="mod-r-io.html#cb392-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb392-23"><a href="mod-r-io.html#cb392-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4</span></span>
+<span id="cb392-24"><a href="mod-r-io.html#cb392-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4</span></span>
+<span id="cb392-25"><a href="mod-r-io.html#cb392-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1</span></span>
+<span id="cb392-26"><a href="mod-r-io.html#cb392-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1</span></span>
+<span id="cb392-27"><a href="mod-r-io.html#cb392-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2</span></span>
+<span id="cb392-28"><a href="mod-r-io.html#cb392-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1</span></span>
+<span id="cb392-29"><a href="mod-r-io.html#cb392-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4</span></span>
+<span id="cb392-30"><a href="mod-r-io.html#cb392-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2</span></span>
+<span id="cb392-31"><a href="mod-r-io.html#cb392-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2</span></span>
+<span id="cb392-32"><a href="mod-r-io.html#cb392-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4</span></span>
+<span id="cb392-33"><a href="mod-r-io.html#cb392-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 22 more rows</span></span>
+<span id="cb392-34"><a href="mod-r-io.html#cb392-34" aria-hidden="true" tabindex="-1"></a>xlsx <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(xlsx_file, <span class="at">sheet =</span> <span class="st">&quot;quakes&quot;</span>)   <span class="co"># reads a named sheet</span></span>
+<span id="cb392-35"><a href="mod-r-io.html#cb392-35" aria-hidden="true" tabindex="-1"></a>xlsx</span>
+<span id="cb392-36"><a href="mod-r-io.html#cb392-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,000 × 5</span></span>
+<span id="cb392-37"><a href="mod-r-io.html#cb392-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      lat  long depth   mag stations</span></span>
+<span id="cb392-38"><a href="mod-r-io.html#cb392-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb392-39"><a href="mod-r-io.html#cb392-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 -20.4  182.   562   4.8       41</span></span>
+<span id="cb392-40"><a href="mod-r-io.html#cb392-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 -20.6  181.   650   4.2       15</span></span>
+<span id="cb392-41"><a href="mod-r-io.html#cb392-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 -26    184.    42   5.4       43</span></span>
+<span id="cb392-42"><a href="mod-r-io.html#cb392-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 -18.0  182.   626   4.1       19</span></span>
+<span id="cb392-43"><a href="mod-r-io.html#cb392-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 -20.4  182.   649   4         11</span></span>
+<span id="cb392-44"><a href="mod-r-io.html#cb392-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 -19.7  184.   195   4         12</span></span>
+<span id="cb392-45"><a href="mod-r-io.html#cb392-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 -11.7  166.    82   4.8       43</span></span>
+<span id="cb392-46"><a href="mod-r-io.html#cb392-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 -28.1  182.   194   4.4       15</span></span>
+<span id="cb392-47"><a href="mod-r-io.html#cb392-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 -28.7  182.   211   4.7       35</span></span>
+<span id="cb392-48"><a href="mod-r-io.html#cb392-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 -17.5  180.   622   4.3       19</span></span>
+<span id="cb392-49"><a href="mod-r-io.html#cb392-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 990 more rows</span></span>
+<span id="cb392-50"><a href="mod-r-io.html#cb392-50" aria-hidden="true" tabindex="-1"></a>xlsx <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(xlsx_file, <span class="at">sheet =</span> <span class="st">&quot;mtcars&quot;</span>, <span class="at">range =</span> <span class="st">&quot;A5:G11&quot;</span>, <span class="at">col_names =</span> F)   <span class="co"># reads a range</span></span>
+<span id="cb392-51"><a href="mod-r-io.html#cb392-51" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(xlsx) <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(xlsx_file, <span class="at">sheet =</span> <span class="st">&quot;mtcars&quot;</span>, <span class="at">range =</span> <span class="st">&quot;A1:G1&quot;</span>, <span class="at">col_names =</span> F)   <span class="co"># reads the column names</span></span>
+<span id="cb392-52"><a href="mod-r-io.html#cb392-52" aria-hidden="true" tabindex="-1"></a>xlsx</span>
+<span id="cb392-53"><a href="mod-r-io.html#cb392-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 7 × 7</span></span>
+<span id="cb392-54"><a href="mod-r-io.html#cb392-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     mpg   cyl  disp    hp  drat    wt  qsec</span></span>
+<span id="cb392-55"><a href="mod-r-io.html#cb392-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb392-56"><a href="mod-r-io.html#cb392-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  21.4     6  258    110  3.08  3.22  19.4</span></span>
+<span id="cb392-57"><a href="mod-r-io.html#cb392-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  18.7     8  360    175  3.15  3.44  17.0</span></span>
+<span id="cb392-58"><a href="mod-r-io.html#cb392-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  18.1     6  225    105  2.76  3.46  20.2</span></span>
+<span id="cb392-59"><a href="mod-r-io.html#cb392-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  14.3     8  360    245  3.21  3.57  15.8</span></span>
+<span id="cb392-60"><a href="mod-r-io.html#cb392-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  24.4     4  147.    62  3.69  3.19  20  </span></span>
+<span id="cb392-61"><a href="mod-r-io.html#cb392-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  22.8     4  141.    95  3.92  3.15  22.9</span></span>
+<span id="cb392-62"><a href="mod-r-io.html#cb392-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  19.2     6  168.   123  3.92  3.44  18.3</span></span></code></pre></div>
 <p>Writing to an Excel file can be done using the <a href="https://ycphs.github.io/openxlsx/index.html">openxlsx</a> package. To write to a new file use:</p>
 <div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="mod-r-io.html#cb393-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
 <span id="cb393-2"><a href="mod-r-io.html#cb393-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> trees   <span class="co"># test dataset</span></span>
@@ -1556,8 +1557,7 @@ Solution
 <span id="cb424-13"><a href="mod-r-io.html#cb424-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 &quot;\&quot;David\&quot;&quot;             1</span></span>
 <span id="cb424-14"><a href="mod-r-io.html#cb424-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 &quot;\&quot;Debbie\&quot;&quot;            7</span></span>
 <span id="cb424-15"><a href="mod-r-io.html#cb424-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 &quot;\&quot;Dee\&quot;&quot;               3</span></span>
-<span id="cb424-16"><a href="mod-r-io.html#cb424-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 22 more rows</span></span>
-<span id="cb424-17"><a href="mod-r-io.html#cb424-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb424-16"><a href="mod-r-io.html#cb424-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 22 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1675,8 +1675,7 @@ Solution
 <span id="cb427-14"><a href="mod-r-io.html#cb427-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 &quot;\&quot;David\&quot;, 1&quot;    &quot;\&quot;David\&quot;&quot;             1</span></span>
 <span id="cb427-15"><a href="mod-r-io.html#cb427-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 &quot;\&quot;Debbie\&quot;, 7&quot;   &quot;\&quot;Debbie\&quot;&quot;            7</span></span>
 <span id="cb427-16"><a href="mod-r-io.html#cb427-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 &quot;\&quot;Dee\&quot;, 3&quot;      &quot;\&quot;Dee\&quot;&quot;               3</span></span>
-<span id="cb427-17"><a href="mod-r-io.html#cb427-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 22 more rows</span></span>
-<span id="cb427-18"><a href="mod-r-io.html#cb427-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb427-17"><a href="mod-r-io.html#cb427-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 22 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1748,8 +1747,7 @@ Solution
 <span id="cb429-15"><a href="mod-r-io.html#cb429-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 &quot;&lt;\&quot;David\&quot;, 1&gt;&quot;    &quot;\&quot;David\&quot;&quot;             1</span></span>
 <span id="cb429-16"><a href="mod-r-io.html#cb429-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 &quot;&lt;\&quot;Debbie\&quot;, 7&gt;&quot;   &quot;\&quot;Debbie\&quot;&quot;            7</span></span>
 <span id="cb429-17"><a href="mod-r-io.html#cb429-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 &quot;&lt;\&quot;Dee\&quot;, 3&gt;&quot;      &quot;\&quot;Dee\&quot;&quot;               3</span></span>
-<span id="cb429-18"><a href="mod-r-io.html#cb429-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 22 more rows</span></span>
-<span id="cb429-19"><a href="mod-r-io.html#cb429-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb429-18"><a href="mod-r-io.html#cb429-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 22 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2283,7 +2281,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

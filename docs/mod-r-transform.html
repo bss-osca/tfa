@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 13 Transforming data | Tools for Analytics (TFA)</title>
   <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
-  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 13 Transforming data | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2023-02-24" />
+<meta name="date" content="2023-07-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,10 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <script src="libs/viz-1.8.2/viz.js"></script>
 <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-<script src="libs/grViz-binding-1.0.9/grViz.js"></script>
+<script src="libs/grViz-binding-1.0.10/grViz.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
@@ -64,17 +64,17 @@
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.1.2/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.2/leaflet-providers-plugin.js"></script>
 <link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
 <script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
 <link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.23/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
 <link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
@@ -167,6 +167,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -564,8 +568,8 @@ div.csl-indent {
 <p>A template project for this module is given on <a href="https://rstudio.cloud/spaces/274292/content/4411760">RStudio Cloud</a> (open it and use it while reading the notes).</p>
 <div id="learning-path-diagram-12" class="section level4 unnumbered hasAnchor">
 <h4>Learning path diagram<a href="mod-r-transform.html#learning-path-diagram-12" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div id="htmlwidget-f398a6ef119c5338d1dd" style="width:100%;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f398a6ef119c5338d1dd">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"💡 Transform\\n(dplyr)\", URL = \"#r-transform-tidyverse\", tooltip = \"Working with data in the tidyverse\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"0,2!\"] \n  \"2\" [label = \"📖 Joins\", URL = \"#r-transform-joins\", tooltip = \"Mutating and filtering joins\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"2,2!\"] \n  \"3\" [label = \"💻 Exercises\", URL = \"#ex-r-transform\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"4,2!\"] \n  \"4\" [label = \"🎬 dplyr\", URL = \"https://www.youtube.com/watch?v=aywFompr1F4\", tooltip = \"Roger Peng provides a good introduction to the dplyr R package\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"-0.75,4!\"] \n  \"5\" [label = \"📖 dplyr\", URL = \"https://bookdown.org/rdpeng/rprogdatascience/managing-data-frames-with-the-dplyr-package.html\", tooltip = \"Chapter 12 in Peng (2018) provides a nice introduction to dplyr\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"0.75,4!\"] \n  \"6\" [label = \"💡 Working\\nwith data\", URL = \"https://app.datacamp.com/learn/courses/working-with-data-in-the-tidyverse\", tooltip = \"An alternative interactive DataCamp course is Working with Data in the Tidyverse which may be good to take if you need more training.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"2.5,4!\"] \n  \"7\" [label = \"\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"1.9,-0.09!\"] \n  \"8\" [label = \"Color:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"-0.73,0.25!\"] \n  \"9\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"-0.5,-0.15!\"] \n  \"10\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"0.5,-0.15!\"] \n  \"11\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"1.5,-0.15!\"] \n  \"12\" [label = \"Shape:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"2.7,0.25!\"] \n  \"13\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"1\", fillcolor = \"Grey40\", pos = \"3,-0.15!\"] \n  \"14\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", width = \"1\", fillcolor = \"Grey40\", pos = \"4.25,-0.15!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-cc7757faf3f260a8b836" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-cc7757faf3f260a8b836">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"💡 Transform\\n(dplyr)\", URL = \"#r-transform-tidyverse\", tooltip = \"Working with data in the tidyverse\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"0,2!\"] \n  \"2\" [label = \"📖 Joins\", URL = \"#r-transform-joins\", tooltip = \"Mutating and filtering joins\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"2,2!\"] \n  \"3\" [label = \"💻 Exercises\", URL = \"#ex-r-transform\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"4,2!\"] \n  \"4\" [label = \"🎬 dplyr\", URL = \"https://www.youtube.com/watch?v=aywFompr1F4\", tooltip = \"Roger Peng provides a good introduction to the dplyr R package\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"-0.75,4!\"] \n  \"5\" [label = \"📖 dplyr\", URL = \"https://bookdown.org/rdpeng/rprogdatascience/managing-data-frames-with-the-dplyr-package.html\", tooltip = \"Chapter 12 in Peng (2018) provides a nice introduction to dplyr\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"0.75,4!\"] \n  \"6\" [label = \"💡 Working\\nwith data\", URL = \"https://app.datacamp.com/learn/courses/working-with-data-in-the-tidyverse\", tooltip = \"An alternative interactive DataCamp course is Working with Data in the Tidyverse which may be good to take if you need more training.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"2.5,4!\"] \n  \"7\" [label = \"\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"1.9,-0.09!\"] \n  \"8\" [label = \"Color:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"-0.73,0.25!\"] \n  \"9\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"-0.5,-0.15!\"] \n  \"10\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"0.5,-0.15!\"] \n  \"11\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"1.5,-0.15!\"] \n  \"12\" [label = \"Shape:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"2.7,0.25!\"] \n  \"13\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"1\", fillcolor = \"Grey40\", pos = \"3,-0.15!\"] \n  \"14\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", width = \"1\", fillcolor = \"Grey40\", pos = \"4.25,-0.15!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <div>It is recommended that you follow the green learning path; however, you may like a different learning style. In the learning path diagram, there are links to alternative online content (video or reading). Note this is an alternative to the standard learning path that you may use instead (you should not do both). The learning path may also have extra content, that is NOT a part of syllabus (only look at it if you want more info)!</div>
 <!-- * Roger Peng provides a good video giving an [Introduction to the dplyr R package][video-dplyr].  -->
 <!-- * [Chapter 12](https://bookdown.org/rdpeng/rprogdatascience/managing-data-frames-with-the-dplyr-package.html) in @rdpeng provides a nice introduction to dplyr.  -->
@@ -758,8 +762,7 @@ You may also have a look at the
 <span id="cb447-14"><a href="mod-r-transform.html#cb447-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Afghanistan Asia       1987    40.8 13867957      852.</span></span>
 <span id="cb447-15"><a href="mod-r-transform.html#cb447-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Afghanistan Asia       1992    41.7 16317921      649.</span></span>
 <span id="cb447-16"><a href="mod-r-transform.html#cb447-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Afghanistan Asia       1997    41.8 22227415      635.</span></span>
-<span id="cb447-17"><a href="mod-r-transform.html#cb447-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,694 more rows</span></span>
-<span id="cb447-18"><a href="mod-r-transform.html#cb447-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb447-17"><a href="mod-r-transform.html#cb447-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 1,694 more rows</span></span></code></pre></div>
 <p>Let us try to examine the dataset (use pipes <code>%&gt;%</code> as much as possible).</p>
 <div id="oSMpVjqRPqjchkGHCwGU" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="oSMpVjqRPqjchkGHCwGU-title">
 <div class="modal-dialog modal-lg" role="document">
@@ -1086,8 +1089,7 @@ Solution
 <span id="cb456-13"><a href="mod-r-transform.html#cb456-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Afghanistan Asia       1987    40.8 13867957      852.</span></span>
 <span id="cb456-14"><a href="mod-r-transform.html#cb456-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Afghanistan Asia       1992    41.7 16317921      649.</span></span>
 <span id="cb456-15"><a href="mod-r-transform.html#cb456-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Afghanistan Asia       1997    41.8 22227415      635.</span></span>
-<span id="cb456-16"><a href="mod-r-transform.html#cb456-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 26 more rows</span></span>
-<span id="cb456-17"><a href="mod-r-transform.html#cb456-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb456-16"><a href="mod-r-transform.html#cb456-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 26 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1131,8 +1133,7 @@ Solution
 <span id="cb457-13"><a href="mod-r-transform.html#cb457-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1987    40.8</span></span>
 <span id="cb457-14"><a href="mod-r-transform.html#cb457-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  1992    41.7</span></span>
 <span id="cb457-15"><a href="mod-r-transform.html#cb457-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  1997    41.8</span></span>
-<span id="cb457-16"><a href="mod-r-transform.html#cb457-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,694 more rows</span></span>
-<span id="cb457-17"><a href="mod-r-transform.html#cb457-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb457-16"><a href="mod-r-transform.html#cb457-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 1,694 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1173,8 +1174,7 @@ Solution
 <span id="cb458-13"><a href="mod-r-transform.html#cb458-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Afghanistan      852.</span></span>
 <span id="cb458-14"><a href="mod-r-transform.html#cb458-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Afghanistan      649.</span></span>
 <span id="cb458-15"><a href="mod-r-transform.html#cb458-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Afghanistan      635.</span></span>
-<span id="cb458-16"><a href="mod-r-transform.html#cb458-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,694 more rows</span></span>
-<span id="cb458-17"><a href="mod-r-transform.html#cb458-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb458-16"><a href="mod-r-transform.html#cb458-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 1,694 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1217,8 +1217,7 @@ Solution
 <span id="cb459-15"><a href="mod-r-transform.html#cb459-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Africa    Burundi               430.</span></span>
 <span id="cb459-16"><a href="mod-r-transform.html#cb459-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Africa    Congo, Dem. Rep.      458.</span></span>
 <span id="cb459-17"><a href="mod-r-transform.html#cb459-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Africa    Congo, Dem. Rep.      312.</span></span>
-<span id="cb459-18"><a href="mod-r-transform.html#cb459-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 41 more rows</span></span>
-<span id="cb459-19"><a href="mod-r-transform.html#cb459-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb459-18"><a href="mod-r-transform.html#cb459-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 41 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1289,8 +1288,7 @@ Solution
 <span id="cb461-13"><a href="mod-r-transform.html#cb461-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Afghanistan Asia       1987    40.8 13867957      852. 11820990309.</span></span>
 <span id="cb461-14"><a href="mod-r-transform.html#cb461-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Afghanistan Asia       1992    41.7 16317921      649. 10595901589.</span></span>
 <span id="cb461-15"><a href="mod-r-transform.html#cb461-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Afghanistan Asia       1997    41.8 22227415      635. 14121995875.</span></span>
-<span id="cb461-16"><a href="mod-r-transform.html#cb461-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,694 more rows</span></span>
-<span id="cb461-17"><a href="mod-r-transform.html#cb461-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb461-16"><a href="mod-r-transform.html#cb461-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 1,694 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1428,8 +1426,7 @@ Solution
 <span id="cb465-13"><a href="mod-r-transform.html#cb465-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Bahrain     Asia       1952    50.9   120447     9867.</span></span>
 <span id="cb465-14"><a href="mod-r-transform.html#cb465-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Bangladesh  Asia       1952    37.5 46886859      684.</span></span>
 <span id="cb465-15"><a href="mod-r-transform.html#cb465-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Belgium     Europe     1952    68    8730405     8343.</span></span>
-<span id="cb465-16"><a href="mod-r-transform.html#cb465-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,694 more rows</span></span>
-<span id="cb465-17"><a href="mod-r-transform.html#cb465-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb465-16"><a href="mod-r-transform.html#cb465-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 1,694 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1471,8 +1468,7 @@ Solution
 <span id="cb466-14"><a href="mod-r-transform.html#cb466-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Afghanistan              Asia       2007    43.8 31889923      975.</span></span>
 <span id="cb466-15"><a href="mod-r-transform.html#cb466-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Central African Republic Africa     2007    44.7  4369038      706.</span></span>
 <span id="cb466-16"><a href="mod-r-transform.html#cb466-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Liberia                  Africa     2007    45.7  3193942      415.</span></span>
-<span id="cb466-17"><a href="mod-r-transform.html#cb466-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 132 more rows</span></span>
-<span id="cb466-18"><a href="mod-r-transform.html#cb466-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb466-17"><a href="mod-r-transform.html#cb466-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 132 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1514,8 +1510,7 @@ Solution
 <span id="cb467-14"><a href="mod-r-transform.html#cb467-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Israel           Asia       2007    80.7   6426679    25523.</span></span>
 <span id="cb467-15"><a href="mod-r-transform.html#cb467-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 France           Europe     2007    80.7  61083916    30470.</span></span>
 <span id="cb467-16"><a href="mod-r-transform.html#cb467-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Canada           Americas   2007    80.7  33390141    36319.</span></span>
-<span id="cb467-17"><a href="mod-r-transform.html#cb467-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 132 more rows</span></span>
-<span id="cb467-18"><a href="mod-r-transform.html#cb467-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb467-17"><a href="mod-r-transform.html#cb467-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 132 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1559,8 +1554,7 @@ Solution
 <span id="cb468-13"><a href="mod-r-transform.html#cb468-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1987 Afghanistan Asia         40.8 13867957      852.</span></span>
 <span id="cb468-14"><a href="mod-r-transform.html#cb468-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  1992 Afghanistan Asia         41.7 16317921      649.</span></span>
 <span id="cb468-15"><a href="mod-r-transform.html#cb468-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  1997 Afghanistan Asia         41.8 22227415      635.</span></span>
-<span id="cb468-16"><a href="mod-r-transform.html#cb468-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,694 more rows</span></span>
-<span id="cb468-17"><a href="mod-r-transform.html#cb468-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb468-16"><a href="mod-r-transform.html#cb468-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 1,694 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1601,8 +1595,7 @@ Solution
 <span id="cb469-13"><a href="mod-r-transform.html#cb469-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Afghanistan Asia       1987    40.8      852.</span></span>
 <span id="cb469-14"><a href="mod-r-transform.html#cb469-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Afghanistan Asia       1992    41.7      649.</span></span>
 <span id="cb469-15"><a href="mod-r-transform.html#cb469-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Afghanistan Asia       1997    41.8      635.</span></span>
-<span id="cb469-16"><a href="mod-r-transform.html#cb469-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,694 more rows</span></span>
-<span id="cb469-17"><a href="mod-r-transform.html#cb469-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb469-16"><a href="mod-r-transform.html#cb469-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 1,694 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1643,8 +1636,7 @@ Solution
 <span id="cb470-13"><a href="mod-r-transform.html#cb470-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1987 13867957 Afghanistan Asia         40.8      852.</span></span>
 <span id="cb470-14"><a href="mod-r-transform.html#cb470-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  1992 16317921 Afghanistan Asia         41.7      649.</span></span>
 <span id="cb470-15"><a href="mod-r-transform.html#cb470-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  1997 22227415 Afghanistan Asia         41.8      635.</span></span>
-<span id="cb470-16"><a href="mod-r-transform.html#cb470-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,694 more rows</span></span>
-<span id="cb470-17"><a href="mod-r-transform.html#cb470-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb470-16"><a href="mod-r-transform.html#cb470-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 1,694 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1845,8 +1837,7 @@ Solution
 <span id="cb475-18"><a href="mod-r-transform.html#cb475-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Algeria      1957    45.7         2.61</span></span>
 <span id="cb475-19"><a href="mod-r-transform.html#cb475-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Algeria      1962    48.3         5.23</span></span>
 <span id="cb475-20"><a href="mod-r-transform.html#cb475-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Angola       1952    30.0         0   </span></span>
-<span id="cb475-21"><a href="mod-r-transform.html#cb475-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 416 more rows</span></span>
-<span id="cb475-22"><a href="mod-r-transform.html#cb475-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb475-21"><a href="mod-r-transform.html#cb475-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 416 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2426,8 +2417,7 @@ Solution
 <span id="cb484-13"><a href="mod-r-transform.html#cb484-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1934 M     Sue      14 0.0000132 </span></span>
 <span id="cb484-14"><a href="mod-r-transform.html#cb484-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  1935 M     Sue      13 0.0000122 </span></span>
 <span id="cb484-15"><a href="mod-r-transform.html#cb484-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  1936 M     Sue       9 0.00000846</span></span>
-<span id="cb484-16"><a href="mod-r-transform.html#cb484-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 42 more rows</span></span>
-<span id="cb484-17"><a href="mod-r-transform.html#cb484-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb484-16"><a href="mod-r-transform.html#cb484-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 42 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2468,8 +2458,7 @@ Solution
 <span id="cb485-13"><a href="mod-r-transform.html#cb485-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1880 F     Ardelia     6 0.0000615</span></span>
 <span id="cb485-14"><a href="mod-r-transform.html#cb485-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  1880 F     Ardella     6 0.0000615</span></span>
 <span id="cb485-15"><a href="mod-r-transform.html#cb485-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  1880 F     Arrie       6 0.0000615</span></span>
-<span id="cb485-16"><a href="mod-r-transform.html#cb485-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 445 more rows</span></span>
-<span id="cb485-17"><a href="mod-r-transform.html#cb485-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb485-16"><a href="mod-r-transform.html#cb485-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 445 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2510,8 +2499,7 @@ Solution
 <span id="cb486-13"><a href="mod-r-transform.html#cb486-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1993 M     Lexus    30 0.0000145 </span></span>
 <span id="cb486-14"><a href="mod-r-transform.html#cb486-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  1994 F     Lexus   381 0.000195  </span></span>
 <span id="cb486-15"><a href="mod-r-transform.html#cb486-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  1994 F     Acura     6 0.00000308</span></span>
-<span id="cb486-16"><a href="mod-r-transform.html#cb486-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 47 more rows</span></span>
-<span id="cb486-17"><a href="mod-r-transform.html#cb486-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb486-16"><a href="mod-r-transform.html#cb486-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 47 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2585,8 +2573,7 @@ Solution
 <span id="cb488-15"><a href="mod-r-transform.html#cb488-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Amelia    11800</span></span>
 <span id="cb488-16"><a href="mod-r-transform.html#cb488-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Evelyn    10675</span></span>
 <span id="cb488-17"><a href="mod-r-transform.html#cb488-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Abigail   10551</span></span>
-<span id="cb488-18"><a href="mod-r-transform.html#cb488-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 18,299 more rows</span></span>
-<span id="cb488-19"><a href="mod-r-transform.html#cb488-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb488-18"><a href="mod-r-transform.html#cb488-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 18,299 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2658,8 +2645,7 @@ Solution
 <span id="cb490-14"><a href="mod-r-transform.html#cb490-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1913 M     Lars      6 0.0000112</span></span>
 <span id="cb490-15"><a href="mod-r-transform.html#cb490-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  1914 M     Lars     16 0.0000234</span></span>
 <span id="cb490-16"><a href="mod-r-transform.html#cb490-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  1915 M     Lars     17 0.0000193</span></span>
-<span id="cb490-17"><a href="mod-r-transform.html#cb490-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 102 more rows</span></span>
-<span id="cb490-18"><a href="mod-r-transform.html#cb490-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb490-17"><a href="mod-r-transform.html#cb490-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 102 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2766,8 +2752,7 @@ Solution
 <span id="cb493-16"><a href="mod-r-transform.html#cb493-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Joseph  M     2603445</span></span>
 <span id="cb493-17"><a href="mod-r-transform.html#cb493-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Richard M     2563082</span></span>
 <span id="cb493-18"><a href="mod-r-transform.html#cb493-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Charles M     2386048</span></span>
-<span id="cb493-19"><a href="mod-r-transform.html#cb493-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 107,963 more rows</span></span>
-<span id="cb493-20"><a href="mod-r-transform.html#cb493-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb493-19"><a href="mod-r-transform.html#cb493-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 107,963 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2839,8 +2824,7 @@ Solution
 <span id="cb495-14"><a href="mod-r-transform.html#cb495-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1887 247394</span></span>
 <span id="cb495-15"><a href="mod-r-transform.html#cb495-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  1888 299473</span></span>
 <span id="cb495-16"><a href="mod-r-transform.html#cb495-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  1889 288946</span></span>
-<span id="cb495-17"><a href="mod-r-transform.html#cb495-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 128 more rows</span></span>
-<span id="cb495-18"><a href="mod-r-transform.html#cb495-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb495-17"><a href="mod-r-transform.html#cb495-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 128 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -2886,8 +2870,7 @@ Solution
 <span id="cb496-16"><a href="mod-r-transform.html#cb496-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1880 F     Alice      1414 0.0145     8</span></span>
 <span id="cb496-17"><a href="mod-r-transform.html#cb496-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  1880 F     Bertha     1320 0.0135     9</span></span>
 <span id="cb496-18"><a href="mod-r-transform.html#cb496-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  1880 F     Sarah      1288 0.0132    10</span></span>
-<span id="cb496-19"><a href="mod-r-transform.html#cb496-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,924,655 more rows</span></span>
-<span id="cb496-20"><a href="mod-r-transform.html#cb496-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb496-19"><a href="mod-r-transform.html#cb496-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 1,924,655 more rows</span></span></code></pre></div>
 <p>
 The same results if you use <code>n</code> since in the same order.
 </p>
@@ -3451,20 +3434,20 @@ Hint
 <p>Most values start with a dollar sign. Let us have a look at the other ones:</p>
 <div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="mod-r-transform.html#cb506-1" aria-hidden="true" tabindex="-1"></a>profit <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_starts</span>(Revenue, <span class="fu">fixed</span>(<span class="st">&quot;$&quot;</span>))) </span>
 <span id="cb506-2"><a href="mod-r-transform.html#cb506-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 95 × 9</span></span>
-<span id="cb506-3"><a href="mod-r-transform.html#cb506-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Quarter Channel `Customer ID` Country       `Product Line`         Revenue Produ…¹ Custo…² Profit</span></span>
-<span id="cb506-4"><a href="mod-r-transform.html#cb506-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;                  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; </span></span>
-<span id="cb506-5"><a href="mod-r-transform.html#cb506-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1       3 INT     MAM           USA           Deposit Products       Unknown $ 1008  $ 246   $ 418 </span></span>
-<span id="cb506-6"><a href="mod-r-transform.html#cb506-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2       3 MAL     RPB           USA           Credit Products        ?       $ 1420  $ 347   $ 30  </span></span>
-<span id="cb506-7"><a href="mod-r-transform.html#cb506-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3       1 MAL     WEM           Great Britain Other Products         ?       $ 87    $ 19    $ -34 </span></span>
-<span id="cb506-8"><a href="mod-r-transform.html#cb506-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4       3 ATM     MFN           Germany       Fee Based Products     unknown $ 47    $ 6     $ 9   </span></span>
-<span id="cb506-9"><a href="mod-r-transform.html#cb506-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5       3 ATM     PBI           Costa Rica    Third Party Products   Unknown $ 51    $ 9     $ 6   </span></span>
-<span id="cb506-10"><a href="mod-r-transform.html#cb506-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6       1 ATM     PBI           Chile         Deposit Products       Unknown $ 58    $ 7     $ -9  </span></span>
-<span id="cb506-11"><a href="mod-r-transform.html#cb506-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7       4 CCT     MRT           Great Britain Revolving Credit Prod… ?       $ 27    $ 5     $ 16  </span></span>
-<span id="cb506-12"><a href="mod-r-transform.html#cb506-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8       4 ATM     MAM           Taiwan        Third Party Products   unknown $ 55    $ 9     $ 75  </span></span>
-<span id="cb506-13"><a href="mod-r-transform.html#cb506-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9       4 MAL     WEB           Japan         Other Products         unknown $ 40    $ 7     $ 17  </span></span>
-<span id="cb506-14"><a href="mod-r-transform.html#cb506-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10       2 CCT     MAM           Netherlands   Credit Products        unknown $ 14    $ 3     $ 20  </span></span>
-<span id="cb506-15"><a href="mod-r-transform.html#cb506-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 85 more rows, and abbreviated variable names ¹​`Product Cost`, ²​`Customer Service Cost`</span></span>
-<span id="cb506-16"><a href="mod-r-transform.html#cb506-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span>
+<span id="cb506-3"><a href="mod-r-transform.html#cb506-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Quarter Channel `Customer ID` Country       `Product Line`            Revenue `Product Cost`</span></span>
+<span id="cb506-4"><a href="mod-r-transform.html#cb506-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;                     &lt;chr&gt;   &lt;chr&gt;         </span></span>
+<span id="cb506-5"><a href="mod-r-transform.html#cb506-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1       3 INT     MAM           USA           Deposit Products          Unknown $ 1008        </span></span>
+<span id="cb506-6"><a href="mod-r-transform.html#cb506-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2       3 MAL     RPB           USA           Credit Products           ?       $ 1420        </span></span>
+<span id="cb506-7"><a href="mod-r-transform.html#cb506-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3       1 MAL     WEM           Great Britain Other Products            ?       $ 87          </span></span>
+<span id="cb506-8"><a href="mod-r-transform.html#cb506-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4       3 ATM     MFN           Germany       Fee Based Products        unknown $ 47          </span></span>
+<span id="cb506-9"><a href="mod-r-transform.html#cb506-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5       3 ATM     PBI           Costa Rica    Third Party Products      Unknown $ 51          </span></span>
+<span id="cb506-10"><a href="mod-r-transform.html#cb506-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6       1 ATM     PBI           Chile         Deposit Products          Unknown $ 58          </span></span>
+<span id="cb506-11"><a href="mod-r-transform.html#cb506-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7       4 CCT     MRT           Great Britain Revolving Credit Products ?       $ 27          </span></span>
+<span id="cb506-12"><a href="mod-r-transform.html#cb506-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8       4 ATM     MAM           Taiwan        Third Party Products      unknown $ 55          </span></span>
+<span id="cb506-13"><a href="mod-r-transform.html#cb506-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9       4 MAL     WEB           Japan         Other Products            unknown $ 40          </span></span>
+<span id="cb506-14"><a href="mod-r-transform.html#cb506-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10       2 CCT     MAM           Netherlands   Credit Products           unknown $ 14          </span></span>
+<span id="cb506-15"><a href="mod-r-transform.html#cb506-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 85 more rows</span></span>
+<span id="cb506-16"><a href="mod-r-transform.html#cb506-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 2 more variables: `Customer Service Cost` &lt;chr&gt;, Profit &lt;chr&gt;</span></span>
 <span id="cb506-17"><a href="mod-r-transform.html#cb506-17" aria-hidden="true" tabindex="-1"></a>na_values <span class="ot">&lt;-</span> profit <span class="sc">%&gt;%</span> </span>
 <span id="cb506-18"><a href="mod-r-transform.html#cb506-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_starts</span>(Revenue, <span class="fu">fixed</span>(<span class="st">&quot;$&quot;</span>))) <span class="sc">%&gt;%</span> </span>
 <span id="cb506-19"><a href="mod-r-transform.html#cb506-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Revenue) <span class="sc">%&gt;%</span> </span>
@@ -3481,29 +3464,28 @@ Hint
 <span id="cb508-3"><a href="mod-r-transform.html#cb508-3" aria-hidden="true" tabindex="-1"></a>profit <span class="sc">%&gt;%</span> <span class="co"># check</span></span>
 <span id="cb508-4"><a href="mod-r-transform.html#cb508-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_starts</span>(Revenue, <span class="fu">fixed</span>(<span class="st">&quot;$&quot;</span>))) </span>
 <span id="cb508-5"><a href="mod-r-transform.html#cb508-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 0 × 9</span></span>
-<span id="cb508-6"><a href="mod-r-transform.html#cb508-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 9 variables: Quarter &lt;dbl&gt;, Channel &lt;chr&gt;, Customer ID &lt;chr&gt;, Country &lt;chr&gt;,</span></span>
+<span id="cb508-6"><a href="mod-r-transform.html#cb508-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 9 variables: Quarter &lt;dbl&gt;, Channel &lt;chr&gt;, Customer ID &lt;chr&gt;, Country &lt;chr&gt;,</span></span>
 <span id="cb508-7"><a href="mod-r-transform.html#cb508-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Product Line &lt;chr&gt;, Revenue &lt;chr&gt;, Product Cost &lt;chr&gt;, Customer Service Cost &lt;chr&gt;,</span></span>
-<span id="cb508-8"><a href="mod-r-transform.html#cb508-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Profit &lt;chr&gt;</span></span>
-<span id="cb508-9"><a href="mod-r-transform.html#cb508-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `colnames()` to see all variable names</span></span></code></pre></div>
+<span id="cb508-8"><a href="mod-r-transform.html#cb508-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Profit &lt;chr&gt;</span></span></code></pre></div>
 <p>Finally, we remove all dollar signs:</p>
 <div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="mod-r-transform.html#cb509-1" aria-hidden="true" tabindex="-1"></a>profit <span class="ot">&lt;-</span> profit <span class="sc">%&gt;%</span> </span>
 <span id="cb509-2"><a href="mod-r-transform.html#cb509-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Revenue =</span> <span class="fu">str_remove</span>(Revenue, <span class="fu">fixed</span>(<span class="st">&quot;$ &quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>())</span>
 <span id="cb509-3"><a href="mod-r-transform.html#cb509-3" aria-hidden="true" tabindex="-1"></a>profit</span>
 <span id="cb509-4"><a href="mod-r-transform.html#cb509-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 24,546 × 9</span></span>
-<span id="cb509-5"><a href="mod-r-transform.html#cb509-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Quarter Channel `Customer ID` Country `Product Line`            Revenue Product …¹ Custo…² Profit</span></span>
-<span id="cb509-6"><a href="mod-r-transform.html#cb509-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;                       &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt; </span></span>
-<span id="cb509-7"><a href="mod-r-transform.html#cb509-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1       3 ATM     FRT           USA     Credit Products              6044 $ 3998     $ 413   $ 1633</span></span>
-<span id="cb509-8"><a href="mod-r-transform.html#cb509-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2       1 ATM     MRT           USA     Credit Products              4686 $ 3229     $ 643   $ 815 </span></span>
-<span id="cb509-9"><a href="mod-r-transform.html#cb509-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3       4 ATM     PBI           USA     Deposit Products             6063 $ 7440     $ 1842  $ -32…</span></span>
-<span id="cb509-10"><a href="mod-r-transform.html#cb509-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4       1 ATM     PBI           USA     Deposit Products             4682 $ 6127     $ 1118  $ -25…</span></span>
-<span id="cb509-11"><a href="mod-r-transform.html#cb509-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5       4 ATM     MRT           USA     Deposit Products             6320 $ 7913     $ 1854  $ -34…</span></span>
-<span id="cb509-12"><a href="mod-r-transform.html#cb509-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6       3 BRH     MAM           USA     Deposit Products             2993 $ 1034     $ 242   $ 1718</span></span>
-<span id="cb509-13"><a href="mod-r-transform.html#cb509-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7       4 BRH     PBI           USA     Revolving Credit Products    3355 $ 4355     $ 1027  $ -20…</span></span>
-<span id="cb509-14"><a href="mod-r-transform.html#cb509-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8       3 ATM     FRT           USA     Revolving Credit Products    5716 $ 5617     $ 876   $ -777</span></span>
-<span id="cb509-15"><a href="mod-r-transform.html#cb509-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9       4 BRH     PBI           USA     Deposit Products             3347 $ 4229     $ 425   $ -13…</span></span>
-<span id="cb509-16"><a href="mod-r-transform.html#cb509-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10       1 BRH     PBI           USA     Credit Products              2624 $ 1960     $ 264   $ 401 </span></span>
-<span id="cb509-17"><a href="mod-r-transform.html#cb509-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 24,536 more rows, and abbreviated variable names ¹​`Product Cost`, ²​`Customer Service Cost`</span></span>
-<span id="cb509-18"><a href="mod-r-transform.html#cb509-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb509-5"><a href="mod-r-transform.html#cb509-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Quarter Channel `Customer ID` Country `Product Line`            Revenue `Product Cost`</span></span>
+<span id="cb509-6"><a href="mod-r-transform.html#cb509-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;                       &lt;dbl&gt; &lt;chr&gt;         </span></span>
+<span id="cb509-7"><a href="mod-r-transform.html#cb509-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1       3 ATM     FRT           USA     Credit Products              6044 $ 3998        </span></span>
+<span id="cb509-8"><a href="mod-r-transform.html#cb509-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2       1 ATM     MRT           USA     Credit Products              4686 $ 3229        </span></span>
+<span id="cb509-9"><a href="mod-r-transform.html#cb509-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3       4 ATM     PBI           USA     Deposit Products             6063 $ 7440        </span></span>
+<span id="cb509-10"><a href="mod-r-transform.html#cb509-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4       1 ATM     PBI           USA     Deposit Products             4682 $ 6127        </span></span>
+<span id="cb509-11"><a href="mod-r-transform.html#cb509-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5       4 ATM     MRT           USA     Deposit Products             6320 $ 7913        </span></span>
+<span id="cb509-12"><a href="mod-r-transform.html#cb509-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6       3 BRH     MAM           USA     Deposit Products             2993 $ 1034        </span></span>
+<span id="cb509-13"><a href="mod-r-transform.html#cb509-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7       4 BRH     PBI           USA     Revolving Credit Products    3355 $ 4355        </span></span>
+<span id="cb509-14"><a href="mod-r-transform.html#cb509-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8       3 ATM     FRT           USA     Revolving Credit Products    5716 $ 5617        </span></span>
+<span id="cb509-15"><a href="mod-r-transform.html#cb509-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9       4 BRH     PBI           USA     Deposit Products             3347 $ 4229        </span></span>
+<span id="cb509-16"><a href="mod-r-transform.html#cb509-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10       1 BRH     PBI           USA     Credit Products              2624 $ 1960        </span></span>
+<span id="cb509-17"><a href="mod-r-transform.html#cb509-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 24,536 more rows</span></span>
+<span id="cb509-18"><a href="mod-r-transform.html#cb509-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 2 more variables: `Customer Service Cost` &lt;chr&gt;, Profit &lt;chr&gt;</span></span></code></pre></div>
 <p>As one pipe:</p>
 <div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="mod-r-transform.html#cb510-1" aria-hidden="true" tabindex="-1"></a>profit <span class="ot">&lt;-</span> profit <span class="sc">%&gt;%</span> </span>
 <span id="cb510-2"><a href="mod-r-transform.html#cb510-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Revenue =</span> <span class="fu">str_replace_all</span>(Revenue, <span class="fu">c</span>(<span class="st">&quot;unknown&quot;</span> <span class="ot">=</span> <span class="st">&quot;?&quot;</span>, <span class="st">&quot;Unknown&quot;</span> <span class="ot">=</span> <span class="st">&quot;?&quot;</span>))) <span class="sc">%&gt;%</span> </span>
@@ -3531,20 +3513,20 @@ Solution
 <span id="cb511-5"><a href="mod-r-transform.html#cb511-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(Revenue<span class="sc">:</span>Profit, <span class="sc">~</span><span class="fu">str_remove</span>(.x, <span class="fu">fixed</span>(<span class="st">&quot;$ &quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>() )) </span>
 <span id="cb511-6"><a href="mod-r-transform.html#cb511-6" aria-hidden="true" tabindex="-1"></a>profit</span>
 <span id="cb511-7"><a href="mod-r-transform.html#cb511-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 24,546 × 9</span></span>
-<span id="cb511-8"><a href="mod-r-transform.html#cb511-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Quarter Channel `Customer ID` Country `Product Line`            Revenue Product …¹ Custo…² Profit</span></span>
-<span id="cb511-9"><a href="mod-r-transform.html#cb511-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;                       &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span id="cb511-10"><a href="mod-r-transform.html#cb511-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Q3      ATM     FRT           USA     Credit Products              6044       3998     413   1633</span></span>
-<span id="cb511-11"><a href="mod-r-transform.html#cb511-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 1       ATM     MRT           USA     Credit Products              4686       3229     643    815</span></span>
-<span id="cb511-12"><a href="mod-r-transform.html#cb511-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Q4      ATM     PBI           USA     Deposit Products             6063       7440    1842  -3219</span></span>
-<span id="cb511-13"><a href="mod-r-transform.html#cb511-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Q1      ATM     PBI           USA     Deposit Products             4682       6127    1118  -2563</span></span>
-<span id="cb511-14"><a href="mod-r-transform.html#cb511-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Q4      ATM     MRT           USA     Deposit Products             6320       7913    1854  -3447</span></span>
-<span id="cb511-15"><a href="mod-r-transform.html#cb511-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Q3      BRH     MAM           USA     Deposit Products             2993       1034     242   1718</span></span>
-<span id="cb511-16"><a href="mod-r-transform.html#cb511-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Q4      BRH     PBI           USA     Revolving Credit Products    3355       4355    1027  -2027</span></span>
-<span id="cb511-17"><a href="mod-r-transform.html#cb511-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Q3      ATM     FRT           USA     Revolving Credit Products    5716       5617     876   -777</span></span>
-<span id="cb511-18"><a href="mod-r-transform.html#cb511-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Q4      BRH     PBI           USA     Deposit Products             3347       4229     425  -1307</span></span>
-<span id="cb511-19"><a href="mod-r-transform.html#cb511-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Q1      BRH     PBI           USA     Credit Products              2624       1960     264    401</span></span>
-<span id="cb511-20"><a href="mod-r-transform.html#cb511-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 24,536 more rows, and abbreviated variable names ¹​`Product Cost`, ²​`Customer Service Cost`</span></span>
-<span id="cb511-21"><a href="mod-r-transform.html#cb511-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb511-8"><a href="mod-r-transform.html#cb511-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Quarter Channel `Customer ID` Country `Product Line`            Revenue `Product Cost`</span></span>
+<span id="cb511-9"><a href="mod-r-transform.html#cb511-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;                       &lt;dbl&gt;          &lt;dbl&gt;</span></span>
+<span id="cb511-10"><a href="mod-r-transform.html#cb511-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Q3      ATM     FRT           USA     Credit Products              6044           3998</span></span>
+<span id="cb511-11"><a href="mod-r-transform.html#cb511-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 1       ATM     MRT           USA     Credit Products              4686           3229</span></span>
+<span id="cb511-12"><a href="mod-r-transform.html#cb511-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Q4      ATM     PBI           USA     Deposit Products             6063           7440</span></span>
+<span id="cb511-13"><a href="mod-r-transform.html#cb511-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Q1      ATM     PBI           USA     Deposit Products             4682           6127</span></span>
+<span id="cb511-14"><a href="mod-r-transform.html#cb511-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Q4      ATM     MRT           USA     Deposit Products             6320           7913</span></span>
+<span id="cb511-15"><a href="mod-r-transform.html#cb511-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Q3      BRH     MAM           USA     Deposit Products             2993           1034</span></span>
+<span id="cb511-16"><a href="mod-r-transform.html#cb511-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Q4      BRH     PBI           USA     Revolving Credit Products    3355           4355</span></span>
+<span id="cb511-17"><a href="mod-r-transform.html#cb511-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Q3      ATM     FRT           USA     Revolving Credit Products    5716           5617</span></span>
+<span id="cb511-18"><a href="mod-r-transform.html#cb511-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Q4      BRH     PBI           USA     Deposit Products             3347           4229</span></span>
+<span id="cb511-19"><a href="mod-r-transform.html#cb511-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Q1      BRH     PBI           USA     Credit Products              2624           1960</span></span>
+<span id="cb511-20"><a href="mod-r-transform.html#cb511-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 24,536 more rows</span></span>
+<span id="cb511-21"><a href="mod-r-transform.html#cb511-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 2 more variables: `Customer Service Cost` &lt;dbl&gt;, Profit &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -4069,10 +4051,9 @@ Solution
 <span id="cb514-3"><a href="mod-r-transform.html#cb514-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Profit =</span> <span class="fu">if_else</span>(Diff <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> Diff <span class="sc">&lt;=</span> <span class="dv">1</span>, Profit_calc, Profit, <span class="at">missing =</span> Profit) ) </span>
 <span id="cb514-4"><a href="mod-r-transform.html#cb514-4" aria-hidden="true" tabindex="-1"></a>profit <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Diff <span class="sc">==</span> <span class="dv">1</span>, <span class="fu">is.na</span>(Profit_calc))  <span class="co"># check</span></span>
 <span id="cb514-5"><a href="mod-r-transform.html#cb514-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 0 × 11</span></span>
-<span id="cb514-6"><a href="mod-r-transform.html#cb514-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 11 variables: Quarter &lt;dbl&gt;, Channel &lt;chr&gt;, Customer ID &lt;chr&gt;, Country &lt;chr&gt;,</span></span>
+<span id="cb514-6"><a href="mod-r-transform.html#cb514-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 11 variables: Quarter &lt;dbl&gt;, Channel &lt;chr&gt;, Customer ID &lt;chr&gt;, Country &lt;chr&gt;,</span></span>
 <span id="cb514-7"><a href="mod-r-transform.html#cb514-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Product Line &lt;chr&gt;, Revenue &lt;dbl&gt;, Product Cost &lt;dbl&gt;, Customer Service Cost &lt;dbl&gt;,</span></span>
-<span id="cb514-8"><a href="mod-r-transform.html#cb514-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Profit &lt;dbl&gt;, Profit_calc &lt;dbl&gt;, Diff &lt;dbl&gt;</span></span>
-<span id="cb514-9"><a href="mod-r-transform.html#cb514-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `colnames()` to see all variable names</span></span></code></pre></div>
+<span id="cb514-8"><a href="mod-r-transform.html#cb514-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Profit &lt;dbl&gt;, Profit_calc &lt;dbl&gt;, Diff &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -4142,24 +4123,24 @@ Solution
 <span id="cb516-12"><a href="mod-r-transform.html#cb516-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Diff <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
 <span id="cb516-13"><a href="mod-r-transform.html#cb516-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 0 × 11</span></span>
 <span id="cb516-14"><a href="mod-r-transform.html#cb516-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Rowwise: </span></span>
-<span id="cb516-15"><a href="mod-r-transform.html#cb516-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 11 variables: Quarter &lt;dbl&gt;, Channel &lt;chr&gt;, Customer ID &lt;chr&gt;, Country &lt;chr&gt;,</span></span>
+<span id="cb516-15"><a href="mod-r-transform.html#cb516-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 11 variables: Quarter &lt;dbl&gt;, Channel &lt;chr&gt;, Customer ID &lt;chr&gt;, Country &lt;chr&gt;,</span></span>
 <span id="cb516-16"><a href="mod-r-transform.html#cb516-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Product Line &lt;chr&gt;, Revenue &lt;dbl&gt;, Product Cost &lt;dbl&gt;, Customer Service Cost &lt;dbl&gt;,</span></span>
 <span id="cb516-17"><a href="mod-r-transform.html#cb516-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Profit &lt;dbl&gt;, Profit_calc &lt;dbl&gt;, Diff &lt;dbl&gt;</span></span>
-<span id="cb516-18"><a href="mod-r-transform.html#cb516-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `colnames()` to see all variable names</span></span>
-<span id="cb516-19"><a href="mod-r-transform.html#cb516-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb516-20"><a href="mod-r-transform.html#cb516-20" aria-hidden="true" tabindex="-1"></a><span class="co"># check - find NA values</span></span>
-<span id="cb516-21"><a href="mod-r-transform.html#cb516-21" aria-hidden="true" tabindex="-1"></a>profit <span class="sc">%&gt;%</span> </span>
-<span id="cb516-22"><a href="mod-r-transform.html#cb516-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb516-23"><a href="mod-r-transform.html#cb516-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">c_na =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(<span class="fu">c_across</span>(Revenue<span class="sc">:</span>Profit)))) <span class="sc">%&gt;%</span> </span>
-<span id="cb516-24"><a href="mod-r-transform.html#cb516-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(c_na <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb516-25"><a href="mod-r-transform.html#cb516-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 10</span></span>
-<span id="cb516-26"><a href="mod-r-transform.html#cb516-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Rowwise: </span></span>
-<span id="cb516-27"><a href="mod-r-transform.html#cb516-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Quarter Channel `Customer ID` Country `Product Line`          Revenue Produ…¹ Custo…² Profit  c_na</span></span>
-<span id="cb516-28"><a href="mod-r-transform.html#cb516-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;                     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;</span></span>
-<span id="cb516-29"><a href="mod-r-transform.html#cb516-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       1 EML     FRT           France  Revolving Credit Produ…       3      NA      NA     -1     2</span></span>
-<span id="cb516-30"><a href="mod-r-transform.html#cb516-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       2 BRH     EBP           Guam    Fee Based Products           NA      NA       0      1     2</span></span>
-<span id="cb516-31"><a href="mod-r-transform.html#cb516-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       1 MAL     MFN           Japan   Fee Based Products           NA      NA       5     21     2</span></span>
-<span id="cb516-32"><a href="mod-r-transform.html#cb516-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with abbreviated variable names ¹​`Product Cost`, ²​`Customer Service Cost`</span></span></code></pre></div>
+<span id="cb516-18"><a href="mod-r-transform.html#cb516-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb516-19"><a href="mod-r-transform.html#cb516-19" aria-hidden="true" tabindex="-1"></a><span class="co"># check - find NA values</span></span>
+<span id="cb516-20"><a href="mod-r-transform.html#cb516-20" aria-hidden="true" tabindex="-1"></a>profit <span class="sc">%&gt;%</span> </span>
+<span id="cb516-21"><a href="mod-r-transform.html#cb516-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb516-22"><a href="mod-r-transform.html#cb516-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">c_na =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(<span class="fu">c_across</span>(Revenue<span class="sc">:</span>Profit)))) <span class="sc">%&gt;%</span> </span>
+<span id="cb516-23"><a href="mod-r-transform.html#cb516-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(c_na <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb516-24"><a href="mod-r-transform.html#cb516-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 10</span></span>
+<span id="cb516-25"><a href="mod-r-transform.html#cb516-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Rowwise: </span></span>
+<span id="cb516-26"><a href="mod-r-transform.html#cb516-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Quarter Channel `Customer ID` Country `Product Line` Revenue `Product Cost` Customer Service Cos…¹</span></span>
+<span id="cb516-27"><a href="mod-r-transform.html#cb516-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;            &lt;dbl&gt;          &lt;dbl&gt;                  &lt;dbl&gt;</span></span>
+<span id="cb516-28"><a href="mod-r-transform.html#cb516-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       1 EML     FRT           France  Revolving Cre…       3             NA                     NA</span></span>
+<span id="cb516-29"><a href="mod-r-transform.html#cb516-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       2 BRH     EBP           Guam    Fee Based Pro…      NA             NA                      0</span></span>
+<span id="cb516-30"><a href="mod-r-transform.html#cb516-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       1 MAL     MFN           Japan   Fee Based Pro…      NA             NA                      5</span></span>
+<span id="cb516-31"><a href="mod-r-transform.html#cb516-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​`Customer Service Cost`</span></span>
+<span id="cb516-32"><a href="mod-r-transform.html#cb516-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 2 more variables: Profit &lt;dbl&gt;, c_na &lt;int&gt;</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -4260,17 +4241,18 @@ Solution
 <span id="cb519-3"><a href="mod-r-transform.html#cb519-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(Profit, <span class="at">n =</span> <span class="dv">2</span>)</span>
 <span id="cb519-4"><a href="mod-r-transform.html#cb519-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 8 × 9</span></span>
 <span id="cb519-5"><a href="mod-r-transform.html#cb519-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   Quarter [4]</span></span>
-<span id="cb519-6"><a href="mod-r-transform.html#cb519-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Quarter Channel `Customer ID` Country `Product Line`            Revenue Product C…¹ Custo…² Profit</span></span>
-<span id="cb519-7"><a href="mod-r-transform.html#cb519-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;                       &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span id="cb519-8"><a href="mod-r-transform.html#cb519-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       1 ATM     PBI           USA     Credit Products              4821        1808     233   2780</span></span>
-<span id="cb519-9"><a href="mod-r-transform.html#cb519-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       1 ATM     PBI           USA     Revolving Credit Products    4268        1638     363   2267</span></span>
-<span id="cb519-10"><a href="mod-r-transform.html#cb519-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       2 ATM     FRT           USA     Credit Products              5931        3137     406   2388</span></span>
-<span id="cb519-11"><a href="mod-r-transform.html#cb519-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4       2 ATM     RPB           USA     Deposit Products             4864        2156     533   2175</span></span>
-<span id="cb519-12"><a href="mod-r-transform.html#cb519-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5       3 ATM     WEM           USA     Credit Products              5682        2112     454   3116</span></span>
-<span id="cb519-13"><a href="mod-r-transform.html#cb519-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6       3 ATM     WEM           USA     Deposit Products             4850        2493     253   2104</span></span>
-<span id="cb519-14"><a href="mod-r-transform.html#cb519-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7       4 ATM     MAM           USA     Revolving Credit Products    6699        2506     530   3663</span></span>
-<span id="cb519-15"><a href="mod-r-transform.html#cb519-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8       4 ATM     WEM           USA     Revolving Credit Products    5836        2114     265   3457</span></span>
-<span id="cb519-16"><a href="mod-r-transform.html#cb519-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with abbreviated variable names ¹​`Product Cost`, ²​`Customer Service Cost`</span></span></code></pre></div>
+<span id="cb519-6"><a href="mod-r-transform.html#cb519-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Quarter Channel `Customer ID` Country `Product Line` Revenue `Product Cost` Customer Service Cos…¹</span></span>
+<span id="cb519-7"><a href="mod-r-transform.html#cb519-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;            &lt;dbl&gt;          &lt;dbl&gt;                  &lt;dbl&gt;</span></span>
+<span id="cb519-8"><a href="mod-r-transform.html#cb519-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       1 ATM     PBI           USA     Credit Produc…    4821           1808                    233</span></span>
+<span id="cb519-9"><a href="mod-r-transform.html#cb519-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       1 ATM     PBI           USA     Revolving Cre…    4268           1638                    363</span></span>
+<span id="cb519-10"><a href="mod-r-transform.html#cb519-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       2 ATM     FRT           USA     Credit Produc…    5931           3137                    406</span></span>
+<span id="cb519-11"><a href="mod-r-transform.html#cb519-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4       2 ATM     RPB           USA     Deposit Produ…    4864           2156                    533</span></span>
+<span id="cb519-12"><a href="mod-r-transform.html#cb519-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5       3 ATM     WEM           USA     Credit Produc…    5682           2112                    454</span></span>
+<span id="cb519-13"><a href="mod-r-transform.html#cb519-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6       3 ATM     WEM           USA     Deposit Produ…    4850           2493                    253</span></span>
+<span id="cb519-14"><a href="mod-r-transform.html#cb519-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7       4 ATM     MAM           USA     Revolving Cre…    6699           2506                    530</span></span>
+<span id="cb519-15"><a href="mod-r-transform.html#cb519-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8       4 ATM     WEM           USA     Revolving Cre…    5836           2114                    265</span></span>
+<span id="cb519-16"><a href="mod-r-transform.html#cb519-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​`Customer Service Cost`</span></span>
+<span id="cb519-17"><a href="mod-r-transform.html#cb519-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 1 more variable: Profit &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -4538,20 +4520,20 @@ Solution
 <span id="cb525-2"><a href="mod-r-transform.html#cb525-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Profit), <span class="fu">desc</span>(Revenue))</span>
 <span id="cb525-3"><a href="mod-r-transform.html#cb525-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 24,546 × 9</span></span>
 <span id="cb525-4"><a href="mod-r-transform.html#cb525-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Rowwise: </span></span>
-<span id="cb525-5"><a href="mod-r-transform.html#cb525-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Quarter Channel `Customer ID` Country `Product Line`            Revenue Product …¹ Custo…² Profit</span></span>
-<span id="cb525-6"><a href="mod-r-transform.html#cb525-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;                       &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span id="cb525-7"><a href="mod-r-transform.html#cb525-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1       4 ATM     MAM           USA     Revolving Credit Products    6699       2506     530   3663</span></span>
-<span id="cb525-8"><a href="mod-r-transform.html#cb525-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2       4 ATM     WEM           USA     Revolving Credit Products    5836       2114     265   3457</span></span>
-<span id="cb525-9"><a href="mod-r-transform.html#cb525-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3       4 ATM     MAM           USA     Credit Products              7540       3374     728   3438</span></span>
-<span id="cb525-10"><a href="mod-r-transform.html#cb525-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4       4 ATM     MRT           USA     Credit Products              6419       2669     618   3132</span></span>
-<span id="cb525-11"><a href="mod-r-transform.html#cb525-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5       3 ATM     WEM           USA     Credit Products              5682       2112     454   3116</span></span>
-<span id="cb525-12"><a href="mod-r-transform.html#cb525-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6       4 ATM     WEB           USA     Deposit Products             5145       1907     191   3047</span></span>
-<span id="cb525-13"><a href="mod-r-transform.html#cb525-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7       1 ATM     PBI           USA     Credit Products              4821       1808     233   2780</span></span>
-<span id="cb525-14"><a href="mod-r-transform.html#cb525-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8       4 ATM     RPB           USA     Credit Products              5828       2727     559   2542</span></span>
-<span id="cb525-15"><a href="mod-r-transform.html#cb525-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9       2 ATM     FRT           USA     Credit Products              5931       3137     406   2388</span></span>
-<span id="cb525-16"><a href="mod-r-transform.html#cb525-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10       1 ATM     PBI           USA     Revolving Credit Products    4268       1638     363   2267</span></span>
-<span id="cb525-17"><a href="mod-r-transform.html#cb525-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 24,536 more rows, and abbreviated variable names ¹​`Product Cost`, ²​`Customer Service Cost`</span></span>
-<span id="cb525-18"><a href="mod-r-transform.html#cb525-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb525-5"><a href="mod-r-transform.html#cb525-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Quarter Channel `Customer ID` Country `Product Line`            Revenue `Product Cost`</span></span>
+<span id="cb525-6"><a href="mod-r-transform.html#cb525-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;                       &lt;dbl&gt;          &lt;dbl&gt;</span></span>
+<span id="cb525-7"><a href="mod-r-transform.html#cb525-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1       4 ATM     MAM           USA     Revolving Credit Products    6699           2506</span></span>
+<span id="cb525-8"><a href="mod-r-transform.html#cb525-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2       4 ATM     WEM           USA     Revolving Credit Products    5836           2114</span></span>
+<span id="cb525-9"><a href="mod-r-transform.html#cb525-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3       4 ATM     MAM           USA     Credit Products              7540           3374</span></span>
+<span id="cb525-10"><a href="mod-r-transform.html#cb525-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4       4 ATM     MRT           USA     Credit Products              6419           2669</span></span>
+<span id="cb525-11"><a href="mod-r-transform.html#cb525-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5       3 ATM     WEM           USA     Credit Products              5682           2112</span></span>
+<span id="cb525-12"><a href="mod-r-transform.html#cb525-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6       4 ATM     WEB           USA     Deposit Products             5145           1907</span></span>
+<span id="cb525-13"><a href="mod-r-transform.html#cb525-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7       1 ATM     PBI           USA     Credit Products              4821           1808</span></span>
+<span id="cb525-14"><a href="mod-r-transform.html#cb525-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8       4 ATM     RPB           USA     Credit Products              5828           2727</span></span>
+<span id="cb525-15"><a href="mod-r-transform.html#cb525-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9       2 ATM     FRT           USA     Credit Products              5931           3137</span></span>
+<span id="cb525-16"><a href="mod-r-transform.html#cb525-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10       1 ATM     PBI           USA     Revolving Credit Products    4268           1638</span></span>
+<span id="cb525-17"><a href="mod-r-transform.html#cb525-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 24,536 more rows</span></span>
+<span id="cb525-18"><a href="mod-r-transform.html#cb525-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 2 more variables: `Customer Service Cost` &lt;dbl&gt;, Profit &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -4744,25 +4726,23 @@ Hint
 <span id="cb532-13"><a href="mod-r-transform.html#cb532-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Argentina            755226        3673 758899</span></span>
 <span id="cb532-14"><a href="mod-r-transform.html#cb532-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Armenia                3758       16381  20139</span></span>
 <span id="cb532-15"><a href="mod-r-transform.html#cb532-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Aruba                   142           0    142</span></span>
-<span id="cb532-16"><a href="mod-r-transform.html#cb532-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 206 more rows</span></span>
-<span id="cb532-17"><a href="mod-r-transform.html#cb532-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span>
-<span id="cb532-18"><a href="mod-r-transform.html#cb532-18" aria-hidden="true" tabindex="-1"></a>continents <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/continents.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tfa&quot;</span>))</span>
-<span id="cb532-19"><a href="mod-r-transform.html#cb532-19" aria-hidden="true" tabindex="-1"></a>continents</span>
-<span id="cb532-20"><a href="mod-r-transform.html#cb532-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 247 × 2</span></span>
-<span id="cb532-21"><a href="mod-r-transform.html#cb532-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country           continent</span></span>
-<span id="cb532-22"><a href="mod-r-transform.html#cb532-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;    </span></span>
-<span id="cb532-23"><a href="mod-r-transform.html#cb532-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghanistan       Asia     </span></span>
-<span id="cb532-24"><a href="mod-r-transform.html#cb532-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Åland Islands     Europe   </span></span>
-<span id="cb532-25"><a href="mod-r-transform.html#cb532-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Albania           Europe   </span></span>
-<span id="cb532-26"><a href="mod-r-transform.html#cb532-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Algeria           Africa   </span></span>
-<span id="cb532-27"><a href="mod-r-transform.html#cb532-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 American Samoa    Oceania  </span></span>
-<span id="cb532-28"><a href="mod-r-transform.html#cb532-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Andorra           Europe   </span></span>
-<span id="cb532-29"><a href="mod-r-transform.html#cb532-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Angola            Africa   </span></span>
-<span id="cb532-30"><a href="mod-r-transform.html#cb532-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Anguilla          Americas </span></span>
-<span id="cb532-31"><a href="mod-r-transform.html#cb532-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Antigua &amp; Barbuda Americas </span></span>
-<span id="cb532-32"><a href="mod-r-transform.html#cb532-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Argentina         Americas </span></span>
-<span id="cb532-33"><a href="mod-r-transform.html#cb532-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 237 more rows</span></span>
-<span id="cb532-34"><a href="mod-r-transform.html#cb532-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb532-16"><a href="mod-r-transform.html#cb532-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 206 more rows</span></span>
+<span id="cb532-17"><a href="mod-r-transform.html#cb532-17" aria-hidden="true" tabindex="-1"></a>continents <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/continents.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tfa&quot;</span>))</span>
+<span id="cb532-18"><a href="mod-r-transform.html#cb532-18" aria-hidden="true" tabindex="-1"></a>continents</span>
+<span id="cb532-19"><a href="mod-r-transform.html#cb532-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 247 × 2</span></span>
+<span id="cb532-20"><a href="mod-r-transform.html#cb532-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country           continent</span></span>
+<span id="cb532-21"><a href="mod-r-transform.html#cb532-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;    </span></span>
+<span id="cb532-22"><a href="mod-r-transform.html#cb532-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghanistan       Asia     </span></span>
+<span id="cb532-23"><a href="mod-r-transform.html#cb532-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Åland Islands     Europe   </span></span>
+<span id="cb532-24"><a href="mod-r-transform.html#cb532-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Albania           Europe   </span></span>
+<span id="cb532-25"><a href="mod-r-transform.html#cb532-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Algeria           Africa   </span></span>
+<span id="cb532-26"><a href="mod-r-transform.html#cb532-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 American Samoa    Oceania  </span></span>
+<span id="cb532-27"><a href="mod-r-transform.html#cb532-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Andorra           Europe   </span></span>
+<span id="cb532-28"><a href="mod-r-transform.html#cb532-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Angola            Africa   </span></span>
+<span id="cb532-29"><a href="mod-r-transform.html#cb532-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Anguilla          Americas </span></span>
+<span id="cb532-30"><a href="mod-r-transform.html#cb532-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Antigua &amp; Barbuda Americas </span></span>
+<span id="cb532-31"><a href="mod-r-transform.html#cb532-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Argentina         Americas </span></span>
+<span id="cb532-32"><a href="mod-r-transform.html#cb532-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 237 more rows</span></span></code></pre></div>
 <p>Some mean statistics:</p>
 <div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="mod-r-transform.html#cb533-1" aria-hidden="true" tabindex="-1"></a>fisheries <span class="sc">%&gt;%</span></span>
 <span id="cb533-2"><a href="mod-r-transform.html#cb533-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
@@ -4824,47 +4804,45 @@ Solution
 <span id="cb534-40"><a href="mod-r-transform.html#cb534-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Argentina            755226        3673 758899</span></span>
 <span id="cb534-41"><a href="mod-r-transform.html#cb534-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Armenia                3758       16381  20139</span></span>
 <span id="cb534-42"><a href="mod-r-transform.html#cb534-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Aruba                   142           0    142</span></span>
-<span id="cb534-43"><a href="mod-r-transform.html#cb534-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 206 more rows</span></span>
-<span id="cb534-44"><a href="mod-r-transform.html#cb534-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span>
-<span id="cb534-45"><a href="mod-r-transform.html#cb534-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 216 × 5</span></span>
-<span id="cb534-46"><a href="mod-r-transform.html#cb534-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country             capture aquaculture  total continent</span></span>
-<span id="cb534-47"><a href="mod-r-transform.html#cb534-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                 &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;    </span></span>
-<span id="cb534-48"><a href="mod-r-transform.html#cb534-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghanistan            1000        1200   2200 Asia     </span></span>
-<span id="cb534-49"><a href="mod-r-transform.html#cb534-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Albania                7886         950   8836 Europe   </span></span>
-<span id="cb534-50"><a href="mod-r-transform.html#cb534-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Algeria               95000        1361  96361 Africa   </span></span>
-<span id="cb534-51"><a href="mod-r-transform.html#cb534-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 American Samoa         3047          20   3067 Oceania  </span></span>
-<span id="cb534-52"><a href="mod-r-transform.html#cb534-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Andorra                   0           0      0 Europe   </span></span>
-<span id="cb534-53"><a href="mod-r-transform.html#cb534-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Angola               486490         655 487145 Africa   </span></span>
-<span id="cb534-54"><a href="mod-r-transform.html#cb534-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Antigua and Barbuda    3000          10   3010 &lt;NA&gt;     </span></span>
-<span id="cb534-55"><a href="mod-r-transform.html#cb534-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Argentina            755226        3673 758899 Americas </span></span>
-<span id="cb534-56"><a href="mod-r-transform.html#cb534-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Armenia                3758       16381  20139 Asia     </span></span>
-<span id="cb534-57"><a href="mod-r-transform.html#cb534-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Aruba                   142           0    142 Americas </span></span>
-<span id="cb534-58"><a href="mod-r-transform.html#cb534-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 206 more rows</span></span>
-<span id="cb534-59"><a href="mod-r-transform.html#cb534-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span>
-<span id="cb534-60"><a href="mod-r-transform.html#cb534-60" aria-hidden="true" tabindex="-1"></a>fisheries <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(continent))   <span class="co"># same result - countries not belonging to a continent</span></span>
-<span id="cb534-61"><a href="mod-r-transform.html#cb534-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 20 × 5</span></span>
-<span id="cb534-62"><a href="mod-r-transform.html#cb534-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country                          capture aquaculture   total continent</span></span>
-<span id="cb534-63"><a href="mod-r-transform.html#cb534-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                              &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;    </span></span>
-<span id="cb534-64"><a href="mod-r-transform.html#cb534-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Antigua and Barbuda                 3000          10    3010 &lt;NA&gt;     </span></span>
-<span id="cb534-65"><a href="mod-r-transform.html#cb534-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Bosnia and Herzegovina               305        4564    4869 &lt;NA&gt;     </span></span>
-<span id="cb534-66"><a href="mod-r-transform.html#cb534-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Czech Republic                      3507       20952   24459 &lt;NA&gt;     </span></span>
-<span id="cb534-67"><a href="mod-r-transform.html#cb534-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Democratic Republic of the Congo  237372        3161  240533 &lt;NA&gt;     </span></span>
-<span id="cb534-68"><a href="mod-r-transform.html#cb534-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Eswatini                              65         100     165 &lt;NA&gt;     </span></span>
-<span id="cb534-69"><a href="mod-r-transform.html#cb534-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Federated States of Micronesia     88397           0   88397 &lt;NA&gt;     </span></span>
-<span id="cb534-70"><a href="mod-r-transform.html#cb534-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Ivory Coast                        67500        4701   72201 &lt;NA&gt;     </span></span>
-<span id="cb534-71"><a href="mod-r-transform.html#cb534-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Jersey and Guernsey                 2985        1499    4484 &lt;NA&gt;     </span></span>
-<span id="cb534-72"><a href="mod-r-transform.html#cb534-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Macao                               1500           0    1500 &lt;NA&gt;     </span></span>
-<span id="cb534-73"><a href="mod-r-transform.html#cb534-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Myanmar                          2072390     1017644 3090034 &lt;NA&gt;     </span></span>
-<span id="cb534-74"><a href="mod-r-transform.html#cb534-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 North Macedonia                      306         986    1292 &lt;NA&gt;     </span></span>
-<span id="cb534-75"><a href="mod-r-transform.html#cb534-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 Palestine                           3306         280    3586 &lt;NA&gt;     </span></span>
-<span id="cb534-76"><a href="mod-r-transform.html#cb534-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13 Republic of the Congo              86748         177   86925 &lt;NA&gt;     </span></span>
-<span id="cb534-77"><a href="mod-r-transform.html#cb534-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14 Saint Kitts and Nevis              65734           1   65735 &lt;NA&gt;     </span></span>
-<span id="cb534-78"><a href="mod-r-transform.html#cb534-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15 Saint Lucia                         2097          32    2129 &lt;NA&gt;     </span></span>
-<span id="cb534-79"><a href="mod-r-transform.html#cb534-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16 Saint Vincent and the Grenadines   23077           0   23077 &lt;NA&gt;     </span></span>
-<span id="cb534-80"><a href="mod-r-transform.html#cb534-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17 São Tomé and Príncipe              11750           0   11750 &lt;NA&gt;     </span></span>
-<span id="cb534-81"><a href="mod-r-transform.html#cb534-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18 Trinidad and Tobago                13027          11   13038 &lt;NA&gt;     </span></span>
-<span id="cb534-82"><a href="mod-r-transform.html#cb534-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19 Turks and Caicos Islands            2780           0    2780 &lt;NA&gt;     </span></span>
-<span id="cb534-83"><a href="mod-r-transform.html#cb534-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20 US Virgin Islands                    551           8     559 &lt;NA&gt;</span></span></code></pre></div>
+<span id="cb534-43"><a href="mod-r-transform.html#cb534-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 206 more rows</span></span>
+<span id="cb534-44"><a href="mod-r-transform.html#cb534-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 216 × 5</span></span>
+<span id="cb534-45"><a href="mod-r-transform.html#cb534-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country             capture aquaculture  total continent</span></span>
+<span id="cb534-46"><a href="mod-r-transform.html#cb534-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                 &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;    </span></span>
+<span id="cb534-47"><a href="mod-r-transform.html#cb534-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Afghanistan            1000        1200   2200 Asia     </span></span>
+<span id="cb534-48"><a href="mod-r-transform.html#cb534-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Albania                7886         950   8836 Europe   </span></span>
+<span id="cb534-49"><a href="mod-r-transform.html#cb534-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Algeria               95000        1361  96361 Africa   </span></span>
+<span id="cb534-50"><a href="mod-r-transform.html#cb534-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 American Samoa         3047          20   3067 Oceania  </span></span>
+<span id="cb534-51"><a href="mod-r-transform.html#cb534-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Andorra                   0           0      0 Europe   </span></span>
+<span id="cb534-52"><a href="mod-r-transform.html#cb534-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Angola               486490         655 487145 Africa   </span></span>
+<span id="cb534-53"><a href="mod-r-transform.html#cb534-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Antigua and Barbuda    3000          10   3010 &lt;NA&gt;     </span></span>
+<span id="cb534-54"><a href="mod-r-transform.html#cb534-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Argentina            755226        3673 758899 Americas </span></span>
+<span id="cb534-55"><a href="mod-r-transform.html#cb534-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Armenia                3758       16381  20139 Asia     </span></span>
+<span id="cb534-56"><a href="mod-r-transform.html#cb534-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Aruba                   142           0    142 Americas </span></span>
+<span id="cb534-57"><a href="mod-r-transform.html#cb534-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 206 more rows</span></span>
+<span id="cb534-58"><a href="mod-r-transform.html#cb534-58" aria-hidden="true" tabindex="-1"></a>fisheries <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(continent))   <span class="co"># same result - countries not belonging to a continent</span></span>
+<span id="cb534-59"><a href="mod-r-transform.html#cb534-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 20 × 5</span></span>
+<span id="cb534-60"><a href="mod-r-transform.html#cb534-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country                          capture aquaculture   total continent</span></span>
+<span id="cb534-61"><a href="mod-r-transform.html#cb534-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                              &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;    </span></span>
+<span id="cb534-62"><a href="mod-r-transform.html#cb534-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Antigua and Barbuda                 3000          10    3010 &lt;NA&gt;     </span></span>
+<span id="cb534-63"><a href="mod-r-transform.html#cb534-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Bosnia and Herzegovina               305        4564    4869 &lt;NA&gt;     </span></span>
+<span id="cb534-64"><a href="mod-r-transform.html#cb534-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Czech Republic                      3507       20952   24459 &lt;NA&gt;     </span></span>
+<span id="cb534-65"><a href="mod-r-transform.html#cb534-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Democratic Republic of the Congo  237372        3161  240533 &lt;NA&gt;     </span></span>
+<span id="cb534-66"><a href="mod-r-transform.html#cb534-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Eswatini                              65         100     165 &lt;NA&gt;     </span></span>
+<span id="cb534-67"><a href="mod-r-transform.html#cb534-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Federated States of Micronesia     88397           0   88397 &lt;NA&gt;     </span></span>
+<span id="cb534-68"><a href="mod-r-transform.html#cb534-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Ivory Coast                        67500        4701   72201 &lt;NA&gt;     </span></span>
+<span id="cb534-69"><a href="mod-r-transform.html#cb534-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Jersey and Guernsey                 2985        1499    4484 &lt;NA&gt;     </span></span>
+<span id="cb534-70"><a href="mod-r-transform.html#cb534-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Macao                               1500           0    1500 &lt;NA&gt;     </span></span>
+<span id="cb534-71"><a href="mod-r-transform.html#cb534-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Myanmar                          2072390     1017644 3090034 &lt;NA&gt;     </span></span>
+<span id="cb534-72"><a href="mod-r-transform.html#cb534-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 North Macedonia                      306         986    1292 &lt;NA&gt;     </span></span>
+<span id="cb534-73"><a href="mod-r-transform.html#cb534-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 Palestine                           3306         280    3586 &lt;NA&gt;     </span></span>
+<span id="cb534-74"><a href="mod-r-transform.html#cb534-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13 Republic of the Congo              86748         177   86925 &lt;NA&gt;     </span></span>
+<span id="cb534-75"><a href="mod-r-transform.html#cb534-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14 Saint Kitts and Nevis              65734           1   65735 &lt;NA&gt;     </span></span>
+<span id="cb534-76"><a href="mod-r-transform.html#cb534-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15 Saint Lucia                         2097          32    2129 &lt;NA&gt;     </span></span>
+<span id="cb534-77"><a href="mod-r-transform.html#cb534-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16 Saint Vincent and the Grenadines   23077           0   23077 &lt;NA&gt;     </span></span>
+<span id="cb534-78"><a href="mod-r-transform.html#cb534-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17 São Tomé and Príncipe              11750           0   11750 &lt;NA&gt;     </span></span>
+<span id="cb534-79"><a href="mod-r-transform.html#cb534-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18 Trinidad and Tobago                13027          11   13038 &lt;NA&gt;     </span></span>
+<span id="cb534-80"><a href="mod-r-transform.html#cb534-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19 Turks and Caicos Islands            2780           0    2780 &lt;NA&gt;     </span></span>
+<span id="cb534-81"><a href="mod-r-transform.html#cb534-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20 US Virgin Islands                    551           8     559 &lt;NA&gt;</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -5022,8 +5000,7 @@ Solution
 <span id="cb538-14"><a href="mod-r-transform.html#cb538-14" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb538-15"><a href="mod-r-transform.html#cb538-15" aria-hidden="true" tabindex="-1"></a>fisheries <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(continent))</span>
 <span id="cb538-16"><a href="mod-r-transform.html#cb538-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 0 × 5</span></span>
-<span id="cb538-17"><a href="mod-r-transform.html#cb538-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 5 variables: country &lt;chr&gt;, capture &lt;dbl&gt;, aquaculture &lt;dbl&gt;, total &lt;dbl&gt;, continent &lt;chr&gt;</span></span>
-<span id="cb538-18"><a href="mod-r-transform.html#cb538-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `colnames()` to see all variable names</span></span></code></pre></div>
+<span id="cb538-17"><a href="mod-r-transform.html#cb538-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 5 variables: country &lt;chr&gt;, capture &lt;dbl&gt;, aquaculture &lt;dbl&gt;, total &lt;dbl&gt;, continent &lt;chr&gt;</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -5415,8 +5392,7 @@ Solution
 <span id="cb550-12"><a href="mod-r-transform.html#cb550-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 American Intl Group United States  Insurance                    76.7    6.46  648.         195.</span></span>
 <span id="cb550-13"><a href="mod-r-transform.html#cb550-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 HSBC Group          United Kingdom Banking                      44.3    6.66  758.         178.</span></span>
 <span id="cb550-14"><a href="mod-r-transform.html#cb550-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Vodafone            United Kingdom Telecommunications services  48.0  -15.5   256.         175.</span></span>
-<span id="cb550-15"><a href="mod-r-transform.html#cb550-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 992 more rows</span></span>
-<span id="cb550-16"><a href="mod-r-transform.html#cb550-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb550-15"><a href="mod-r-transform.html#cb550-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 992 more rows</span></span></code></pre></div>
 <p>
 1002 rows and 7 columns.
 </p>
@@ -5952,20 +5928,19 @@ Solution
 <span id="cb555-4"><a href="mod-r-transform.html#cb555-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
 <span id="cb555-5"><a href="mod-r-transform.html#cb555-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 42 × 7</span></span>
 <span id="cb555-6"><a href="mod-r-transform.html#cb555-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   country [42]</span></span>
-<span id="cb555-7"><a href="mod-r-transform.html#cb555-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    name                      country        category                    sales profits assets marke…¹</span></span>
-<span id="cb555-8"><a href="mod-r-transform.html#cb555-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                     &lt;chr&gt;          &lt;chr&gt;                       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb555-9"><a href="mod-r-transform.html#cb555-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Natl Australia Bank       Australia      Banking                     15.3     2.69 270.     36.5 </span></span>
-<span id="cb555-10"><a href="mod-r-transform.html#cb555-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Erste Bank                Austria        Banking                      7.5     0.27 127.      8.12</span></span>
-<span id="cb555-11"><a href="mod-r-transform.html#cb555-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Dexia                     Belgium        Banking                     19.6     1.36 368.     21.6 </span></span>
-<span id="cb555-12"><a href="mod-r-transform.html#cb555-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 ACE                       Bermuda        Insurance                   10.7     1.39  49.5    12.6 </span></span>
-<span id="cb555-13"><a href="mod-r-transform.html#cb555-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Petrobras-Petrsleo Brasil Brazil         Oil &amp; gas operations        22.6     2.29  27.1    35.5 </span></span>
-<span id="cb555-14"><a href="mod-r-transform.html#cb555-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Royal Bank of Canada      Canada         Banking                     18.8     2.28 305.     31.8 </span></span>
-<span id="cb555-15"><a href="mod-r-transform.html#cb555-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Garmin                    Cayman Islands Technology hardware &amp; equi…  0.57    0.18   0.86    5.19</span></span>
-<span id="cb555-16"><a href="mod-r-transform.html#cb555-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 PetroChina                China          Oil &amp; gas operations        29.5     5.67  58.4    90.5 </span></span>
-<span id="cb555-17"><a href="mod-r-transform.html#cb555-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Den Danske Bank           Denmark        Banking                     12.6     1.57 309.     16.4 </span></span>
-<span id="cb555-18"><a href="mod-r-transform.html#cb555-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Nokia                     Finland        Technology hardware &amp; equi… 37.0     4.52  29.2   104.  </span></span>
-<span id="cb555-19"><a href="mod-r-transform.html#cb555-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 32 more rows, and abbreviated variable name ¹​marketvalue</span></span>
-<span id="cb555-20"><a href="mod-r-transform.html#cb555-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb555-7"><a href="mod-r-transform.html#cb555-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    name                      country        category                sales profits assets marketvalue</span></span>
+<span id="cb555-8"><a href="mod-r-transform.html#cb555-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                     &lt;chr&gt;          &lt;chr&gt;                   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;</span></span>
+<span id="cb555-9"><a href="mod-r-transform.html#cb555-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Natl Australia Bank       Australia      Banking                 15.3     2.69 270.         36.5 </span></span>
+<span id="cb555-10"><a href="mod-r-transform.html#cb555-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Erste Bank                Austria        Banking                  7.5     0.27 127.          8.12</span></span>
+<span id="cb555-11"><a href="mod-r-transform.html#cb555-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Dexia                     Belgium        Banking                 19.6     1.36 368.         21.6 </span></span>
+<span id="cb555-12"><a href="mod-r-transform.html#cb555-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 ACE                       Bermuda        Insurance               10.7     1.39  49.5        12.6 </span></span>
+<span id="cb555-13"><a href="mod-r-transform.html#cb555-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Petrobras-Petrsleo Brasil Brazil         Oil &amp; gas operations    22.6     2.29  27.1        35.5 </span></span>
+<span id="cb555-14"><a href="mod-r-transform.html#cb555-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Royal Bank of Canada      Canada         Banking                 18.8     2.28 305.         31.8 </span></span>
+<span id="cb555-15"><a href="mod-r-transform.html#cb555-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Garmin                    Cayman Islands Technology hardware &amp; …  0.57    0.18   0.86        5.19</span></span>
+<span id="cb555-16"><a href="mod-r-transform.html#cb555-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 PetroChina                China          Oil &amp; gas operations    29.5     5.67  58.4        90.5 </span></span>
+<span id="cb555-17"><a href="mod-r-transform.html#cb555-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Den Danske Bank           Denmark        Banking                 12.6     1.57 309.         16.4 </span></span>
+<span id="cb555-18"><a href="mod-r-transform.html#cb555-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Nokia                     Finland        Technology hardware &amp; … 37.0     4.52  29.2       104.  </span></span>
+<span id="cb555-19"><a href="mod-r-transform.html#cb555-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 32 more rows</span></span></code></pre></div>
 <p>
 The company with highest profit for each country is listed above. In Denmark the company is Den Danske Bank.
 </p>
@@ -6195,20 +6170,19 @@ Solution
 <span id="cb562-2"><a href="mod-r-transform.html#cb562-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">male =</span> <span class="fu">if_else</span>(sex <span class="sc">==</span> <span class="st">&quot;male&quot;</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>))</span>
 <span id="cb562-3"><a href="mod-r-transform.html#cb562-3" aria-hidden="true" tabindex="-1"></a>dat</span>
 <span id="cb562-4"><a href="mod-r-transform.html#cb562-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,309 × 10</span></span>
-<span id="cb562-5"><a href="mod-r-transform.html#cb562-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    pclass survived name                                  sex     age  fare cabin embar…¹ boat  male </span></span>
-<span id="cb562-6"><a href="mod-r-transform.html#cb562-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;                                 &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;lgl&gt;</span></span>
-<span id="cb562-7"><a href="mod-r-transform.html#cb562-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1      1        1 Allen, Miss. Elisabeth Walton         fema… 29    211.  B5    S       2     FALSE</span></span>
-<span id="cb562-8"><a href="mod-r-transform.html#cb562-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2      1        1 Allison, Master. Hudson Trevor        male   0.92 152.  C22 … S       11    TRUE </span></span>
-<span id="cb562-9"><a href="mod-r-transform.html#cb562-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3      1        0 Allison, Miss. Helen Loraine          fema…  2    152.  C22 … S       &lt;NA&gt;  FALSE</span></span>
-<span id="cb562-10"><a href="mod-r-transform.html#cb562-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4      1        0 Allison, Mr. Hudson Joshua Creighton  male  30    152.  C22 … S       &lt;NA&gt;  TRUE </span></span>
-<span id="cb562-11"><a href="mod-r-transform.html#cb562-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5      1        0 Allison, Mrs. Hudson J C (Bessie Wal… fema… 25    152.  C22 … S       &lt;NA&gt;  FALSE</span></span>
-<span id="cb562-12"><a href="mod-r-transform.html#cb562-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6      1        1 Anderson, Mr. Harry                   male  48     26.6 E12   S       3     TRUE </span></span>
-<span id="cb562-13"><a href="mod-r-transform.html#cb562-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7      1        1 Andrews, Miss. Kornelia Theodosia     fema… 63     78.0 D7    S       10    FALSE</span></span>
-<span id="cb562-14"><a href="mod-r-transform.html#cb562-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8      1        0 Andrews, Mr. Thomas Jr                male  39      0   A36   S       &lt;NA&gt;  TRUE </span></span>
-<span id="cb562-15"><a href="mod-r-transform.html#cb562-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9      1        1 Appleton, Mrs. Edward Dale (Charlott… fema… 53     51.5 C101  S       D     FALSE</span></span>
-<span id="cb562-16"><a href="mod-r-transform.html#cb562-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10      1        0 Artagaveytia, Mr. Ramon               male  71     49.5 &lt;NA&gt;  C       &lt;NA&gt;  TRUE </span></span>
-<span id="cb562-17"><a href="mod-r-transform.html#cb562-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,299 more rows, and abbreviated variable name ¹​embarked</span></span>
-<span id="cb562-18"><a href="mod-r-transform.html#cb562-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb562-5"><a href="mod-r-transform.html#cb562-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    pclass survived name                                 sex     age  fare cabin embarked boat  male </span></span>
+<span id="cb562-6"><a href="mod-r-transform.html#cb562-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;                                &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;lgl&gt;</span></span>
+<span id="cb562-7"><a href="mod-r-transform.html#cb562-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1      1        1 Allen, Miss. Elisabeth Walton        fema… 29    211.  B5    S        2     FALSE</span></span>
+<span id="cb562-8"><a href="mod-r-transform.html#cb562-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2      1        1 Allison, Master. Hudson Trevor       male   0.92 152.  C22 … S        11    TRUE </span></span>
+<span id="cb562-9"><a href="mod-r-transform.html#cb562-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3      1        0 Allison, Miss. Helen Loraine         fema…  2    152.  C22 … S        &lt;NA&gt;  FALSE</span></span>
+<span id="cb562-10"><a href="mod-r-transform.html#cb562-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4      1        0 Allison, Mr. Hudson Joshua Creighton male  30    152.  C22 … S        &lt;NA&gt;  TRUE </span></span>
+<span id="cb562-11"><a href="mod-r-transform.html#cb562-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5      1        0 Allison, Mrs. Hudson J C (Bessie Wa… fema… 25    152.  C22 … S        &lt;NA&gt;  FALSE</span></span>
+<span id="cb562-12"><a href="mod-r-transform.html#cb562-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6      1        1 Anderson, Mr. Harry                  male  48     26.6 E12   S        3     TRUE </span></span>
+<span id="cb562-13"><a href="mod-r-transform.html#cb562-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7      1        1 Andrews, Miss. Kornelia Theodosia    fema… 63     78.0 D7    S        10    FALSE</span></span>
+<span id="cb562-14"><a href="mod-r-transform.html#cb562-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8      1        0 Andrews, Mr. Thomas Jr               male  39      0   A36   S        &lt;NA&gt;  TRUE </span></span>
+<span id="cb562-15"><a href="mod-r-transform.html#cb562-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9      1        1 Appleton, Mrs. Edward Dale (Charlot… fema… 53     51.5 C101  S        D     FALSE</span></span>
+<span id="cb562-16"><a href="mod-r-transform.html#cb562-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10      1        0 Artagaveytia, Mr. Ramon              male  71     49.5 &lt;NA&gt;  C        &lt;NA&gt;  TRUE </span></span>
+<span id="cb562-17"><a href="mod-r-transform.html#cb562-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 1,299 more rows</span></span></code></pre></div>
 <p>
 We use <code>if_else</code> to set the new column.
 </p>
@@ -7082,15 +7056,14 @@ Solution
 <div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="mod-r-transform.html#cb574-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> </span>
 <span id="cb574-2"><a href="mod-r-transform.html#cb574-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">&quot;Hansen&quot;</span>))</span>
 <span id="cb574-3"><a href="mod-r-transform.html#cb574-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 10</span></span>
-<span id="cb574-4"><a href="mod-r-transform.html#cb574-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   pclass survived name                                   sex     age  fare cabin embar…¹ boat  male </span></span>
-<span id="cb574-5"><a href="mod-r-transform.html#cb574-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;                                  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;lgl&gt;</span></span>
-<span id="cb574-6"><a href="mod-r-transform.html#cb574-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      3        0 Hansen, Mr. Claus Peter                male     41 14.1  &lt;NA&gt;  S       &lt;NA&gt;  TRUE </span></span>
-<span id="cb574-7"><a href="mod-r-transform.html#cb574-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      3        0 Hansen, Mr. Henrik Juul                male     26  7.85 &lt;NA&gt;  S       &lt;NA&gt;  TRUE </span></span>
-<span id="cb574-8"><a href="mod-r-transform.html#cb574-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      3        0 Hansen, Mr. Henry Damsgaard            male     21  7.85 &lt;NA&gt;  S       &lt;NA&gt;  TRUE </span></span>
-<span id="cb574-9"><a href="mod-r-transform.html#cb574-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      3        1 Hansen, Mrs. Claus Peter (Jennie L Ho… fema…    45 14.1  &lt;NA&gt;  S       11    FALSE</span></span>
-<span id="cb574-10"><a href="mod-r-transform.html#cb574-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      3        0 Moen, Mr. Sigurd Hansen                male     25  7.65 F G73 S       &lt;NA&gt;  TRUE </span></span>
-<span id="cb574-11"><a href="mod-r-transform.html#cb574-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      3        0 Nysveen, Mr. Johan Hansen              male     61  6.24 &lt;NA&gt;  S       &lt;NA&gt;  TRUE </span></span>
-<span id="cb574-12"><a href="mod-r-transform.html#cb574-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with abbreviated variable name ¹​embarked</span></span></code></pre></div>
+<span id="cb574-4"><a href="mod-r-transform.html#cb574-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   pclass survived name                                  sex     age  fare cabin embarked boat  male </span></span>
+<span id="cb574-5"><a href="mod-r-transform.html#cb574-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;                                 &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;lgl&gt;</span></span>
+<span id="cb574-6"><a href="mod-r-transform.html#cb574-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      3        0 Hansen, Mr. Claus Peter               male     41 14.1  &lt;NA&gt;  S        &lt;NA&gt;  TRUE </span></span>
+<span id="cb574-7"><a href="mod-r-transform.html#cb574-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      3        0 Hansen, Mr. Henrik Juul               male     26  7.85 &lt;NA&gt;  S        &lt;NA&gt;  TRUE </span></span>
+<span id="cb574-8"><a href="mod-r-transform.html#cb574-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      3        0 Hansen, Mr. Henry Damsgaard           male     21  7.85 &lt;NA&gt;  S        &lt;NA&gt;  TRUE </span></span>
+<span id="cb574-9"><a href="mod-r-transform.html#cb574-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      3        1 Hansen, Mrs. Claus Peter (Jennie L H… fema…    45 14.1  &lt;NA&gt;  S        11    FALSE</span></span>
+<span id="cb574-10"><a href="mod-r-transform.html#cb574-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      3        0 Moen, Mr. Sigurd Hansen               male     25  7.65 F G73 S        &lt;NA&gt;  TRUE </span></span>
+<span id="cb574-11"><a href="mod-r-transform.html#cb574-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      3        0 Nysveen, Mr. Johan Hansen             male     61  6.24 &lt;NA&gt;  S        &lt;NA&gt;  TRUE</span></span></code></pre></div>
 <p>
 Only a single person survived.
 </p>
@@ -7256,11 +7229,10 @@ Solution
 <span id="cb579-2"><a href="mod-r-transform.html#cb579-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;Denmark&quot;</span>, date <span class="sc">==</span> <span class="st">&quot;2021-11-22&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb579-3"><a href="mod-r-transform.html#cb579-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
 <span id="cb579-4"><a href="mod-r-transform.html#cb579-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 13</span></span>
-<span id="cb579-5"><a href="mod-r-transform.html#cb579-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   date       country cases deaths icu_pat…¹ hosp_…² tests posit…³    vac fully…⁴ popul…⁵ month  year</span></span>
-<span id="cb579-6"><a href="mod-r-transform.html#cb579-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb579-7"><a href="mod-r-transform.html#cb579-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 2021-11-22 Denmark  3810      6        NA      NA    NA      NA 4.54e6 4441376 5813302    11  2021</span></span>
-<span id="cb579-8"><a href="mod-r-transform.html#cb579-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with abbreviated variable names ¹​icu_patients, ²​hosp_patients, ³​positive_rate, ⁴​fully_vac,</span></span>
-<span id="cb579-9"><a href="mod-r-transform.html#cb579-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   ⁵​population</span></span></code></pre></div>
+<span id="cb579-5"><a href="mod-r-transform.html#cb579-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   date       country cases deaths icu_patients hosp_patients tests positive_rate     vac fully_vac</span></span>
+<span id="cb579-6"><a href="mod-r-transform.html#cb579-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span id="cb579-7"><a href="mod-r-transform.html#cb579-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 2021-11-22 Denmark  3810      6           NA            NA    NA            NA 4544857   4441376</span></span>
+<span id="cb579-8"><a href="mod-r-transform.html#cb579-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 3 more variables: population &lt;dbl&gt;, month &lt;dbl&gt;, year &lt;dbl&gt;</span></span></code></pre></div>
 <p>
 The number of confirmed cases was 3810.
 </p>
@@ -7326,21 +7298,21 @@ Solution
 <span id="cb581-5"><a href="mod-r-transform.html#cb581-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">print</span>()</span>
 <span id="cb581-6"><a href="mod-r-transform.html#cb581-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2,628 × 15</span></span>
 <span id="cb581-7"><a href="mod-r-transform.html#cb581-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   country [4]</span></span>
-<span id="cb581-8"><a href="mod-r-transform.html#cb581-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    date       country cases deaths icu_pat…¹ hosp_…² tests posit…³   vac fully…⁴ popul…⁵ month  year</span></span>
-<span id="cb581-9"><a href="mod-r-transform.html#cb581-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb581-10"><a href="mod-r-transform.html#cb581-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2020-02-02 Denmark    NA     NA        NA      NA     1      NA    NA      NA 5813302     2  2020</span></span>
-<span id="cb581-11"><a href="mod-r-transform.html#cb581-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2020-02-03 Denmark    NA     NA        NA      NA    NA      NA    NA      NA 5813302     2  2020</span></span>
-<span id="cb581-12"><a href="mod-r-transform.html#cb581-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2020-02-04 Denmark    NA     NA        NA      NA    NA      NA    NA      NA 5813302     2  2020</span></span>
-<span id="cb581-13"><a href="mod-r-transform.html#cb581-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 2020-02-05 Denmark    NA     NA        NA      NA    NA      NA    NA      NA 5813302     2  2020</span></span>
-<span id="cb581-14"><a href="mod-r-transform.html#cb581-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 2020-02-06 Denmark    NA     NA        NA      NA    NA      NA    NA      NA 5813302     2  2020</span></span>
-<span id="cb581-15"><a href="mod-r-transform.html#cb581-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 2020-02-07 Denmark    NA     NA        NA      NA    NA      NA    NA      NA 5813302     2  2020</span></span>
-<span id="cb581-16"><a href="mod-r-transform.html#cb581-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 2020-02-08 Denmark    NA     NA        NA      NA    NA      NA    NA      NA 5813302     2  2020</span></span>
-<span id="cb581-17"><a href="mod-r-transform.html#cb581-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2020-02-09 Denmark    NA     NA        NA      NA    NA      NA    NA      NA 5813302     2  2020</span></span>
-<span id="cb581-18"><a href="mod-r-transform.html#cb581-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2020-02-10 Denmark    NA     NA        NA      NA    NA      NA    NA      NA 5813302     2  2020</span></span>
-<span id="cb581-19"><a href="mod-r-transform.html#cb581-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2020-02-11 Denmark    NA     NA        NA      NA    NA      NA    NA      NA 5813302     2  2020</span></span>
-<span id="cb581-20"><a href="mod-r-transform.html#cb581-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 2,618 more rows, 2 more variables: total_cases &lt;dbl&gt;, total_deaths &lt;dbl&gt;, and abbreviated</span></span>
-<span id="cb581-21"><a href="mod-r-transform.html#cb581-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   variable names ¹​icu_patients, ²​hosp_patients, ³​positive_rate, ⁴​fully_vac, ⁵​population</span></span>
-<span id="cb581-22"><a href="mod-r-transform.html#cb581-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</span></span>
+<span id="cb581-8"><a href="mod-r-transform.html#cb581-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    date       country cases deaths icu_patients hosp_patients tests positive_rate   vac fully_vac</span></span>
+<span id="cb581-9"><a href="mod-r-transform.html#cb581-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span id="cb581-10"><a href="mod-r-transform.html#cb581-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2020-02-02 Denmark    NA     NA           NA            NA     1            NA    NA        NA</span></span>
+<span id="cb581-11"><a href="mod-r-transform.html#cb581-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2020-02-03 Denmark    NA     NA           NA            NA    NA            NA    NA        NA</span></span>
+<span id="cb581-12"><a href="mod-r-transform.html#cb581-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2020-02-04 Denmark    NA     NA           NA            NA    NA            NA    NA        NA</span></span>
+<span id="cb581-13"><a href="mod-r-transform.html#cb581-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 2020-02-05 Denmark    NA     NA           NA            NA    NA            NA    NA        NA</span></span>
+<span id="cb581-14"><a href="mod-r-transform.html#cb581-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 2020-02-06 Denmark    NA     NA           NA            NA    NA            NA    NA        NA</span></span>
+<span id="cb581-15"><a href="mod-r-transform.html#cb581-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 2020-02-07 Denmark    NA     NA           NA            NA    NA            NA    NA        NA</span></span>
+<span id="cb581-16"><a href="mod-r-transform.html#cb581-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 2020-02-08 Denmark    NA     NA           NA            NA    NA            NA    NA        NA</span></span>
+<span id="cb581-17"><a href="mod-r-transform.html#cb581-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2020-02-09 Denmark    NA     NA           NA            NA    NA            NA    NA        NA</span></span>
+<span id="cb581-18"><a href="mod-r-transform.html#cb581-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2020-02-10 Denmark    NA     NA           NA            NA    NA            NA    NA        NA</span></span>
+<span id="cb581-19"><a href="mod-r-transform.html#cb581-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2020-02-11 Denmark    NA     NA           NA            NA    NA            NA    NA        NA</span></span>
+<span id="cb581-20"><a href="mod-r-transform.html#cb581-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 2,618 more rows</span></span>
+<span id="cb581-21"><a href="mod-r-transform.html#cb581-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 5 more variables: population &lt;dbl&gt;, month &lt;dbl&gt;, year &lt;dbl&gt;, total_cases &lt;dbl&gt;,</span></span>
+<span id="cb581-22"><a href="mod-r-transform.html#cb581-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   total_deaths &lt;dbl&gt;</span></span>
 <span id="cb581-23"><a href="mod-r-transform.html#cb581-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb581-24"><a href="mod-r-transform.html#cb581-24" aria-hidden="true" tabindex="-1"></a>res2 <span class="ot">&lt;-</span> res1 <span class="sc">%&gt;%</span> </span>
 <span id="cb581-25"><a href="mod-r-transform.html#cb581-25" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;Norway&quot;</span>, date <span class="sc">==</span> <span class="st">&quot;2021-10-10&quot;</span>) <span class="sc">%&gt;%</span> </span>
@@ -7436,20 +7408,19 @@ Solution
 <span id="cb583-18"><a href="mod-r-transform.html#cb583-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 United Kingdom     2  2021   68207114 15305191   0.224 </span></span>
 <span id="cb583-19"><a href="mod-r-transform.html#cb583-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Denmark            3  2021    5813302  4881781   0.840 </span></span>
 <span id="cb583-20"><a href="mod-r-transform.html#cb583-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Germany            3  2021   83900471  4068985   0.0485</span></span>
-<span id="cb583-21"><a href="mod-r-transform.html#cb583-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 80 more rows</span></span>
-<span id="cb583-22"><a href="mod-r-transform.html#cb583-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span>
-<span id="cb583-23"><a href="mod-r-transform.html#cb583-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb583-24"><a href="mod-r-transform.html#cb583-24" aria-hidden="true" tabindex="-1"></a>res2 <span class="ot">&lt;-</span> res1 <span class="sc">%&gt;%</span> </span>
-<span id="cb583-25"><a href="mod-r-transform.html#cb583-25" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2021</span>, month <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb583-26"><a href="mod-r-transform.html#cb583-26" aria-hidden="true" tabindex="-1"></a>   <span class="fu">arrange</span>(<span class="fu">desc</span>(testsCap)) <span class="sc">%&gt;%</span> </span>
-<span id="cb583-27"><a href="mod-r-transform.html#cb583-27" aria-hidden="true" tabindex="-1"></a>   <span class="fu">print</span>()</span>
-<span id="cb583-28"><a href="mod-r-transform.html#cb583-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 × 6</span></span>
-<span id="cb583-29"><a href="mod-r-transform.html#cb583-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country        month  year population    tests testsCap</span></span>
-<span id="cb583-30"><a href="mod-r-transform.html#cb583-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb583-31"><a href="mod-r-transform.html#cb583-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Denmark            3  2021    5813302  4881781   0.840 </span></span>
-<span id="cb583-32"><a href="mod-r-transform.html#cb583-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 United Kingdom     3  2021   68207114 33279694   0.488 </span></span>
-<span id="cb583-33"><a href="mod-r-transform.html#cb583-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Norway             3  2021    5465629   791345   0.145 </span></span>
-<span id="cb583-34"><a href="mod-r-transform.html#cb583-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Germany            3  2021   83900471  4068985   0.0485</span></span></code></pre></div>
+<span id="cb583-21"><a href="mod-r-transform.html#cb583-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 80 more rows</span></span>
+<span id="cb583-22"><a href="mod-r-transform.html#cb583-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb583-23"><a href="mod-r-transform.html#cb583-23" aria-hidden="true" tabindex="-1"></a>res2 <span class="ot">&lt;-</span> res1 <span class="sc">%&gt;%</span> </span>
+<span id="cb583-24"><a href="mod-r-transform.html#cb583-24" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2021</span>, month <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb583-25"><a href="mod-r-transform.html#cb583-25" aria-hidden="true" tabindex="-1"></a>   <span class="fu">arrange</span>(<span class="fu">desc</span>(testsCap)) <span class="sc">%&gt;%</span> </span>
+<span id="cb583-26"><a href="mod-r-transform.html#cb583-26" aria-hidden="true" tabindex="-1"></a>   <span class="fu">print</span>()</span>
+<span id="cb583-27"><a href="mod-r-transform.html#cb583-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 × 6</span></span>
+<span id="cb583-28"><a href="mod-r-transform.html#cb583-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country        month  year population    tests testsCap</span></span>
+<span id="cb583-29"><a href="mod-r-transform.html#cb583-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb583-30"><a href="mod-r-transform.html#cb583-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Denmark            3  2021    5813302  4881781   0.840 </span></span>
+<span id="cb583-31"><a href="mod-r-transform.html#cb583-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 United Kingdom     3  2021   68207114 33279694   0.488 </span></span>
+<span id="cb583-32"><a href="mod-r-transform.html#cb583-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Norway             3  2021    5465629   791345   0.145 </span></span>
+<span id="cb583-33"><a href="mod-r-transform.html#cb583-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Germany            3  2021   83900471  4068985   0.0485</span></span></code></pre></div>
 <p>
 The highest number of tests per capita in March 2021 was in Denmark.
 </p>
@@ -7537,8 +7508,7 @@ Solution
 <span id="cb585-18"><a href="mod-r-transform.html#cb585-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 United Kingdom  2021     9  1081</span></span>
 <span id="cb585-19"><a href="mod-r-transform.html#cb585-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 United Kingdom  2021    11  1034</span></span>
 <span id="cb585-20"><a href="mod-r-transform.html#cb585-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 United Kingdom  2021     8  1014</span></span>
-<span id="cb585-21"><a href="mod-r-transform.html#cb585-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 13 more rows</span></span>
-<span id="cb585-22"><a href="mod-r-transform.html#cb585-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb585-21"><a href="mod-r-transform.html#cb585-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 13 more rows</span></span></code></pre></div>
 <p>
 The highest number of ICU patients on a given day was in January (4077 patients).
 </p>
@@ -7647,7 +7617,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
