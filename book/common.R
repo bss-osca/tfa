@@ -311,16 +311,13 @@ learning_path_text_r <- function() {
 
 
 link_excel_file <- function(module_number, module_name) {
-   excel_file <- str_c(module_number, "-", module_name, "-template.xlsm")
+   excel_file <- "vba-template.xlsm"
    module_name_underscore <- str_replace_all(module_name, "-", "_")
    return(withTags({
       a(
          href = str_c(
             "https://github.com/bss-osca/tfa/blob/master/vba/",
-            module_number,
-            "-",
-            module_name,
-            "-template.xlsm"
+            "vba-template.xlsm"
          ),
          target = "_blank",
          excel_file
@@ -331,18 +328,17 @@ link_excel_file <- function(module_number, module_name) {
 
 link_excel_file_text <- function(module_number_prefix, module_name) {
    module_number <- as.numeric(module_number_prefix)
-   excel_file <- str_c(module_number_prefix, "-", module_name, "-template.xlsm")
+   # excel_file <- str_c(module_number_prefix, "-", module_name, "-template.xlsm")
+   excel_file <- "vba-template.xlsm"
+   excel_file_solution <- "vba-solution.xlsm"
    module_name_underscore <- str_replace_all(module_name, "-", "_")
    return(withTags({
       div(
-         "A template with VBA code for this module is given in the file",
+         "A template with VBA code is given in the file",
          a(
             href = str_c(
                "https://github.com/bss-osca/tfa/blob/master/vba/",
-               module_number_prefix,
-               "-",
-               module_name,
-               "-template.xlsm"
+               "vba-template.xlsm"
             ),
             target = "_blank",
             excel_file
@@ -352,7 +348,16 @@ link_excel_file_text <- function(module_number_prefix, module_name) {
          "in the VBA editor for examples used in the notes and during lectures. Have a look at module",
          i(str_c("TM", module_number, "_", "exercises"
          )),
-         "for exercises. The template file for next teaching module will contain guiding answers for the exercises to this teaching module."
+         "for exercises. Guiding answers for the exercises can be found in the file",
+         a(
+           href = str_c(
+             "https://github.com/bss-osca/tfa/blob/master/vba/",
+             "vba-solution.xlsm"
+           ),
+           target = "_blank",
+           excel_file_solution
+         ),
+         "."
       )
    })
    )
