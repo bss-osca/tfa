@@ -200,7 +200,7 @@ addIconTasks <- function() {
 
 strLPath <- "We are all different and you may like different learning styles compared to others. You may prefer a different learning path than suggested. Here is a list of possible different learning paths that may be useful for you. Note these suggestions are not a part of syllabus!"
 
-strExercises <- "Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the [help page](#help). Some of the solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up too early. Put some effort into finding a solution! Practice using shortcuts in RStudio (use Shift+Alt+K to get an overview). Go to the [Tools for Analytics][rstudio-cloud] workspace and download/export the `r project_name_prefix` project. Open it on your laptop and have a look at the files in the `exercises` folder which can be used as a starting point."
+strExercises <- "Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the [help page](#help). Some of the solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up too early. Put some effort into finding a solution!"
 
 ctrSol <- 0
 addSolution <- function(code = "", text = "", title = "Solution", evalCode = TRUE) {
