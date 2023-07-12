@@ -4,6 +4,8 @@ bookdown::serve_book(dir = "book", output_dir = "_book", preview = FALSE, in_ses
 renv::update()
 renv::snapshot()
 
+icons::download_fontawesome()
+
 ## Install packages
 devtools::install("tfa-package", quick = T, force = T)   # local
 remotes::install_github("bss-osca/tfa-package", upgrade = FALSE)      # github
