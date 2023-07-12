@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 14 Data visualization using ggplot | Tools for Analytics (TFA)</title>
   <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
-  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 14 Data visualization using ggplot | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2023-02-24" />
+<meta name="date" content="2023-07-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,10 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <script src="libs/viz-1.8.2/viz.js"></script>
 <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-<script src="libs/grViz-binding-1.0.9/grViz.js"></script>
+<script src="libs/grViz-binding-1.0.10/grViz.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
@@ -64,17 +64,17 @@
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.1.2/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.2/leaflet-providers-plugin.js"></script>
 <link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
 <script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
 <link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.23/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
 <link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
@@ -167,6 +167,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -562,8 +566,8 @@ div.csl-indent {
 <p>A template project for this module is given on <a href="https://rstudio.cloud/spaces/274292/content/4411761">RStudio Cloud</a> (open it and use it while reading the notes).</p>
 <div id="learning-path-diagram-13" class="section level4 unnumbered hasAnchor">
 <h4>Learning path diagram<a href="mod-r-plot.html#learning-path-diagram-13" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div id="htmlwidget-cb5eaf6418e7615c76bf" style="width:100%;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cb5eaf6418e7615c76bf">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"💡 Plot intro\", URL = \"#r-plot-intro\", tooltip = \"The interactive DataCamp course Introduction to data visualization with ggplot2.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"0,2!\"] \n  \"2\" [label = \"📖 Multiple plots\", URL = \"#r-plot-multi\", tooltip = \"Multiple plots\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"2,2!\"] \n  \"3\" [label = \"📖 Saving plots\", URL = \"#r-plot-save\", tooltip = \"Saving plots\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"4,2!\"] \n  \"4\" [label = \"💻 Exercises\", URL = \"#ex-r-plot\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"6,2!\"] \n  \"5\" [label = \"📖 Plotting\", URL = \"https://stat545.com/\", tooltip = \"A detailed introduction to visualization using ggplot2 is given in Chapters 22-29 in Bryan (2017).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"0,4!\"] \n  \"6\" [label = \"📖 Plotting\", URL = \"https://r4ds.had.co.nz/data-visualisation.html\", tooltip = \"A short introduction is given in Chapter 3 in Wickham (2017).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"0,0!\"] \n  \"7\" [label = \"💡 Adv. plotting\", URL = \"https://app.datacamp.com/learn/courses/intermediate-data-visualization-with-ggplot2\", tooltip = \"The interactive DataCamp course Intermediate Data Visualization with ggplot2.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"2,4!\"] \n  \"8\" [label = \"\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"4.15,0.21!\"] \n  \"9\" [label = \"Color:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"1.52,0.55!\"] \n  \"10\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"1.75,0.15!\"] \n  \"11\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"2.75,0.15!\"] \n  \"12\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"3.75,0.15!\"] \n  \"13\" [label = \"Shape:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"4.95,0.55!\"] \n  \"14\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"1\", fillcolor = \"Grey40\", pos = \"5.25,0.15!\"] \n  \"15\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", width = \"1\", fillcolor = \"Grey40\", pos = \"6.5,0.15!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-91bb0553d12a3d59999f" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-91bb0553d12a3d59999f">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"💡 Plot intro\", URL = \"#r-plot-intro\", tooltip = \"The interactive DataCamp course Introduction to data visualization with ggplot2.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"0,2!\"] \n  \"2\" [label = \"📖 Multiple plots\", URL = \"#r-plot-multi\", tooltip = \"Multiple plots\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"2,2!\"] \n  \"3\" [label = \"📖 Saving plots\", URL = \"#r-plot-save\", tooltip = \"Saving plots\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"4,2!\"] \n  \"4\" [label = \"💻 Exercises\", URL = \"#ex-r-plot\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"6,2!\"] \n  \"5\" [label = \"📖 Plotting\", URL = \"https://stat545.com/\", tooltip = \"A detailed introduction to visualization using ggplot2 is given in Chapters 22-29 in Bryan (2017).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"0,4!\"] \n  \"6\" [label = \"📖 Plotting\", URL = \"https://r4ds.had.co.nz/data-visualisation.html\", tooltip = \"A short introduction is given in Chapter 3 in Wickham (2017).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"0,0!\"] \n  \"7\" [label = \"💡 Adv. plotting\", URL = \"https://app.datacamp.com/learn/courses/intermediate-data-visualization-with-ggplot2\", tooltip = \"The interactive DataCamp course Intermediate Data Visualization with ggplot2.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"2,4!\"] \n  \"8\" [label = \"\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"4.15,0.21!\"] \n  \"9\" [label = \"Color:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"1.52,0.55!\"] \n  \"10\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"1.75,0.15!\"] \n  \"11\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"2.75,0.15!\"] \n  \"12\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"3.75,0.15!\"] \n  \"13\" [label = \"Shape:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"4.95,0.55!\"] \n  \"14\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"1\", fillcolor = \"Grey40\", pos = \"5.25,0.15!\"] \n  \"15\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", width = \"1\", fillcolor = \"Grey40\", pos = \"6.5,0.15!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"1\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <div>It is recommended that you follow the green learning path; however, you may like a different learning style. In the learning path diagram, there are links to alternative online content (video or reading). Note this is an alternative to the standard learning path that you may use instead (you should not do both). The learning path may also have extra content, that is NOT a part of syllabus (only look at it if you want more info)!</div>
 <!-- * A detailed introduction to visualization using ggplot2 is given in Chapters 22-29 in @stat545.  -->
 <!-- * A short introduction is given in [Chapter 3](https://r4ds.had.co.nz/data-visualisation.html) in @r4ds. -->
@@ -696,21 +700,19 @@ You may also have a look at the
 <span id="cb592-3"><a href="mod-r-plot.html#cb592-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(gapminder)</span>
 <span id="cb592-4"><a href="mod-r-plot.html#cb592-4" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
 <span id="cb592-5"><a href="mod-r-plot.html#cb592-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10,545 × 9</span></span>
-<span id="cb592-6"><a href="mod-r-plot.html#cb592-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country              year infant_mortality life_expecta…¹ ferti…² popul…³      gdp conti…⁴ region</span></span>
-<span id="cb592-7"><a href="mod-r-plot.html#cb592-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;fct&gt;               &lt;int&gt;            &lt;dbl&gt;          &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;   &lt;fct&gt; </span></span>
-<span id="cb592-8"><a href="mod-r-plot.html#cb592-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Albania              1960            115.            62.9    6.19  1.64e6 NA       Europe  South…</span></span>
-<span id="cb592-9"><a href="mod-r-plot.html#cb592-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Algeria              1960            148.            47.5    7.65  1.11e7  1.38e10 Africa  North…</span></span>
-<span id="cb592-10"><a href="mod-r-plot.html#cb592-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Angola               1960            208             36.0    7.32  5.27e6 NA       Africa  Middl…</span></span>
-<span id="cb592-11"><a href="mod-r-plot.html#cb592-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Antigua and Barbuda  1960             NA             63.0    4.43  5.47e4 NA       Americ… Carib…</span></span>
-<span id="cb592-12"><a href="mod-r-plot.html#cb592-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Argentina            1960             59.9           65.4    3.11  2.06e7  1.08e11 Americ… South…</span></span>
-<span id="cb592-13"><a href="mod-r-plot.html#cb592-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Armenia              1960             NA             66.9    4.55  1.87e6 NA       Asia    Weste…</span></span>
-<span id="cb592-14"><a href="mod-r-plot.html#cb592-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Aruba                1960             NA             65.7    4.82  5.42e4 NA       Americ… Carib…</span></span>
-<span id="cb592-15"><a href="mod-r-plot.html#cb592-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Australia            1960             20.3           70.9    3.45  1.03e7  9.67e10 Oceania Austr…</span></span>
-<span id="cb592-16"><a href="mod-r-plot.html#cb592-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Austria              1960             37.3           68.8    2.7   7.07e6  5.24e10 Europe  Weste…</span></span>
-<span id="cb592-17"><a href="mod-r-plot.html#cb592-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Azerbaijan           1960             NA             61.3    5.57  3.90e6 NA       Asia    Weste…</span></span>
-<span id="cb592-18"><a href="mod-r-plot.html#cb592-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 10,535 more rows, and abbreviated variable names ¹​life_expectancy, ²​fertility,</span></span>
-<span id="cb592-19"><a href="mod-r-plot.html#cb592-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   ³​population, ⁴​continent</span></span>
-<span id="cb592-20"><a href="mod-r-plot.html#cb592-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb592-6"><a href="mod-r-plot.html#cb592-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    country      year infant_mortality life_expectancy fertility population      gdp continent region</span></span>
+<span id="cb592-7"><a href="mod-r-plot.html#cb592-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;fct&gt;       &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt; </span></span>
+<span id="cb592-8"><a href="mod-r-plot.html#cb592-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Albania      1960            115.             62.9      6.19    1636054 NA       Europe    South…</span></span>
+<span id="cb592-9"><a href="mod-r-plot.html#cb592-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Algeria      1960            148.             47.5      7.65   11124892  1.38e10 Africa    North…</span></span>
+<span id="cb592-10"><a href="mod-r-plot.html#cb592-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Angola       1960            208              36.0      7.32    5270844 NA       Africa    Middl…</span></span>
+<span id="cb592-11"><a href="mod-r-plot.html#cb592-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Antigua an…  1960             NA              63.0      4.43      54681 NA       Americas  Carib…</span></span>
+<span id="cb592-12"><a href="mod-r-plot.html#cb592-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Argentina    1960             59.9            65.4      3.11   20619075  1.08e11 Americas  South…</span></span>
+<span id="cb592-13"><a href="mod-r-plot.html#cb592-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Armenia      1960             NA              66.9      4.55    1867396 NA       Asia      Weste…</span></span>
+<span id="cb592-14"><a href="mod-r-plot.html#cb592-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Aruba        1960             NA              65.7      4.82      54208 NA       Americas  Carib…</span></span>
+<span id="cb592-15"><a href="mod-r-plot.html#cb592-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Australia    1960             20.3            70.9      3.45   10292328  9.67e10 Oceania   Austr…</span></span>
+<span id="cb592-16"><a href="mod-r-plot.html#cb592-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Austria      1960             37.3            68.8      2.7     7065525  5.24e10 Europe    Weste…</span></span>
+<span id="cb592-17"><a href="mod-r-plot.html#cb592-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Azerbaijan   1960             NA              61.3      5.57    3897889 NA       Asia      Weste…</span></span>
+<span id="cb592-18"><a href="mod-r-plot.html#cb592-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 10,535 more rows</span></span></code></pre></div>
 <p>We start by testing our knowledge regarding differences in child mortality across different countries. For each of the six pairs of countries below, which country do you think had the highest child mortality rates in 2015? Which pairs do you think are most similar?</p>
 <ul>
 <li>Sri Lanka or Turkey</li>
@@ -1153,7 +1155,7 @@ Solution
 <span id="cb604-4"><a href="mod-r-plot.html#cb604-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() </span></code></pre></div>
 <img src="TFA_files/figure-html/unnamed-chunk-495-1.png" width="672" style="display: block; margin: auto;" />
 <p>
-The plot clearly shows how South Korea's fertility rate dropped drastically during the 1960s and 1970s, and by 1990 had a similar rate to that of Germany.
+The plot clearly shows how South Korea’s fertility rate dropped drastically during the 1960s and 1970s, and by 1990 had a similar rate to that of Germany.
 </p>
 </div>
 <div class="modal-footer">
@@ -1602,14 +1604,14 @@ Close
 <button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#1I77SPGOYE2x9bwzan56">
 Solution
 </button>
-<div id="id_8DKbCH5drlbfkRCGQ62d" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="8DKbCH5drlbfkRCGQ62d-title">
+<div id="CH5drlbfkRCGQ62dXofT" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="CH5drlbfkRCGQ62dXofT-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="8DKbCH5drlbfkRCGQ62d-title">
+<h4 class="modal-title" id="CH5drlbfkRCGQ62dXofT-title">
 Hint
 </h4>
 </div>
@@ -1629,7 +1631,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#8DKbCH5drlbfkRCGQ62d">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#CH5drlbfkRCGQ62dXofT">
 Hint
 </button>
 <ol start="13" style="list-style-type: decimal">
@@ -1662,14 +1664,14 @@ We used a series of histograms and boxplots to see this. Let us now shift to den
 <span id="cb625-5"><a href="mod-r-plot.html#cb625-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(year))</span>
 <span id="cb625-6"><a href="mod-r-plot.html#cb625-6" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) </span></code></pre></div>
 <p><img src="TFA_files/figure-html/income-smooth-density-counts-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div id="XofTrmNzDyRJrhYEWkUT" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="XofTrmNzDyRJrhYEWkUT-title">
+<div id="rmNzDyRJrhYEWkUTVbUC" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="rmNzDyRJrhYEWkUTVbUC-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="XofTrmNzDyRJrhYEWkUT-title">
+<h4 class="modal-title" id="rmNzDyRJrhYEWkUTVbUC-title">
 Solution
 </h4>
 </div>
@@ -1688,7 +1690,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#XofTrmNzDyRJrhYEWkUT">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#rmNzDyRJrhYEWkUTVbUC">
 Solution
 </button>
 <ol start="14" style="list-style-type: decimal">
@@ -1700,14 +1702,14 @@ Solution
 <span id="cb627-3"><a href="mod-r-plot.html#cb627-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
 <span id="cb627-4"><a href="mod-r-plot.html#cb627-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight =</span> population<span class="sc">/</span><span class="fu">sum</span>(population)<span class="sc">*</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb627-5"><a href="mod-r-plot.html#cb627-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span></code></pre></div>
-<div id="VbUCVs4SrKaTlWywZ8Fz" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="VbUCVs4SrKaTlWywZ8Fz-title">
+<div id="Vs4SrKaTlWywZ8FzPDLZ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Vs4SrKaTlWywZ8FzPDLZ-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="VbUCVs4SrKaTlWywZ8Fz-title">
+<h4 class="modal-title" id="Vs4SrKaTlWywZ8FzPDLZ-title">
 Solution
 </h4>
 </div>
@@ -1730,17 +1732,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#VbUCVs4SrKaTlWywZ8Fz">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Vs4SrKaTlWywZ8FzPDLZ">
 Solution
 </button>
-<div id="PDLZ11KF1lmg3elJP2U8" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="PDLZ11KF1lmg3elJP2U8-title">
+<div id="KF1lmg3elJP2U8nPwjQn" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="KF1lmg3elJP2U8nPwjQn-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="PDLZ11KF1lmg3elJP2U8-title">
+<h4 class="modal-title" id="KF1lmg3elJP2U8nPwjQn-title">
 Hint
 </h4>
 </div>
@@ -1759,7 +1761,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#PDLZ11KF1lmg3elJP2U8">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#KF1lmg3elJP2U8nPwjQn">
 Hint
 </button>
 <ol start="15" style="list-style-type: decimal">
@@ -2219,14 +2221,14 @@ Profit
 <ol style="list-style-type: decimal">
 <li>Make a barplot that shows the total profitability of the product lines. Use the following steps:</li>
 </ol>
-<div id="nPwjQnMNfRiQfWuwxEQP" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="nPwjQnMNfRiQfWuwxEQP-title">
+<div id="MNfRiQfWuwxEQP9Wv5eB" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="MNfRiQfWuwxEQP9Wv5eB-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="nPwjQnMNfRiQfWuwxEQP-title">
+<h4 class="modal-title" id="MNfRiQfWuwxEQP9Wv5eB-title">
 Solution
 </h4>
 </div>
@@ -2242,17 +2244,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#nPwjQnMNfRiQfWuwxEQP">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#MNfRiQfWuwxEQP9Wv5eB">
 Solution
 </button>
-<div id="id_9Wv5eBFZ6fcsCJPv2Ci3" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="9Wv5eBFZ6fcsCJPv2Ci3-title">
+<div id="FZ6fcsCJPv2Ci3y1VrIc" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="FZ6fcsCJPv2Ci3y1VrIc-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="9Wv5eBFZ6fcsCJPv2Ci3-title">
+<h4 class="modal-title" id="FZ6fcsCJPv2Ci3y1VrIc-title">
 Hint
 </h4>
 </div>
@@ -2268,19 +2270,19 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#9Wv5eBFZ6fcsCJPv2Ci3">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#FZ6fcsCJPv2Ci3y1VrIc">
 Hint
 </button>
 <p>      
 a) Convert all character columns to factor columns.</p>
-<div id="y1VrIcZRwNLw5sI965Er" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="y1VrIcZRwNLw5sI965Er-title">
+<div id="ZRwNLw5sI965ErPivIje" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ZRwNLw5sI965ErPivIje-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="y1VrIcZRwNLw5sI965Er-title">
+<h4 class="modal-title" id="ZRwNLw5sI965ErPivIje-title">
 Solution
 </h4>
 </div>
@@ -2300,17 +2302,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#y1VrIcZRwNLw5sI965Er">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#ZRwNLw5sI965ErPivIje">
 Solution
 </button>
-<div id="PivIjeI1NFXfITN6BqTs" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="PivIjeI1NFXfITN6BqTs-title">
+<div id="I1NFXfITN6BqTsqAiQal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="I1NFXfITN6BqTsqAiQal-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="PivIjeI1NFXfITN6BqTs-title">
+<h4 class="modal-title" id="I1NFXfITN6BqTsqAiQal-title">
 Hint
 </h4>
 </div>
@@ -2329,19 +2331,19 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#PivIjeI1NFXfITN6BqTs">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#I1NFXfITN6BqTsqAiQal">
 Hint
 </button>
 <p>      
 b) Group by product line, calculate the total profit and plot profit for each product line.</p>
-<div id="qAiQalvnwI0BkdV13Azm" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="qAiQalvnwI0BkdV13Azm-title">
+<div id="vnwI0BkdV13AzmW2G7iP" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="vnwI0BkdV13AzmW2G7iP-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="qAiQalvnwI0BkdV13Azm-title">
+<h4 class="modal-title" id="vnwI0BkdV13AzmW2G7iP-title">
 Solution
 </h4>
 </div>
@@ -2371,17 +2373,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#qAiQalvnwI0BkdV13Azm">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#vnwI0BkdV13AzmW2G7iP">
 Solution
 </button>
-<div id="W2G7iPsNQ2Rho9YRjQRk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="W2G7iPsNQ2Rho9YRjQRk-title">
+<div id="sNQ2Rho9YRjQRkFTERuw" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="sNQ2Rho9YRjQRkFTERuw-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="W2G7iPsNQ2Rho9YRjQRk-title">
+<h4 class="modal-title" id="sNQ2Rho9YRjQRkFTERuw-title">
 Hint 2
 </h4>
 </div>
@@ -2400,17 +2402,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#W2G7iPsNQ2Rho9YRjQRk">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#sNQ2Rho9YRjQRkFTERuw">
 Hint 2
 </button>
-<div id="FTERuwadwjwgGiUuvTRa" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="FTERuwadwjwgGiUuvTRa-title">
+<div id="adwjwgGiUuvTRahySIpt" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="adwjwgGiUuvTRahySIpt-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="FTERuwadwjwgGiUuvTRa-title">
+<h4 class="modal-title" id="adwjwgGiUuvTRahySIpt-title">
 Hint 1
 </h4>
 </div>
@@ -2427,19 +2429,19 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#FTERuwadwjwgGiUuvTRa">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#adwjwgGiUuvTRahySIpt">
 Hint 1
 </button>
 <p>      
 c) Plot profit for each product line where product line is reordered based on total profit.</p>
-<div id="hySIptcGQxVFPCVq1pFh" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="hySIptcGQxVFPCVq1pFh-title">
+<div id="cGQxVFPCVq1pFhfbcafy" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="cGQxVFPCVq1pFhfbcafy-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="hySIptcGQxVFPCVq1pFh-title">
+<h4 class="modal-title" id="cGQxVFPCVq1pFhfbcafy-title">
 Solution
 </h4>
 </div>
@@ -2460,23 +2462,23 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#hySIptcGQxVFPCVq1pFh">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#cGQxVFPCVq1pFhfbcafy">
 Solution
 </button>
-<div id="fbcafyp4WAQ66pxOMRQx" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="fbcafyp4WAQ66pxOMRQx-title">
+<div id="p4WAQ66pxOMRQxjHUyZ4" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="p4WAQ66pxOMRQxjHUyZ4-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="fbcafyp4WAQ66pxOMRQx-title">
+<h4 class="modal-title" id="p4WAQ66pxOMRQxjHUyZ4-title">
 Hint
 </h4>
 </div>
 <div class="modal-body">
 <p>
-Try to google 'ggplot add title'.
+Try to google ‘ggplot add title’.
 </p>
 </div>
 <div class="modal-footer">
@@ -2487,19 +2489,19 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#fbcafyp4WAQ66pxOMRQx">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#p4WAQ66pxOMRQxjHUyZ4">
 Hint
 </button>
 <p>      
 d) Add a title to the plot using <code>labs</code>.</p>
-<div id="jHUyZ43upcDL8QlupxN2" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="jHUyZ43upcDL8QlupxN2-title">
+<div id="id_3upcDL8QlupxN2HzRzhI" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="3upcDL8QlupxN2HzRzhI-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="jHUyZ43upcDL8QlupxN2-title">
+<h4 class="modal-title" id="3upcDL8QlupxN2HzRzhI-title">
 Solution
 </h4>
 </div>
@@ -2522,23 +2524,23 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#jHUyZ43upcDL8QlupxN2">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#3upcDL8QlupxN2HzRzhI">
 Solution
 </button>
-<div id="HzRzhIuToFxS8l8XeZVv" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="HzRzhIuToFxS8l8XeZVv-title">
+<div id="uToFxS8l8XeZVvE0HJtY" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="uToFxS8l8XeZVvE0HJtY-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="HzRzhIuToFxS8l8XeZVv-title">
+<h4 class="modal-title" id="uToFxS8l8XeZVvE0HJtY-title">
 Hint
 </h4>
 </div>
 <div class="modal-body">
 <p>
-Try to google 'ggplot2 rotate axis labels'.
+Try to google ‘ggplot2 rotate axis labels’.
 </p>
 </div>
 <div class="modal-footer">
@@ -2549,19 +2551,19 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#HzRzhIuToFxS8l8XeZVv">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#uToFxS8l8XeZVvE0HJtY">
 Hint
 </button>
 <p>      
 e) Rotate the x-axis labels 90 degrees.</p>
-<div id="E0HJtY8D5r3KVKsstntR" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="E0HJtY8D5r3KVKsstntR-title">
+<div id="id_8D5r3KVKsstntRONW4iF" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="8D5r3KVKsstntRONW4iF-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="E0HJtY8D5r3KVKsstntR-title">
+<h4 class="modal-title" id="8D5r3KVKsstntRONW4iF-title">
 Solution
 </h4>
 </div>
@@ -2588,17 +2590,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#E0HJtY8D5r3KVKsstntR">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#8D5r3KVKsstntRONW4iF">
 Solution
 </button>
-<div id="ONW4iFqz6UgolQwjKTxu" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ONW4iFqz6UgolQwjKTxu-title">
+<div id="qz6UgolQwjKTxuEJL2xo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="qz6UgolQwjKTxuEJL2xo-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="ONW4iFqz6UgolQwjKTxu-title">
+<h4 class="modal-title" id="qz6UgolQwjKTxuEJL2xo-title">
 Hint
 </h4>
 </div>
@@ -2617,19 +2619,19 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#ONW4iFqz6UgolQwjKTxu">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#qz6UgolQwjKTxuEJL2xo">
 Hint
 </button>
 <p>      
 f) Which product line is best and worst?</p>
-<div id="EJL2xofPGvMYWvVdEMtl" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="EJL2xofPGvMYWvVdEMtl-title">
+<div id="fPGvMYWvVdEMtlnK5xRY" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="fPGvMYWvVdEMtlnK5xRY-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="EJL2xofPGvMYWvVdEMtl-title">
+<h4 class="modal-title" id="fPGvMYWvVdEMtlnK5xRY-title">
 Solution
 </h4>
 </div>
@@ -2656,17 +2658,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#EJL2xofPGvMYWvVdEMtl">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#fPGvMYWvVdEMtlnK5xRY">
 Solution
 </button>
-<div id="nK5xRYA1DJa3F0DWKjxD" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="nK5xRYA1DJa3F0DWKjxD-title">
+<div id="A1DJa3F0DWKjxDy5jGH3" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="A1DJa3F0DWKjxDy5jGH3-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="nK5xRYA1DJa3F0DWKjxD-title">
+<h4 class="modal-title" id="A1DJa3F0DWKjxDy5jGH3-title">
 Hint
 </h4>
 </div>
@@ -2689,20 +2691,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#nK5xRYA1DJa3F0DWKjxD">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#A1DJa3F0DWKjxDy5jGH3">
 Hint
 </button>
 <ol start="2" style="list-style-type: decimal">
 <li>Make a barplot that shows the total profitability of the product lines in each quarter. Are there details we have missed in Question 1?</li>
 </ol>
-<div id="y5jGH3ElLiC3jGKq0Q7V" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="y5jGH3ElLiC3jGKq0Q7V-title">
+<div id="ElLiC3jGKq0Q7VyfsjVs" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ElLiC3jGKq0Q7VyfsjVs-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="y5jGH3ElLiC3jGKq0Q7V-title">
+<h4 class="modal-title" id="ElLiC3jGKq0Q7VyfsjVs-title">
 Solution
 </h4>
 </div>
@@ -2725,17 +2727,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#y5jGH3ElLiC3jGKq0Q7V">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#ElLiC3jGKq0Q7VyfsjVs">
 Solution
 </button>
-<div id="yfsjVsUmV5XMXcFS605D" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="yfsjVsUmV5XMXcFS605D-title">
+<div id="UmV5XMXcFS605D8qPYa4" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="UmV5XMXcFS605D8qPYa4-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="yfsjVsUmV5XMXcFS605D-title">
+<h4 class="modal-title" id="UmV5XMXcFS605D8qPYa4-title">
 Hint
 </h4>
 </div>
@@ -2754,20 +2756,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#yfsjVsUmV5XMXcFS605D">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#UmV5XMXcFS605D8qPYa4">
 Hint
 </button>
 <ol start="3" style="list-style-type: decimal">
 <li>Make a boxplot of profitability of the product lines. Any insight?</li>
 </ol>
-<div id="id_8qPYa4lalRdkhyH4QJQR" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="8qPYa4lalRdkhyH4QJQR-title">
+<div id="lalRdkhyH4QJQRe1EUtH" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="lalRdkhyH4QJQRe1EUtH-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="8qPYa4lalRdkhyH4QJQR-title">
+<h4 class="modal-title" id="lalRdkhyH4QJQRe1EUtH-title">
 Solution
 </h4>
 </div>
@@ -2792,17 +2794,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#8qPYa4lalRdkhyH4QJQR">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#lalRdkhyH4QJQRe1EUtH">
 Solution
 </button>
-<div id="e1EUtHIzS03vTqplbYWE" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="e1EUtHIzS03vTqplbYWE-title">
+<div id="IzS03vTqplbYWEcrlBNk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="IzS03vTqplbYWEcrlBNk-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="e1EUtHIzS03vTqplbYWE-title">
+<h4 class="modal-title" id="IzS03vTqplbYWEcrlBNk-title">
 Hint
 </h4>
 </div>
@@ -2823,20 +2825,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#e1EUtHIzS03vTqplbYWE">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#IzS03vTqplbYWEcrlBNk">
 Hint
 </button>
 <ol start="4" style="list-style-type: decimal">
 <li>Make a barplot that shows the total profitability of the customers. Which customer is best and worst?</li>
 </ol>
-<div id="crlBNk5eirDHpHqcFc3u" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="crlBNk5eirDHpHqcFc3u-title">
+<div id="id_5eirDHpHqcFc3usgxYmn" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="5eirDHpHqcFc3usgxYmn-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="crlBNk5eirDHpHqcFc3u-title">
+<h4 class="modal-title" id="5eirDHpHqcFc3usgxYmn-title">
 Solution
 </h4>
 </div>
@@ -2861,17 +2863,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#crlBNk5eirDHpHqcFc3u">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#5eirDHpHqcFc3usgxYmn">
 Solution
 </button>
-<div id="sgxYmnGIDri9qdY2Hbx3" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="sgxYmnGIDri9qdY2Hbx3-title">
+<div id="GIDri9qdY2Hbx3SPV2rG" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="GIDri9qdY2Hbx3SPV2rG-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="sgxYmnGIDri9qdY2Hbx3-title">
+<h4 class="modal-title" id="GIDri9qdY2Hbx3SPV2rG-title">
 Hint
 </h4>
 </div>
@@ -2892,20 +2894,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#sgxYmnGIDri9qdY2Hbx3">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#GIDri9qdY2Hbx3SPV2rG">
 Hint
 </button>
 <ol start="5" style="list-style-type: decimal">
 <li>Make a barplot that shows the mean profitability of the customers. Which customer is best and worst? Compare against Question 4 and discuss.</li>
 </ol>
-<div id="SPV2rGSDwiOHhDItUxmr" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="SPV2rGSDwiOHhDItUxmr-title">
+<div id="SDwiOHhDItUxmrZ4Wt16" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="SDwiOHhDItUxmrZ4Wt16-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="SPV2rGSDwiOHhDItUxmr-title">
+<h4 class="modal-title" id="SDwiOHhDItUxmrZ4Wt16-title">
 Solution
 </h4>
 </div>
@@ -2927,17 +2929,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#SPV2rGSDwiOHhDItUxmr">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#SDwiOHhDItUxmrZ4Wt16">
 Solution
 </button>
-<div id="Z4Wt16dTzllPzRxYkfpe" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Z4Wt16dTzllPzRxYkfpe-title">
+<div id="dTzllPzRxYkfpe02vQdb" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="dTzllPzRxYkfpe02vQdb-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="Z4Wt16dTzllPzRxYkfpe-title">
+<h4 class="modal-title" id="dTzllPzRxYkfpe02vQdb-title">
 Hint
 </h4>
 </div>
@@ -2959,20 +2961,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Z4Wt16dTzllPzRxYkfpe">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#dTzllPzRxYkfpe02vQdb">
 Hint
 </button>
 <ol start="6" style="list-style-type: decimal">
 <li>Make a plot illustrating number of transactions for each customer. Use total profit as fill atheistic.</li>
 </ol>
-<div id="id_02vQdbxiDNfEZ5wEHSSG" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="02vQdbxiDNfEZ5wEHSSG-title">
+<div id="xiDNfEZ5wEHSSGCiQdd3" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="xiDNfEZ5wEHSSGCiQdd3-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="02vQdbxiDNfEZ5wEHSSG-title">
+<h4 class="modal-title" id="xiDNfEZ5wEHSSGCiQdd3-title">
 Solution
 </h4>
 </div>
@@ -2992,17 +2994,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#02vQdbxiDNfEZ5wEHSSG">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#xiDNfEZ5wEHSSGCiQdd3">
 Solution
 </button>
-<div id="CiQdd3TcKhtOOU3KBNR9" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="CiQdd3TcKhtOOU3KBNR9-title">
+<div id="TcKhtOOU3KBNR94fP6SH" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="TcKhtOOU3KBNR94fP6SH-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="CiQdd3TcKhtOOU3KBNR9-title">
+<h4 class="modal-title" id="TcKhtOOU3KBNR94fP6SH-title">
 Hint
 </h4>
 </div>
@@ -3021,7 +3023,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#CiQdd3TcKhtOOU3KBNR9">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#TcKhtOOU3KBNR94fP6SH">
 Hint
 </button>
 <ol start="7" style="list-style-type: decimal">
@@ -3074,16 +3076,15 @@ Hint
 <span id="cb655-22"><a href="mod-r-plot.html#cb655-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Algeria     2020-01-22 death             0                0            0  2020</span></span>
 <span id="cb655-23"><a href="mod-r-plot.html#cb655-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Algeria     2020-01-22 recovery          0                0            0  2020</span></span>
 <span id="cb655-24"><a href="mod-r-plot.html#cb655-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Andorra     2020-01-22 confirmed         0                0            0  2020</span></span>
-<span id="cb655-25"><a href="mod-r-plot.html#cb655-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 650,627 more rows</span></span>
-<span id="cb655-26"><a href="mod-r-plot.html#cb655-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
-<div id="id_4fP6SH5BWBVMpJWFKOe3" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="4fP6SH5BWBVMpJWFKOe3-title">
+<span id="cb655-25"><a href="mod-r-plot.html#cb655-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 650,627 more rows</span></span></code></pre></div>
+<div id="id_5BWBVMpJWFKOe3hXLjG6" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="5BWBVMpJWFKOe3hXLjG6-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="4fP6SH5BWBVMpJWFKOe3-title">
+<h4 class="modal-title" id="5BWBVMpJWFKOe3hXLjG6-title">
 Solution
 </h4>
 </div>
@@ -3112,8 +3113,7 @@ Solution
 <span id="cb656-22"><a href="mod-r-plot.html#cb656-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2020-01-24 death             8</span></span>
 <span id="cb656-23"><a href="mod-r-plot.html#cb656-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2020-01-24 recovery          7</span></span>
 <span id="cb656-24"><a href="mod-r-plot.html#cb656-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2020-01-25 confirmed       493</span></span>
-<span id="cb656-25"><a href="mod-r-plot.html#cb656-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 3,227 more rows</span></span>
-<span id="cb656-26"><a href="mod-r-plot.html#cb656-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb656-25"><a href="mod-r-plot.html#cb656-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 3,227 more rows</span></span></code></pre></div>
 <p><img src="TFA_files/figure-html/unnamed-chunk-546-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
@@ -3124,17 +3124,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#4fP6SH5BWBVMpJWFKOe3">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#5BWBVMpJWFKOe3hXLjG6">
 Solution
 </button>
-<div id="hXLjG6N4Ez7agWOQWgyV" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="hXLjG6N4Ez7agWOQWgyV-title">
+<div id="N4Ez7agWOQWgyVUI9KIM" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="N4Ez7agWOQWgyVUI9KIM-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="hXLjG6N4Ez7agWOQWgyV-title">
+<h4 class="modal-title" id="N4Ez7agWOQWgyVUI9KIM-title">
 Hint 2
 </h4>
 </div>
@@ -3158,17 +3158,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#hXLjG6N4Ez7agWOQWgyV">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#N4Ez7agWOQWgyVUI9KIM">
 Hint 2
 </button>
-<div id="UI9KIMTNQE3rYXcDWi1d" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="UI9KIMTNQE3rYXcDWi1d-title">
+<div id="TNQE3rYXcDWi1djRnebB" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="TNQE3rYXcDWi1djRnebB-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="UI9KIMTNQE3rYXcDWi1d-title">
+<h4 class="modal-title" id="TNQE3rYXcDWi1djRnebB-title">
 Hint 1
 </h4>
 </div>
@@ -3188,7 +3188,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#UI9KIMTNQE3rYXcDWi1d">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#TNQE3rYXcDWi1djRnebB">
 Hint 1
 </button>
 <ol style="list-style-type: decimal">
@@ -3202,14 +3202,14 @@ Hint 1
 <span id="cb659-5"><a href="mod-r-plot.html#cb659-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;US&quot;</span>,</span>
 <span id="cb659-6"><a href="mod-r-plot.html#cb659-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Italy&quot;</span></span>
 <span id="cb659-7"><a href="mod-r-plot.html#cb659-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div id="jRnebBkQ69m7SMUZxBNQ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="jRnebBkQ69m7SMUZxBNQ-title">
+<div id="kQ69m7SMUZxBNQq21KLs" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="kQ69m7SMUZxBNQq21KLs-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="jRnebBkQ69m7SMUZxBNQ-title">
+<h4 class="modal-title" id="kQ69m7SMUZxBNQq21KLs-title">
 Solution
 </h4>
 </div>
@@ -3236,17 +3236,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#jRnebBkQ69m7SMUZxBNQ">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#kQ69m7SMUZxBNQq21KLs">
 Solution
 </button>
-<div id="q21KLsZ737pPyhGtez7m" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="q21KLsZ737pPyhGtez7m-title">
+<div id="Z737pPyhGtez7mykmyKN" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Z737pPyhGtez7mykmyKN-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="q21KLsZ737pPyhGtez7m-title">
+<h4 class="modal-title" id="Z737pPyhGtez7mykmyKN-title">
 Hint 2
 </h4>
 </div>
@@ -3272,17 +3272,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#q21KLsZ737pPyhGtez7m">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Z737pPyhGtez7mykmyKN">
 Hint 2
 </button>
-<div id="ykmyKNBPQbP4e29xVH0K" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="ykmyKNBPQbP4e29xVH0K-title">
+<div id="BPQbP4e29xVH0Ks9NYUi" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="BPQbP4e29xVH0Ks9NYUi-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="ykmyKNBPQbP4e29xVH0K-title">
+<h4 class="modal-title" id="BPQbP4e29xVH0Ks9NYUi-title">
 Hint 1
 </h4>
 </div>
@@ -3301,7 +3301,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#ykmyKNBPQbP4e29xVH0K">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#BPQbP4e29xVH0Ks9NYUi">
 Hint 1
 </button>
 <ol start="2" style="list-style-type: decimal">
@@ -3324,8 +3324,7 @@ Hint 1
 <span id="cb663-14"><a href="mod-r-plot.html#cb663-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 China    1807 341306850</span></span>
 <span id="cb663-15"><a href="mod-r-plot.html#cb663-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 China    1808 344207546</span></span>
 <span id="cb663-16"><a href="mod-r-plot.html#cb663-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 China    1809 347132894</span></span>
-<span id="cb663-17"><a href="mod-r-plot.html#cb663-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1,495 more rows</span></span>
-<span id="cb663-18"><a href="mod-r-plot.html#cb663-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb663-17"><a href="mod-r-plot.html#cb663-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 1,495 more rows</span></span></code></pre></div>
 <p>We can join the datasets using:</p>
 <div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="mod-r-plot.html#cb664-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
 <span id="cb664-2"><a href="mod-r-plot.html#cb664-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">%in%</span> countries) <span class="sc">%&gt;%</span> </span>
@@ -3344,18 +3343,17 @@ Hint 1
 <span id="cb664-15"><a href="mod-r-plot.html#cb664-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 France  2020-01-22 death             0                0            0  2020   65721165</span></span>
 <span id="cb664-16"><a href="mod-r-plot.html#cb664-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 France  2020-01-22 recovery          0                0            0  2020   65721165</span></span>
 <span id="cb664-17"><a href="mod-r-plot.html#cb664-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Italy   2020-01-22 confirmed         0                0            0  2020   59132073</span></span>
-<span id="cb664-18"><a href="mod-r-plot.html#cb664-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 16,175 more rows</span></span>
-<span id="cb664-19"><a href="mod-r-plot.html#cb664-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span>
-<span id="cb664-20"><a href="mod-r-plot.html#cb664-20" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(dat))  <span class="co"># check if any missing values</span></span>
-<span id="cb664-21"><a href="mod-r-plot.html#cb664-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
-<div id="s9NYUioPDVIpGU5HqTSC" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="s9NYUioPDVIpGU5HqTSC-title">
+<span id="cb664-18"><a href="mod-r-plot.html#cb664-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 16,175 more rows</span></span>
+<span id="cb664-19"><a href="mod-r-plot.html#cb664-19" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(dat))  <span class="co"># check if any missing values</span></span>
+<span id="cb664-20"><a href="mod-r-plot.html#cb664-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
+<div id="oPDVIpGU5HqTSCGXiBBu" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="oPDVIpGU5HqTSCGXiBBu-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="s9NYUioPDVIpGU5HqTSC-title">
+<h4 class="modal-title" id="oPDVIpGU5HqTSCGXiBBu-title">
 Solution
 </h4>
 </div>
@@ -3371,20 +3369,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#s9NYUioPDVIpGU5HqTSC">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#oPDVIpGU5HqTSCGXiBBu">
 Solution
 </button>
 <ol start="3" style="list-style-type: decimal">
 <li>Calculate <code>tot_cases_pop</code> as number of cases per 100000 inhabitants. That is, total cases divided by population and multiplied by 100000.</li>
 </ol>
-<div id="GXiBBu80GeVJBykP6gbe" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="GXiBBu80GeVJBykP6gbe-title">
+<div id="id_80GeVJBykP6gbekb5h1y" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="80GeVJBykP6gbekb5h1y-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="GXiBBu80GeVJBykP6gbe-title">
+<h4 class="modal-title" id="80GeVJBykP6gbekb5h1y-title">
 Solution
 </h4>
 </div>
@@ -3403,17 +3401,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#GXiBBu80GeVJBykP6gbe">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#80GeVJBykP6gbekb5h1y">
 Solution
 </button>
-<div id="kb5h1ywpFZLxqinkKt3Y" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="kb5h1ywpFZLxqinkKt3Y-title">
+<div id="wpFZLxqinkKt3YJlcOrY" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="wpFZLxqinkKt3YJlcOrY-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="kb5h1ywpFZLxqinkKt3Y-title">
+<h4 class="modal-title" id="wpFZLxqinkKt3YJlcOrY-title">
 Hint 2
 </h4>
 </div>
@@ -3431,24 +3429,24 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#kb5h1ywpFZLxqinkKt3Y">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#wpFZLxqinkKt3YJlcOrY">
 Hint 2
 </button>
-<div id="JlcOrYqVeGHyzHbMzuWU" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="JlcOrYqVeGHyzHbMzuWU-title">
+<div id="qVeGHyzHbMzuWUOsvGqU" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="qVeGHyzHbMzuWUOsvGqU-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="JlcOrYqVeGHyzHbMzuWU-title">
+<h4 class="modal-title" id="qVeGHyzHbMzuWUOsvGqU-title">
 Hint 1
 </h4>
 </div>
 <div class="modal-body">
 <div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="mod-r-plot.html#cb668-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use this to find date 21 days ago</span></span>
 <span id="cb668-2"><a href="mod-r-plot.html#cb668-2" aria-hidden="true" tabindex="-1"></a><span class="fu">today</span>() <span class="sc">-</span> <span class="fu">days</span>(<span class="dv">21</span>)</span>
-<span id="cb668-3"><a href="mod-r-plot.html#cb668-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-02-03&quot;</span></span></code></pre></div>
+<span id="cb668-3"><a href="mod-r-plot.html#cb668-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-06-21&quot;</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -3458,20 +3456,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#JlcOrYqVeGHyzHbMzuWU">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#qVeGHyzHbMzuWUOsvGqU">
 Hint 1
 </button>
 <ol start="4" style="list-style-type: decimal">
 <li>Plot the number of confirmed cases per 100000 inhabitants for the last 21 days. Use country as fill aesthetic.</li>
 </ol>
-<div id="OsvGqUcO4A2NiFPnnNkS" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="OsvGqUcO4A2NiFPnnNkS-title">
+<div id="cO4A2NiFPnnNkSDC3ax3" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="cO4A2NiFPnnNkSDC3ax3-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="OsvGqUcO4A2NiFPnnNkS-title">
+<h4 class="modal-title" id="cO4A2NiFPnnNkSDC3ax3-title">
 Solution
 </h4>
 </div>
@@ -3490,17 +3488,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#OsvGqUcO4A2NiFPnnNkS">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#cO4A2NiFPnnNkSDC3ax3">
 Solution
 </button>
-<div id="DC3ax3i0zyhmRjg0Xk1h" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="DC3ax3i0zyhmRjg0Xk1h-title">
+<div id="i0zyhmRjg0Xk1hqTGnQr" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="i0zyhmRjg0Xk1hqTGnQr-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="DC3ax3i0zyhmRjg0Xk1h-title">
+<h4 class="modal-title" id="i0zyhmRjg0Xk1hqTGnQr-title">
 Hint
 </h4>
 </div>
@@ -3518,7 +3516,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#DC3ax3i0zyhmRjg0Xk1h">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#i0zyhmRjg0Xk1hqTGnQr">
 Hint
 </button>
 <ol start="5" style="list-style-type: decimal">
@@ -3538,14 +3536,14 @@ Hint
 <li><p>What are the three most common themes of Lego sets purchased?</p></li>
 <li><p>Among the most common theme of Lego sets purchased, what is the most common subtheme?</p></li>
 </ol>
-<div id="qTGnQrcRWygpOt1NgRDB" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="qTGnQrcRWygpOt1NgRDB-title">
+<div id="cRWygpOt1NgRDBgeQbOX" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="cRWygpOt1NgRDBgeQbOX-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="qTGnQrcRWygpOt1NgRDB-title">
+<h4 class="modal-title" id="cRWygpOt1NgRDBgeQbOX-title">
 Hint
 </h4>
 </div>
@@ -3562,21 +3560,21 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#qTGnQrcRWygpOt1NgRDB">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#cRWygpOt1NgRDBgeQbOX">
 Hint
 </button>
 <ol start="4" style="list-style-type: decimal">
 <li>Create a new variable called <code>age_group</code> and group the ages into the
 following categories: “18 and under”, “19 - 25”, “26 - 35”, “36 - 50”, “51 and over”.</li>
 </ol>
-<div id="geQbOXqFgPXyaAsLq436" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="geQbOXqFgPXyaAsLq436-title">
+<div id="qFgPXyaAsLq436qOsLNG" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="qFgPXyaAsLq436qOsLNG-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="geQbOXqFgPXyaAsLq436-title">
+<h4 class="modal-title" id="qFgPXyaAsLq436qOsLNG-title">
 Hint
 </h4>
 </div>
@@ -3593,20 +3591,20 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#geQbOXqFgPXyaAsLq436">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#qFgPXyaAsLq436qOsLNG">
 Hint
 </button>
 <ol start="5" style="list-style-type: decimal">
 <li>Which age group has purchased the highest number of Lego sets.</li>
 </ol>
-<div id="qOsLNGTDoQjssMZ688B1" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="qOsLNGTDoQjssMZ688B1-title">
+<div id="TDoQjssMZ688B1G23EAA" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="TDoQjssMZ688B1G23EAA-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="qOsLNGTDoQjssMZ688B1-title">
+<h4 class="modal-title" id="TDoQjssMZ688B1G23EAA-title">
 Hint
 </h4>
 </div>
@@ -3623,7 +3621,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#qOsLNGTDoQjssMZ688B1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#TDoQjssMZ688B1G23EAA">
 Hint
 </button>
 <ol start="6" style="list-style-type: decimal">
@@ -3653,14 +3651,14 @@ your visualization answers the question.</p></li>
 <span id="cb672-3"><a href="mod-r-plot.html#cb672-3" aria-hidden="true" tabindex="-1"></a>companies <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/companies.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tfa&quot;</span>))</span></code></pre></div>
 <p>Answer this assignment using the <em>ggplot2</em> package in <em>tidyverse</em> (you might need dplyr for preparing the datasets you want to plot).</p>
 <!-- Q1 -->
-<div id="G23EAAa7hyhxtzEmhRg9" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="G23EAAa7hyhxtzEmhRg9-title">
+<div id="a7hyhxtzEmhRg918gJLt" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="a7hyhxtzEmhRg918gJLt-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="G23EAAa7hyhxtzEmhRg9-title">
+<h4 class="modal-title" id="a7hyhxtzEmhRg918gJLt-title">
 Solution
 </h4>
 </div>
@@ -3686,17 +3684,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#G23EAAa7hyhxtzEmhRg9">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#a7hyhxtzEmhRg918gJLt">
 Solution
 </button>
-<div id="id_18gJLtTkdoXQU3bc9PHN" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="18gJLtTkdoXQU3bc9PHN-title">
+<div id="TkdoXQU3bc9PHNmzVoxP" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="TkdoXQU3bc9PHNmzVoxP-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="18gJLtTkdoXQU3bc9PHN-title">
+<h4 class="modal-title" id="TkdoXQU3bc9PHNmzVoxP-title">
 Hint
 </h4>
 </div>
@@ -3718,7 +3716,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#18gJLtTkdoXQU3bc9PHN">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#TkdoXQU3bc9PHNmzVoxP">
 Hint
 </button>
 <ol style="list-style-type: decimal">
@@ -3731,14 +3729,14 @@ Hint
 <p>What product category has the lowest number of companies?</p></li>
 </ol>
 <!-- Q2 -->
-<div id="mzVoxPs1gOHqZeMbuqzQ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mzVoxPs1gOHqZeMbuqzQ-title">
+<div id="s1gOHqZeMbuqzQsM4OUl" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="s1gOHqZeMbuqzQsM4OUl-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="mzVoxPs1gOHqZeMbuqzQ-title">
+<h4 class="modal-title" id="s1gOHqZeMbuqzQsM4OUl-title">
 Solution
 </h4>
 </div>
@@ -3766,17 +3764,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#mzVoxPs1gOHqZeMbuqzQ">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#s1gOHqZeMbuqzQsM4OUl">
 Solution
 </button>
-<div id="sM4OUlEOPmW6T6tYvmdL" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="sM4OUlEOPmW6T6tYvmdL-title">
+<div id="EOPmW6T6tYvmdLmHE0Ne" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="EOPmW6T6tYvmdLmHE0Ne-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="sM4OUlEOPmW6T6tYvmdL-title">
+<h4 class="modal-title" id="EOPmW6T6tYvmdLmHE0Ne-title">
 Hint
 </h4>
 </div>
@@ -3800,7 +3798,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#sM4OUlEOPmW6T6tYvmdL">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#EOPmW6T6tYvmdLmHE0Ne">
 Hint
 </button>
 <ol start="2" style="list-style-type: decimal">
@@ -3813,14 +3811,14 @@ Hint
 <p>Based on the trend lines which product category gives the best profit?</p></li>
 </ol>
 <!-- Q3 -->
-<div id="mHE0NeoByepvbJmkrRqd" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mHE0NeoByepvbJmkrRqd-title">
+<div id="oByepvbJmkrRqdN7Xf3u" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="oByepvbJmkrRqdN7Xf3u-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="mHE0NeoByepvbJmkrRqd-title">
+<h4 class="modal-title" id="oByepvbJmkrRqdN7Xf3u-title">
 Solution
 </h4>
 </div>
@@ -3862,17 +3860,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#mHE0NeoByepvbJmkrRqd">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#oByepvbJmkrRqdN7Xf3u">
 Solution
 </button>
-<div id="N7Xf3uBx57RhNIhhjQCO" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="N7Xf3uBx57RhNIhhjQCO-title">
+<div id="Bx57RhNIhhjQCOHkYlVb" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Bx57RhNIhhjQCOHkYlVb-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="N7Xf3uBx57RhNIhhjQCO-title">
+<h4 class="modal-title" id="Bx57RhNIhhjQCOHkYlVb-title">
 Hint
 </h4>
 </div>
@@ -3898,7 +3896,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#N7Xf3uBx57RhNIhhjQCO">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Bx57RhNIhhjQCOHkYlVb">
 Hint
 </button>
 <ol start="3" style="list-style-type: decimal">
@@ -3910,14 +3908,14 @@ Hint
 <p>Based on the visualization comment on the variation and median. Which product category gives the highest ratio?</p></li>
 </ol>
 <!-- Q4 -->
-<div id="HkYlVbeg7eFbiXkoRlvm" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="HkYlVbeg7eFbiXkoRlvm-title">
+<div id="eg7eFbiXkoRlvmxrEhnR" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="eg7eFbiXkoRlvmxrEhnR-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="HkYlVbeg7eFbiXkoRlvm-title">
+<h4 class="modal-title" id="eg7eFbiXkoRlvmxrEhnR-title">
 Solution
 </h4>
 </div>
@@ -3950,17 +3948,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#HkYlVbeg7eFbiXkoRlvm">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#eg7eFbiXkoRlvmxrEhnR">
 Solution
 </button>
-<div id="xrEhnRq8WJYBxNoIWQi9" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="xrEhnRq8WJYBxNoIWQi9-title">
+<div id="q8WJYBxNoIWQi9MGodla" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="q8WJYBxNoIWQi9MGodla-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="xrEhnRq8WJYBxNoIWQi9-title">
+<h4 class="modal-title" id="q8WJYBxNoIWQi9MGodla-title">
 Hint
 </h4>
 </div>
@@ -3988,7 +3986,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#xrEhnRq8WJYBxNoIWQi9">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#q8WJYBxNoIWQi9MGodla">
 Hint
 </button>
 <ol start="4" style="list-style-type: decimal">
@@ -4032,14 +4030,14 @@ Hint
 <span id="cb682-3"><a href="mod-r-plot.html#cb682-3" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/titanic.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tfa&quot;</span>))</span></code></pre></div>
 <p>Answer this assignment using the <em>ggplot2</em> package in <em>tidyverse</em> (you might need dplyr for preparing the datasets you want to plot).</p>
 <!-- Q1 -->
-<div id="MGodlazLNqN31gqwUL8e" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="MGodlazLNqN31gqwUL8e-title">
+<div id="zLNqN31gqwUL8eCHSUJn" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="zLNqN31gqwUL8eCHSUJn-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="MGodlazLNqN31gqwUL8e-title">
+<h4 class="modal-title" id="zLNqN31gqwUL8eCHSUJn-title">
 Solution
 </h4>
 </div>
@@ -4069,17 +4067,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#MGodlazLNqN31gqwUL8e">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#zLNqN31gqwUL8eCHSUJn">
 Solution
 </button>
-<div id="CHSUJnGB5HDhWeAmCt5m" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="CHSUJnGB5HDhWeAmCt5m-title">
+<div id="GB5HDhWeAmCt5m58CYeL" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="GB5HDhWeAmCt5m58CYeL-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="CHSUJnGB5HDhWeAmCt5m-title">
+<h4 class="modal-title" id="GB5HDhWeAmCt5m58CYeL-title">
 Hint
 </h4>
 </div>
@@ -4105,7 +4103,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#CHSUJnGB5HDhWeAmCt5m">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#GB5HDhWeAmCt5m58CYeL">
 Hint
 </button>
 <ol style="list-style-type: decimal">
@@ -4118,14 +4116,14 @@ Hint
 <p>What harbor was the main departure harbor?</p></li>
 </ol>
 <!-- Q2 -->
-<div id="id_58CYeLWUJotbHYeSder7" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="58CYeLWUJotbHYeSder7-title">
+<div id="WUJotbHYeSder7rKpwDj" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="WUJotbHYeSder7rKpwDj-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="58CYeLWUJotbHYeSder7-title">
+<h4 class="modal-title" id="WUJotbHYeSder7rKpwDj-title">
 Solution
 </h4>
 </div>
@@ -4149,17 +4147,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#58CYeLWUJotbHYeSder7">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#WUJotbHYeSder7rKpwDj">
 Solution
 </button>
-<div id="rKpwDjYAG64Acidf5HwM" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="rKpwDjYAG64Acidf5HwM-title">
+<div id="YAG64Acidf5HwM9pqNgT" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="YAG64Acidf5HwM9pqNgT-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="rKpwDjYAG64Acidf5HwM-title">
+<h4 class="modal-title" id="YAG64Acidf5HwM9pqNgT-title">
 Hint
 </h4>
 </div>
@@ -4179,7 +4177,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#rKpwDjYAG64Acidf5HwM">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#YAG64Acidf5HwM9pqNgT">
 Hint
 </button>
 <ol start="2" style="list-style-type: decimal">
@@ -4191,14 +4189,14 @@ Hint
 <p>Where there most people on board in their twenties or thirties?</p></li>
 </ol>
 <!-- Q3 -->
-<div id="id_9pqNgT9dpQRE4LD8ZgKu" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="9pqNgT9dpQRE4LD8ZgKu-title">
+<div id="id_9dpQRE4LD8ZgKuFafnRF" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="9dpQRE4LD8ZgKuFafnRF-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="9pqNgT9dpQRE4LD8ZgKu-title">
+<h4 class="modal-title" id="9dpQRE4LD8ZgKuFafnRF-title">
 Solution
 </h4>
 </div>
@@ -4224,17 +4222,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#9pqNgT9dpQRE4LD8ZgKu">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#9dpQRE4LD8ZgKuFafnRF">
 Solution
 </button>
-<div id="FafnRFYRYRw4KXfg0kGu" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="FafnRFYRYRw4KXfg0kGu-title">
+<div id="YRYRw4KXfg0kGuT4LjUl" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="YRYRw4KXfg0kGuT4LjUl-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="FafnRFYRYRw4KXfg0kGu-title">
+<h4 class="modal-title" id="YRYRw4KXfg0kGuT4LjUl-title">
 Hint
 </h4>
 </div>
@@ -4256,7 +4254,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#FafnRFYRYRw4KXfg0kGu">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#YRYRw4KXfg0kGuT4LjUl">
 Hint
 </button>
 <ol start="3" style="list-style-type: decimal">
@@ -4269,14 +4267,14 @@ Hint
 <p>Based on the trend lines, do females in general pay more for a ticket?</p></li>
 </ol>
 <!-- Q4 -->
-<div id="T4LjUlGPjjC4Wa50Aciw" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="T4LjUlGPjjC4Wa50Aciw-title">
+<div id="GPjjC4Wa50AciwTwO01h" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="GPjjC4Wa50AciwTwO01h-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="T4LjUlGPjjC4Wa50Aciw-title">
+<h4 class="modal-title" id="GPjjC4Wa50AciwTwO01h-title">
 Solution
 </h4>
 </div>
@@ -4302,17 +4300,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#T4LjUlGPjjC4Wa50Aciw">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#GPjjC4Wa50AciwTwO01h">
 Solution
 </button>
-<div id="TwO01hxMNUv06eEIreLQ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="TwO01hxMNUv06eEIreLQ-title">
+<div id="xMNUv06eEIreLQU9XdPi" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="xMNUv06eEIreLQU9XdPi-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="TwO01hxMNUv06eEIreLQ-title">
+<h4 class="modal-title" id="xMNUv06eEIreLQU9XdPi-title">
 Hint
 </h4>
 </div>
@@ -4334,7 +4332,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#TwO01hxMNUv06eEIreLQ">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#xMNUv06eEIreLQU9XdPi">
 Hint
 </button>
 <ol start="4" style="list-style-type: decimal">
@@ -4348,14 +4346,14 @@ Hint
 <p>Is the survival rate different on first and third class?</p></li>
 </ol>
 <!-- Q5 -->
-<div id="U9XdPivWRiGJ7txMWHAq" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="U9XdPivWRiGJ7txMWHAq-title">
+<div id="vWRiGJ7txMWHAqQrck1a" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="vWRiGJ7txMWHAqQrck1a-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="U9XdPivWRiGJ7txMWHAq-title">
+<h4 class="modal-title" id="vWRiGJ7txMWHAqQrck1a-title">
 Solution
 </h4>
 </div>
@@ -4379,17 +4377,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#U9XdPivWRiGJ7txMWHAq">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#vWRiGJ7txMWHAqQrck1a">
 Solution
 </button>
-<div id="Qrck1a2wR9Zs3xrWpizj" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Qrck1a2wR9Zs3xrWpizj-title">
+<div id="id_2wR9Zs3xrWpizjVsBC3o" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="2wR9Zs3xrWpizjVsBC3o-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="Qrck1a2wR9Zs3xrWpizj-title">
+<h4 class="modal-title" id="2wR9Zs3xrWpizjVsBC3o-title">
 Hint
 </h4>
 </div>
@@ -4409,7 +4407,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Qrck1a2wR9Zs3xrWpizj">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#2wR9Zs3xrWpizjVsBC3o">
 Hint
 </button>
 <ol start="5" style="list-style-type: decimal">
@@ -4444,14 +4442,14 @@ Hint
 <span id="cb693-3"><a href="mod-r-plot.html#cb693-3" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/covid.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tfa&quot;</span>))</span></code></pre></div>
 <p>Answer this assignment using the <em>ggplot2</em> package in <em>tidyverse</em> (you may need <em>dplyr</em> for preparing the datasets you want to plot).</p>
 <!-- Q1 -->
-<div id="VsBC3oh2vyoHRN3bK60O" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="VsBC3oh2vyoHRN3bK60O-title">
+<div id="h2vyoHRN3bK60OKWNM1y" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="h2vyoHRN3bK60OKWNM1y-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="VsBC3oh2vyoHRN3bK60O-title">
+<h4 class="modal-title" id="h2vyoHRN3bK60OKWNM1y-title">
 Solution
 </h4>
 </div>
@@ -4477,17 +4475,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#VsBC3oh2vyoHRN3bK60O">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#h2vyoHRN3bK60OKWNM1y">
 Solution
 </button>
-<div id="KWNM1yY2VSVs3C3R7y71" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="KWNM1yY2VSVs3C3R7y71-title">
+<div id="Y2VSVs3C3R7y71UDQ7Hj" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Y2VSVs3C3R7y71UDQ7Hj-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="KWNM1yY2VSVs3C3R7y71-title">
+<h4 class="modal-title" id="Y2VSVs3C3R7y71UDQ7Hj-title">
 Hint
 </h4>
 </div>
@@ -4509,7 +4507,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#KWNM1yY2VSVs3C3R7y71">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Y2VSVs3C3R7y71UDQ7Hj">
 Hint
 </button>
 <ol style="list-style-type: decimal">
@@ -4521,14 +4519,14 @@ Hint
 <p>Is the number of cases low or high in July 2020 in the plot?</p></li>
 </ol>
 <!-- Q2 -->
-<div id="UDQ7HjHB5gFG9RfnvYf1" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="UDQ7HjHB5gFG9RfnvYf1-title">
+<div id="HB5gFG9RfnvYf1uIJl5y" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="HB5gFG9RfnvYf1uIJl5y-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="UDQ7HjHB5gFG9RfnvYf1-title">
+<h4 class="modal-title" id="HB5gFG9RfnvYf1uIJl5y-title">
 Solution
 </h4>
 </div>
@@ -4558,17 +4556,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#UDQ7HjHB5gFG9RfnvYf1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#HB5gFG9RfnvYf1uIJl5y">
 Solution
 </button>
-<div id="uIJl5yp87P6SmEN5Bxgv" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="uIJl5yp87P6SmEN5Bxgv-title">
+<div id="p87P6SmEN5Bxgva4q1oO" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="p87P6SmEN5Bxgva4q1oO-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="uIJl5yp87P6SmEN5Bxgv-title">
+<h4 class="modal-title" id="p87P6SmEN5Bxgva4q1oO-title">
 Hint
 </h4>
 </div>
@@ -4594,7 +4592,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#uIJl5yp87P6SmEN5Bxgv">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#p87P6SmEN5Bxgva4q1oO">
 Hint
 </button>
 <ol start="2" style="list-style-type: decimal">
@@ -4609,14 +4607,14 @@ Hint
 <p>Which country has the highest relative number of deaths in general?</p></li>
 </ol>
 <!-- Q3 -->
-<div id="a4q1oO8fcRorzOL7zwwP" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="a4q1oO8fcRorzOL7zwwP-title">
+<div id="id_8fcRorzOL7zwwPlO2OxW" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="8fcRorzOL7zwwPlO2OxW-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="a4q1oO8fcRorzOL7zwwP-title">
+<h4 class="modal-title" id="8fcRorzOL7zwwPlO2OxW-title">
 Solution
 </h4>
 </div>
@@ -4647,17 +4645,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#a4q1oO8fcRorzOL7zwwP">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#8fcRorzOL7zwwPlO2OxW">
 Solution
 </button>
-<div id="lO2OxWf0VkSlYjjLhXs4" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="lO2OxWf0VkSlYjjLhXs4-title">
+<div id="f0VkSlYjjLhXs4Nd1Cdu" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="f0VkSlYjjLhXs4Nd1Cdu-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="lO2OxWf0VkSlYjjLhXs4-title">
+<h4 class="modal-title" id="f0VkSlYjjLhXs4Nd1Cdu-title">
 Hint
 </h4>
 </div>
@@ -4684,7 +4682,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#lO2OxWf0VkSlYjjLhXs4">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#f0VkSlYjjLhXs4Nd1Cdu">
 Hint
 </button>
 <ol start="3" style="list-style-type: decimal">
@@ -4702,14 +4700,14 @@ Hint
 <p>Which country has the highest percentage of vaccinated people and the lowest gap between partly and fully vaccinated?</p></li>
 </ol>
 <!-- Q4 -->
-<div id="Nd1CduUAk1cZ932AFmAy" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Nd1CduUAk1cZ932AFmAy-title">
+<div id="UAk1cZ932AFmAyUOVp35" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="UAk1cZ932AFmAyUOVp35-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="Nd1CduUAk1cZ932AFmAy-title">
+<h4 class="modal-title" id="UAk1cZ932AFmAyUOVp35-title">
 Solution
 </h4>
 </div>
@@ -4739,17 +4737,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#Nd1CduUAk1cZ932AFmAy">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#UAk1cZ932AFmAyUOVp35">
 Solution
 </button>
-<div id="UOVp35vxOUODkeWCjWAX" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="UOVp35vxOUODkeWCjWAX-title">
+<div id="vxOUODkeWCjWAXNsrHIL" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="vxOUODkeWCjWAXNsrHIL-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="UOVp35vxOUODkeWCjWAX-title">
+<h4 class="modal-title" id="vxOUODkeWCjWAXNsrHIL-title">
 Hint
 </h4>
 </div>
@@ -4775,7 +4773,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#UOVp35vxOUODkeWCjWAX">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#vxOUODkeWCjWAXNsrHIL">
 Hint
 </button>
 <ol start="4" style="list-style-type: decimal">
@@ -4787,14 +4785,14 @@ Hint
 <p>In which year did the ICU have the most patients when considering October?</p></li>
 </ol>
 <!-- Q5 -->
-<div id="NsrHILSYToBydwWpy1Ap" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="NsrHILSYToBydwWpy1Ap-title">
+<div id="SYToBydwWpy1ApcmlFEH" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="SYToBydwWpy1ApcmlFEH-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="NsrHILSYToBydwWpy1Ap-title">
+<h4 class="modal-title" id="SYToBydwWpy1ApcmlFEH-title">
 Solution
 </h4>
 </div>
@@ -4822,17 +4820,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#NsrHILSYToBydwWpy1Ap">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#SYToBydwWpy1ApcmlFEH">
 Solution
 </button>
-<div id="cmlFEH45ZUHXV2Q3NZ89" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="cmlFEH45ZUHXV2Q3NZ89-title">
+<div id="id_45ZUHXV2Q3NZ89INCqJK" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="45ZUHXV2Q3NZ89INCqJK-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="cmlFEH45ZUHXV2Q3NZ89-title">
+<h4 class="modal-title" id="45ZUHXV2Q3NZ89INCqJK-title">
 Hint
 </h4>
 </div>
@@ -4856,7 +4854,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#cmlFEH45ZUHXV2Q3NZ89">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#45ZUHXV2Q3NZ89INCqJK">
 Hint
 </button>
 <ol start="5" style="list-style-type: decimal">
@@ -4937,7 +4935,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

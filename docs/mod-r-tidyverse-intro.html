@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 11 Introduction to tidyverse and RMarkdown | Tools for Analytics (TFA)</title>
   <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
-  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 11 Introduction to tidyverse and RMarkdown | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2023-02-24" />
+<meta name="date" content="2023-07-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,10 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <script src="libs/viz-1.8.2/viz.js"></script>
 <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-<script src="libs/grViz-binding-1.0.9/grViz.js"></script>
+<script src="libs/grViz-binding-1.0.10/grViz.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
@@ -64,17 +64,17 @@
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.1.2/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.2/leaflet-providers-plugin.js"></script>
 <link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
 <script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
 <link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.23/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
 <link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
@@ -167,6 +167,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -562,8 +566,8 @@ div.csl-indent {
 <p>A template project for this module is given on <a href="https://rstudio.cloud/spaces/274292/content/4411758">RStudio Cloud</a> (open it and use it while reading the notes).</p>
 <div id="learning-path-diagram-10" class="section level4 unnumbered hasAnchor">
 <h4>Learning path diagram<a href="mod-r-tidyverse-intro.html#learning-path-diagram-10" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div id="htmlwidget-962f23c8632173141816" style="width:100%;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-962f23c8632173141816">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 Tidyverse\", URL = \"#r-tidyverse-intro\", tooltip = \"The tidyverse package\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"0,2!\"] \n  \"2\" [label = \"📖 Reproducible\\nreports\", URL = \"#r-markdown-intro\", tooltip = \"Writing reproducible reports\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"2,2!\"] \n  \"3\" [label = \"💡 RMarkdown\", URL = \"https://campus.datacamp.com/courses/communicating-with-data-in-the-tidyverse/introduction-to-rmarkdown?ex=1\", tooltip = \"An introduction to RMarkdown (do Chapters 3 and 4)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"4.5,2!\"] \n  \"4\" [label = \"📖 Tibbles\", URL = \"#r-tibbles-intro\", tooltip = \"A short introduction to tibbles\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"7,2!\"] \n  \"5\" [label = \"💻 Exercises\", URL = \"#ex-tidyverse-intro\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"9.5,2!\"] \n  \"6\" [label = \"📖 RMarkdown\", URL = \"https://rbasics.netlify.app/4-rmarkdown.html\", tooltip = \"Chapter 4 in Ismay and Kennedy (2019) gives an overview of R Markdown with videos included.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"3,0!\"] \n  \"7\" [label = \"💡 RMarkdown\", URL = \"https://campus.datacamp.com/courses/reporting-with-rmarkdown/getting-started-with-r-markdown?ex=1\", tooltip = \"The interactive DataCamp course Reporting with R Markdown (a bit longer).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"5,0!\"] \n  \"8\" [label = \"💡 Markdown\", URL = \"https://commonmark.org/help/tutorial/\", tooltip = \"An interactive markdown tutorial.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"4.5,4!\"] \n  \"9\" [label = \"📖 Reproducible\\nreports\", URL = \"https://rpubs.com/glennwithtwons/reproducible-r-toolbox\", tooltip = \"Glenn Moncrieff gives a nice detailed overview on how to create reproducible projects.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"2,4!\"] \n  \"10\" [label = \"🎬 Tibbles\", URL = \"https://www.youtube.com/watch?v=EBk6PnvE1R4\", tooltip = \"An introduction to tibbles and differences to data frames is given in the video by Hefin Rhys.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"7,4!\"] \n  \"11\" [label = \"📖 Tibbles\", URL = \"https://r4ds.had.co.nz/tibbles.html\", tooltip = \"Chapter 10 in Wickham (2017) gives an introduction to tibbles.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"7,0!\"] \n  \"12\" [label = \"\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"2.4,5.66!\"] \n  \"13\" [label = \"Color:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"-0.23,6!\"] \n  \"14\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"0,5.6!\"] \n  \"15\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"1,5.6!\"] \n  \"16\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"2,5.6!\"] \n  \"17\" [label = \"Shape:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"3.2,6!\"] \n  \"18\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"1\", fillcolor = \"Grey40\", pos = \"3.5,5.6!\"] \n  \"19\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", width = \"1\", fillcolor = \"Grey40\", pos = \"4.75,5.6!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"9\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"10\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"11\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4a7563cf0209f8fa8818" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-4a7563cf0209f8fa8818">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 Tidyverse\", URL = \"#r-tidyverse-intro\", tooltip = \"The tidyverse package\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"0,2!\"] \n  \"2\" [label = \"📖 Reproducible\\nreports\", URL = \"#r-markdown-intro\", tooltip = \"Writing reproducible reports\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"2,2!\"] \n  \"3\" [label = \"💡 RMarkdown\", URL = \"https://campus.datacamp.com/courses/communicating-with-data-in-the-tidyverse/introduction-to-rmarkdown?ex=1\", tooltip = \"An introduction to RMarkdown (do Chapters 3 and 4)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"4.5,2!\"] \n  \"4\" [label = \"📖 Tibbles\", URL = \"#r-tibbles-intro\", tooltip = \"A short introduction to tibbles\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"7,2!\"] \n  \"5\" [label = \"💻 Exercises\", URL = \"#ex-tidyverse-intro\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkSeaGreen4\", pos = \"9.5,2!\"] \n  \"6\" [label = \"📖 RMarkdown\", URL = \"https://rbasics.netlify.app/4-rmarkdown.html\", tooltip = \"Chapter 4 in Ismay and Kennedy (2019) gives an overview of R Markdown with videos included.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"3,0!\"] \n  \"7\" [label = \"💡 RMarkdown\", URL = \"https://campus.datacamp.com/courses/reporting-with-rmarkdown/getting-started-with-r-markdown?ex=1\", tooltip = \"The interactive DataCamp course Reporting with R Markdown (a bit longer).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"5,0!\"] \n  \"8\" [label = \"💡 Markdown\", URL = \"https://commonmark.org/help/tutorial/\", tooltip = \"An interactive markdown tutorial.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"4.5,4!\"] \n  \"9\" [label = \"📖 Reproducible\\nreports\", URL = \"https://rpubs.com/glennwithtwons/reproducible-r-toolbox\", tooltip = \"Glenn Moncrieff gives a nice detailed overview on how to create reproducible projects.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"PeachPuff3\", pos = \"2,4!\"] \n  \"10\" [label = \"🎬 Tibbles\", URL = \"https://www.youtube.com/watch?v=EBk6PnvE1R4\", tooltip = \"An introduction to tibbles and differences to data frames is given in the video by Hefin Rhys.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"7,4!\"] \n  \"11\" [label = \"📖 Tibbles\", URL = \"https://r4ds.had.co.nz/tibbles.html\", tooltip = \"Chapter 10 in Wickham (2017) gives an introduction to tibbles.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", width = \"0.5\", fillcolor = \"DarkOrange4\", pos = \"7,0!\"] \n  \"12\" [label = \"\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"0.5\", fontname = \"Helvetica\", shape = \"rect\", height = \"1\", width = \"6\", fillcolor = \"#F0F8FF\", pos = \"2.4,5.66!\"] \n  \"13\" [label = \"Color:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"0.8\", fillcolor = \"#FFFFFE\", pos = \"-0.23,6!\"] \n  \"14\" [label = \"mandatory\", URL = \"\", tooltip = \"Mandatory syllabus.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkSeaGreen4\", pos = \"0,5.6!\"] \n  \"15\" [label = \"alternative\", URL = \"\", tooltip = \"Alternative syllabus if you prefer another learning style.\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"DarkOrange4\", pos = \"1,5.6!\"] \n  \"16\" [label = \"extra\", URL = \"\", tooltip = \"Extra learning if you are interested (not part of syllabus).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"0.8\", fillcolor = \"PeachPuff3\", pos = \"2,5.6!\"] \n  \"17\" [label = \"Shape:\", URL = \"\", tooltip = \" \", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"black\", penwidth = \"0\", fontname = \"Helvetica\", shape = \"none\", height = \"0\", width = \"1\", fillcolor = \"#FFFFFE\", pos = \"3.2,6!\"] \n  \"18\" [label = \"non-interactive\", URL = \"\", tooltip = \"Non-interactive learning content (e.g. reading).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"rect\", width = \"1\", fillcolor = \"Grey40\", pos = \"3.5,5.6!\"] \n  \"19\" [label = \"interactive\", URL = \"\", tooltip = \"Interactive learning content (tutorial, exercises etc.).\", style = \"filled\", fixedsize = \"true\", fontsize = \"9\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica\", shape = \"egg\", width = \"1\", fillcolor = \"Grey40\", pos = \"4.75,5.6!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"9\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"10\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"11\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <div>It is recommended that you follow the green learning path; however, you may like a different learning style. In the learning path diagram, there are links to alternative online content (video or reading). Note this is an alternative to the standard learning path that you may use instead (you should not do both). The learning path may also have extra content, that is NOT a part of syllabus (only look at it if you want more info)!</div>
 <!-- * [Chapter 4](https://rbasics.netlify.app/4-rmarkdown.html) in @rbasics gives an overview of RMarkdown with videos included.  -->
 <!-- * You may also do the interactive DataCamp [Reporting with RMarkdown][datacamp-r-rmarkdown] which is a bit longer than the suggested course.  -->
@@ -663,20 +667,19 @@ div.csl-indent {
 <span id="cb376-29"><a href="mod-r-tidyverse-intro.html#cb376-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2</span></span>
 <span id="cb376-30"><a href="mod-r-tidyverse-intro.html#cb376-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2</span></span>
 <span id="cb376-31"><a href="mod-r-tidyverse-intro.html#cb376-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4</span></span>
-<span id="cb376-32"><a href="mod-r-tidyverse-intro.html#cb376-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 22 more rows</span></span>
-<span id="cb376-33"><a href="mod-r-tidyverse-intro.html#cb376-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span>
-<span id="cb376-34"><a href="mod-r-tidyverse-intro.html#cb376-34" aria-hidden="true" tabindex="-1"></a>tbl4 <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb376-35"><a href="mod-r-tidyverse-intro.html#cb376-35" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>x, <span class="sc">~</span>y, <span class="sc">~</span>z,</span>
-<span id="cb376-36"><a href="mod-r-tidyverse-intro.html#cb376-36" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--|--|----</span></span>
-<span id="cb376-37"><a href="mod-r-tidyverse-intro.html#cb376-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;a&quot;</span>, <span class="dv">2</span>, <span class="fl">3.6</span>,</span>
-<span id="cb376-38"><a href="mod-r-tidyverse-intro.html#cb376-38" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;b&quot;</span>, <span class="dv">1</span>, <span class="fl">8.5</span></span>
-<span id="cb376-39"><a href="mod-r-tidyverse-intro.html#cb376-39" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb376-40"><a href="mod-r-tidyverse-intro.html#cb376-40" aria-hidden="true" tabindex="-1"></a>tbl4</span>
-<span id="cb376-41"><a href="mod-r-tidyverse-intro.html#cb376-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
-<span id="cb376-42"><a href="mod-r-tidyverse-intro.html#cb376-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   x         y     z</span></span>
-<span id="cb376-43"><a href="mod-r-tidyverse-intro.html#cb376-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb376-44"><a href="mod-r-tidyverse-intro.html#cb376-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 a         2   3.6</span></span>
-<span id="cb376-45"><a href="mod-r-tidyverse-intro.html#cb376-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 b         1   8.5</span></span></code></pre></div>
+<span id="cb376-32"><a href="mod-r-tidyverse-intro.html#cb376-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 22 more rows</span></span>
+<span id="cb376-33"><a href="mod-r-tidyverse-intro.html#cb376-33" aria-hidden="true" tabindex="-1"></a>tbl4 <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb376-34"><a href="mod-r-tidyverse-intro.html#cb376-34" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>x, <span class="sc">~</span>y, <span class="sc">~</span>z,</span>
+<span id="cb376-35"><a href="mod-r-tidyverse-intro.html#cb376-35" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--|--|----</span></span>
+<span id="cb376-36"><a href="mod-r-tidyverse-intro.html#cb376-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;a&quot;</span>, <span class="dv">2</span>, <span class="fl">3.6</span>,</span>
+<span id="cb376-37"><a href="mod-r-tidyverse-intro.html#cb376-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;b&quot;</span>, <span class="dv">1</span>, <span class="fl">8.5</span></span>
+<span id="cb376-38"><a href="mod-r-tidyverse-intro.html#cb376-38" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb376-39"><a href="mod-r-tidyverse-intro.html#cb376-39" aria-hidden="true" tabindex="-1"></a>tbl4</span>
+<span id="cb376-40"><a href="mod-r-tidyverse-intro.html#cb376-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span id="cb376-41"><a href="mod-r-tidyverse-intro.html#cb376-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   x         y     z</span></span>
+<span id="cb376-42"><a href="mod-r-tidyverse-intro.html#cb376-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb376-43"><a href="mod-r-tidyverse-intro.html#cb376-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 a         2   3.6</span></span>
+<span id="cb376-44"><a href="mod-r-tidyverse-intro.html#cb376-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 b         1   8.5</span></span></code></pre></div>
 <p>Note that we can always coerce a data frame to a tibble (<code>tbl3</code>) or create it directly using <code>tibble</code>. Another way to create a tibble is with <code>tribble</code>. Here column headings are defined by formulas (i.e. they start with ~), and entries are separated by commas. This makes it possible to lay out small amounts of data in easy to read form.</p>
 <p>Tibbles have a refined print method that shows only the first 10 rows along with the number of columns that will fit on your screen. This makes it much easier to work with large data. In addition to its name, each column reports its type. Hence, your console is not overwhelmed with data. To see a full view of the data, you can use RStudio’s built-in data viewer:</p>
 <div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="mod-r-tidyverse-intro.html#cb377-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(tbl3)</span></code></pre></div>
@@ -841,8 +844,7 @@ Solution
 <span id="cb380-12"><a href="mod-r-tidyverse-intro.html#cb380-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8    19      99  13.8    59     5     8</span></span>
 <span id="cb380-13"><a href="mod-r-tidyverse-intro.html#cb380-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9     8      19  20.1    61     5     9</span></span>
 <span id="cb380-14"><a href="mod-r-tidyverse-intro.html#cb380-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    NA     194   8.6    69     5    10</span></span>
-<span id="cb380-15"><a href="mod-r-tidyverse-intro.html#cb380-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 143 more rows</span></span>
-<span id="cb380-16"><a href="mod-r-tidyverse-intro.html#cb380-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span id="cb380-15"><a href="mod-r-tidyverse-intro.html#cb380-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 143 more rows</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -884,163 +886,162 @@ Solution
 <span id="cb381-12"><a href="mod-r-tidyverse-intro.html#cb381-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8    19      99  13.8    59     5     8</span></span>
 <span id="cb381-13"><a href="mod-r-tidyverse-intro.html#cb381-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9     8      19  20.1    61     5     9</span></span>
 <span id="cb381-14"><a href="mod-r-tidyverse-intro.html#cb381-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    NA     194   8.6    69     5    10</span></span>
-<span id="cb381-15"><a href="mod-r-tidyverse-intro.html#cb381-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 143 more rows</span></span>
-<span id="cb381-16"><a href="mod-r-tidyverse-intro.html#cb381-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span>
-<span id="cb381-17"><a href="mod-r-tidyverse-intro.html#cb381-17" aria-hidden="true" tabindex="-1"></a>airquality</span>
-<span id="cb381-18"><a href="mod-r-tidyverse-intro.html#cb381-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Ozone Solar.R Wind Temp Month Day</span></span>
-<span id="cb381-19"><a href="mod-r-tidyverse-intro.html#cb381-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      41     190  7.4   67     5   1</span></span>
-<span id="cb381-20"><a href="mod-r-tidyverse-intro.html#cb381-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      36     118  8.0   72     5   2</span></span>
-<span id="cb381-21"><a href="mod-r-tidyverse-intro.html#cb381-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      12     149 12.6   74     5   3</span></span>
-<span id="cb381-22"><a href="mod-r-tidyverse-intro.html#cb381-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      18     313 11.5   62     5   4</span></span>
-<span id="cb381-23"><a href="mod-r-tidyverse-intro.html#cb381-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      NA      NA 14.3   56     5   5</span></span>
-<span id="cb381-24"><a href="mod-r-tidyverse-intro.html#cb381-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      28      NA 14.9   66     5   6</span></span>
-<span id="cb381-25"><a href="mod-r-tidyverse-intro.html#cb381-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      23     299  8.6   65     5   7</span></span>
-<span id="cb381-26"><a href="mod-r-tidyverse-intro.html#cb381-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8      19      99 13.8   59     5   8</span></span>
-<span id="cb381-27"><a href="mod-r-tidyverse-intro.html#cb381-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9       8      19 20.1   61     5   9</span></span>
-<span id="cb381-28"><a href="mod-r-tidyverse-intro.html#cb381-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10     NA     194  8.6   69     5  10</span></span>
-<span id="cb381-29"><a href="mod-r-tidyverse-intro.html#cb381-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11      7      NA  6.9   74     5  11</span></span>
-<span id="cb381-30"><a href="mod-r-tidyverse-intro.html#cb381-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12     16     256  9.7   69     5  12</span></span>
-<span id="cb381-31"><a href="mod-r-tidyverse-intro.html#cb381-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13     11     290  9.2   66     5  13</span></span>
-<span id="cb381-32"><a href="mod-r-tidyverse-intro.html#cb381-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14     14     274 10.9   68     5  14</span></span>
-<span id="cb381-33"><a href="mod-r-tidyverse-intro.html#cb381-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15     18      65 13.2   58     5  15</span></span>
-<span id="cb381-34"><a href="mod-r-tidyverse-intro.html#cb381-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16     14     334 11.5   64     5  16</span></span>
-<span id="cb381-35"><a href="mod-r-tidyverse-intro.html#cb381-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17     34     307 12.0   66     5  17</span></span>
-<span id="cb381-36"><a href="mod-r-tidyverse-intro.html#cb381-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18      6      78 18.4   57     5  18</span></span>
-<span id="cb381-37"><a href="mod-r-tidyverse-intro.html#cb381-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19     30     322 11.5   68     5  19</span></span>
-<span id="cb381-38"><a href="mod-r-tidyverse-intro.html#cb381-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20     11      44  9.7   62     5  20</span></span>
-<span id="cb381-39"><a href="mod-r-tidyverse-intro.html#cb381-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 21      1       8  9.7   59     5  21</span></span>
-<span id="cb381-40"><a href="mod-r-tidyverse-intro.html#cb381-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 22     11     320 16.6   73     5  22</span></span>
-<span id="cb381-41"><a href="mod-r-tidyverse-intro.html#cb381-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 23      4      25  9.7   61     5  23</span></span>
-<span id="cb381-42"><a href="mod-r-tidyverse-intro.html#cb381-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 24     32      92 12.0   61     5  24</span></span>
-<span id="cb381-43"><a href="mod-r-tidyverse-intro.html#cb381-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 25     NA      66 16.6   57     5  25</span></span>
-<span id="cb381-44"><a href="mod-r-tidyverse-intro.html#cb381-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 26     NA     266 14.9   58     5  26</span></span>
-<span id="cb381-45"><a href="mod-r-tidyverse-intro.html#cb381-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 27     NA      NA  8.0   57     5  27</span></span>
-<span id="cb381-46"><a href="mod-r-tidyverse-intro.html#cb381-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 28     23      13 12.0   67     5  28</span></span>
-<span id="cb381-47"><a href="mod-r-tidyverse-intro.html#cb381-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 29     45     252 14.9   81     5  29</span></span>
-<span id="cb381-48"><a href="mod-r-tidyverse-intro.html#cb381-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 30    115     223  5.7   79     5  30</span></span>
-<span id="cb381-49"><a href="mod-r-tidyverse-intro.html#cb381-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 31     37     279  7.4   76     5  31</span></span>
-<span id="cb381-50"><a href="mod-r-tidyverse-intro.html#cb381-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 32     NA     286  8.6   78     6   1</span></span>
-<span id="cb381-51"><a href="mod-r-tidyverse-intro.html#cb381-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 33     NA     287  9.7   74     6   2</span></span>
-<span id="cb381-52"><a href="mod-r-tidyverse-intro.html#cb381-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 34     NA     242 16.1   67     6   3</span></span>
-<span id="cb381-53"><a href="mod-r-tidyverse-intro.html#cb381-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 35     NA     186  9.2   84     6   4</span></span>
-<span id="cb381-54"><a href="mod-r-tidyverse-intro.html#cb381-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 36     NA     220  8.6   85     6   5</span></span>
-<span id="cb381-55"><a href="mod-r-tidyverse-intro.html#cb381-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 37     NA     264 14.3   79     6   6</span></span>
-<span id="cb381-56"><a href="mod-r-tidyverse-intro.html#cb381-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 38     29     127  9.7   82     6   7</span></span>
-<span id="cb381-57"><a href="mod-r-tidyverse-intro.html#cb381-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 39     NA     273  6.9   87     6   8</span></span>
-<span id="cb381-58"><a href="mod-r-tidyverse-intro.html#cb381-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 40     71     291 13.8   90     6   9</span></span>
-<span id="cb381-59"><a href="mod-r-tidyverse-intro.html#cb381-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 41     39     323 11.5   87     6  10</span></span>
-<span id="cb381-60"><a href="mod-r-tidyverse-intro.html#cb381-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 42     NA     259 10.9   93     6  11</span></span>
-<span id="cb381-61"><a href="mod-r-tidyverse-intro.html#cb381-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 43     NA     250  9.2   92     6  12</span></span>
-<span id="cb381-62"><a href="mod-r-tidyverse-intro.html#cb381-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 44     23     148  8.0   82     6  13</span></span>
-<span id="cb381-63"><a href="mod-r-tidyverse-intro.html#cb381-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 45     NA     332 13.8   80     6  14</span></span>
-<span id="cb381-64"><a href="mod-r-tidyverse-intro.html#cb381-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 46     NA     322 11.5   79     6  15</span></span>
-<span id="cb381-65"><a href="mod-r-tidyverse-intro.html#cb381-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 47     21     191 14.9   77     6  16</span></span>
-<span id="cb381-66"><a href="mod-r-tidyverse-intro.html#cb381-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 48     37     284 20.7   72     6  17</span></span>
-<span id="cb381-67"><a href="mod-r-tidyverse-intro.html#cb381-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 49     20      37  9.2   65     6  18</span></span>
-<span id="cb381-68"><a href="mod-r-tidyverse-intro.html#cb381-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 50     12     120 11.5   73     6  19</span></span>
-<span id="cb381-69"><a href="mod-r-tidyverse-intro.html#cb381-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 51     13     137 10.3   76     6  20</span></span>
-<span id="cb381-70"><a href="mod-r-tidyverse-intro.html#cb381-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 52     NA     150  6.3   77     6  21</span></span>
-<span id="cb381-71"><a href="mod-r-tidyverse-intro.html#cb381-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 53     NA      59  1.7   76     6  22</span></span>
-<span id="cb381-72"><a href="mod-r-tidyverse-intro.html#cb381-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 54     NA      91  4.6   76     6  23</span></span>
-<span id="cb381-73"><a href="mod-r-tidyverse-intro.html#cb381-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 55     NA     250  6.3   76     6  24</span></span>
-<span id="cb381-74"><a href="mod-r-tidyverse-intro.html#cb381-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 56     NA     135  8.0   75     6  25</span></span>
-<span id="cb381-75"><a href="mod-r-tidyverse-intro.html#cb381-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 57     NA     127  8.0   78     6  26</span></span>
-<span id="cb381-76"><a href="mod-r-tidyverse-intro.html#cb381-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 58     NA      47 10.3   73     6  27</span></span>
-<span id="cb381-77"><a href="mod-r-tidyverse-intro.html#cb381-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 59     NA      98 11.5   80     6  28</span></span>
-<span id="cb381-78"><a href="mod-r-tidyverse-intro.html#cb381-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 60     NA      31 14.9   77     6  29</span></span>
-<span id="cb381-79"><a href="mod-r-tidyverse-intro.html#cb381-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 61     NA     138  8.0   83     6  30</span></span>
-<span id="cb381-80"><a href="mod-r-tidyverse-intro.html#cb381-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 62    135     269  4.1   84     7   1</span></span>
-<span id="cb381-81"><a href="mod-r-tidyverse-intro.html#cb381-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 63     49     248  9.2   85     7   2</span></span>
-<span id="cb381-82"><a href="mod-r-tidyverse-intro.html#cb381-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 64     32     236  9.2   81     7   3</span></span>
-<span id="cb381-83"><a href="mod-r-tidyverse-intro.html#cb381-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 65     NA     101 10.9   84     7   4</span></span>
-<span id="cb381-84"><a href="mod-r-tidyverse-intro.html#cb381-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 66     64     175  4.6   83     7   5</span></span>
-<span id="cb381-85"><a href="mod-r-tidyverse-intro.html#cb381-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 67     40     314 10.9   83     7   6</span></span>
-<span id="cb381-86"><a href="mod-r-tidyverse-intro.html#cb381-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 68     77     276  5.1   88     7   7</span></span>
-<span id="cb381-87"><a href="mod-r-tidyverse-intro.html#cb381-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 69     97     267  6.3   92     7   8</span></span>
-<span id="cb381-88"><a href="mod-r-tidyverse-intro.html#cb381-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 70     97     272  5.7   92     7   9</span></span>
-<span id="cb381-89"><a href="mod-r-tidyverse-intro.html#cb381-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 71     85     175  7.4   89     7  10</span></span>
-<span id="cb381-90"><a href="mod-r-tidyverse-intro.html#cb381-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 72     NA     139  8.6   82     7  11</span></span>
-<span id="cb381-91"><a href="mod-r-tidyverse-intro.html#cb381-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 73     10     264 14.3   73     7  12</span></span>
-<span id="cb381-92"><a href="mod-r-tidyverse-intro.html#cb381-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 74     27     175 14.9   81     7  13</span></span>
-<span id="cb381-93"><a href="mod-r-tidyverse-intro.html#cb381-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 75     NA     291 14.9   91     7  14</span></span>
-<span id="cb381-94"><a href="mod-r-tidyverse-intro.html#cb381-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 76      7      48 14.3   80     7  15</span></span>
-<span id="cb381-95"><a href="mod-r-tidyverse-intro.html#cb381-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 77     48     260  6.9   81     7  16</span></span>
-<span id="cb381-96"><a href="mod-r-tidyverse-intro.html#cb381-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 78     35     274 10.3   82     7  17</span></span>
-<span id="cb381-97"><a href="mod-r-tidyverse-intro.html#cb381-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 79     61     285  6.3   84     7  18</span></span>
-<span id="cb381-98"><a href="mod-r-tidyverse-intro.html#cb381-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 80     79     187  5.1   87     7  19</span></span>
-<span id="cb381-99"><a href="mod-r-tidyverse-intro.html#cb381-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 81     63     220 11.5   85     7  20</span></span>
-<span id="cb381-100"><a href="mod-r-tidyverse-intro.html#cb381-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 82     16       7  6.9   74     7  21</span></span>
-<span id="cb381-101"><a href="mod-r-tidyverse-intro.html#cb381-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 83     NA     258  9.7   81     7  22</span></span>
-<span id="cb381-102"><a href="mod-r-tidyverse-intro.html#cb381-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 84     NA     295 11.5   82     7  23</span></span>
-<span id="cb381-103"><a href="mod-r-tidyverse-intro.html#cb381-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 85     80     294  8.6   86     7  24</span></span>
-<span id="cb381-104"><a href="mod-r-tidyverse-intro.html#cb381-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 86    108     223  8.0   85     7  25</span></span>
-<span id="cb381-105"><a href="mod-r-tidyverse-intro.html#cb381-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 87     20      81  8.6   82     7  26</span></span>
-<span id="cb381-106"><a href="mod-r-tidyverse-intro.html#cb381-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 88     52      82 12.0   86     7  27</span></span>
-<span id="cb381-107"><a href="mod-r-tidyverse-intro.html#cb381-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 89     82     213  7.4   88     7  28</span></span>
-<span id="cb381-108"><a href="mod-r-tidyverse-intro.html#cb381-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 90     50     275  7.4   86     7  29</span></span>
-<span id="cb381-109"><a href="mod-r-tidyverse-intro.html#cb381-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 91     64     253  7.4   83     7  30</span></span>
-<span id="cb381-110"><a href="mod-r-tidyverse-intro.html#cb381-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 92     59     254  9.2   81     7  31</span></span>
-<span id="cb381-111"><a href="mod-r-tidyverse-intro.html#cb381-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 93     39      83  6.9   81     8   1</span></span>
-<span id="cb381-112"><a href="mod-r-tidyverse-intro.html#cb381-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 94      9      24 13.8   81     8   2</span></span>
-<span id="cb381-113"><a href="mod-r-tidyverse-intro.html#cb381-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95     16      77  7.4   82     8   3</span></span>
-<span id="cb381-114"><a href="mod-r-tidyverse-intro.html#cb381-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 96     78      NA  6.9   86     8   4</span></span>
-<span id="cb381-115"><a href="mod-r-tidyverse-intro.html#cb381-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 97     35      NA  7.4   85     8   5</span></span>
-<span id="cb381-116"><a href="mod-r-tidyverse-intro.html#cb381-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 98     66      NA  4.6   87     8   6</span></span>
-<span id="cb381-117"><a href="mod-r-tidyverse-intro.html#cb381-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 99    122     255  4.0   89     8   7</span></span>
-<span id="cb381-118"><a href="mod-r-tidyverse-intro.html#cb381-118" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100    89     229 10.3   90     8   8</span></span>
-<span id="cb381-119"><a href="mod-r-tidyverse-intro.html#cb381-119" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 101   110     207  8.0   90     8   9</span></span>
-<span id="cb381-120"><a href="mod-r-tidyverse-intro.html#cb381-120" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 102    NA     222  8.6   92     8  10</span></span>
-<span id="cb381-121"><a href="mod-r-tidyverse-intro.html#cb381-121" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 103    NA     137 11.5   86     8  11</span></span>
-<span id="cb381-122"><a href="mod-r-tidyverse-intro.html#cb381-122" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 104    44     192 11.5   86     8  12</span></span>
-<span id="cb381-123"><a href="mod-r-tidyverse-intro.html#cb381-123" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 105    28     273 11.5   82     8  13</span></span>
-<span id="cb381-124"><a href="mod-r-tidyverse-intro.html#cb381-124" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 106    65     157  9.7   80     8  14</span></span>
-<span id="cb381-125"><a href="mod-r-tidyverse-intro.html#cb381-125" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 107    NA      64 11.5   79     8  15</span></span>
-<span id="cb381-126"><a href="mod-r-tidyverse-intro.html#cb381-126" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 108    22      71 10.3   77     8  16</span></span>
-<span id="cb381-127"><a href="mod-r-tidyverse-intro.html#cb381-127" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 109    59      51  6.3   79     8  17</span></span>
-<span id="cb381-128"><a href="mod-r-tidyverse-intro.html#cb381-128" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 110    23     115  7.4   76     8  18</span></span>
-<span id="cb381-129"><a href="mod-r-tidyverse-intro.html#cb381-129" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 111    31     244 10.9   78     8  19</span></span>
-<span id="cb381-130"><a href="mod-r-tidyverse-intro.html#cb381-130" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 112    44     190 10.3   78     8  20</span></span>
-<span id="cb381-131"><a href="mod-r-tidyverse-intro.html#cb381-131" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 113    21     259 15.5   77     8  21</span></span>
-<span id="cb381-132"><a href="mod-r-tidyverse-intro.html#cb381-132" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 114     9      36 14.3   72     8  22</span></span>
-<span id="cb381-133"><a href="mod-r-tidyverse-intro.html#cb381-133" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 115    NA     255 12.6   75     8  23</span></span>
-<span id="cb381-134"><a href="mod-r-tidyverse-intro.html#cb381-134" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 116    45     212  9.7   79     8  24</span></span>
-<span id="cb381-135"><a href="mod-r-tidyverse-intro.html#cb381-135" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 117   168     238  3.4   81     8  25</span></span>
-<span id="cb381-136"><a href="mod-r-tidyverse-intro.html#cb381-136" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 118    73     215  8.0   86     8  26</span></span>
-<span id="cb381-137"><a href="mod-r-tidyverse-intro.html#cb381-137" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 119    NA     153  5.7   88     8  27</span></span>
-<span id="cb381-138"><a href="mod-r-tidyverse-intro.html#cb381-138" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 120    76     203  9.7   97     8  28</span></span>
-<span id="cb381-139"><a href="mod-r-tidyverse-intro.html#cb381-139" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 121   118     225  2.3   94     8  29</span></span>
-<span id="cb381-140"><a href="mod-r-tidyverse-intro.html#cb381-140" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 122    84     237  6.3   96     8  30</span></span>
-<span id="cb381-141"><a href="mod-r-tidyverse-intro.html#cb381-141" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 123    85     188  6.3   94     8  31</span></span>
-<span id="cb381-142"><a href="mod-r-tidyverse-intro.html#cb381-142" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 124    96     167  6.9   91     9   1</span></span>
-<span id="cb381-143"><a href="mod-r-tidyverse-intro.html#cb381-143" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 125    78     197  5.1   92     9   2</span></span>
-<span id="cb381-144"><a href="mod-r-tidyverse-intro.html#cb381-144" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 126    73     183  2.8   93     9   3</span></span>
-<span id="cb381-145"><a href="mod-r-tidyverse-intro.html#cb381-145" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 127    91     189  4.6   93     9   4</span></span>
-<span id="cb381-146"><a href="mod-r-tidyverse-intro.html#cb381-146" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 128    47      95  7.4   87     9   5</span></span>
-<span id="cb381-147"><a href="mod-r-tidyverse-intro.html#cb381-147" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 129    32      92 15.5   84     9   6</span></span>
-<span id="cb381-148"><a href="mod-r-tidyverse-intro.html#cb381-148" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 130    20     252 10.9   80     9   7</span></span>
-<span id="cb381-149"><a href="mod-r-tidyverse-intro.html#cb381-149" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 131    23     220 10.3   78     9   8</span></span>
-<span id="cb381-150"><a href="mod-r-tidyverse-intro.html#cb381-150" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 132    21     230 10.9   75     9   9</span></span>
-<span id="cb381-151"><a href="mod-r-tidyverse-intro.html#cb381-151" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 133    24     259  9.7   73     9  10</span></span>
-<span id="cb381-152"><a href="mod-r-tidyverse-intro.html#cb381-152" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 134    44     236 14.9   81     9  11</span></span>
-<span id="cb381-153"><a href="mod-r-tidyverse-intro.html#cb381-153" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 135    21     259 15.5   76     9  12</span></span>
-<span id="cb381-154"><a href="mod-r-tidyverse-intro.html#cb381-154" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 136    28     238  6.3   77     9  13</span></span>
-<span id="cb381-155"><a href="mod-r-tidyverse-intro.html#cb381-155" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 137     9      24 10.9   71     9  14</span></span>
-<span id="cb381-156"><a href="mod-r-tidyverse-intro.html#cb381-156" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 138    13     112 11.5   71     9  15</span></span>
-<span id="cb381-157"><a href="mod-r-tidyverse-intro.html#cb381-157" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 139    46     237  6.9   78     9  16</span></span>
-<span id="cb381-158"><a href="mod-r-tidyverse-intro.html#cb381-158" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 140    18     224 13.8   67     9  17</span></span>
-<span id="cb381-159"><a href="mod-r-tidyverse-intro.html#cb381-159" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 141    13      27 10.3   76     9  18</span></span>
-<span id="cb381-160"><a href="mod-r-tidyverse-intro.html#cb381-160" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 142    24     238 10.3   68     9  19</span></span>
-<span id="cb381-161"><a href="mod-r-tidyverse-intro.html#cb381-161" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 143    16     201  8.0   82     9  20</span></span>
-<span id="cb381-162"><a href="mod-r-tidyverse-intro.html#cb381-162" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 144    13     238 12.6   64     9  21</span></span>
-<span id="cb381-163"><a href="mod-r-tidyverse-intro.html#cb381-163" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 145    23      14  9.2   71     9  22</span></span>
-<span id="cb381-164"><a href="mod-r-tidyverse-intro.html#cb381-164" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 146    36     139 10.3   81     9  23</span></span>
-<span id="cb381-165"><a href="mod-r-tidyverse-intro.html#cb381-165" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 147     7      49 10.3   69     9  24</span></span>
-<span id="cb381-166"><a href="mod-r-tidyverse-intro.html#cb381-166" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 148    14      20 16.6   63     9  25</span></span>
-<span id="cb381-167"><a href="mod-r-tidyverse-intro.html#cb381-167" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 149    30     193  6.9   70     9  26</span></span>
-<span id="cb381-168"><a href="mod-r-tidyverse-intro.html#cb381-168" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 150    NA     145 13.2   77     9  27</span></span>
-<span id="cb381-169"><a href="mod-r-tidyverse-intro.html#cb381-169" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 151    14     191 14.3   75     9  28</span></span>
-<span id="cb381-170"><a href="mod-r-tidyverse-intro.html#cb381-170" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 152    18     131  8.0   76     9  29</span></span>
-<span id="cb381-171"><a href="mod-r-tidyverse-intro.html#cb381-171" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 153    20     223 11.5   68     9  30</span></span></code></pre></div>
+<span id="cb381-15"><a href="mod-r-tidyverse-intro.html#cb381-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 143 more rows</span></span>
+<span id="cb381-16"><a href="mod-r-tidyverse-intro.html#cb381-16" aria-hidden="true" tabindex="-1"></a>airquality</span>
+<span id="cb381-17"><a href="mod-r-tidyverse-intro.html#cb381-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Ozone Solar.R Wind Temp Month Day</span></span>
+<span id="cb381-18"><a href="mod-r-tidyverse-intro.html#cb381-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      41     190  7.4   67     5   1</span></span>
+<span id="cb381-19"><a href="mod-r-tidyverse-intro.html#cb381-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      36     118  8.0   72     5   2</span></span>
+<span id="cb381-20"><a href="mod-r-tidyverse-intro.html#cb381-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      12     149 12.6   74     5   3</span></span>
+<span id="cb381-21"><a href="mod-r-tidyverse-intro.html#cb381-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      18     313 11.5   62     5   4</span></span>
+<span id="cb381-22"><a href="mod-r-tidyverse-intro.html#cb381-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      NA      NA 14.3   56     5   5</span></span>
+<span id="cb381-23"><a href="mod-r-tidyverse-intro.html#cb381-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      28      NA 14.9   66     5   6</span></span>
+<span id="cb381-24"><a href="mod-r-tidyverse-intro.html#cb381-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      23     299  8.6   65     5   7</span></span>
+<span id="cb381-25"><a href="mod-r-tidyverse-intro.html#cb381-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8      19      99 13.8   59     5   8</span></span>
+<span id="cb381-26"><a href="mod-r-tidyverse-intro.html#cb381-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9       8      19 20.1   61     5   9</span></span>
+<span id="cb381-27"><a href="mod-r-tidyverse-intro.html#cb381-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10     NA     194  8.6   69     5  10</span></span>
+<span id="cb381-28"><a href="mod-r-tidyverse-intro.html#cb381-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11      7      NA  6.9   74     5  11</span></span>
+<span id="cb381-29"><a href="mod-r-tidyverse-intro.html#cb381-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12     16     256  9.7   69     5  12</span></span>
+<span id="cb381-30"><a href="mod-r-tidyverse-intro.html#cb381-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13     11     290  9.2   66     5  13</span></span>
+<span id="cb381-31"><a href="mod-r-tidyverse-intro.html#cb381-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14     14     274 10.9   68     5  14</span></span>
+<span id="cb381-32"><a href="mod-r-tidyverse-intro.html#cb381-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15     18      65 13.2   58     5  15</span></span>
+<span id="cb381-33"><a href="mod-r-tidyverse-intro.html#cb381-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16     14     334 11.5   64     5  16</span></span>
+<span id="cb381-34"><a href="mod-r-tidyverse-intro.html#cb381-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17     34     307 12.0   66     5  17</span></span>
+<span id="cb381-35"><a href="mod-r-tidyverse-intro.html#cb381-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18      6      78 18.4   57     5  18</span></span>
+<span id="cb381-36"><a href="mod-r-tidyverse-intro.html#cb381-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19     30     322 11.5   68     5  19</span></span>
+<span id="cb381-37"><a href="mod-r-tidyverse-intro.html#cb381-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20     11      44  9.7   62     5  20</span></span>
+<span id="cb381-38"><a href="mod-r-tidyverse-intro.html#cb381-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 21      1       8  9.7   59     5  21</span></span>
+<span id="cb381-39"><a href="mod-r-tidyverse-intro.html#cb381-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 22     11     320 16.6   73     5  22</span></span>
+<span id="cb381-40"><a href="mod-r-tidyverse-intro.html#cb381-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 23      4      25  9.7   61     5  23</span></span>
+<span id="cb381-41"><a href="mod-r-tidyverse-intro.html#cb381-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 24     32      92 12.0   61     5  24</span></span>
+<span id="cb381-42"><a href="mod-r-tidyverse-intro.html#cb381-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 25     NA      66 16.6   57     5  25</span></span>
+<span id="cb381-43"><a href="mod-r-tidyverse-intro.html#cb381-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 26     NA     266 14.9   58     5  26</span></span>
+<span id="cb381-44"><a href="mod-r-tidyverse-intro.html#cb381-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 27     NA      NA  8.0   57     5  27</span></span>
+<span id="cb381-45"><a href="mod-r-tidyverse-intro.html#cb381-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 28     23      13 12.0   67     5  28</span></span>
+<span id="cb381-46"><a href="mod-r-tidyverse-intro.html#cb381-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 29     45     252 14.9   81     5  29</span></span>
+<span id="cb381-47"><a href="mod-r-tidyverse-intro.html#cb381-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 30    115     223  5.7   79     5  30</span></span>
+<span id="cb381-48"><a href="mod-r-tidyverse-intro.html#cb381-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 31     37     279  7.4   76     5  31</span></span>
+<span id="cb381-49"><a href="mod-r-tidyverse-intro.html#cb381-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 32     NA     286  8.6   78     6   1</span></span>
+<span id="cb381-50"><a href="mod-r-tidyverse-intro.html#cb381-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 33     NA     287  9.7   74     6   2</span></span>
+<span id="cb381-51"><a href="mod-r-tidyverse-intro.html#cb381-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 34     NA     242 16.1   67     6   3</span></span>
+<span id="cb381-52"><a href="mod-r-tidyverse-intro.html#cb381-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 35     NA     186  9.2   84     6   4</span></span>
+<span id="cb381-53"><a href="mod-r-tidyverse-intro.html#cb381-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 36     NA     220  8.6   85     6   5</span></span>
+<span id="cb381-54"><a href="mod-r-tidyverse-intro.html#cb381-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 37     NA     264 14.3   79     6   6</span></span>
+<span id="cb381-55"><a href="mod-r-tidyverse-intro.html#cb381-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 38     29     127  9.7   82     6   7</span></span>
+<span id="cb381-56"><a href="mod-r-tidyverse-intro.html#cb381-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 39     NA     273  6.9   87     6   8</span></span>
+<span id="cb381-57"><a href="mod-r-tidyverse-intro.html#cb381-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 40     71     291 13.8   90     6   9</span></span>
+<span id="cb381-58"><a href="mod-r-tidyverse-intro.html#cb381-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 41     39     323 11.5   87     6  10</span></span>
+<span id="cb381-59"><a href="mod-r-tidyverse-intro.html#cb381-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 42     NA     259 10.9   93     6  11</span></span>
+<span id="cb381-60"><a href="mod-r-tidyverse-intro.html#cb381-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 43     NA     250  9.2   92     6  12</span></span>
+<span id="cb381-61"><a href="mod-r-tidyverse-intro.html#cb381-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 44     23     148  8.0   82     6  13</span></span>
+<span id="cb381-62"><a href="mod-r-tidyverse-intro.html#cb381-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 45     NA     332 13.8   80     6  14</span></span>
+<span id="cb381-63"><a href="mod-r-tidyverse-intro.html#cb381-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 46     NA     322 11.5   79     6  15</span></span>
+<span id="cb381-64"><a href="mod-r-tidyverse-intro.html#cb381-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 47     21     191 14.9   77     6  16</span></span>
+<span id="cb381-65"><a href="mod-r-tidyverse-intro.html#cb381-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 48     37     284 20.7   72     6  17</span></span>
+<span id="cb381-66"><a href="mod-r-tidyverse-intro.html#cb381-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 49     20      37  9.2   65     6  18</span></span>
+<span id="cb381-67"><a href="mod-r-tidyverse-intro.html#cb381-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 50     12     120 11.5   73     6  19</span></span>
+<span id="cb381-68"><a href="mod-r-tidyverse-intro.html#cb381-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 51     13     137 10.3   76     6  20</span></span>
+<span id="cb381-69"><a href="mod-r-tidyverse-intro.html#cb381-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 52     NA     150  6.3   77     6  21</span></span>
+<span id="cb381-70"><a href="mod-r-tidyverse-intro.html#cb381-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 53     NA      59  1.7   76     6  22</span></span>
+<span id="cb381-71"><a href="mod-r-tidyverse-intro.html#cb381-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 54     NA      91  4.6   76     6  23</span></span>
+<span id="cb381-72"><a href="mod-r-tidyverse-intro.html#cb381-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 55     NA     250  6.3   76     6  24</span></span>
+<span id="cb381-73"><a href="mod-r-tidyverse-intro.html#cb381-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 56     NA     135  8.0   75     6  25</span></span>
+<span id="cb381-74"><a href="mod-r-tidyverse-intro.html#cb381-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 57     NA     127  8.0   78     6  26</span></span>
+<span id="cb381-75"><a href="mod-r-tidyverse-intro.html#cb381-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 58     NA      47 10.3   73     6  27</span></span>
+<span id="cb381-76"><a href="mod-r-tidyverse-intro.html#cb381-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 59     NA      98 11.5   80     6  28</span></span>
+<span id="cb381-77"><a href="mod-r-tidyverse-intro.html#cb381-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 60     NA      31 14.9   77     6  29</span></span>
+<span id="cb381-78"><a href="mod-r-tidyverse-intro.html#cb381-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 61     NA     138  8.0   83     6  30</span></span>
+<span id="cb381-79"><a href="mod-r-tidyverse-intro.html#cb381-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 62    135     269  4.1   84     7   1</span></span>
+<span id="cb381-80"><a href="mod-r-tidyverse-intro.html#cb381-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 63     49     248  9.2   85     7   2</span></span>
+<span id="cb381-81"><a href="mod-r-tidyverse-intro.html#cb381-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 64     32     236  9.2   81     7   3</span></span>
+<span id="cb381-82"><a href="mod-r-tidyverse-intro.html#cb381-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 65     NA     101 10.9   84     7   4</span></span>
+<span id="cb381-83"><a href="mod-r-tidyverse-intro.html#cb381-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 66     64     175  4.6   83     7   5</span></span>
+<span id="cb381-84"><a href="mod-r-tidyverse-intro.html#cb381-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 67     40     314 10.9   83     7   6</span></span>
+<span id="cb381-85"><a href="mod-r-tidyverse-intro.html#cb381-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 68     77     276  5.1   88     7   7</span></span>
+<span id="cb381-86"><a href="mod-r-tidyverse-intro.html#cb381-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 69     97     267  6.3   92     7   8</span></span>
+<span id="cb381-87"><a href="mod-r-tidyverse-intro.html#cb381-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 70     97     272  5.7   92     7   9</span></span>
+<span id="cb381-88"><a href="mod-r-tidyverse-intro.html#cb381-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 71     85     175  7.4   89     7  10</span></span>
+<span id="cb381-89"><a href="mod-r-tidyverse-intro.html#cb381-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 72     NA     139  8.6   82     7  11</span></span>
+<span id="cb381-90"><a href="mod-r-tidyverse-intro.html#cb381-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 73     10     264 14.3   73     7  12</span></span>
+<span id="cb381-91"><a href="mod-r-tidyverse-intro.html#cb381-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 74     27     175 14.9   81     7  13</span></span>
+<span id="cb381-92"><a href="mod-r-tidyverse-intro.html#cb381-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 75     NA     291 14.9   91     7  14</span></span>
+<span id="cb381-93"><a href="mod-r-tidyverse-intro.html#cb381-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 76      7      48 14.3   80     7  15</span></span>
+<span id="cb381-94"><a href="mod-r-tidyverse-intro.html#cb381-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 77     48     260  6.9   81     7  16</span></span>
+<span id="cb381-95"><a href="mod-r-tidyverse-intro.html#cb381-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 78     35     274 10.3   82     7  17</span></span>
+<span id="cb381-96"><a href="mod-r-tidyverse-intro.html#cb381-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 79     61     285  6.3   84     7  18</span></span>
+<span id="cb381-97"><a href="mod-r-tidyverse-intro.html#cb381-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 80     79     187  5.1   87     7  19</span></span>
+<span id="cb381-98"><a href="mod-r-tidyverse-intro.html#cb381-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 81     63     220 11.5   85     7  20</span></span>
+<span id="cb381-99"><a href="mod-r-tidyverse-intro.html#cb381-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 82     16       7  6.9   74     7  21</span></span>
+<span id="cb381-100"><a href="mod-r-tidyverse-intro.html#cb381-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 83     NA     258  9.7   81     7  22</span></span>
+<span id="cb381-101"><a href="mod-r-tidyverse-intro.html#cb381-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 84     NA     295 11.5   82     7  23</span></span>
+<span id="cb381-102"><a href="mod-r-tidyverse-intro.html#cb381-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 85     80     294  8.6   86     7  24</span></span>
+<span id="cb381-103"><a href="mod-r-tidyverse-intro.html#cb381-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 86    108     223  8.0   85     7  25</span></span>
+<span id="cb381-104"><a href="mod-r-tidyverse-intro.html#cb381-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 87     20      81  8.6   82     7  26</span></span>
+<span id="cb381-105"><a href="mod-r-tidyverse-intro.html#cb381-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 88     52      82 12.0   86     7  27</span></span>
+<span id="cb381-106"><a href="mod-r-tidyverse-intro.html#cb381-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 89     82     213  7.4   88     7  28</span></span>
+<span id="cb381-107"><a href="mod-r-tidyverse-intro.html#cb381-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 90     50     275  7.4   86     7  29</span></span>
+<span id="cb381-108"><a href="mod-r-tidyverse-intro.html#cb381-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 91     64     253  7.4   83     7  30</span></span>
+<span id="cb381-109"><a href="mod-r-tidyverse-intro.html#cb381-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 92     59     254  9.2   81     7  31</span></span>
+<span id="cb381-110"><a href="mod-r-tidyverse-intro.html#cb381-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 93     39      83  6.9   81     8   1</span></span>
+<span id="cb381-111"><a href="mod-r-tidyverse-intro.html#cb381-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 94      9      24 13.8   81     8   2</span></span>
+<span id="cb381-112"><a href="mod-r-tidyverse-intro.html#cb381-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95     16      77  7.4   82     8   3</span></span>
+<span id="cb381-113"><a href="mod-r-tidyverse-intro.html#cb381-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 96     78      NA  6.9   86     8   4</span></span>
+<span id="cb381-114"><a href="mod-r-tidyverse-intro.html#cb381-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 97     35      NA  7.4   85     8   5</span></span>
+<span id="cb381-115"><a href="mod-r-tidyverse-intro.html#cb381-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 98     66      NA  4.6   87     8   6</span></span>
+<span id="cb381-116"><a href="mod-r-tidyverse-intro.html#cb381-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 99    122     255  4.0   89     8   7</span></span>
+<span id="cb381-117"><a href="mod-r-tidyverse-intro.html#cb381-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100    89     229 10.3   90     8   8</span></span>
+<span id="cb381-118"><a href="mod-r-tidyverse-intro.html#cb381-118" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 101   110     207  8.0   90     8   9</span></span>
+<span id="cb381-119"><a href="mod-r-tidyverse-intro.html#cb381-119" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 102    NA     222  8.6   92     8  10</span></span>
+<span id="cb381-120"><a href="mod-r-tidyverse-intro.html#cb381-120" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 103    NA     137 11.5   86     8  11</span></span>
+<span id="cb381-121"><a href="mod-r-tidyverse-intro.html#cb381-121" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 104    44     192 11.5   86     8  12</span></span>
+<span id="cb381-122"><a href="mod-r-tidyverse-intro.html#cb381-122" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 105    28     273 11.5   82     8  13</span></span>
+<span id="cb381-123"><a href="mod-r-tidyverse-intro.html#cb381-123" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 106    65     157  9.7   80     8  14</span></span>
+<span id="cb381-124"><a href="mod-r-tidyverse-intro.html#cb381-124" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 107    NA      64 11.5   79     8  15</span></span>
+<span id="cb381-125"><a href="mod-r-tidyverse-intro.html#cb381-125" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 108    22      71 10.3   77     8  16</span></span>
+<span id="cb381-126"><a href="mod-r-tidyverse-intro.html#cb381-126" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 109    59      51  6.3   79     8  17</span></span>
+<span id="cb381-127"><a href="mod-r-tidyverse-intro.html#cb381-127" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 110    23     115  7.4   76     8  18</span></span>
+<span id="cb381-128"><a href="mod-r-tidyverse-intro.html#cb381-128" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 111    31     244 10.9   78     8  19</span></span>
+<span id="cb381-129"><a href="mod-r-tidyverse-intro.html#cb381-129" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 112    44     190 10.3   78     8  20</span></span>
+<span id="cb381-130"><a href="mod-r-tidyverse-intro.html#cb381-130" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 113    21     259 15.5   77     8  21</span></span>
+<span id="cb381-131"><a href="mod-r-tidyverse-intro.html#cb381-131" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 114     9      36 14.3   72     8  22</span></span>
+<span id="cb381-132"><a href="mod-r-tidyverse-intro.html#cb381-132" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 115    NA     255 12.6   75     8  23</span></span>
+<span id="cb381-133"><a href="mod-r-tidyverse-intro.html#cb381-133" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 116    45     212  9.7   79     8  24</span></span>
+<span id="cb381-134"><a href="mod-r-tidyverse-intro.html#cb381-134" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 117   168     238  3.4   81     8  25</span></span>
+<span id="cb381-135"><a href="mod-r-tidyverse-intro.html#cb381-135" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 118    73     215  8.0   86     8  26</span></span>
+<span id="cb381-136"><a href="mod-r-tidyverse-intro.html#cb381-136" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 119    NA     153  5.7   88     8  27</span></span>
+<span id="cb381-137"><a href="mod-r-tidyverse-intro.html#cb381-137" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 120    76     203  9.7   97     8  28</span></span>
+<span id="cb381-138"><a href="mod-r-tidyverse-intro.html#cb381-138" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 121   118     225  2.3   94     8  29</span></span>
+<span id="cb381-139"><a href="mod-r-tidyverse-intro.html#cb381-139" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 122    84     237  6.3   96     8  30</span></span>
+<span id="cb381-140"><a href="mod-r-tidyverse-intro.html#cb381-140" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 123    85     188  6.3   94     8  31</span></span>
+<span id="cb381-141"><a href="mod-r-tidyverse-intro.html#cb381-141" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 124    96     167  6.9   91     9   1</span></span>
+<span id="cb381-142"><a href="mod-r-tidyverse-intro.html#cb381-142" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 125    78     197  5.1   92     9   2</span></span>
+<span id="cb381-143"><a href="mod-r-tidyverse-intro.html#cb381-143" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 126    73     183  2.8   93     9   3</span></span>
+<span id="cb381-144"><a href="mod-r-tidyverse-intro.html#cb381-144" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 127    91     189  4.6   93     9   4</span></span>
+<span id="cb381-145"><a href="mod-r-tidyverse-intro.html#cb381-145" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 128    47      95  7.4   87     9   5</span></span>
+<span id="cb381-146"><a href="mod-r-tidyverse-intro.html#cb381-146" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 129    32      92 15.5   84     9   6</span></span>
+<span id="cb381-147"><a href="mod-r-tidyverse-intro.html#cb381-147" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 130    20     252 10.9   80     9   7</span></span>
+<span id="cb381-148"><a href="mod-r-tidyverse-intro.html#cb381-148" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 131    23     220 10.3   78     9   8</span></span>
+<span id="cb381-149"><a href="mod-r-tidyverse-intro.html#cb381-149" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 132    21     230 10.9   75     9   9</span></span>
+<span id="cb381-150"><a href="mod-r-tidyverse-intro.html#cb381-150" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 133    24     259  9.7   73     9  10</span></span>
+<span id="cb381-151"><a href="mod-r-tidyverse-intro.html#cb381-151" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 134    44     236 14.9   81     9  11</span></span>
+<span id="cb381-152"><a href="mod-r-tidyverse-intro.html#cb381-152" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 135    21     259 15.5   76     9  12</span></span>
+<span id="cb381-153"><a href="mod-r-tidyverse-intro.html#cb381-153" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 136    28     238  6.3   77     9  13</span></span>
+<span id="cb381-154"><a href="mod-r-tidyverse-intro.html#cb381-154" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 137     9      24 10.9   71     9  14</span></span>
+<span id="cb381-155"><a href="mod-r-tidyverse-intro.html#cb381-155" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 138    13     112 11.5   71     9  15</span></span>
+<span id="cb381-156"><a href="mod-r-tidyverse-intro.html#cb381-156" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 139    46     237  6.9   78     9  16</span></span>
+<span id="cb381-157"><a href="mod-r-tidyverse-intro.html#cb381-157" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 140    18     224 13.8   67     9  17</span></span>
+<span id="cb381-158"><a href="mod-r-tidyverse-intro.html#cb381-158" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 141    13      27 10.3   76     9  18</span></span>
+<span id="cb381-159"><a href="mod-r-tidyverse-intro.html#cb381-159" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 142    24     238 10.3   68     9  19</span></span>
+<span id="cb381-160"><a href="mod-r-tidyverse-intro.html#cb381-160" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 143    16     201  8.0   82     9  20</span></span>
+<span id="cb381-161"><a href="mod-r-tidyverse-intro.html#cb381-161" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 144    13     238 12.6   64     9  21</span></span>
+<span id="cb381-162"><a href="mod-r-tidyverse-intro.html#cb381-162" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 145    23      14  9.2   71     9  22</span></span>
+<span id="cb381-163"><a href="mod-r-tidyverse-intro.html#cb381-163" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 146    36     139 10.3   81     9  23</span></span>
+<span id="cb381-164"><a href="mod-r-tidyverse-intro.html#cb381-164" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 147     7      49 10.3   69     9  24</span></span>
+<span id="cb381-165"><a href="mod-r-tidyverse-intro.html#cb381-165" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 148    14      20 16.6   63     9  25</span></span>
+<span id="cb381-166"><a href="mod-r-tidyverse-intro.html#cb381-166" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 149    30     193  6.9   70     9  26</span></span>
+<span id="cb381-167"><a href="mod-r-tidyverse-intro.html#cb381-167" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 150    NA     145 13.2   77     9  27</span></span>
+<span id="cb381-168"><a href="mod-r-tidyverse-intro.html#cb381-168" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 151    14     191 14.3   75     9  28</span></span>
+<span id="cb381-169"><a href="mod-r-tidyverse-intro.html#cb381-169" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 152    18     131  8.0   76     9  29</span></span>
+<span id="cb381-170"><a href="mod-r-tidyverse-intro.html#cb381-170" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 153    20     223 11.5   68     9  30</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1161,7 +1162,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
