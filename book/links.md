@@ -58,7 +58,7 @@
 
 [R]: https://www.r-project.org
 [RStudio]: https://rstudio.com
-[rstudio-cloud]: https://rstudio.cloud/spaces/274292/join?access_code=iLqcFGfYZ43En9-eMNzu7zPusybjK7Mdj0vyazWH
+[posit-cloud]: https://rstudio.cloud/spaces/274292/join?access_code=iLqcFGfYZ43En9-eMNzu7zPusybjK7Mdj0vyazWH
 [r-cloud-mod7]: https://rstudio.cloud/spaces/274292/content/4411754
 [r-cloud-mod8]: https://rstudio.cloud/spaces/274292/content/4411755
 [r-cloud-mod9]: https://rstudio.cloud/spaces/274292/content/4411756

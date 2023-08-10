@@ -365,7 +365,7 @@ link_excel_file_text <- function(module_number_prefix, module_name) {
 
 
 link_rcloud_text <- function(module_number) {
-   return(str_c("A template project for this module is given on [RStudio Cloud][r-cloud-mod", module_number, "]",
+   return(str_c("A template project for this module is given on [Posit Cloud][r-cloud-mod", module_number, "]",
          " (open it and use it while reading the notes).")
    )
 }
@@ -391,6 +391,6 @@ link_slide_file_text <- function(module_number_prefix, module_name) {
 exercises_r_text <- function(project_name_prefix) {
    return(str_c(
       "Below you will find a set of exercises. Always have a look at the exercises before you meet in your study group and try to solve them yourself. Are you stuck, see the [help page](#help). Some of the solutions to each exercise can be seen by pressing the button at each question. Beware, you will not learn by giving up too early. Put some effort into finding a solution! Always practice using shortcuts in RStudio (see **Tools > Keyboard Shortcuts Help**).\n\n",
-      "Go to the [Tools for Analytics][rstudio-cloud] workspace and download/export the ", project_name_prefix, " project. Open it on your laptop and have a look at the files in the `exercises` folder which can be used as a starting point."
+      "Go to the [Tools for Analytics][posit-cloud] workspace and download/export the ", project_name_prefix, " project. Open it on your laptop and have a look at the files in the `exercises` folder which can be used as a starting point."
    ))
 }
