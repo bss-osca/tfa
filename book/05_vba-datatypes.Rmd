@@ -359,6 +359,29 @@ Sub TM5_RangeEx2()
 End Sub
 ```
 
+
+### Named ranges in Excel
+
+It is possible to define named ranges directly in Excel. For instance the named range `UserAmounts` referring to cells C5:E19 in Figure \@ref(fig:tm5-sheet) has been created by selecting cells C5:E19 and defining `UserAmounts` with *Formulas -> Define Name*. You can now use `UserAmounts` in VBA by 
+
+```
+Sub TM5_NamedRangeEx()
+  Dim rng As Range
+  
+  ThisWorkbook.Activate
+  Set rng = Range("UserAmounts")
+  MsgBox ("Number of rows: " & RngGetRows(rng))
+  MsgBox ("Number of cols: " & RngGetCols(rng))
+  MsgBox ("First column number: " & RngGetFirstCol(rng))
+  MsgBox ("First column letter: " & RngGetFirstCol(rng, asLetter:=True))
+  MsgBox ("Lower right cell: " & RngGetLowerRight(rng, asString:=True))
+  MsgBox ("Upper right cell: " & RngGetUpperRight(rng, asString:=True))
+End Sub
+```
+
+Now try to redefine `UserAmounts` in Excel to cells C31:D33 (*Formulas > Name Manager > Edit*) and run the code again. That is, by using named ranges you can modify the reference directly in Excel. 
+
+
 ### Current region of a range
 
 An important method is the current region `.CurrentRegion` which expands the range until all cells surrounding the range is empty. This is very useful if don't know the size for data. Let us make a function that return the current region:
@@ -1075,7 +1098,7 @@ Let us try to implement the greedy algorithm which takes the cost array `costs` 
 ```
 '' Job sequeceing using a cost array
 '
-' @param costs An array with setup costs
+' @param costs An 2D array with setup costs
 ' @param strSeq The job sequence found (returned ByRef).
 ' @param dblCosts The total setup costs (returned ByRef).
 Sub TM5_GreedyAlg(costs() As Double, strSeq As String, dblCosts As Double)
@@ -1447,6 +1470,13 @@ Write a sub *TM5_Equal* that
 
 - stores the values of the data set indicated in cell C1 in an array;
 - creates an array `equal`, where `equal(k,j)` is 1, if the k’th and j’th values are equal, and 0 otherwise.
+
+
+A named range `Numbers` has been stored in Excel using *Formulas -> Define Name*. Write a sub *TM5_EqualNamedRange* that 
+
+- stores the values of the data set saved in the named range `Numbers`. 
+- creates an array `equal`, where `equal(k,j)` is 1, if the k’th and j’th values are equal, and 0 otherwise.
+- Try to redefine `Numbers` using *Formulas > Name Manager > Edit* so reference to another dataset and rerun the the sub.
 
 
 ### Exercise - Product search {#ex-vba-search-products}
