@@ -437,12 +437,54 @@ for (f in files) {
    titles <- str_remove(titles, "'' ")
    dat <- bind_rows(dat,tibble(Procedure = procedures, Type = type, Description = titles))
 }
-dat <- dat %>% arrange(Procedure, Type)
+dat <- dat %>% 
+   arrange(Procedure, Type) %>% 
+   mutate(Procedure = str_c("[`", Procedure, "`](#def-vba-", Procedure, ")"))
 kbl(dat, caption = str_c("Course procedures. See the modules named ", knitr::combine_words(files), " for further info.")) %>%
    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))  
 ```
 
 
+### Detailed descriptions of course procedures
+
+```{r detailed-course-proc, results='asis', echo=FALSE}
+files <- c("ModRng", "ModAry", "ModWst", "ModCol", "ModTm", "ModRand")
+
+out <- function(x) {
+   cat(x$title)
+   cat(x$funcDef)
+   kbl(x$param) %>%
+      kable_styling(bootstrap_options = c("condensed", "responsive"))    
+}
+
+for (f in files) {
+   fileTxt <- read_file(file = here::here(str_c("vba/bas/", f, ".bas")))
+   str1 <- str_extract_all(fileTxt, "\n'' (((.|\n)*?)\nEnd)")
+   str1 <- str1[[1]]
+   dat <- list()
+   for (i in 1:length(str1)) {
+      str <- str1[i]
+      param <- str_extract_all(str, "\n' @param .*")[[1]] %>% 
+         str_remove("\n' @param ") %>% 
+         str_split_fixed(" ", 2) %>% 
+         as_tibble(.name_repair = c("universal")) %>% 
+         rename("Argument" = ...1, "Description" = ...2) %>% 
+         mutate(Argument = str_c("`", Argument, "`"))
+      funcDef <- str_extract(str, "\n(Function|Sub) ((.|\n)*?)\\)") %>% 
+         str_replace_all("_\n *([:graph:])", "\\1") %>%
+         str_remove("\n") %>% 
+         str_replace_all(", ", ",\n   ") %>% 
+         str_replace("\\(", "\\(\n   ") %>%
+         str_replace("\\)", "\n\\)") %>%
+         str_c("```\n",.,"\n```\n")
+      funcName <- str_extract(str, "\n(Function|Sub) ((.|\n)*?)\\)") %>% 
+         str_extract("(Function|Sub) ([:alnum:]*)\\(", group = 2)
+      title <- str_extract(str, "\n'' (.*)", group = 1) %>% str_c("#### ", ., " {#def-vba-", funcName, "}\n")
+      dat[[i]] = list(title = title, funcDef = funcDef, param = param)
+   }
+   tmp <- map(dat, out)
+}
+```
 
 
 
