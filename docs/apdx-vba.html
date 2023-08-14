@@ -750,7 +750,7 @@ Generate random numbers from a binomial distribution
 sub
 </td>
 <td style="text-align:left;">
-Generate a random number from a custom discrete distribution
+Generate random numbers from a custom discrete distribution
 </td>
 </tr>
 <tr>
@@ -1036,7 +1036,7 @@ Return the lower right cell of the current region
 function
 </td>
 <td style="text-align:left;">
-Return the part of the current region starting with upper right cell in row and col
+Return the part of the current region starting with upper right cell in row and col number (counting within the current range) and lower right corner of the current range.
 </td>
 </tr>
 <tr>
@@ -1341,13 +1341,37 @@ Rename a worksheet if it exists and no sheet with the new name
 <div id="detailed-descriptions-of-course-procedures" class="section level3 hasAnchor" number="21.3.1">
 <h3><span class="header-section-number">E.3.1</span> Detailed descriptions of course procedures<a href="apdx-vba.html#detailed-descriptions-of-course-procedures" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="def-vba-RngRemoveInterior" class="section level4 hasAnchor" number="21.3.1.1">
-<h4><span class="header-section-number">E.3.1.1</span> Remove fill colors in cell range<a href="apdx-vba.html#def-vba-RngRemoveInterior" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.1</span> RngRemoveInterior: Remove fill colors in cell range<a href="apdx-vba.html#def-vba-RngRemoveInterior" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub RngRemoveInterior(
    rng As Range
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+Range to clear.
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="def-vba-RngFormat" class="section level4 hasAnchor" number="21.3.1.2">
-<h4><span class="header-section-number">E.3.1.2</span> Format a range<a href="apdx-vba.html#def-vba-RngFormat" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.2</span> RngFormat: Format a range<a href="apdx-vba.html#def-vba-RngFormat" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub RngFormat(
    rng As Range,
    Optional color As String = &quot;none&quot;,
@@ -1356,205 +1380,1324 @@ Rename a worksheet if it exists and no sheet with the new name
    Optional merge As Boolean = False,
    Optional wrap As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+Range to format.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>color</code>
+</td>
+<td style="text-align:left;">
+A string equal "normal", "yellow", "orange" or "green" (otherwise leave background as is).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>fit</code>
+</td>
+<td style="text-align:left;">
+Autofit width?
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>vertical</code>
+</td>
+<td style="text-align:left;">
+Make orientation vertical?
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>merge</code>
+</td>
+<td style="text-align:left;">
+Merge range?
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>wrap</code>
+</td>
+<td style="text-align:left;">
+Wrap text?
+</td>
+</tr>
+</tbody>
+</table>
+<p>Only works if you use an english version of Excel since e.g. .Style=“Good” must be replaced with .Style = “God” in DK.</p>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    Dim rngNew As Range
+    Set rng = RngCurRegion(Range(&quot;D7&quot;))         &#39; get current region
+    MsgBox (&quot;Copy to H14 (upper left corner).&quot;)
+    Set rngNew = RngPaste(rng, Range(&quot;H14&quot;))    &#39; rngNew is now the new range
+    MsgBox (&quot;Make yellow.&quot;)
+    Call RngFormat(rngNew, &quot;yellow&quot;)
+    MsgBox (&quot;Remove format.&quot;)
+    Call RngClear(rngNew, blnCells:=False, blnFormat:=True)
+    MsgBox (&quot;Clear range.&quot;)
+    Call RngClear(rngNew)</code></pre>
 </div>
 <div id="def-vba-RngGetCurRegionRows" class="section level4 hasAnchor" number="21.3.1.3">
-<h4><span class="header-section-number">E.3.1.3</span> Rows in current region<a href="apdx-vba.html#def-vba-RngGetCurRegionRows" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.3</span> RngGetCurRegionRows: Rows in current region<a href="apdx-vba.html#def-vba-RngGetCurRegionRows" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetCurRegionRows(
    rng As Range
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range within the currentregion
+</td>
+</tr>
+</tbody>
+</table>
+<p>Currentregion is the 2-dim range exapanded until empty cells</p>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Set rng = Range(&quot;D7&quot;)  &#39; assume we know that data contains cell D7
+    MsgBox (&quot;Address: &quot; &amp; RngGetCurRegionAddress(rng))
+    MsgBox (&quot;Rows = &quot; &amp; RngGetCurRegionRows(rng) &amp; &quot; cols = &quot; &amp; RngGetCurRegionCols(rng))
+    MsgBox (&quot;First row number = &quot; &amp; RngGetCurRegionFirstRow(rng) &amp; &quot;. Last row number = &quot; &amp; RngGetCurRegionLastRow(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col number = &quot; &amp; RngGetCurRegionFirstCol(rng) &amp; &quot;. Last col number = &quot; &amp; RngGetCurRegionLastCol(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col letter = &quot; &amp; RngGetCurRegionFirstCol(rng, True) &amp; &quot;. Last col letter = &quot; &amp; RngGetCurRegionLastCol(rng, True) &amp; &quot;.&quot;)</code></pre>
 </div>
 <div id="def-vba-RngGetCurRegionCols" class="section level4 hasAnchor" number="21.3.1.4">
-<h4><span class="header-section-number">E.3.1.4</span> Columns in current region<a href="apdx-vba.html#def-vba-RngGetCurRegionCols" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.4</span> RngGetCurRegionCols: Columns in current region<a href="apdx-vba.html#def-vba-RngGetCurRegionCols" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetCurRegionCols(
    rng As Range
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range within the currentregion
+</td>
+</tr>
+</tbody>
+</table>
+<p>Currentregion is the 2-dim range exapanded until empty cells</p>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Set rng = Range(&quot;D7&quot;)  &#39; assume we know that data contains cell D7
+    MsgBox (&quot;Address: &quot; &amp; RngGetCurRegionAddress(rng))
+    MsgBox (&quot;Rows = &quot; &amp; RngGetCurRegionRows(rng) &amp; &quot; cols = &quot; &amp; RngGetCurRegionCols(rng))
+    MsgBox (&quot;First row number = &quot; &amp; RngGetCurRegionFirstRow(rng) &amp; &quot;. Last row number = &quot; &amp; RngGetCurRegionLastRow(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col number = &quot; &amp; RngGetCurRegionFirstCol(rng) &amp; &quot;. Last col number = &quot; &amp; RngGetCurRegionLastCol(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col letter = &quot; &amp; RngGetCurRegionFirstCol(rng, True) &amp; &quot;. Last col letter = &quot; &amp; RngGetCurRegionLastCol(rng, True) &amp; &quot;.&quot;)</code></pre>
 </div>
 <div id="def-vba-RngGetColLetter" class="section level4 hasAnchor" number="21.3.1.5">
-<h4><span class="header-section-number">E.3.1.5</span> Convert column number to letter<a href="apdx-vba.html#def-vba-RngGetColLetter" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.5</span> RngGetColLetter: Convert column number to letter<a href="apdx-vba.html#def-vba-RngGetColLetter" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetColLetter(
    lngCol As Long
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>lngCol</code>
+</td>
+<td style="text-align:left;">
+Column number.
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="def-vba-RngGetCurRegionFirstRow" class="section level4 hasAnchor" number="21.3.1.6">
-<h4><span class="header-section-number">E.3.1.6</span> First row in current region<a href="apdx-vba.html#def-vba-RngGetCurRegionFirstRow" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.6</span> RngGetCurRegionFirstRow: First row in current region<a href="apdx-vba.html#def-vba-RngGetCurRegionFirstRow" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetCurRegionFirstRow(
    rng As Range
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range within the currentregion
+</td>
+</tr>
+</tbody>
+</table>
+<p>Current region is the 2-dim range expanded until empty cells</p>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Set rng = Range(&quot;D7&quot;)  &#39; assume we know that data contains cell D7
+    MsgBox (&quot;Address: &quot; &amp; RngGetCurRegionAddress(rng))
+    MsgBox (&quot;Rows = &quot; &amp; RngGetCurRegionRows(rng) &amp; &quot; cols = &quot; &amp; RngGetCurRegionCols(rng))
+    MsgBox (&quot;First row number = &quot; &amp; RngGetCurRegionFirstRow(rng) &amp; &quot;. Last row number = &quot; &amp; RngGetCurRegionLastRow(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col number = &quot; &amp; RngGetCurRegionFirstCol(rng) &amp; &quot;. Last col number = &quot; &amp; RngGetCurRegionLastCol(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col letter = &quot; &amp; RngGetCurRegionFirstCol(rng, True) &amp; &quot;. Last col letter = &quot; &amp; RngGetCurRegionLastCol(rng, True) &amp; &quot;.&quot;)</code></pre>
 </div>
 <div id="def-vba-RngGetCurRegionFirstCol" class="section level4 hasAnchor" number="21.3.1.7">
-<h4><span class="header-section-number">E.3.1.7</span> First column in current region<a href="apdx-vba.html#def-vba-RngGetCurRegionFirstCol" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.7</span> RngGetCurRegionFirstCol: First column in current region<a href="apdx-vba.html#def-vba-RngGetCurRegionFirstCol" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetCurRegionFirstCol(
    rng As Range,
    Optional asLetter As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range within the currentregion
+</td>
+</tr>
+</tbody>
+</table>
+<p>Currentregion is the 2-dim range expanded until empty cells</p>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Set rng = Range(&quot;D7&quot;)  &#39; assume we know that data contains cell D7
+    MsgBox (&quot;Address: &quot; &amp; RngGetCurRegionAddress(rng))
+    MsgBox (&quot;Rows = &quot; &amp; RngGetCurRegionRows(rng) &amp; &quot; cols = &quot; &amp; RngGetCurRegionCols(rng))
+    MsgBox (&quot;First row number = &quot; &amp; RngGetCurRegionFirstRow(rng) &amp; &quot;. Last row number = &quot; &amp; RngGetCurRegionLastRow(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col number = &quot; &amp; RngGetCurRegionFirstCol(rng) &amp; &quot;. Last col number = &quot; &amp; RngGetCurRegionLastCol(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col letter = &quot; &amp; RngGetCurRegionFirstCol(rng, True) &amp; &quot;. Last col letter = &quot; &amp; RngGetCurRegionLastCol(rng, True) &amp; &quot;.&quot;)</code></pre>
 </div>
 <div id="def-vba-RngGetCurRegionLastRow" class="section level4 hasAnchor" number="21.3.1.8">
-<h4><span class="header-section-number">E.3.1.8</span> Last row in current region<a href="apdx-vba.html#def-vba-RngGetCurRegionLastRow" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.8</span> RngGetCurRegionLastRow: Last row in current region<a href="apdx-vba.html#def-vba-RngGetCurRegionLastRow" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetCurRegionLastRow(
    rng As Range
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range within the currentregion
+</td>
+</tr>
+</tbody>
+</table>
+<p>Currentregion is the 2-dim range expanded until empty cells</p>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Set rng = Range(&quot;D7&quot;)  &#39; assume we know that data contains cell D7
+    MsgBox (&quot;Address: &quot; &amp; RngGetCurRegionAddress(rng))
+    MsgBox (&quot;Rows = &quot; &amp; RngGetCurRegionRows(rng) &amp; &quot; cols = &quot; &amp; RngGetCurRegionCols(rng))
+    MsgBox (&quot;First row number = &quot; &amp; RngGetCurRegionFirstRow(rng) &amp; &quot;. Last row number = &quot; &amp; RngGetCurRegionLastRow(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col number = &quot; &amp; RngGetCurRegionFirstCol(rng) &amp; &quot;. Last col number = &quot; &amp; RngGetCurRegionLastCol(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col letter = &quot; &amp; RngGetCurRegionFirstCol(rng, True) &amp; &quot;. Last col letter = &quot; &amp; RngGetCurRegionLastCol(rng, True) &amp; &quot;.&quot;)</code></pre>
 </div>
 <div id="def-vba-RngGetCurRegionLastCol" class="section level4 hasAnchor" number="21.3.1.9">
-<h4><span class="header-section-number">E.3.1.9</span> Last column in current region<a href="apdx-vba.html#def-vba-RngGetCurRegionLastCol" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.9</span> RngGetCurRegionLastCol: Last column in current region<a href="apdx-vba.html#def-vba-RngGetCurRegionLastCol" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetCurRegionLastCol(
    rng As Range,
    Optional asLetter As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range within the currentregion
+</td>
+</tr>
+</tbody>
+</table>
+<p>Currentregion is the 2-dim range expanded until empty cells</p>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Set rng = Range(&quot;D7&quot;)  &#39; assume we know that data contains cell D7
+    MsgBox (&quot;Address: &quot; &amp; RngGetCurRegionAddress(rng))
+    MsgBox (&quot;Rows = &quot; &amp; RngGetCurRegionRows(rng) &amp; &quot; cols = &quot; &amp; RngGetCurRegionCols(rng))
+    MsgBox (&quot;First row number = &quot; &amp; RngGetCurRegionFirstRow(rng) &amp; &quot;. Last row number = &quot; &amp; RngGetCurRegionLastRow(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col number = &quot; &amp; RngGetCurRegionFirstCol(rng) &amp; &quot;. Last col number = &quot; &amp; RngGetCurRegionLastCol(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col letter = &quot; &amp; RngGetCurRegionFirstCol(rng, True) &amp; &quot;. Last col letter = &quot; &amp; RngGetCurRegionLastCol(rng, True) &amp; &quot;.&quot;)</code></pre>
 </div>
 <div id="def-vba-RngGetCurRegionRange" class="section level4 hasAnchor" number="21.3.1.10">
-<h4><span class="header-section-number">E.3.1.10</span> Return the part of the current region starting with upper right cell in row and col<a href="apdx-vba.html#def-vba-RngGetCurRegionRange" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.10</span> RngGetCurRegionRange: Return the part of the current region starting with upper right cell in row and col number (counting within the current range) and lower right corner of the current range.<a href="apdx-vba.html#def-vba-RngGetCurRegionRange" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetCurRegionRange(
    rng As Range,
    Optional row As Integer = 1,
    Optional col As Integer = 1
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range within the currentregion
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>row</code>
+</td>
+<td style="text-align:left;">
+First row number in the current range.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>col</code>
+</td>
+<td style="text-align:left;">
+First column number in the current range.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    RngGetCurRegionRange(rng, 2, 3) &#39; return the range of the current region starting in row number 2 and column number 3.</code></pre>
 </div>
 <div id="def-vba-RngGetCurRegionUpperLeft" class="section level4 hasAnchor" number="21.3.1.11">
-<h4><span class="header-section-number">E.3.1.11</span> Return the upper left cell of the current region<a href="apdx-vba.html#def-vba-RngGetCurRegionUpperLeft" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.11</span> RngGetCurRegionUpperLeft: Return the upper left cell of the current region<a href="apdx-vba.html#def-vba-RngGetCurRegionUpperLeft" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetCurRegionUpperLeft(
    rng As Range,
    Optional asString As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range within the currentregion
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>asString</code>
+</td>
+<td style="text-align:left;">
+Return as R1C1 string; otherwise return a Range to the cell.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>  Dim rng As Range
+  Set rng = ThisWorkbook.Worksheets(&quot;TM5&quot;).Range(&quot;C5&quot;)
+  MsgBox (&quot;Address: &quot; &amp; RngGetCurRegionAddress(rng))
+  MsgBox (&quot;Number of rows: &quot; &amp; RngGetCurRegionRows(rng))
+  MsgBox (&quot;Number of cols: &quot; &amp; RngGetCurRegionCols(rng))
+  MsgBox (&quot;First column number: &quot; &amp; RngGetCurRegionFirstCol(rng))
+  MsgBox (&quot;First column letter: &quot; &amp; RngGetCurRegionFirstCol(rng, asLetter:=True))
+  MsgBox (&quot;Lower left cell: &quot; &amp; RngGetCurRegionLowerLeft(rng, asString:=True))
+  MsgBox (&quot;Upper left cell: &quot; &amp; RngGetCurRegionUpperLeft(rng, asString:=True))
+  MsgBox (&quot;Lower right cell: &quot; &amp; RngGetCurRegionLowerRight(rng, asString:=True))
+  MsgBox (&quot;Upper right cell: &quot; &amp; RngGetCurRegionUpperRight(rng, asString:=True))</code></pre>
 </div>
 <div id="def-vba-RngGetCurRegionLowerLeft" class="section level4 hasAnchor" number="21.3.1.12">
-<h4><span class="header-section-number">E.3.1.12</span> Return the lower left cell of the current region<a href="apdx-vba.html#def-vba-RngGetCurRegionLowerLeft" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.12</span> RngGetCurRegionLowerLeft: Return the lower left cell of the current region<a href="apdx-vba.html#def-vba-RngGetCurRegionLowerLeft" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetCurRegionLowerLeft(
    rng As Range,
    Optional asString As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range within the currentregion
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>asString</code>
+</td>
+<td style="text-align:left;">
+Return as R1C1 string; otherwise return a Range to the cell.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>  Dim rng As Range
+  Set rng = ThisWorkbook.Worksheets(&quot;TM5&quot;).Range(&quot;C5&quot;)
+  MsgBox (&quot;Address: &quot; &amp; RngGetCurRegionAddress(rng))
+  MsgBox (&quot;Number of rows: &quot; &amp; RngGetCurRegionRows(rng))
+  MsgBox (&quot;Number of cols: &quot; &amp; RngGetCurRegionCols(rng))
+  MsgBox (&quot;First column number: &quot; &amp; RngGetCurRegionFirstCol(rng))
+  MsgBox (&quot;First column letter: &quot; &amp; RngGetCurRegionFirstCol(rng, asLetter:=True))
+  MsgBox (&quot;Lower left cell: &quot; &amp; RngGetCurRegionLowerLeft(rng, asString:=True))
+  MsgBox (&quot;Upper left cell: &quot; &amp; RngGetCurRegionUpperLeft(rng, asString:=True))
+  MsgBox (&quot;Lower right cell: &quot; &amp; RngGetCurRegionLowerRight(rng, asString:=True))
+  MsgBox (&quot;Upper right cell: &quot; &amp; RngGetCurRegionUpperRight(rng, asString:=True))</code></pre>
 </div>
 <div id="def-vba-RngGetCurRegionUpperRight" class="section level4 hasAnchor" number="21.3.1.13">
-<h4><span class="header-section-number">E.3.1.13</span> Return the upper right cell of the current region<a href="apdx-vba.html#def-vba-RngGetCurRegionUpperRight" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.13</span> RngGetCurRegionUpperRight: Return the upper right cell of the current region<a href="apdx-vba.html#def-vba-RngGetCurRegionUpperRight" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetCurRegionUpperRight(
    rng As Range,
    Optional asString As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range within the currentregion
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>asString</code>
+</td>
+<td style="text-align:left;">
+Return as R1C1 string; otherwise return a Range to the cell.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>  Dim rng As Range
+  Set rng = ThisWorkbook.Worksheets(&quot;TM5&quot;).Range(&quot;C5&quot;)
+  MsgBox (&quot;Address: &quot; &amp; RngGetCurRegionAddress(rng))
+  MsgBox (&quot;Number of rows: &quot; &amp; RngGetCurRegionRows(rng))
+  MsgBox (&quot;Number of cols: &quot; &amp; RngGetCurRegionCols(rng))
+  MsgBox (&quot;First column number: &quot; &amp; RngGetCurRegionFirstCol(rng))
+  MsgBox (&quot;First column letter: &quot; &amp; RngGetCurRegionFirstCol(rng, asLetter:=True))
+  MsgBox (&quot;Lower left cell: &quot; &amp; RngGetCurRegionLowerLeft(rng, asString:=True))
+  MsgBox (&quot;Upper left cell: &quot; &amp; RngGetCurRegionUpperLeft(rng, asString:=True))
+  MsgBox (&quot;Lower right cell: &quot; &amp; RngGetCurRegionLowerRight(rng, asString:=True))
+  MsgBox (&quot;Upper right cell: &quot; &amp; RngGetCurRegionUpperRight(rng, asString:=True))</code></pre>
 </div>
 <div id="def-vba-RngGetCurRegionLowerRight" class="section level4 hasAnchor" number="21.3.1.14">
-<h4><span class="header-section-number">E.3.1.14</span> Return the lower right cell of the current region<a href="apdx-vba.html#def-vba-RngGetCurRegionLowerRight" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.14</span> RngGetCurRegionLowerRight: Return the lower right cell of the current region<a href="apdx-vba.html#def-vba-RngGetCurRegionLowerRight" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetCurRegionLowerRight(
    rng As Range,
    Optional asString As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range within the currentregion
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>asString</code>
+</td>
+<td style="text-align:left;">
+Return as R1C1 string; otherwise return a Range to the cell.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>  Dim rng As Range
+  Set rng = ThisWorkbook.Worksheets(&quot;TM5&quot;).Range(&quot;C5&quot;)
+  MsgBox (&quot;Address: &quot; &amp; RngGetCurRegionAddress(rng))
+  MsgBox (&quot;Number of rows: &quot; &amp; RngGetCurRegionRows(rng))
+  MsgBox (&quot;Number of cols: &quot; &amp; RngGetCurRegionCols(rng))
+  MsgBox (&quot;First column number: &quot; &amp; RngGetCurRegionFirstCol(rng))
+  MsgBox (&quot;First column letter: &quot; &amp; RngGetCurRegionFirstCol(rng, asLetter:=True))
+  MsgBox (&quot;Lower left cell: &quot; &amp; RngGetCurRegionLowerLeft(rng, asString:=True))
+  MsgBox (&quot;Upper left cell: &quot; &amp; RngGetCurRegionUpperLeft(rng, asString:=True))
+  MsgBox (&quot;Lower right cell: &quot; &amp; RngGetCurRegionLowerRight(rng, asString:=True))
+  MsgBox (&quot;Upper right cell: &quot; &amp; RngGetCurRegionUpperRight(rng, asString:=True))</code></pre>
 </div>
 <div id="def-vba-RngJoin" class="section level4 hasAnchor" number="21.3.1.15">
-<h4><span class="header-section-number">E.3.1.15</span> Join two ranges<a href="apdx-vba.html#def-vba-RngJoin" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.15</span> RngJoin: Join two ranges<a href="apdx-vba.html#def-vba-RngJoin" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngJoin(
    rng1 As Range,
    rng2 As Range
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>   Dim rng As Range
+   ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+   Set rng = RngJoin(Range(&quot;A35:B38&quot;), Range(&quot;A49:D56&quot;))
+   MsgBox (RngGetAddress(rng))  &#39; note rng is two seperate blocks of cells</code></pre>
 </div>
 <div id="def-vba-RngPaste" class="section level4 hasAnchor" number="21.3.1.16">
-<h4><span class="header-section-number">E.3.1.16</span> Paste a range on a sheet.<a href="apdx-vba.html#def-vba-RngPaste" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.16</span> RngPaste: Paste a range on a sheet.<a href="apdx-vba.html#def-vba-RngPaste" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngPaste(
    rng As Range,
    rngUL As Range,
    Optional withFormat As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+The range to paste
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>rngUL</code>
+</td>
+<td style="text-align:left;">
+The upper left cell to paste to.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>withFormat</code>
+</td>
+<td style="text-align:left;">
+If true also copy cell format too.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    Dim rngNew As Range
+    Set rng = RngCurRegion(Range(&quot;D7&quot;))         &#39; get current region
+    MsgBox (&quot;Copy to H14 (upper left corner).&quot;)
+    Set rngNew = RngPaste(rng, Range(&quot;H14&quot;))    &#39; rngNew is now the new range
+    MsgBox (&quot;Make yellow.&quot;)
+    Call RngFormat(rngNew, &quot;yellow&quot;)
+    MsgBox (&quot;Remove format.&quot;)
+    Call RngClear(rngNew, blnCells:=False, blnFormat:=True)
+    MsgBox (&quot;Clear range.&quot;)
+    Call RngClear(rngNew)</code></pre>
 </div>
 <div id="def-vba-RngClear" class="section level4 hasAnchor" number="21.3.1.17">
-<h4><span class="header-section-number">E.3.1.17</span> Clear a range<a href="apdx-vba.html#def-vba-RngClear" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.17</span> RngClear: Clear a range<a href="apdx-vba.html#def-vba-RngClear" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub RngClear(
    rng As Range,
    Optional blnCells As Boolean = True,
    Optional blnContents As Boolean = False,
    Optional blnFormat As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+Range to clear.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnCells</code>
+</td>
+<td style="text-align:left;">
+Delete cell contents, formats, comments, etc. (default).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnContents</code>
+</td>
+<td style="text-align:left;">
+Delete cell contents.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnFormat</code>
+</td>
+<td style="text-align:left;">
+Delete cell format.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    Dim rngNew As Range
+    Set rng = RngCurRegion(Range(&quot;D7&quot;))         &#39; get current region
+    MsgBox (&quot;Copy to H14 (upper left corner).&quot;)
+    Set rngNew = RngPaste(rng, Range(&quot;H14&quot;))    &#39; rngNew is now the new range
+    MsgBox (&quot;Make yellow.&quot;)
+    Call RngFormat(rngNew, &quot;yellow&quot;)
+    MsgBox (&quot;Remove format.&quot;)
+    Call RngClear(rngNew, blnCells:=False, blnFormat:=True)
+    MsgBox (&quot;Clear range.&quot;)
+    Call RngClear(rngNew)</code></pre>
 </div>
 <div id="def-vba-RngCurRegion" class="section level4 hasAnchor" number="21.3.1.18">
-<h4><span class="header-section-number">E.3.1.18</span> Return the current region of a range<a href="apdx-vba.html#def-vba-RngCurRegion" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.18</span> RngCurRegion: Return the current region of a range<a href="apdx-vba.html#def-vba-RngCurRegion" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngCurRegion(
    rng As Range
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+The range to get the current region from.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Set rng = RngCurRegion(Range(&quot;D7&quot;))  &#39; rng now is the current region
+    MsgBox (&quot;Address: &quot; &amp; RngGetAddress(rng))
+    MsgBox (&quot;Rows = &quot; &amp; RngGetRows(rng) &amp; &quot; cols = &quot; &amp; RngGetCols(rng))
+    MsgBox (&quot;First row number = &quot; &amp; RngGetFirstRow(rng) &amp; &quot;. Last row number = &quot; &amp; RngGetLastRow(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col number = &quot; &amp; RngGetFirstCol(rng) &amp; &quot;. Last col number = &quot; &amp; RngGetLastCol(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col letter = &quot; &amp; RngGetFirstCol(rng, True) &amp; &quot;. Last col letter = &quot; &amp; RngGetLastCol(rng, True) &amp; &quot;.&quot;)</code></pre>
 </div>
 <div id="def-vba-RngGetCurRegionAddress" class="section level4 hasAnchor" number="21.3.1.19">
-<h4><span class="header-section-number">E.3.1.19</span> Return the address of the current region of a range<a href="apdx-vba.html#def-vba-RngGetCurRegionAddress" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.19</span> RngGetCurRegionAddress: Return the address of the current region of a range<a href="apdx-vba.html#def-vba-RngGetCurRegionAddress" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetCurRegionAddress(
    rng As Range
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+The range to get the current region from.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Set rng = Range(&quot;D7&quot;)  &#39; assume we know that data contains cell D7
+    MsgBox (&quot;Address: &quot; &amp; RngGetCurRegionAddress(rng))
+    MsgBox (&quot;Rows = &quot; &amp; RngGetCurRegionRows(rng) &amp; &quot; cols = &quot; &amp; RngGetCurRegionCols(rng))
+    MsgBox (&quot;First row number = &quot; &amp; RngGetCurRegionFirstRow(rng) &amp; &quot;. Last row number = &quot; &amp; RngGetCurRegionLastRow(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col number = &quot; &amp; RngGetCurRegionFirstCol(rng) &amp; &quot;. Last col number = &quot; &amp; RngGetCurRegionLastCol(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col letter = &quot; &amp; RngGetCurRegionFirstCol(rng, True) &amp; &quot;. Last col letter = &quot; &amp; RngGetCurRegionLastCol(rng, True) &amp; &quot;.&quot;)</code></pre>
 </div>
 <div id="def-vba-RngGetAddress" class="section level4 hasAnchor" number="21.3.1.20">
-<h4><span class="header-section-number">E.3.1.20</span> Return the address of a range.<a href="apdx-vba.html#def-vba-RngGetAddress" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.20</span> RngGetAddress: Return the address of a range.<a href="apdx-vba.html#def-vba-RngGetAddress" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetAddress(
    rng As Range
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+The range to get the current region from
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Set rng = RngCurRegion(Range(&quot;D7&quot;))  &#39; rng now is the current region
+    MsgBox (&quot;Address: &quot; &amp; RngGetAddress(rng))
+    MsgBox (&quot;Rows = &quot; &amp; RngGetRows(rng) &amp; &quot; cols = &quot; &amp; RngGetCols(rng))
+    MsgBox (&quot;First row number = &quot; &amp; RngGetFirstRow(rng) &amp; &quot;. Last row number = &quot; &amp; RngGetLastRow(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col number = &quot; &amp; RngGetFirstCol(rng) &amp; &quot;. Last col number = &quot; &amp; RngGetLastCol(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col letter = &quot; &amp; RngGetFirstCol(rng, True) &amp; &quot;. Last col letter = &quot; &amp; RngGetLastCol(rng, True) &amp; &quot;.&quot;)</code></pre>
 </div>
 <div id="def-vba-RngGetRows" class="section level4 hasAnchor" number="21.3.1.21">
-<h4><span class="header-section-number">E.3.1.21</span> Rows in range<a href="apdx-vba.html#def-vba-RngGetRows" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.21</span> RngGetRows: Rows in range<a href="apdx-vba.html#def-vba-RngGetRows" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetRows(
    rng As Range
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>  Dim rng As Range
+  Set rng = ThisWorkbook.Worksheets(&quot;TM5&quot;).Range(&quot;C4:E19&quot;)
+  MsgBox (&quot;Number of rows: &quot; &amp; RngGetRows(rng))
+  MsgBox (&quot;Number of cols: &quot; &amp; RngGetCols(rng))
+  MsgBox (&quot;First column number: &quot; &amp; RngGetFirstCol(rng))
+  MsgBox (&quot;First column letter: &quot; &amp; RngGetFirstCol(rng, asLetter:=True))
+  MsgBox (&quot;Lower right cell: &quot; &amp; RngGetLowerRight(rng, asString:=True))
+  MsgBox (&quot;Upper right cell: &quot; &amp; RngGetUpperRight(rng, asString:=True))</code></pre>
 </div>
 <div id="def-vba-RngGetCols" class="section level4 hasAnchor" number="21.3.1.22">
-<h4><span class="header-section-number">E.3.1.22</span> Columns in range<a href="apdx-vba.html#def-vba-RngGetCols" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.22</span> RngGetCols: Columns in range<a href="apdx-vba.html#def-vba-RngGetCols" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetCols(
    rng As Range
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>  Dim rng As Range
+  Set rng = ThisWorkbook.Worksheets(&quot;TM5&quot;).Range(&quot;C4:E19&quot;)
+  MsgBox (&quot;Number of rows: &quot; &amp; RngGetRows(rng))
+  MsgBox (&quot;Number of cols: &quot; &amp; RngGetCols(rng))
+  MsgBox (&quot;First column number: &quot; &amp; RngGetFirstCol(rng))
+  MsgBox (&quot;First column letter: &quot; &amp; RngGetFirstCol(rng, asLetter:=True))
+  MsgBox (&quot;Lower right cell: &quot; &amp; RngGetLowerRight(rng, asString:=True))
+  MsgBox (&quot;Upper right cell: &quot; &amp; RngGetUpperRight(rng, asString:=True))</code></pre>
 </div>
 <div id="def-vba-RngGetFirstRow" class="section level4 hasAnchor" number="21.3.1.23">
-<h4><span class="header-section-number">E.3.1.23</span> First row in range<a href="apdx-vba.html#def-vba-RngGetFirstRow" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.23</span> RngGetFirstRow: First row in range<a href="apdx-vba.html#def-vba-RngGetFirstRow" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetFirstRow(
    rng As Range
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Set rng = RngCurRegion(Range(&quot;D7&quot;))  &#39; rng now is the current region
+    MsgBox (&quot;Address: &quot; &amp; RngGetAddress(rng))
+    MsgBox (&quot;Rows = &quot; &amp; RngGetRows(rng) &amp; &quot; cols = &quot; &amp; RngGetCols(rng))
+    MsgBox (&quot;First row number = &quot; &amp; RngGetFirstRow(rng) &amp; &quot;. Last row number = &quot; &amp; RngGetLastRow(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col number = &quot; &amp; RngGetFirstCol(rng) &amp; &quot;. Last col number = &quot; &amp; RngGetLastCol(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col letter = &quot; &amp; RngGetFirstCol(rng, True) &amp; &quot;. Last col letter = &quot; &amp; RngGetLastCol(rng, True) &amp; &quot;.&quot;)</code></pre>
 </div>
 <div id="def-vba-RngGetFirstCol" class="section level4 hasAnchor" number="21.3.1.24">
-<h4><span class="header-section-number">E.3.1.24</span> First column in range<a href="apdx-vba.html#def-vba-RngGetFirstCol" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.24</span> RngGetFirstCol: First column in range<a href="apdx-vba.html#def-vba-RngGetFirstCol" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetFirstCol(
    rng As Range,
    Optional asLetter As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>  Dim rng As Range
+  Set rng = ThisWorkbook.Worksheets(&quot;TM5&quot;).Range(&quot;C4:E19&quot;)
+  MsgBox (&quot;Number of rows: &quot; &amp; RngGetRows(rng))
+  MsgBox (&quot;Number of cols: &quot; &amp; RngGetCols(rng))
+  MsgBox (&quot;First column number: &quot; &amp; RngGetFirstCol(rng))
+  MsgBox (&quot;First column letter: &quot; &amp; RngGetFirstCol(rng, asLetter:=True))
+  MsgBox (&quot;Lower right cell: &quot; &amp; RngGetLowerRight(rng, asString:=True))
+  MsgBox (&quot;Upper right cell: &quot; &amp; RngGetUpperRight(rng, asString:=True))</code></pre>
 </div>
 <div id="def-vba-RngGetLastRow" class="section level4 hasAnchor" number="21.3.1.25">
-<h4><span class="header-section-number">E.3.1.25</span> Last row in range<a href="apdx-vba.html#def-vba-RngGetLastRow" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.25</span> RngGetLastRow: Last row in range<a href="apdx-vba.html#def-vba-RngGetLastRow" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetLastRow(
    rng As Range
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Set rng = RngCurRegion(Range(&quot;D7&quot;))  &#39; rng now is the current region
+    MsgBox (&quot;Address: &quot; &amp; RngGetAddress(rng))
+    MsgBox (&quot;Rows = &quot; &amp; RngGetRows(rng) &amp; &quot; cols = &quot; &amp; RngGetCols(rng))
+    MsgBox (&quot;First row number = &quot; &amp; RngGetFirstRow(rng) &amp; &quot;. Last row number = &quot; &amp; RngGetLastRow(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col number = &quot; &amp; RngGetFirstCol(rng) &amp; &quot;. Last col number = &quot; &amp; RngGetLastCol(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col letter = &quot; &amp; RngGetFirstCol(rng, True) &amp; &quot;. Last col letter = &quot; &amp; RngGetLastCol(rng, True) &amp; &quot;.&quot;)</code></pre>
 </div>
 <div id="def-vba-RngGetLastCol" class="section level4 hasAnchor" number="21.3.1.26">
-<h4><span class="header-section-number">E.3.1.26</span> Last column in range<a href="apdx-vba.html#def-vba-RngGetLastCol" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.26</span> RngGetLastCol: Last column in range<a href="apdx-vba.html#def-vba-RngGetLastCol" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetLastCol(
    rng As Range,
    Optional asLetter As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Set rng = RngCurRegion(Range(&quot;D7&quot;))  &#39; rng now is the current region
+    MsgBox (&quot;Address: &quot; &amp; RngGetAddress(rng))
+    MsgBox (&quot;Rows = &quot; &amp; RngGetRows(rng) &amp; &quot; cols = &quot; &amp; RngGetCols(rng))
+    MsgBox (&quot;First row number = &quot; &amp; RngGetFirstRow(rng) &amp; &quot;. Last row number = &quot; &amp; RngGetLastRow(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col number = &quot; &amp; RngGetFirstCol(rng) &amp; &quot;. Last col number = &quot; &amp; RngGetLastCol(rng) &amp; &quot;.&quot;)
+    MsgBox (&quot;First col letter = &quot; &amp; RngGetFirstCol(rng, True) &amp; &quot;. Last col letter = &quot; &amp; RngGetLastCol(rng, True) &amp; &quot;.&quot;)</code></pre>
 </div>
 <div id="def-vba-RngGetRange" class="section level4 hasAnchor" number="21.3.1.27">
-<h4><span class="header-section-number">E.3.1.27</span> Return the part of the range starting with upper right cell in row and col<a href="apdx-vba.html#def-vba-RngGetRange" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.27</span> RngGetRange: Return the part of the range starting with upper right cell in row and col<a href="apdx-vba.html#def-vba-RngGetRange" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetRange(
    rng As Range,
    Optional row As Integer = 1,
    Optional col As Integer = 1
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>row</code>
+</td>
+<td style="text-align:left;">
+Row number in the current range.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>col</code>
+</td>
+<td style="text-align:left;">
+Column number in the current range.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    RngGetRange(rng, 2, 3) &#39; return the range of the range starting in row number 2 and column number 3.</code></pre>
 </div>
 <div id="def-vba-RngGetUpperLeft" class="section level4 hasAnchor" number="21.3.1.28">
-<h4><span class="header-section-number">E.3.1.28</span> Return the upper left cell of the range<a href="apdx-vba.html#def-vba-RngGetUpperLeft" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.28</span> RngGetUpperLeft: Return the upper left cell of the range<a href="apdx-vba.html#def-vba-RngGetUpperLeft" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetUpperLeft(
    rng As Range,
    Optional asString As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>  MsgBox (&quot;Address: &quot; &amp; RngGetAddress(rng) &amp; vbLf &amp; _
+          &quot;Rows: &quot; &amp; RngGetRows(rng) &amp; &quot; &quot; &amp; &quot;Cols: &quot; &amp; RngGetCols(rng) &amp; vbLf &amp; _
+          &quot;UL: &quot; &amp; RngGetUpperLeft(rng, asString:=True) &amp; &quot; &quot; &amp; _
+          &quot;UR: &quot; &amp; RngGetUpperRight(rng, asString:=True) &amp; vbLf &amp; _
+          &quot;LL: &quot; &amp; RngGetLowerLeft(rng, asString:=True) &amp; &quot; &quot; &amp; _
+          &quot;LR: &quot; &amp; RngGetLowerRight(rng, asString:=True))</code></pre>
 </div>
 <div id="def-vba-RngGetLowerLeft" class="section level4 hasAnchor" number="21.3.1.29">
-<h4><span class="header-section-number">E.3.1.29</span> Return the lower left cell of the range<a href="apdx-vba.html#def-vba-RngGetLowerLeft" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.29</span> RngGetLowerLeft: Return the lower left cell of the range<a href="apdx-vba.html#def-vba-RngGetLowerLeft" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetLowerLeft(
    rng As Range,
    Optional asString As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>asString</code>
+</td>
+<td style="text-align:left;">
+Return as address string; otherwise return a Range to the cell.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>  MsgBox (&quot;Address: &quot; &amp; RngGetAddress(rng) &amp; vbLf &amp; _
+          &quot;Rows: &quot; &amp; RngGetRows(rng) &amp; &quot; &quot; &amp; &quot;Cols: &quot; &amp; RngGetCols(rng) &amp; vbLf &amp; _
+          &quot;UL: &quot; &amp; RngGetUpperLeft(rng, asString:=True) &amp; &quot; &quot; &amp; _
+          &quot;UR: &quot; &amp; RngGetUpperRight(rng, asString:=True) &amp; vbLf &amp; _
+          &quot;LL: &quot; &amp; RngGetLowerLeft(rng, asString:=True) &amp; &quot; &quot; &amp; _
+          &quot;LR: &quot; &amp; RngGetLowerRight(rng, asString:=True))</code></pre>
 </div>
 <div id="def-vba-RngGetUpperRight" class="section level4 hasAnchor" number="21.3.1.30">
-<h4><span class="header-section-number">E.3.1.30</span> Return the upper right cell of the range<a href="apdx-vba.html#def-vba-RngGetUpperRight" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.30</span> RngGetUpperRight: Return the upper right cell of the range<a href="apdx-vba.html#def-vba-RngGetUpperRight" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetUpperRight(
    rng As Range,
    Optional asString As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>asString</code>
+</td>
+<td style="text-align:left;">
+Return as R1C1 string; otherwise return a Range to the cell.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>  Dim rng As Range
+  Set rng = ThisWorkbook.Worksheets(&quot;TM5&quot;).Range(&quot;C4:E19&quot;)
+  MsgBox (&quot;Number of rows: &quot; &amp; RngGetRows(rng))
+  MsgBox (&quot;Number of cols: &quot; &amp; RngGetCols(rng))
+  MsgBox (&quot;First column number: &quot; &amp; RngGetFirstCol(rng))
+  MsgBox (&quot;First column letter: &quot; &amp; RngGetFirstCol(rng, asLetter:=True))
+  MsgBox (&quot;Lower right cell: &quot; &amp; RngGetLowerRight(rng, asString:=True))
+  MsgBox (&quot;Upper right cell: &quot; &amp; RngGetUpperRight(rng, asString:=True))</code></pre>
 </div>
 <div id="def-vba-RngGetLowerRight" class="section level4 hasAnchor" number="21.3.1.31">
-<h4><span class="header-section-number">E.3.1.31</span> Return the lower right cell of the range<a href="apdx-vba.html#def-vba-RngGetLowerRight" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.31</span> RngGetLowerRight: Return the lower right cell of the range<a href="apdx-vba.html#def-vba-RngGetLowerRight" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngGetLowerRight(
    rng As Range,
    Optional asString As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+A range.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>asString</code>
+</td>
+<td style="text-align:left;">
+Return as R1C1 string; otherwise return a Range to the cell.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>  Dim rng As Range
+  Set rng = ThisWorkbook.Worksheets(&quot;TM5&quot;).Range(&quot;C4:E19&quot;)
+  MsgBox (&quot;Number of rows: &quot; &amp; RngGetRows(rng))
+  MsgBox (&quot;Number of cols: &quot; &amp; RngGetCols(rng))
+  MsgBox (&quot;First column number: &quot; &amp; RngGetFirstCol(rng))
+  MsgBox (&quot;First column letter: &quot; &amp; RngGetFirstCol(rng, asLetter:=True))
+  MsgBox (&quot;Lower right cell: &quot; &amp; RngGetLowerRight(rng, asString:=True))
+  MsgBox (&quot;Upper right cell: &quot; &amp; RngGetUpperRight(rng, asString:=True))</code></pre>
 </div>
 <div id="def-vba-RngToCSV" class="section level4 hasAnchor" number="21.3.1.32">
-<h4><span class="header-section-number">E.3.1.32</span> Write a range to a csv file<a href="apdx-vba.html#def-vba-RngToCSV" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.32</span> RngToCSV: Write a range to a csv file<a href="apdx-vba.html#def-vba-RngToCSV" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub RngToCSV(
    strFileName As String,
    rng As Range,
@@ -1562,9 +2705,74 @@ Rename a worksheet if it exists and no sheet with the new name
    Optional blnAddCharacter As Boolean = False,
    Optional blnAbsPath As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>strFileName</code>
+</td>
+<td style="text-align:left;">
+File name.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+Range given the upper left cell of where to place the data.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>strDelim</code>
+</td>
+<td style="text-align:left;">
+Delimiter, e.g. "," in a comma delimited file.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnAddCharacter</code>
+</td>
+<td style="text-align:left;">
+Add quotes around values.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnAbsPath</code>
+</td>
+<td style="text-align:left;">
+If true strName specify the absolute path otherwise create
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Call TM5_ClearTestTM5    &#39; clear test cells so have empty cells
+    &#39;&#39; Write to csv file
+    Set rng = Range(&quot;C4:E19&quot;)
+    Call RngToCSV(&quot;test.csv&quot;, rng, &quot;;&quot;)     &#39; semicolon (;) separated file
+    &#39;&#39; Read test.csv file to check
+    Range(&quot;G3&quot;) = &quot;Content of test.csv:&quot;
+    Set rng = RngFromCSV(&quot;test.csv&quot;, Range(&quot;G4&quot;), &quot;;&quot;)</code></pre>
 </div>
 <div id="def-vba-RngFromCSV" class="section level4 hasAnchor" number="21.3.1.33">
-<h4><span class="header-section-number">E.3.1.33</span> Read a csv file and output it to cells<a href="apdx-vba.html#def-vba-RngFromCSV" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.33</span> RngFromCSV: Read a csv file and output it to cells<a href="apdx-vba.html#def-vba-RngFromCSV" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RngFromCSV(
    strFileName As String,
    rngUL As Range,
@@ -1572,31 +2780,225 @@ Rename a worksheet if it exists and no sheet with the new name
    Optional strExcludeCharacter As String = &quot;&quot;,
    Optional blnAbsPath As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>strFileName</code>
+</td>
+<td style="text-align:left;">
+File name.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>rngUL</code>
+</td>
+<td style="text-align:left;">
+The upper left cell of where to place the data.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>strDelim</code>
+</td>
+<td style="text-align:left;">
+Delimiter, e.g. "," in a comma delimited file.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>strExcludeCharacter</code>
+</td>
+<td style="text-align:left;">
+Sometimes csv files have quotes around strings ("value").
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnAbsPath</code>
+</td>
+<td style="text-align:left;">
+If true strName specify the absolute path otherwise create
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Call TM5_ClearTestTM5    &#39; clear test cells so have empty cells
+    &#39;&#39; Read data1.csv file (NOTE you must know the separator in the csv file beforehand!)
+    Range(&quot;G3&quot;) = &quot;Content of data1.csv:&quot;
+    Set rng = RngFromCSV(&quot;data1.csv&quot;, Range(&quot;G4&quot;), &quot;;&quot;) &#39; paste file in range with upper left cell G4
+    MsgBox (RngGetAddress(rng))
+    &#39;&#39; Read data2.csv file (NOTE you must know the separator in the csv file beforehand!)
+    Range(&quot;G8&quot;) = &quot;Content of data2.csv:&quot;
+    Set rng = RngFromCSV(&quot;data2.csv&quot;, Range(&quot;G9&quot;), &quot;,&quot;) &#39; paste file in range with upper left cell G9
+    MsgBox (RngGetAddress(rng))</code></pre>
 </div>
 <div id="def-vba-AryDim" class="section level4 hasAnchor" number="21.3.1.34">
-<h4><span class="header-section-number">E.3.1.34</span> Array dimension<a href="apdx-vba.html#def-vba-AryDim" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.34</span> AryDim: Array dimension<a href="apdx-vba.html#def-vba-AryDim" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function AryDim(
    ary As Variant
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+The array.
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="def-vba-AryToStr" class="section level4 hasAnchor" number="21.3.1.35">
-<h4><span class="header-section-number">E.3.1.35</span> Convert an array to a string<a href="apdx-vba.html#def-vba-AryToStr" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.35</span> AryToStr: Convert an array to a string<a href="apdx-vba.html#def-vba-AryToStr" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function AryToStr(
    ary As Variant,
    Optional strSep As String = &quot;,
    &quot;
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+A 1D or 2D array.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>strSep</code>
+</td>
+<td style="text-align:left;">
+Seperator used to seperate the values.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>   Dim intAry(4) As Integer      &#39; define array of integers with index 0-4
+   &#39; Set values
+   intAry(0) = 9
+   intAry(1) = 12
+   intAry(2) = 222
+   intAry(3) = 4
+   intAry(4) = 100
+   &#39; Information about the array
+   MsgBox (&quot;Lowest index: &quot; &amp; LBound(intAry))
+   MsgBox (&quot;Largest index: &quot; &amp; UBound(intAry))
+   MsgBox (&quot;Number of elements   : &quot; &amp; UBound(intAry) - LBound(intAry) + 1)
+   MsgBox (&quot;Array as a string: &quot; &amp; AryToStr(intAry))</code></pre>
 </div>
 <div id="def-vba-AryPaste" class="section level4 hasAnchor" number="21.3.1.36">
-<h4><span class="header-section-number">E.3.1.36</span> Paste a 1D or 2D array to a sheet<a href="apdx-vba.html#def-vba-AryPaste" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.36</span> AryPaste: Paste a 1D or 2D array to a sheet<a href="apdx-vba.html#def-vba-AryPaste" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub AryPaste(
    ary As Variant,
    rngUL As Range,
    Optional blnRowwise As Boolean = True
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+The array.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+The upper left cell of the printed cells.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnRowwise</code>
+</td>
+<td style="text-align:left;">
+Paste the 1D array as a column or row (default).
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim ary() As Integer
+    Dim strAry() As String
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Call TM5_ClearTestTM5
+    &#39;&#39; Set to value single value
+    ReDim ary(2)
+    Call AryToVal(ary, 5)
+    Range(&quot;G4&quot;) = &quot;A fixed value:&quot;
+    Call AryPaste(ary, Range(&quot;G5&quot;)) &#39; the upper left cell is G5
+    &#39;&#39; Paste vertical
+    Range(&quot;K4&quot;) = &quot;Paste vertical:&quot;
+    Call AryPaste(ary, Range(&quot;K5&quot;), False)
+    &#39;&#39; Set to sequence
+    Call AryToSeq(ary, 1, 6)
+    Range(&quot;G10&quot;) = &quot;A sequence:&quot;
+    Call AryPaste(ary, Range(&quot;G11&quot;))
+    &#39;&#39; Read strings from a range
+    Call AryRead(strAry, Range(&quot;C31:D33&quot;))  &#39; read a 2D array
+    Range(&quot;G31&quot;) = &quot;Names in the &quot; &amp; AryDim(strAry) &amp; &quot;D array:&quot;
+    Call AryPaste(strAry, Range(&quot;G32&quot;))</code></pre>
 </div>
 <div id="def-vba-AryRead" class="section level4 hasAnchor" number="21.3.1.37">
-<h4><span class="header-section-number">E.3.1.37</span> Read a range into a 2D array<a href="apdx-vba.html#def-vba-AryRead" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.37</span> AryRead: Read a range into a 2D array<a href="apdx-vba.html#def-vba-AryRead" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub AryRead(
    ByRef ary As Variant,
    ByRef rng As Range,
@@ -1604,48 +3006,348 @@ Rename a worksheet if it exists and no sheet with the new name
    Optional intStartIdx2 As Integer = 1,
    Optional blnReduceDim As Boolean = True
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+Dynamic array.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+Range to be copied.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>intStartIdx1</code>
+</td>
+<td style="text-align:left;">
+Starting index for first dimension (default 1).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>intStartIdx2</code>
+</td>
+<td style="text-align:left;">
+Starting index for second dimension (default 1).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnReduceDim</code>
+</td>
+<td style="text-align:left;">
+If true then reduce a range with 1 row or column to a 1D array.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim ary() As Integer
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Call TM5_ClearTestTM5
+    &#39;&#39; Read values from a range with only 1 column
+    Call AryRead(ary, Range(&quot;C5:C9&quot;))
+    Range(&quot;G4&quot;) = AryDim(ary) &amp; &quot;D array:&quot;
+    Call AryPaste(ary, Range(&quot;G5&quot;), False)
+    &#39;&#39; Read values from a range with only 1 row
+    Call AryRead(ary, Range(&quot;C5:E5&quot;))
+    Range(&quot;I4&quot;) = AryDim(ary) &amp; &quot;D array:&quot;
+    Call AryPaste(ary, Range(&quot;I5&quot;))
+    &#39;&#39; Read values from a range with only 1 column/row but use 2D array
+    Call AryRead(ary, Range(&quot;C11:C14&quot;), blnReduceDim:=False)
+    Range(&quot;G10&quot;) = AryDim(ary) &amp; &quot;D array:&quot;
+    Call AryPaste(ary, Range(&quot;G11&quot;), False)
+    &#39;&#39; Use other start and end index
+    Call AryRead(ary, Range(&quot;C17:E19&quot;), intStartIdx1:=2, intStartIdx2:=5)
+    Range(&quot;G16&quot;) = AryDim(ary) &amp; &quot;D array with start index &quot; &amp; LBound(ary, 1) &amp; &quot; and &quot; &amp; LBound(ary, 2) &amp; &quot;:&quot;
+    Call AryPaste(ary, Range(&quot;G17&quot;))</code></pre>
 </div>
 <div id="def-vba-AryReadLong" class="section level4 hasAnchor" number="21.3.1.38">
-<h4><span class="header-section-number">E.3.1.38</span> Read a range (long format) into an array (up to a 5D array is supported)<a href="apdx-vba.html#def-vba-AryReadLong" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.38</span> AryReadLong: Read a range (long format) into an array (up to a 5D array is supported)<a href="apdx-vba.html#def-vba-AryReadLong" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub AryReadLong(
    ByRef ary As Variant,
    ByRef rng As Range,
    Optional vntDefalult As Variant = 0
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+Dynamic array.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>rng</code>
+</td>
+<td style="text-align:left;">
+Range to be copied in long format, i.e. index in all columns except the last which contains the values.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim ary() As Integer
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Call TM5_ClearTestTM5
+    &#39;&#39; Read 1D array
+    Call AryReadLong(ary, Range(&quot;A36:B38&quot;), 3)   &#39; default value = 3
+    Range(&quot;G35&quot;) = &quot;Values in the &quot; &amp; AryDim(ary) &amp; &quot;D array:&quot;
+    Call AryPaste(ary, Range(&quot;G36&quot;))
+    &#39;&#39; Read 2D array
+    Call AryReadLong(ary, Range(&quot;A41:C47&quot;), 4)   &#39; default value = 4
+    Range(&quot;G40&quot;) = &quot;Values in the &quot; &amp; AryDim(ary) &amp; &quot;D array:&quot;
+    Call AryPaste(ary, Range(&quot;G41&quot;))
+    &#39;&#39; Read 3D array (cannot be pasted to the sheet, have a look at it using the debugger)
+    Call AryReadLong(ary, Range(&quot;A50:D56&quot;), 5)   &#39; default value = 5</code></pre>
 </div>
 <div id="def-vba-AryEmpty" class="section level4 hasAnchor" number="21.3.1.39">
-<h4><span class="header-section-number">E.3.1.39</span> Check if an array empty<a href="apdx-vba.html#def-vba-AryEmpty" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.39</span> AryEmpty: Check if an array empty<a href="apdx-vba.html#def-vba-AryEmpty" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function AryEmpty(
    ary As Variant
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+The variable to check.
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="def-vba-AryToVal" class="section level4 hasAnchor" number="21.3.1.40">
-<h4><span class="header-section-number">E.3.1.40</span> Set all array elements to a specific value<a href="apdx-vba.html#def-vba-AryToVal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.40</span> AryToVal: Set all array elements to a specific value<a href="apdx-vba.html#def-vba-AryToVal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub AryToVal(
    ByRef ary As Variant,
    value As Variant
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+A 1D or 2D array.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>value</code>
+</td>
+<td style="text-align:left;">
+The value.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim ary() As Integer
+    Dim strAry() As String
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Call TM5_ClearTestTM5
+    &#39;&#39; Set to value single value
+    ReDim ary(2)
+    Call AryToVal(ary, 5)
+    Range(&quot;G4&quot;) = &quot;A fixed value:&quot;
+    Call AryPaste(ary, Range(&quot;G5&quot;)) &#39; the upper left cell is G5</code></pre>
 </div>
 <div id="def-vba-AryToSeq" class="section level4 hasAnchor" number="21.3.1.41">
-<h4><span class="header-section-number">E.3.1.41</span> Set all array elements to a sequence<a href="apdx-vba.html#def-vba-AryToSeq" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.41</span> AryToSeq: Set all array elements to a sequence<a href="apdx-vba.html#def-vba-AryToSeq" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub AryToSeq(
    ByRef ary As Variant,
    lngFrom As Long,
    lngTo As Long,
    Optional lngIdx As Long = 1
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+A dynamic array (use redim to resize it)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>lngFrom</code>
+</td>
+<td style="text-align:left;">
+From value.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>lngTo</code>
+</td>
+<td style="text-align:left;">
+To value.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>lngIdx</code>
+</td>
+<td style="text-align:left;">
+Start index in the array.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim ary() As Integer
+    Dim strAry() As String
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Call TM5_ClearTestTM5
+    &#39;&#39; Set to sequence
+    Call AryToSeq(ary, 1, 6)
+    Range(&quot;G10&quot;) = &quot;A sequence:&quot;
+    Call AryPaste(ary, Range(&quot;G11&quot;))</code></pre>
 </div>
 <div id="def-vba-AryQuickSort" class="section level4 hasAnchor" number="21.3.1.42">
-<h4><span class="header-section-number">E.3.1.42</span> Sort a 2-Dimensional array using a quicksort algorithm<a href="apdx-vba.html#def-vba-AryQuickSort" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.42</span> AryQuickSort: Sort a 2-Dimensional array using a quicksort algorithm<a href="apdx-vba.html#def-vba-AryQuickSort" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub AryQuickSort(
    ByRef ary As Variant,
    Optional lngColumn As Long = 0,
    Optional lngStartIdx As Long = -1,
    Optional lngEndIdx As Long = -1
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+Array to sort and return.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>lngColumn</code>
+</td>
+<td style="text-align:left;">
+Column to sort
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>lngStartIdx</code>
+</td>
+<td style="text-align:left;">
+Start index to sort from
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>lngEndIdx</code>
+</td>
+<td style="text-align:left;">
+End index to sort from
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>
+   Call ArySort(ary,2)  &#39; sort based on 2. column
+</code></pre>
+<pre><code>   Dim ary() As Integer
+   ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+   Call TM5_ClearTestTM5
+   &#39;&#39; Read from a range and sort
+   Call AryRead(ary, Range(&quot;C5:E19&quot;))
+   Call AryQuickSort(ary, 1)
+   Range(&quot;G3&quot;) = &quot;Sort w.r.t. 1. column:&quot;
+   Call RngPaste(Range(&quot;C4:E4&quot;), Range(&quot;G4&quot;))
+   Call AryPaste(ary, Range(&quot;G5&quot;))</code></pre>
 </div>
 <div id="def-vba-AryFromCSV" class="section level4 hasAnchor" number="21.3.1.43">
-<h4><span class="header-section-number">E.3.1.43</span> Read a csv file to and array<a href="apdx-vba.html#def-vba-AryFromCSV" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.43</span> AryFromCSV: Read a csv file to and array<a href="apdx-vba.html#def-vba-AryFromCSV" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub AryFromCSV(
    ary As Variant,
    strFileName As String,
@@ -1654,35 +3356,215 @@ Rename a worksheet if it exists and no sheet with the new name
    Optional blnAbsPath As Boolean = False,
    Optional lngReadFrom As Long = 1
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>strFileName</code>
+</td>
+<td style="text-align:left;">
+File name.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>strDelim</code>
+</td>
+<td style="text-align:left;">
+Delimiter, e.g. "," in a comma delimited file.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>strExcludeCharacter</code>
+</td>
+<td style="text-align:left;">
+Sometimes csv files have quotes around strings ("value").
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnAbsPath</code>
+</td>
+<td style="text-align:left;">
+If true strName specify the absolute path otherwise create
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>lngReadFrom</code>
+</td>
+<td style="text-align:left;">
+The line to read from.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim rng As Range
+    Dim ary() As Integer
+    ThisWorkbook.Worksheets(&quot;TM5&quot;).Activate
+    Call TM5_ClearTestTM5
+    &#39;&#39; Read csv file (NOTE you must know the separator in the csv file beforehand!)
+    Range(&quot;G3&quot;) = &quot;Array values:&quot;
+    Call AryFromCSV(ary, &quot;data2.csv&quot;, &quot;,&quot;)   &#39; know that it contains integers (otherwise use variant)
+    Call AryPaste(ary, Range(&quot;G4&quot;))</code></pre>
 </div>
 <div id="def-vba-WstExists" class="section level4 hasAnchor" number="21.3.1.44">
-<h4><span class="header-section-number">E.3.1.44</span> Check if a worksheet exists<a href="apdx-vba.html#def-vba-WstExists" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.44</span> WstExists: Check if a worksheet exists<a href="apdx-vba.html#def-vba-WstExists" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function WstExists(
    strName As String
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>strName</code>
+</td>
+<td style="text-align:left;">
+Name of worksheet.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    If WstExists(&quot;Test&quot;) Then MsgBox (&quot;Found it!&quot;)</code></pre>
 </div>
 <div id="def-vba-WstDelete" class="section level4 hasAnchor" number="21.3.1.45">
-<h4><span class="header-section-number">E.3.1.45</span> Delete a worksheet if it exists<a href="apdx-vba.html#def-vba-WstDelete" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.45</span> WstDelete: Delete a worksheet if it exists<a href="apdx-vba.html#def-vba-WstDelete" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function WstDelete(
    strName As String
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>strName</code>
+</td>
+<td style="text-align:left;">
+Name of worksheet.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    If WstDelete(&quot;Test1&quot;) Then MsgBox (&quot;Deleted Test1&quot;)</code></pre>
 </div>
 <div id="def-vba-WstCreate" class="section level4 hasAnchor" number="21.3.1.46">
-<h4><span class="header-section-number">E.3.1.46</span> Create a worksheet<a href="apdx-vba.html#def-vba-WstCreate" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.46</span> WstCreate: Create a worksheet<a href="apdx-vba.html#def-vba-WstCreate" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function WstCreate(
    strName As String,
    Optional blnForce As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>strName</code>
+</td>
+<td style="text-align:left;">
+Name of worksheet.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnForce</code>
+</td>
+<td style="text-align:left;">
+Force deletion of worksheet if exists.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    If WstCreate(&quot;Test&quot;, blnForce:=True) Then MsgBox (&quot;Created Test&quot;)  &#39; create Test sheet</code></pre>
 </div>
 <div id="def-vba-WstRename" class="section level4 hasAnchor" number="21.3.1.47">
-<h4><span class="header-section-number">E.3.1.47</span> Rename a worksheet if it exists and no sheet with the new name<a href="apdx-vba.html#def-vba-WstRename" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.47</span> WstRename: Rename a worksheet if it exists and no sheet with the new name<a href="apdx-vba.html#def-vba-WstRename" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function WstRename(
    strName As String,
    strNewName As String
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>strName</code>
+</td>
+<td style="text-align:left;">
+Name of worksheet.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>strNewName</code>
+</td>
+<td style="text-align:left;">
+New name of worksheet.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    If WstRename(&quot;Test&quot;, &quot;Test1&quot;) Then MsgBox (&quot;Renamed the Test to Test1&quot;)  &#39; only work if no Test1 sheet</code></pre>
 </div>
 <div id="def-vba-WstClear" class="section level4 hasAnchor" number="21.3.1.48">
-<h4><span class="header-section-number">E.3.1.48</span> Clear a worksheet if it exists<a href="apdx-vba.html#def-vba-WstClear" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.48</span> WstClear: Clear a worksheet if it exists<a href="apdx-vba.html#def-vba-WstClear" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function WstClear(
    strName As String,
    Optional blnCells As Boolean = True,
@@ -1690,142 +3572,1136 @@ Rename a worksheet if it exists and no sheet with the new name
    Optional blnFormat As Boolean = False,
    Optional blnObjects As Boolean = False
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>strName</code>
+</td>
+<td style="text-align:left;">
+Name of worksheet.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnCells</code>
+</td>
+<td style="text-align:left;">
+Delete cell contents, formats, comments, etc. (default).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnContents</code>
+</td>
+<td style="text-align:left;">
+Delete only cell contents.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnFormat</code>
+</td>
+<td style="text-align:left;">
+Delete only cell format.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnObjects</code>
+</td>
+<td style="text-align:left;">
+Delete cell buttons and charts too.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    If WstClear(&quot;Test8&quot;) Then MsgBox (&quot;Cleared Test8&quot;) &#39; no clearing since on sheet with that name</code></pre>
 </div>
 <div id="def-vba-Col2Str" class="section level4 hasAnchor" number="21.3.1.49">
-<h4><span class="header-section-number">E.3.1.49</span> Convert a collection to a string<a href="apdx-vba.html#def-vba-Col2Str" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.49</span> Col2Str: Convert a collection to a string<a href="apdx-vba.html#def-vba-Col2Str" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function Col2Str(
    col As Collection,
    Optional strSep As String = &quot;,
    &quot;
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>col</code>
+</td>
+<td style="text-align:left;">
+A collection.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>strSep</code>
+</td>
+<td style="text-align:left;">
+Seperator used to seperate the values.
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="def-vba-ColCopy" class="section level4 hasAnchor" number="21.3.1.50">
-<h4><span class="header-section-number">E.3.1.50</span> Copy a collection<a href="apdx-vba.html#def-vba-ColCopy" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.50</span> ColCopy: Copy a collection<a href="apdx-vba.html#def-vba-ColCopy" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function ColCopy(
    colFrom As Collection
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>colFrom</code>
+</td>
+<td style="text-align:left;">
+The collection to copy.
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="def-vba-TmStart" class="section level4 hasAnchor" number="21.3.1.51">
-<h4><span class="header-section-number">E.3.1.51</span> Start timer (unit seconds)<a href="apdx-vba.html#def-vba-TmStart" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.51</span> TmStart: Start timer (unit seconds)<a href="apdx-vba.html#def-vba-TmStart" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function TmStart(
    
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="def-vba-TmElapsed" class="section level4 hasAnchor" number="21.3.1.52">
-<h4><span class="header-section-number">E.3.1.52</span> Time since timer has be started.<a href="apdx-vba.html#def-vba-TmElapsed" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.52</span> TmElapsed: Time since timer has be started.<a href="apdx-vba.html#def-vba-TmElapsed" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function TmElapsed(
    dbltimer As Double,
    Optional strUnit As String = &quot;sec&quot;
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>dblTimer</code>
+</td>
+<td style="text-align:left;">
+Timer when started the timer using timer = StartTimer().
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>strUnit</code>
+</td>
+<td style="text-align:left;">
+Return unit must be either ms, sec, min or hour otherwise return -1
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    dblTimer = TmStart()
+    Application.Wait (Now() + TimeValue(&quot;0:00:02&quot;))   &#39; wait for approx 2 sec
+    MsgBox (TmElapsed(dblTimer, &quot;sec&quot;))</code></pre>
 </div>
 <div id="def-vba-TmSpeedOptimize" class="section level4 hasAnchor" number="21.3.1.53">
-<h4><span class="header-section-number">E.3.1.53</span> Set some properties for the Application object to optimize excecution of vba<a href="apdx-vba.html#def-vba-TmSpeedOptimize" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.53</span> TmSpeedOptimize: Set some properties for the Application object to optimize excecution of vba<a href="apdx-vba.html#def-vba-TmSpeedOptimize" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub TmSpeedOptimize(
    
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim dbltimer As Double
+    Dim i As Integer
+    Dim dblT1 As Double, dblT2 As Double
+    &#39; Measure cpu time
+    dbltimer = TmStart()
+    Application.Wait (Now() + TimeValue(&quot;0:00:02&quot;))   &#39; wait for approx 2 sec
+    MsgBox (&quot;Time used: &quot; &amp; TmElapsed(dbltimer, &quot;sec&quot;) &amp; &quot; sec&quot;)
+    &#39; Impact of disabling application updates
+    Call TmSpeedOptimize
+    dbltimer = TmStart()
+    For i = 1 To 10000
+      Cells(200, 500) = 56
+    Next
+    dblT1 = TmElapsed(dbltimer, &quot;sec&quot;)
+    Call TmRestoreAfterSpeedOptimize
+    dbltimer = TmStart()
+    For i = 1 To 10000
+      Cells(200, 500) = 56
+    Next
+    dblT2 = TmElapsed(dbltimer, &quot;sec&quot;)
+    MsgBox (&quot;Time without updates: &quot; &amp; dblT1 &amp; vbCr &amp; &quot;Time with updates: &quot; &amp; dblT2)
+    Cells(200, 500).Clear</code></pre>
 </div>
 <div id="def-vba-TmRestoreAfterSpeedOptimize" class="section level4 hasAnchor" number="21.3.1.54">
-<h4><span class="header-section-number">E.3.1.54</span> Restore properties for the Application object after have called ApplicationSpeedOptimize<a href="apdx-vba.html#def-vba-TmRestoreAfterSpeedOptimize" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.54</span> TmRestoreAfterSpeedOptimize: Restore properties for the Application object after have called ApplicationSpeedOptimize<a href="apdx-vba.html#def-vba-TmRestoreAfterSpeedOptimize" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub TmRestoreAfterSpeedOptimize(
    
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim dbltimer As Double
+    Dim i As Integer
+    Dim dblT1 As Double, dblT2 As Double
+    &#39; Measure cpu time
+    dbltimer = TmStart()
+    Application.Wait (Now() + TimeValue(&quot;0:00:02&quot;))   &#39; wait for approx 2 sec
+    MsgBox (&quot;Time used: &quot; &amp; TmElapsed(dbltimer, &quot;sec&quot;) &amp; &quot; sec&quot;)
+    &#39; Impact of disabling application updates
+    Call TmSpeedOptimize
+    dbltimer = TmStart()
+    For i = 1 To 10000
+      Cells(200, 500) = 56
+    Next
+    dblT1 = TmElapsed(dbltimer, &quot;sec&quot;)
+    Call TmRestoreAfterSpeedOptimize
+    dbltimer = TmStart()
+    For i = 1 To 10000
+      Cells(200, 500) = 56
+    Next
+    dblT2 = TmElapsed(dbltimer, &quot;sec&quot;)
+    MsgBox (&quot;Time without updates: &quot; &amp; dblT1 &amp; vbCr &amp; &quot;Time with updates: &quot; &amp; dblT2)
+    Cells(200, 500).Clear</code></pre>
 </div>
 <div id="def-vba-TmEx" class="section level4 hasAnchor" number="21.3.1.55">
-<h4><span class="header-section-number">E.3.1.55</span> Example of using the timer procedures<a href="apdx-vba.html#def-vba-TmEx" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.55</span> TmEx: Example of using the timer procedures<a href="apdx-vba.html#def-vba-TmEx" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub TmEx(
    
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="def-vba-RandGenNormal" class="section level4 hasAnchor" number="21.3.1.56">
-<h4><span class="header-section-number">E.3.1.56</span> Generate random numbers from a normal distribution<a href="apdx-vba.html#def-vba-RandGenNormal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.56</span> RandGenNormal: Generate random numbers from a normal distribution<a href="apdx-vba.html#def-vba-RandGenNormal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub RandGenNormal(
    intSize As Integer,
    dblMean As Double,
    dblSD As Double,
    ary(
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>intSize</code>
+</td>
+<td style="text-align:left;">
+Random numbers generated
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>dblMean</code>
+</td>
+<td style="text-align:left;">
+Mean.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>dblSD</code>
+</td>
+<td style="text-align:left;">
+Standard deviation.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+Array to store the values in.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim ary() As Double
+    Dim aryDens() As Double
+    Dim intSize As Integer
+
+    ThisWorkbook.Worksheets(&quot;TM6&quot;).Activate
+    Randomize    &#39; initialize random-number generator
+    intSize = 20 &#39; generate 20 numbers for each distribution
+    &#39; Normal
+    Call RandGenNormal(intSize, 100, 20, ary)
+    Range(&quot;A1&quot;) = &quot;Normal&quot;
+    Call AryPaste(ary, Range(&quot;A2&quot;), False)
+    &#39; Cont. uniform [10,500[
+    Call RandGenUniformCont(intSize, 10, 500, ary)
+    Range(&quot;B1&quot;) = &quot;Uniform&quot;
+    Call AryPaste(ary, Range(&quot;B2&quot;), False)
+    &#39; Discrete uniform 10,...,500
+    Call RandGenUniformDisc(intSize, 10, 500, ary)
+    Range(&quot;B1&quot;) = &quot;Uniform&quot;
+    Call AryPaste(ary, Range(&quot;B2&quot;), False)
+    &#39; Binomial 100 trials, pr = 0.2
+    Call RandGenBinomial(intSize, 100, 0.2, ary)
+    Range(&quot;C1&quot;) = &quot;Binomial&quot;
+    Call AryPaste(ary, Range(&quot;C2&quot;), False)
+    &#39; Poisson lambda = 5
+    Call RandGenPoisson(intSize, 5, ary)
+    Range(&quot;D1&quot;) = &quot;Poisson&quot;
+    Call AryPaste(ary, Range(&quot;D2&quot;), False)
+    &#39; Custom discrete
+    ReDim aryDens(1 To 4, 1 To 2)
+    aryDens(1, 1) = 3
+    aryDens(2, 1) = 4
+    aryDens(3, 1) = 5
+    aryDens(4, 1) = 6
+    aryDens(1, 2) = 0.1
+    aryDens(2, 2) = 0.3
+    aryDens(3, 2) = 0.5
+    aryDens(4, 2) = 0.1
+    Call RandGenDiscrete(intSize, aryDens, ary)
+    Range(&quot;E1&quot;) = &quot;Custom&quot;
+    Call AryPaste(ary, Range(&quot;E2&quot;), False)
+    Range(&quot;G3&quot;) = &quot;Custom distribution:&quot;
+    Range(&quot;G4&quot;) = &quot;Value&quot;
+    Range(&quot;H4&quot;) = &quot;Prob.&quot;
+    Call AryPaste(aryDens, Range(&quot;G5&quot;))</code></pre>
 </div>
 <div id="def-vba-RandInvNormal" class="section level4 hasAnchor" number="21.3.1.57">
-<h4><span class="header-section-number">E.3.1.57</span> Generate a random number from a normal distribution<a href="apdx-vba.html#def-vba-RandInvNormal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.57</span> RandInvNormal: Generate a random number from a normal distribution<a href="apdx-vba.html#def-vba-RandInvNormal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RandInvNormal(
    dblMean As Double,
    dblSD As Double
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>dblMean</code>
+</td>
+<td style="text-align:left;">
+Mean.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>dblSD</code>
+</td>
+<td style="text-align:left;">
+Standard deviation.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    MsgBox (&quot;Normal: &quot; &amp; RandInvNormal(100, 20))</code></pre>
 </div>
 <div id="def-vba-RandGenUniformCont" class="section level4 hasAnchor" number="21.3.1.58">
-<h4><span class="header-section-number">E.3.1.58</span> Generate random numbers from a continuous uniform distribution<a href="apdx-vba.html#def-vba-RandGenUniformCont" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.58</span> RandGenUniformCont: Generate random numbers from a continuous uniform distribution<a href="apdx-vba.html#def-vba-RandGenUniformCont" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub RandGenUniformCont(
    intSize As Integer,
    dblMin As Double,
    dblMax As Double,
    ary(
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>intSize</code>
+</td>
+<td style="text-align:left;">
+Random numbers generated
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>dblMin</code>
+</td>
+<td style="text-align:left;">
+Minimum number.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>dblMax</code>
+</td>
+<td style="text-align:left;">
+Maximum number (not included).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+Array to store the values in.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim ary() As Double
+    Dim aryDens() As Double
+    Dim intSize As Integer
+
+    ThisWorkbook.Worksheets(&quot;TM6&quot;).Activate
+    Randomize    &#39; initialize random-number generator
+    intSize = 20 &#39; generate 20 numbers for each distribution
+    &#39; Normal
+    Call RandGenNormal(intSize, 100, 20, ary)
+    Range(&quot;A1&quot;) = &quot;Normal&quot;
+    Call AryPaste(ary, Range(&quot;A2&quot;), False)
+    &#39; Cont. uniform [10,500[
+    Call RandGenUniformCont(intSize, 10, 500, ary)
+    Range(&quot;B1&quot;) = &quot;Uniform&quot;
+    Call AryPaste(ary, Range(&quot;B2&quot;), False)
+    &#39; Discrete uniform 10,...,500
+    Call RandGenUniformDisc(intSize, 10, 500, ary)
+    Range(&quot;B1&quot;) = &quot;Uniform&quot;
+    Call AryPaste(ary, Range(&quot;B2&quot;), False)
+    &#39; Binomial 100 trials, pr = 0.2
+    Call RandGenBinomial(intSize, 100, 0.2, ary)
+    Range(&quot;C1&quot;) = &quot;Binomial&quot;
+    Call AryPaste(ary, Range(&quot;C2&quot;), False)
+    &#39; Poisson lambda = 5
+    Call RandGenPoisson(intSize, 5, ary)
+    Range(&quot;D1&quot;) = &quot;Poisson&quot;
+    Call AryPaste(ary, Range(&quot;D2&quot;), False)
+    &#39; Custom discrete
+    ReDim aryDens(1 To 4, 1 To 2)
+    aryDens(1, 1) = 3
+    aryDens(2, 1) = 4
+    aryDens(3, 1) = 5
+    aryDens(4, 1) = 6
+    aryDens(1, 2) = 0.1
+    aryDens(2, 2) = 0.3
+    aryDens(3, 2) = 0.5
+    aryDens(4, 2) = 0.1
+    Call RandGenDiscrete(intSize, aryDens, ary)
+    Range(&quot;E1&quot;) = &quot;Custom&quot;
+    Call AryPaste(ary, Range(&quot;E2&quot;), False)
+    Range(&quot;G3&quot;) = &quot;Custom distribution:&quot;
+    Range(&quot;G4&quot;) = &quot;Value&quot;
+    Range(&quot;H4&quot;) = &quot;Prob.&quot;
+    Call AryPaste(aryDens, Range(&quot;G5&quot;))</code></pre>
 </div>
 <div id="def-vba-RandInvUniformCont" class="section level4 hasAnchor" number="21.3.1.59">
-<h4><span class="header-section-number">E.3.1.59</span> Generate a random number from a continuous uniform distribution<a href="apdx-vba.html#def-vba-RandInvUniformCont" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.59</span> RandInvUniformCont: Generate a random number from a continuous uniform distribution<a href="apdx-vba.html#def-vba-RandInvUniformCont" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RandInvUniformCont(
    dblMin As Double,
    dblMax As Double
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>dblMin</code>
+</td>
+<td style="text-align:left;">
+Minimum number.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>dblMax</code>
+</td>
+<td style="text-align:left;">
+Maximum number (not included).
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    &#39; Cont. uniform [10,500[
+    MsgBox (&quot;Uniform (continuous): &quot; &amp; RandInvUniformCont(10, 500))</code></pre>
 </div>
 <div id="def-vba-RandGenUniformDisc" class="section level4 hasAnchor" number="21.3.1.60">
-<h4><span class="header-section-number">E.3.1.60</span> Generate random numbers from a discrete uniform distribution<a href="apdx-vba.html#def-vba-RandGenUniformDisc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.60</span> RandGenUniformDisc: Generate random numbers from a discrete uniform distribution<a href="apdx-vba.html#def-vba-RandGenUniformDisc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub RandGenUniformDisc(
    intSize As Integer,
    vntMin As Variant,
    vntMax As Variant,
    ary(
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>intSize</code>
+</td>
+<td style="text-align:left;">
+Random numbers generated
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>dblMin</code>
+</td>
+<td style="text-align:left;">
+Minimum number.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>dblMax</code>
+</td>
+<td style="text-align:left;">
+Maximum number.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+Array to store the values in.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim ary() As Double
+    Dim aryDens() As Double
+    Dim intSize As Integer
+
+    ThisWorkbook.Worksheets(&quot;TM6&quot;).Activate
+    Randomize    &#39; initialize random-number generator
+    intSize = 20 &#39; generate 20 numbers for each distribution
+    &#39; Normal
+    Call RandGenNormal(intSize, 100, 20, ary)
+    Range(&quot;A1&quot;) = &quot;Normal&quot;
+    Call AryPaste(ary, Range(&quot;A2&quot;), False)
+    &#39; Cont. uniform [10,500[
+    Call RandGenUniformCont(intSize, 10, 500, ary)
+    Range(&quot;B1&quot;) = &quot;Uniform&quot;
+    Call AryPaste(ary, Range(&quot;B2&quot;), False)
+    &#39; Discrete uniform 10,...,500
+    Call RandGenUniformDisc(intSize, 10, 500, ary)
+    Range(&quot;B1&quot;) = &quot;Uniform&quot;
+    Call AryPaste(ary, Range(&quot;B2&quot;), False)
+    &#39; Binomial 100 trials, pr = 0.2
+    Call RandGenBinomial(intSize, 100, 0.2, ary)
+    Range(&quot;C1&quot;) = &quot;Binomial&quot;
+    Call AryPaste(ary, Range(&quot;C2&quot;), False)
+    &#39; Poisson lambda = 5
+    Call RandGenPoisson(intSize, 5, ary)
+    Range(&quot;D1&quot;) = &quot;Poisson&quot;
+    Call AryPaste(ary, Range(&quot;D2&quot;), False)
+    &#39; Custom discrete
+    ReDim aryDens(1 To 4, 1 To 2)
+    aryDens(1, 1) = 3
+    aryDens(2, 1) = 4
+    aryDens(3, 1) = 5
+    aryDens(4, 1) = 6
+    aryDens(1, 2) = 0.1
+    aryDens(2, 2) = 0.3
+    aryDens(3, 2) = 0.5
+    aryDens(4, 2) = 0.1
+    Call RandGenDiscrete(intSize, aryDens, ary)
+    Range(&quot;E1&quot;) = &quot;Custom&quot;
+    Call AryPaste(ary, Range(&quot;E2&quot;), False)
+    Range(&quot;G3&quot;) = &quot;Custom distribution:&quot;
+    Range(&quot;G4&quot;) = &quot;Value&quot;
+    Range(&quot;H4&quot;) = &quot;Prob.&quot;
+    Call AryPaste(aryDens, Range(&quot;G5&quot;))</code></pre>
 </div>
 <div id="def-vba-RandInvUniformDisc" class="section level4 hasAnchor" number="21.3.1.61">
-<h4><span class="header-section-number">E.3.1.61</span> Generate a random number from a discrete uniform distribution<a href="apdx-vba.html#def-vba-RandInvUniformDisc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.61</span> RandInvUniformDisc: Generate a random number from a discrete uniform distribution<a href="apdx-vba.html#def-vba-RandInvUniformDisc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RandInvUniformDisc(
    vntMin As Variant,
    vntMax As Variant
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>dblMin</code>
+</td>
+<td style="text-align:left;">
+Minimum number.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>dblMax</code>
+</td>
+<td style="text-align:left;">
+Maximum number.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    &#39; Discrete uniform 10,...,500
+    MsgBox (&quot;Uniform (discrete): &quot; &amp; RandInvUniformDisc(10, 500))</code></pre>
 </div>
 <div id="def-vba-RandGenBinomial" class="section level4 hasAnchor" number="21.3.1.62">
-<h4><span class="header-section-number">E.3.1.62</span> Generate random numbers from a binomial distribution<a href="apdx-vba.html#def-vba-RandGenBinomial" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.62</span> RandGenBinomial: Generate random numbers from a binomial distribution<a href="apdx-vba.html#def-vba-RandGenBinomial" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub RandGenBinomial(
    intSize As Integer,
    intTrials As Integer,
    dblPr As Double,
    ary(
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>intSize</code>
+</td>
+<td style="text-align:left;">
+Random numbers generated
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>intTrials</code>
+</td>
+<td style="text-align:left;">
+Number of trials.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>dblPr</code>
+</td>
+<td style="text-align:left;">
+Probability of success.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+Array to store the values in.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim ary() As Double
+    Dim aryDens() As Double
+    Dim intSize As Integer
+
+    ThisWorkbook.Worksheets(&quot;TM6&quot;).Activate
+    Randomize    &#39; initialize random-number generator
+    intSize = 20 &#39; generate 20 numbers for each distribution
+    &#39; Normal
+    Call RandGenNormal(intSize, 100, 20, ary)
+    Range(&quot;A1&quot;) = &quot;Normal&quot;
+    Call AryPaste(ary, Range(&quot;A2&quot;), False)
+    &#39; Cont. uniform [10,500[
+    Call RandGenUniformCont(intSize, 10, 500, ary)
+    Range(&quot;B1&quot;) = &quot;Uniform&quot;
+    Call AryPaste(ary, Range(&quot;B2&quot;), False)
+    &#39; Discrete uniform 10,...,500
+    Call RandGenUniformDisc(intSize, 10, 500, ary)
+    Range(&quot;B1&quot;) = &quot;Uniform&quot;
+    Call AryPaste(ary, Range(&quot;B2&quot;), False)
+    &#39; Binomial 100 trials, pr = 0.2
+    Call RandGenBinomial(intSize, 100, 0.2, ary)
+    Range(&quot;C1&quot;) = &quot;Binomial&quot;
+    Call AryPaste(ary, Range(&quot;C2&quot;), False)
+    &#39; Poisson lambda = 5
+    Call RandGenPoisson(intSize, 5, ary)
+    Range(&quot;D1&quot;) = &quot;Poisson&quot;
+    Call AryPaste(ary, Range(&quot;D2&quot;), False)
+    &#39; Custom discrete
+    ReDim aryDens(1 To 4, 1 To 2)
+    aryDens(1, 1) = 3
+    aryDens(2, 1) = 4
+    aryDens(3, 1) = 5
+    aryDens(4, 1) = 6
+    aryDens(1, 2) = 0.1
+    aryDens(2, 2) = 0.3
+    aryDens(3, 2) = 0.5
+    aryDens(4, 2) = 0.1
+    Call RandGenDiscrete(intSize, aryDens, ary)
+    Range(&quot;E1&quot;) = &quot;Custom&quot;
+    Call AryPaste(ary, Range(&quot;E2&quot;), False)
+    Range(&quot;G3&quot;) = &quot;Custom distribution:&quot;
+    Range(&quot;G4&quot;) = &quot;Value&quot;
+    Range(&quot;H4&quot;) = &quot;Prob.&quot;
+    Call AryPaste(aryDens, Range(&quot;G5&quot;))</code></pre>
 </div>
 <div id="def-vba-RandInvBinomial" class="section level4 hasAnchor" number="21.3.1.63">
-<h4><span class="header-section-number">E.3.1.63</span> Generate a random number from a binomial distribution<a href="apdx-vba.html#def-vba-RandInvBinomial" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.63</span> RandInvBinomial: Generate a random number from a binomial distribution<a href="apdx-vba.html#def-vba-RandInvBinomial" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RandInvBinomial(
    intTrials As Integer,
    dblPr As Double
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>intTrials</code>
+</td>
+<td style="text-align:left;">
+Number of trials.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>dblPr</code>
+</td>
+<td style="text-align:left;">
+Probability of success.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    &#39; Binomial 100 trials, pr = 0.2
+    MsgBox (&quot;Binomial: &quot; &amp; RandInvBinomial(100, 0.2))</code></pre>
 </div>
 <div id="def-vba-RandGenPoisson" class="section level4 hasAnchor" number="21.3.1.64">
-<h4><span class="header-section-number">E.3.1.64</span> Generate random numbers from a poisson distribution<a href="apdx-vba.html#def-vba-RandGenPoisson" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.64</span> RandGenPoisson: Generate random numbers from a poisson distribution<a href="apdx-vba.html#def-vba-RandGenPoisson" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub RandGenPoisson(
    intSize As Integer,
    dblLambda As Double,
    ary(
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>intSize</code>
+</td>
+<td style="text-align:left;">
+Random numbers generated
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>dblLambda</code>
+</td>
+<td style="text-align:left;">
+Mean.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+Array to store the values in.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim ary() As Double
+    Dim aryDens() As Double
+    Dim intSize As Integer
+
+    ThisWorkbook.Worksheets(&quot;TM6&quot;).Activate
+    Randomize    &#39; initialize random-number generator
+    intSize = 20 &#39; generate 20 numbers for each distribution
+    &#39; Normal
+    Call RandGenNormal(intSize, 100, 20, ary)
+    Range(&quot;A1&quot;) = &quot;Normal&quot;
+    Call AryPaste(ary, Range(&quot;A2&quot;), False)
+    &#39; Cont. uniform [10,500[
+    Call RandGenUniformCont(intSize, 10, 500, ary)
+    Range(&quot;B1&quot;) = &quot;Uniform&quot;
+    Call AryPaste(ary, Range(&quot;B2&quot;), False)
+    &#39; Discrete uniform 10,...,500
+    Call RandGenUniformDisc(intSize, 10, 500, ary)
+    Range(&quot;B1&quot;) = &quot;Uniform&quot;
+    Call AryPaste(ary, Range(&quot;B2&quot;), False)
+    &#39; Binomial 100 trials, pr = 0.2
+    Call RandGenBinomial(intSize, 100, 0.2, ary)
+    Range(&quot;C1&quot;) = &quot;Binomial&quot;
+    Call AryPaste(ary, Range(&quot;C2&quot;), False)
+    &#39; Poisson lambda = 5
+    Call RandGenPoisson(intSize, 5, ary)
+    Range(&quot;D1&quot;) = &quot;Poisson&quot;
+    Call AryPaste(ary, Range(&quot;D2&quot;), False)
+    &#39; Custom discrete
+    ReDim aryDens(1 To 4, 1 To 2)
+    aryDens(1, 1) = 3
+    aryDens(2, 1) = 4
+    aryDens(3, 1) = 5
+    aryDens(4, 1) = 6
+    aryDens(1, 2) = 0.1
+    aryDens(2, 2) = 0.3
+    aryDens(3, 2) = 0.5
+    aryDens(4, 2) = 0.1
+    Call RandGenDiscrete(intSize, aryDens, ary)
+    Range(&quot;E1&quot;) = &quot;Custom&quot;
+    Call AryPaste(ary, Range(&quot;E2&quot;), False)
+    Range(&quot;G3&quot;) = &quot;Custom distribution:&quot;
+    Range(&quot;G4&quot;) = &quot;Value&quot;
+    Range(&quot;H4&quot;) = &quot;Prob.&quot;
+    Call AryPaste(aryDens, Range(&quot;G5&quot;))</code></pre>
 </div>
 <div id="def-vba-RandInvPoisson" class="section level4 hasAnchor" number="21.3.1.65">
-<h4><span class="header-section-number">E.3.1.65</span> Generate a random number from a Poisson distribution<a href="apdx-vba.html#def-vba-RandInvPoisson" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.65</span> RandInvPoisson: Generate a random number from a Poisson distribution<a href="apdx-vba.html#def-vba-RandInvPoisson" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RandInvPoisson(
    dblLambda As Double
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>dblMean</code>
+</td>
+<td style="text-align:left;">
+Mean.
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>    &#39; Poisson lambda = 5
+    MsgBox (&quot;Poisson: &quot; &amp; RandInvPoisson(5))</code></pre>
 </div>
 <div id="def-vba-RandGenDiscrete" class="section level4 hasAnchor" number="21.3.1.66">
-<h4><span class="header-section-number">E.3.1.66</span> Generate a random number from a custom discrete distribution<a href="apdx-vba.html#def-vba-RandGenDiscrete" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.66</span> RandGenDiscrete: Generate random numbers from a custom discrete distribution<a href="apdx-vba.html#def-vba-RandGenDiscrete" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Sub RandGenDiscrete(
    intSize As Integer,
    dblDens(
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>intSize</code>
+</td>
+<td style="text-align:left;">
+Random numbers generated
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>dblDens</code>
+</td>
+<td style="text-align:left;">
+The probability density. First column contains the outcome and the second the probability.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+Array to store the values in.
+</td>
+</tr>
+</tbody>
+</table>
+<p>Assume that the second column in aryDens sums to one.</p>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim ary() As Double
+    Dim aryDens() As Double
+    Dim intSize As Integer
+
+    ThisWorkbook.Worksheets(&quot;TM6&quot;).Activate
+    Randomize    &#39; initialize random-number generator
+    intSize = 20 &#39; generate 20 numbers for each distribution
+    &#39; Normal
+    Call RandGenNormal(intSize, 100, 20, ary)
+    Range(&quot;A1&quot;) = &quot;Normal&quot;
+    Call AryPaste(ary, Range(&quot;A2&quot;), False)
+    &#39; Cont. uniform [10,500[
+    Call RandGenUniformCont(intSize, 10, 500, ary)
+    Range(&quot;B1&quot;) = &quot;Uniform&quot;
+    Call AryPaste(ary, Range(&quot;B2&quot;), False)
+    &#39; Discrete uniform 10,...,500
+    Call RandGenUniformDisc(intSize, 10, 500, ary)
+    Range(&quot;B1&quot;) = &quot;Uniform&quot;
+    Call AryPaste(ary, Range(&quot;B2&quot;), False)
+    &#39; Binomial 100 trials, pr = 0.2
+    Call RandGenBinomial(intSize, 100, 0.2, ary)
+    Range(&quot;C1&quot;) = &quot;Binomial&quot;
+    Call AryPaste(ary, Range(&quot;C2&quot;), False)
+    &#39; Poisson lambda = 5
+    Call RandGenPoisson(intSize, 5, ary)
+    Range(&quot;D1&quot;) = &quot;Poisson&quot;
+    Call AryPaste(ary, Range(&quot;D2&quot;), False)
+    &#39; Custom discrete
+    ReDim aryDens(1 To 4, 1 To 2)
+    aryDens(1, 1) = 3
+    aryDens(2, 1) = 4
+    aryDens(3, 1) = 5
+    aryDens(4, 1) = 6
+    aryDens(1, 2) = 0.1
+    aryDens(2, 2) = 0.3
+    aryDens(3, 2) = 0.5
+    aryDens(4, 2) = 0.1
+    Call RandGenDiscrete(intSize, aryDens, ary)
+    Range(&quot;E1&quot;) = &quot;Custom&quot;
+    Call AryPaste(ary, Range(&quot;E2&quot;), False)
+    Range(&quot;G3&quot;) = &quot;Custom distribution:&quot;
+    Range(&quot;G4&quot;) = &quot;Value&quot;
+    Range(&quot;H4&quot;) = &quot;Prob.&quot;
+    Call AryPaste(aryDens, Range(&quot;G5&quot;))</code></pre>
 </div>
 <div id="def-vba-RandInvDiscrete" class="section level4 hasAnchor" number="21.3.1.67">
-<h4><span class="header-section-number">E.3.1.67</span> Generate a random number from a custom discrete distribution<a href="apdx-vba.html#def-vba-RandInvDiscrete" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">E.3.1.67</span> RandInvDiscrete: Generate a random number from a custom discrete distribution<a href="apdx-vba.html#def-vba-RandInvDiscrete" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
 <pre><code>Function RandInvDiscrete(
-   ary(
+   aryDens(
 )</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+The probability density. First column contains the outcome and the second the probability.
+</td>
+</tr>
+</tbody>
+</table>
+<p>Assume that the second column in aryDens sums to one.</p>
+<p><strong>Examples</strong></p>
+<pre><code>    Dim aryDens() As Double
+    &#39; Custom discrete
+    ReDim aryDens(1 To 4, 1 To 2)
+    aryDens(1, 1) = 3
+    aryDens(2, 1) = 4
+    aryDens(3, 1) = 5
+    aryDens(4, 1) = 6
+    aryDens(1, 2) = 0.1
+    aryDens(2, 2) = 0.3
+    aryDens(3, 2) = 0.5
+    aryDens(4, 2) = 0.1
+    MsgBox (&quot;Custom (discrete): &quot; &amp; RandInvDiscrete(aryDens))</code></pre>
 </div>
 </div>
 </div>
