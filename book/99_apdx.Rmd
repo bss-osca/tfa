@@ -452,9 +452,14 @@ files <- c("ModRng", "ModAry", "ModWst", "ModCol", "ModTm", "ModRand")
 
 out <- function(x) {
    cat(x$title)
+   cat("**Usage**\n")
    cat(x$funcDef)
-   kbl(x$param) %>%
-      kable_styling(bootstrap_options = c("condensed", "responsive"))    
+   # cat("**Arguments**\n")
+   print(kable(x$param))
+   cat("\n", x$note, "\n\n")
+   if (length(x$example) > 0) cat("**Examples**\n")
+   cat(x$example)
+   cat("\n")
 }
 
 for (f in files) {
@@ -479,8 +484,22 @@ for (f in files) {
          str_c("```\n",.,"\n```\n")
       funcName <- str_extract(str, "\n(Function|Sub) ((.|\n)*?)\\)") %>% 
          str_extract("(Function|Sub) ([:alnum:]*)\\(", group = 2)
-      title <- str_extract(str, "\n'' (.*)", group = 1) %>% str_c("#### ", ., " {#def-vba-", funcName, "}\n")
-      dat[[i]] = list(title = title, funcDef = funcDef, param = param)
+      title <- str_c("#### ", funcName, ": ", str_extract(str, "\n'' (.*)", group = 1), " {#def-vba-", funcName, "}\n")
+
+      note <- str_extract_all(str, "\n' @note ((.|\n)*?)(\n' @|\nSub|\nFunction)")[[1]] %>% 
+         str_remove("\n' @note ") %>% 
+         str_replace_all("\n' *([:space:])", " ") %>% 
+         str_remove(" @$") 
+      
+      example <- str_extract_all(str, "\n' @example((.|\n)*?)(\n' @|\nSub|\nFunction)")[[1]] %>% 
+         str_remove("\n' @example") %>% 
+         str_replace_all("\n'", "\n") %>% 
+         str_remove(" @$|Function|Sub") %>% 
+         str_remove("^\n") %>% 
+         str_remove("\n$") %>% 
+         str_c("```\n",.,"\n```\n")
+      
+      dat[[i]] = list(title = title, funcDef = funcDef, param = param, note = note, example = example)
    }
    tmp <- map(dat, out)
 }

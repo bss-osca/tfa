@@ -1,10 +1,13 @@
 Attribute VB_Name = "TM2_exercises"
-'' Exercises for Teaching Module 2
+'''' Exercises for Teaching Module 2
 
 Option Explicit
 
 
-'' Exercise - Hello
+
+'''' Exercise - Hello
+
+'' Advanced say hello sub
 Sub TM2_SayHelloAdv()
     Dim strName As String
     
@@ -14,8 +17,11 @@ Sub TM2_SayHelloAdv()
 End Sub
 
 
-'' Exercise - Record a macro
-' Cleaned code
+
+
+'''' Exercise - Record a macro
+
+'' Change layout sub (cleaned code)
 Sub TM2_ChangeLayout()
 Attribute TM2_ChangeLayout.VB_ProcData.VB_Invoke_Func = " \n14"
     Selection.Interior.color = 15773696
@@ -23,7 +29,11 @@ Attribute TM2_ChangeLayout.VB_ProcData.VB_Invoke_Func = " \n14"
 End Sub
 
 
-'' Exercise - User input
+
+
+'''' Exercise - User input
+
+'' Check the number and output the result in a messagebox
 Sub TM2_CheckNumber()
     Dim intN As Integer
     
@@ -38,15 +48,24 @@ Sub TM2_CheckNumber()
 End Sub
 
 
-'' Exercise - Max and min number
+
+
+'''' Exercise - Max and min number
+
+'' Generate some random numbers (run to get some numbers)
+' @return Integers in cells A1:A40.
 Sub TM2_GenerateNumbers()
     Dim cell As Range
     
+    Worksheets("TM2").Activate
     For Each cell In Range("A1:A40")
         cell.value = WorksheetFunction.RandBetween(-1000, 1000)
     Next cell
 End Sub
 
+
+'' Find the maximum number of cells A1:A40
+' @return Number in cell D1.
 Sub TM2_FindMax()
     Dim intM As Integer
     Dim r As Integer
@@ -61,6 +80,9 @@ Sub TM2_FindMax()
     Range("D1") = intM
 End Sub
 
+
+'' Find the minimum number of cells A1:A40
+' @return Number in cell D2.
 Sub TM2_FindMin()
     Dim intM As Integer
     Dim r As Integer
@@ -75,6 +97,9 @@ Sub TM2_FindMin()
     Range("D2") = intM
 End Sub
 
+
+'' Find the range of cells A1:A40
+' @return String in cell D3.
 Sub TM2_FindRange()
     Dim intM1 As Integer
     Dim intM2 As Integer
@@ -94,6 +119,9 @@ Sub TM2_FindRange()
     Range("D3") = "[" & intM1 & "," & intM2 & "]"
 End Sub
 
+
+'' Find the number of positives of cells A1:A40
+' @return Number in cell D4.
 Sub TM2_CountPositives()
     Dim intN As Integer
     Dim r As Integer
@@ -108,6 +136,9 @@ Sub TM2_CountPositives()
     Range("D4") = intN
 End Sub
 
+
+'' Find the row index with maximum number of cells A1:A40
+' @return Number in cell D5.
 Sub TM2_RowMax()
     Dim intM As Integer
     Dim intN As Integer
@@ -124,6 +155,9 @@ Sub TM2_RowMax()
     Range("D5") = intN
 End Sub
 
+
+'' Find the row index with minimum number of cells A1:A40
+' @return Number in cell D6.
 Sub TM2_RowMin()
     Dim intM As Integer
     Dim intN As Integer
@@ -140,6 +174,8 @@ Sub TM2_RowMin()
     Range("D6") = intN
 End Sub
 
+
+'' Run all procedures
 Sub TM2_RunAll()
     Call TM2_GenerateNumbers
     Call TM2_FindMax

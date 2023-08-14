@@ -1,5 +1,5 @@
 Attribute VB_Name = "TM2_ex"
-'' Examples for Teaching Module 2
+'''' Examples for Teaching Module 2
 
 Option Explicit  ' you have to declare your variables
 

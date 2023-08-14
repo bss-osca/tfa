@@ -1,5 +1,5 @@
 Attribute VB_Name = "ModTm"
-''' Course procedures related to timing code
+'''' Course procedures related to timing code
 ' May be used "as is" during the course and the exam.
 ' All procedures start with Tm so you can use auto complete to find them easy.
 ' See the documentation for each procedure for further info.
@@ -36,6 +36,10 @@ End Function
 ' @param dblTimer Timer when started the timer using timer = StartTimer().
 ' @param strUnit Return unit must be either ms, sec, min or hour otherwise return -1
 ' @return Time used in the specified unit
+' @example
+'    dblTimer = TmStart()
+'    Application.Wait (Now() + TimeValue("0:00:02"))   ' wait for approx 2 sec
+'    MsgBox (TmElapsed(dblTimer, "sec"))
 Function TmElapsed(dbltimer As Double, Optional strUnit As String = "sec")
     Dim time As Double
 
@@ -49,6 +53,29 @@ End Function
 
 
 '' Set some properties for the Application object to optimize excecution of vba
+' @example
+'    Dim dbltimer As Double
+'    Dim i As Integer
+'    Dim dblT1 As Double, dblT2 As Double
+'    ' Measure cpu time
+'    dbltimer = TmStart()
+'    Application.Wait (Now() + TimeValue("0:00:02"))   ' wait for approx 2 sec
+'    MsgBox ("Time used: " & TmElapsed(dbltimer, "sec") & " sec")
+'    ' Impact of disabling application updates
+'    Call TmSpeedOptimize
+'    dbltimer = TmStart()
+'    For i = 1 To 10000
+'      Cells(200, 500) = 56
+'    Next
+'    dblT1 = TmElapsed(dbltimer, "sec")
+'    Call TmRestoreAfterSpeedOptimize
+'    dbltimer = TmStart()
+'    For i = 1 To 10000
+'      Cells(200, 500) = 56
+'    Next
+'    dblT2 = TmElapsed(dbltimer, "sec")
+'    MsgBox ("Time without updates: " & dblT1 & vbCr & "Time with updates: " & dblT2)
+'    Cells(200, 500).Clear
 Sub TmSpeedOptimize()
     Application.ScreenUpdating = False
     Application.Calculation = xlCalculationManual   ' turn off the automatic calculation
@@ -58,8 +85,30 @@ End Sub
 
 
 '' Restore properties for the Application object after have called ApplicationSpeedOptimize
-'
 ' @author Lars Relund <lars@relund.dk>
+' @example
+'    Dim dbltimer As Double
+'    Dim i As Integer
+'    Dim dblT1 As Double, dblT2 As Double
+'    ' Measure cpu time
+'    dbltimer = TmStart()
+'    Application.Wait (Now() + TimeValue("0:00:02"))   ' wait for approx 2 sec
+'    MsgBox ("Time used: " & TmElapsed(dbltimer, "sec") & " sec")
+'    ' Impact of disabling application updates
+'    Call TmSpeedOptimize
+'    dbltimer = TmStart()
+'    For i = 1 To 10000
+'      Cells(200, 500) = 56
+'    Next
+'    dblT1 = TmElapsed(dbltimer, "sec")
+'    Call TmRestoreAfterSpeedOptimize
+'    dbltimer = TmStart()
+'    For i = 1 To 10000
+'      Cells(200, 500) = 56
+'    Next
+'    dblT2 = TmElapsed(dbltimer, "sec")
+'    MsgBox ("Time without updates: " & dblT1 & vbCr & "Time with updates: " & dblT2)
+'    Cells(200, 500).Clear
 Sub TmRestoreAfterSpeedOptimize()
     Application.ScreenUpdating = True
     Application.Calculation = xlCalculationAutomatic

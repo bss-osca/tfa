@@ -1,5 +1,5 @@
 Attribute VB_Name = "TM4_exercises"
-'' Exercises for Teaching Module 4
+'''' Exercises for Teaching Module 4
 
 Option Explicit
 
@@ -18,7 +18,7 @@ Sub TM4_GetMsg(str As String, Optional bln As Boolean = True)
 End Sub
 
 
-'' Testing
+'' Testing above sub
 Public Sub TM4_TestGetMsg()
     Call TM4_GetMsg("Output this")  '  same as Call TM4_GetMsg("Output this", True)
     Call TM4_GetMsg("Output this", False)
@@ -31,7 +31,7 @@ Sub TM4_PrintNameAge(strName As String, intAge As Integer)
 End Sub
 
 
-'' Testing
+'' Testing above sub
 Sub TM4_TestPrintNameAge()
     Dim strName As String
     Dim intAge As Integer

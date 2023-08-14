@@ -1,10 +1,12 @@
 Attribute VB_Name = "TM3_exercises"
-'' Exercises for Teaching Module 3
+'''' Exercises for Teaching Module 3
 
 Option Explicit
 
 
-''Exercise - Loops
+'''' Exercise - Loops
+
+'' Question 1
 Sub TM3_LoopsQ1()
     Dim i As Integer
     
@@ -15,6 +17,7 @@ Sub TM3_LoopsQ1()
 End Sub
 
 
+'' Question 2
 Sub TM3_LoopsQ2()
     Dim i As Integer
     
@@ -26,6 +29,8 @@ Sub TM3_LoopsQ2()
     Loop
 End Sub
 
+
+'' Question 3
 Sub TM3_LoopsQ3()
     Dim i As Integer
     
@@ -35,6 +40,8 @@ Sub TM3_LoopsQ3()
     Next
 End Sub
 
+
+'' Question 4
 Sub TM3_LoopsQ4()
     Dim i As Integer
     
@@ -44,6 +51,8 @@ Sub TM3_LoopsQ4()
     Next
 End Sub
 
+
+'' Question 5
 Sub TM3_LoopsQ5()
     Dim i As Integer
     
@@ -57,6 +66,8 @@ Sub TM3_LoopsQ5()
     Next
 End Sub
 
+
+'' Question 6
 Sub TM3_LoopsQ6()
     Dim i As Integer
     
@@ -70,6 +81,7 @@ Sub TM3_LoopsQ6()
 End Sub
 
 
+'' Question 7
 Sub TM3_LoopsQ7()
     Worksheets("TM3").Activate  ' activate the sheet we want to use
     Call TM3_LoopsQ1
@@ -81,7 +93,11 @@ Sub TM3_LoopsQ7()
 End Sub
 
 
-'' Exercise - Conditional statements
+
+
+'''' Exercise - Conditional statements
+
+'' Question 1
 Sub TM3_CondQ1()
    Dim r As Integer
    Dim c As Integer
@@ -102,6 +118,7 @@ Sub TM3_CondQ1()
 End Sub
 
 
+'' Question 2
 Sub TM3_CondQ2()
    Dim rngC As Range
    Dim dblM As Double ' mean

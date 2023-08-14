@@ -1,5 +1,5 @@
 Attribute VB_Name = "TM6_ex"
-''' Examples for Teaching Module 6
+'''' Examples for Teaching Module 6
 
 Option Explicit
 
@@ -83,7 +83,7 @@ Sub TM6_RandDistAryEx()
 End Sub
 
 
-' Simulate function values 1000 times and calculate mean and std. dev.
+'' Simulate function values 1000 times and calculate mean and std. dev.
 Sub TM6_SimFunc()
     Dim ary() As Double
     Dim i As Integer
@@ -98,6 +98,8 @@ Sub TM6_SimFunc()
     MsgBox ("Mean: " & WorksheetFunction.Average(ary))
     MsgBox ("Std. dev.: " & WorksheetFunction.StDev_S(ary))
 End Sub
+
+
 
 
 '''' Example - Traveling salesman problem
@@ -435,9 +437,6 @@ Sub TM6_TSPSim()
     Call RngFormat(Cells(3, 2).CurrentRegion, "green")
     Call RngFormat(Cells(intRow, 1).CurrentRegion, "orange", True)
 End Sub
-
-
-
 
 
 

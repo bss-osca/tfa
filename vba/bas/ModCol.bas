@@ -1,5 +1,5 @@
 Attribute VB_Name = "ModCol"
-''' Course procedures related to collections
+'''' Course procedures related to collections
 ' May be used "as is" during the course and the exam.
 ' All procedures start with Coll so you can use auto complete to find them easy.
 ' See the documentation for each procedure for further info.

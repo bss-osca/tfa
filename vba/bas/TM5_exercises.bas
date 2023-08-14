@@ -1,5 +1,5 @@
 Attribute VB_Name = "TM5_exercises"
-'' Exercises for Teaching Module 5
+'''' Exercises for Teaching Module 5
 
 Option Explicit
 
@@ -25,7 +25,32 @@ Sub TM5_Equal()
             End If
         Next
     Next
-    '' If want to check
+    '' If want to check (paste array equal)
+    Call RngClear(Range("O:BA"))
+    Call AryPaste(equal, Range("O4"))
+End Sub
+
+
+'' Find equal entries using named range
+Sub TM5_EqualNamedRange()
+    Dim r As Integer, c As Integer
+    Dim numbers() As Integer
+    Dim equal() As Integer
+    Dim rng As Range
+   
+    ThisWorkbook.Worksheets("TM5_Equal").Activate
+    Set rng = Range("Numbers")
+    Call AryRead(numbers, rng)  ' read into array
+    ' Set values in equal array
+    ReDim equal(LBound(numbers) To UBound(numbers), LBound(numbers) To UBound(numbers))
+    For r = LBound(numbers) To UBound(numbers)
+        For c = LBound(numbers) To UBound(numbers)
+            If numbers(r) = numbers(c) Then
+                equal(r, c) = 1
+            End If
+        Next
+    Next
+    '' If want to check (paste array equal)
     Call RngClear(Range("O:BA"))
     Call AryPaste(equal, Range("O4"))
 End Sub
@@ -278,6 +303,7 @@ Public Sub TM5_ClearSearch()
 End Sub
 
 
+'' Search flights
 Sub TM5_SearchFlights()
     Dim intOrigins As Integer
     Dim intDestinations As Integer

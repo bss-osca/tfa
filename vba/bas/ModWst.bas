@@ -1,5 +1,5 @@
 Attribute VB_Name = "ModWst"
-''' Course procedures related to Worksheets
+'''' Course procedures related to Worksheets
 ' May be used "as is" during the course and the exam.
 ' All procedures start with Wst so you can use auto complete to find them easy.
 ' See the documentation for each procedure for further info.
@@ -14,6 +14,8 @@ Option Explicit
 ' @param strName Name of worksheet.
 ' @return True if exists.
 ' @author Lars Relund <lars@relund.dk>
+' @example
+'    If WstExists("Test") Then MsgBox ("Found it!")
 Function WstExists(strName As String) As Boolean
     WstExists = Evaluate("ISREF('" & strName & "'!A1)")
 End Function
@@ -24,6 +26,8 @@ End Function
 ' @param strName Name of worksheet.
 ' @return True if deleted.
 ' @author Lars Relund <lars@relund.dk>
+' @example
+'    If WstDelete("Test1") Then MsgBox ("Deleted Test1")
 Function WstDelete(strName As String) As Boolean
     Dim wst As Worksheet
     Dim bln As Boolean
@@ -46,6 +50,8 @@ End Function
 ' @param blnForce Force deletion of worksheet if exists.
 ' @return True if created.
 ' @author Lars Relund <lars@relund.dk>
+' @example
+'    If WstCreate("Test", blnForce:=True) Then MsgBox ("Created Test")  ' create Test sheet
 Function WstCreate(strName As String, Optional blnForce As Boolean = False) As Boolean
     Dim wst As Worksheet
     
@@ -66,6 +72,8 @@ End Function
 ' @param strNewName New name of worksheet.
 ' @return True if renamed.
 ' @author Lars Relund <lars@relund.dk>
+' @example
+'    If WstRename("Test", "Test1") Then MsgBox ("Renamed the Test to Test1")  ' only work if no Test1 sheet
 Function WstRename(strName As String, strNewName As String) As Boolean
     Dim wst As Worksheet
 
@@ -87,6 +95,8 @@ End Function
 ' @param blnObjects Delete cell buttons and charts too.
 ' @return True if cleared.
 ' @author Lars Relund <lars@relund.dk>
+' @example
+'    If WstClear("Test8") Then MsgBox ("Cleared Test8") ' no clearing since on sheet with that name
 Function WstClear(strName As String, _
   Optional blnCells As Boolean = True, _
   Optional blnContents As Boolean = False, _

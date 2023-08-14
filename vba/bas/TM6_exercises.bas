@@ -1,13 +1,14 @@
 Attribute VB_Name = "TM6_exercises"
-''' Exercises for Teaching Module 5
+'''' Exercises for Teaching Module 5
 
 Option Explicit
 
 
 
+
 '''' Exercise - Two random integers
 
-'' Generate two random integers
+'' Generate two noequal random integers
 Sub TM6_RandInt1()
     Dim intA As Integer
     Dim intB As Integer
@@ -36,6 +37,7 @@ Sub TM6_RandInt1()
 End Sub
 
 
+'' Same as above using ByRef
 Sub TM6_RandInt2(intA As Integer, intB As Integer, intR1 As Integer, intR2 As Integer)
     Dim i As Integer
 
@@ -54,6 +56,7 @@ Sub TM6_RandInt2(intA As Integer, intB As Integer, intR1 As Integer, intR2 As In
 End Sub
 
 
+'' Test TM6_RandInt2
 Sub TM6_RandInt2Main()
     Dim intR1 As Integer
     Dim intR2 As Integer

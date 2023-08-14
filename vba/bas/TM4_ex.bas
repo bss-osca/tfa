@@ -1,20 +1,22 @@
 Attribute VB_Name = "TM4_ex"
-'' Examples for Teaching Module 4
+'''' Examples for Teaching Module 4
 
 Option Explicit
 
 
+'' A simple sub
 Sub TM4_SimpleSub(str As String)
    MsgBox (str)
 End Sub
 
 
+'' A simple function
 Function TM4_SimpleFunc(dblA As Double, dblB As Double) As Double
    TM4_SimpleFunc = dblA + dblB  ' return variable equals function name
 End Function
 
 
-' Try running it using the debugger (Ctrl + F8 (win) or cmd + shift + I (mac))
+'' Try running it using the debugger (Ctrl + F8 (win) or cmd + shift + I (mac))
 Sub TM4_CallSimpleProc()
    Dim dblV As Double
    
@@ -56,7 +58,10 @@ Sub TM4_RunProductSub()
     MsgBox ("Current value is " & dblV)  ' Current value is 21
 End Sub
 
-' Your turn: which of the 3 previous procedures can be called from a button and a cell?
+
+'' Your turn: which of the 3 previous procedures can be called from a button and a cell?
+
+
 
 
 '' Division of two numbers
@@ -146,6 +151,8 @@ Sub TM4_SeeColorIndex()
 End Sub
 
 
+
+'' Multiply integer passed ByVal
 Private Function TM4_ByVal(ByVal i As Integer) As Integer
     i = i * 2
     MsgBox ("In ByVal i is " & i)
@@ -153,7 +160,8 @@ Private Function TM4_ByVal(ByVal i As Integer) As Integer
 End Function
 
 
-'' Note "Function TM4_ByRef(i As Integer) As Integer" gives same result
+'' Multiply integer passed ByRef
+' @note "Function TM4_ByVal(i As Integer) As Integer" returns the same result.
 Private Function TM4_ByRef(ByRef i As Integer) As Integer
     i = i * 2
     MsgBox ("In ByRef i is " & i)
@@ -161,7 +169,7 @@ Private Function TM4_ByRef(ByRef i As Integer) As Integer
 End Function
 
 
-' Try running it using F5 or the debugger (Ctrl + F8 (win) or cmd + shift + I (mac))
+'' Try running it using F5 or the debugger (Ctrl + F8 (win) or cmd + shift + I (mac))
 Private Sub TM4_TestBy()
     Dim n As Integer
     Dim i As Integer
@@ -207,7 +215,6 @@ Sub TM4_TestVBAfunctions()
    MsgBox ("Current date: " & Date)
    MsgBox ("Days from now: " & DateDiff("d", Date, DateValue("October, 28, 2022")))
 End Sub
-
 
 
 
@@ -270,9 +277,6 @@ Sub TM4_FindTestPersons()
       intS = intS + 1
    Loop
 End Sub
-
-
-
 
 
 

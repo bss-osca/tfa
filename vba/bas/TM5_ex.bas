@@ -1,5 +1,5 @@
 Attribute VB_Name = "TM5_ex"
-'' Examples for Teaching Module 5
+'''' Examples for Teaching Module 5
 
 Option Explicit
 
@@ -116,6 +116,23 @@ Sub TM5_RangeEx2()
 End Sub
 
 
+'' Testing named range
+Sub TM5_NamedRangeEx()
+  Dim rng As Range
+  
+  ThisWorkbook.Activate
+  Set rng = Range("UserAmounts")
+  MsgBox ("Number of rows: " & RngGetRows(rng))
+  MsgBox ("Number of cols: " & RngGetCols(rng))
+  MsgBox ("First column number: " & RngGetFirstCol(rng))
+  MsgBox ("First column letter: " & RngGetFirstCol(rng, asLetter:=True))
+  MsgBox ("Lower right cell: " & RngGetLowerRight(rng, asString:=True))
+  MsgBox ("Upper right cell: " & RngGetUpperRight(rng, asString:=True))
+  
+  '' Now try to redefine UserAmounts in Excel to cells C31:D33 (Formulas > Name Manager > Edit) and run the code again
+End Sub
+
+
 '' Find size of a region (smallest range surrounded by empty boxes)
 '  For instance usefull when don't know the size of a table
 Sub TM5_CurrentRegionEx1()
@@ -170,6 +187,27 @@ Sub TM5_RangeEx3()
 End Sub
 
 
+'' Range info
+Sub TM5_GetRangeInfo(rng As Range)
+  MsgBox ("Address: " & RngGetAddress(rng) & vbLf & _
+          "Rows: " & RngGetRows(rng) & " " & "Cols: " & RngGetCols(rng) & vbLf & _
+          "UL: " & RngGetUpperLeft(rng, asString:=True) & " " & _
+          "UR: " & RngGetUpperRight(rng, asString:=True) & vbLf & _
+          "LL: " & RngGetLowerLeft(rng, asString:=True) & " " & _
+          "LR: " & RngGetLowerRight(rng, asString:=True))
+End Sub
+
+
+'' Range
+Sub TM5_RangeEx4()
+  Dim rng As Range, rng1 As Range
+  
+  Set rng = RngCurRegion(ThisWorkbook.Worksheets("TM5").Range("C5"))
+  Call TM5_GetRangeInfo(rng)
+  Set rng1 = RngGetRange(rng, 5, 2)
+  Call TM5_GetRangeInfo(rng1)
+End Sub
+
 ' Test reading from csv files
 Sub TM5_RngFromCSVEx()
     Dim rng As Range
@@ -220,6 +258,15 @@ Sub TM5_SortRangeEx()
     Set rngCur = RngPaste(rng, Range("K4"), True)
     Call rngCur.Sort(Key1:=rngCur.Columns(2), Header:=xlYes, Key2:=rngCur.Columns(3), Order2:=xlDescending)
     rngCur(1).Offset(-1, 0) = "Sort 2. and next 3. column"
+End Sub
+
+
+Sub TM5_JoinRanges()
+   Dim rng As Range
+   
+   ThisWorkbook.Worksheets("TM5").Activate
+   Set rng = RngJoin(Range("A35:B38"), Range("A49:D56"))
+   MsgBox (RngGetAddress(rng))  ' note rng is two seperate blocks of cells
 End Sub
 
 
@@ -384,6 +431,55 @@ Sub TM5_AryReadCSVEx()
 End Sub
 
 
+
+'''' Example - Reading values from a sheet
+
+'' Read values using plain VBA
+Sub TM5_AryReadValuesPlainVBA()
+   Dim ary() As String
+   Dim rng As Range
+   Dim r As Integer, c As Integer
+   
+   Worksheets("TM5_AryData").Activate
+   Set rng = RngCurRegion(Range("A1"))  ' get current region
+   ReDim ary(1 To RngGetLastRow(rng), 1 To RngGetLastCol(rng))  ' redim array
+   ' allocate values
+   For r = 1 To RngGetLastRow(rng)
+       For c = 1 To RngGetLastCol(rng)
+           ary(r, c) = Cells(r, c)
+       Next
+   Next
+   ' print ary(1,3)
+   If (UBound(ary, 2) < 3) Then
+       MsgBox ("Array does not have 3 columns!")
+       Exit Sub
+   End If
+   MsgBox ("Value entry (1,3) is: " & ary(1, 3))
+End Sub
+
+
+'' Read values using ReadAry
+Sub TM5_AryReadValues()
+   Dim ary() As String
+   Dim rng As Range
+   Dim r As Integer, c As Integer
+   
+   Worksheets("TM5_AryData").Activate
+   Set rng = RngCurRegion(Range("A1"))  ' get current region
+   Call AryRead(ary, rng)               ' allocate values
+   ' print ary(1,3)
+   If (UBound(ary, 2) < 3) Then
+       MsgBox ("Array does not have 3 columns!")
+       Exit Sub
+   End If
+   MsgBox ("Value entry (1,3) is: " & ary(1, 3))
+End Sub
+
+
+
+
+
+'' Sorting an array
 Sub TM5_ArySortEx()
     Dim ary() As Integer
     
@@ -397,7 +493,6 @@ Sub TM5_ArySortEx()
     Call RngPaste(Range("C4:E4"), Range("G4"))
     Call AryPaste(ary, Range("G5"))
 End Sub
-
 
 
 '' Alternative (and faster) way to store a distance matrix is using an array
@@ -480,7 +575,7 @@ End Sub
 
 '' Job sequeceing using a cost array
 '
-' @param costs An array with setup costs
+' @param costs An 2D array with setup costs
 ' @param strSeq The job sequence found (returned ByRef).
 ' @param dblCosts The total setup costs (returned ByRef).
 Sub TM5_GreedyAlg(costs() As Double, strSeq As String, dblCosts As Double)
@@ -603,52 +698,6 @@ Sub TM5_RunBetter()
 End Sub
 
 
-
-
-
-
-'''' Example - Reading values from a sheet
-
-'' Read values using plain VBA
-Sub TM5_AryReadValuesPlainVBA()
-   Dim ary() As String
-   Dim rng As Range
-   Dim r As Integer, c As Integer
-   
-   Worksheets("TM5_AryData").Activate
-   Set rng = RngCurRegion(Range("A1"))  ' get current region
-   ReDim ary(1 To RngGetLastRow(rng), 1 To RngGetLastCol(rng))  ' redim array
-   ' allocate values
-   For r = 1 To RngGetLastRow(rng)
-       For c = 1 To RngGetLastCol(rng)
-           ary(r, c) = Cells(r, c)
-       Next
-   Next
-   ' print ary(1,3)
-   If (UBound(ary, 2) < 3) Then
-       MsgBox ("Array does not have 3 columns!")
-       Exit Sub
-   End If
-   MsgBox ("Value entry (1,3) is: " & ary(1, 3))
-End Sub
-
-
-'' Read values using ReadAry
-Sub TM5_AryReadValues()
-   Dim ary() As String
-   Dim rng As Range
-   Dim r As Integer, c As Integer
-   
-   Worksheets("TM5_AryData").Activate
-   Set rng = RngCurRegion(Range("A1"))  ' get current region
-   Call AryRead(ary, rng)               ' allocate values
-   ' print ary(1,3)
-   If (UBound(ary, 2) < 3) Then
-       MsgBox ("Array does not have 3 columns!")
-       Exit Sub
-   End If
-   MsgBox ("Value entry (1,3) is: " & ary(1, 3))
-End Sub
 
 
 

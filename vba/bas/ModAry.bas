@@ -1,5 +1,5 @@
 Attribute VB_Name = "ModAry"
-''' Course procedures related to arrays
+'''' Course procedures related to arrays
 ' May be used "as is" during the course and the exam.
 ' All procedures start with Ary so you can use auto complete to find them easy.
 ' See the documentation for each procedure for further info.
@@ -37,6 +37,19 @@ End Function
 ' @param ary A 1D or 2D array.
 ' @param strSep Seperator used to seperate the values.
 ' @author Lars Relund <lars@relund.dk>
+' @example
+'   Dim intAry(4) As Integer      ' define array of integers with index 0-4
+'   ' Set values
+'   intAry(0) = 9
+'   intAry(1) = 12
+'   intAry(2) = 222
+'   intAry(3) = 4
+'   intAry(4) = 100
+'   ' Information about the array
+'   MsgBox ("Lowest index: " & LBound(intAry))
+'   MsgBox ("Largest index: " & UBound(intAry))
+'   MsgBox ("Number of elements   : " & UBound(intAry) - LBound(intAry) + 1)
+'   MsgBox ("Array as a string: " & AryToStr(intAry))
 Function AryToStr(ary As Variant, Optional strSep As String = ", ") As String
     Dim strA() As String
     Dim str As String
@@ -72,6 +85,27 @@ End Function
 ' @param blnRowwise Paste the 1D array as a column or row (default).
 '
 ' @author Lars Relund <lars@relund.dk>
+' @example
+'    Dim ary() As Integer
+'    Dim strAry() As String
+'    ThisWorkbook.Worksheets("TM5").Activate
+'    Call TM5_ClearTestTM5
+'    '' Set to value single value
+'    ReDim ary(2)
+'    Call AryToVal(ary, 5)
+'    Range("G4") = "A fixed value:"
+'    Call AryPaste(ary, Range("G5")) ' the upper left cell is G5
+'    '' Paste vertical
+'    Range("K4") = "Paste vertical:"
+'    Call AryPaste(ary, Range("K5"), False)
+'    '' Set to sequence
+'    Call AryToSeq(ary, 1, 6)
+'    Range("G10") = "A sequence:"
+'    Call AryPaste(ary, Range("G11"))
+'    '' Read strings from a range
+'    Call AryRead(strAry, Range("C31:D33"))  ' read a 2D array
+'    Range("G31") = "Names in the " & AryDim(strAry) & "D array:"
+'    Call AryPaste(strAry, Range("G32"))
 Sub AryPaste(ary As Variant, rngUL As Range, Optional blnRowwise As Boolean = True)
     If AryDim(ary) = 1 Then
         If blnRowwise Then
@@ -95,6 +129,26 @@ End Sub
 '
 ' @post The array contains the range values
 ' @author Lars Relund <lars@relund.dk>
+' @example
+'    Dim ary() As Integer
+'    ThisWorkbook.Worksheets("TM5").Activate
+'    Call TM5_ClearTestTM5
+'    '' Read values from a range with only 1 column
+'    Call AryRead(ary, Range("C5:C9"))
+'    Range("G4") = AryDim(ary) & "D array:"
+'    Call AryPaste(ary, Range("G5"), False)
+'    '' Read values from a range with only 1 row
+'    Call AryRead(ary, Range("C5:E5"))
+'    Range("I4") = AryDim(ary) & "D array:"
+'    Call AryPaste(ary, Range("I5"))
+'    '' Read values from a range with only 1 column/row but use 2D array
+'    Call AryRead(ary, Range("C11:C14"), blnReduceDim:=False)
+'    Range("G10") = AryDim(ary) & "D array:"
+'    Call AryPaste(ary, Range("G11"), False)
+'    '' Use other start and end index
+'    Call AryRead(ary, Range("C17:E19"), intStartIdx1:=2, intStartIdx2:=5)
+'    Range("G16") = AryDim(ary) & "D array with start index " & LBound(ary, 1) & " and " & LBound(ary, 2) & ":"
+'    Call AryPaste(ary, Range("G17"))
 Sub AryRead(ByRef ary As Variant, ByRef rng As Range, _
                  Optional intStartIdx1 As Integer = 1, _
                  Optional intStartIdx2 As Integer = 1, _
@@ -130,6 +184,20 @@ End Sub
 '
 ' @post The array contains the range values
 ' @author Lars Relund <lars@relund.dk>
+' @example
+'    Dim ary() As Integer
+'    ThisWorkbook.Worksheets("TM5").Activate
+'    Call TM5_ClearTestTM5
+'    '' Read 1D array
+'    Call AryReadLong(ary, Range("A36:B38"), 3)   ' default value = 3
+'    Range("G35") = "Values in the " & AryDim(ary) & "D array:"
+'    Call AryPaste(ary, Range("G36"))
+'    '' Read 2D array
+'    Call AryReadLong(ary, Range("A41:C47"), 4)   ' default value = 4
+'    Range("G40") = "Values in the " & AryDim(ary) & "D array:"
+'    Call AryPaste(ary, Range("G41"))
+'    '' Read 3D array (cannot be pasted to the sheet, have a look at it using the debugger)
+'    Call AryReadLong(ary, Range("A50:D56"), 5)   ' default value = 5
 Sub AryReadLong(ByRef ary As Variant, ByRef rng As Range, _
                  Optional vntDefalult As Variant = 0)
     Dim i As Integer, j As Integer
@@ -204,6 +272,16 @@ End Function
 ' @param ary A 1D or 2D array.
 ' @param value The value.
 ' @author Lars Relund <lars@relund.dk>
+' @example
+'    Dim ary() As Integer
+'    Dim strAry() As String
+'    ThisWorkbook.Worksheets("TM5").Activate
+'    Call TM5_ClearTestTM5
+'    '' Set to value single value
+'    ReDim ary(2)
+'    Call AryToVal(ary, 5)
+'    Range("G4") = "A fixed value:"
+'    Call AryPaste(ary, Range("G5")) ' the upper left cell is G5
 Sub AryToVal(ByRef ary As Variant, value As Variant)
     Dim i As Long, j As Long, k As Long, l As Long, h As Long
     Dim intdim As Integer
@@ -262,6 +340,15 @@ End Sub
 ' @param lngTo To value.
 ' @param lngIdx Start index in the array.
 ' @author Lars Relund <lars@relund.dk>
+' @example
+'    Dim ary() As Integer
+'    Dim strAry() As String
+'    ThisWorkbook.Worksheets("TM5").Activate
+'    Call TM5_ClearTestTM5
+'    '' Set to sequence
+'    Call AryToSeq(ary, 1, 6)
+'    Range("G10") = "A sequence:"
+'    Call AryPaste(ary, Range("G11"))
 Sub AryToSeq(ByRef ary As Variant, lngFrom As Long, lngTo As Long, Optional lngIdx As Long = 1)
     Dim i As Long, lng As Long
     ReDim ary(lngIdx To (lngTo - lngFrom + 1))
@@ -288,6 +375,16 @@ End Sub
 ' @remark https://stackoverflow.com/questions/4873182/sorting-a-multidimensionnal-array-in-vba
 '         Posted by Jim Rech 10/20/98 Excel.Programming.
 '         Modifications by Nigel Heffernan: Escape failed comparison with empty variant and defensive coding: check inputs
+' @example
+'    Dim ary() As Integer
+'    ThisWorkbook.Worksheets("TM5").Activate
+'    Call TM5_ClearTestTM5
+'    '' Read from a range and sort
+'    Call AryRead(ary, Range("C5:E19"))
+'    Call AryQuickSort(ary, 1)
+'    Range("G3") = "Sort w.r.t. 1. column:"
+'    Call RngPaste(Range("C4:E4"), Range("G4"))
+'    Call AryPaste(ary, Range("G5"))
 Sub AryQuickSort(ByRef ary As Variant, Optional lngColumn As Long = 0, Optional lngStartIdx As Long = -1, Optional lngEndIdx As Long = -1)
     On Error Resume Next
 
@@ -381,6 +478,15 @@ End Sub
 '          You MUST use blnAbsPath = True if the files are stored at a network folder (e.g. OneDrive)
 '          and specify the full path.
 ' @author Lars Relund <lars@relund.dk>
+' @example
+'    Dim rng As Range
+'    Dim ary() As Integer
+'    ThisWorkbook.Worksheets("TM5").Activate
+'    Call TM5_ClearTestTM5
+'    '' Read csv file (NOTE you must know the separator in the csv file beforehand!)
+'    Range("G3") = "Array values:"
+'    Call AryFromCSV(ary, "data2.csv", ",")   ' know that it contains integers (otherwise use variant)
+'    Call AryPaste(ary, Range("G4"))
 Sub AryFromCSV(ary As Variant, strFileName As String, Optional strDelim As String = ";", _
                        Optional strExcludeCharacter As String = "", Optional blnAbsPath As Boolean = False, _
                        Optional lngReadFrom As Long = 1)

@@ -1,5 +1,5 @@
 Attribute VB_Name = "TM3_ex"
-'' Examples for Teaching Module 3
+'''' Examples for Teaching Module 3
 
 Option Explicit
 
@@ -161,7 +161,7 @@ Sub TM3_WriteNumbers3()
 End Sub
 
 
-' Don't run if you don't know how to stop
+'' Don't run if you don't know how to stop
 Sub TM3_EndlessLoop()
     Dim i As Integer
     While i >= 0
@@ -237,7 +237,9 @@ Sub TM3_SeparatePersons3()
 End Sub
 
 
-''' Example - Find Jen
+
+
+'''' Example - Find Jen
 
 '' Find cell with Jen using a For loop
 Sub TM3_FindJen1()
@@ -279,6 +281,8 @@ Sub TM3_FindJen3()
         MsgBox "Jen is a " & Cells(r, 2) & " (Cell A" & r & ")"
     End If
 End Sub
+
+
 
 
 ''' Example - Distance matrix
@@ -328,7 +332,7 @@ End Sub
 '
 ' @pre Assume that coordinates are stored in column B and C starting from row 2
 '      and that number of points are stored in E1.
-Public Sub TM3_MakeSymetricDistanceMatrix()
+Sub TM3_MakeSymetricDistanceMatrix()
     Dim n As Integer
     Dim i As Integer
     Dim j As Integer
@@ -359,16 +363,7 @@ End Sub
 
 
 
-
-
-
-
-
-
-
-
-
-'' Procedures used cleaning etc (you should not understand this code)
+'' Procedures used cleaning etc (you should not understand this code at this point)
 
 Sub TM3_ClearCells()
     Call RngClear(Worksheets("TM3").Range("A6:G100"))
