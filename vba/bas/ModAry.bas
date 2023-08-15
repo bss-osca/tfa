@@ -367,11 +367,6 @@ End Sub
 ' @param lngColumn Column to sort
 ' @param lngStartIdx Start index to sort from
 ' @param lngEndIdx End index to sort from
-'
-' @example
-'
-'   Call ArySort(ary,2)  ' sort based on 2. column
-'
 ' @remark https://stackoverflow.com/questions/4873182/sorting-a-multidimensionnal-array-in-vba
 '         Posted by Jim Rech 10/20/98 Excel.Programming.
 '         Modifications by Nigel Heffernan: Escape failed comparison with empty variant and defensive coding: check inputs

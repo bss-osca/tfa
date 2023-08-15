@@ -307,6 +307,7 @@ End Function
 ' @param intSize Random numbers generated
 ' @param dblLambda Mean.
 ' @param ary Array to store the values in.
+' @note Algorithm suggested by D. Knuth.
 ' @example
 '    Dim ary() As Double
 '    Dim aryDens() As Double
@@ -365,10 +366,11 @@ End Sub
 '' Generate a random number from a Poisson distribution
 '
 ' @param dblMean Mean.
+' @note Algorithm suggested by D. Knuth.
 ' @example
 '    ' Poisson lambda = 5
 '    MsgBox ("Poisson: " & RandInvPoisson(5))
-Function RandInvPoisson(dblLambda As Double) As Long  'Algorithm by Knuth
+Function RandInvPoisson(dblLambda As Double) As Long
     Dim dblL As Double, dblP As Double
     Dim k As Long
     

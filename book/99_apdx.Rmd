@@ -454,8 +454,7 @@ out <- function(x) {
    cat(x$title)
    cat("**Usage**\n")
    cat(x$funcDef)
-   # cat("**Arguments**\n")
-   print(kable(x$param))
+   if (nrow(x$param) > 0) print(kable(x$param))
    cat("\n", x$note, "\n\n")
    if (length(x$example) > 0) cat("**Examples**\n")
    cat(x$example)
@@ -475,12 +474,14 @@ for (f in files) {
          as_tibble(.name_repair = c("universal")) %>% 
          rename("Argument" = ...1, "Description" = ...2) %>% 
          mutate(Argument = str_c("`", Argument, "`"))
-      funcDef <- str_extract(str, "\n(Function|Sub) ((.|\n)*?)\\)") %>% 
+      funcDef <- str_extract(str, "\n(Function|Sub) ((.|\n)*?)\\).*\n")  %>%   # (?<!\\()\\)
          str_replace_all("_\n *([:graph:])", "\\1") %>%
-         str_remove("\n") %>% 
-         str_replace_all(", ", ",\n   ") %>% 
-         str_replace("\\(", "\\(\n   ") %>%
-         str_replace("\\)", "\n\\)") %>%
+         str_remove_all("\n") %>% 
+         # str_remove("[:alpha:]$") %>% 
+         str_replace_all(', (?!")', ",\n   ") %>% 
+         str_replace("\\((?!\\))", "\\(\n   ") %>%
+         str_replace("(?<!\\()\\)", "\n\\)") %>%
+         str_trim() %>% 
          str_c("```\n",.,"\n```\n")
       funcName <- str_extract(str, "\n(Function|Sub) ((.|\n)*?)\\)") %>% 
          str_extract("(Function|Sub) ([:alnum:]*)\\(", group = 2)
@@ -504,10 +505,6 @@ for (f in files) {
    tmp <- map(dat, out)
 }
 ```
-
-
-
-
 
 
 # Learning goals {#lg-course}
