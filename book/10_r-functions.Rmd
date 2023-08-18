@@ -694,6 +694,87 @@ my_func(7)
 ```
 
 
+
+### Exercise (time conversion)  {#ex-r-time-conversion}
+
+*This exercise is a slightly modified version an exam assignment (exam 2022-A1).*
+
+```{r, solution=TRUE}
+SecToMin <- function(sec) {
+   return(sec / 60)
+}
+
+SecToHours <- function(sec) {
+   return(sec / 60 / 60)
+}
+
+MinToSec <- function(min) {
+   return(min * 60)
+}
+
+MinToHours <- function(min) {
+   return(min / 60)
+}
+
+HoursToMin <- function(hours) {
+   return(hours * 60)
+}
+
+HoursToSec <- function(hours) {
+   return(hours * 60 * 60)
+}
+```
+
+1) Make functions:
+
+  - `SecToMin` which takes an input argument `sec` in seconds and return the number converted to minutes.
+  - `SecToHours` which takes an input argument `sec` in seconds and return the number converted to hours.
+  - `MinToSec` which takes an input argument `min` in minutes and return the number converted to seconds.
+  - `MinToHours` which takes an input argument `min` in minutes and return the number converted to hours.
+  - `HoursToMin` which takes an input argument `hours` in hours and return the number converted to minutes.
+  - `HoursToSec` which takes an input argument `hours` in hours and return the number converted to seconds.
+
+All numbers may be decimal numbers, e.g. 90 seconds is 1.5 minutes and 1.5 hours is 90 minutes. 
+
+
+
+```{r, solution=TRUE}
+ConvertTime <- function(val, unit) {
+   if (unit == "sec") {
+      return(c(sec = val, min = SecToMin(val), hours = SecToHours(val)))
+   } 
+   if (unit == "min") {
+      return(c(sec = MinToSec(val), min = val, hours = MinToHours(val)))
+   }
+   if (unit == "hours") {
+      return(c(sec = HoursToSec(val), min = HoursToMin(val), hours = val))
+   }
+   return(NA)
+}
+## We test the function:
+ConvertTime(val = 1.5, unit = "min")
+ConvertTime(val = 1.5, unit = "hours")
+ConvertTime(val = 1.5, unit = "kr")
+```
+
+2) Make a function `ConvertTime` which takes two input arguments:
+
+  - `val` A number.
+  - `unit` A string that can take values "sec", "min" and "hours".
+
+The function should return `val` converted to seconds, minutes and hours with features:
+
+  - works for all possible values for `unit`,
+  - uses the functions in Question 1,
+  - returns a vector with 3 numbers (seconds, minutes and hours) or `NA` if `unit` does not equals "sec", "min" or "hours".
+
+
+
+
+
+
+
+
 ```{r links, child="links.md"}
 ```
 

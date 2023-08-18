@@ -1718,3 +1718,143 @@ res <- dat %>%
 5) Consider United Kingdom. Which month had the highest number of ICU patients on a given day?
 
 
+
+
+
+### Exercise (election) {#ex-r-election}
+
+*This exercise is a slightly modified version an exam assignment (exam 2022-A2).*
+
+Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
+
+The dataset in the file `elections.csv` lists election votes for municipal elections in Denmark. The column/variables are:
+
+* `area`: municipality,
+* `party`: political party,
+* `year`: election year,
+* `validVotes`: Number of (valid) votes, 
+* `personalVotes`: total number of personal votes, 
+* `listedMen`: men listed,
+* `listedWomen`: women listed, 
+* `electedMen`: elected men,
+* `electedWomen`: elected women.
+
+You can read the dataset file into the dataset `dat` using
+
+```{r}
+# remotes::install_github("bss-osca/tfa-package", build = FALSE)  # run if tfa not installed
+library(tidyverse)
+dat <- read_csv(system.file("extdata/elections.csv", package = "tfa"))
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (data frames) and answer the following questions.
+
+
+
+```{r, solution=TRUE, text="We have a total of 99 municipalities."}
+res <- dat %>%
+  filter(year == 2017) %>% 
+  distinct(area) %>% 
+  nrow() %>% 
+  print()
+```
+```{r, hint=TRUE}
+res <- dat %>%
+  filter(year == ___) %>% 
+  distinct(___) %>% 
+  nrow() %>% 
+  print()
+```
+
+1) How many different municipalities were there in Denmark in 2017?
+
+
+
+```{r, solution=TRUE, text="The highest number of votes was in 2017."}
+res <- dat %>%
+  group_by(year) %>% 
+  summarize(votes = sum(validVotes)) %>% 
+  arrange(desc(votes)) %>% 
+  print()
+```
+```{r, hint=TRUE, eval=FALSE}
+res <- dat %>%
+  group_by(___) %>% 
+  summarize(votes = ___) %>% 
+  arrange(desc(votes)) %>% 
+  print()
+```
+
+2) In which election year was the total number of votes highest?
+
+
+```{r, solution=TRUE, text="The highest number of votes was given to the Social Democratic Party (1029326 votes) who got 842 elected."}
+res <- dat %>%
+  filter(year == 2017) %>% 
+  mutate(elected = electedMen + electedWomen) %>% 
+  group_by(party) %>% 
+  summarize(votes = sum(validVotes), elected = sum(elected)) %>% 
+  arrange(desc(votes)) %>% 
+  print()
+```
+```{r, hint=TRUE, eval=FALSE}
+res <- dat %>%
+  filter(___) %>% 
+  mutate(elected = ___) %>% 
+  group_by(___) %>% 
+  summarize(___) %>% 
+  arrange(desc(___)) %>% 
+  print()
+```
+
+3) Consider the 2017 election. How many votes and elected candidates did the different parties get in total (sort your result descending by votes)?
+
+
+
+```{r, solution=TRUE, text="The listed women is approx. 31. That is, listed women is lower than listed men. This percentage seems to be almost constant over the years (but increasing very slowly)."}
+res <- dat %>%
+  group_by(year) %>% 
+  summarize(listedWomen = sum(listedWomen), listedMen = sum(listedMen)) %>% 
+  mutate(listedWomenPct = listedWomen/(listedMen + listedWomen)) %>% 
+  arrange(listedWomenPct) %>% 
+  print()
+```
+```{r, hint=TRUE, eval=FALSE}
+res <- dat %>%
+  group_by(___) %>% 
+  summarize(listedWomen = ___, listedMen = ___) %>% 
+  mutate(listedWomenPct = ___) %>% 
+  arrange(listedWomenPct) %>% 
+  print()
+```
+
+4) Calculate the percentage of females listed for each year. Are there on average more women than men listed? Is there any tendency over the years?
+
+
+
+```{r, solution=TRUE, text="The Liberal Democratic Party got must relative votes in Herning."}
+res <- dat %>%
+  filter(year == 2017) %>% 
+  group_by(area) %>% 
+  mutate(votesPct = validVotes/sum(validVotes)) %>% 
+  filter(party == "Liberal Democratic Party") %>% 
+  select(area, party, votesPct) %>% 
+  arrange(desc(votesPct)) %>% 
+  print()
+```
+```{r, hint=TRUE, eval=FALSE}
+res <- dat %>%
+  filter(___) %>% 
+  group_by(___) %>% 
+  mutate(votesPct = ___) %>% 
+  filter(party == ___) %>% 
+  select(___) %>% 
+  arrange(desc(___)) %>% 
+  print()
+```
+
+5) Consider the 2017 election. In which municipality did the Liberal Democratic Party get the highest percentage of votes? 
+
+
+
+

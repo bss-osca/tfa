@@ -1811,3 +1811,211 @@ dat %>%
    Which country had the lowest number of deaths in 2021?
 
 
+
+
+
+### Exercise (election) {#ex-r-election-plot}
+
+*This exercise is a slightly modified version an exam assignment (reexam 2022-A3).*
+
+Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you might need dplyr for preparing the datasets you want to plot). We work with the dataset from Assignment 2 which can be read using:
+
+```{r}
+# remotes::install_github("bss-osca/tfa-package", build = FALSE)  # run if tfa not installed
+library(tidyverse)
+dat <- read_csv(system.file("extdata/elections.csv", package = "tfa"))
+```
+
+
+1) Create a visualization showing the total number of votes for each election year with the following features:
+
+* Number of votes is represented using columns.
+* Columns are filled with colours for each party.
+* Informative figure title and axis titles are given.
+
+
+```{r, solution=TRUE, text="The lowest number of votes was in 2009."}
+dat %>%
+  group_by(year, party) %>% 
+  summarise(votes = sum(validVotes)) %>% 
+  ggplot(aes(y = votes, x = factor(year), fill = party)) +
+  geom_col() +
+  labs(title = "Total number of votes",
+       x = "Year",
+       y = "Votes"
+    )
+```
+```{r, hint=TRUE, eval=FALSE}
+dat %>%
+  group_by(___) %>% 
+  summarise(votes = ___) %>% 
+  ggplot(aes(y = ___, x = factor(year), fill = ___)) +
+  geom_col() +
+  labs(title = "Total number of votes",
+       x = "Year",
+       y = "Votes"
+    )
+```
+
+Which year had the lowest number of votes?
+
+
+
+2) Create a visualization showing the relative number of elected women in each municipality with the following features:
+
+* The relative number of elected women is shown using columns.
+* Municipalities are rotated 90 degrees on the x-axis.
+* The columns are sorted increasing.
+* Informative figure title and axis titles are given.
+
+```{r, solution=TRUE, text="The lowest number elected is in Ærø and the highest is in Gentofte."}
+dat %>%
+  group_by(area) %>% 
+  summarize(electedWomen = sum(electedWomen), electedMen = sum(electedMen)) %>% 
+  mutate(electedWomenPct = electedWomen/(electedMen + electedWomen)) %>% 
+  filter(!is.na(electedWomenPct)) %>% 
+  ggplot(aes(x = reorder(area, electedWomenPct), y = electedWomenPct)) +
+  geom_col() + 
+  labs(title = "Relative number of elected women",
+       x = "Municipality",
+       y = "%"
+    ) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+```{r, hint=TRUE, eval=FALSE}
+dat %>%
+  group_by(___) %>% 
+  summarize(___) %>% 
+  mutate(electedWomenPct = ___) %>% 
+  filter(!is.na(electedWomenPct)) %>% 
+  ggplot(aes(x = reorder(___), y = ___)) +
+  geom_col() + 
+  labs(___) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+
+Which municipality has the lowest/highest percentage of women elected?
+
+
+
+3) Create a visualization showing the elected number of candidates as a function of election year with the following features:
+
+* We consider only municipalities Herning, Copenhagen and Aarhus.
+* We consider only the Social Democratic Party, Conservative Peoples Party and Liberal Democratic Party.
+* The plot is divided using `area` (facet).
+* Different colours are used for each party.
+* Informative figure title and axis titles are given.
+* Data points are given in the plot.
+* A line for each party is added.
+
+```{r, solution=TRUE, text="The trend for the Social Democratic Party in Copenhagen is decreasing over the years."}
+dat %>% 
+  filter(area %in% c("Herning", "Copenhagen", "Aarhus"), party %in% c("Social Democratic Party", "Conservative Peoples Party", "Liberal Democratic Party")) %>% 
+  mutate(elected = electedMen + electedWomen) %>% 
+  ggplot(aes(x = year, y = elected, color = party)) +
+  geom_point() +
+  geom_line() +
+  scale_x_binned(n.breaks = 4, nice.breaks = TRUE) +
+  facet_grid(. ~ area) +
+  labs(title = "Elected persons",
+       x = "Year",
+       y = "Elected",
+       color = "Party") +
+  theme(legend.position = "bottom") 
+```
+```{r, hint=TRUE, eval=FALSE}
+dat %>% 
+  filter(area %in% c(___), party %in% c(___)) %>% 
+  mutate(elected = electedMen + electedWomen) %>% 
+  ggplot(aes(___)) +
+  geom_point() +
+  geom_line() +
+  scale_x_binned(n.breaks = 4, nice.breaks = TRUE) +
+  facet_grid(. ~ ___) +
+  labs(___) +
+  theme(legend.position = "bottom") 
+```
+
+
+Consider the Social Democratic Party in Copenhagen. Based on the plot do the elected number of candidates increase or decrease over the election years?
+
+
+
+
+4) Create a visualization showing the relative number of women elected compared to listed (e.g. if listed is 12 and elected is 4 then the number is 4/12) with the following features:
+
+* Columns are used for each party.
+* Colours are used to identify the party.
+* A sub-plot is given for each year.
+* Informative figure title and axis titles are given.
+
+```{r, solution=TRUE, text="For all years the Social Democratic Party has the highest number of the listed women elected."}
+dat %>%
+  mutate(electedW = electedWomen/listedWomen) %>% 
+  group_by(party, year) %>% 
+  summarize(electedW = mean(electedW, na.rm = T)) %>% 
+  ggplot(aes(x = reorder(party, electedW), y = electedW, fill = party)) +
+  geom_col() +
+  facet_grid(year ~ .) +
+  labs(title = "Releative number of women elected compared to listed.",
+       x = "Party",
+       y = "Percentage",
+       fill = "Party") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(), legend.position = "bottom")
+```
+```{r, hint=TRUE, eval=FALSE}
+dat %>%
+  mutate(electedW = ___) %>% 
+  group_by(___) %>% 
+  summarize(___) %>% 
+  ggplot(aes(x = reorder(___), y = ___, fill = ___)) +
+  ___ +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(), legend.position = "bottom")
+```
+
+Which party seems to get the highest number of the listed women elected? 
+
+
+
+
+5) Create a visualization showing the variance in the relative number of personal votes compared to valid votes (i.e. divide the two numbers) with the following features:
+
+* We consider only municipalities Herning, Copenhagen and Aarhus.
+* Variation is shown using a box-plot for each municipality.
+* Informative figure title and axis titles are given.
+
+```{r, solution=TRUE, text="Based on the plot Herning has the highest median of personal votes."}
+dat %>%
+  filter(area %in% c("Herning", "Copenhagen", "Aarhus")) %>% 
+  mutate(personal = personalVotes/validVotes) %>% 
+    ggplot(aes(x = area, y = personal, fill = area)) +
+    geom_boxplot() +
+    labs(title = "Releative number of personal votes over all the election years.",
+       x = "Municipality",
+       y = "Personal votes (pct)",
+       fill = "Municipality") +
+    theme(legend.position = "none")
+```
+```{r, hint=TRUE, eval=FALSE}
+dat %>%
+  filter(area %in% c(___)) %>% 
+  mutate(personal = ___) %>% 
+    ggplot(aes(___)) +
+    geom_boxplot() +
+    labs(title = "Releative number of personal votes over all the election years.",
+       x = "Municipality",
+       y = "Personal votes (pct)",
+       fill = "Municipality") +
+    theme(legend.position = "none")
+```
+
+Which municipality has the highest median?
+
+
