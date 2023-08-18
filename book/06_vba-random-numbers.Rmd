@@ -632,6 +632,45 @@ Create a procedure `TM6_GenRandNumb` that generate 5000 random numbers of
 - Plot the results for each distribution using `TM6_PlotFreq` (given).
 
 
+
+### Exercise - Stochastic functions {#ex-vba-stoc-functions}
+
+*This exercise is a slightly modified version an exam assignment (exam 2022-A5).*
+
+Given an investment of $x$ thousand dollars you have the option of investing in two projects:
+
+  * Project 1: The profit function is 
+$$ 
+\pi_1(x) = 
+\begin{cases}
+			A_1 x,      & \text{if $0 \leq x < 20$}\\
+			A_2 x - 40, & \text{if $20\leq x < 50$}\\
+      A_3 x - 140 & \text{if $x \geq 50$}
+\end{cases}
+$$
+    where $A_i$ is normal distributed with mean $2i$ and standard deviation $0.1i$.
+
+  * Project 2: The profit function is 
+$$ 
+\pi_2(x) = 
+\begin{cases}
+			1.25 x,      & \text{if $0 \leq x < 40$}\\
+			(x - A_1)^2 + 50, & \text{if $40\leq x < 60$}\\
+      A_2 x + 510 & \text{if $x \geq 60$}
+\end{cases}
+$$
+    where $A_1$ is a continuous random number between 38 and 42 (uniform distributed) and $A_2$is a continuous random number between -2 and -0.5 (uniform distributed).
+
+1) Create two functions (`TM6_ProfitP1` and `TM6_ProfitP2`) that return the profit of Project 1 and 2 given investment $x$ as input argument, i.e. the random samples $A_i$ is calculated inside the functions. 
+
+2) Make a sub `TM6_FunctionSim` that do a simulation with the following features:
+
+   - Considers investment sizes $x = 10, 20, 30, ..., 100$.
+   - Uses 50 samples for each investment $x$.
+   - Calculates the average profit and standard deviation of the two projects for each $x$. 
+   - Stores the results in worksheet _TM6_Functions_. 
+
+
   
   
 ```{r links, child="links.md", include=FALSE}
