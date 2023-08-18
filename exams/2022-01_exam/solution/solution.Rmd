@@ -192,40 +192,6 @@ ConvertTime(val = 1.5, unit = "kr")
 
 # R - `r ctrA()` (18%)
 
-```{r get-data, eval=FALSE, include=FALSE, exam=TRUE}
-library(tidyverse)
-library(skimr)
-library(jsonlite)
-
-info <- function(tab_id) {
-   url <- str_c("https://api.statbank.dk/v1/tableinfo/", tab_id, "?lang=en")
-   lst <- read_json(url, simplifyVector = T) 
-   return(list(description = lst$description, unit = lst$unit, variables = lst$variables[,1:2]))
-}
-info("VALGK3")
-
-get_data <- function(tab_id, col_id = NULL) {
-   url <- str_c("https://api.statbank.dk/v1/tableinfo/", tab_id, "?lang=en")
-   lst <- read_json(url, simplifyVector = T) 
-   cols <- lst$variables$id
-   if (!is.null(col_id)) cols <- cols[col_id]
-   url <- str_c("https://api.statbank.dk/v1/data/", tab_id, "/CSV?lang=en&", str_c(cols, collapse = "=*&"), "=*") %>% 
-      URLencode()
-   dat <- read_csv2(url)
-   return(dat)
-}
-dat <- get_data("VALGK3")
-
-dat <- dat %>% 
-  rename(area = OMRÅDE, party = PARTI, voteType = STEMMER, year = TID, value = INDHOLD)
-dat <- dat %>% 
-  filter(area != "All Denmark", !str_detect(area, "Region"))
-dat <- dat %>% 
-  pivot_wider(names_from = voteType, values_from = value) %>% 
-  rename(validVotes = `Valid votes`, personalVotes = `Personal votes (total)`, listedMen = `Listed men`, listedWomen = `Listed women`, electedMen = `Elected men`, electedWomen = `Elected women`)
-write_csv(dat, "election.csv")
-```
-
 The dataset in the file `election.csv` lists election votes for municipal elections in Denmark. The column/variables are:
 
 * `area`: municipality,
