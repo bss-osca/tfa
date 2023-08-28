@@ -2019,3 +2019,265 @@ dat %>%
 Which municipality has the highest median?
 
 
+
+
+### Exercise (orders) {#ex-r-orders-plot}
+
+*This exercise is a slightly modified version an exam assignment (reexam 2023-A2).*
+
+Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). 
+
+Consider the dataset in the file `orders.csv` with purchase orders for a group of ships. 
+
+The dataset contains a row for each item used in an order. The columns/variables are:
+
+  - `ship`: The ship considered.
+  - `order_id`: Order id. An order is a group of items purchased in one batch from a single supplier.
+  - `item_id`: Item id.
+  - `item_desc`: Item description.
+  - `quantity`: Number of items ordered.
+  - `price`: Price per unit.
+  - `order_date`: Order date.
+  - `delivery_date`: Expected delivery date when order is made.
+  - `delivery_place`: Delivery place.
+  - `recieved_date`: Actual date the order is recieved.
+  - `supplier`: Supplier for the order.
+  - `delivery_cost`: Delivery cost.
+  - `order_year`: Year the order was placed. 
+
+You can read the dataset file into the dataset `dat` using
+
+```{r}
+# remotes::install_github("bss-osca/tfa-package", build = FALSE)  # run if tfa not installed
+library(tidyverse)
+dat <- read_csv(system.file("extdata/orders.csv", package = "tfa"))
+```
+
+
+1) Create a visualization showing the number of purchase orders for each year with the following features:
+
+* Bars are used for each year.
+* Fill colors are used to identify the ship. 
+* Legends are put at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+```{r, solution=TRUE, text="Most orders are in 2018."}
+dat %>% 
+   group_by(order_year, order_id) %>% 
+   summarise(ship = first(ship)) %>% 
+   ggplot(aes(x = order_year, fill = ship)) +
+   geom_bar() +
+   labs(title = "Number of orders",
+    x = "Year",
+    y = "Orders",
+    fill = "Ship") +
+   theme(legend.position = "bottom")
+# or
+# dat %>%
+#    count(order_year, order_id, ship) %>%
+#    ggplot(aes(x = order_year, fill = ship)) +
+#    geom_bar()
+```
+```{r, hint=TRUE, eval=FALSE}
+dat %>% 
+   group_by(order_year, order_id) %>% 
+   summarise(ship = first(___)) %>% 
+   ggplot(aes(x = ___, fill = ___)) +
+   geom_bar() +
+   labs(title = ___,
+    x = ___,
+    y = ___,
+    fill = ___) +
+   theme(legend.position = "bottom")
+```
+
+Which year had the most orders?
+
+
+2) Create a visualization showing the total number of items ordered for each ship with the following features:
+
+* The numbers are shown using columns.
+* Reorder the columns so they increase along the x-axis.
+* Informative figure title and axis titles are given.
+
+```{r, solution=TRUE, text="Most items are used for Ship-13."}
+res <- dat %>% 
+   group_by(ship) %>% 
+   summarize(n = sum(quantity)) %>% 
+   arrange(desc(n)) 
+res %>% 
+   ggplot(aes(x = reorder(ship, n), y = n)) +
+   geom_col() +
+   labs(title = "Total number of items used",
+    x = "Ship",
+    y = "Items") +
+   theme(legend.position = "bottom")
+```
+```{r, hint=TRUE, eval=FALSE}
+res <- dat %>% 
+   group_by(ship) %>% 
+   summarize(n = ___) %>% 
+   arrange(desc(n)) 
+res %>% 
+   ggplot(aes(x = reorder(___)) +
+   geom_col() +
+   labs(___) +
+   theme(legend.position = "bottom")
+```
+
+Which ship uses most items? 
+
+
+3) For each ship, create a visualization showing the number of items used as a function of done date with the following features:
+
+* The numbers are shown using columns with a fixed line width of 1 and a blue color. 
+* The plot is divided using `ship` (facet). Hint: You may use `scales = "free_y"`. 
+* Informative figure title and axis titles are given.
+
+```{r, solution=TRUE, warning=FALSE, text="On a specific date must items are used for Ship-13."}
+res <- dat %>% 
+   group_by(ship, order_date) %>% 
+   summarize(n = sum(quantity)) 
+res %>% 
+   ggplot(aes(x = order_date, y = n)) +
+   geom_col(linewidth = 1, color = "blue") +
+   facet_wrap(~ ship, scales = "free_y") +
+   labs(title = "Number of items used",
+    x = "Date",
+    y = "Items used") 
+```
+```{r, hint=TRUE, eval=FALSE}
+res <- dat %>% 
+   group_by(___) %>% 
+   summarize(n = ___) 
+res %>% 
+   ggplot(aes(___)) +
+   geom_col(linewidth = 1, color = "blue") +
+   facet_wrap(~ ___, scales = "free_y") +
+   labs(___) 
+```
+
+Which ship has most items used at a specific date?
+
+
+4) Consider items with id:
+
+```{r}
+items <- c("601.003.004" ,"601.004.006", "601.026.128", "601.026.052")
+```
+
+For each row in the dataset, calculate an index variable as price divided with the maximum item id price. Hint: Group by item id and use `mutate` to add the column. Create a visualization showing the index as a function of order year with the following features:
+
+* The numbers are shown using points.
+* The plot is divided using item id (facet). 
+* A trend line is added.
+* Informative figure title and axis titles are given.
+
+```{r, solution=TRUE, text="If consider item 601.026.128 it can be seen that prices are very different. By considering item description it can be seen that the item is in fact not a single product, i.e we have a misclassification of item id!"}
+res <- dat %>% 
+   filter(item_id %in% items) %>% 
+   group_by(item_id) %>% 
+   mutate(idx = price/max(price))
+res %>% 
+   ggplot(aes(y = idx, x = order_year)) + 
+   geom_point() +
+   geom_smooth(se = F) +
+   facet_wrap(~ item_id) +
+   labs(title = "Price index (index 1 = max price)",
+    x = "Order year",
+    y = "Index") 
+dat %>% 
+   filter(item_id %in% "601.026.128")  
+```
+```{r, hint=TRUE, eval=FALSE}
+res <- dat %>% 
+   filter(item_id %in% items) %>% 
+   group_by(item_id) %>% 
+   mutate(idx = price/max(price))
+res %>% 
+   ggplot(___) + 
+   geom_point() +
+   geom_smooth(se = F) +
+   facet_wrap(~ ___) +
+   labs(___) 
+```
+Take a closer look at the item with most price fluctuations. Are the prices reasonable for a singe product? 
+
+
+5) Make a summary table in the following way:
+
+* Add a column `val` with the value of an item in a row equaling the price times quantity.
+* Group each item id and set the total value `total_value` to the sum of `val` and calculate the total quantity purchased. 
+* Arrange the total value in descending order.
+* Add columns:
+   - Relative total value equals `total_val/sum(total_val)`.
+   - Relative item number equals `row_number()/n()`.
+   - Cumulative relative total value (`cum_pct_val`). Hint: You can use the `cumsum` function here.
+   - Class equals `class = case_when(cum_pct_val <= 0.8 ~ "A", cum_pct_val <= 0.95  ~ "B", TRUE ~ "C")` classifying items in A (high value items), B (middle), and C (low value items). 
+
+Create a visualization showing the cumulative relative total value as a function of relative item number with the following features:
+
+* Data points are given in the plot.
+* Different colors are used for each class.
+* Different sizes are used for each quantity.
+* A line is added with black color and fixed size 0.3. 
+* Informative figure title and axis titles are given.
+
+```{r, solution=TRUE, warning=FALSE, text="Items in the A class (80% of value) are approx. 7% of the total items. "}
+res1 <- dat %>% 
+   mutate(val = price * quantity) %>% 
+   group_by(item_id) %>% 
+   summarise(total_val = sum(val), item_desc = first(item_desc), quantity = sum(quantity)) %>% 
+   arrange(desc(total_val)) %>% 
+   mutate(pct_val = total_val/sum(total_val), 
+          pct_item = row_number()/n(),
+          cum_pct_val = cumsum(pct_val), 
+          class = case_when(
+            cum_pct_val <= 0.8 ~ "A",
+            cum_pct_val <= 0.95  ~ "B",
+            TRUE ~ "C"
+         )) %>% 
+   # tail() %>% 
+   print() 
+
+res1 %>% 
+   ggplot(aes(x = pct_item, y = cum_pct_val, col = class, size = quantity)) +
+   geom_point() +
+   geom_line(col = "black", size = 0.3) +
+   labs(title = "Usage of items (one point per item)",
+    x = "Item percentage",
+    y = "Cumulative value",
+    col = "Class",
+    size = "Purchased") 
+```
+```{r, hint=TRUE, eval=FALSE}
+res1 <- dat %>% 
+   mutate(val = ___) %>% 
+   group_by(___) %>% 
+   summarise(total_val = ___, item_desc = first(___), quantity = ___) %>% 
+   arrange(desc(total_val)) %>% 
+   mutate(pct_val = total_val/sum(total_val), 
+          pct_item = row_number()/n(),
+          cum_pct_val = cumsum(pct_val), 
+          class = case_when(
+            cum_pct_val <= 0.8 ~ "A",
+            cum_pct_val <= 0.95  ~ "B",
+            TRUE ~ "C"
+         )) %>% 
+   print() 
+
+res1 %>% 
+   ggplot(aes(x = ___, y = ___, col = ___, size = ___)) +
+   geom_point() +
+   geom_line(col = "black", size = 0.3) +
+   labs(___) 
+```
+
+How many items contribute to 80% of the total value?  
+
+
+
+
+
