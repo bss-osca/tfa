@@ -1619,71 +1619,94 @@ Given a set of tasks, where some are already started, write a sub that selects t
 
 
    
+### Exercise - Seat reservation {#ex-vba-seat-reservation}
 
-<!-- ### Exercise - `ByRef` {#ex-vba-byref} -->
+*This exercise is a larger assignment and is more extensive than the exam and is not a mandatory/part of curriculum. Do not expect such a large assignment at the exam. However, by doing this exercise you will improve your VBA skills which may be beneficial at the exam or when write your master thesis.*
 
-<!-- The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-byref-template.xlsm) should be used as a starting point for this exercise.  -->
+A template file is given for this exercise, which should be used as a starting point. The file already contains skeletons for some of the procedures and some procedures that you may use to help you. Implement ALL your code in module `ModSeatRes`. 
 
-<!--   (1) Create a procedure `AryToVal` satisfying: -->
-<!--       - Arguments are `ByRef ary As Variant, value As Variant`. -->
-<!--       - All entries in the array are set to `value`.  -->
-<!--       - The procedure work both if the dimension of the array is 1 or 2. You may use `AryDim` to find the dimension. -->
+This exercise considers a seat reservation problem. Consider a train with $I$ seats that is travelling between a start station $1$ and an end station $S$ with $S-2$ stations in between. All seats must be reserved and requests for seat reservations arrive on-line. For ease we assume that a request $r$ is for a single seat between a start station $s_1(r)$ and the end station $s_2(r)$. A decision must be made immediately after the arrival of the request to either accept the request or reject it. If the request is accepted, the reservation must be assigned to a seat and this decision cannot be changed subsequently. That is, there is no knowledge about future requests. The train company want to find a strategy that accept as many requests as possible. For further references about the seat reservation problem see @Boyar99 and @Boyar04. 
 
-<!--       Test the procedure using the `Main` procedure. -->
-<!--   (2) Create a procedure `AryToValByVal` equal to `AryToVal` except that arguments are `ByVal ary As Variant, value As Variant`. Test the procedure using the `Main` procedure. What is the difference? -->
-<!--   (3) Create a procedure `AryToSeq` satisfying: -->
-<!--       - Arguments are `ByRef ary As Variant, lngFrom As Long, lngTo As Long, Optional lngIdx As Long = 1`. -->
-<!--       - Entries in the array is set to values `lngFrom` to `lngTo`. -->
-<!--       - Use `ReDim` to resize the array. -->
+Consider the following requests arriving for a train with 3 seats and 14 stations:
 
-<!--       Test the procedure using the `Main` procedure. -->
-<!--   (4) Create a procedure `AryRead` satisfying: -->
-<!--       - Arguments are `ByRef ary As Variant, ByRef rng As Range, Optional intStartIdx1 As Integer = 1, Optional intStartIdx2 As Integer = 1` -->
-<!--       - Entries in the range `rng` are stored in the array `ary`.  -->
-<!--       - Use `ReDim` to resize the array. -->
+| Request | From | To |
+| ------- | ---- | -- |
+| 1       | 1    | 3  |
+| 2       | 7    | 9  |
+| 3       | 2    | 5  |
+| 4       | 9    | 13 |
+| 5       | 2    | 6  |
+| 6       | 11   | 14 |
+| 7       | 10   | 13 |
+| 8       | 8    | 9  |
+| 9       | 7    | 11 |
 
-<!--       Test the procedure using the `Main` procedure. -->
+A possible assignment of requests to seats is given in Figure \@ref(fig:greedy).
+
+```{r greedy, echo = FALSE, fig.cap="Assignment of requests (Greedy strategy).", out.width="100%"} 
+knitr::include_graphics("img/greedy.png") 
+```   
+
+Observe that the reservation number is assigned to a slot where slot $s$ is from station $s$ to $s+1$. That is, for each seat there is $S-1$ slots. 
+
+Given a request $r$ consider strategies:
+
+- **Greedy**: Scan seats from 1 to $I$. If seat $i$ is available from $s_1(r)$ to $s_2(r)$ then accept the request and assign the reservation to seat $i$. Otherwise reject the request.
+- **Minimize Slots (MinSlots)**: For each seat $i$ available from $s_1(r)$ to $s_2(r)$ calculate the total free slots before and after stations $s_1$ to $s_2$. Assign the request to a seat where it leaves as little total free slots as possible. Otherwise reject the request.
+- **Maximize Slots (MaxSlots)**: For each seat $i$ available from $s_1(r)$ to $s_2(r)$ calculate the total free slots before and after stations $s_1$ to $s_2$. Assign the request to a seat where it leaves most total free slots as possible. Otherwise reject the request.
+
+The result of a strategy Greedy is given in Figure \@ref(fig:greedy) and for MinSlots in Figure \@ref(fig:min-slots). Note that by using the MinSlots strategy all requests are accepted. 
+
+```{r min-slots, echo = FALSE, fig.cap="Assignment of requests (MinSlots strategy).", out.width="100%"} 
+knitr::include_graphics("img/min-slot.png") 
+```
+
+Two statistics are used to measure the quality of a strategy applied to the dataset with $R$ requests are:
+
+- Accepted requests in percent.
+- Used slots in percent $$\frac{\sum_r L_r(s_2(r)-s_1(r))}{I(S-1)}.$$ Where $L_r = 1$ if request $r$ is accepted and 0 otherwise. That is, slots used divided with total number of slots.
+
+You task is to create a program with the following features/tasks (implement your code in module `ModSeatRes`) :
+
+#### Data handling {-}
+
+  (1) Consider and understand the procedure `CopyDataSheet` that asks for a number $d$ and copies the data in worksheet _Data-$d$_ to the _Run strategy_ worksheet. Add a button to the _Run strategy_ worksheet that calls the procedure and test it. 
+  (2) Modify procedure `ReadData` that reads the data from a worksheet (e.g. _Run strategy_)  and store it in two integers and an array. Hint: the procedure `AryRead` in module `ModAry` may be useful here.
+
+#### Algorithm implementation {-}
+
+  (3) Consider and understand the procedure `BtnGreedy`. Add a button to the _Run strategy_ worksheet that calls the procedure. Also consider and understand the procedure `PrintSolution` that prints the solution found to a worksheet and range.
+  (4) Modify procedure `Greedy` so use the greedy strategy described given the data stored by calling `ReadData`. Test it using the button in the _Run strategy_ worksheet.
+  (5) Modify procedures `BtnMinSlots` and `BtnMaxSlots` that use the strategies on the data given in the _Run strategy_ worksheet and print out the solution. Add buttons to the _Run strategy_ worksheet that calls the procedure. 
+  (6) Modify procedures `MinSlots` and `MaxSlots` so use the strategies above given the data stored by calling `ReadData`. Test the algorithms using the buttons in the _Run strategy_ worksheet. 
+  (7) Copy manually the data in worksheet _Ex - Run strategy_ and test the buttons in worksheet _Run strategy_ to see if you get the same results.
+
+#### Simuation {-}
+
+  (8) Consider the procedure `GenerateData` that generate a dataset and modify procedure `BtnGenerateData` that call `GenerateData` and add the dataset to worksheet _Run strategy_. Add a button that runs it in worksheet _Run strategy_ and test it.
+  (9) Modify procedure `Simulate` that calculate the strategies for 100 datasets, print out the results and calculate statistics. The output should be in the worksheet _Simulation_. See worksheet _Ex - Simulation_ for an example. Which strategy seems to be the best/worse?
+  
+#### Parameter analysis {-}
+
+(10) Modify procedure `Seats` which does a parameter variation on the number of seats. Apply the following approach: 
+     * Use the dataset in worksheet _Data-1_.
+     * Use the `MinSlots` strategy.
+     * Find solutions when there are 1 to 150 seats available.
+     * Store the results in worksheet _Seats_ (see worksheet _Ex - Seats_ for an example). 
+     * Make a plot of the results (you may use the macro recorder to get some code).
+      
+      How do the two statistics develop as the number of seats increase?
+  
+Comments to the features/tasks can the added in the _Main_ worksheet.
 
 
 
 
 
-<!-- ### Exercise - Job sequencing {#ex-vba-job-seq} -->
 
-<!-- The [file](https://github.com/bss-osca/tfa/blob/master/vba/vba-job-sequence-template.xlsm) should be used as a starting point for this exercise.  -->
 
-<!-- Consider $i = 1,...,n$ jobs that has to be done on a machine and let $c_{ij}$ denote the setup cost of switching from job $i$ to job $j$. Moreover, let $c_{0i}$ denote the setup cost of setting up job $i$ when the machine is idle (index 0). Let $s = (0, s_1, \ldots, s_n)$ denote the sequence of jobs and $C$ the total setup costs, e.g. if $s = (0,1,3,2,6,5,4)$, then $C = c_{01} + c_{13} + c_{32} + c_{26} + c_{65} + c_{54}$. Different algorithms for finding a good strategy minimizing the total setup costs exists. A greedy algorithm is: -->
 
-<!-- <div class="box"> -->
-<!-- **Step 0**: Select the first job as one with minimal idle setup cost. -->
 
-<!-- **Step 1**: Given current job $i$ select the unscheduled with minimal setup cost.  -->
-
-<!-- **Step 2**: If no unscheduled jobs then stop and output the found job sequence else go to Step 1. -->
-<!-- </div> -->
-
-<!-- Often a better algorithm is: -->
-
-<!-- <div class="box"> -->
-<!-- **Step 0**: For each column $j$ find $\bar{c}_j = min(c_{0j},\ldots,c_{j-1,j},c_{j+1,j},\ldots,c_{nj})$ and define relative setup costs $\hat{c}_{ij} = c_{ij}-\bar{c}_{j}$ (the cost is subtracted the minimum value in that column). -->
-
-<!-- **Step 1**: Call the greedy algorithm using costs $\hat{c}_{ij}$. -->
-<!-- </div> -->
-
-<!-- Consider sheet _Main_ that contains the setup costs for a scheduling problem. -->
-
-<!--    (1) Implement the greedy algorithm in a sub `Greedy` that store the setup costs in an ($n+1 \times n$) 2D array `costs` assuming the setup costs table start in cell A4. Next, call the sub `GreedyAlg(costs)` that takes the costs as input argument. The sub must -->
-<!--        - Store the job sequence in an 1D array. -->
-<!--        - Output the number of jobs in cell C1, the job sequence in cell C2 and the total setup costs in cell F1. -->
-<!--        - Highlight the cells with setup costs used in the sequence. -->
-
-<!--    (2) Implement the better algorithm in a sub `Better` that -->
-<!--        - Find and store the minimum setup costs for each column. -->
-<!--        - Calculate the relative costs. -->
-<!--        - Call the greedy algorithm using the relative costs. -->
-<!--        - Correct the total setup costs by adding the minimum costs. -->
-<!--    (3) Add three buttons to _Main_ that remove the solution, run greedy and run better. -->
-<!--    (4) Try to use different datasets from the sheet _Data_ and paste it into A4 in _Main_. -->
 
 
 ```{r links, child="links.md", include=FALSE}
