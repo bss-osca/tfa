@@ -1858,3 +1858,192 @@ res <- dat %>%
 
 
 
+
+### Exercise (orders) {#ex-r-orders}
+
+*This exercise is a slightly modified version an exam assignment (reexam 2023-A1).*
+
+Use the *exercise R markdown template* to solve this exercise (**File > New File > R Markdown...**, select **From template** and then **TFA Exercise**).
+
+Consider the dataset in the file `orders.csv` with purchase orders for a group of ships. 
+
+The dataset contains a row for each item used in an order. The columns/variables are:
+
+  - `ship`: The ship considered.
+  - `order_id`: Order id. An order is a group of items purchased in one batch from a single supplier.
+  - `item_id`: Item id.
+  - `item_desc`: Item description.
+  - `quantity`: Number of items ordered.
+  - `price`: Price per unit.
+  - `order_date`: Order date.
+  - `delivery_date`: Expected delivery date when order is made.
+  - `delivery_place`: Delivery place.
+  - `recieved_date`: Actual date the order is recieved.
+  - `supplier`: Supplier for the order.
+  - `delivery_cost`: Delivery cost.
+  - `order_year`: Year the order was placed. 
+
+You can read the dataset file into the dataset `dat` using
+
+```{r}
+# remotes::install_github("bss-osca/tfa-package", build = FALSE)  # run if tfa not installed
+library(tidyverse)
+dat <- read_csv(system.file("extdata/orders.csv", package = "tfa"))
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames) and answer/complete the following questions/tasks:
+
+
+```{r, solution=TRUE, warning=FALSE, text="Orders are for 9 ships and from 31 suppliers. A total of 550 different items are considered."}
+# load packages
+library(tidyverse)
+library(skimr)
+skim(dat)
+```
+```{r, hint=TRUE, text="Use the `skim` package.", eval=FALSE}
+```
+
+1) How many ships, suppliers, and different items are considered?
+
+
+```{r, solution=TRUE, text="I count the number of suppliers per order id. Since there is only a single supplier per order id, orders are sent from a single supplier as expected. Similar for delivery place."}
+dat %>% 
+   count(order_id, supplier) %>% 
+   count(order_id) %>% 
+   filter(n > 1)
+
+dat %>% 
+   count(order_id, delivery_place) %>% 
+   count(order_id) %>% 
+   filter(n > 1)
+```
+```{r, hint=TRUE, eval=FALSE}
+dat %>% 
+   count(order_id, supplier) %>% 
+   count(___) %>% 
+   filter(___)
+```
+
+2) Do all orders use a single supplier and delivery place? 
+
+
+```{r, solution=TRUE, text="The highest delivery cost is 1585508 for order 356418604501."}
+res <- dat %>% 
+   group_by(order_id) %>% 
+   summarise(
+      items = n(), 
+      quantity = sum(quantity, na.rm = T),
+      price = sum(price * quantity, na.rm = T), 
+      delivery_cost = sum(delivery_cost, na.rm = T),
+      year = first(order_year)) %>% 
+   arrange(desc(delivery_cost)) %>% 
+   print()
+```
+```{r, hint=TRUE}
+res <- dat %>% 
+   group_by(order_id) %>% 
+   summarise(
+      items = n(), 
+      ___) %>% 
+   arrange(___) %>% 
+   print()
+```
+
+3) For each order, calculate/find the number of different items, number of items, total price, total delivery cost, and order year (missing values are assumed zero). Which order has the highest delivery cost?
+
+
+
+```{r, solution=TRUE, text="The supplier most used is Supplier-447. The delivery place used most is Delivery Place-105."}
+res1 <- dat %>% 
+   group_by(order_id) %>% 
+   summarise(supplier = first(supplier), delivery_place = first(delivery_place)) 
+res2 <- res1 %>% 
+   count(supplier, sort = T) %>% 
+   print()
+res3 <- res1 %>% 
+   count(delivery_place, sort = T) %>% 
+   print()
+```
+```{r, hint=TRUE, eval=FALSE}
+res1 <- dat %>% 
+   group_by(order_id) %>% 
+   summarise(
+     supplier = first___), 
+     delivery_place = first(___)
+   ) 
+res2 <- res1 %>% 
+   count(___) %>% 
+   print()
+res3 <- res1 %>% ___
+```
+
+4) For each order, find the supplier and delivery place. Hint: The `first` function may be used to select the first item within a group. Which supplier and delivery place is used most?
+
+
+
+
+5) Add a column to the dataset equal the *value* of the items in a row calculated as the price times the quantity. Next, create a summary table named `res1` that for each item id calculates the aggregated value and arrange them in descending order. 
+
+```{r, solution=TRUE, text="The most costly item is 601.003.004 a Cylinder Liner IMO Number 1848265-3."}
+res1 <- dat %>% 
+   mutate(val = price * quantity) %>% 
+   group_by(item_id) %>% 
+   summarise(val = sum(val), item_desc = first(item_desc)) %>% 
+   arrange(desc(val)) %>% 
+   print()
+```
+```{r, hint=TRUE, eval=FALSE}
+res1 <- dat %>% 
+   mutate(val = ___) %>% 
+   group_by(___) %>% 
+   summarise(val = ___, item_desc = first(___)) %>% 
+   arrange(___) %>% 
+   print()
+```
+
+Which item is the most costly one with respect to the calculated value in `res1`?
+
+
+```{r, solution=TRUE}
+res1 <- res1 %>% 
+   ungroup() %>%
+   mutate(pct = val/sum(val), cum_pct = cumsum(pct)) %>%
+   print() 
+```
+```{r, hint=TRUE, eval=FALSE}
+res1 <- res1 %>% 
+   ungroup() %>%
+   mutate(pct = ___, cum_pct = cumsum(___)) %>%
+   print() 
+```
+
+Given the dataset `res1`, add two new columns:
+
+   - The relative value for each item as the ratio between the item's value and the total value of all items.
+   - The cumulative relative value. Hint: You can use the `cumsum` function here.
+
+
+```{r, solution=TRUE, text="The item is used at 7 ships (most on ship Ship-12)."}
+item <- res1$item_id[1]
+res2 <- dat %>% 
+   filter(item_id == item) %>% 
+   group_by(ship) %>% 
+   summarise(n = sum(quantity)) %>% 
+   arrange(desc(n)) %>% 
+   print() 
+```
+```{r, hint=TRUE, eval=FALSE}
+item <- res1$item_id[1]
+res2 <- dat %>% 
+   filter(___) %>% 
+   group_by(___) %>% 
+   summarise(__ %>% 
+   arrange(___ %>% 
+   print() 
+```
+
+Consider the most costly item with respect to the calculated value in `res1`. At which ships is the item used and how many times?
+
+
+
+
