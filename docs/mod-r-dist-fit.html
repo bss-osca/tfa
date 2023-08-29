@@ -477,6 +477,7 @@ div.csl-indent {
 <li class="chapter" data-level="14.6.7" data-path="mod-r-plot.html"><a href="mod-r-plot.html#ex-r-covid-plot"><i class="fa fa-check"></i><b>14.6.7</b> Exercise (covid)</a></li>
 <li class="chapter" data-level="14.6.8" data-path="mod-r-plot.html"><a href="mod-r-plot.html#ex-r-election-plot"><i class="fa fa-check"></i><b>14.6.8</b> Exercise (election)</a></li>
 <li class="chapter" data-level="14.6.9" data-path="mod-r-plot.html"><a href="mod-r-plot.html#ex-r-orders-plot"><i class="fa fa-check"></i><b>14.6.9</b> Exercise (orders)</a></li>
+<li class="chapter" data-level="14.6.10" data-path="mod-r-plot.html"><a href="mod-r-plot.html#ex-r-nycflights"><i class="fa fa-check"></i><b>14.6.10</b> Exercise (New York flights)</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>III Extra R</b></span></li>
@@ -596,15 +597,15 @@ div.csl-indent {
 <p>Fitting distributions to data is a very common task in statistics and consists in choosing a probability distribution modelling the random variable, as well as finding parameter estimates for that distribution. This requires judgment and expertise and generally needs an iterative process of distribution choice, parameter estimation, and quality of fit assessment. In this module we will limit us to univariate data, i.e. univariate distributions such as a normal, uniform, Poisson and exponential distribution.</p>
 <p>Consider a dataset <span class="math inline">\(x = (x_1, \ldots, x_n)\)</span> with <span class="math inline">\(n\)</span> observations which is assumed to be <em>sample</em> observations of a random variable <span class="math inline">\(X\)</span>. Our goal is to find a distribution that fit the data well and estimate the parameters of the distribution. For instance if the distribution is a normal distribution then the mean and variance should be estimated.</p>
 <p>Finding the distribution is an iterative process by considering distribution choice, parameter estimation, and quality of fit assessment repeatedly until you are satisfied. The first step is to decide if you data is should fit a discrete or continuous distribution. That is, should the random variable always take discrete values or could/are continuous values possible/okay? Note even though your sample only contain discrete values it is not necessarily samples from a discrete distribution. Consider for instance the dataset <code>groundbeef</code> which contains values of serving sizes in grams of ground beef patties consumed by children under 5 years old:</p>
-<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb756-1"><a href="mod-r-dist-fit.html#cb756-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)</span>
-<span id="cb756-2"><a href="mod-r-dist-fit.html#cb756-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb756-3"><a href="mod-r-dist-fit.html#cb756-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;groundbeef&quot;</span>)   <span class="co"># activate the dataset</span></span>
-<span id="cb756-4"><a href="mod-r-dist-fit.html#cb756-4" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(groundbeef)</span>
-<span id="cb756-5"><a href="mod-r-dist-fit.html#cb756-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dat)</span>
-<span id="cb756-6"><a href="mod-r-dist-fit.html#cb756-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; tibble [254 × 1] (S3: tbl_df/tbl/data.frame)</span></span>
-<span id="cb756-7"><a href="mod-r-dist-fit.html#cb756-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ serving: num [1:254] 30 10 20 24 20 24 40 20 50 30 ...</span></span></code></pre></div>
+<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb763-1"><a href="mod-r-dist-fit.html#cb763-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)</span>
+<span id="cb763-2"><a href="mod-r-dist-fit.html#cb763-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb763-3"><a href="mod-r-dist-fit.html#cb763-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;groundbeef&quot;</span>)   <span class="co"># activate the dataset</span></span>
+<span id="cb763-4"><a href="mod-r-dist-fit.html#cb763-4" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(groundbeef)</span>
+<span id="cb763-5"><a href="mod-r-dist-fit.html#cb763-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dat)</span>
+<span id="cb763-6"><a href="mod-r-dist-fit.html#cb763-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; tibble [254 × 1] (S3: tbl_df/tbl/data.frame)</span></span>
+<span id="cb763-7"><a href="mod-r-dist-fit.html#cb763-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ serving: num [1:254] 30 10 20 24 20 24 40 20 50 30 ...</span></span></code></pre></div>
 <p>Serving size in grams is only given using integers; however it is obvious that a continuous distribution should be fitted. We select the <code>serving</code> column so <code>dat</code> becomes a vector with the observations.</p>
-<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb757-1"><a href="mod-r-dist-fit.html#cb757-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat<span class="sc">$</span>serving</span></code></pre></div>
+<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb764-1"><a href="mod-r-dist-fit.html#cb764-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat<span class="sc">$</span>serving</span></code></pre></div>
 </div>
 <div id="sec-r-dist-fit-cont" class="section level2 hasAnchor" number="15.3">
 <h2><span class="header-section-number">15.3</span> Fitting distributions to continuous data<a href="mod-r-dist-fit.html#sec-r-dist-fit-cont" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -618,9 +619,9 @@ us continue with the <code>groundbeef</code> dataset.</p>
 histogram (or density plot), which can be obtained with the <code>plotdist</code> function which provides two
 plots where the left-hand plot is by default the histogram on a density scale and the
 right-hand plot the empirical cumulative distribution function (CDF).</p>
-<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb758-1"><a href="mod-r-dist-fit.html#cb758-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotdist</span>(dat, <span class="at">histo =</span> <span class="cn">TRUE</span>, <span class="at">demp =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-654"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-654-1.png" alt="Empirical density and distribution." width="672" />
+<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb765-1"><a href="mod-r-dist-fit.html#cb765-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotdist</span>(dat, <span class="at">histo =</span> <span class="cn">TRUE</span>, <span class="at">demp =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-663"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-663-1.png" alt="Empirical density and distribution." width="672" />
 <p class="caption">
 Figure 15.1: Empirical density and distribution.
 </p>
@@ -661,59 +662,59 @@ range, as a complement to the use of the <code>plotdist</code> and <code>descdis
 notice that the observed skewness is positive and the kurtosis is not far from 3. Hence the fit of
 three common right-skewed distributions could be considered: Weibull, gamma and lognormal
 distributions.</p>
-<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb759-1"><a href="mod-r-dist-fit.html#cb759-1" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(dat)</span>
-<span id="cb759-2"><a href="mod-r-dist-fit.html#cb759-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; summary statistics</span></span>
-<span id="cb759-3"><a href="mod-r-dist-fit.html#cb759-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ------</span></span>
-<span id="cb759-4"><a href="mod-r-dist-fit.html#cb759-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; min:  10   max:  200 </span></span>
-<span id="cb759-5"><a href="mod-r-dist-fit.html#cb759-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; median:  79 </span></span>
-<span id="cb759-6"><a href="mod-r-dist-fit.html#cb759-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean:  73.6 </span></span>
-<span id="cb759-7"><a href="mod-r-dist-fit.html#cb759-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated sd:  35.9 </span></span>
-<span id="cb759-8"><a href="mod-r-dist-fit.html#cb759-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated skewness:  0.735 </span></span>
-<span id="cb759-9"><a href="mod-r-dist-fit.html#cb759-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated kurtosis:  3.55</span></span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-655"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-655-1.png" alt="Skewness-kurtosis plot for a continuous variable (`groundbeef`)." width="672" />
+<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb766-1"><a href="mod-r-dist-fit.html#cb766-1" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(dat)</span>
+<span id="cb766-2"><a href="mod-r-dist-fit.html#cb766-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; summary statistics</span></span>
+<span id="cb766-3"><a href="mod-r-dist-fit.html#cb766-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ------</span></span>
+<span id="cb766-4"><a href="mod-r-dist-fit.html#cb766-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; min:  10   max:  200 </span></span>
+<span id="cb766-5"><a href="mod-r-dist-fit.html#cb766-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; median:  79 </span></span>
+<span id="cb766-6"><a href="mod-r-dist-fit.html#cb766-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean:  73.6 </span></span>
+<span id="cb766-7"><a href="mod-r-dist-fit.html#cb766-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated sd:  35.9 </span></span>
+<span id="cb766-8"><a href="mod-r-dist-fit.html#cb766-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated skewness:  0.735 </span></span>
+<span id="cb766-9"><a href="mod-r-dist-fit.html#cb766-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated kurtosis:  3.55</span></span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-664"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-664-1.png" alt="Skewness-kurtosis plot for a continuous variable (`groundbeef`)." width="672" />
 <p class="caption">
 Figure 15.2: Skewness-kurtosis plot for a continuous variable (<code>groundbeef</code>).
 </p>
 </div>
 <p>Once one or more parametric distributions have been selected they are fitted to the data set using maximum likelihood. This is done using the <code>fitdist</code> function:</p>
-<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb760-1"><a href="mod-r-dist-fit.html#cb760-1" aria-hidden="true" tabindex="-1"></a>fitW <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;weibull&quot;</span>)</span>
-<span id="cb760-2"><a href="mod-r-dist-fit.html#cb760-2" aria-hidden="true" tabindex="-1"></a>fitG <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;gamma&quot;</span>)</span>
-<span id="cb760-3"><a href="mod-r-dist-fit.html#cb760-3" aria-hidden="true" tabindex="-1"></a>fitL <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;lnorm&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb767-1"><a href="mod-r-dist-fit.html#cb767-1" aria-hidden="true" tabindex="-1"></a>fitW <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;weibull&quot;</span>)</span>
+<span id="cb767-2"><a href="mod-r-dist-fit.html#cb767-2" aria-hidden="true" tabindex="-1"></a>fitG <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;gamma&quot;</span>)</span>
+<span id="cb767-3"><a href="mod-r-dist-fit.html#cb767-3" aria-hidden="true" tabindex="-1"></a>fitL <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;lnorm&quot;</span>)</span></code></pre></div>
 <p>The function returns a list with information about the fit such as the parameter estimates, the loglikelihood, the Akaike and Bayesian information criteria (the so-called AIC and BIC). An overview can be seen using the <code>summary</code> function:</p>
-<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="mod-r-dist-fit.html#cb761-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitW)</span>
-<span id="cb761-2"><a href="mod-r-dist-fit.html#cb761-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; weibull &#39; by maximum likelihood </span></span>
-<span id="cb761-3"><a href="mod-r-dist-fit.html#cb761-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb761-4"><a href="mod-r-dist-fit.html#cb761-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       estimate Std. Error</span></span>
-<span id="cb761-5"><a href="mod-r-dist-fit.html#cb761-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape     2.19      0.105</span></span>
-<span id="cb761-6"><a href="mod-r-dist-fit.html#cb761-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; scale    83.35      2.527</span></span>
-<span id="cb761-7"><a href="mod-r-dist-fit.html#cb761-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -1255   AIC:  2514   BIC:  2522 </span></span>
-<span id="cb761-8"><a href="mod-r-dist-fit.html#cb761-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
-<span id="cb761-9"><a href="mod-r-dist-fit.html#cb761-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       shape scale</span></span>
-<span id="cb761-10"><a href="mod-r-dist-fit.html#cb761-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape 1.000 0.322</span></span>
-<span id="cb761-11"><a href="mod-r-dist-fit.html#cb761-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; scale 0.322 1.000</span></span>
-<span id="cb761-12"><a href="mod-r-dist-fit.html#cb761-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitG)</span>
-<span id="cb761-13"><a href="mod-r-dist-fit.html#cb761-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; gamma &#39; by maximum likelihood </span></span>
-<span id="cb761-14"><a href="mod-r-dist-fit.html#cb761-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb761-15"><a href="mod-r-dist-fit.html#cb761-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       estimate Std. Error</span></span>
-<span id="cb761-16"><a href="mod-r-dist-fit.html#cb761-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape   4.0083    0.34134</span></span>
-<span id="cb761-17"><a href="mod-r-dist-fit.html#cb761-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate    0.0544    0.00494</span></span>
-<span id="cb761-18"><a href="mod-r-dist-fit.html#cb761-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -1254   AIC:  2511   BIC:  2518 </span></span>
-<span id="cb761-19"><a href="mod-r-dist-fit.html#cb761-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
-<span id="cb761-20"><a href="mod-r-dist-fit.html#cb761-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       shape  rate</span></span>
-<span id="cb761-21"><a href="mod-r-dist-fit.html#cb761-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape 1.000 0.938</span></span>
-<span id="cb761-22"><a href="mod-r-dist-fit.html#cb761-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate  0.938 1.000</span></span>
-<span id="cb761-23"><a href="mod-r-dist-fit.html#cb761-23" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitL)</span>
-<span id="cb761-24"><a href="mod-r-dist-fit.html#cb761-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; lnorm &#39; by maximum likelihood </span></span>
-<span id="cb761-25"><a href="mod-r-dist-fit.html#cb761-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb761-26"><a href="mod-r-dist-fit.html#cb761-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         estimate Std. Error</span></span>
-<span id="cb761-27"><a href="mod-r-dist-fit.html#cb761-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog    4.169     0.0337</span></span>
-<span id="cb761-28"><a href="mod-r-dist-fit.html#cb761-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog      0.537     0.0238</span></span>
-<span id="cb761-29"><a href="mod-r-dist-fit.html#cb761-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -1261   AIC:  2527   BIC:  2534 </span></span>
-<span id="cb761-30"><a href="mod-r-dist-fit.html#cb761-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
-<span id="cb761-31"><a href="mod-r-dist-fit.html#cb761-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         meanlog sdlog</span></span>
-<span id="cb761-32"><a href="mod-r-dist-fit.html#cb761-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog       1     0</span></span>
-<span id="cb761-33"><a href="mod-r-dist-fit.html#cb761-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog         0     1</span></span></code></pre></div>
+<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb768-1"><a href="mod-r-dist-fit.html#cb768-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitW)</span>
+<span id="cb768-2"><a href="mod-r-dist-fit.html#cb768-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; weibull &#39; by maximum likelihood </span></span>
+<span id="cb768-3"><a href="mod-r-dist-fit.html#cb768-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb768-4"><a href="mod-r-dist-fit.html#cb768-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       estimate Std. Error</span></span>
+<span id="cb768-5"><a href="mod-r-dist-fit.html#cb768-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape     2.19      0.105</span></span>
+<span id="cb768-6"><a href="mod-r-dist-fit.html#cb768-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; scale    83.35      2.527</span></span>
+<span id="cb768-7"><a href="mod-r-dist-fit.html#cb768-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -1255   AIC:  2514   BIC:  2522 </span></span>
+<span id="cb768-8"><a href="mod-r-dist-fit.html#cb768-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
+<span id="cb768-9"><a href="mod-r-dist-fit.html#cb768-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       shape scale</span></span>
+<span id="cb768-10"><a href="mod-r-dist-fit.html#cb768-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape 1.000 0.322</span></span>
+<span id="cb768-11"><a href="mod-r-dist-fit.html#cb768-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; scale 0.322 1.000</span></span>
+<span id="cb768-12"><a href="mod-r-dist-fit.html#cb768-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitG)</span>
+<span id="cb768-13"><a href="mod-r-dist-fit.html#cb768-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; gamma &#39; by maximum likelihood </span></span>
+<span id="cb768-14"><a href="mod-r-dist-fit.html#cb768-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb768-15"><a href="mod-r-dist-fit.html#cb768-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       estimate Std. Error</span></span>
+<span id="cb768-16"><a href="mod-r-dist-fit.html#cb768-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape   4.0083    0.34134</span></span>
+<span id="cb768-17"><a href="mod-r-dist-fit.html#cb768-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate    0.0544    0.00494</span></span>
+<span id="cb768-18"><a href="mod-r-dist-fit.html#cb768-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -1254   AIC:  2511   BIC:  2518 </span></span>
+<span id="cb768-19"><a href="mod-r-dist-fit.html#cb768-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
+<span id="cb768-20"><a href="mod-r-dist-fit.html#cb768-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       shape  rate</span></span>
+<span id="cb768-21"><a href="mod-r-dist-fit.html#cb768-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape 1.000 0.938</span></span>
+<span id="cb768-22"><a href="mod-r-dist-fit.html#cb768-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate  0.938 1.000</span></span>
+<span id="cb768-23"><a href="mod-r-dist-fit.html#cb768-23" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitL)</span>
+<span id="cb768-24"><a href="mod-r-dist-fit.html#cb768-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; lnorm &#39; by maximum likelihood </span></span>
+<span id="cb768-25"><a href="mod-r-dist-fit.html#cb768-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb768-26"><a href="mod-r-dist-fit.html#cb768-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         estimate Std. Error</span></span>
+<span id="cb768-27"><a href="mod-r-dist-fit.html#cb768-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog    4.169     0.0337</span></span>
+<span id="cb768-28"><a href="mod-r-dist-fit.html#cb768-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog      0.537     0.0238</span></span>
+<span id="cb768-29"><a href="mod-r-dist-fit.html#cb768-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -1261   AIC:  2527   BIC:  2534 </span></span>
+<span id="cb768-30"><a href="mod-r-dist-fit.html#cb768-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
+<span id="cb768-31"><a href="mod-r-dist-fit.html#cb768-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         meanlog sdlog</span></span>
+<span id="cb768-32"><a href="mod-r-dist-fit.html#cb768-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog       1     0</span></span>
+<span id="cb768-33"><a href="mod-r-dist-fit.html#cb768-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog         0     1</span></span></code></pre></div>
 <p>The fit to the data can be plotted using four classical goodness-of-fit plots <span class="citation">(<a href="#ref-Cullen99" role="doc-biblioref">Cullen and Frey 1999</a>)</span>:</p>
 <ul>
 <li>a density plot representing the density function of the fitted distribution along with the
@@ -724,15 +725,15 @@ histogram of the empirical distribution,</li>
 <li>a P-P plot representing the empirical distribution function evaluated at each data point (y-axis)
 against the fitted distribution function (x-axis).</li>
 </ul>
-<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb762-1"><a href="mod-r-dist-fit.html#cb762-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))  <span class="co"># 4 plots in one figure</span></span>
-<span id="cb762-2"><a href="mod-r-dist-fit.html#cb762-2" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Weibull&quot;</span>, <span class="st">&quot;lognormal&quot;</span>, <span class="st">&quot;gamma&quot;</span>)</span>
-<span id="cb762-3"><a href="mod-r-dist-fit.html#cb762-3" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fitW, fitL, fitG)</span>
-<span id="cb762-4"><a href="mod-r-dist-fit.html#cb762-4" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb762-5"><a href="mod-r-dist-fit.html#cb762-5" aria-hidden="true" tabindex="-1"></a><span class="fu">qqcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb762-6"><a href="mod-r-dist-fit.html#cb762-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb762-7"><a href="mod-r-dist-fit.html#cb762-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ppcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-658"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-658-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the serving size data." width="100%" />
+<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb769-1"><a href="mod-r-dist-fit.html#cb769-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))  <span class="co"># 4 plots in one figure</span></span>
+<span id="cb769-2"><a href="mod-r-dist-fit.html#cb769-2" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Weibull&quot;</span>, <span class="st">&quot;lognormal&quot;</span>, <span class="st">&quot;gamma&quot;</span>)</span>
+<span id="cb769-3"><a href="mod-r-dist-fit.html#cb769-3" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fitW, fitL, fitG)</span>
+<span id="cb769-4"><a href="mod-r-dist-fit.html#cb769-4" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb769-5"><a href="mod-r-dist-fit.html#cb769-5" aria-hidden="true" tabindex="-1"></a><span class="fu">qqcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb769-6"><a href="mod-r-dist-fit.html#cb769-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb769-7"><a href="mod-r-dist-fit.html#cb769-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ppcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-667"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-667-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the serving size data." width="100%" />
 <p class="caption">
 Figure 15.3: Four Goodness-of-fit plots for various distributions fitted to the serving size data.
 </p>
@@ -748,55 +749,55 @@ distributions also have the lowest AIC values.</p>
 <div id="example-breakdown-times" class="section level3 hasAnchor" number="15.3.1">
 <h3><span class="header-section-number">15.3.1</span> Example: breakdown times<a href="mod-r-dist-fit.html#example-breakdown-times" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We consider a dataset that contains the recorded breakdown times of a machine part in days.</p>
-<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb763-1"><a href="mod-r-dist-fit.html#cb763-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfa)  <span class="co"># update to latest version using remotes::install_github(&quot;bss-osca/tfa-package&quot;, upgrade = FALSE) </span></span>
-<span id="cb763-2"><a href="mod-r-dist-fit.html#cb763-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> breakdown</span>
-<span id="cb763-3"><a href="mod-r-dist-fit.html#cb763-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotdist</span>(dat, <span class="at">histo =</span> <span class="cn">TRUE</span>, <span class="at">demp =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-659-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb770-1"><a href="mod-r-dist-fit.html#cb770-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfa)  <span class="co"># update to latest version using remotes::install_github(&quot;bss-osca/tfa-package&quot;, upgrade = FALSE) </span></span>
+<span id="cb770-2"><a href="mod-r-dist-fit.html#cb770-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> breakdown</span>
+<span id="cb770-3"><a href="mod-r-dist-fit.html#cb770-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotdist</span>(dat, <span class="at">histo =</span> <span class="cn">TRUE</span>, <span class="at">demp =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-668-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Since breakdown times may be seen as a continuous variable we try to fit a continuous variable. First we try to find distribution candidates:</p>
-<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb764-1"><a href="mod-r-dist-fit.html#cb764-1" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(dat)</span>
-<span id="cb764-2"><a href="mod-r-dist-fit.html#cb764-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; summary statistics</span></span>
-<span id="cb764-3"><a href="mod-r-dist-fit.html#cb764-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ------</span></span>
-<span id="cb764-4"><a href="mod-r-dist-fit.html#cb764-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; min:  91   max:  280 </span></span>
-<span id="cb764-5"><a href="mod-r-dist-fit.html#cb764-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; median:  182 </span></span>
-<span id="cb764-6"><a href="mod-r-dist-fit.html#cb764-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean:  183 </span></span>
-<span id="cb764-7"><a href="mod-r-dist-fit.html#cb764-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated sd:  30.7 </span></span>
-<span id="cb764-8"><a href="mod-r-dist-fit.html#cb764-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated skewness:  0.0503 </span></span>
-<span id="cb764-9"><a href="mod-r-dist-fit.html#cb764-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated kurtosis:  3.32</span></span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-660-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb771-1"><a href="mod-r-dist-fit.html#cb771-1" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(dat)</span>
+<span id="cb771-2"><a href="mod-r-dist-fit.html#cb771-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; summary statistics</span></span>
+<span id="cb771-3"><a href="mod-r-dist-fit.html#cb771-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ------</span></span>
+<span id="cb771-4"><a href="mod-r-dist-fit.html#cb771-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; min:  91   max:  280 </span></span>
+<span id="cb771-5"><a href="mod-r-dist-fit.html#cb771-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; median:  182 </span></span>
+<span id="cb771-6"><a href="mod-r-dist-fit.html#cb771-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean:  183 </span></span>
+<span id="cb771-7"><a href="mod-r-dist-fit.html#cb771-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated sd:  30.7 </span></span>
+<span id="cb771-8"><a href="mod-r-dist-fit.html#cb771-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated skewness:  0.0503 </span></span>
+<span id="cb771-9"><a href="mod-r-dist-fit.html#cb771-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated kurtosis:  3.32</span></span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-669-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The observation is close to the normal and lognormal values and we try to fit these two distributions:</p>
-<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb765-1"><a href="mod-r-dist-fit.html#cb765-1" aria-hidden="true" tabindex="-1"></a>fitN <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;norm&quot;</span>)</span>
-<span id="cb765-2"><a href="mod-r-dist-fit.html#cb765-2" aria-hidden="true" tabindex="-1"></a>fitL <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;lnorm&quot;</span>)</span>
-<span id="cb765-3"><a href="mod-r-dist-fit.html#cb765-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitN)</span>
-<span id="cb765-4"><a href="mod-r-dist-fit.html#cb765-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; norm &#39; by maximum likelihood </span></span>
-<span id="cb765-5"><a href="mod-r-dist-fit.html#cb765-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb765-6"><a href="mod-r-dist-fit.html#cb765-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      estimate Std. Error</span></span>
-<span id="cb765-7"><a href="mod-r-dist-fit.html#cb765-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean    183.2       1.99</span></span>
-<span id="cb765-8"><a href="mod-r-dist-fit.html#cb765-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sd       30.6       1.41</span></span>
-<span id="cb765-9"><a href="mod-r-dist-fit.html#cb765-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -1142   AIC:  2288   BIC:  2295 </span></span>
-<span id="cb765-10"><a href="mod-r-dist-fit.html#cb765-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
-<span id="cb765-11"><a href="mod-r-dist-fit.html#cb765-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      mean sd</span></span>
-<span id="cb765-12"><a href="mod-r-dist-fit.html#cb765-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean    1  0</span></span>
-<span id="cb765-13"><a href="mod-r-dist-fit.html#cb765-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sd      0  1</span></span>
-<span id="cb765-14"><a href="mod-r-dist-fit.html#cb765-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitL)</span>
-<span id="cb765-15"><a href="mod-r-dist-fit.html#cb765-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; lnorm &#39; by maximum likelihood </span></span>
-<span id="cb765-16"><a href="mod-r-dist-fit.html#cb765-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb765-17"><a href="mod-r-dist-fit.html#cb765-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         estimate Std. Error</span></span>
-<span id="cb765-18"><a href="mod-r-dist-fit.html#cb765-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog    5.196    0.01130</span></span>
-<span id="cb765-19"><a href="mod-r-dist-fit.html#cb765-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog      0.174    0.00799</span></span>
-<span id="cb765-20"><a href="mod-r-dist-fit.html#cb765-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -1148   AIC:  2300   BIC:  2306 </span></span>
-<span id="cb765-21"><a href="mod-r-dist-fit.html#cb765-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
-<span id="cb765-22"><a href="mod-r-dist-fit.html#cb765-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         meanlog sdlog</span></span>
-<span id="cb765-23"><a href="mod-r-dist-fit.html#cb765-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog       1     0</span></span>
-<span id="cb765-24"><a href="mod-r-dist-fit.html#cb765-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog         0     1</span></span>
-<span id="cb765-25"><a href="mod-r-dist-fit.html#cb765-25" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))  <span class="co"># 4 plots in one figure</span></span>
-<span id="cb765-26"><a href="mod-r-dist-fit.html#cb765-26" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;normal&quot;</span>, <span class="st">&quot;lognormal&quot;</span>)</span>
-<span id="cb765-27"><a href="mod-r-dist-fit.html#cb765-27" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fitN, fitL)</span>
-<span id="cb765-28"><a href="mod-r-dist-fit.html#cb765-28" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb765-29"><a href="mod-r-dist-fit.html#cb765-29" aria-hidden="true" tabindex="-1"></a><span class="fu">qqcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb765-30"><a href="mod-r-dist-fit.html#cb765-30" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb765-31"><a href="mod-r-dist-fit.html#cb765-31" aria-hidden="true" tabindex="-1"></a><span class="fu">ppcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-661"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-661-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
+<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb772-1"><a href="mod-r-dist-fit.html#cb772-1" aria-hidden="true" tabindex="-1"></a>fitN <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;norm&quot;</span>)</span>
+<span id="cb772-2"><a href="mod-r-dist-fit.html#cb772-2" aria-hidden="true" tabindex="-1"></a>fitL <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;lnorm&quot;</span>)</span>
+<span id="cb772-3"><a href="mod-r-dist-fit.html#cb772-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitN)</span>
+<span id="cb772-4"><a href="mod-r-dist-fit.html#cb772-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; norm &#39; by maximum likelihood </span></span>
+<span id="cb772-5"><a href="mod-r-dist-fit.html#cb772-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb772-6"><a href="mod-r-dist-fit.html#cb772-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      estimate Std. Error</span></span>
+<span id="cb772-7"><a href="mod-r-dist-fit.html#cb772-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean    183.2       1.99</span></span>
+<span id="cb772-8"><a href="mod-r-dist-fit.html#cb772-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sd       30.6       1.41</span></span>
+<span id="cb772-9"><a href="mod-r-dist-fit.html#cb772-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -1142   AIC:  2288   BIC:  2295 </span></span>
+<span id="cb772-10"><a href="mod-r-dist-fit.html#cb772-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
+<span id="cb772-11"><a href="mod-r-dist-fit.html#cb772-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      mean sd</span></span>
+<span id="cb772-12"><a href="mod-r-dist-fit.html#cb772-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean    1  0</span></span>
+<span id="cb772-13"><a href="mod-r-dist-fit.html#cb772-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sd      0  1</span></span>
+<span id="cb772-14"><a href="mod-r-dist-fit.html#cb772-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitL)</span>
+<span id="cb772-15"><a href="mod-r-dist-fit.html#cb772-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; lnorm &#39; by maximum likelihood </span></span>
+<span id="cb772-16"><a href="mod-r-dist-fit.html#cb772-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb772-17"><a href="mod-r-dist-fit.html#cb772-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         estimate Std. Error</span></span>
+<span id="cb772-18"><a href="mod-r-dist-fit.html#cb772-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog    5.196    0.01130</span></span>
+<span id="cb772-19"><a href="mod-r-dist-fit.html#cb772-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog      0.174    0.00799</span></span>
+<span id="cb772-20"><a href="mod-r-dist-fit.html#cb772-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -1148   AIC:  2300   BIC:  2306 </span></span>
+<span id="cb772-21"><a href="mod-r-dist-fit.html#cb772-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
+<span id="cb772-22"><a href="mod-r-dist-fit.html#cb772-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         meanlog sdlog</span></span>
+<span id="cb772-23"><a href="mod-r-dist-fit.html#cb772-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog       1     0</span></span>
+<span id="cb772-24"><a href="mod-r-dist-fit.html#cb772-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog         0     1</span></span>
+<span id="cb772-25"><a href="mod-r-dist-fit.html#cb772-25" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))  <span class="co"># 4 plots in one figure</span></span>
+<span id="cb772-26"><a href="mod-r-dist-fit.html#cb772-26" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;normal&quot;</span>, <span class="st">&quot;lognormal&quot;</span>)</span>
+<span id="cb772-27"><a href="mod-r-dist-fit.html#cb772-27" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fitN, fitL)</span>
+<span id="cb772-28"><a href="mod-r-dist-fit.html#cb772-28" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb772-29"><a href="mod-r-dist-fit.html#cb772-29" aria-hidden="true" tabindex="-1"></a><span class="fu">qqcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb772-30"><a href="mod-r-dist-fit.html#cb772-30" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb772-31"><a href="mod-r-dist-fit.html#cb772-31" aria-hidden="true" tabindex="-1"></a><span class="fu">ppcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-670"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-670-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
 <p class="caption">
 Figure 15.4: Four Goodness-of-fit plots for various distributions fitted to the breakdown data.
 </p>
@@ -816,39 +817,39 @@ Figure 15.4: Four Goodness-of-fit plots for various distributions fitted to the 
 <div id="example-sales-of-lottery-tickets" class="section level3 hasAnchor" number="15.4.1">
 <h3><span class="header-section-number">15.4.1</span> Example: sales of lottery tickets<a href="mod-r-dist-fit.html#example-sales-of-lottery-tickets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Consider data of the number of houses that must be visited before selling 20 lottery tickets (assuming only one is sold at a time).</p>
-<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb766-1"><a href="mod-r-dist-fit.html#cb766-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> lottery</span>
-<span id="cb766-2"><a href="mod-r-dist-fit.html#cb766-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotdist</span>(dat, <span class="at">discrete =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-662-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb773-1"><a href="mod-r-dist-fit.html#cb773-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> lottery</span>
+<span id="cb773-2"><a href="mod-r-dist-fit.html#cb773-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotdist</span>(dat, <span class="at">discrete =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-671-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Since the number of houses that must be visited (trials) is unknown, a negative binomial distribution seems as a good choice (with 20 successes). The fit of a discrete distribution to discrete data requires the same procedure as for continuous data.</p>
-<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb767-1"><a href="mod-r-dist-fit.html#cb767-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;nbinom&quot;</span>, <span class="at">discrete =</span> <span class="cn">TRUE</span>, <span class="at">fix.arg =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">20</span>))</span>
-<span id="cb767-2"><a href="mod-r-dist-fit.html#cb767-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
-<span id="cb767-3"><a href="mod-r-dist-fit.html#cb767-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; nbinom &#39; by maximum likelihood </span></span>
-<span id="cb767-4"><a href="mod-r-dist-fit.html#cb767-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb767-5"><a href="mod-r-dist-fit.html#cb767-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    estimate Std. Error</span></span>
-<span id="cb767-6"><a href="mod-r-dist-fit.html#cb767-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mu     37.2       1.38</span></span>
-<span id="cb767-7"><a href="mod-r-dist-fit.html#cb767-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fixed parameters:</span></span>
-<span id="cb767-8"><a href="mod-r-dist-fit.html#cb767-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      value</span></span>
-<span id="cb767-9"><a href="mod-r-dist-fit.html#cb767-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; size    20</span></span>
-<span id="cb767-10"><a href="mod-r-dist-fit.html#cb767-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -200   AIC:  402   BIC:  404</span></span>
-<span id="cb767-11"><a href="mod-r-dist-fit.html#cb767-11" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))  <span class="co"># 2 plots in one figure</span></span>
-<span id="cb767-12"><a href="mod-r-dist-fit.html#cb767-12" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;negative binomial&quot;</span>)</span>
-<span id="cb767-13"><a href="mod-r-dist-fit.html#cb767-13" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fit)</span>
-<span id="cb767-14"><a href="mod-r-dist-fit.html#cb767-14" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb767-15"><a href="mod-r-dist-fit.html#cb767-15" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-663"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-663-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
+<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="mod-r-dist-fit.html#cb774-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;nbinom&quot;</span>, <span class="at">discrete =</span> <span class="cn">TRUE</span>, <span class="at">fix.arg =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">20</span>))</span>
+<span id="cb774-2"><a href="mod-r-dist-fit.html#cb774-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb774-3"><a href="mod-r-dist-fit.html#cb774-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; nbinom &#39; by maximum likelihood </span></span>
+<span id="cb774-4"><a href="mod-r-dist-fit.html#cb774-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb774-5"><a href="mod-r-dist-fit.html#cb774-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    estimate Std. Error</span></span>
+<span id="cb774-6"><a href="mod-r-dist-fit.html#cb774-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mu     37.2       1.38</span></span>
+<span id="cb774-7"><a href="mod-r-dist-fit.html#cb774-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fixed parameters:</span></span>
+<span id="cb774-8"><a href="mod-r-dist-fit.html#cb774-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      value</span></span>
+<span id="cb774-9"><a href="mod-r-dist-fit.html#cb774-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; size    20</span></span>
+<span id="cb774-10"><a href="mod-r-dist-fit.html#cb774-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -200   AIC:  402   BIC:  404</span></span>
+<span id="cb774-11"><a href="mod-r-dist-fit.html#cb774-11" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))  <span class="co"># 2 plots in one figure</span></span>
+<span id="cb774-12"><a href="mod-r-dist-fit.html#cb774-12" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;negative binomial&quot;</span>)</span>
+<span id="cb774-13"><a href="mod-r-dist-fit.html#cb774-13" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fit)</span>
+<span id="cb774-14"><a href="mod-r-dist-fit.html#cb774-14" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb774-15"><a href="mod-r-dist-fit.html#cb774-15" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-672"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-672-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
 <p class="caption">
 Figure 15.5: Four Goodness-of-fit plots for various distributions fitted to the breakdown data.
 </p>
 </div>
 <p>Note only the density and CDF is plotted for discrete data. Moreover, this is an example where some of the parameters of the negative binomial distribution are known in advance. The negative binomial distribution has two parameters (see <code>?pnbinom</code>): the specified number of successes to occur (<code>size</code> argument) and the probability of success in each trial (<code>prob</code> argument). Given the information about the dataset, <code>size</code> equals 20 and we want to to try finding the probability of success in each trial. You fix a parameter by using the <code>fix.arg</code> argument in <code>fitdist</code>. Note that the summary only outputs the mean estimate <code>mu</code> but <code>prob = size/(size+mu)</code>:</p>
-<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb768-1"><a href="mod-r-dist-fit.html#cb768-1" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="dv">20</span><span class="sc">/</span>(<span class="dv">20</span> <span class="sc">+</span> fit<span class="sc">$</span>estimate)</span>
-<span id="cb768-2"><a href="mod-r-dist-fit.html#cb768-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(prob) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb768-3"><a href="mod-r-dist-fit.html#cb768-3" aria-hidden="true" tabindex="-1"></a>prob</span>
-<span id="cb768-4"><a href="mod-r-dist-fit.html#cb768-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.35</span></span></code></pre></div>
+<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb775-1"><a href="mod-r-dist-fit.html#cb775-1" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="dv">20</span><span class="sc">/</span>(<span class="dv">20</span> <span class="sc">+</span> fit<span class="sc">$</span>estimate)</span>
+<span id="cb775-2"><a href="mod-r-dist-fit.html#cb775-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(prob) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb775-3"><a href="mod-r-dist-fit.html#cb775-3" aria-hidden="true" tabindex="-1"></a>prob</span>
+<span id="cb775-4"><a href="mod-r-dist-fit.html#cb775-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.35</span></span></code></pre></div>
 <p>That is the probability of success when visiting each house is approx. 35% and e.g. the number of houses that must be visited before all lottery tickets are sold with 95% probability is:</p>
-<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb769-1"><a href="mod-r-dist-fit.html#cb769-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnbinom</span>(<span class="fl">0.95</span>, <span class="at">size =</span> <span class="dv">20</span>, prob)</span>
-<span id="cb769-2"><a href="mod-r-dist-fit.html#cb769-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 55</span></span></code></pre></div>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb776-1"><a href="mod-r-dist-fit.html#cb776-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnbinom</span>(<span class="fl">0.95</span>, <span class="at">size =</span> <span class="dv">20</span>, prob)</span>
+<span id="cb776-2"><a href="mod-r-dist-fit.html#cb776-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 55</span></span></code></pre></div>
 </div>
 </div>
 <div id="sec-dist-fit-pois" class="section level2 hasAnchor" number="15.5">
@@ -863,112 +864,112 @@ Figure 15.5: Four Goodness-of-fit plots for various distributions fitted to the 
 <p>The arrivals in a Poisson process with on average 4 arrivals per time unit (<span class="math inline">\(\lambda=4\)</span>) may look like:</p>
 <p><img src="TFA_files/figure-html/poisson_process-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Let us consider the data set <code>demand_goods</code> containing demand for two different goods/products:</p>
-<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb770-1"><a href="mod-r-dist-fit.html#cb770-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfa)  <span class="co"># update to latest version using remotes::install_github(&quot;bss-osca/tfa-package&quot;, upgrade = FALSE) </span></span>
-<span id="cb770-2"><a href="mod-r-dist-fit.html#cb770-2" aria-hidden="true" tabindex="-1"></a>demand_goods</span>
-<span id="cb770-3"><a href="mod-r-dist-fit.html#cb770-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 362 × 3</span></span>
-<span id="cb770-4"><a href="mod-r-dist-fit.html#cb770-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    date                demand product</span></span>
-<span id="cb770-5"><a href="mod-r-dist-fit.html#cb770-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dttm&gt;               &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb770-6"><a href="mod-r-dist-fit.html#cb770-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2016-01-01 00:00:00      8       1</span></span>
-<span id="cb770-7"><a href="mod-r-dist-fit.html#cb770-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2016-01-06 00:00:00     10       1</span></span>
-<span id="cb770-8"><a href="mod-r-dist-fit.html#cb770-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2016-01-08 00:00:00     10       1</span></span>
-<span id="cb770-9"><a href="mod-r-dist-fit.html#cb770-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 2016-01-11 00:00:00      7       1</span></span>
-<span id="cb770-10"><a href="mod-r-dist-fit.html#cb770-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 2016-01-22 00:00:00      9       1</span></span>
-<span id="cb770-11"><a href="mod-r-dist-fit.html#cb770-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 2016-02-01 00:00:00      8       1</span></span>
-<span id="cb770-12"><a href="mod-r-dist-fit.html#cb770-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 2016-02-05 00:00:00      8       1</span></span>
-<span id="cb770-13"><a href="mod-r-dist-fit.html#cb770-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2016-02-06 00:00:00      7       1</span></span>
-<span id="cb770-14"><a href="mod-r-dist-fit.html#cb770-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2016-02-13 00:00:00      9       1</span></span>
-<span id="cb770-15"><a href="mod-r-dist-fit.html#cb770-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2016-02-14 00:00:00      8       1</span></span>
-<span id="cb770-16"><a href="mod-r-dist-fit.html#cb770-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 352 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb777-1"><a href="mod-r-dist-fit.html#cb777-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfa)  <span class="co"># update to latest version using remotes::install_github(&quot;bss-osca/tfa-package&quot;, upgrade = FALSE) </span></span>
+<span id="cb777-2"><a href="mod-r-dist-fit.html#cb777-2" aria-hidden="true" tabindex="-1"></a>demand_goods</span>
+<span id="cb777-3"><a href="mod-r-dist-fit.html#cb777-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 362 × 3</span></span>
+<span id="cb777-4"><a href="mod-r-dist-fit.html#cb777-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    date                demand product</span></span>
+<span id="cb777-5"><a href="mod-r-dist-fit.html#cb777-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dttm&gt;               &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb777-6"><a href="mod-r-dist-fit.html#cb777-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2016-01-01 00:00:00      8       1</span></span>
+<span id="cb777-7"><a href="mod-r-dist-fit.html#cb777-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2016-01-06 00:00:00     10       1</span></span>
+<span id="cb777-8"><a href="mod-r-dist-fit.html#cb777-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2016-01-08 00:00:00     10       1</span></span>
+<span id="cb777-9"><a href="mod-r-dist-fit.html#cb777-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 2016-01-11 00:00:00      7       1</span></span>
+<span id="cb777-10"><a href="mod-r-dist-fit.html#cb777-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 2016-01-22 00:00:00      9       1</span></span>
+<span id="cb777-11"><a href="mod-r-dist-fit.html#cb777-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 2016-02-01 00:00:00      8       1</span></span>
+<span id="cb777-12"><a href="mod-r-dist-fit.html#cb777-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 2016-02-05 00:00:00      8       1</span></span>
+<span id="cb777-13"><a href="mod-r-dist-fit.html#cb777-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2016-02-06 00:00:00      7       1</span></span>
+<span id="cb777-14"><a href="mod-r-dist-fit.html#cb777-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2016-02-13 00:00:00      9       1</span></span>
+<span id="cb777-15"><a href="mod-r-dist-fit.html#cb777-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2016-02-14 00:00:00      8       1</span></span>
+<span id="cb777-16"><a href="mod-r-dist-fit.html#cb777-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 352 more rows</span></span></code></pre></div>
 <p>The arrival of demands and demand size may follow a compound Poisson process which differ from a Poisson process by allowing more than a demand of one given an arrival. That is, the inter arrival times should still follow an exponential distribution. Let us find the inter arrival times between each order and try to fit it:</p>
-<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb771-1"><a href="mod-r-dist-fit.html#cb771-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb771-2"><a href="mod-r-dist-fit.html#cb771-2" aria-hidden="true" tabindex="-1"></a>datDf <span class="ot">&lt;-</span> demand_goods <span class="sc">%&gt;%</span> </span>
-<span id="cb771-3"><a href="mod-r-dist-fit.html#cb771-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(product) <span class="sc">%&gt;%</span> </span>
-<span id="cb771-4"><a href="mod-r-dist-fit.html#cb771-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">between =</span> <span class="fu">as.numeric</span>(date <span class="sc">-</span> <span class="fu">lag</span>(date), <span class="at">units=</span><span class="st">&quot;days&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb771-5"><a href="mod-r-dist-fit.html#cb771-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
-<span id="cb771-6"><a href="mod-r-dist-fit.html#cb771-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 362 × 4</span></span>
-<span id="cb771-7"><a href="mod-r-dist-fit.html#cb771-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   product [2]</span></span>
-<span id="cb771-8"><a href="mod-r-dist-fit.html#cb771-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    date                demand product between</span></span>
-<span id="cb771-9"><a href="mod-r-dist-fit.html#cb771-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dttm&gt;               &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb771-10"><a href="mod-r-dist-fit.html#cb771-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2016-01-01 00:00:00      8       1      NA</span></span>
-<span id="cb771-11"><a href="mod-r-dist-fit.html#cb771-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2016-01-06 00:00:00     10       1       5</span></span>
-<span id="cb771-12"><a href="mod-r-dist-fit.html#cb771-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2016-01-08 00:00:00     10       1       2</span></span>
-<span id="cb771-13"><a href="mod-r-dist-fit.html#cb771-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 2016-01-11 00:00:00      7       1       3</span></span>
-<span id="cb771-14"><a href="mod-r-dist-fit.html#cb771-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 2016-01-22 00:00:00      9       1      11</span></span>
-<span id="cb771-15"><a href="mod-r-dist-fit.html#cb771-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 2016-02-01 00:00:00      8       1      10</span></span>
-<span id="cb771-16"><a href="mod-r-dist-fit.html#cb771-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 2016-02-05 00:00:00      8       1       4</span></span>
-<span id="cb771-17"><a href="mod-r-dist-fit.html#cb771-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2016-02-06 00:00:00      7       1       1</span></span>
-<span id="cb771-18"><a href="mod-r-dist-fit.html#cb771-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2016-02-13 00:00:00      9       1       7</span></span>
-<span id="cb771-19"><a href="mod-r-dist-fit.html#cb771-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2016-02-14 00:00:00      8       1       1</span></span>
-<span id="cb771-20"><a href="mod-r-dist-fit.html#cb771-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 352 more rows</span></span>
-<span id="cb771-21"><a href="mod-r-dist-fit.html#cb771-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb771-22"><a href="mod-r-dist-fit.html#cb771-22" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> datDf <span class="sc">%&gt;%</span> </span>
-<span id="cb771-23"><a href="mod-r-dist-fit.html#cb771-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(product <span class="sc">==</span> <span class="dv">1</span>, <span class="sc">!</span><span class="fu">is.na</span>(between)) <span class="sc">%&gt;%</span> </span>
-<span id="cb771-24"><a href="mod-r-dist-fit.html#cb771-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(between)</span>
-<span id="cb771-25"><a href="mod-r-dist-fit.html#cb771-25" aria-hidden="true" tabindex="-1"></a><span class="fu">plotdist</span>(dat, <span class="at">histo =</span> <span class="cn">TRUE</span>, <span class="at">demp =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb771-26"><a href="mod-r-dist-fit.html#cb771-26" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(dat)</span>
-<span id="cb771-27"><a href="mod-r-dist-fit.html#cb771-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; summary statistics</span></span>
-<span id="cb771-28"><a href="mod-r-dist-fit.html#cb771-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ------</span></span>
-<span id="cb771-29"><a href="mod-r-dist-fit.html#cb771-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; min:  0   max:  33 </span></span>
-<span id="cb771-30"><a href="mod-r-dist-fit.html#cb771-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; median:  4 </span></span>
-<span id="cb771-31"><a href="mod-r-dist-fit.html#cb771-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean:  5.08 </span></span>
-<span id="cb771-32"><a href="mod-r-dist-fit.html#cb771-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated sd:  4.72 </span></span>
-<span id="cb771-33"><a href="mod-r-dist-fit.html#cb771-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated skewness:  1.85 </span></span>
-<span id="cb771-34"><a href="mod-r-dist-fit.html#cb771-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated kurtosis:  8.86</span></span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-667-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-667-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb778-1"><a href="mod-r-dist-fit.html#cb778-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb778-2"><a href="mod-r-dist-fit.html#cb778-2" aria-hidden="true" tabindex="-1"></a>datDf <span class="ot">&lt;-</span> demand_goods <span class="sc">%&gt;%</span> </span>
+<span id="cb778-3"><a href="mod-r-dist-fit.html#cb778-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(product) <span class="sc">%&gt;%</span> </span>
+<span id="cb778-4"><a href="mod-r-dist-fit.html#cb778-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">between =</span> <span class="fu">as.numeric</span>(date <span class="sc">-</span> <span class="fu">lag</span>(date), <span class="at">units=</span><span class="st">&quot;days&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb778-5"><a href="mod-r-dist-fit.html#cb778-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
+<span id="cb778-6"><a href="mod-r-dist-fit.html#cb778-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 362 × 4</span></span>
+<span id="cb778-7"><a href="mod-r-dist-fit.html#cb778-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   product [2]</span></span>
+<span id="cb778-8"><a href="mod-r-dist-fit.html#cb778-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    date                demand product between</span></span>
+<span id="cb778-9"><a href="mod-r-dist-fit.html#cb778-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dttm&gt;               &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb778-10"><a href="mod-r-dist-fit.html#cb778-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2016-01-01 00:00:00      8       1      NA</span></span>
+<span id="cb778-11"><a href="mod-r-dist-fit.html#cb778-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2016-01-06 00:00:00     10       1       5</span></span>
+<span id="cb778-12"><a href="mod-r-dist-fit.html#cb778-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2016-01-08 00:00:00     10       1       2</span></span>
+<span id="cb778-13"><a href="mod-r-dist-fit.html#cb778-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 2016-01-11 00:00:00      7       1       3</span></span>
+<span id="cb778-14"><a href="mod-r-dist-fit.html#cb778-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 2016-01-22 00:00:00      9       1      11</span></span>
+<span id="cb778-15"><a href="mod-r-dist-fit.html#cb778-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 2016-02-01 00:00:00      8       1      10</span></span>
+<span id="cb778-16"><a href="mod-r-dist-fit.html#cb778-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 2016-02-05 00:00:00      8       1       4</span></span>
+<span id="cb778-17"><a href="mod-r-dist-fit.html#cb778-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2016-02-06 00:00:00      7       1       1</span></span>
+<span id="cb778-18"><a href="mod-r-dist-fit.html#cb778-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2016-02-13 00:00:00      9       1       7</span></span>
+<span id="cb778-19"><a href="mod-r-dist-fit.html#cb778-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2016-02-14 00:00:00      8       1       1</span></span>
+<span id="cb778-20"><a href="mod-r-dist-fit.html#cb778-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 352 more rows</span></span>
+<span id="cb778-21"><a href="mod-r-dist-fit.html#cb778-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb778-22"><a href="mod-r-dist-fit.html#cb778-22" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> datDf <span class="sc">%&gt;%</span> </span>
+<span id="cb778-23"><a href="mod-r-dist-fit.html#cb778-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(product <span class="sc">==</span> <span class="dv">1</span>, <span class="sc">!</span><span class="fu">is.na</span>(between)) <span class="sc">%&gt;%</span> </span>
+<span id="cb778-24"><a href="mod-r-dist-fit.html#cb778-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(between)</span>
+<span id="cb778-25"><a href="mod-r-dist-fit.html#cb778-25" aria-hidden="true" tabindex="-1"></a><span class="fu">plotdist</span>(dat, <span class="at">histo =</span> <span class="cn">TRUE</span>, <span class="at">demp =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb778-26"><a href="mod-r-dist-fit.html#cb778-26" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(dat)</span>
+<span id="cb778-27"><a href="mod-r-dist-fit.html#cb778-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; summary statistics</span></span>
+<span id="cb778-28"><a href="mod-r-dist-fit.html#cb778-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ------</span></span>
+<span id="cb778-29"><a href="mod-r-dist-fit.html#cb778-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; min:  0   max:  33 </span></span>
+<span id="cb778-30"><a href="mod-r-dist-fit.html#cb778-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; median:  4 </span></span>
+<span id="cb778-31"><a href="mod-r-dist-fit.html#cb778-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean:  5.08 </span></span>
+<span id="cb778-32"><a href="mod-r-dist-fit.html#cb778-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated sd:  4.72 </span></span>
+<span id="cb778-33"><a href="mod-r-dist-fit.html#cb778-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated skewness:  1.85 </span></span>
+<span id="cb778-34"><a href="mod-r-dist-fit.html#cb778-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated kurtosis:  8.86</span></span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-676-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-676-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The observation is close to the exponential and lognormal values. However, a lognormal distribution cannot equal zero values:</p>
-<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb772-1"><a href="mod-r-dist-fit.html#cb772-1" aria-hidden="true" tabindex="-1"></a>fitE1 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;exp&quot;</span>)</span>
-<span id="cb772-2"><a href="mod-r-dist-fit.html#cb772-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitE1)</span>
-<span id="cb772-3"><a href="mod-r-dist-fit.html#cb772-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; exp &#39; by maximum likelihood </span></span>
-<span id="cb772-4"><a href="mod-r-dist-fit.html#cb772-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb772-5"><a href="mod-r-dist-fit.html#cb772-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      estimate Std. Error</span></span>
-<span id="cb772-6"><a href="mod-r-dist-fit.html#cb772-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate    0.197     0.0135</span></span>
-<span id="cb772-7"><a href="mod-r-dist-fit.html#cb772-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -557   AIC:  1115   BIC:  1119</span></span>
-<span id="cb772-8"><a href="mod-r-dist-fit.html#cb772-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))  <span class="co"># 4 plots in one figure</span></span>
-<span id="cb772-9"><a href="mod-r-dist-fit.html#cb772-9" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;exp&quot;</span>)</span>
-<span id="cb772-10"><a href="mod-r-dist-fit.html#cb772-10" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fitE1)</span>
-<span id="cb772-11"><a href="mod-r-dist-fit.html#cb772-11" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb772-12"><a href="mod-r-dist-fit.html#cb772-12" aria-hidden="true" tabindex="-1"></a><span class="fu">qqcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb772-13"><a href="mod-r-dist-fit.html#cb772-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb772-14"><a href="mod-r-dist-fit.html#cb772-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ppcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-668"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-668-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
+<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb779-1"><a href="mod-r-dist-fit.html#cb779-1" aria-hidden="true" tabindex="-1"></a>fitE1 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;exp&quot;</span>)</span>
+<span id="cb779-2"><a href="mod-r-dist-fit.html#cb779-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitE1)</span>
+<span id="cb779-3"><a href="mod-r-dist-fit.html#cb779-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; exp &#39; by maximum likelihood </span></span>
+<span id="cb779-4"><a href="mod-r-dist-fit.html#cb779-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb779-5"><a href="mod-r-dist-fit.html#cb779-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      estimate Std. Error</span></span>
+<span id="cb779-6"><a href="mod-r-dist-fit.html#cb779-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate    0.197     0.0135</span></span>
+<span id="cb779-7"><a href="mod-r-dist-fit.html#cb779-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -557   AIC:  1115   BIC:  1119</span></span>
+<span id="cb779-8"><a href="mod-r-dist-fit.html#cb779-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))  <span class="co"># 4 plots in one figure</span></span>
+<span id="cb779-9"><a href="mod-r-dist-fit.html#cb779-9" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;exp&quot;</span>)</span>
+<span id="cb779-10"><a href="mod-r-dist-fit.html#cb779-10" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fitE1)</span>
+<span id="cb779-11"><a href="mod-r-dist-fit.html#cb779-11" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb779-12"><a href="mod-r-dist-fit.html#cb779-12" aria-hidden="true" tabindex="-1"></a><span class="fu">qqcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb779-13"><a href="mod-r-dist-fit.html#cb779-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb779-14"><a href="mod-r-dist-fit.html#cb779-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ppcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-677"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-677-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
 <p class="caption">
 Figure 15.6: Four Goodness-of-fit plots for various distributions fitted to the breakdown data.
 </p>
 </div>
 <p>The fit seems okay. Note that the horizontal and vertical points in the Q-Q and P-P plot indicate that another scale on measuring the inter arrival times would have been better (such as hours or minutes). Using days may round the numbers to much.</p>
 <p>Let us do the analysis for product 2:</p>
-<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb773-1"><a href="mod-r-dist-fit.html#cb773-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> datDf <span class="sc">%&gt;%</span> </span>
-<span id="cb773-2"><a href="mod-r-dist-fit.html#cb773-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(product <span class="sc">==</span> <span class="dv">2</span>, <span class="sc">!</span><span class="fu">is.na</span>(between)) <span class="sc">%&gt;%</span> </span>
-<span id="cb773-3"><a href="mod-r-dist-fit.html#cb773-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(between)</span>
-<span id="cb773-4"><a href="mod-r-dist-fit.html#cb773-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plotdist</span>(dat, <span class="at">histo =</span> <span class="cn">TRUE</span>, <span class="at">demp =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb773-5"><a href="mod-r-dist-fit.html#cb773-5" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(dat)</span>
-<span id="cb773-6"><a href="mod-r-dist-fit.html#cb773-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; summary statistics</span></span>
-<span id="cb773-7"><a href="mod-r-dist-fit.html#cb773-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ------</span></span>
-<span id="cb773-8"><a href="mod-r-dist-fit.html#cb773-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; min:  0   max:  41 </span></span>
-<span id="cb773-9"><a href="mod-r-dist-fit.html#cb773-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; median:  5 </span></span>
-<span id="cb773-10"><a href="mod-r-dist-fit.html#cb773-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean:  7.36 </span></span>
-<span id="cb773-11"><a href="mod-r-dist-fit.html#cb773-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated sd:  7.26 </span></span>
-<span id="cb773-12"><a href="mod-r-dist-fit.html#cb773-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated skewness:  2 </span></span>
-<span id="cb773-13"><a href="mod-r-dist-fit.html#cb773-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated kurtosis:  8.4</span></span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-669-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-669-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb780-1"><a href="mod-r-dist-fit.html#cb780-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> datDf <span class="sc">%&gt;%</span> </span>
+<span id="cb780-2"><a href="mod-r-dist-fit.html#cb780-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(product <span class="sc">==</span> <span class="dv">2</span>, <span class="sc">!</span><span class="fu">is.na</span>(between)) <span class="sc">%&gt;%</span> </span>
+<span id="cb780-3"><a href="mod-r-dist-fit.html#cb780-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(between)</span>
+<span id="cb780-4"><a href="mod-r-dist-fit.html#cb780-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plotdist</span>(dat, <span class="at">histo =</span> <span class="cn">TRUE</span>, <span class="at">demp =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb780-5"><a href="mod-r-dist-fit.html#cb780-5" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(dat)</span>
+<span id="cb780-6"><a href="mod-r-dist-fit.html#cb780-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; summary statistics</span></span>
+<span id="cb780-7"><a href="mod-r-dist-fit.html#cb780-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ------</span></span>
+<span id="cb780-8"><a href="mod-r-dist-fit.html#cb780-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; min:  0   max:  41 </span></span>
+<span id="cb780-9"><a href="mod-r-dist-fit.html#cb780-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; median:  5 </span></span>
+<span id="cb780-10"><a href="mod-r-dist-fit.html#cb780-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean:  7.36 </span></span>
+<span id="cb780-11"><a href="mod-r-dist-fit.html#cb780-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated sd:  7.26 </span></span>
+<span id="cb780-12"><a href="mod-r-dist-fit.html#cb780-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated skewness:  2 </span></span>
+<span id="cb780-13"><a href="mod-r-dist-fit.html#cb780-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated kurtosis:  8.4</span></span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-678-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-678-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The observation is close to the exponential values:</p>
-<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="mod-r-dist-fit.html#cb774-1" aria-hidden="true" tabindex="-1"></a>fitE2 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;exp&quot;</span>)</span>
-<span id="cb774-2"><a href="mod-r-dist-fit.html#cb774-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitE2)</span>
-<span id="cb774-3"><a href="mod-r-dist-fit.html#cb774-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; exp &#39; by maximum likelihood </span></span>
-<span id="cb774-4"><a href="mod-r-dist-fit.html#cb774-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb774-5"><a href="mod-r-dist-fit.html#cb774-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      estimate Std. Error</span></span>
-<span id="cb774-6"><a href="mod-r-dist-fit.html#cb774-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate    0.136     0.0112</span></span>
-<span id="cb774-7"><a href="mod-r-dist-fit.html#cb774-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -444   AIC:  889   BIC:  892</span></span>
-<span id="cb774-8"><a href="mod-r-dist-fit.html#cb774-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))  <span class="co"># 4 plots in one figure</span></span>
-<span id="cb774-9"><a href="mod-r-dist-fit.html#cb774-9" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;exp&quot;</span>)</span>
-<span id="cb774-10"><a href="mod-r-dist-fit.html#cb774-10" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fitE2)</span>
-<span id="cb774-11"><a href="mod-r-dist-fit.html#cb774-11" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb774-12"><a href="mod-r-dist-fit.html#cb774-12" aria-hidden="true" tabindex="-1"></a><span class="fu">qqcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb774-13"><a href="mod-r-dist-fit.html#cb774-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb774-14"><a href="mod-r-dist-fit.html#cb774-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ppcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-670"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-670-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="mod-r-dist-fit.html#cb781-1" aria-hidden="true" tabindex="-1"></a>fitE2 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;exp&quot;</span>)</span>
+<span id="cb781-2"><a href="mod-r-dist-fit.html#cb781-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitE2)</span>
+<span id="cb781-3"><a href="mod-r-dist-fit.html#cb781-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; exp &#39; by maximum likelihood </span></span>
+<span id="cb781-4"><a href="mod-r-dist-fit.html#cb781-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb781-5"><a href="mod-r-dist-fit.html#cb781-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      estimate Std. Error</span></span>
+<span id="cb781-6"><a href="mod-r-dist-fit.html#cb781-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate    0.136     0.0112</span></span>
+<span id="cb781-7"><a href="mod-r-dist-fit.html#cb781-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -444   AIC:  889   BIC:  892</span></span>
+<span id="cb781-8"><a href="mod-r-dist-fit.html#cb781-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))  <span class="co"># 4 plots in one figure</span></span>
+<span id="cb781-9"><a href="mod-r-dist-fit.html#cb781-9" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;exp&quot;</span>)</span>
+<span id="cb781-10"><a href="mod-r-dist-fit.html#cb781-10" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fitE2)</span>
+<span id="cb781-11"><a href="mod-r-dist-fit.html#cb781-11" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb781-12"><a href="mod-r-dist-fit.html#cb781-12" aria-hidden="true" tabindex="-1"></a><span class="fu">qqcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb781-13"><a href="mod-r-dist-fit.html#cb781-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb781-14"><a href="mod-r-dist-fit.html#cb781-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ppcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-679"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-679-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
 <p class="caption">
 Figure 15.7: Four Goodness-of-fit plots for various distributions fitted to the breakdown data.
 </p>
@@ -976,45 +977,45 @@ Figure 15.7: Four Goodness-of-fit plots for various distributions fitted to the 
 <p>Again the fit seems okay.</p>
 <p>To summarize the demand rate for product 1 is estimated to be 0.2 per day and for product 2 to be 0.14 per day.</p>
 <p>Given a demand arrive the question is how much is the demand size? That is, we have to fit a distribution to the demand. Let us do the analysis for product 2:</p>
-<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb775-1"><a href="mod-r-dist-fit.html#cb775-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> datDf <span class="sc">%&gt;%</span> </span>
-<span id="cb775-2"><a href="mod-r-dist-fit.html#cb775-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(product <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb775-3"><a href="mod-r-dist-fit.html#cb775-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(demand)</span>
-<span id="cb775-4"><a href="mod-r-dist-fit.html#cb775-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plotdist</span>(dat, <span class="at">histo =</span> <span class="cn">TRUE</span>, <span class="at">demp =</span> <span class="cn">TRUE</span>, <span class="at">discrete =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-671-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb782-1"><a href="mod-r-dist-fit.html#cb782-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> datDf <span class="sc">%&gt;%</span> </span>
+<span id="cb782-2"><a href="mod-r-dist-fit.html#cb782-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(product <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb782-3"><a href="mod-r-dist-fit.html#cb782-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(demand)</span>
+<span id="cb782-4"><a href="mod-r-dist-fit.html#cb782-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plotdist</span>(dat, <span class="at">histo =</span> <span class="cn">TRUE</span>, <span class="at">demp =</span> <span class="cn">TRUE</span>, <span class="at">discrete =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-680-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Let us try to fit the negative binomial, Poisson and geometric distribution:</p>
-<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb776-1"><a href="mod-r-dist-fit.html#cb776-1" aria-hidden="true" tabindex="-1"></a>fitN2 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;nbinom&quot;</span>)</span>
-<span id="cb776-2"><a href="mod-r-dist-fit.html#cb776-2" aria-hidden="true" tabindex="-1"></a>fitP2 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;pois&quot;</span>)</span>
-<span id="cb776-3"><a href="mod-r-dist-fit.html#cb776-3" aria-hidden="true" tabindex="-1"></a>fitG2 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;geom&quot;</span>)</span>
-<span id="cb776-4"><a href="mod-r-dist-fit.html#cb776-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitN2)</span>
-<span id="cb776-5"><a href="mod-r-dist-fit.html#cb776-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; nbinom &#39; by maximum likelihood </span></span>
-<span id="cb776-6"><a href="mod-r-dist-fit.html#cb776-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb776-7"><a href="mod-r-dist-fit.html#cb776-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      estimate Std. Error</span></span>
-<span id="cb776-8"><a href="mod-r-dist-fit.html#cb776-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; size     3.83      0.939</span></span>
-<span id="cb776-9"><a href="mod-r-dist-fit.html#cb776-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mu       3.19      0.198</span></span>
-<span id="cb776-10"><a href="mod-r-dist-fit.html#cb776-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -321   AIC:  645   BIC:  651 </span></span>
-<span id="cb776-11"><a href="mod-r-dist-fit.html#cb776-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
-<span id="cb776-12"><a href="mod-r-dist-fit.html#cb776-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           size        mu</span></span>
-<span id="cb776-13"><a href="mod-r-dist-fit.html#cb776-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; size  1.000000 -0.000436</span></span>
-<span id="cb776-14"><a href="mod-r-dist-fit.html#cb776-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mu   -0.000436  1.000000</span></span>
-<span id="cb776-15"><a href="mod-r-dist-fit.html#cb776-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitP2)</span>
-<span id="cb776-16"><a href="mod-r-dist-fit.html#cb776-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; pois &#39; by maximum likelihood </span></span>
-<span id="cb776-17"><a href="mod-r-dist-fit.html#cb776-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb776-18"><a href="mod-r-dist-fit.html#cb776-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        estimate Std. Error</span></span>
-<span id="cb776-19"><a href="mod-r-dist-fit.html#cb776-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lambda     3.19      0.146</span></span>
-<span id="cb776-20"><a href="mod-r-dist-fit.html#cb776-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -340   AIC:  683   BIC:  686</span></span>
-<span id="cb776-21"><a href="mod-r-dist-fit.html#cb776-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitG2)</span>
-<span id="cb776-22"><a href="mod-r-dist-fit.html#cb776-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; geom &#39; by maximum likelihood </span></span>
-<span id="cb776-23"><a href="mod-r-dist-fit.html#cb776-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb776-24"><a href="mod-r-dist-fit.html#cb776-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      estimate Std. Error</span></span>
-<span id="cb776-25"><a href="mod-r-dist-fit.html#cb776-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; prob    0.239     0.0171</span></span>
-<span id="cb776-26"><a href="mod-r-dist-fit.html#cb776-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -343   AIC:  688   BIC:  691</span></span>
-<span id="cb776-27"><a href="mod-r-dist-fit.html#cb776-27" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) </span>
-<span id="cb776-28"><a href="mod-r-dist-fit.html#cb776-28" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;neg binomial&quot;</span>, <span class="st">&quot;Poisson&quot;</span>, <span class="st">&quot;geometric&quot;</span>)</span>
-<span id="cb776-29"><a href="mod-r-dist-fit.html#cb776-29" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fitN2, fitP2, fitG2)</span>
-<span id="cb776-30"><a href="mod-r-dist-fit.html#cb776-30" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb776-31"><a href="mod-r-dist-fit.html#cb776-31" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-672"></span>
-<img src="TFA_files/figure-html/unnamed-chunk-672-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="mod-r-dist-fit.html#cb783-1" aria-hidden="true" tabindex="-1"></a>fitN2 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;nbinom&quot;</span>)</span>
+<span id="cb783-2"><a href="mod-r-dist-fit.html#cb783-2" aria-hidden="true" tabindex="-1"></a>fitP2 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;pois&quot;</span>)</span>
+<span id="cb783-3"><a href="mod-r-dist-fit.html#cb783-3" aria-hidden="true" tabindex="-1"></a>fitG2 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;geom&quot;</span>)</span>
+<span id="cb783-4"><a href="mod-r-dist-fit.html#cb783-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitN2)</span>
+<span id="cb783-5"><a href="mod-r-dist-fit.html#cb783-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; nbinom &#39; by maximum likelihood </span></span>
+<span id="cb783-6"><a href="mod-r-dist-fit.html#cb783-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb783-7"><a href="mod-r-dist-fit.html#cb783-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      estimate Std. Error</span></span>
+<span id="cb783-8"><a href="mod-r-dist-fit.html#cb783-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; size     3.83      0.939</span></span>
+<span id="cb783-9"><a href="mod-r-dist-fit.html#cb783-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mu       3.19      0.198</span></span>
+<span id="cb783-10"><a href="mod-r-dist-fit.html#cb783-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -321   AIC:  645   BIC:  651 </span></span>
+<span id="cb783-11"><a href="mod-r-dist-fit.html#cb783-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
+<span id="cb783-12"><a href="mod-r-dist-fit.html#cb783-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           size        mu</span></span>
+<span id="cb783-13"><a href="mod-r-dist-fit.html#cb783-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; size  1.000000 -0.000436</span></span>
+<span id="cb783-14"><a href="mod-r-dist-fit.html#cb783-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mu   -0.000436  1.000000</span></span>
+<span id="cb783-15"><a href="mod-r-dist-fit.html#cb783-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitP2)</span>
+<span id="cb783-16"><a href="mod-r-dist-fit.html#cb783-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; pois &#39; by maximum likelihood </span></span>
+<span id="cb783-17"><a href="mod-r-dist-fit.html#cb783-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb783-18"><a href="mod-r-dist-fit.html#cb783-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        estimate Std. Error</span></span>
+<span id="cb783-19"><a href="mod-r-dist-fit.html#cb783-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lambda     3.19      0.146</span></span>
+<span id="cb783-20"><a href="mod-r-dist-fit.html#cb783-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -340   AIC:  683   BIC:  686</span></span>
+<span id="cb783-21"><a href="mod-r-dist-fit.html#cb783-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitG2)</span>
+<span id="cb783-22"><a href="mod-r-dist-fit.html#cb783-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; geom &#39; by maximum likelihood </span></span>
+<span id="cb783-23"><a href="mod-r-dist-fit.html#cb783-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb783-24"><a href="mod-r-dist-fit.html#cb783-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      estimate Std. Error</span></span>
+<span id="cb783-25"><a href="mod-r-dist-fit.html#cb783-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; prob    0.239     0.0171</span></span>
+<span id="cb783-26"><a href="mod-r-dist-fit.html#cb783-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -343   AIC:  688   BIC:  691</span></span>
+<span id="cb783-27"><a href="mod-r-dist-fit.html#cb783-27" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) </span>
+<span id="cb783-28"><a href="mod-r-dist-fit.html#cb783-28" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;neg binomial&quot;</span>, <span class="st">&quot;Poisson&quot;</span>, <span class="st">&quot;geometric&quot;</span>)</span>
+<span id="cb783-29"><a href="mod-r-dist-fit.html#cb783-29" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fitN2, fitP2, fitG2)</span>
+<span id="cb783-30"><a href="mod-r-dist-fit.html#cb783-30" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb783-31"><a href="mod-r-dist-fit.html#cb783-31" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-681"></span>
+<img src="TFA_files/figure-html/unnamed-chunk-681-1.png" alt="Four Goodness-of-fit plots for various distributions fitted to the breakdown data." width="100%" />
 <p class="caption">
 Figure 15.8: Four Goodness-of-fit plots for various distributions fitted to the breakdown data.
 </p>
@@ -1049,13 +1050,13 @@ You may also have a look at the
 <div id="exercise---call-center" class="section level3 hasAnchor" number="15.7.1">
 <h3><span class="header-section-number">15.7.1</span> Exercise - Call center<a href="mod-r-dist-fit.html#exercise---call-center" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Consider data from a call center: the Los Angeles 311 Call Center in 2014 from 8-17:</p>
-<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb777-1"><a href="mod-r-dist-fit.html#cb777-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb777-2"><a href="mod-r-dist-fit.html#cb777-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfa)</span>
-<span id="cb777-3"><a href="mod-r-dist-fit.html#cb777-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb777-4"><a href="mod-r-dist-fit.html#cb777-4" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(calls)</span></code></pre></div>
+<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb784-1"><a href="mod-r-dist-fit.html#cb784-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb784-2"><a href="mod-r-dist-fit.html#cb784-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfa)</span>
+<span id="cb784-3"><a href="mod-r-dist-fit.html#cb784-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb784-4"><a href="mod-r-dist-fit.html#cb784-4" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(calls)</span></code></pre></div>
 <table style="width: auto;" class="table table-condensed">
 <caption>
-<span id="tab:unnamed-chunk-674">Table 15.1: </span>Data summary
+<span id="tab:unnamed-chunk-683">Table 15.1: </span>Data summary
 </caption>
 <tbody>
 <tr>
@@ -1440,24 +1441,24 @@ date
 </tbody>
 </table>
 <p>We first transform the dataset a bit:</p>
-<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb778-1"><a href="mod-r-dist-fit.html#cb778-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb778-2"><a href="mod-r-dist-fit.html#cb778-2" aria-hidden="true" tabindex="-1"></a>calls <span class="ot">&lt;-</span> calls <span class="sc">%&gt;%</span></span>
-<span id="cb778-3"><a href="mod-r-dist-fit.html#cb778-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span> </span>
-<span id="cb778-4"><a href="mod-r-dist-fit.html#cb778-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date, time) <span class="sc">%&gt;%</span> </span>
-<span id="cb778-5"><a href="mod-r-dist-fit.html#cb778-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb778-6"><a href="mod-r-dist-fit.html#cb778-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrival =</span> <span class="fu">row_number</span>(),</span>
-<span id="cb778-7"><a href="mod-r-dist-fit.html#cb778-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">wday =</span> <span class="fu">wday</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb778-8"><a href="mod-r-dist-fit.html#cb778-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">hour =</span> <span class="fu">hour</span>(time),</span>
-<span id="cb778-9"><a href="mod-r-dist-fit.html#cb778-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">between =</span> time <span class="sc">-</span> <span class="fu">lag</span>(time)</span>
-<span id="cb778-10"><a href="mod-r-dist-fit.html#cb778-10" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div>
-<div id="WwSEIFSAEvGExCnDzHoH" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="WwSEIFSAEvGExCnDzHoH-title">
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb785-1"><a href="mod-r-dist-fit.html#cb785-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb785-2"><a href="mod-r-dist-fit.html#cb785-2" aria-hidden="true" tabindex="-1"></a>calls <span class="ot">&lt;-</span> calls <span class="sc">%&gt;%</span></span>
+<span id="cb785-3"><a href="mod-r-dist-fit.html#cb785-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span> </span>
+<span id="cb785-4"><a href="mod-r-dist-fit.html#cb785-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date, time) <span class="sc">%&gt;%</span> </span>
+<span id="cb785-5"><a href="mod-r-dist-fit.html#cb785-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb785-6"><a href="mod-r-dist-fit.html#cb785-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrival =</span> <span class="fu">row_number</span>(),</span>
+<span id="cb785-7"><a href="mod-r-dist-fit.html#cb785-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">wday =</span> <span class="fu">wday</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb785-8"><a href="mod-r-dist-fit.html#cb785-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">hour =</span> <span class="fu">hour</span>(time),</span>
+<span id="cb785-9"><a href="mod-r-dist-fit.html#cb785-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">between =</span> time <span class="sc">-</span> <span class="fu">lag</span>(time)</span>
+<span id="cb785-10"><a href="mod-r-dist-fit.html#cb785-10" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div>
+<div id="gWwSEIFSAEvGExCnDzHo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="gWwSEIFSAEvGExCnDzHo-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="WwSEIFSAEvGExCnDzHoH-title">
+<h4 class="modal-title" id="gWwSEIFSAEvGExCnDzHo-title">
 Solution
 </h4>
 </div>
@@ -1474,30 +1475,30 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#WwSEIFSAEvGExCnDzHoH">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#gWwSEIFSAEvGExCnDzHo">
 Solution
 </button>
 <ol style="list-style-type: decimal">
 <li>Explain the new columns.</li>
 </ol>
 <p>The number of calls may follow a Poisson process with a fixed rate of calls per hour during the day. Let us try to plot the hourly rates:</p>
-<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb779-1"><a href="mod-r-dist-fit.html#cb779-1" aria-hidden="true" tabindex="-1"></a>calls <span class="sc">%&gt;%</span> </span>
-<span id="cb779-2"><a href="mod-r-dist-fit.html#cb779-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(date, hour, wday) <span class="sc">%&gt;%</span> </span>
-<span id="cb779-3"><a href="mod-r-dist-fit.html#cb779-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(hour, wday) <span class="sc">%&gt;%</span> </span>
-<span id="cb779-4"><a href="mod-r-dist-fit.html#cb779-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">rate =</span> <span class="fu">mean</span>(n)) <span class="sc">%&gt;%</span> </span>
-<span id="cb779-5"><a href="mod-r-dist-fit.html#cb779-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> hour, <span class="at">y =</span> rate)) <span class="sc">+</span> </span>
-<span id="cb779-6"><a href="mod-r-dist-fit.html#cb779-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb779-7"><a href="mod-r-dist-fit.html#cb779-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>wday) <span class="sc">+</span> </span>
-<span id="cb779-8"><a href="mod-r-dist-fit.html#cb779-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;calls/hour&quot;</span>)</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-677-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div id="QjdcagtGMly0ErRZRLPg" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="QjdcagtGMly0ErRZRLPg-title">
+<div class="sourceCode" id="cb786"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb786-1"><a href="mod-r-dist-fit.html#cb786-1" aria-hidden="true" tabindex="-1"></a>calls <span class="sc">%&gt;%</span> </span>
+<span id="cb786-2"><a href="mod-r-dist-fit.html#cb786-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(date, hour, wday) <span class="sc">%&gt;%</span> </span>
+<span id="cb786-3"><a href="mod-r-dist-fit.html#cb786-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(hour, wday) <span class="sc">%&gt;%</span> </span>
+<span id="cb786-4"><a href="mod-r-dist-fit.html#cb786-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">rate =</span> <span class="fu">mean</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb786-5"><a href="mod-r-dist-fit.html#cb786-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> hour, <span class="at">y =</span> rate)) <span class="sc">+</span> </span>
+<span id="cb786-6"><a href="mod-r-dist-fit.html#cb786-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb786-7"><a href="mod-r-dist-fit.html#cb786-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>wday) <span class="sc">+</span> </span>
+<span id="cb786-8"><a href="mod-r-dist-fit.html#cb786-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;calls/hour&quot;</span>)</span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-686-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="HQjdcagtGMly0ErRZRLP" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="HQjdcagtGMly0ErRZRLP-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="QjdcagtGMly0ErRZRLPg-title">
+<h4 class="modal-title" id="HQjdcagtGMly0ErRZRLP-title">
 Solution
 </h4>
 </div>
@@ -1514,81 +1515,81 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#QjdcagtGMly0ErRZRLPg">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#HQjdcagtGMly0ErRZRLP">
 Solution
 </button>
 <ol start="2" style="list-style-type: decimal">
 <li>Is the rate constant during a day and is the rate the same for different weekdays (explain)?</li>
 </ol>
 <p>Since the rate is not fixed we may have a non-homogeneous Poisson process where the rate change during the day. Hence let us try to consider an specific hour and test if the rate here can be considered as fixed (i.e. we have a Poisson process with a fixed rate when considering a specific hour)</p>
-<div id="x6FGiX338UnU9OV6BsL4" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="x6FGiX338UnU9OV6BsL4-title">
+<div id="gx6FGiX338UnU9OV6BsL" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="gx6FGiX338UnU9OV6BsL-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="x6FGiX338UnU9OV6BsL4-title">
+<h4 class="modal-title" id="gx6FGiX338UnU9OV6BsL-title">
 Solution
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb780-1"><a href="mod-r-dist-fit.html#cb780-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)</span>
-<span id="cb780-2"><a href="mod-r-dist-fit.html#cb780-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> calls <span class="sc">%&gt;%</span> </span>
-<span id="cb780-3"><a href="mod-r-dist-fit.html#cb780-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb780-4"><a href="mod-r-dist-fit.html#cb780-4" aria-hidden="true" tabindex="-1"></a>    wday <span class="sc">==</span> <span class="st">&quot;Tue&quot;</span>,</span>
-<span id="cb780-5"><a href="mod-r-dist-fit.html#cb780-5" aria-hidden="true" tabindex="-1"></a>    hour <span class="sc">==</span> <span class="dv">10</span>,</span>
-<span id="cb780-6"><a href="mod-r-dist-fit.html#cb780-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(between)) <span class="sc">%&gt;%</span> </span>
-<span id="cb780-7"><a href="mod-r-dist-fit.html#cb780-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(between) <span class="sc">%&gt;%</span> </span>
-<span id="cb780-8"><a href="mod-r-dist-fit.html#cb780-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>() </span>
-<span id="cb780-9"><a href="mod-r-dist-fit.html#cb780-9" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(dat)</span>
-<span id="cb780-10"><a href="mod-r-dist-fit.html#cb780-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; summary statistics</span></span>
-<span id="cb780-11"><a href="mod-r-dist-fit.html#cb780-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ------</span></span>
-<span id="cb780-12"><a href="mod-r-dist-fit.html#cb780-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; min:  1   max:  98 </span></span>
-<span id="cb780-13"><a href="mod-r-dist-fit.html#cb780-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; median:  6 </span></span>
-<span id="cb780-14"><a href="mod-r-dist-fit.html#cb780-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean:  9.01 </span></span>
-<span id="cb780-15"><a href="mod-r-dist-fit.html#cb780-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated sd:  8.35 </span></span>
-<span id="cb780-16"><a href="mod-r-dist-fit.html#cb780-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated skewness:  1.95 </span></span>
-<span id="cb780-17"><a href="mod-r-dist-fit.html#cb780-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated kurtosis:  8.73</span></span>
-<span id="cb780-18"><a href="mod-r-dist-fit.html#cb780-18" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;exp&quot;</span>)</span>
-<span id="cb780-19"><a href="mod-r-dist-fit.html#cb780-19" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;lnorm&quot;</span>)</span>
-<span id="cb780-20"><a href="mod-r-dist-fit.html#cb780-20" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;gamma&quot;</span>)</span>
-<span id="cb780-21"><a href="mod-r-dist-fit.html#cb780-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit1)</span>
-<span id="cb780-22"><a href="mod-r-dist-fit.html#cb780-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; exp &#39; by maximum likelihood </span></span>
-<span id="cb780-23"><a href="mod-r-dist-fit.html#cb780-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb780-24"><a href="mod-r-dist-fit.html#cb780-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      estimate Std. Error</span></span>
-<span id="cb780-25"><a href="mod-r-dist-fit.html#cb780-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate    0.111    0.00077</span></span>
-<span id="cb780-26"><a href="mod-r-dist-fit.html#cb780-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -66456   AIC:  132914   BIC:  132922</span></span>
-<span id="cb780-27"><a href="mod-r-dist-fit.html#cb780-27" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span>
-<span id="cb780-28"><a href="mod-r-dist-fit.html#cb780-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; lnorm &#39; by maximum likelihood </span></span>
-<span id="cb780-29"><a href="mod-r-dist-fit.html#cb780-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb780-30"><a href="mod-r-dist-fit.html#cb780-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         estimate Std. Error</span></span>
-<span id="cb780-31"><a href="mod-r-dist-fit.html#cb780-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog    1.779    0.00673</span></span>
-<span id="cb780-32"><a href="mod-r-dist-fit.html#cb780-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog      0.971    0.00476</span></span>
-<span id="cb780-33"><a href="mod-r-dist-fit.html#cb780-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -65826   AIC:  131657   BIC:  131673 </span></span>
-<span id="cb780-34"><a href="mod-r-dist-fit.html#cb780-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
-<span id="cb780-35"><a href="mod-r-dist-fit.html#cb780-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           meanlog     sdlog</span></span>
-<span id="cb780-36"><a href="mod-r-dist-fit.html#cb780-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog  1.00e+00 -1.17e-10</span></span>
-<span id="cb780-37"><a href="mod-r-dist-fit.html#cb780-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog   -1.17e-10  1.00e+00</span></span>
-<span id="cb780-38"><a href="mod-r-dist-fit.html#cb780-38" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit3)</span>
-<span id="cb780-39"><a href="mod-r-dist-fit.html#cb780-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; gamma &#39; by maximum likelihood </span></span>
-<span id="cb780-40"><a href="mod-r-dist-fit.html#cb780-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb780-41"><a href="mod-r-dist-fit.html#cb780-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       estimate Std. Error</span></span>
-<span id="cb780-42"><a href="mod-r-dist-fit.html#cb780-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape    1.334    0.01180</span></span>
-<span id="cb780-43"><a href="mod-r-dist-fit.html#cb780-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate     0.148    0.00158</span></span>
-<span id="cb780-44"><a href="mod-r-dist-fit.html#cb780-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -65966   AIC:  131936   BIC:  131952 </span></span>
-<span id="cb780-45"><a href="mod-r-dist-fit.html#cb780-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
-<span id="cb780-46"><a href="mod-r-dist-fit.html#cb780-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       shape  rate</span></span>
-<span id="cb780-47"><a href="mod-r-dist-fit.html#cb780-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape 1.000 0.827</span></span>
-<span id="cb780-48"><a href="mod-r-dist-fit.html#cb780-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate  0.827 1.000</span></span>
-<span id="cb780-49"><a href="mod-r-dist-fit.html#cb780-49" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))  <span class="co"># 4 plots in one figure</span></span>
-<span id="cb780-50"><a href="mod-r-dist-fit.html#cb780-50" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;exp&quot;</span>, <span class="st">&quot;lnorm&quot;</span>, <span class="st">&quot;gamma&quot;</span>)</span>
-<span id="cb780-51"><a href="mod-r-dist-fit.html#cb780-51" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fit1, fit2, fit3)</span>
-<span id="cb780-52"><a href="mod-r-dist-fit.html#cb780-52" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb780-53"><a href="mod-r-dist-fit.html#cb780-53" aria-hidden="true" tabindex="-1"></a><span class="fu">qqcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb780-54"><a href="mod-r-dist-fit.html#cb780-54" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb780-55"><a href="mod-r-dist-fit.html#cb780-55" aria-hidden="true" tabindex="-1"></a><span class="fu">ppcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
-<img src="TFA_files/figure-html/unnamed-chunk-679-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-679-2.png" width="672" style="display: block; margin: auto;" />
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="mod-r-dist-fit.html#cb787-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)</span>
+<span id="cb787-2"><a href="mod-r-dist-fit.html#cb787-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> calls <span class="sc">%&gt;%</span> </span>
+<span id="cb787-3"><a href="mod-r-dist-fit.html#cb787-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb787-4"><a href="mod-r-dist-fit.html#cb787-4" aria-hidden="true" tabindex="-1"></a>    wday <span class="sc">==</span> <span class="st">&quot;Tue&quot;</span>,</span>
+<span id="cb787-5"><a href="mod-r-dist-fit.html#cb787-5" aria-hidden="true" tabindex="-1"></a>    hour <span class="sc">==</span> <span class="dv">10</span>,</span>
+<span id="cb787-6"><a href="mod-r-dist-fit.html#cb787-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(between)) <span class="sc">%&gt;%</span> </span>
+<span id="cb787-7"><a href="mod-r-dist-fit.html#cb787-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(between) <span class="sc">%&gt;%</span> </span>
+<span id="cb787-8"><a href="mod-r-dist-fit.html#cb787-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>() </span>
+<span id="cb787-9"><a href="mod-r-dist-fit.html#cb787-9" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(dat)</span>
+<span id="cb787-10"><a href="mod-r-dist-fit.html#cb787-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; summary statistics</span></span>
+<span id="cb787-11"><a href="mod-r-dist-fit.html#cb787-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ------</span></span>
+<span id="cb787-12"><a href="mod-r-dist-fit.html#cb787-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; min:  1   max:  98 </span></span>
+<span id="cb787-13"><a href="mod-r-dist-fit.html#cb787-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; median:  6 </span></span>
+<span id="cb787-14"><a href="mod-r-dist-fit.html#cb787-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean:  9.01 </span></span>
+<span id="cb787-15"><a href="mod-r-dist-fit.html#cb787-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated sd:  8.35 </span></span>
+<span id="cb787-16"><a href="mod-r-dist-fit.html#cb787-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated skewness:  1.95 </span></span>
+<span id="cb787-17"><a href="mod-r-dist-fit.html#cb787-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated kurtosis:  8.73</span></span>
+<span id="cb787-18"><a href="mod-r-dist-fit.html#cb787-18" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;exp&quot;</span>)</span>
+<span id="cb787-19"><a href="mod-r-dist-fit.html#cb787-19" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;lnorm&quot;</span>)</span>
+<span id="cb787-20"><a href="mod-r-dist-fit.html#cb787-20" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;gamma&quot;</span>)</span>
+<span id="cb787-21"><a href="mod-r-dist-fit.html#cb787-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit1)</span>
+<span id="cb787-22"><a href="mod-r-dist-fit.html#cb787-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; exp &#39; by maximum likelihood </span></span>
+<span id="cb787-23"><a href="mod-r-dist-fit.html#cb787-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb787-24"><a href="mod-r-dist-fit.html#cb787-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      estimate Std. Error</span></span>
+<span id="cb787-25"><a href="mod-r-dist-fit.html#cb787-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate    0.111    0.00077</span></span>
+<span id="cb787-26"><a href="mod-r-dist-fit.html#cb787-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -66456   AIC:  132914   BIC:  132922</span></span>
+<span id="cb787-27"><a href="mod-r-dist-fit.html#cb787-27" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span>
+<span id="cb787-28"><a href="mod-r-dist-fit.html#cb787-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; lnorm &#39; by maximum likelihood </span></span>
+<span id="cb787-29"><a href="mod-r-dist-fit.html#cb787-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb787-30"><a href="mod-r-dist-fit.html#cb787-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         estimate Std. Error</span></span>
+<span id="cb787-31"><a href="mod-r-dist-fit.html#cb787-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog    1.779    0.00673</span></span>
+<span id="cb787-32"><a href="mod-r-dist-fit.html#cb787-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog      0.971    0.00476</span></span>
+<span id="cb787-33"><a href="mod-r-dist-fit.html#cb787-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -65826   AIC:  131657   BIC:  131673 </span></span>
+<span id="cb787-34"><a href="mod-r-dist-fit.html#cb787-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
+<span id="cb787-35"><a href="mod-r-dist-fit.html#cb787-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           meanlog     sdlog</span></span>
+<span id="cb787-36"><a href="mod-r-dist-fit.html#cb787-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog  1.00e+00 -1.17e-10</span></span>
+<span id="cb787-37"><a href="mod-r-dist-fit.html#cb787-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog   -1.17e-10  1.00e+00</span></span>
+<span id="cb787-38"><a href="mod-r-dist-fit.html#cb787-38" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit3)</span>
+<span id="cb787-39"><a href="mod-r-dist-fit.html#cb787-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; gamma &#39; by maximum likelihood </span></span>
+<span id="cb787-40"><a href="mod-r-dist-fit.html#cb787-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb787-41"><a href="mod-r-dist-fit.html#cb787-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       estimate Std. Error</span></span>
+<span id="cb787-42"><a href="mod-r-dist-fit.html#cb787-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape    1.334    0.01180</span></span>
+<span id="cb787-43"><a href="mod-r-dist-fit.html#cb787-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate     0.148    0.00158</span></span>
+<span id="cb787-44"><a href="mod-r-dist-fit.html#cb787-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -65966   AIC:  131936   BIC:  131952 </span></span>
+<span id="cb787-45"><a href="mod-r-dist-fit.html#cb787-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
+<span id="cb787-46"><a href="mod-r-dist-fit.html#cb787-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       shape  rate</span></span>
+<span id="cb787-47"><a href="mod-r-dist-fit.html#cb787-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape 1.000 0.827</span></span>
+<span id="cb787-48"><a href="mod-r-dist-fit.html#cb787-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate  0.827 1.000</span></span>
+<span id="cb787-49"><a href="mod-r-dist-fit.html#cb787-49" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))  <span class="co"># 4 plots in one figure</span></span>
+<span id="cb787-50"><a href="mod-r-dist-fit.html#cb787-50" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;exp&quot;</span>, <span class="st">&quot;lnorm&quot;</span>, <span class="st">&quot;gamma&quot;</span>)</span>
+<span id="cb787-51"><a href="mod-r-dist-fit.html#cb787-51" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fit1, fit2, fit3)</span>
+<span id="cb787-52"><a href="mod-r-dist-fit.html#cb787-52" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb787-53"><a href="mod-r-dist-fit.html#cb787-53" aria-hidden="true" tabindex="-1"></a><span class="fu">qqcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb787-54"><a href="mod-r-dist-fit.html#cb787-54" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb787-55"><a href="mod-r-dist-fit.html#cb787-55" aria-hidden="true" tabindex="-1"></a><span class="fu">ppcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
+<img src="TFA_files/figure-html/unnamed-chunk-688-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-688-2.png" width="672" style="display: block; margin: auto;" />
 <p>
 For a Poisson process the inter arrival times should follow an exponential distribution. It seems to be a good fit here.
 </p>
@@ -1601,32 +1602,32 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#x6FGiX338UnU9OV6BsL4">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#gx6FGiX338UnU9OV6BsL">
 Solution
 </button>
-<div id="id_94THXwLX1bKP1bDjelHu" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="94THXwLX1bKP1bDjelHu-title">
+<div id="id_494THXwLX1bKP1bDjelH" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="494THXwLX1bKP1bDjelH-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="94THXwLX1bKP1bDjelHu-title">
+<h4 class="modal-title" id="494THXwLX1bKP1bDjelH-title">
 Hint
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="mod-r-dist-fit.html#cb781-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)</span>
-<span id="cb781-2"><a href="mod-r-dist-fit.html#cb781-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> calls <span class="sc">%&gt;%</span> </span>
-<span id="cb781-3"><a href="mod-r-dist-fit.html#cb781-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb781-4"><a href="mod-r-dist-fit.html#cb781-4" aria-hidden="true" tabindex="-1"></a>    wday <span class="sc">==</span> ___,</span>
-<span id="cb781-5"><a href="mod-r-dist-fit.html#cb781-5" aria-hidden="true" tabindex="-1"></a>    hour <span class="sc">==</span> ___</span>
-<span id="cb781-6"><a href="mod-r-dist-fit.html#cb781-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(between)) <span class="sc">%&gt;%</span> </span>
-<span id="cb781-7"><a href="mod-r-dist-fit.html#cb781-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(between) <span class="sc">%&gt;%</span> </span>
-<span id="cb781-8"><a href="mod-r-dist-fit.html#cb781-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb781-9"><a href="mod-r-dist-fit.html#cb781-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
-<span id="cb781-10"><a href="mod-r-dist-fit.html#cb781-10" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(dat)</span>
-<span id="cb781-11"><a href="mod-r-dist-fit.html#cb781-11" aria-hidden="true" tabindex="-1"></a>___ <span class="co"># try to fit the exp, lnorm and gamma</span></span></code></pre></div>
+<div class="sourceCode" id="cb788"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb788-1"><a href="mod-r-dist-fit.html#cb788-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)</span>
+<span id="cb788-2"><a href="mod-r-dist-fit.html#cb788-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> calls <span class="sc">%&gt;%</span> </span>
+<span id="cb788-3"><a href="mod-r-dist-fit.html#cb788-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb788-4"><a href="mod-r-dist-fit.html#cb788-4" aria-hidden="true" tabindex="-1"></a>    wday <span class="sc">==</span> ___,</span>
+<span id="cb788-5"><a href="mod-r-dist-fit.html#cb788-5" aria-hidden="true" tabindex="-1"></a>    hour <span class="sc">==</span> ___</span>
+<span id="cb788-6"><a href="mod-r-dist-fit.html#cb788-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(between)) <span class="sc">%&gt;%</span> </span>
+<span id="cb788-7"><a href="mod-r-dist-fit.html#cb788-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(between) <span class="sc">%&gt;%</span> </span>
+<span id="cb788-8"><a href="mod-r-dist-fit.html#cb788-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb788-9"><a href="mod-r-dist-fit.html#cb788-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
+<span id="cb788-10"><a href="mod-r-dist-fit.html#cb788-10" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(dat)</span>
+<span id="cb788-11"><a href="mod-r-dist-fit.html#cb788-11" aria-hidden="true" tabindex="-1"></a>___ <span class="co"># try to fit the exp, lnorm and gamma</span></span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1636,80 +1637,80 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#94THXwLX1bKP1bDjelHu">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#494THXwLX1bKP1bDjelH">
 Hint
 </button>
 <ol start="3" style="list-style-type: decimal">
 <li>Consider Tuesdays from 10-11 and fit the inter arrival times (<code>between</code>). If the data follow a Poisson process then the distribution should be?</li>
 </ol>
-<div id="id_7DmR4e9ndM1kiIcMlqq1" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="7DmR4e9ndM1kiIcMlqq1-title">
+<div id="u7DmR4e9ndM1kiIcMlqq" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="u7DmR4e9ndM1kiIcMlqq-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="7DmR4e9ndM1kiIcMlqq1-title">
+<h4 class="modal-title" id="u7DmR4e9ndM1kiIcMlqq-title">
 Solution
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb782-1"><a href="mod-r-dist-fit.html#cb782-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)</span>
-<span id="cb782-2"><a href="mod-r-dist-fit.html#cb782-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> calls <span class="sc">%&gt;%</span> </span>
-<span id="cb782-3"><a href="mod-r-dist-fit.html#cb782-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb782-4"><a href="mod-r-dist-fit.html#cb782-4" aria-hidden="true" tabindex="-1"></a>    wday <span class="sc">==</span> <span class="st">&quot;Tue&quot;</span>,</span>
-<span id="cb782-5"><a href="mod-r-dist-fit.html#cb782-5" aria-hidden="true" tabindex="-1"></a>    hour <span class="sc">==</span> <span class="dv">15</span>,</span>
-<span id="cb782-6"><a href="mod-r-dist-fit.html#cb782-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(between)) <span class="sc">%&gt;%</span> </span>
-<span id="cb782-7"><a href="mod-r-dist-fit.html#cb782-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(between) <span class="sc">%&gt;%</span> </span>
-<span id="cb782-8"><a href="mod-r-dist-fit.html#cb782-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>() </span>
-<span id="cb782-9"><a href="mod-r-dist-fit.html#cb782-9" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(dat)</span>
-<span id="cb782-10"><a href="mod-r-dist-fit.html#cb782-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; summary statistics</span></span>
-<span id="cb782-11"><a href="mod-r-dist-fit.html#cb782-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ------</span></span>
-<span id="cb782-12"><a href="mod-r-dist-fit.html#cb782-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; min:  1   max:  103 </span></span>
-<span id="cb782-13"><a href="mod-r-dist-fit.html#cb782-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; median:  7 </span></span>
-<span id="cb782-14"><a href="mod-r-dist-fit.html#cb782-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean:  9.99 </span></span>
-<span id="cb782-15"><a href="mod-r-dist-fit.html#cb782-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated sd:  9.41 </span></span>
-<span id="cb782-16"><a href="mod-r-dist-fit.html#cb782-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated skewness:  2.01 </span></span>
-<span id="cb782-17"><a href="mod-r-dist-fit.html#cb782-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated kurtosis:  9.13</span></span>
-<span id="cb782-18"><a href="mod-r-dist-fit.html#cb782-18" aria-hidden="true" tabindex="-1"></a>fit12 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;exp&quot;</span>)</span>
-<span id="cb782-19"><a href="mod-r-dist-fit.html#cb782-19" aria-hidden="true" tabindex="-1"></a>fit22 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;lnorm&quot;</span>)</span>
-<span id="cb782-20"><a href="mod-r-dist-fit.html#cb782-20" aria-hidden="true" tabindex="-1"></a>fit32 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;gamma&quot;</span>)</span>
-<span id="cb782-21"><a href="mod-r-dist-fit.html#cb782-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit12)</span>
-<span id="cb782-22"><a href="mod-r-dist-fit.html#cb782-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; exp &#39; by maximum likelihood </span></span>
-<span id="cb782-23"><a href="mod-r-dist-fit.html#cb782-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb782-24"><a href="mod-r-dist-fit.html#cb782-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      estimate Std. Error</span></span>
-<span id="cb782-25"><a href="mod-r-dist-fit.html#cb782-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate      0.1   0.000731</span></span>
-<span id="cb782-26"><a href="mod-r-dist-fit.html#cb782-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -61883   AIC:  123768   BIC:  123776</span></span>
-<span id="cb782-27"><a href="mod-r-dist-fit.html#cb782-27" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit22)</span>
-<span id="cb782-28"><a href="mod-r-dist-fit.html#cb782-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; lnorm &#39; by maximum likelihood </span></span>
-<span id="cb782-29"><a href="mod-r-dist-fit.html#cb782-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb782-30"><a href="mod-r-dist-fit.html#cb782-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         estimate Std. Error</span></span>
-<span id="cb782-31"><a href="mod-r-dist-fit.html#cb782-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog    1.872    0.00719</span></span>
-<span id="cb782-32"><a href="mod-r-dist-fit.html#cb782-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog      0.985    0.00509</span></span>
-<span id="cb782-33"><a href="mod-r-dist-fit.html#cb782-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -61398   AIC:  122800   BIC:  122816 </span></span>
-<span id="cb782-34"><a href="mod-r-dist-fit.html#cb782-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
-<span id="cb782-35"><a href="mod-r-dist-fit.html#cb782-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           meanlog     sdlog</span></span>
-<span id="cb782-36"><a href="mod-r-dist-fit.html#cb782-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog  1.00e+00 -3.33e-11</span></span>
-<span id="cb782-37"><a href="mod-r-dist-fit.html#cb782-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog   -3.33e-11  1.00e+00</span></span>
-<span id="cb782-38"><a href="mod-r-dist-fit.html#cb782-38" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit32)</span>
-<span id="cb782-39"><a href="mod-r-dist-fit.html#cb782-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; gamma &#39; by maximum likelihood </span></span>
-<span id="cb782-40"><a href="mod-r-dist-fit.html#cb782-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
-<span id="cb782-41"><a href="mod-r-dist-fit.html#cb782-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       estimate Std. Error</span></span>
-<span id="cb782-42"><a href="mod-r-dist-fit.html#cb782-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape    1.305    0.01214</span></span>
-<span id="cb782-43"><a href="mod-r-dist-fit.html#cb782-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate     0.131    0.00147</span></span>
-<span id="cb782-44"><a href="mod-r-dist-fit.html#cb782-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -61501   AIC:  123007   BIC:  123022 </span></span>
-<span id="cb782-45"><a href="mod-r-dist-fit.html#cb782-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
-<span id="cb782-46"><a href="mod-r-dist-fit.html#cb782-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       shape  rate</span></span>
-<span id="cb782-47"><a href="mod-r-dist-fit.html#cb782-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape 1.000 0.824</span></span>
-<span id="cb782-48"><a href="mod-r-dist-fit.html#cb782-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate  0.824 1.000</span></span>
-<span id="cb782-49"><a href="mod-r-dist-fit.html#cb782-49" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))  <span class="co"># 4 plots in one figure</span></span>
-<span id="cb782-50"><a href="mod-r-dist-fit.html#cb782-50" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;exp&quot;</span>, <span class="st">&quot;lnorm&quot;</span>, <span class="st">&quot;gamma&quot;</span>)</span>
-<span id="cb782-51"><a href="mod-r-dist-fit.html#cb782-51" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fit12, fit22, fit32)</span>
-<span id="cb782-52"><a href="mod-r-dist-fit.html#cb782-52" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb782-53"><a href="mod-r-dist-fit.html#cb782-53" aria-hidden="true" tabindex="-1"></a><span class="fu">qqcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb782-54"><a href="mod-r-dist-fit.html#cb782-54" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
-<span id="cb782-55"><a href="mod-r-dist-fit.html#cb782-55" aria-hidden="true" tabindex="-1"></a><span class="fu">ppcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
-<p><img src="TFA_files/figure-html/unnamed-chunk-681-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-681-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb789-1"><a href="mod-r-dist-fit.html#cb789-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)</span>
+<span id="cb789-2"><a href="mod-r-dist-fit.html#cb789-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> calls <span class="sc">%&gt;%</span> </span>
+<span id="cb789-3"><a href="mod-r-dist-fit.html#cb789-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb789-4"><a href="mod-r-dist-fit.html#cb789-4" aria-hidden="true" tabindex="-1"></a>    wday <span class="sc">==</span> <span class="st">&quot;Tue&quot;</span>,</span>
+<span id="cb789-5"><a href="mod-r-dist-fit.html#cb789-5" aria-hidden="true" tabindex="-1"></a>    hour <span class="sc">==</span> <span class="dv">15</span>,</span>
+<span id="cb789-6"><a href="mod-r-dist-fit.html#cb789-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(between)) <span class="sc">%&gt;%</span> </span>
+<span id="cb789-7"><a href="mod-r-dist-fit.html#cb789-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(between) <span class="sc">%&gt;%</span> </span>
+<span id="cb789-8"><a href="mod-r-dist-fit.html#cb789-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>() </span>
+<span id="cb789-9"><a href="mod-r-dist-fit.html#cb789-9" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(dat)</span>
+<span id="cb789-10"><a href="mod-r-dist-fit.html#cb789-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; summary statistics</span></span>
+<span id="cb789-11"><a href="mod-r-dist-fit.html#cb789-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ------</span></span>
+<span id="cb789-12"><a href="mod-r-dist-fit.html#cb789-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; min:  1   max:  103 </span></span>
+<span id="cb789-13"><a href="mod-r-dist-fit.html#cb789-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; median:  7 </span></span>
+<span id="cb789-14"><a href="mod-r-dist-fit.html#cb789-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean:  9.99 </span></span>
+<span id="cb789-15"><a href="mod-r-dist-fit.html#cb789-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated sd:  9.41 </span></span>
+<span id="cb789-16"><a href="mod-r-dist-fit.html#cb789-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated skewness:  2.01 </span></span>
+<span id="cb789-17"><a href="mod-r-dist-fit.html#cb789-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimated kurtosis:  9.13</span></span>
+<span id="cb789-18"><a href="mod-r-dist-fit.html#cb789-18" aria-hidden="true" tabindex="-1"></a>fit12 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;exp&quot;</span>)</span>
+<span id="cb789-19"><a href="mod-r-dist-fit.html#cb789-19" aria-hidden="true" tabindex="-1"></a>fit22 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;lnorm&quot;</span>)</span>
+<span id="cb789-20"><a href="mod-r-dist-fit.html#cb789-20" aria-hidden="true" tabindex="-1"></a>fit32 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(dat, <span class="at">distr =</span> <span class="st">&quot;gamma&quot;</span>)</span>
+<span id="cb789-21"><a href="mod-r-dist-fit.html#cb789-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit12)</span>
+<span id="cb789-22"><a href="mod-r-dist-fit.html#cb789-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; exp &#39; by maximum likelihood </span></span>
+<span id="cb789-23"><a href="mod-r-dist-fit.html#cb789-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb789-24"><a href="mod-r-dist-fit.html#cb789-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      estimate Std. Error</span></span>
+<span id="cb789-25"><a href="mod-r-dist-fit.html#cb789-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate      0.1   0.000731</span></span>
+<span id="cb789-26"><a href="mod-r-dist-fit.html#cb789-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -61883   AIC:  123768   BIC:  123776</span></span>
+<span id="cb789-27"><a href="mod-r-dist-fit.html#cb789-27" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit22)</span>
+<span id="cb789-28"><a href="mod-r-dist-fit.html#cb789-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; lnorm &#39; by maximum likelihood </span></span>
+<span id="cb789-29"><a href="mod-r-dist-fit.html#cb789-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb789-30"><a href="mod-r-dist-fit.html#cb789-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         estimate Std. Error</span></span>
+<span id="cb789-31"><a href="mod-r-dist-fit.html#cb789-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog    1.872    0.00719</span></span>
+<span id="cb789-32"><a href="mod-r-dist-fit.html#cb789-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog      0.985    0.00509</span></span>
+<span id="cb789-33"><a href="mod-r-dist-fit.html#cb789-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -61398   AIC:  122800   BIC:  122816 </span></span>
+<span id="cb789-34"><a href="mod-r-dist-fit.html#cb789-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
+<span id="cb789-35"><a href="mod-r-dist-fit.html#cb789-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           meanlog     sdlog</span></span>
+<span id="cb789-36"><a href="mod-r-dist-fit.html#cb789-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meanlog  1.00e+00 -3.33e-11</span></span>
+<span id="cb789-37"><a href="mod-r-dist-fit.html#cb789-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sdlog   -3.33e-11  1.00e+00</span></span>
+<span id="cb789-38"><a href="mod-r-dist-fit.html#cb789-38" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit32)</span>
+<span id="cb789-39"><a href="mod-r-dist-fit.html#cb789-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fitting of the distribution &#39; gamma &#39; by maximum likelihood </span></span>
+<span id="cb789-40"><a href="mod-r-dist-fit.html#cb789-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameters : </span></span>
+<span id="cb789-41"><a href="mod-r-dist-fit.html#cb789-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       estimate Std. Error</span></span>
+<span id="cb789-42"><a href="mod-r-dist-fit.html#cb789-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape    1.305    0.01214</span></span>
+<span id="cb789-43"><a href="mod-r-dist-fit.html#cb789-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate     0.131    0.00147</span></span>
+<span id="cb789-44"><a href="mod-r-dist-fit.html#cb789-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loglikelihood:  -61501   AIC:  123007   BIC:  123022 </span></span>
+<span id="cb789-45"><a href="mod-r-dist-fit.html#cb789-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Correlation matrix:</span></span>
+<span id="cb789-46"><a href="mod-r-dist-fit.html#cb789-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       shape  rate</span></span>
+<span id="cb789-47"><a href="mod-r-dist-fit.html#cb789-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; shape 1.000 0.824</span></span>
+<span id="cb789-48"><a href="mod-r-dist-fit.html#cb789-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate  0.824 1.000</span></span>
+<span id="cb789-49"><a href="mod-r-dist-fit.html#cb789-49" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))  <span class="co"># 4 plots in one figure</span></span>
+<span id="cb789-50"><a href="mod-r-dist-fit.html#cb789-50" aria-hidden="true" tabindex="-1"></a>pLegend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;exp&quot;</span>, <span class="st">&quot;lnorm&quot;</span>, <span class="st">&quot;gamma&quot;</span>)</span>
+<span id="cb789-51"><a href="mod-r-dist-fit.html#cb789-51" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(fit12, fit22, fit32)</span>
+<span id="cb789-52"><a href="mod-r-dist-fit.html#cb789-52" aria-hidden="true" tabindex="-1"></a><span class="fu">denscomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb789-53"><a href="mod-r-dist-fit.html#cb789-53" aria-hidden="true" tabindex="-1"></a><span class="fu">qqcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb789-54"><a href="mod-r-dist-fit.html#cb789-54" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span>
+<span id="cb789-55"><a href="mod-r-dist-fit.html#cb789-55" aria-hidden="true" tabindex="-1"></a><span class="fu">ppcomp</span>(lst, <span class="at">legendtext =</span> pLegend)</span></code></pre></div>
+<p><img src="TFA_files/figure-html/unnamed-chunk-690-1.png" width="672" style="display: block; margin: auto;" /><img src="TFA_files/figure-html/unnamed-chunk-690-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1719,30 +1720,30 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#7DmR4e9ndM1kiIcMlqq1">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#u7DmR4e9ndM1kiIcMlqq">
 Solution
 </button>
 <ol start="4" style="list-style-type: decimal">
 <li>Consider Tuesdays from 15-16 and fit the inter arrival times (<code>between</code>).</li>
 </ol>
-<div id="id_5aRp1MrjwEuZUVQUO6qQ" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="5aRp1MrjwEuZUVQUO6qQ-title">
+<div id="id_15aRp1MrjwEuZUVQUO6q" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="15aRp1MrjwEuZUVQUO6q-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="5aRp1MrjwEuZUVQUO6qQ-title">
+<h4 class="modal-title" id="15aRp1MrjwEuZUVQUO6q-title">
 Solution
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="mod-r-dist-fit.html#cb783-1" aria-hidden="true" tabindex="-1"></a>fit1<span class="sc">$</span>estimate <span class="sc">*</span> <span class="dv">60</span> <span class="sc">*</span> <span class="dv">60</span> <span class="co"># 10-11</span></span>
-<span id="cb783-2"><a href="mod-r-dist-fit.html#cb783-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate </span></span>
-<span id="cb783-3"><a href="mod-r-dist-fit.html#cb783-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  400</span></span>
-<span id="cb783-4"><a href="mod-r-dist-fit.html#cb783-4" aria-hidden="true" tabindex="-1"></a>fit12<span class="sc">$</span>estimate <span class="sc">*</span> <span class="dv">60</span> <span class="sc">*</span> <span class="dv">60</span> <span class="co"># 15-16</span></span>
-<span id="cb783-5"><a href="mod-r-dist-fit.html#cb783-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate </span></span>
-<span id="cb783-6"><a href="mod-r-dist-fit.html#cb783-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  360</span></span></code></pre></div>
+<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb790-1"><a href="mod-r-dist-fit.html#cb790-1" aria-hidden="true" tabindex="-1"></a>fit1<span class="sc">$</span>estimate <span class="sc">*</span> <span class="dv">60</span> <span class="sc">*</span> <span class="dv">60</span> <span class="co"># 10-11</span></span>
+<span id="cb790-2"><a href="mod-r-dist-fit.html#cb790-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate </span></span>
+<span id="cb790-3"><a href="mod-r-dist-fit.html#cb790-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  400</span></span>
+<span id="cb790-4"><a href="mod-r-dist-fit.html#cb790-4" aria-hidden="true" tabindex="-1"></a>fit12<span class="sc">$</span>estimate <span class="sc">*</span> <span class="dv">60</span> <span class="sc">*</span> <span class="dv">60</span> <span class="co"># 15-16</span></span>
+<span id="cb790-5"><a href="mod-r-dist-fit.html#cb790-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rate </span></span>
+<span id="cb790-6"><a href="mod-r-dist-fit.html#cb790-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  360</span></span></code></pre></div>
 <p>
 The rate is higher (40 calls more per hour) in period 10-11.
 </p>
@@ -1755,17 +1756,17 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#5aRp1MrjwEuZUVQUO6qQ">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#15aRp1MrjwEuZUVQUO6q">
 Solution
 </button>
-<div id="GCCMfqCHQUkXxQAmBTGY" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="GCCMfqCHQUkXxQAmBTGY-title">
+<div id="QGCCMfqCHQUkXxQAmBTG" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="QGCCMfqCHQUkXxQAmBTG-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="GCCMfqCHQUkXxQAmBTGY-title">
+<h4 class="modal-title" id="QGCCMfqCHQUkXxQAmBTG-title">
 Hint
 </h4>
 </div>
@@ -1782,7 +1783,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#GCCMfqCHQUkXxQAmBTGY">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#QGCCMfqCHQUkXxQAmBTG">
 Hint
 </button>
 <ol start="5" style="list-style-type: decimal">
