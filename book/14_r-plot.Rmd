@@ -2281,3 +2281,181 @@ How many items contribute to 80% of the total value?
 
 
 
+### Exercise (New York flights) {#ex-r-nycflights}
+
+*This exercise is a larger assignment and is more extensive than the exam and is not a mandatory/part of curriculum. Do not expect such a large assignment at the exam. However, by doing this exercise you will improve your R skills which may be beneficial at the exam or when write your master thesis.*
+
+A template file is given for this exercise, which should be used as a starting point (**File > New File > R Markdown...**, select **From template** and then **TFA - New York flights template**).
+
+You have as an analyst been asked to take over the analysis of the `nycflights13` datasets from a former college. Your task is to finish the analysis started (see the *TFA - New York flights template*).
+
+We consider the datasets available from the package `nycflights13` that contains information about every flight that departed from New York City in 2013. 
+
+```{r, cache=FALSE, message=FALSE, include=FALSE}
+library(tidyverse)
+library(nycflights13)
+library(skimr)
+library(knitr)
+library(kableExtra)
+library(directlabels)
+library(patchwork)
+library(rmarkdown)
+library(lubridate)
+```
+
+The datasets in the `nycflights13` package are:
+
+```{r, fig.align='center', echo=FALSE}
+res <- data(package = "nycflights13", verbose = T)
+res$results %>% 
+  as_tibble() %>% 
+  select(Dataset = Item, Description = Title) %>% 
+  kable() %>% 
+  kable_styling(position = "center")
+```
+
+Let us try to do some descriptive analytics on the different datasets.
+
+
+#### Flights {-}
+
+Consider the `flights` data set, which lists all domestic flights out of the New York area in 2013. The variables are:
+
+* `year, month, day` Date of departure
+* `dep_time,arr_time` Actual departure and arrival times.
+* `sched_dep_time, sched_arr_time` Scheduled departure and arrival times.
+* `dep_delay, arr_delay` delays in minutes
+* `hour, minute` Time of scheduled departure
+* `carrier` carrier abbreviation
+* `tailnum` Tail number of plane.
+* `flight` flight number.
+* `origin, dest` Origin and Destination
+* `air_time` Time spent in air.
+* `distance` Distance flown.
+* `time_hour` scheduled date and hour of flight.
+
+For further details about the dataset see `?flights`.
+
+Looking at the data set indicate that some flights are cancelled. We remove these observations from the dataset:
+
+```{r}
+dat <- flights %>%
+  filter(!is.na(dep_time))
+```
+
+Let us first try to do some [mutating joins](https://bss-osca.github.io/tfa/mod-r-transform.html#r-transform-joins) and combine variables from multiple tables. In `flights` we have flight information with an abbreviation for carrier (`carrier`), and in `airlines` we have a mapping between abbreviations and full names (`name`). You can use a join to add the carrier names to the flight data:
+
+```{r, warning = FALSE}
+dat <- dat %>% 
+  left_join(airlines) %>% 
+  rename(carrier_name = name) %>% 
+  print()
+```
+
+Note we here join by the column `carrier` represented in both data frames. That is, the default argument `by = c("carrier" = "carrier")` is used. If we want the full name of origin airport, we need to specify which one we want to join to since each flight has an origin and destination `airport`. Afterwards we do the same for the destination airport. 
+
+```{r}
+dat <- dat %>% 
+  left_join(airports %>% select(faa, name), 
+            by = c("origin" = "faa")) %>% 
+  rename(origin_name = name) %>% 
+  left_join(airports %>% select(faa, name), 
+            by = c("dest" = "faa")) %>% 
+  rename(dest_name = name) %>% 
+  select(month, carrier_name, origin_name, dest_name, sched_dep_time, dep_delay, arr_delay, distance, tailnum) %>% 
+  print()
+```
+
+We now have the flights data we need stored in the data frame `dat`. Let us try to answer some questions.
+
+1) How many flights leave each New York airport for each carrier? 
+
+2) How many carrier flights per month?
+
+3) Which carriers/airlines have the delays? Consider 
+   * Average delay
+   * Variation in delays
+   * Median values
+   * Delays of more than an hour
+
+4) What is the relationship between departure delay and arrival delay?
+
+5) Are flight delays worse at different New York airports? 
+
+6) Are carrier flight delays different at New York airports? 
+
+7) Does departure time affect flight delays? 
+
+8) Does travel distance affect departure and arrival delay?
+
+
+#### Planes {-}
+
+Let us do a mutation join so we have a bit more information about each airplane:
+
+```{r}
+dat <- dat %>% 
+  left_join(planes %>% 
+              select(tailnum, plane_manufacturer = manufacturer, plane_model = model))
+```
+
+9) What is the monthly usage of all the aircrafts? 
+
+
+#### Weather {-}
+
+Consider the `weather` data set, which lists hourly meteorological data for LGA, JFK and EWR. We run `skim` to get an overview:
+
+```{r, warning=FALSE}
+skim(weather)
+```
+
+For further details see `View(weather)` or read the associated help file by running `?weather` to bring up the help file.
+
+Observe that there is a variable called temp of hourly temperature recordings in Fahrenheit at weather stations near all three major airports in New York City: Newark (origin code EWR), John F. Kennedy International (JFK), and LaGuardia (LGA). Let us transform the temperature to Celsius:
+
+```{r}
+dat_w <- weather %>% 
+  left_join(airports %>% select(faa, name), 
+            by = c("origin" = "faa")) %>% 
+  rename(origin_name = name) %>% 
+  mutate(temp = (temp - 32) * (5/9) ) %>% 
+  select(origin_name, time_hour, month, temp)
+```
+
+10) How are the temperature fluctuating over the year?
+
+11) Are the temperatures different in the airports? 
+
+
+#### Any insights on canceled flights? {-}
+
+The cancelled flights are:
+
+```{r}
+dat_c <- flights %>%
+  filter(is.na(dep_time))
+```
+
+12) Do some analysis and add a few plots you think are important.
+
+
+#### Other insights? {-}
+
+13) Include further analysis you think are important.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
