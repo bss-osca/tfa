@@ -5,7 +5,7 @@
 # - Make a copy of the pref sheet https://docs.google.com/spreadsheets/d/14LOGGBGnriLFOAOxXPMsmjruxlMoN2Acl1Xf2FE5nnY/edit?usp=sharing
 # - Delete the prefs (so the same link is valid) in sheet https://docs.google.com/spreadsheets/d/14LOGGBGnriLFOAOxXPMsmjruxlMoN2Acl1Xf2FE5nnY/edit?usp=sharing
 # - Signin to datacamp using Econ email and create a new classroom "Tools for Analytics YYYY" at https://www.datacamp.com/universities#classroom-form (valid from 1 Sep, students 150)
-# - Add todo in cal (add assignments and change signup link in link.md line 9)
+# - Add todo in cal 1/9 (add assignments and change signup link in link.md line 9)
 
 
 ## Update slides
