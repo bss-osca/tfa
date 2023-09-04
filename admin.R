@@ -7,6 +7,11 @@
 # - Signin to datacamp using Econ email and create a new classroom "Tools for Analytics YYYY" at https://www.datacamp.com/universities#classroom-form (valid from 1 Sep, students 150)
 # - Add todo in cal (add assignments and change signup link in link.md line 9)
 
+
+## Update slides
+# This is done without GitHub actions. Just Knit and push afterwards
+
+
 ## Update packages
 renv::restore()   # restore packages
 bookdown::serve_book(dir = "book", output_dir = "_book", preview = FALSE, in_session = TRUE, quiet = FALSE)  # knit book to see if works

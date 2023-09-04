@@ -6,7 +6,7 @@
 [course-welcome-to-the-tidyverse]: https://github.com/rstudio-education/welcome-to-the-tidyverse
 
 [DataCamp]: https://www.datacamp.com/
-[datacamp-signup]: https://www.datacamp.com/groups/shared_links/cbaee6c73e7d78549a9e32a900793b2d5491ace1824efc1760a6729735948215
+[datacamp-signup]: https://www.datacamp.com/groups/shared_links/232974d5db666dcbd9f51a2a781b178477c9ecf712e9bf9729c6a5afd405f018
 [datacamp-r-intro]: https://learn.datacamp.com/courses/free-introduction-to-r
 [datacamp-r-rmarkdown]: https://campus.datacamp.com/courses/reporting-with-rmarkdown
 [datacamp-r-communicating]: https://learn.datacamp.com/courses/communicating-with-data-in-the-tidyverse
@@ -58,7 +58,7 @@
 
 [R]: https://www.r-project.org
 [RStudio]: https://rstudio.com
-[rstudio-cloud]: https://rstudio.cloud/spaces/274292/join?access_code=iLqcFGfYZ43En9-eMNzu7zPusybjK7Mdj0vyazWH
+[posit-cloud]: https://rstudio.cloud/spaces/274292/join?access_code=iLqcFGfYZ43En9-eMNzu7zPusybjK7Mdj0vyazWH
 [r-cloud-mod7]: https://rstudio.cloud/spaces/274292/content/4411754
 [r-cloud-mod8]: https://rstudio.cloud/spaces/274292/content/4411755
 [r-cloud-mod9]: https://rstudio.cloud/spaces/274292/content/4411756
