@@ -96,7 +96,7 @@ End Function
 ' @return True if cleared.
 ' @author Lars Relund <lars@relund.dk>
 ' @example
-'    If WstClear("Test8") Then MsgBox ("Cleared Test8") ' no clearing since on sheet with that name
+'    If WstClear("Test8") Then MsgBox ("Cleared Test8") ' no clearing since if no sheet with that name
 Function WstClear(strName As String, _
   Optional blnCells As Boolean = True, _
   Optional blnContents As Boolean = False, _

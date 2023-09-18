@@ -1,25 +1,10 @@
 Attribute VB_Name = "ModTm"
-'''' Course procedures related to timing code
+'''' Course procedures related to timing / speeding up code
 ' May be used "as is" during the course and the exam.
 ' All procedures start with Tm so you can use auto complete to find them easy.
 ' See the documentation for each procedure for further info.
 ' If you want to use the procedure in another Excel file, then copy the whole module.
 ' @author Lars Relund <lars@relund.dk>
-'
-' Use in the following way:
-'
-'    dblTimer = TmStart()
-'    Application.Wait (Now() + TimeValue("0:00:02"))   ' wait for approx 2 sec
-'    MsgBox (TmElapsed(dblTimer, "sec"))
-'
-' @author Lars Relund <lars@relund.dk>
-'
-' The module also contains two subs for optimizing speed by disabling screen updating etc. Usage
-'
-'    TmSpeedOptimize()
-'    <code we want to be fast>
-'    TmRestoreAfterSpeedOptimize()
-'
 ' Resources http://stackoverflow.com/questions/198409/how-do-you-test-running-time-of-vba-code
 
 Option Explicit

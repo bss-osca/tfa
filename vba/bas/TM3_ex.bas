@@ -26,9 +26,9 @@ Sub TM3_Comparison()
    End If
 
    If intA > intB Then
-      MsgBox ("A greter then B is True")
+      MsgBox ("A greater then B is True")
    Else
-      MsgBox ("A greter then B is False")
+      MsgBox ("A greater then B is False")
    End If
 
    If intA <= intB Then

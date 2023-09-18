@@ -426,6 +426,34 @@ End Sub
 
 
 
+'''' Exercise - Next task
+
+'' Find next task
+Sub TM5_NextTask()
+   
+    Dim id As Integer, idB As Integer, idBest As Integer
+    Dim rng As Range
+    Dim blnFound As Boolean    ' true if we have found one that works
+    
+    ThisWorkbook.Worksheets("Tm5_Tasks").Activate
+    Set rng = RngGetCurRegionRange(Range("A1"), row:=2)
+    idBest = 1  ' set best to id = 1 since attrativeness = 0
+    For id = 1 To RngGetRows(rng)  ' looping through all rows
+        If rng(id, 5) <> 1 Then     ' id is not started
+            ' check if id can start:
+            idB = rng(id, 3)    ' most start before idB
+            If rng(idB, 5) = 1 Then ' check that idB has started => id can start
+                If rng(id, 4) > rng(idBest, 4) Then ' check if id is better
+                    idBest = id
+                End If
+            End If
+        End If
+    Next
+    rng(idBest, 5) = 1
+    MsgBox ("Best next task is " & idBest)
+End Sub
 
 
 
+
+'''' Exercise - Seat reservation (see the template file for this exercise)
