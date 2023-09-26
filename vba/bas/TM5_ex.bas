@@ -621,6 +621,7 @@ Sub TM5_CopyData()
    
    ThisWorkbook.Worksheets("TM5_JobSeq").Activate   ' so use the correct sheet
    str = InputBox("Specify cell in data (e.g. N7)") ' get a cell value
+   If str = "" Then Exit Sub
    Call TM5_CleanJobSeq                             ' delete previous data
    Call RngPaste(RngCurRegion(Range(str)), Range("A4"), withFormat:=True) ' paste the current region
 End Sub

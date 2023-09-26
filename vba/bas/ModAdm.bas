@@ -112,10 +112,11 @@ Err:
 End Sub
 
 
-'' Get all module names of a workbook as a string seperated by "|"
+'' Get all module names of a workbook as a string or an array
 ' @param wbk The workbook to get module names from.
+' @param blnAsString True if return as string (seperated by "|") otherwise an array.
 ' @note This procedure is mainly for the teacher of the course and not relevant for the exam.
-Function AdmGetAllModuleNames(wbk As Workbook) As String
+Function AdmGetModuleNames(wbk As Workbook, Optional blnAsString As Boolean = True) As Variant
    Dim modNames As String
    Const Module = 1
    Const ClassModule = 2
@@ -124,6 +125,7 @@ Function AdmGetAllModuleNames(wbk As Workbook) As String
    Dim strPath As String
    Dim strFile As String
    Dim VBComponent As Object
+   Dim strModules() As String
    
    For Each VBComponent In wbk.VBProject.VBComponents
       Select Case VBComponent.Type
@@ -133,34 +135,12 @@ Function AdmGetAllModuleNames(wbk As Workbook) As String
       End Select
    Next
    'MsgBox "Module Names: " & modNames
-   GetAllModuleNames = modNames
-End Function
-
-
-'' Overwrite workbook modules with bas modules in bas subfolder
-' @param wbkTo The workbook where to overwrite the modules.
-' @param strModNames The names of the modules to overwrite.
-' @note This procedure is mainly for the teacher of the course and not relevant for the exam.
-Sub AdmImportModules(wbkTo As Workbook, strModNames() As String)
-   Dim strPath As String, strMod As String
-   Dim VBComponent As Object
-   Dim str As String
-   
-   On Error GoTo Err
-   strMod = GetAllModuleNames(wbkTo)
-   strPath = ThisWorkbook.Path & Application.PathSeparator
-   strPath = strPath & "bas" & Application.PathSeparator
-   If MsgBox("Overwrite modules in workbook " & wbkTo.Name & " with the modules from the bas subfolder?", vbYesNo) = vbYes Then
-      For Each str In strModNames
-         If InStr(strMod, str) = 0 Then
-            Call wbkTo.VBProject.VBComponents.Import(strPath & str & ".bas")
-         End If
-      Next
+   If blnAsString Then
+      GetAllModuleNames = modNames
+   Else
+      GetAllModuleNames = Split(modNames, "|")
    End If
-   Exit Sub
-Err:
-   MsgBox ("Error importing modules!")
-End Sub
+End Function
 
 
 '' Import sheets from a workbook to another
@@ -189,14 +169,63 @@ Err:
 End Sub
 
 
-Sub AdmTest()
+'' Overwrite workbook modules with bas modules in bas subfolder
+' @param wbkTo The workbook where to overwrite the modules.
+' @param strModNames The names of the modules to overwrite.
+' @note This procedure is mainly for the teacher of the course and not relevant for the exam.
+Sub AdmImportModules(wbkTo As Workbook, strModNames() As String)
    Dim strPath As String
-   strPath = ActiveWorkbook.Path & Application.PathSeparator
+   Dim VBComponent As Object
+   Dim vbMod As Object
+   Dim str As Variant
+   Dim strMod() As String
    
-   ' Import bas and sheets to TM5
-   Call ImportModules(Workbooks.Open(strPath & "05-vba-datatypes-solution.xlsm"), ws_main.Range("F7:F13"))
-   Call ImportSheets(Workbooks.Open(strPath & "05-vba-datatypes-solution.xlsm"), _
-      Workbooks.Open(strPath & "04-vba-procedures-solution.xlsm"))
-   
+   On Error Resume Next
+   strPath = ThisWorkbook.Path & Application.PathSeparator
+   strPath = strPath & "bas" & Application.PathSeparator
+   If MsgBox("Overwrite course procedures in workbook " & wbkTo.Name & " with the modules from the bas subfolder?", vbYesNo) = vbYes Then
+      For Each str In strModNames
+         If str <> "" Then
+            Call wbkTo.VBProject.VBComponents.Remove(wbkTo.VBProject.VBComponents(Left(str, Len(str) - 4)))
+            Call wbkTo.VBProject.VBComponents.Import(strPath & str)
+         End If
+      Next
+   End If
+   Exit Sub
+Err:
+   MsgBox ("Error importing modules!")
 End Sub
 
+
+'' Import course procedures bas modules (not starting with TM) to the active workbook
+Sub AdmImportCourseProcedures()
+   Dim strPath As String
+   Dim strMod() As String
+   Dim str As Variant
+   Dim i As Integer
+
+   ' filenames of bas modules
+   strPath = ActiveWorkbook.Path & Application.PathSeparator & "bas" & Application.PathSeparator
+   strMod = AdmDirList(strPath)
+   For i = LBound(strMod) To UBound(strMod)
+      If Left(strMod(i), 2) = "TM" Then strMod(i) = ""
+   Next
+   ' import
+   Call AdmImportModules(ActiveWorkbook, strMod)
+End Sub
+
+
+'' Get files in folder as array
+Function AdmDirList(strPath As String) As Variant
+    Dim strDirItem As String
+    Dim str As String
+   
+    strDirItem = Dir(strPath & "*")
+    str = strDirItem & "|"
+    While strDirItem <> ""
+       'Debug.Print "FileName: " & strDirItem, "FullPath: " & cstrPath & strDirItem
+       str = str & strDirItem & "|"
+       strDirItem = Dir()
+    Wend
+    AdmDirList = Split(str, "|")
+End Function
