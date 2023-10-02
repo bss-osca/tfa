@@ -158,8 +158,8 @@ End Function
 '' Generate random numbers from a discrete uniform distribution
 '
 ' @param intSize Random numbers generated
-' @param dblMin Minimum number.
-' @param dblMax Maximum number.
+' @param vntMin Minimum number.
+' @param vntMax Maximum number.
 ' @param ary Array to store the values in.
 ' @example
 '    Dim ary() As Double
@@ -206,7 +206,7 @@ End Function
 '    Range("G4") = "Value"
 '    Range("H4") = "Prob."
 '    Call AryPaste(aryDens, Range("G5"))
-Sub RandGenUniformDisc(intSize As Integer, vntMin As Variant, vntMax As Variant, ary() As Variant)
+Sub RandGenUniformDisc(intSize As Integer, vntMin As Variant, vntMax As Variant, ary As Variant)
     Dim i As Integer
     ReDim ary(intSize) As Double
     
@@ -219,8 +219,8 @@ End Sub
 
 '' Generate a random number from a discrete uniform distribution
 '
-' @param dblMin Minimum number.
-' @param dblMax Maximum number.
+' @param vntMin Minimum number.
+' @param vntMax Maximum number.
 ' @example
 '    ' Discrete uniform 10,...,500
 '    MsgBox ("Uniform (discrete): " & RandInvUniformDisc(10, 500))
@@ -365,7 +365,7 @@ End Sub
 
 '' Generate a random number from a Poisson distribution
 '
-' @param dblMean Mean.
+' @param dblLambda Mean.
 ' @note Algorithm suggested by D. Knuth.
 ' @example
 '    ' Poisson lambda = 5
@@ -447,7 +447,7 @@ End Sub
 
 '' Generate a random number from a custom discrete distribution
 '
-' @param ary The probability density. First column contains the outcome and the second the probability.
+' @param aryDens The probability density. First column contains the outcome and the second the probability.
 ' @note Assume that the second column in aryDens sums to one.
 ' @example
 '    Dim aryDens() As Double
@@ -468,14 +468,14 @@ Function RandInvDiscrete(aryDens() As Double) As Double
     
     dblR = Rnd()
     dblP = 0
-    For i = LBound(ary, 1) To UBound(ary, 1)
-        dblP = dblP + ary(i, 2)
+    For i = LBound(aryDens, 1) To UBound(aryDens, 1)
+        dblP = dblP + aryDens(i, 2)
         If dblR < dblP Then
             RandInvDiscrete = aryDens(i, 1)
             Exit Function
         End If
     Next
-    RandInvDiscrete = ary(i, 1)
+    RandInvDiscrete = aryDens(i, 1)
 End Function
 
 

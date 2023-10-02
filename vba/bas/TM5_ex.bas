@@ -687,7 +687,7 @@ Sub TM5_RunBetter()
     ' Calc relative
     For c = 1 To intJobs
         For r = 0 To intJobs
-            costs(r, c) = costs(r, c) - minCol(c)
+            costs(r, c) = costs(r, c) - minCol(c)  ' if r = c then costs < 0 but never used by algorithm
         Next
     Next
     ' Run algorithm

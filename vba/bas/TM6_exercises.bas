@@ -331,37 +331,38 @@ End Sub
 '''' Exercise - Stochastic functions
 
 '' Profit Project 1
+' @param x Function input.
 Function TM6_ProfitP1(dblX As Double) As Double
     Dim dblProfit As Double
     
     If dblX < 20 Then
-        dblProfit = dblX * Application.WorksheetFunction.NormInv(Rnd, 2, 0.1)
+        dblProfit = dblX * RandInvNormal(2, 0.1)
     ElseIf dblX < 50 Then
-        dblProfit = dblX * Application.WorksheetFunction.NormInv(Rnd, 4, 0.2) - 40
+        dblProfit = dblX * RandInvNormal(4, 0.2) - 40
     Else
-        dblProfit = dblX * Application.WorksheetFunction.NormInv(Rnd, 6, 0.3) - 140
+        dblProfit = dblX * RandInvNormal(6, 0.3) - 140
     End If
-    
     TM6_ProfitP1 = dblProfit
 End Function
 
 
 '' Profit Project 2
+' @param x Function input.
 Function TM6_ProfitP2(dblX As Double) As Double
     Dim dblProfit As Double
     
     If dblX < 40 Then
         dblProfit = dblX * 1.25
     ElseIf dblX < 60 Then
-        dblProfit = (dblX - (38 + (42 - 38) * Rnd())) ^ 2 + 50
+        dblProfit = (dblX - RandInvUniformCont(38, 42)) ^ 2 + 50
     Else
-        dblProfit = dblX * (-2 + (-0.5 + 2) * Rnd()) + 510
+        dblProfit = dblX * RandInvUniformCont(-2, 0.5) + 510
     End If
-    
     TM6_ProfitP2 = dblProfit
 End Function
 
 
+'' Simulation of profit
 Sub TM6_FunctionSim()
     Dim x As Double
     Dim r As Integer, i As Integer
@@ -370,7 +371,7 @@ Sub TM6_FunctionSim()
     Dim resP2(1 To 50) As Double
     
     ThisWorkbook.Worksheets("TM6_Functions").Activate
-    Range("A2:E11").Clear
+    Call RngClear(Range("A2:E11"))
     r = 2
     For x = 10 To 100 Step 10
         For i = 1 To 50
