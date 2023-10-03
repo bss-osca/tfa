@@ -2,10 +2,11 @@
 
 ## Prepare
 # - Copy previous course at Brightspace
-# - Make a copy of the pref sheet https://docs.google.com/spreadsheets/d/14LOGGBGnriLFOAOxXPMsmjruxlMoN2Acl1Xf2FE5nnY/edit?usp=sharing
+# - Make a copy of the pref sheet https://docs.google.com/spreadsheets/d/14LOGGBGnriLFOAOxXPMsmjruxlMoN2Acl1Xf2FE5nnY/edit?usp=sharing (so can clean and use the current)
 # - Delete the prefs (so the same link is valid) in sheet https://docs.google.com/spreadsheets/d/14LOGGBGnriLFOAOxXPMsmjruxlMoN2Acl1Xf2FE5nnY/edit?usp=sharing
 # - Signin to datacamp using Econ email and create a new classroom "Tools for Analytics YYYY" at https://www.datacamp.com/universities#classroom-form (valid from 1 Sep, students 150)
 # - Add todo in cal 1/9 (add assignments and change signup link in link.md line 9)
+# - At Posit Cloud may a copy of the workspace and change all links on lines 61-70 in link.md
 
 
 ## Update slides
