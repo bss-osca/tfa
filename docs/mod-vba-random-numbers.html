@@ -590,8 +590,8 @@ for exercises. Guiding answers for the exercises can be found in the file
 <div id="learning-path-diagram-5" class="section level4 unnumbered hasAnchor">
 <h4>Learning path diagram<a href="mod-vba-random-numbers.html#learning-path-diagram-5" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Click/hover the nodes to follow links and see details.</p>
-<div id="htmlwidget-d87efe28c7916cce59aa" style="width:100%;height:100px;" class="grViz html-widget "></div>
-<script type="application/json" data-for="htmlwidget-d87efe28c7916cce59aa">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"💡 Random numbers\", URL = \"#vba-random-numbers\", tooltip = \"Random numbers (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"2,1!\"] \n  \"2\" [label = \"💡 Simulation\", URL = \"#vba-simulation\", tooltip = \"Simulation (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"5,1!\"] \n  \"3\" [label = \"💻 Exercises\", URL = \"#ex-vba-random-numbers\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"8,1!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-69a73ede9c829b07ef3a" style="width:100%;height:100px;" class="grViz html-widget "></div>
+<script type="application/json" data-for="htmlwidget-69a73ede9c829b07ef3a">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"💡 Random numbers\", URL = \"#vba-random-numbers\", tooltip = \"Random numbers (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"2,1!\"] \n  \"2\" [label = \"💡 Simulation\", URL = \"#vba-simulation\", tooltip = \"Simulation (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"5,1!\"] \n  \"3\" [label = \"💻 Exercises\", URL = \"#ex-vba-random-numbers\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"8,1!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="lo-vba-random-numbers" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> Learning outcomes<a href="mod-vba-random-numbers.html#lo-vba-random-numbers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -820,7 +820,7 @@ Sub TM6_CalcDistArray(ByRef dblDist() As Double, dblCoord() As Double)
             dblDiffX = dblCoord(i, 2) - dblCoord(j, 2)
             dblDiffY = dblCoord(i, 3) - dblCoord(j, 3)
             dblDist(i, j) = Sqr((dblDiffX * dblDiffX) + (dblDiffY * dblDiffY))
-            dblDist(j, i) = dblDist(i, j)  &#39; assume symetric
+            dblDist(j, i) = dblDist(i, j)  &#39; assume symmetric
         Next
     Next
 End Sub</code></pre>
@@ -847,7 +847,7 @@ End Sub</code></pre>
     Next
     dblCost = TM6_CalcCost(dblDist, intSeq)
 End Sub</code></pre>
-<p>First, observe that we sort the array using course procedure <code>ArySort</code>. Next, the visiting city sequence are stored in <code>intSeq</code>. Finally, the total cost are stored in <code>dblCost</code> which call the function <code>TM6_CalcCost</code>:</p>
+<p>First, observe that we sort the array using course procedure <code>AryQuickSort</code>. Next, the visiting city sequence are stored in <code>intSeq</code>. Finally, the total cost are stored in <code>dblCost</code> which call the function <code>TM6_CalcCost</code>:</p>
 <pre><code>&#39;&#39; Calculate the cost of a route
 &#39; @param dblDist The distance matrix.
 &#39; @param intSeq The visiting sequence (output ByRef).
@@ -990,7 +990,7 @@ End Sub</code></pre>
 Figure 6.2: Simulation comparing TSP algorithms (<em>TM6_TSPSim</em> worksheet).
 </p>
 </div>
-<p>The results are given in Figure <a href="mod-vba-random-numbers.html#fig:tm6-tsp-sim">6.2</a>. As can be seen the nearest naighbour algorith is best and gives the shortest average distance.</p>
+<p>The results are given in Figure <a href="mod-vba-random-numbers.html#fig:tm6-tsp-sim">6.2</a>. As can be seen the nearest neighbour algorithm is best and gives the shortest average distance.</p>
 </div>
 </div>
 <div id="recap-3" class="section level2 hasAnchor" number="6.4">
@@ -1037,7 +1037,7 @@ for exercises. Guiding answers for the exercises can be found in the file
 <p>Consider worksheet <em>TM6</em>.</p>
 <ol style="list-style-type: decimal">
 <li><p>Write a sub <code>TM6_RandInt1</code> that reads two integer numbers, <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> (assume that <span class="math inline">\(a &lt; b\)</span>) from cells B24 and B25, and generates two random integer numbers, <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span>, uniformly between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> such that <span class="math inline">\(r_1 \neq r_2\)</span>. The sub should write <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> in cells D24 and D25 with the smaller of the two numbers in D24.</p></li>
-<li><p>Write a sub <code>TM6_RandInt2</code> that should take two integer arguments, <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, and generate two random numbers <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> following the same rules as in Question 1. However, <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> may not be written to the spreadsheet. Instead, they should be given as output to the sub calling <code>TM6_RandInt2</code>.</p></li>
+<li><p>Write a sub <code>TM6_RandInt2</code> that should take two integer arguments, <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, and generate two random numbers <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> following the same rules as in Question 1. However, <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> may not be written to the spreadsheet. Instead, they should be updated by calling the sub <code>TM6_RandInt2</code>.</p></li>
 <li><p>Write a sub <code>TM6_RandInt2Main</code> that call <code>TM6_RandInt2</code> using <span class="math inline">\(a=2\)</span> and <span class="math inline">\(b=17\)</span> and output <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> in a message box.</p></li>
 <li><p>Is your code robust? What happens if <span class="math inline">\(a&gt;b\)</span>?</p></li>
 </ol>
