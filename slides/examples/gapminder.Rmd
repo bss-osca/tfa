@@ -2,14 +2,14 @@
 title: "Exercise 13.5.1 - Gapminder"
 author: "Lars Relund Nielsen"
 date: "`r Sys.Date()`"
-output: pdf_document
 editor_options:
   chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, 
-                      cache = TRUE, autodep = TRUE)
+knitr::opts_chunk$set(echo = TRUE
+                      # cache = TRUE, autodep = TRUE
+                      )
 options(width = 100)  # set output width
 ```
 
@@ -142,16 +142,18 @@ In general GDP numbers are large and abstract. Let us try to calculate relative 
 
 ### 8 - Use `mutate` to calculate GDP per capita relative to mean GDP per capita in Denmark over the whole period (`gdpPercap` divided by the mean of Danish `gdpPercap`). 
 
-```{r, text = "The relative GDP per capita numbers are, in general, well below 1. We see that most of the countries covered by this dataset have substantially lower GDP per capita, relative to Denmark, across the entire time period."}
+```{r}
 mean_dk <- gapminder %>% 
   filter(country == "Denmark") %>% 
   pull(gdpPercap) %>% 
   mean()
-dat <- gapminder %>% 
+gapminder %>% 
   mutate(gdpPercapRel = gdpPercap/mean_dk)
 ```  
 
 Have a look at the calculated data. Does the numbers seem reasonable? I perceive Denmark to be a "high GDP" country, so I predict that the distribution of `gdpPercapRel` is located below 1, possibly even well below. 
+
+The relative GDP per capita numbers are, in general, well below 1. We see that most of the countries covered by this dataset have substantially lower GDP per capita, relative to Denmark, across the entire time period.
 
 
 ### 9 - Use `arrange` to order 
@@ -253,7 +255,7 @@ gapminder %>%
 
 ### 13 - Which country experienced the sharpest 5-year drop in life expectancy in each continent? Recall that the Gapminder data only has data every five years, e.g. for 1952, 1957, etc. So this really means looking at life expectancy changes between adjacent timepoints. 
 
-```{r, text = "Mostly you are seeing what genocide looks like in dry statistics on average life expectancy."}
+```{r}
 gapminder %>%
   select(country, year, continent, lifeExp) %>%     
   group_by(continent, country) %>%                  
@@ -262,6 +264,8 @@ gapminder %>%
   slice_min(worst_le_delta) %>%
   arrange(worst_le_delta)
 ``` 
+
+Mostly you are seeing what genocide looks like in dry statistics on average life expectancy.
       
       
 
