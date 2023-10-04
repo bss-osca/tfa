@@ -28,7 +28,7 @@ layout: true
 module_name <- "r-functions"
 module_number_prefix <- "10"
 module_number <- as.numeric(module_number_prefix)
-add_footer(module_number_prefix, module_name, r_cloud_id = 4411757)
+add_footer(module_number_prefix, module_name, r_cloud_id = 6689204)
 knitr::opts_chunk$set(fig.path=str_c("img/", module_name, "-"))
 ``` 
 
@@ -117,8 +117,9 @@ loop_output <- function(dat, rows = 1:2, cols = 2:3, ...) {
 ## Your Turn
 
 .your-turn[
-- Create a function that given some dice numbers and some cards from a 52-card deck (e.g. 1-spade), write out all the possible combinations as strings in the form `Dice = [value] and card = [value]`. 
-- Moreover, if the dice numbers contains the number 2, function must return true; otherwise, false. Hint:
+- Create a function that given some dice numbers and some cards from a 52-card deck (e.g. 1-spade), write out all the possible combinations as strings in the form `Dice = [value] and card = [value]`. Hint: Use `cat`.
+- Moreover, if the dice numbers contains the number 2, function must return true; otherwise, false. Hint use `return`.
+- Document your function
 
 ```r
 get_combinations <- function(dice, card) {
@@ -163,7 +164,7 @@ get_combinations(dice = c(3,1), card = c("10-heart", "king-dimond"))
 .your-turn[
 - Create a function that calculates the present value (PV) of a future value. The equation is: 
 $$PV = FV/(1+r)^n$$ where $FV$ is future value, $r$ is the interest rate, and $n$ is the number of periods. 
-- Input arguments must be $FV$, $r$, $n$ and a boolean `round` equal true if the output should be rounded to two decimals. 
+- Input arguments must be $FV$, $r$, $n$ and a boolean `rond` equal true if the output should be rounded to two decimals. 
 - The default interest rate is 0.1 (10%) and rounding is false by default.
 ]
 
@@ -174,13 +175,13 @@ countdown(minutes = 5)
 ???
 
 ```{r, include=TRUE}
-get_PV <- function(FV, r = 0.1, n, round = FALSE) {
+get_PV <- function(FV, r = 0.1, n, rond = FALSE) {
   PV <- FV/(1+r)^n
-  if (round) return(round(PV, 2))
+  if (rond) return(round(PV, 2))
   return(PV)
 }
 get_PV(100, n = 7)
-get_PV(100, n = 7, round = TRUE)
+get_PV(100, n = 7, rond = TRUE)
 get_PV(100, n = 7, r = 0.5)
 ```
 

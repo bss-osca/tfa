@@ -93,8 +93,13 @@ gapminder %>%
    c) all rows for Rwanda, Afghanistan or France.
 
 ```{r}
-gapminder %>%  
+gapminder %>% 
   filter(country %in% c("Rwanda", "Afghanistan", "France"))
+
+# alternative 
+
+gapminder %>% 
+  filter(country == "Rwanda" | country == "Afghanistan" | country == "France")
 ```
 
 
@@ -123,14 +128,6 @@ gapminder %>%
    # print(n=Inf) %>%   # if want to see the intermediate results
    select(continent, country, gdpPercap) # %>% print(n=Inf)
 ```   
-```{r, hint=TRUE, eval=FALSE, include=FALSE}
-# gapminder %>% 
-#    filter((gdpPercap > ___ & continent == ___) | (___)) %>% 
-#    # print(n=Inf) %>%   # if want to see the intermediate results
-#    select(continent, ___, ___) # %>% print(n=Inf)
-```   
-
-
 
 
 ### 7 - Use `mutate` to calculate each country's GDP (population times GDP per capita).
@@ -153,16 +150,6 @@ mean_dk <- gapminder %>%
 dat <- gapminder %>% 
   mutate(gdpPercapRel = gdpPercap/mean_dk)
 ```  
-```{r, title = "Hint 2", hint=TRUE, eval=FALSE, include=FALSE}
-# dat <- gapminder %>% 
-#   mutate(gdpPercapRel = ___)
-``` 
-```{r, title = "Hint 1", hint=TRUE, eval=FALSE, eval=FALSE, text = "First you must calculate the mean of Danish `gdpPercap` and next use that to add a new column `gdpPercapRel`."}
-# mean_dk <- gapminder %>% 
-#   filter(country == "Denmark") %>% 
-#   pull(___) %>% 
-#   mean()
-``` 
 
 Have a look at the calculated data. Does the numbers seem reasonable? I perceive Denmark to be a "high GDP" country, so I predict that the distribution of `gdpPercapRel` is located below 1, possibly even well below. 
 
@@ -262,14 +249,6 @@ gapminder %>%
   mutate(lifeExp_gain = lifeExp - first(lifeExp)) %>%       
   filter(year < 1963)                   # just for nice printing
 ``` 
-```{r, hint=TRUE, eval=FALSE, include=FALSE, text = "The `first` function may be helpful to extract the first value from a vector in each group."}
-# gapminder %>% 
-#   group_by(country) %>%                 # group by country
-#   select(country, year, lifeExp) %>%    # select relevant columns
-#   arrange(year, .by_group = TRUE) %>%   # make sure that data is sorted correct
-#   mutate(lifeExp_gain = ___) %>%        # define new variable
-#   filter(year < 1963)                   # just for nice printing
-``` 
 
 
 ### 13 - Which country experienced the sharpest 5-year drop in life expectancy in each continent? Recall that the Gapminder data only has data every five years, e.g. for 1952, 1957, etc. So this really means looking at life expectancy changes between adjacent timepoints. 
@@ -283,15 +262,6 @@ gapminder %>%
   slice_min(worst_le_delta) %>%
   arrange(worst_le_delta)
 ``` 
-```{r, hint=TRUE, eval=FALSE, includel=FALSE, text = "The `lag` function is useful to select the value in the previous row. Positive values of `le_delta` means lifeExp went up, negative means it went down. Break the code into pieces, starting at the top, and inspect the intermediate results. These commands are built up gradually, with lots of errors and refinements along the way."}
-# gapminder %>%
-#   select(country, year, continent, lifeExp) %>%             # select relevant columns
-#   group_by(continent, country) %>%                          # group
-#   mutate(le_delta = ___) %>%                                # within country, take (lifeExp in year i) - (lifeExp in year i - 1)
-#   summarize(worst_le_delta = min(___, na.rm = TRUE)) %>%    # find lowest value
-#   slice_min(worst_le_delta) %>%                             # find min in each continent
-#   arrange(worst_le_delta)                                   # arrange 
-```
       
       
 
