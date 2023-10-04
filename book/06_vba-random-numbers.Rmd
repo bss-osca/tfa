@@ -307,7 +307,7 @@ Sub TM6_CalcDistArray(ByRef dblDist() As Double, dblCoord() As Double)
             dblDiffX = dblCoord(i, 2) - dblCoord(j, 2)
             dblDiffY = dblCoord(i, 3) - dblCoord(j, 3)
             dblDist(i, j) = Sqr((dblDiffX * dblDiffX) + (dblDiffY * dblDiffY))
-            dblDist(j, i) = dblDist(i, j)  ' assume symetric
+            dblDist(j, i) = dblDist(i, j)  ' assume symmetric
         Next
     Next
 End Sub
@@ -341,7 +341,7 @@ We are now ready to consider algorithms for calculating a TSP route. Let us firs
 End Sub
 ```
 
-First, observe that we sort the array using course procedure `ArySort`. Next, the visiting city sequence are stored in `intSeq`. Finally, the total cost are stored in `dblCost` which call the function `TM6_CalcCost`:
+First, observe that we sort the array using course procedure `AryQuickSort`. Next, the visiting city sequence are stored in `intSeq`. Finally, the total cost are stored in `dblCost` which call the function `TM6_CalcCost`:
 
 ```
 '' Calculate the cost of a route
@@ -505,7 +505,7 @@ First, we setup the worksheet *TM6_TSPSim* so it is ready for the results. Next,
 knitr::include_graphics("./img/tm6-tsp-sim.png") 
 ```
        
-The results are given in Figure \@ref(fig:tm6-tsp-sim). As can be seen the nearest naighbour algorith is best and gives the shortest average distance.  
+The results are given in Figure \@ref(fig:tm6-tsp-sim). As can be seen the nearest neighbour algorithm is best and gives the shortest average distance.  
 
 
 ## Recap
@@ -548,7 +548,7 @@ Consider worksheet *TM6*.
 
    (1) Write a sub `TM6_RandInt1` that reads two integer numbers, $a$ and $b$ (assume that $a < b$) from cells B24 and B25, and generates two random integer numbers, $r_1$ and $r_2$, uniformly between $a$ and $b$ such that $r_1 \neq r_2$. The sub should write $r_1$ and $r_2$ in cells D24 and D25 with the smaller of the two numbers in D24.
 
-   (2) Write a sub `TM6_RandInt2` that should take two integer arguments, $a$ and $b$, and generate two random numbers $r_1$ and $r_2$ following the same rules as in Question 1. However, $r_1$ and $r_2$ may not be written to the spreadsheet. Instead, they should be given as output to the sub calling `TM6_RandInt2`. 
+   (2) Write a sub `TM6_RandInt2` that should take two integer arguments, $a$ and $b$, and generate two random numbers $r_1$ and $r_2$ following the same rules as in Question 1. However, $r_1$ and $r_2$ may not be written to the spreadsheet. Instead, they should be updated by calling the sub `TM6_RandInt2`.
    
    (3) Write a sub `TM6_RandInt2Main` that call `TM6_RandInt2` using $a=2$ and $b=17$ and output $r_1$ and $r_2$ in a message box.
    
