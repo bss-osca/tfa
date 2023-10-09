@@ -71,7 +71,7 @@ opts_hooks$set(solution = function(options) {
 
 opts_hooks$set(hint = function(options) {
   if (isTRUE(options$hint)) {
-    options$str_id <- stringi::stri_rand_strings(1, 20)
+    options$str_id <- stringi::stri_rand_strings(1, 30)
     options$eval = FALSE
   }
   options
