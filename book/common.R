@@ -64,7 +64,7 @@ options(
 
 opts_hooks$set(solution = function(options) {
   if (isTRUE(options$solution)) {
-    options$str_id <- stringi::stri_rand_strings(1, 20)
+    options$str_id <- stringi::stri_rand_strings(1, 30)
   }
   options
 })
@@ -85,7 +85,7 @@ knit_hooks$set(solution = function(before, options, envir) {
            '<div class="modal-content">',
            '<div class="modal-header">',
            '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>',
-           '<h4 class="modal-title" id="', options$str_id, '-title">', options$title, '</h4>',
+           '<h4 class="modal-title" id="', options$str_id, '-title1">', options$title, '</h4>',
            '</div><div class="modal-body">\n')
   } else {
     text <- "\n"
@@ -104,7 +104,7 @@ knit_hooks$set(hint = function(before, options, envir) {
            '<div class="modal-content">',
            '<div class="modal-header">',
            '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>',
-           '<h4 class="modal-title" id="', options$str_id, '-title">', options$title, '</h4>',
+           '<h4 class="modal-title" id="', options$str_id, '-title1">', options$title, '</h4>',
            '</div><div class="modal-body">\n')
   } else {
     text <- "\n"
