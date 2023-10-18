@@ -64,14 +64,14 @@ options(
 
 opts_hooks$set(solution = function(options) {
   if (isTRUE(options$solution)) {
-    options$str_id <- stringi::stri_rand_strings(1, 30)
+    options$str_id <- str_c("solution-", stringi::stri_rand_strings(1, 40))
   }
   options
 })
 
 opts_hooks$set(hint = function(options) {
   if (isTRUE(options$hint)) {
-    options$str_id <- stringi::stri_rand_strings(1, 30)
+    options$str_id <- str_c("hint-", stringi::stri_rand_strings(1, 30))
     options$eval = FALSE
   }
   options
