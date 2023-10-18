@@ -1,7 +1,7 @@
 setwd("book")
 sink("render_book.log", append=F, split=T)
 sessionInfo()
-bookdown::render_book("index.Rmd", output_dir = "../docs/", quiet = TRUE)
+bookdown::render_book("index.Rmd", output_dir = "../docs/", quiet = FALSE)
 warnings()
 sink()
 setwd("../")
