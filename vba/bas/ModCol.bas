@@ -1,7 +1,7 @@
 Attribute VB_Name = "ModCol"
 '''' Course procedures related to collections
 ' May be used "as is" during the course and the exam.
-' All procedures start with Coll so you can use auto complete to find them easy.
+' All procedures start with Col so you can use auto complete to find them easy.
 ' See the documentation for each procedure for further info.
 ' If you want to use the procedure in another Excel file, then copy the whole module.
 ' @author Lars Relund <lars@relund.dk>

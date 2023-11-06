@@ -119,6 +119,137 @@ Sub AryPaste(ary As Variant, rngUL As Range, Optional blnRowwise As Boolean = Tr
 End Sub
 
 
+
+'' Paste a row of a 2D array to a sheet
+'
+' @param ary The 2D array.
+' @param intRowIdx The index of the row to paste.
+' @param rngUL The upper left cell of the paste area.
+' @param blnRowwise Paste the row horizontal (default).
+'
+' @author Lars Relund <lars@relund.dk>
+' @example
+'   Dim ary(2 To 3, 2 To 5) As Integer
+'   Call AryToVal(ary, 5)  ' set all entries to 5
+'   ' Paste rows
+'   Call AryPasteRow(ary, 2, Range("B2")) ' paste row with index 2
+'   Call AryPasteRow(ary, 0, Range("B4")) ' nothing happens since index is not valid
+'   Call AryPasteRow(ary, 3, Range("B4"), blnRowwise:=False) ' print horizontial
+'   ' Paste columns
+'   Call AryPasteColumn(ary, 2, Range("A9")) ' paste column with index 2
+'   Call AryPasteColumn(ary, 1, Range("B12")) '  nothing happens since index is not valid
+'   Call AryPasteColumn(ary, 5, Range("B12"), blnColwise:=False) ' print vertical
+Sub AryPasteRow(ary As Variant, intRowIdx As Integer, rngUL As Range, _
+       Optional blnRowwise As Boolean = True)
+   Dim c As Integer
+   
+   If AryDim(ary) = 2 Then
+      If intRowIdx < LBound(ary, 1) Or intRowIdx > UBound(ary, 1) Then Exit Sub
+      If blnRowwise Then
+         Set rngUL = rngUL.Resize(1, UBound(ary, 2) - LBound(ary, 2) + 1)
+      Else
+         Set rngUL = rngUL.Resize(UBound(ary, 2) - LBound(ary, 2) + 1, 1)
+      End If
+      For c = LBound(ary, 2) To UBound(ary, 2)
+         rngUL(c - LBound(ary, 2) + 1) = ary(intRowIdx, c)
+      Next
+   End If
+End Sub
+
+
+'' Paste a column of a 2D array to a sheet
+'
+' @param ary The 2D array.
+' @param intColumnIdx The index of the row to paste.
+' @param rngUL The upper left cell of the paste area.
+' @param blnColwise Paste the column vertical (default).
+'
+' @author Lars Relund <lars@relund.dk>
+' @example
+'   Dim ary(2 To 3, 2 To 5) As Integer
+'   Call AryToVal(ary, 5)  ' set all entries to 5
+'   ' Paste rows
+'   Call AryPasteRow(ary, 2, Range("B2")) ' paste row with index 2
+'   Call AryPasteRow(ary, 0, Range("B4")) ' nothing happens since index is not valid
+'   Call AryPasteRow(ary, 3, Range("B4"), blnRowwise:=False) ' print horizontial
+'   ' Paste columns
+'   Call AryPasteColumn(ary, 2, Range("A9")) ' paste column with index 2
+'   Call AryPasteColumn(ary, 1, Range("B12")) '  nothing happens since index is not valid
+'   Call AryPasteColumn(ary, 5, Range("B12"), blnColwise:=False) ' print vertical
+Sub AryPasteColumn(ary As Variant, intColumnIdx As Integer, rngUL As Range, _
+       Optional blnColwise As Boolean = True)
+   Dim r As Integer
+   
+   If AryDim(ary) = 2 Then
+      If intColumnIdx < LBound(ary, 2) Or intColumnIdx > UBound(ary, 2) Then Exit Sub
+      If blnColwise Then
+         Set rngUL = rngUL.Resize(UBound(ary, 1) - LBound(ary, 1) + 1, 1)
+      Else
+         Set rngUL = rngUL.Resize(1, UBound(ary, 1) - LBound(ary, 1) + 1)
+      End If
+      For r = LBound(ary, 1) To UBound(ary, 1)
+         rngUL(r - LBound(ary, 1) + 1) = ary(r, intColumnIdx)
+      Next
+   End If
+End Sub
+
+
+'' Create a 1D array by copying it from a row in a 2D array
+'
+' @param ary The 2D array.
+' @param intRowIdx The index of the row.
+' @param aryRes The 1D array to return (dynamic, ByRef). The array will use the same start and end index as the 2D array!
+' @example
+'   Dim ary(2 To 3, 2 To 5) As Integer
+'   Dim aryRes() As Integer
+'   ' Copy row
+'   Call AryToVal(ary, 5)  ' set all entries to 5
+'   Call AryCopyRow(ary, 2, aryRes)  ' copy row with index 2
+'   Call AryCopyRow(ary, 1, aryRes)  ' nothing happens since index is not valid
+'   ' Copy column
+'   Call AryCopyColumn(ary, 3, aryRes)  ' copy column with index 2
+'   Call AryCopyColumn(ary, 0, aryRes)  ' nothing happens since index is not valid
+Sub AryCopyRow(ary As Variant, intRowIdx As Integer, aryRes As Variant)
+   Dim i As Integer
+   
+   If AryDim(ary) = 2 Then
+      If intRowIdx < LBound(ary, 1) Or intRowIdx > UBound(ary, 1) Then Exit Sub
+      ReDim aryRes(LBound(ary, 2) To UBound(ary, 2))
+      For i = LBound(aryRes) To UBound(aryRes)
+         aryRes(i) = ary(intRowIdx, i)
+      Next
+   End If
+End Sub
+
+
+'' Create a 1D array by copying it from a column in a 2D array
+'
+' @param ary The 2D array.
+' @param intColumnIdx The index of the column.
+' @param aryRes The 1D array to return (dynamic, ByRef). The array will use the same start and end index as the 2D array!
+' @example
+'   Dim ary(2 To 3, 2 To 5) As Integer
+'   Dim aryRes() As Integer
+'   ' Copy row
+'   Call AryToVal(ary, 5)  ' set all entries to 5
+'   Call AryCopyRow(ary, 2, aryRes)  ' copy row with index 2
+'   Call AryCopyRow(ary, 1, aryRes)  ' nothing happens since index is not valid
+'   ' Copy column
+'   Call AryCopyColumn(ary, 3, aryRes)  ' copy column with index 2
+'   Call AryCopyColumn(ary, 0, aryRes)  ' nothing happens since index is not valid
+Sub AryCopyColumn(ary As Variant, intColumnIdx As Integer, aryRes As Variant)
+   Dim i As Integer
+   
+   If AryDim(ary) = 2 Then
+      If intColumnIdx < LBound(ary, 2) Or intColumnIdx > UBound(ary, 2) Then Exit Sub
+      ReDim aryRes(LBound(ary, 1) To UBound(ary, 1))
+      For i = LBound(aryRes) To UBound(aryRes)
+         aryRes(i) = ary(i, intColumnIdx)
+      Next
+   End If
+End Sub
+
+
 '' Read a range into a 2D array
 '
 ' @param ary Dynamic array.
@@ -269,7 +400,7 @@ End Function
 
 '' Set all array elements to a specific value
 '
-' @param ary A 1D or 2D array.
+' @param ary A 1D to 5D array.
 ' @param value The value.
 ' @author Lars Relund <lars@relund.dk>
 ' @example
@@ -558,5 +689,7 @@ unhandled_error:
     Erase ary
     MsgBox ("Error reading csv!")
 End Sub
+
+
 
 
