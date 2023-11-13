@@ -6,7 +6,7 @@ Option Explicit
 
 '' Generate a single random number of different distributions
 Sub TM6_RandDistEx()
-    Dim aryDens() As Double
+    Dim aryDens As Variant
 
     Randomize    ' initialize random-number generator
     MsgBox ("Normal: " & RandInvNormal(100, 20))
@@ -20,10 +20,10 @@ Sub TM6_RandDistEx()
     MsgBox ("Poisson: " & RandInvPoisson(5))
     ' Custom discrete
     ReDim aryDens(1 To 4, 1 To 2)
-    aryDens(1, 1) = 3
-    aryDens(2, 1) = 4
-    aryDens(3, 1) = 5
-    aryDens(4, 1) = 6
+    aryDens(1, 1) = "A"
+    aryDens(2, 1) = "B"
+    aryDens(3, 1) = "C"
+    aryDens(4, 1) = "D"
     aryDens(1, 2) = 0.1
     aryDens(2, 2) = 0.3
     aryDens(3, 2) = 0.5
@@ -36,7 +36,8 @@ End Sub
 ' Note sheet is only updated when rerun VBA code!
 Sub TM6_RandDistAryEx()
     Dim ary() As Double
-    Dim aryDens() As Double
+    Dim ary1 As Variant
+    Dim aryDens As Variant
     Dim intSize As Integer
     
     ThisWorkbook.Worksheets("TM6").Activate
@@ -65,17 +66,17 @@ Sub TM6_RandDistAryEx()
     Call AryPaste(ary, Range("D2"), False)
     ' Custom discrete
     ReDim aryDens(1 To 4, 1 To 2)
-    aryDens(1, 1) = 3
-    aryDens(2, 1) = 4
-    aryDens(3, 1) = 5
-    aryDens(4, 1) = 6
+    aryDens(1, 1) = "A"
+    aryDens(2, 1) = "B"
+    aryDens(3, 1) = "C"
+    aryDens(4, 1) = "D"
     aryDens(1, 2) = 0.1
     aryDens(2, 2) = 0.3
     aryDens(3, 2) = 0.5
     aryDens(4, 2) = 0.1
-    Call RandGenDiscrete(intSize, aryDens, ary)
+    Call RandGenDiscrete(intSize, aryDens, ary1)
     Range("E1") = "Custom"
-    Call AryPaste(ary, Range("E2"), False)
+    Call AryPaste(ary1, Range("E2"), False)
     Range("G3") = "Custom distribution:"
     Range("G4") = "Value"
     Range("H4") = "Prob."

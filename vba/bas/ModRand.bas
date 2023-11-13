@@ -435,9 +435,9 @@ End Function
 '    Range("G4") = "Value"
 '    Range("H4") = "Prob."
 '    Call AryPaste(aryDens, Range("G5"))
-Sub RandGenDiscrete(intSize As Integer, dblDens() As Double, ary() As Double)
+Sub RandGenDiscrete(intSize As Integer, dblDens As Variant, ary As Variant)
     Dim i As Integer
-    ReDim ary(intSize) As Double
+    ReDim ary(intSize)
     
     For i = 1 To intSize
         ary(i) = RandInvDiscrete(dblDens)
@@ -462,7 +462,7 @@ End Sub
 '    aryDens(3, 2) = 0.5
 '    aryDens(4, 2) = 0.1
 '    MsgBox ("Custom (discrete): " & RandInvDiscrete(aryDens))
-Function RandInvDiscrete(aryDens() As Double) As Double
+Function RandInvDiscrete(aryDens As Variant) As Variant
     Dim dblR As Double, dblP As Double
     Dim i As Long
     
