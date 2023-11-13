@@ -610,6 +610,28 @@ Description
 <tbody>
 <tr>
 <td style="text-align:left;">
+<a href="apdx-vba.html#def-vba-AryCopyColumn"><code>AryCopyColumn</code></a>
+</td>
+<td style="text-align:left;">
+sub
+</td>
+<td style="text-align:left;">
+Create a 1D array by copying it from a column in a 2D array
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<a href="apdx-vba.html#def-vba-AryCopyRow"><code>AryCopyRow</code></a>
+</td>
+<td style="text-align:left;">
+sub
+</td>
+<td style="text-align:left;">
+Create a 1D array by copying it from a row in a 2D array
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 <a href="apdx-vba.html#def-vba-AryDim"><code>AryDim</code></a>
 </td>
 <td style="text-align:left;">
@@ -650,6 +672,28 @@ sub
 </td>
 <td style="text-align:left;">
 Paste a 1D or 2D array to a sheet
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<a href="apdx-vba.html#def-vba-AryPasteColumn"><code>AryPasteColumn</code></a>
+</td>
+<td style="text-align:left;">
+sub
+</td>
+<td style="text-align:left;">
+Paste a column of a 2D array to a sheet
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<a href="apdx-vba.html#def-vba-AryPasteRow"><code>AryPasteRow</code></a>
+</td>
+<td style="text-align:left;">
+sub
+</td>
+<td style="text-align:left;">
+Paste a row of a 2D array to a sheet
 </td>
 </tr>
 <tr>
@@ -2977,8 +3021,256 @@ Paste the 1D array as a column or row (default).
     Range(&quot;G31&quot;) = &quot;Names in the &quot; &amp; AryDim(strAry) &amp; &quot;D array:&quot;
     Call AryPaste(strAry, Range(&quot;G32&quot;))</code></pre>
 </div>
-<div id="def-vba-AryRead" class="section level4 hasAnchor" number="21.3.1.37">
-<h4><span class="header-section-number">E.3.1.37</span> AryRead: Read a range into a 2D array<a href="apdx-vba.html#def-vba-AryRead" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-AryPasteRow" class="section level4 hasAnchor" number="21.3.1.37">
+<h4><span class="header-section-number">E.3.1.37</span> AryPasteRow: Paste a row of a 2D array to a sheet<a href="apdx-vba.html#def-vba-AryPasteRow" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
+<pre><code>Sub AryPasteRow(
+   ary As Variant,
+   intRowIdx As Integer,
+   rngUL As Range,
+   Optional blnRowwise As Boolean = True
+)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+The 2D array.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>intRowIdx</code>
+</td>
+<td style="text-align:left;">
+The index of the row to paste.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>rngUL</code>
+</td>
+<td style="text-align:left;">
+The upper left cell of the paste area.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnRowwise</code>
+</td>
+<td style="text-align:left;">
+Paste the row horizontal (default).
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>   Dim ary(2 To 3, 2 To 5) As Integer
+   Call AryToVal(ary, 5)  &#39; set all entries to 5
+   &#39; Paste rows
+   Call AryPasteRow(ary, 2, Range(&quot;B2&quot;)) &#39; paste row with index 2
+   Call AryPasteRow(ary, 0, Range(&quot;B4&quot;)) &#39; nothing happens since index is not valid
+   Call AryPasteRow(ary, 3, Range(&quot;B4&quot;), blnRowwise:=False) &#39; print horizontial
+   &#39; Paste columns
+   Call AryPasteColumn(ary, 2, Range(&quot;A9&quot;)) &#39; paste column with index 2
+   Call AryPasteColumn(ary, 1, Range(&quot;B12&quot;)) &#39;  nothing happens since index is not valid
+   Call AryPasteColumn(ary, 5, Range(&quot;B12&quot;), blnColwise:=False) &#39; print vertical</code></pre>
+</div>
+<div id="def-vba-AryPasteColumn" class="section level4 hasAnchor" number="21.3.1.38">
+<h4><span class="header-section-number">E.3.1.38</span> AryPasteColumn: Paste a column of a 2D array to a sheet<a href="apdx-vba.html#def-vba-AryPasteColumn" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
+<pre><code>Sub AryPasteColumn(
+   ary As Variant,
+   intColumnIdx As Integer,
+   rngUL As Range,
+   Optional blnColwise As Boolean = True
+)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+The 2D array.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>intColumnIdx</code>
+</td>
+<td style="text-align:left;">
+The index of the row to paste.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>rngUL</code>
+</td>
+<td style="text-align:left;">
+The upper left cell of the paste area.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>blnColwise</code>
+</td>
+<td style="text-align:left;">
+Paste the column vertical (default).
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>   Dim ary(2 To 3, 2 To 5) As Integer
+   Call AryToVal(ary, 5)  &#39; set all entries to 5
+   &#39; Paste rows
+   Call AryPasteRow(ary, 2, Range(&quot;B2&quot;)) &#39; paste row with index 2
+   Call AryPasteRow(ary, 0, Range(&quot;B4&quot;)) &#39; nothing happens since index is not valid
+   Call AryPasteRow(ary, 3, Range(&quot;B4&quot;), blnRowwise:=False) &#39; print horizontial
+   &#39; Paste columns
+   Call AryPasteColumn(ary, 2, Range(&quot;A9&quot;)) &#39; paste column with index 2
+   Call AryPasteColumn(ary, 1, Range(&quot;B12&quot;)) &#39;  nothing happens since index is not valid
+   Call AryPasteColumn(ary, 5, Range(&quot;B12&quot;), blnColwise:=False) &#39; print vertical</code></pre>
+</div>
+<div id="def-vba-AryCopyRow" class="section level4 hasAnchor" number="21.3.1.39">
+<h4><span class="header-section-number">E.3.1.39</span> AryCopyRow: Create a 1D array by copying it from a row in a 2D array<a href="apdx-vba.html#def-vba-AryCopyRow" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
+<pre><code>Sub AryCopyRow(
+   ary As Variant,
+   intRowIdx As Integer,
+   aryRes As Variant
+)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+The 2D array.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>intRowIdx</code>
+</td>
+<td style="text-align:left;">
+The index of the row.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>aryRes</code>
+</td>
+<td style="text-align:left;">
+The 1D array to return (dynamic, ByRef). The array will use the same start and end index as the 2D array!
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>   Dim ary(2 To 3, 2 To 5) As Integer
+   Dim aryRes() As Integer
+   &#39; Copy row
+   Call AryToVal(ary, 5)  &#39; set all entries to 5
+   Call AryCopyRow(ary, 2, aryRes)  &#39; copy row with index 2
+   Call AryCopyRow(ary, 1, aryRes)  &#39; nothing happens since index is not valid
+   &#39; Copy column
+   Call AryCopyColumn(ary, 3, aryRes)  &#39; copy column with index 2
+   Call AryCopyColumn(ary, 0, aryRes)  &#39; nothing happens since index is not valid</code></pre>
+</div>
+<div id="def-vba-AryCopyColumn" class="section level4 hasAnchor" number="21.3.1.40">
+<h4><span class="header-section-number">E.3.1.40</span> AryCopyColumn: Create a 1D array by copying it from a column in a 2D array<a href="apdx-vba.html#def-vba-AryCopyColumn" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Usage</strong></p>
+<pre><code>Sub AryCopyColumn(
+   ary As Variant,
+   intColumnIdx As Integer,
+   aryRes As Variant
+)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<code>ary</code>
+</td>
+<td style="text-align:left;">
+The 2D array.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>intColumnIdx</code>
+</td>
+<td style="text-align:left;">
+The index of the column.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<code>aryRes</code>
+</td>
+<td style="text-align:left;">
+The 1D array to return (dynamic, ByRef). The array will use the same start and end index as the 2D array!
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<pre><code>   Dim ary(2 To 3, 2 To 5) As Integer
+   Dim aryRes() As Integer
+   &#39; Copy row
+   Call AryToVal(ary, 5)  &#39; set all entries to 5
+   Call AryCopyRow(ary, 2, aryRes)  &#39; copy row with index 2
+   Call AryCopyRow(ary, 1, aryRes)  &#39; nothing happens since index is not valid
+   &#39; Copy column
+   Call AryCopyColumn(ary, 3, aryRes)  &#39; copy column with index 2
+   Call AryCopyColumn(ary, 0, aryRes)  &#39; nothing happens since index is not valid</code></pre>
+</div>
+<div id="def-vba-AryRead" class="section level4 hasAnchor" number="21.3.1.41">
+<h4><span class="header-section-number">E.3.1.41</span> AryRead: Read a range into a 2D array<a href="apdx-vba.html#def-vba-AryRead" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Sub AryRead(
    ByRef ary As Variant,
@@ -3062,8 +3354,8 @@ If true then reduce a range with 1 row or column to a 1D array.
     Range(&quot;G16&quot;) = AryDim(ary) &amp; &quot;D array with start index &quot; &amp; LBound(ary, 1) &amp; &quot; and &quot; &amp; LBound(ary, 2) &amp; &quot;:&quot;
     Call AryPaste(ary, Range(&quot;G17&quot;))</code></pre>
 </div>
-<div id="def-vba-AryReadLong" class="section level4 hasAnchor" number="21.3.1.38">
-<h4><span class="header-section-number">E.3.1.38</span> AryReadLong: Read a range (long format) into an array (up to a 5D array is supported)<a href="apdx-vba.html#def-vba-AryReadLong" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-AryReadLong" class="section level4 hasAnchor" number="21.3.1.42">
+<h4><span class="header-section-number">E.3.1.42</span> AryReadLong: Read a range (long format) into an array (up to a 5D array is supported)<a href="apdx-vba.html#def-vba-AryReadLong" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Sub AryReadLong(
    ByRef ary As Variant,
@@ -3115,8 +3407,8 @@ Range to be copied in long format, i.e. index in all columns except the last wh
     &#39;&#39; Read 3D array (cannot be pasted to the sheet, have a look at it using the debugger)
     Call AryReadLong(ary, Range(&quot;A50:D56&quot;), 5)   &#39; default value = 5</code></pre>
 </div>
-<div id="def-vba-AryEmpty" class="section level4 hasAnchor" number="21.3.1.39">
-<h4><span class="header-section-number">E.3.1.39</span> AryEmpty: Check if an array empty<a href="apdx-vba.html#def-vba-AryEmpty" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-AryEmpty" class="section level4 hasAnchor" number="21.3.1.43">
+<h4><span class="header-section-number">E.3.1.43</span> AryEmpty: Check if an array empty<a href="apdx-vba.html#def-vba-AryEmpty" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function AryEmpty(
    ary As Variant
@@ -3144,8 +3436,8 @@ The variable to check.
 </tbody>
 </table>
 </div>
-<div id="def-vba-AryToVal" class="section level4 hasAnchor" number="21.3.1.40">
-<h4><span class="header-section-number">E.3.1.40</span> AryToVal: Set all array elements to a specific value<a href="apdx-vba.html#def-vba-AryToVal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-AryToVal" class="section level4 hasAnchor" number="21.3.1.44">
+<h4><span class="header-section-number">E.3.1.44</span> AryToVal: Set all array elements to a specific value<a href="apdx-vba.html#def-vba-AryToVal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Sub AryToVal(
    ByRef ary As Variant,
@@ -3168,7 +3460,7 @@ Description
 <code>ary</code>
 </td>
 <td style="text-align:left;">
-A 1D or 2D array.
+A 1D to 5D array.
 </td>
 </tr>
 <tr>
@@ -3192,8 +3484,8 @@ The value.
     Range(&quot;G4&quot;) = &quot;A fixed value:&quot;
     Call AryPaste(ary, Range(&quot;G5&quot;)) &#39; the upper left cell is G5</code></pre>
 </div>
-<div id="def-vba-AryToSeq" class="section level4 hasAnchor" number="21.3.1.41">
-<h4><span class="header-section-number">E.3.1.41</span> AryToSeq: Set all array elements to a sequence<a href="apdx-vba.html#def-vba-AryToSeq" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-AryToSeq" class="section level4 hasAnchor" number="21.3.1.45">
+<h4><span class="header-section-number">E.3.1.45</span> AryToSeq: Set all array elements to a sequence<a href="apdx-vba.html#def-vba-AryToSeq" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Sub AryToSeq(
    ByRef ary As Variant,
@@ -3257,8 +3549,8 @@ Start index in the array.
     Range(&quot;G10&quot;) = &quot;A sequence:&quot;
     Call AryPaste(ary, Range(&quot;G11&quot;))</code></pre>
 </div>
-<div id="def-vba-AryQuickSort" class="section level4 hasAnchor" number="21.3.1.42">
-<h4><span class="header-section-number">E.3.1.42</span> AryQuickSort: Sort a 2-Dimensional array using a quicksort algorithm<a href="apdx-vba.html#def-vba-AryQuickSort" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-AryQuickSort" class="section level4 hasAnchor" number="21.3.1.46">
+<h4><span class="header-section-number">E.3.1.46</span> AryQuickSort: Sort a 2-Dimensional array using a quicksort algorithm<a href="apdx-vba.html#def-vba-AryQuickSort" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Sub AryQuickSort(
    ByRef ary As Variant,
@@ -3323,8 +3615,8 @@ End index to sort from
     Call RngPaste(Range(&quot;C4:E4&quot;), Range(&quot;G4&quot;))
     Call AryPaste(ary, Range(&quot;G5&quot;))</code></pre>
 </div>
-<div id="def-vba-AryFromCSV" class="section level4 hasAnchor" number="21.3.1.43">
-<h4><span class="header-section-number">E.3.1.43</span> AryFromCSV: Read a csv file to and array<a href="apdx-vba.html#def-vba-AryFromCSV" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-AryFromCSV" class="section level4 hasAnchor" number="21.3.1.47">
+<h4><span class="header-section-number">E.3.1.47</span> AryFromCSV: Read a csv file to and array<a href="apdx-vba.html#def-vba-AryFromCSV" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Sub AryFromCSV(
    ary As Variant,
@@ -3398,8 +3690,8 @@ The line to read from.
     Call AryFromCSV(ary, &quot;data2.csv&quot;, &quot;,&quot;)   &#39; know that it contains integers (otherwise use variant)
     Call AryPaste(ary, Range(&quot;G4&quot;))</code></pre>
 </div>
-<div id="def-vba-WstExists" class="section level4 hasAnchor" number="21.3.1.44">
-<h4><span class="header-section-number">E.3.1.44</span> WstExists: Check if a worksheet exists<a href="apdx-vba.html#def-vba-WstExists" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-WstExists" class="section level4 hasAnchor" number="21.3.1.48">
+<h4><span class="header-section-number">E.3.1.48</span> WstExists: Check if a worksheet exists<a href="apdx-vba.html#def-vba-WstExists" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function WstExists(
    strName As String
@@ -3429,8 +3721,8 @@ Name of worksheet.
 <p><strong>Examples</strong></p>
 <pre><code>    If WstExists(&quot;Test&quot;) Then MsgBox (&quot;Found it!&quot;)</code></pre>
 </div>
-<div id="def-vba-WstDelete" class="section level4 hasAnchor" number="21.3.1.45">
-<h4><span class="header-section-number">E.3.1.45</span> WstDelete: Delete a worksheet if it exists<a href="apdx-vba.html#def-vba-WstDelete" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-WstDelete" class="section level4 hasAnchor" number="21.3.1.49">
+<h4><span class="header-section-number">E.3.1.49</span> WstDelete: Delete a worksheet if it exists<a href="apdx-vba.html#def-vba-WstDelete" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function WstDelete(
    strName As String
@@ -3460,8 +3752,8 @@ Name of worksheet.
 <p><strong>Examples</strong></p>
 <pre><code>    If WstDelete(&quot;Test1&quot;) Then MsgBox (&quot;Deleted Test1&quot;)</code></pre>
 </div>
-<div id="def-vba-WstCreate" class="section level4 hasAnchor" number="21.3.1.46">
-<h4><span class="header-section-number">E.3.1.46</span> WstCreate: Create a worksheet<a href="apdx-vba.html#def-vba-WstCreate" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-WstCreate" class="section level4 hasAnchor" number="21.3.1.50">
+<h4><span class="header-section-number">E.3.1.50</span> WstCreate: Create a worksheet<a href="apdx-vba.html#def-vba-WstCreate" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function WstCreate(
    strName As String,
@@ -3500,8 +3792,8 @@ Force deletion of worksheet if exists.
 <p><strong>Examples</strong></p>
 <pre><code>    If WstCreate(&quot;Test&quot;, blnForce:=True) Then MsgBox (&quot;Created Test&quot;)  &#39; create Test sheet</code></pre>
 </div>
-<div id="def-vba-WstRename" class="section level4 hasAnchor" number="21.3.1.47">
-<h4><span class="header-section-number">E.3.1.47</span> WstRename: Rename a worksheet if it exists and no sheet with the new name<a href="apdx-vba.html#def-vba-WstRename" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-WstRename" class="section level4 hasAnchor" number="21.3.1.51">
+<h4><span class="header-section-number">E.3.1.51</span> WstRename: Rename a worksheet if it exists and no sheet with the new name<a href="apdx-vba.html#def-vba-WstRename" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function WstRename(
    strName As String,
@@ -3540,8 +3832,8 @@ New name of worksheet.
 <p><strong>Examples</strong></p>
 <pre><code>    If WstRename(&quot;Test&quot;, &quot;Test1&quot;) Then MsgBox (&quot;Renamed the Test to Test1&quot;)  &#39; only work if no Test1 sheet</code></pre>
 </div>
-<div id="def-vba-WstClear" class="section level4 hasAnchor" number="21.3.1.48">
-<h4><span class="header-section-number">E.3.1.48</span> WstClear: Clear a worksheet if it exists<a href="apdx-vba.html#def-vba-WstClear" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-WstClear" class="section level4 hasAnchor" number="21.3.1.52">
+<h4><span class="header-section-number">E.3.1.52</span> WstClear: Clear a worksheet if it exists<a href="apdx-vba.html#def-vba-WstClear" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function WstClear(
    strName As String,
@@ -3607,8 +3899,8 @@ Delete cell buttons and charts too.
 <p><strong>Examples</strong></p>
 <pre><code>    If WstClear(&quot;Test8&quot;) Then MsgBox (&quot;Cleared Test8&quot;) &#39; no clearing since if no sheet with that name</code></pre>
 </div>
-<div id="def-vba-Col2Str" class="section level4 hasAnchor" number="21.3.1.49">
-<h4><span class="header-section-number">E.3.1.49</span> Col2Str: Convert a collection to a string<a href="apdx-vba.html#def-vba-Col2Str" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-Col2Str" class="section level4 hasAnchor" number="21.3.1.53">
+<h4><span class="header-section-number">E.3.1.53</span> Col2Str: Convert a collection to a string<a href="apdx-vba.html#def-vba-Col2Str" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function Col2Str(
    col As Collection,
@@ -3645,8 +3937,8 @@ Seperator used to seperate the values.
 </tbody>
 </table>
 </div>
-<div id="def-vba-ColCopy" class="section level4 hasAnchor" number="21.3.1.50">
-<h4><span class="header-section-number">E.3.1.50</span> ColCopy: Copy a collection<a href="apdx-vba.html#def-vba-ColCopy" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-ColCopy" class="section level4 hasAnchor" number="21.3.1.54">
+<h4><span class="header-section-number">E.3.1.54</span> ColCopy: Copy a collection<a href="apdx-vba.html#def-vba-ColCopy" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function ColCopy(
    colFrom As Collection
@@ -3674,8 +3966,8 @@ The collection to copy.
 </tbody>
 </table>
 </div>
-<div id="def-vba-TmStart" class="section level4 hasAnchor" number="21.3.1.51">
-<h4><span class="header-section-number">E.3.1.51</span> TmStart: Start timer (unit seconds)<a href="apdx-vba.html#def-vba-TmStart" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-TmStart" class="section level4 hasAnchor" number="21.3.1.55">
+<h4><span class="header-section-number">E.3.1.55</span> TmStart: Start timer (unit seconds)<a href="apdx-vba.html#def-vba-TmStart" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function TmStart() As Double</code></pre>
 <p><strong>Examples</strong></p>
@@ -3683,8 +3975,8 @@ The collection to copy.
     Application.Wait (Now() + TimeValue(&quot;0:00:02&quot;))   &#39; wait for approx 2 sec
     MsgBox (TmElapsed(dblTimer, &quot;sec&quot;))</code></pre>
 </div>
-<div id="def-vba-TmElapsed" class="section level4 hasAnchor" number="21.3.1.52">
-<h4><span class="header-section-number">E.3.1.52</span> TmElapsed: Time since timer has be started.<a href="apdx-vba.html#def-vba-TmElapsed" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-TmElapsed" class="section level4 hasAnchor" number="21.3.1.56">
+<h4><span class="header-section-number">E.3.1.56</span> TmElapsed: Time since timer has be started.<a href="apdx-vba.html#def-vba-TmElapsed" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function TmElapsed(
    dblTimer As Double,
@@ -3725,8 +4017,8 @@ Return unit must be either ms, sec, min or hour otherwise return -1
     Application.Wait (Now() + TimeValue(&quot;0:00:02&quot;))   &#39; wait for approx 2 sec
     MsgBox (TmElapsed(dblTimer, &quot;sec&quot;))</code></pre>
 </div>
-<div id="def-vba-TmSpeedOptimize" class="section level4 hasAnchor" number="21.3.1.53">
-<h4><span class="header-section-number">E.3.1.53</span> TmSpeedOptimize: Set some properties for the Application object to optimize excecution of vba<a href="apdx-vba.html#def-vba-TmSpeedOptimize" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-TmSpeedOptimize" class="section level4 hasAnchor" number="21.3.1.57">
+<h4><span class="header-section-number">E.3.1.57</span> TmSpeedOptimize: Set some properties for the Application object to optimize excecution of vba<a href="apdx-vba.html#def-vba-TmSpeedOptimize" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Sub TmSpeedOptimize()</code></pre>
 <p><strong>Examples</strong></p>
@@ -3753,8 +4045,8 @@ Return unit must be either ms, sec, min or hour otherwise return -1
     MsgBox (&quot;Time without updates: &quot; &amp; dblT1 &amp; vbCr &amp; &quot;Time with updates: &quot; &amp; dblT2)
     Cells(200, 500).Clear</code></pre>
 </div>
-<div id="def-vba-TmRestoreAfterSpeedOptimize" class="section level4 hasAnchor" number="21.3.1.54">
-<h4><span class="header-section-number">E.3.1.54</span> TmRestoreAfterSpeedOptimize: Restore properties for the Application object after have called ApplicationSpeedOptimize<a href="apdx-vba.html#def-vba-TmRestoreAfterSpeedOptimize" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-TmRestoreAfterSpeedOptimize" class="section level4 hasAnchor" number="21.3.1.58">
+<h4><span class="header-section-number">E.3.1.58</span> TmRestoreAfterSpeedOptimize: Restore properties for the Application object after have called ApplicationSpeedOptimize<a href="apdx-vba.html#def-vba-TmRestoreAfterSpeedOptimize" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Sub TmRestoreAfterSpeedOptimize()</code></pre>
 <p><strong>Examples</strong></p>
@@ -3781,8 +4073,8 @@ Return unit must be either ms, sec, min or hour otherwise return -1
     MsgBox (&quot;Time without updates: &quot; &amp; dblT1 &amp; vbCr &amp; &quot;Time with updates: &quot; &amp; dblT2)
     Cells(200, 500).Clear</code></pre>
 </div>
-<div id="def-vba-RandGenNormal" class="section level4 hasAnchor" number="21.3.1.55">
-<h4><span class="header-section-number">E.3.1.55</span> RandGenNormal: Generate random numbers from a normal distribution<a href="apdx-vba.html#def-vba-RandGenNormal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-RandGenNormal" class="section level4 hasAnchor" number="21.3.1.59">
+<h4><span class="header-section-number">E.3.1.59</span> RandGenNormal: Generate random numbers from a normal distribution<a href="apdx-vba.html#def-vba-RandGenNormal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Sub RandGenNormal(
    intSize As Integer,
@@ -3882,8 +4174,8 @@ Array to store the values in.
     Range(&quot;H4&quot;) = &quot;Prob.&quot;
     Call AryPaste(aryDens, Range(&quot;G5&quot;))</code></pre>
 </div>
-<div id="def-vba-RandInvNormal" class="section level4 hasAnchor" number="21.3.1.56">
-<h4><span class="header-section-number">E.3.1.56</span> RandInvNormal: Generate a random number from a normal distribution<a href="apdx-vba.html#def-vba-RandInvNormal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-RandInvNormal" class="section level4 hasAnchor" number="21.3.1.60">
+<h4><span class="header-section-number">E.3.1.60</span> RandInvNormal: Generate a random number from a normal distribution<a href="apdx-vba.html#def-vba-RandInvNormal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function RandInvNormal(
    dblMean As Double,
@@ -3922,8 +4214,8 @@ Standard deviation.
 <p><strong>Examples</strong></p>
 <pre><code>    MsgBox (&quot;Normal: &quot; &amp; RandInvNormal(100, 20))</code></pre>
 </div>
-<div id="def-vba-RandGenUniformCont" class="section level4 hasAnchor" number="21.3.1.57">
-<h4><span class="header-section-number">E.3.1.57</span> RandGenUniformCont: Generate random numbers from a continuous uniform distribution<a href="apdx-vba.html#def-vba-RandGenUniformCont" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-RandGenUniformCont" class="section level4 hasAnchor" number="21.3.1.61">
+<h4><span class="header-section-number">E.3.1.61</span> RandGenUniformCont: Generate random numbers from a continuous uniform distribution<a href="apdx-vba.html#def-vba-RandGenUniformCont" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Sub RandGenUniformCont(
    intSize As Integer,
@@ -4023,8 +4315,8 @@ Array to store the values in.
     Range(&quot;H4&quot;) = &quot;Prob.&quot;
     Call AryPaste(aryDens, Range(&quot;G5&quot;))</code></pre>
 </div>
-<div id="def-vba-RandInvUniformCont" class="section level4 hasAnchor" number="21.3.1.58">
-<h4><span class="header-section-number">E.3.1.58</span> RandInvUniformCont: Generate a random number from a continuous uniform distribution<a href="apdx-vba.html#def-vba-RandInvUniformCont" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-RandInvUniformCont" class="section level4 hasAnchor" number="21.3.1.62">
+<h4><span class="header-section-number">E.3.1.62</span> RandInvUniformCont: Generate a random number from a continuous uniform distribution<a href="apdx-vba.html#def-vba-RandInvUniformCont" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function RandInvUniformCont(
    dblMin As Double,
@@ -4064,8 +4356,8 @@ Maximum number (not included).
 <pre><code>    &#39; Cont. uniform [10,500[
     MsgBox (&quot;Uniform (continuous): &quot; &amp; RandInvUniformCont(10, 500))</code></pre>
 </div>
-<div id="def-vba-RandGenUniformDisc" class="section level4 hasAnchor" number="21.3.1.59">
-<h4><span class="header-section-number">E.3.1.59</span> RandGenUniformDisc: Generate random numbers from a discrete uniform distribution<a href="apdx-vba.html#def-vba-RandGenUniformDisc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-RandGenUniformDisc" class="section level4 hasAnchor" number="21.3.1.63">
+<h4><span class="header-section-number">E.3.1.63</span> RandGenUniformDisc: Generate random numbers from a discrete uniform distribution<a href="apdx-vba.html#def-vba-RandGenUniformDisc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Sub RandGenUniformDisc(
    intSize As Integer,
@@ -4165,8 +4457,8 @@ Array to store the values in.
     Range(&quot;H4&quot;) = &quot;Prob.&quot;
     Call AryPaste(aryDens, Range(&quot;G5&quot;))</code></pre>
 </div>
-<div id="def-vba-RandInvUniformDisc" class="section level4 hasAnchor" number="21.3.1.60">
-<h4><span class="header-section-number">E.3.1.60</span> RandInvUniformDisc: Generate a random number from a discrete uniform distribution<a href="apdx-vba.html#def-vba-RandInvUniformDisc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-RandInvUniformDisc" class="section level4 hasAnchor" number="21.3.1.64">
+<h4><span class="header-section-number">E.3.1.64</span> RandInvUniformDisc: Generate a random number from a discrete uniform distribution<a href="apdx-vba.html#def-vba-RandInvUniformDisc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function RandInvUniformDisc(
    vntMin As Variant,
@@ -4206,8 +4498,8 @@ Maximum number.
 <pre><code>    &#39; Discrete uniform 10,...,500
     MsgBox (&quot;Uniform (discrete): &quot; &amp; RandInvUniformDisc(10, 500))</code></pre>
 </div>
-<div id="def-vba-RandGenBinomial" class="section level4 hasAnchor" number="21.3.1.61">
-<h4><span class="header-section-number">E.3.1.61</span> RandGenBinomial: Generate random numbers from a binomial distribution<a href="apdx-vba.html#def-vba-RandGenBinomial" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-RandGenBinomial" class="section level4 hasAnchor" number="21.3.1.65">
+<h4><span class="header-section-number">E.3.1.65</span> RandGenBinomial: Generate random numbers from a binomial distribution<a href="apdx-vba.html#def-vba-RandGenBinomial" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Sub RandGenBinomial(
    intSize As Integer,
@@ -4307,8 +4599,8 @@ Array to store the values in.
     Range(&quot;H4&quot;) = &quot;Prob.&quot;
     Call AryPaste(aryDens, Range(&quot;G5&quot;))</code></pre>
 </div>
-<div id="def-vba-RandInvBinomial" class="section level4 hasAnchor" number="21.3.1.62">
-<h4><span class="header-section-number">E.3.1.62</span> RandInvBinomial: Generate a random number from a binomial distribution<a href="apdx-vba.html#def-vba-RandInvBinomial" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-RandInvBinomial" class="section level4 hasAnchor" number="21.3.1.66">
+<h4><span class="header-section-number">E.3.1.66</span> RandInvBinomial: Generate a random number from a binomial distribution<a href="apdx-vba.html#def-vba-RandInvBinomial" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function RandInvBinomial(
    intTrials As Integer,
@@ -4348,8 +4640,8 @@ Probability of success.
 <pre><code>    &#39; Binomial 100 trials, pr = 0.2
     MsgBox (&quot;Binomial: &quot; &amp; RandInvBinomial(100, 0.2))</code></pre>
 </div>
-<div id="def-vba-RandGenPoisson" class="section level4 hasAnchor" number="21.3.1.63">
-<h4><span class="header-section-number">E.3.1.63</span> RandGenPoisson: Generate random numbers from a poisson distribution<a href="apdx-vba.html#def-vba-RandGenPoisson" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-RandGenPoisson" class="section level4 hasAnchor" number="21.3.1.67">
+<h4><span class="header-section-number">E.3.1.67</span> RandGenPoisson: Generate random numbers from a poisson distribution<a href="apdx-vba.html#def-vba-RandGenPoisson" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Sub RandGenPoisson(
    intSize As Integer,
@@ -4441,8 +4733,8 @@ Array to store the values in.
     Range(&quot;H4&quot;) = &quot;Prob.&quot;
     Call AryPaste(aryDens, Range(&quot;G5&quot;))</code></pre>
 </div>
-<div id="def-vba-RandInvPoisson" class="section level4 hasAnchor" number="21.3.1.64">
-<h4><span class="header-section-number">E.3.1.64</span> RandInvPoisson: Generate a random number from a Poisson distribution<a href="apdx-vba.html#def-vba-RandInvPoisson" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-RandInvPoisson" class="section level4 hasAnchor" number="21.3.1.68">
+<h4><span class="header-section-number">E.3.1.68</span> RandInvPoisson: Generate a random number from a Poisson distribution<a href="apdx-vba.html#def-vba-RandInvPoisson" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function RandInvPoisson(
    dblLambda As Double
@@ -4474,8 +4766,8 @@ Mean.
 <pre><code>    &#39; Poisson lambda = 5
     MsgBox (&quot;Poisson: &quot; &amp; RandInvPoisson(5))</code></pre>
 </div>
-<div id="def-vba-RandGenDiscrete" class="section level4 hasAnchor" number="21.3.1.65">
-<h4><span class="header-section-number">E.3.1.65</span> RandGenDiscrete: Generate random numbers from a custom discrete distribution<a href="apdx-vba.html#def-vba-RandGenDiscrete" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-RandGenDiscrete" class="section level4 hasAnchor" number="21.3.1.69">
+<h4><span class="header-section-number">E.3.1.69</span> RandGenDiscrete: Generate random numbers from a custom discrete distribution<a href="apdx-vba.html#def-vba-RandGenDiscrete" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Sub RandGenDiscrete(
    intSize As Integer,
@@ -4567,8 +4859,8 @@ Array to store the values in.
     Range(&quot;H4&quot;) = &quot;Prob.&quot;
     Call AryPaste(aryDens, Range(&quot;G5&quot;))</code></pre>
 </div>
-<div id="def-vba-RandInvDiscrete" class="section level4 hasAnchor" number="21.3.1.66">
-<h4><span class="header-section-number">E.3.1.66</span> RandInvDiscrete: Generate a random number from a custom discrete distribution<a href="apdx-vba.html#def-vba-RandInvDiscrete" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="def-vba-RandInvDiscrete" class="section level4 hasAnchor" number="21.3.1.70">
+<h4><span class="header-section-number">E.3.1.70</span> RandInvDiscrete: Generate a random number from a custom discrete distribution<a href="apdx-vba.html#def-vba-RandInvDiscrete" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Usage</strong></p>
 <pre><code>Function RandInvDiscrete(
    aryDens() As Double
