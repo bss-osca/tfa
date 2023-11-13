@@ -498,7 +498,7 @@ End Sub
 ' @param lngColumn Column to sort
 ' @param lngStartIdx Start index to sort from
 ' @param lngEndIdx End index to sort from
-' @remark https://stackoverflow.com/questions/4873182/sorting-a-multidimensionnal-array-in-vba
+' @note https://stackoverflow.com/questions/4873182/sorting-a-multidimensionnal-array-in-vba
 '         Posted by Jim Rech 10/20/98 Excel.Programming.
 '         Modifications by Nigel Heffernan: Escape failed comparison with empty variant and defensive coding: check inputs
 ' @example
@@ -599,7 +599,7 @@ End Sub
 '        the folder as a subfolder to the current file placement.
 ' @param lngReadFrom The line to read from.
 ' @return An empty array if file is empty or can't be opened or a 2D array with all data values.
-' @remarks Inspired by http://stackoverflow.com/questions/9564908/open-csv-file-via-vba-performance
+' @note Inspired by http://stackoverflow.com/questions/9564908/open-csv-file-via-vba-performance
 '          Will not work if the cell values contain the delimeter.
 '          You MUST use blnAbsPath = True if the files are stored at a network folder (e.g. OneDrive)
 '          and specify the full path.

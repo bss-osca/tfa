@@ -467,12 +467,20 @@ for (f in files) {
    dat <- list()
    for (i in 1:length(str1)) {
       str <- str1[i]
-      param <- str_extract_all(str, "\n' @param .*")[[1]] %>% 
-         str_remove("\n' @param ") %>% 
+      param <- str_extract_all(str, "\n' @param ((.|\n)*?)@[^p]") %>% 
+         str_sub(end=-3) %>% 
+         str_split_1("\n' @param ") %>% 
+         str_replace_all("\n' *", " ") %>% 
          str_split_fixed(" ", 2) %>% 
          as_tibble(.name_repair = c("universal")) %>% 
          rename("Argument" = ...1, "Description" = ...2) %>% 
          mutate(Argument = str_c("`", Argument, "`"))
+         # OLD str_extract_all(str, "\n' @param .*")[[1]] %>% 
+         # str_remove("\n' @param ") %>% 
+         # str_split_fixed(" ", 2) %>% 
+         # as_tibble(.name_repair = c("universal")) %>% 
+         # rename("Argument" = ...1, "Description" = ...2) %>% 
+         # mutate(Argument = str_c("`", Argument, "`"))
       funcDef <- str_extract(str, "\n(Function|Sub) ((.|\n)*?)\\).*\n")  %>%   # (?<!\\()\\)
          str_replace_all("_\n *([:graph:])", "\\1") %>%
          str_remove_all("\n") %>% 
