@@ -1652,7 +1652,7 @@ Observe that the reservation number is assigned to a slot where slot $s$ is from
 Given a request $r$ consider strategies:
 
 - **Greedy**: Scan seats from 1 to $I$. If seat $i$ is available from $s_1(r)$ to $s_2(r)$ then accept the request and assign the reservation to seat $i$. Otherwise reject the request.
-- **Minimize Slots (MinSlots)**: For each seat $i$ available from $s_1(r)$ to $s_2(r)$ calculate the total free slots before and after stations $s_1$ to $s_2$. Assign the request to a seat where it leaves as little total free slots as possible. Otherwise reject the request.
+- **Minimize Slots (MinSlots)**: For each seat $i$ available from $s_1(r)$ to $s_2(r)$ calculate the total free slots before and after stations $s_1$ to $s_2$. Assign the request to a seat where it leaves as little total consecutive free slots (before and after) as possible. Otherwise reject the request.
 - **Maximize Slots (MaxSlots)**: For each seat $i$ available from $s_1(r)$ to $s_2(r)$ calculate the total free slots before and after stations $s_1$ to $s_2$. Assign the request to a seat where it leaves most total free slots as possible. Otherwise reject the request.
 
 The result of a strategy Greedy is given in Figure \@ref(fig:greedy) and for MinSlots in Figure \@ref(fig:min-slots). Note that by using the MinSlots strategy all requests are accepted. 
