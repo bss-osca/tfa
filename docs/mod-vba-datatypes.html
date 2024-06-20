@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 5 Advanced data types and usage | Tools for Analytics (TFA)</title>
   <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 5 Advanced data types and usage | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2024-01-24" />
+<meta name="date" content="2024-06-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,35 +52,36 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="libs/viz-1.8.2/viz.js"></script>
 <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-<script src="libs/grViz-binding-1.0.10/grViz.js"></script>
+<script src="libs/grViz-binding-1.0.11/grViz.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.1.2/leaflet.js"></script>
-<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.1.2/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
 <link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
 <script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
 <link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.28/datatables.js"></script>
-<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
 <link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <html>
 <head>
 <script>
@@ -104,7 +105,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -176,6 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -590,8 +592,8 @@ for exercises. Guiding answers for the exercises can be found in the file
 <div id="learning-path-diagram-4" class="section level4 unnumbered hasAnchor">
 <h4>Learning path diagram<a href="mod-vba-datatypes.html#learning-path-diagram-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Click/hover the nodes to follow links and see details.</p>
-<div id="htmlwidget-927ef251e47dde3c4a7a" style="width:100%;height:200px;" class="grViz html-widget "></div>
-<script type="application/json" data-for="htmlwidget-927ef251e47dde3c4a7a">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"💡 Strings\", URL = \"#vba-strings\", tooltip = \"Strings (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"2,1!\"] \n  \"2\" [label = \"📖 Objects\", URL = \"#vba-objects\", tooltip = \"Objects (reading)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"3.7,1!\"] \n  \"3\" [label = \"💡 Worksheets\", URL = \"#vba-wst\", tooltip = \"Worksheets (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"5.5,1!\"] \n  \"4\" [label = \"💡 Ranges\", URL = \"#vba-rng\", tooltip = \"Ranges (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"7.6,1!\"] \n  \"5\" [label = \"💡 Arrays\", URL = \"#vba-ary\", tooltip = \"Arrays (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"9.6,1!\"] \n  \"6\" [label = \"💡 Collections\", URL = \"#vba-coll\", tooltip = \"Collections (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"11.6,1!\"] \n  \"7\" [label = \"💡 Example\", URL = \"#vba-ex-job-seq\", tooltip = \"Example (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"13.7,1!\"] \n  \"8\" [label = \"💻 Exercises\", URL = \"#ex-vba-datatypes\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"15.8,1!\"] \n  \"9\" [label = \"🎬 Arrays\", URL = \"https://youtu.be/ELFrOYNTxEU\", tooltip = \"Arrays\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"8.6,0!\"] \n  \"10\" [label = \"🎬 Dynamic arrays\", URL = \"https://youtu.be/AqYDI2Vt1mw\", tooltip = \"Dynamic arrays\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"10.6,0!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"5\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"5\"->\"9\" [color = \"black\", arrowhead = \"vee\"] \n\"5\"->\"10\" [color = \"black\", arrowhead = \"vee\"] \n\"6\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n\"7\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b9080cfd6d43900888bd" style="width:100%;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b9080cfd6d43900888bd">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"💡 Strings\", URL = \"#vba-strings\", tooltip = \"Strings (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"2,1!\"] \n  \"2\" [label = \"📖 Objects\", URL = \"#vba-objects\", tooltip = \"Objects (reading)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"3.7,1!\"] \n  \"3\" [label = \"💡 Worksheets\", URL = \"#vba-wst\", tooltip = \"Worksheets (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"5.5,1!\"] \n  \"4\" [label = \"💡 Ranges\", URL = \"#vba-rng\", tooltip = \"Ranges (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"7.6,1!\"] \n  \"5\" [label = \"💡 Arrays\", URL = \"#vba-ary\", tooltip = \"Arrays (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"9.6,1!\"] \n  \"6\" [label = \"💡 Collections\", URL = \"#vba-coll\", tooltip = \"Collections (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"11.6,1!\"] \n  \"7\" [label = \"💡 Example\", URL = \"#vba-ex-job-seq\", tooltip = \"Example (interactive)\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"13.7,1!\"] \n  \"8\" [label = \"💻 Exercises\", URL = \"#ex-vba-datatypes\", tooltip = \"Exercises\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"15.8,1!\"] \n  \"9\" [label = \"🎬 Arrays\", URL = \"https://youtu.be/ELFrOYNTxEU\", tooltip = \"Arrays\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"8.6,0!\"] \n  \"10\" [label = \"🎬 Dynamic arrays\", URL = \"https://youtu.be/AqYDI2Vt1mw\", tooltip = \"Dynamic arrays\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"10.6,0!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"5\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"5\"->\"9\" [color = \"black\", arrowhead = \"vee\"] \n\"5\"->\"10\" [color = \"black\", arrowhead = \"vee\"] \n\"6\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n\"7\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>If you like a different learning style there is a lot for videos about VBA online such as course <a href="https://www.youtube.com/playlist?list=PL3A6U40JUYCi4njVx59-vaUxYkG0yRO4m">14-Hour VBA Course</a>. The videos have been pointed out as extra online supplements in the learning path diagram. However, they are not necessary for the course. Since Excel change as new versions arrive and it work on different operating systems, the look in the screenshots and videos might be a bit different from your version. However, you still should be able to understand it.</p>
 </div>
 <div id="lo-vba-datatypes" class="section level2 hasAnchor" number="5.1">
@@ -1772,14 +1774,14 @@ for exercises. Guiding answers for the exercises can be found in the file
 <li>Have a look at the results in worksheet <em>TM5_FlightData</em>. The origin and destinations to search for are given in columns A and B and the search result in columns D, E and F.</li>
 <li>Try pressing the <strong>Clear Search</strong> button and see what happens. Have a look at the code in the VBA editor for this sub and get an overview.</li>
 </ol>
-<div id="hint-KPJUZOhZLocPjYV6pNWgcT3zkksxJH" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="hint-KPJUZOhZLocPjYV6pNWgcT3zkksxJH-title">
+<div id="hint-XdtgM7bPd2Q18T3gufEuUB6JQ8evDo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="hint-XdtgM7bPd2Q18T3gufEuUB6JQ8evDo-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="hint-KPJUZOhZLocPjYV6pNWgcT3zkksxJH-title1">
+<h4 class="modal-title" id="hint-XdtgM7bPd2Q18T3gufEuUB6JQ8evDo-title1">
 Hint
 </h4>
 </div>
@@ -1796,7 +1798,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#hint-KPJUZOhZLocPjYV6pNWgcT3zkksxJH">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#hint-XdtgM7bPd2Q18T3gufEuUB6JQ8evDo">
 Hint
 </button>
 <ol start="3" style="list-style-type: decimal">
@@ -1848,7 +1850,7 @@ Hint
 <h3><span class="header-section-number">5.10.10</span> Exercise - Seat reservation<a href="mod-vba-datatypes.html#ex-vba-seat-reservation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><em>This exercise is a larger assignment and is more extensive than the exam and is not a mandatory/part of curriculum. Do not expect such a large assignment at the exam. However, by doing this exercise you will improve your VBA skills which may be beneficial at the exam or when write your master thesis.</em></p>
 <p>A <a href="https://github.com/bss-osca/tfa/blob/master/vba/vba-seat-reservation-template.xlsm">template file</a> is given for this exercise, which should be used as a starting point. The file already contains skeletons for some of the procedures and some procedures that you may use to help you. Implement ALL your code in module <code>ModSeatRes</code>.</p>
-<p>This exercise considers a seat reservation problem. Consider a train with <span class="math inline">\(I\)</span> seats that is travelling between a start station <span class="math inline">\(1\)</span> and an end station <span class="math inline">\(S\)</span> with <span class="math inline">\(S-2\)</span> stations in between. All seats must be reserved and requests for seat reservations arrive on-line. For ease we assume that a request <span class="math inline">\(r\)</span> is for a single seat between a start station <span class="math inline">\(s_1(r)\)</span> and the end station <span class="math inline">\(s_2(r)\)</span>. A decision must be made immediately after the arrival of the request to either accept the request or reject it. If the request is accepted, the reservation must be assigned to a seat and this decision cannot be changed subsequently. That is, there is no knowledge about future requests. The train company want to find a strategy that accept as many requests as possible. For further references about the seat reservation problem see <span class="citation">J. Boyar and Larsen (<a href="#ref-Boyar99" role="doc-biblioref">1999</a>)</span> and <span class="citation">Joan Boyar, Krarup, and Nielsen (<a href="#ref-Boyar04" role="doc-biblioref">2004</a>)</span>.</p>
+<p>This exercise considers a seat reservation problem. Consider a train with <span class="math inline">\(I\)</span> seats that is travelling between a start station <span class="math inline">\(1\)</span> and an end station <span class="math inline">\(S\)</span> with <span class="math inline">\(S-2\)</span> stations in between. All seats must be reserved and requests for seat reservations arrive on-line. For ease we assume that a request <span class="math inline">\(r\)</span> is for a single seat between a start station <span class="math inline">\(s_1(r)\)</span> and the end station <span class="math inline">\(s_2(r)\)</span>. A decision must be made immediately after the arrival of the request to either accept the request or reject it. If the request is accepted, the reservation must be assigned to a seat and this decision cannot be changed subsequently. That is, there is no knowledge about future requests. The train company want to find a strategy that accept as many requests as possible. For further references about the seat reservation problem see <span class="citation">J. Boyar and Larsen (<a href="#ref-Boyar99">1999</a>)</span> and <span class="citation">Joan Boyar, Krarup, and Nielsen (<a href="#ref-Boyar04">2004</a>)</span>.</p>
 <p>Consider the following requests arriving for a train with 3 seats and 14 stations:</p>
 <table>
 <thead>
@@ -1984,7 +1986,7 @@ How do the two statistics develop as the number of seats increase?</li>
 </div>
 </div>
 <h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-Boyar99" class="csl-entry">
 Boyar, J., and K. S. Larsen. 1999. <span>“The Seat Reservation Problem.”</span> <em>Algorithmica</em> 25 (4): 403–17. <a href="https://doi.org/10.1007/pl00009286">https://doi.org/10.1007/pl00009286</a>.
 </div>
