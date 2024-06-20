@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>E VBA specific topics | Tools for Analytics (TFA)</title>
   <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="E VBA specific topics | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2024-01-24" />
+<meta name="date" content="2024-06-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,35 +52,36 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="libs/viz-1.8.2/viz.js"></script>
 <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-<script src="libs/grViz-binding-1.0.10/grViz.js"></script>
+<script src="libs/grViz-binding-1.0.11/grViz.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.1.2/leaflet.js"></script>
-<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.1.2/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
 <link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
 <script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
 <link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.28/datatables.js"></script>
-<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
 <link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <html>
 <head>
 <script>
@@ -104,7 +105,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -176,6 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -581,7 +583,7 @@ div.csl-indent {
 <p>In the <strong>Locals</strong> window you can see the values of the variables as you run you code.
 <!-- In the **Immediate** window you can add output using the [`Debug.Print`](https://www.automateexcel.com/vba/debug-print-immediate-window/) and test code.   --></p>
 <p>Finally, if you want to run the program until a specific line or code then insert a break-point by clicking the margin of that line in the VBA editor. Next, run you sub and the debugger will stop at that line.</p>
-<p>For more details you may have a look at Chapter 9 in <span class="citation">Wøhlk (<a href="#ref-vba-book" role="doc-biblioref">2010</a>)</span> or the videos <a href="https://youtu.be/AONXBZdx20Y">Debug toolbar</a>, <a href="https://youtu.be/BC8py7Ce2rg">Locals window</a> and <a href="https://youtu.be/k_1zrFdlZCU">Breakpoints</a>.</p>
+<p>For more details you may have a look at Chapter 9 in <span class="citation">Wøhlk (<a href="#ref-vba-book">2010</a>)</span> or the videos <a href="https://youtu.be/AONXBZdx20Y">Debug toolbar</a>, <a href="https://youtu.be/BC8py7Ce2rg">Locals window</a> and <a href="https://youtu.be/k_1zrFdlZCU">Breakpoints</a>.</p>
 </div>
 <div id="error-handling" class="section level2 hasAnchor" number="21.2">
 <h2><span class="header-section-number">E.2</span> Error handling<a href="apdx-vba.html#error-handling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1390,23 +1392,15 @@ Rename a worksheet if it exists and no sheet with the new name
 )</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-Range to clear.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">Range to clear.</td>
 </tr>
 </tbody>
 </table>
@@ -1423,64 +1417,40 @@ Range to clear.
    Optional wrap As Boolean = False
 )</code></pre>
 <table>
+<colgroup>
+<col width="10%" />
+<col width="89%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-Range to format.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">Range to format.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>color</code>
-</td>
-<td style="text-align:left;">
-A string equal "normal", "yellow", "orange" or "green" (otherwise leave background as is).
-</td>
+<tr class="even">
+<td align="left"><code>color</code></td>
+<td align="left">A string equal “normal”, “yellow”, “orange” or “green” (otherwise leave background as is).</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>fit</code>
-</td>
-<td style="text-align:left;">
-Autofit width?
-</td>
+<tr class="odd">
+<td align="left"><code>fit</code></td>
+<td align="left">Autofit width?</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>vertical</code>
-</td>
-<td style="text-align:left;">
-Make orientation vertical?
-</td>
+<tr class="even">
+<td align="left"><code>vertical</code></td>
+<td align="left">Make orientation vertical?</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>merge</code>
-</td>
-<td style="text-align:left;">
-Merge range?
-</td>
+<tr class="odd">
+<td align="left"><code>merge</code></td>
+<td align="left">Merge range?</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>wrap</code>
-</td>
-<td style="text-align:left;">
-Wrap text?
-</td>
+<tr class="even">
+<td align="left"><code>wrap</code></td>
+<td align="left">Wrap text?</td>
 </tr>
 </tbody>
 </table>
@@ -1506,23 +1476,15 @@ Wrap text?
 ) As Long</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range within the currentregion
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range within the currentregion</td>
 </tr>
 </tbody>
 </table>
@@ -1545,23 +1507,15 @@ A range within the currentregion
 ) As Long</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range within the currentregion
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range within the currentregion</td>
 </tr>
 </tbody>
 </table>
@@ -1584,23 +1538,15 @@ A range within the currentregion
 ) As String</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>lngCol</code>
-</td>
-<td style="text-align:left;">
-Column number.
-</td>
+<tr class="odd">
+<td align="left"><code>lngCol</code></td>
+<td align="left">Column number.</td>
 </tr>
 </tbody>
 </table>
@@ -1613,23 +1559,15 @@ Column number.
 ) As Long</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range within the currentregion
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range within the currentregion</td>
 </tr>
 </tbody>
 </table>
@@ -1653,23 +1591,15 @@ A range within the currentregion
 ) As Variant</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range within the currentregion
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range within the currentregion</td>
 </tr>
 </tbody>
 </table>
@@ -1692,23 +1622,15 @@ A range within the currentregion
 ) As Long</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range within the currentregion
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range within the currentregion</td>
 </tr>
 </tbody>
 </table>
@@ -1732,23 +1654,15 @@ A range within the currentregion
 ) As Variant</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range within the currentregion
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range within the currentregion</td>
 </tr>
 </tbody>
 </table>
@@ -1773,39 +1687,23 @@ A range within the currentregion
 ) As Range</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range within the currentregion
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range within the currentregion</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>row</code>
-</td>
-<td style="text-align:left;">
-First row number in the current range.
-</td>
+<tr class="even">
+<td align="left"><code>row</code></td>
+<td align="left">First row number in the current range.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>col</code>
-</td>
-<td style="text-align:left;">
-First column number in the current range.
-</td>
+<tr class="odd">
+<td align="left"><code>col</code></td>
+<td align="left">First column number in the current range.</td>
 </tr>
 </tbody>
 </table>
@@ -1820,32 +1718,24 @@ First column number in the current range.
    Optional asString As Boolean = False
 ) As Variant</code></pre>
 <table>
+<colgroup>
+<col width="15%" />
+<col width="84%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range within the currentregion
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range within the currentregion</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>asString</code>
-</td>
-<td style="text-align:left;">
-Return as R1C1 string; otherwise return a Range to the cell.
-</td>
+<tr class="even">
+<td align="left"><code>asString</code></td>
+<td align="left">Return as R1C1 string; otherwise return a Range to the cell.</td>
 </tr>
 </tbody>
 </table>
@@ -1870,32 +1760,24 @@ Return as R1C1 string; otherwise return a Range to the cell.
    Optional asString As Boolean = False
 ) As Variant</code></pre>
 <table>
+<colgroup>
+<col width="15%" />
+<col width="84%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range within the currentregion
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range within the currentregion</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>asString</code>
-</td>
-<td style="text-align:left;">
-Return as R1C1 string; otherwise return a Range to the cell.
-</td>
+<tr class="even">
+<td align="left"><code>asString</code></td>
+<td align="left">Return as R1C1 string; otherwise return a Range to the cell.</td>
 </tr>
 </tbody>
 </table>
@@ -1920,32 +1802,24 @@ Return as R1C1 string; otherwise return a Range to the cell.
    Optional asString As Boolean = False
 ) As Variant</code></pre>
 <table>
+<colgroup>
+<col width="15%" />
+<col width="84%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range within the currentregion
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range within the currentregion</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>asString</code>
-</td>
-<td style="text-align:left;">
-Return as R1C1 string; otherwise return a Range to the cell.
-</td>
+<tr class="even">
+<td align="left"><code>asString</code></td>
+<td align="left">Return as R1C1 string; otherwise return a Range to the cell.</td>
 </tr>
 </tbody>
 </table>
@@ -1970,32 +1844,24 @@ Return as R1C1 string; otherwise return a Range to the cell.
    Optional asString As Boolean = False
 ) As Variant</code></pre>
 <table>
+<colgroup>
+<col width="15%" />
+<col width="84%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range within the currentregion
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range within the currentregion</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>asString</code>
-</td>
-<td style="text-align:left;">
-Return as R1C1 string; otherwise return a Range to the cell.
-</td>
+<tr class="even">
+<td align="left"><code>asString</code></td>
+<td align="left">Return as R1C1 string; otherwise return a Range to the cell.</td>
 </tr>
 </tbody>
 </table>
@@ -2021,22 +1887,15 @@ Return as R1C1 string; otherwise return a Range to the cell.
 ) As Range</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>character(</code>
-</td>
-<td style="text-align:left;">
-</td>
+<tr class="odd">
+<td align="left"><code>character(</code></td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>
@@ -2056,39 +1915,23 @@ Description
 ) As Range</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-The range to paste
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">The range to paste</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>rngUL</code>
-</td>
-<td style="text-align:left;">
-The upper left cell to paste to.
-</td>
+<tr class="even">
+<td align="left"><code>rngUL</code></td>
+<td align="left">The upper left cell to paste to.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>withFormat</code>
-</td>
-<td style="text-align:left;">
-If true also copy cell format too.
-</td>
+<tr class="odd">
+<td align="left"><code>withFormat</code></td>
+<td align="left">If true also copy cell format too.</td>
 </tr>
 </tbody>
 </table>
@@ -2115,48 +1958,32 @@ If true also copy cell format too.
    Optional blnFormat As Boolean = False
 )</code></pre>
 <table>
+<colgroup>
+<col width="19%" />
+<col width="80%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-Range to clear.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">Range to clear.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnCells</code>
-</td>
-<td style="text-align:left;">
-Delete cell contents, formats, comments, etc. (default).
-</td>
+<tr class="even">
+<td align="left"><code>blnCells</code></td>
+<td align="left">Delete cell contents, formats, comments, etc. (default).</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnContents</code>
-</td>
-<td style="text-align:left;">
-Delete cell contents.
-</td>
+<tr class="odd">
+<td align="left"><code>blnContents</code></td>
+<td align="left">Delete cell contents.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnFormat</code>
-</td>
-<td style="text-align:left;">
-Delete cell format.
-</td>
+<tr class="even">
+<td align="left"><code>blnFormat</code></td>
+<td align="left">Delete cell format.</td>
 </tr>
 </tbody>
 </table>
@@ -2181,23 +2008,15 @@ Delete cell format.
 ) As Range</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-The range to get the current region from.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">The range to get the current region from.</td>
 </tr>
 </tbody>
 </table>
@@ -2219,23 +2038,15 @@ The range to get the current region from.
 ) As String</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-The range to get the current region from.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">The range to get the current region from.</td>
 </tr>
 </tbody>
 </table>
@@ -2257,23 +2068,15 @@ The range to get the current region from.
 ) As String</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-The range to get the current region from
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">The range to get the current region from</td>
 </tr>
 </tbody>
 </table>
@@ -2295,23 +2098,15 @@ The range to get the current region from
 ) As Long</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range.</td>
 </tr>
 </tbody>
 </table>
@@ -2333,23 +2128,15 @@ A range.
 ) As Long</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range.</td>
 </tr>
 </tbody>
 </table>
@@ -2371,23 +2158,15 @@ A range.
 ) As Long</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range.</td>
 </tr>
 </tbody>
 </table>
@@ -2410,23 +2189,15 @@ A range.
 ) As Variant</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range.</td>
 </tr>
 </tbody>
 </table>
@@ -2448,23 +2219,15 @@ A range.
 ) As Long</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range.</td>
 </tr>
 </tbody>
 </table>
@@ -2487,23 +2250,15 @@ A range.
 ) As Variant</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range.</td>
 </tr>
 </tbody>
 </table>
@@ -2527,39 +2282,23 @@ A range.
 ) As Range</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>row</code>
-</td>
-<td style="text-align:left;">
-Row number in the current range.
-</td>
+<tr class="even">
+<td align="left"><code>row</code></td>
+<td align="left">Row number in the current range.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>col</code>
-</td>
-<td style="text-align:left;">
-Column number in the current range.
-</td>
+<tr class="odd">
+<td align="left"><code>col</code></td>
+<td align="left">Column number in the current range.</td>
 </tr>
 </tbody>
 </table>
@@ -2575,23 +2314,15 @@ Column number in the current range.
 ) As Variant</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range.</td>
 </tr>
 </tbody>
 </table>
@@ -2611,32 +2342,24 @@ A range.
    Optional asString As Boolean = False
 ) As Variant</code></pre>
 <table>
+<colgroup>
+<col width="14%" />
+<col width="85%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>asString</code>
-</td>
-<td style="text-align:left;">
-Return as address string; otherwise return a Range to the cell.
-</td>
+<tr class="even">
+<td align="left"><code>asString</code></td>
+<td align="left">Return as address string; otherwise return a Range to the cell.</td>
 </tr>
 </tbody>
 </table>
@@ -2656,32 +2379,24 @@ Return as address string; otherwise return a Range to the cell.
    Optional asString As Boolean = False
 ) As Variant</code></pre>
 <table>
+<colgroup>
+<col width="15%" />
+<col width="84%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>asString</code>
-</td>
-<td style="text-align:left;">
-Return as R1C1 string; otherwise return a Range to the cell.
-</td>
+<tr class="even">
+<td align="left"><code>asString</code></td>
+<td align="left">Return as R1C1 string; otherwise return a Range to the cell.</td>
 </tr>
 </tbody>
 </table>
@@ -2703,32 +2418,24 @@ Return as R1C1 string; otherwise return a Range to the cell.
    Optional asString As Boolean = False
 ) As Variant</code></pre>
 <table>
+<colgroup>
+<col width="15%" />
+<col width="84%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-A range.
-</td>
+<tr class="odd">
+<td align="left"><code>rng</code></td>
+<td align="left">A range.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>asString</code>
-</td>
-<td style="text-align:left;">
-Return as R1C1 string; otherwise return a Range to the cell.
-</td>
+<tr class="even">
+<td align="left"><code>asString</code></td>
+<td align="left">Return as R1C1 string; otherwise return a Range to the cell.</td>
 </tr>
 </tbody>
 </table>
@@ -2753,56 +2460,36 @@ Return as R1C1 string; otherwise return a Range to the cell.
    Optional blnAbsPath As Boolean = False
 )</code></pre>
 <table>
+<colgroup>
+<col width="13%" />
+<col width="86%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>strFileName</code>
-</td>
-<td style="text-align:left;">
-File name.
-</td>
+<tr class="odd">
+<td align="left"><code>strFileName</code></td>
+<td align="left">File name.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-Range given the upper left cell of where to place the data.
-</td>
+<tr class="even">
+<td align="left"><code>rng</code></td>
+<td align="left">Range given the upper left cell of where to place the data.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>strDelim</code>
-</td>
-<td style="text-align:left;">
-Delimiter, e.g. "," in a comma delimited file.
-</td>
+<tr class="odd">
+<td align="left"><code>strDelim</code></td>
+<td align="left">Delimiter, e.g. “,” in a comma delimited file.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnAddCharacter</code>
-</td>
-<td style="text-align:left;">
-Add quotes around values.
-</td>
+<tr class="even">
+<td align="left"><code>blnAddCharacter</code></td>
+<td align="left">Add quotes around values.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnAbsPath</code>
-</td>
-<td style="text-align:left;">
-If true strName specify the absolute path otherwise create the folder as a subfolder to the current file placement.
-</td>
+<tr class="odd">
+<td align="left"><code>blnAbsPath</code></td>
+<td align="left">If true strName specify the absolute path otherwise create the folder as a subfolder to the current file placement.</td>
 </tr>
 </tbody>
 </table>
@@ -2828,56 +2515,36 @@ If true strName specify the absolute path otherwise create the folder as a subfo
    Optional blnAbsPath As Boolean = False
 ) As Range</code></pre>
 <table>
+<colgroup>
+<col width="15%" />
+<col width="84%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>strFileName</code>
-</td>
-<td style="text-align:left;">
-File name.
-</td>
+<tr class="odd">
+<td align="left"><code>strFileName</code></td>
+<td align="left">File name.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>rngUL</code>
-</td>
-<td style="text-align:left;">
-The upper left cell of where to place the data.
-</td>
+<tr class="even">
+<td align="left"><code>rngUL</code></td>
+<td align="left">The upper left cell of where to place the data.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>strDelim</code>
-</td>
-<td style="text-align:left;">
-Delimiter, e.g. "," in a comma delimited file.
-</td>
+<tr class="odd">
+<td align="left"><code>strDelim</code></td>
+<td align="left">Delimiter, e.g. “,” in a comma delimited file.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>strExcludeCharacter</code>
-</td>
-<td style="text-align:left;">
-Sometimes csv files have quotes around strings ("value"). If strExcludeCharacter = """" then removes the quotes.
-</td>
+<tr class="even">
+<td align="left"><code>strExcludeCharacter</code></td>
+<td align="left">Sometimes csv files have quotes around strings (“value”). If strExcludeCharacter = “““” then removes the quotes.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnAbsPath</code>
-</td>
-<td style="text-align:left;">
-If true strName specify the absolute path otherwise create the folder as a subfolder to the current file placement.
-</td>
+<tr class="odd">
+<td align="left"><code>blnAbsPath</code></td>
+<td align="left">If true strName specify the absolute path otherwise create the folder as a subfolder to the current file placement.</td>
 </tr>
 </tbody>
 </table>
@@ -2902,23 +2569,15 @@ If true strName specify the absolute path otherwise create the folder as a subfo
 ) As Integer</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-The array.
-</td>
+<tr class="odd">
+<td align="left"><code>ary</code></td>
+<td align="left">The array.</td>
 </tr>
 </tbody>
 </table>
@@ -2932,31 +2591,19 @@ The array.
 ) As String</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-A 1D or 2D array.
-</td>
+<tr class="odd">
+<td align="left"><code>ary</code></td>
+<td align="left">A 1D or 2D array.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>strSep</code>
-</td>
-<td style="text-align:left;">
-Seperator used to seperate the values.
-</td>
+<tr class="even">
+<td align="left"><code>strSep</code></td>
+<td align="left">Seperator used to seperate the values.</td>
 </tr>
 </tbody>
 </table>
@@ -2984,39 +2631,23 @@ Seperator used to seperate the values.
 )</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-The array.
-</td>
+<tr class="odd">
+<td align="left"><code>ary</code></td>
+<td align="left">The array.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-The upper left cell of the printed cells.
-</td>
+<tr class="even">
+<td align="left"><code>rng</code></td>
+<td align="left">The upper left cell of the printed cells.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnRowwise</code>
-</td>
-<td style="text-align:left;">
-Paste the 1D array as a column or row (default).
-</td>
+<tr class="odd">
+<td align="left"><code>blnRowwise</code></td>
+<td align="left">Paste the 1D array as a column or row (default).</td>
 </tr>
 </tbody>
 </table>
@@ -3053,47 +2684,27 @@ Paste the 1D array as a column or row (default).
 )</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-The 2D array.
-</td>
+<tr class="odd">
+<td align="left"><code>ary</code></td>
+<td align="left">The 2D array.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>intRowIdx</code>
-</td>
-<td style="text-align:left;">
-The index of the row to paste.
-</td>
+<tr class="even">
+<td align="left"><code>intRowIdx</code></td>
+<td align="left">The index of the row to paste.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>rngUL</code>
-</td>
-<td style="text-align:left;">
-The upper left cell of the paste area.
-</td>
+<tr class="odd">
+<td align="left"><code>rngUL</code></td>
+<td align="left">The upper left cell of the paste area.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnRowwise</code>
-</td>
-<td style="text-align:left;">
-Paste the row horizontal (default).
-</td>
+<tr class="even">
+<td align="left"><code>blnRowwise</code></td>
+<td align="left">Paste the row horizontal (default).</td>
 </tr>
 </tbody>
 </table>
@@ -3120,47 +2731,27 @@ Paste the row horizontal (default).
 )</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-The 2D array.
-</td>
+<tr class="odd">
+<td align="left"><code>ary</code></td>
+<td align="left">The 2D array.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>intColumnIdx</code>
-</td>
-<td style="text-align:left;">
-The index of the row to paste.
-</td>
+<tr class="even">
+<td align="left"><code>intColumnIdx</code></td>
+<td align="left">The index of the row to paste.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>rngUL</code>
-</td>
-<td style="text-align:left;">
-The upper left cell of the paste area.
-</td>
+<tr class="odd">
+<td align="left"><code>rngUL</code></td>
+<td align="left">The upper left cell of the paste area.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnColwise</code>
-</td>
-<td style="text-align:left;">
-Paste the column vertical (default).
-</td>
+<tr class="even">
+<td align="left"><code>blnColwise</code></td>
+<td align="left">Paste the column vertical (default).</td>
 </tr>
 </tbody>
 </table>
@@ -3185,40 +2776,28 @@ Paste the column vertical (default).
    aryRes As Variant
 )</code></pre>
 <table>
+<colgroup>
+<col width="10%" />
+<col width="89%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-The 2D array.
-</td>
+<tr class="odd">
+<td align="left"><code>ary</code></td>
+<td align="left">The 2D array.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>intRowIdx</code>
-</td>
-<td style="text-align:left;">
-The index of the row.
-</td>
+<tr class="even">
+<td align="left"><code>intRowIdx</code></td>
+<td align="left">The index of the row.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>aryRes</code>
-</td>
-<td style="text-align:left;">
-The 1D array to return (dynamic, ByRef). The array will use the same start and end index as the 2D array!
-</td>
+<tr class="odd">
+<td align="left"><code>aryRes</code></td>
+<td align="left">The 1D array to return (dynamic, ByRef). The array will use the same start and end index as the 2D array!</td>
 </tr>
 </tbody>
 </table>
@@ -3242,40 +2821,28 @@ The 1D array to return (dynamic, ByRef). The array will use the same start and e
    aryRes As Variant
 )</code></pre>
 <table>
+<colgroup>
+<col width="12%" />
+<col width="87%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-The 2D array.
-</td>
+<tr class="odd">
+<td align="left"><code>ary</code></td>
+<td align="left">The 2D array.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>intColumnIdx</code>
-</td>
-<td style="text-align:left;">
-The index of the column.
-</td>
+<tr class="even">
+<td align="left"><code>intColumnIdx</code></td>
+<td align="left">The index of the column.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>aryRes</code>
-</td>
-<td style="text-align:left;">
-The 1D array to return (dynamic, ByRef). The array will use the same start and end index as the 2D array!
-</td>
+<tr class="odd">
+<td align="left"><code>aryRes</code></td>
+<td align="left">The 1D array to return (dynamic, ByRef). The array will use the same start and end index as the 2D array!</td>
 </tr>
 </tbody>
 </table>
@@ -3301,56 +2868,36 @@ The 1D array to return (dynamic, ByRef). The array will use the same start and e
    Optional blnReduceDim As Boolean = True
 )</code></pre>
 <table>
+<colgroup>
+<col width="12%" />
+<col width="87%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-Dynamic array.
-</td>
+<tr class="odd">
+<td align="left"><code>ary</code></td>
+<td align="left">Dynamic array.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-Range to be copied.
-</td>
+<tr class="even">
+<td align="left"><code>rng</code></td>
+<td align="left">Range to be copied.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>intStartIdx1</code>
-</td>
-<td style="text-align:left;">
-Starting index for first dimension (default 1).
-</td>
+<tr class="odd">
+<td align="left"><code>intStartIdx1</code></td>
+<td align="left">Starting index for first dimension (default 1).</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>intStartIdx2</code>
-</td>
-<td style="text-align:left;">
-Starting index for second dimension (default 1).
-</td>
+<tr class="even">
+<td align="left"><code>intStartIdx2</code></td>
+<td align="left">Starting index for second dimension (default 1).</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnReduceDim</code>
-</td>
-<td style="text-align:left;">
-If true then reduce a range with 1 row or column to a 1D array. <span class="citation">(<a href="#ref-post" role="doc-biblioref"><strong>post?</strong></a>)</span> The array contains the range values
-</td>
+<tr class="odd">
+<td align="left"><code>blnReduceDim</code></td>
+<td align="left">If true then reduce a range with 1 row or column to a 1D array. <span class="citation">(<a href="#ref-post"><strong>post?</strong></a>)</span> The array contains the range values</td>
 </tr>
 </tbody>
 </table>
@@ -3384,32 +2931,24 @@ If true then reduce a range with 1 row or column to a 1D array. <span class="cit
    Optional vntDefalult As Variant = 0
 )</code></pre>
 <table>
+<colgroup>
+<col width="5%" />
+<col width="94%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-Dynamic array.
-</td>
+<tr class="odd">
+<td align="left"><code>ary</code></td>
+<td align="left">Dynamic array.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>rng</code>
-</td>
-<td style="text-align:left;">
-Range to be copied in long format, i.e. index in all columns except the last which contains the values. <span class="citation">(<a href="#ref-post" role="doc-biblioref"><strong>post?</strong></a>)</span> The array contains the range values
-</td>
+<tr class="even">
+<td align="left"><code>rng</code></td>
+<td align="left">Range to be copied in long format, i.e. index in all columns except the last which contains the values. <span class="citation">(<a href="#ref-post"><strong>post?</strong></a>)</span> The array contains the range values</td>
 </tr>
 </tbody>
 </table>
@@ -3436,23 +2975,15 @@ Range to be copied in long format, i.e. index in all columns except the last wh
 ) As Boolean</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-The variable to check.
-</td>
+<tr class="odd">
+<td align="left"><code>ary</code></td>
+<td align="left">The variable to check.</td>
 </tr>
 </tbody>
 </table>
@@ -3466,31 +2997,19 @@ The variable to check.
 )</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-A 1D to 5D array.
-</td>
+<tr class="odd">
+<td align="left"><code>ary</code></td>
+<td align="left">A 1D to 5D array.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>value</code>
-</td>
-<td style="text-align:left;">
-The value.
-</td>
+<tr class="even">
+<td align="left"><code>value</code></td>
+<td align="left">The value.</td>
 </tr>
 </tbody>
 </table>
@@ -3516,47 +3035,27 @@ The value.
 )</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-A dynamic array (use redim to resize it)
-</td>
+<tr class="odd">
+<td align="left"><code>ary</code></td>
+<td align="left">A dynamic array (use redim to resize it)</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>lngFrom</code>
-</td>
-<td style="text-align:left;">
-From value.
-</td>
+<tr class="even">
+<td align="left"><code>lngFrom</code></td>
+<td align="left">From value.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>lngTo</code>
-</td>
-<td style="text-align:left;">
-To value.
-</td>
+<tr class="odd">
+<td align="left"><code>lngTo</code></td>
+<td align="left">To value.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>lngIdx</code>
-</td>
-<td style="text-align:left;">
-Start index in the array.
-</td>
+<tr class="even">
+<td align="left"><code>lngIdx</code></td>
+<td align="left">Start index in the array.</td>
 </tr>
 </tbody>
 </table>
@@ -3581,47 +3080,27 @@ Start index in the array.
 )</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-Array to sort and return.
-</td>
+<tr class="odd">
+<td align="left"><code>ary</code></td>
+<td align="left">Array to sort and return.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>lngColumn</code>
-</td>
-<td style="text-align:left;">
-Column to sort
-</td>
+<tr class="even">
+<td align="left"><code>lngColumn</code></td>
+<td align="left">Column to sort</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>lngStartIdx</code>
-</td>
-<td style="text-align:left;">
-Start index to sort from
-</td>
+<tr class="odd">
+<td align="left"><code>lngStartIdx</code></td>
+<td align="left">Start index to sort from</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>lngEndIdx</code>
-</td>
-<td style="text-align:left;">
-End index to sort from
-</td>
+<tr class="even">
+<td align="left"><code>lngEndIdx</code></td>
+<td align="left">End index to sort from</td>
 </tr>
 </tbody>
 </table>
@@ -3649,56 +3128,36 @@ End index to sort from
    Optional lngReadFrom As Long = 1
 )</code></pre>
 <table>
+<colgroup>
+<col width="15%" />
+<col width="84%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>strFileName</code>
-</td>
-<td style="text-align:left;">
-File name.
-</td>
+<tr class="odd">
+<td align="left"><code>strFileName</code></td>
+<td align="left">File name.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>strDelim</code>
-</td>
-<td style="text-align:left;">
-Delimiter, e.g. "," in a comma delimited file.
-</td>
+<tr class="even">
+<td align="left"><code>strDelim</code></td>
+<td align="left">Delimiter, e.g. “,” in a comma delimited file.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>strExcludeCharacter</code>
-</td>
-<td style="text-align:left;">
-Sometimes csv files have quotes around strings ("value"). If strExcludeCharacter = """" then removes the quotes.
-</td>
+<tr class="odd">
+<td align="left"><code>strExcludeCharacter</code></td>
+<td align="left">Sometimes csv files have quotes around strings (“value”). If strExcludeCharacter = “““” then removes the quotes.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnAbsPath</code>
-</td>
-<td style="text-align:left;">
-If true strName specify the absolute path otherwise create the folder as a subfolder to the current file placement.
-</td>
+<tr class="even">
+<td align="left"><code>blnAbsPath</code></td>
+<td align="left">If true strName specify the absolute path otherwise create the folder as a subfolder to the current file placement.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>lngReadFrom</code>
-</td>
-<td style="text-align:left;">
-The line to read from.
-</td>
+<tr class="odd">
+<td align="left"><code>lngReadFrom</code></td>
+<td align="left">The line to read from.</td>
 </tr>
 </tbody>
 </table>
@@ -3721,23 +3180,15 @@ The line to read from.
 ) As Boolean</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>strName</code>
-</td>
-<td style="text-align:left;">
-Name of worksheet.
-</td>
+<tr class="odd">
+<td align="left"><code>strName</code></td>
+<td align="left">Name of worksheet.</td>
 </tr>
 </tbody>
 </table>
@@ -3752,23 +3203,15 @@ Name of worksheet.
 ) As Boolean</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>strName</code>
-</td>
-<td style="text-align:left;">
-Name of worksheet.
-</td>
+<tr class="odd">
+<td align="left"><code>strName</code></td>
+<td align="left">Name of worksheet.</td>
 </tr>
 </tbody>
 </table>
@@ -3784,31 +3227,19 @@ Name of worksheet.
 ) As Boolean</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>strName</code>
-</td>
-<td style="text-align:left;">
-Name of worksheet.
-</td>
+<tr class="odd">
+<td align="left"><code>strName</code></td>
+<td align="left">Name of worksheet.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnForce</code>
-</td>
-<td style="text-align:left;">
-Force deletion of worksheet if exists.
-</td>
+<tr class="even">
+<td align="left"><code>blnForce</code></td>
+<td align="left">Force deletion of worksheet if exists.</td>
 </tr>
 </tbody>
 </table>
@@ -3824,31 +3255,19 @@ Force deletion of worksheet if exists.
 ) As Boolean</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>strName</code>
-</td>
-<td style="text-align:left;">
-Name of worksheet.
-</td>
+<tr class="odd">
+<td align="left"><code>strName</code></td>
+<td align="left">Name of worksheet.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>strNewName</code>
-</td>
-<td style="text-align:left;">
-New name of worksheet.
-</td>
+<tr class="even">
+<td align="left"><code>strNewName</code></td>
+<td align="left">New name of worksheet.</td>
 </tr>
 </tbody>
 </table>
@@ -3866,56 +3285,36 @@ New name of worksheet.
    Optional blnObjects As Boolean = False
 ) As Boolean</code></pre>
 <table>
+<colgroup>
+<col width="19%" />
+<col width="80%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>strName</code>
-</td>
-<td style="text-align:left;">
-Name of worksheet.
-</td>
+<tr class="odd">
+<td align="left"><code>strName</code></td>
+<td align="left">Name of worksheet.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnCells</code>
-</td>
-<td style="text-align:left;">
-Delete cell contents, formats, comments, etc. (default).
-</td>
+<tr class="even">
+<td align="left"><code>blnCells</code></td>
+<td align="left">Delete cell contents, formats, comments, etc. (default).</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnContents</code>
-</td>
-<td style="text-align:left;">
-Delete only cell contents.
-</td>
+<tr class="odd">
+<td align="left"><code>blnContents</code></td>
+<td align="left">Delete only cell contents.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnFormat</code>
-</td>
-<td style="text-align:left;">
-Delete only cell format.
-</td>
+<tr class="even">
+<td align="left"><code>blnFormat</code></td>
+<td align="left">Delete only cell format.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>blnObjects</code>
-</td>
-<td style="text-align:left;">
-Delete cell buttons and charts too.
-</td>
+<tr class="odd">
+<td align="left"><code>blnObjects</code></td>
+<td align="left">Delete cell buttons and charts too.</td>
 </tr>
 </tbody>
 </table>
@@ -3931,31 +3330,19 @@ Delete cell buttons and charts too.
 ) As String</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>col</code>
-</td>
-<td style="text-align:left;">
-A collection.
-</td>
+<tr class="odd">
+<td align="left"><code>col</code></td>
+<td align="left">A collection.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>strSep</code>
-</td>
-<td style="text-align:left;">
-Seperator used to seperate the values.
-</td>
+<tr class="even">
+<td align="left"><code>strSep</code></td>
+<td align="left">Seperator used to seperate the values.</td>
 </tr>
 </tbody>
 </table>
@@ -3968,23 +3355,15 @@ Seperator used to seperate the values.
 ) As Collection</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>colFrom</code>
-</td>
-<td style="text-align:left;">
-The collection to copy.
-</td>
+<tr class="odd">
+<td align="left"><code>colFrom</code></td>
+<td align="left">The collection to copy.</td>
 </tr>
 </tbody>
 </table>
@@ -3995,22 +3374,15 @@ The collection to copy.
 <pre><code>Function TmStart() As Double</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>character(</code>
-</td>
-<td style="text-align:left;">
-</td>
+<tr class="odd">
+<td align="left"><code>character(</code></td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>
@@ -4027,32 +3399,24 @@ Description
    Optional strUnit As String = &quot;sec&quot;
 )</code></pre>
 <table>
+<colgroup>
+<col width="13%" />
+<col width="86%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>dblTimer</code>
-</td>
-<td style="text-align:left;">
-Timer when started the timer using timer = StartTimer().
-</td>
+<tr class="odd">
+<td align="left"><code>dblTimer</code></td>
+<td align="left">Timer when started the timer using timer = StartTimer().</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>strUnit</code>
-</td>
-<td style="text-align:left;">
-Return unit must be either ms, sec, min or hour otherwise return -1
-</td>
+<tr class="even">
+<td align="left"><code>strUnit</code></td>
+<td align="left">Return unit must be either ms, sec, min or hour otherwise return -1</td>
 </tr>
 </tbody>
 </table>
@@ -4067,22 +3431,15 @@ Return unit must be either ms, sec, min or hour otherwise return -1
 <pre><code>Sub TmSpeedOptimize()</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>character(</code>
-</td>
-<td style="text-align:left;">
-</td>
+<tr class="odd">
+<td align="left"><code>character(</code></td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>
@@ -4116,22 +3473,15 @@ Description
 <pre><code>Sub TmRestoreAfterSpeedOptimize()</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>character(</code>
-</td>
-<td style="text-align:left;">
-</td>
+<tr class="odd">
+<td align="left"><code>character(</code></td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>
@@ -4170,47 +3520,27 @@ Description
 )</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>intSize</code>
-</td>
-<td style="text-align:left;">
-Random numbers generated
-</td>
+<tr class="odd">
+<td align="left"><code>intSize</code></td>
+<td align="left">Random numbers generated</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>dblMean</code>
-</td>
-<td style="text-align:left;">
-Mean.
-</td>
+<tr class="even">
+<td align="left"><code>dblMean</code></td>
+<td align="left">Mean.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>dblSD</code>
-</td>
-<td style="text-align:left;">
-Standard deviation.
-</td>
+<tr class="odd">
+<td align="left"><code>dblSD</code></td>
+<td align="left">Standard deviation.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-Array to store the values in.
-</td>
+<tr class="even">
+<td align="left"><code>ary</code></td>
+<td align="left">Array to store the values in.</td>
 </tr>
 </tbody>
 </table>
@@ -4269,31 +3599,19 @@ Array to store the values in.
 ) As Double</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>dblMean</code>
-</td>
-<td style="text-align:left;">
-Mean.
-</td>
+<tr class="odd">
+<td align="left"><code>dblMean</code></td>
+<td align="left">Mean.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>dblSD</code>
-</td>
-<td style="text-align:left;">
-Standard deviation.
-</td>
+<tr class="even">
+<td align="left"><code>dblSD</code></td>
+<td align="left">Standard deviation.</td>
 </tr>
 </tbody>
 </table>
@@ -4311,47 +3629,27 @@ Standard deviation.
 )</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>intSize</code>
-</td>
-<td style="text-align:left;">
-Random numbers generated
-</td>
+<tr class="odd">
+<td align="left"><code>intSize</code></td>
+<td align="left">Random numbers generated</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>dblMin</code>
-</td>
-<td style="text-align:left;">
-Minimum number.
-</td>
+<tr class="even">
+<td align="left"><code>dblMin</code></td>
+<td align="left">Minimum number.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>dblMax</code>
-</td>
-<td style="text-align:left;">
-Maximum number (not included).
-</td>
+<tr class="odd">
+<td align="left"><code>dblMax</code></td>
+<td align="left">Maximum number (not included).</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-Array to store the values in.
-</td>
+<tr class="even">
+<td align="left"><code>ary</code></td>
+<td align="left">Array to store the values in.</td>
 </tr>
 </tbody>
 </table>
@@ -4410,31 +3708,19 @@ Array to store the values in.
 ) As Double</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>dblMin</code>
-</td>
-<td style="text-align:left;">
-Minimum number.
-</td>
+<tr class="odd">
+<td align="left"><code>dblMin</code></td>
+<td align="left">Minimum number.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>dblMax</code>
-</td>
-<td style="text-align:left;">
-Maximum number (not included).
-</td>
+<tr class="even">
+<td align="left"><code>dblMax</code></td>
+<td align="left">Maximum number (not included).</td>
 </tr>
 </tbody>
 </table>
@@ -4453,47 +3739,27 @@ Maximum number (not included).
 )</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>intSize</code>
-</td>
-<td style="text-align:left;">
-Random numbers generated
-</td>
+<tr class="odd">
+<td align="left"><code>intSize</code></td>
+<td align="left">Random numbers generated</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>vntMin</code>
-</td>
-<td style="text-align:left;">
-Minimum number.
-</td>
+<tr class="even">
+<td align="left"><code>vntMin</code></td>
+<td align="left">Minimum number.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>vntMax</code>
-</td>
-<td style="text-align:left;">
-Maximum number.
-</td>
+<tr class="odd">
+<td align="left"><code>vntMax</code></td>
+<td align="left">Maximum number.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-Array to store the values in.
-</td>
+<tr class="even">
+<td align="left"><code>ary</code></td>
+<td align="left">Array to store the values in.</td>
 </tr>
 </tbody>
 </table>
@@ -4552,31 +3818,19 @@ Array to store the values in.
 ) As Variant</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>vntMin</code>
-</td>
-<td style="text-align:left;">
-Minimum number.
-</td>
+<tr class="odd">
+<td align="left"><code>vntMin</code></td>
+<td align="left">Minimum number.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>vntMax</code>
-</td>
-<td style="text-align:left;">
-Maximum number.
-</td>
+<tr class="even">
+<td align="left"><code>vntMax</code></td>
+<td align="left">Maximum number.</td>
 </tr>
 </tbody>
 </table>
@@ -4595,47 +3849,27 @@ Maximum number.
 )</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>intSize</code>
-</td>
-<td style="text-align:left;">
-Random numbers generated
-</td>
+<tr class="odd">
+<td align="left"><code>intSize</code></td>
+<td align="left">Random numbers generated</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>intTrials</code>
-</td>
-<td style="text-align:left;">
-Number of trials.
-</td>
+<tr class="even">
+<td align="left"><code>intTrials</code></td>
+<td align="left">Number of trials.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>dblPr</code>
-</td>
-<td style="text-align:left;">
-Probability of success.
-</td>
+<tr class="odd">
+<td align="left"><code>dblPr</code></td>
+<td align="left">Probability of success.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-Array to store the values in.
-</td>
+<tr class="even">
+<td align="left"><code>ary</code></td>
+<td align="left">Array to store the values in.</td>
 </tr>
 </tbody>
 </table>
@@ -4694,31 +3928,19 @@ Array to store the values in.
 ) As Double</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>intTrials</code>
-</td>
-<td style="text-align:left;">
-Number of trials.
-</td>
+<tr class="odd">
+<td align="left"><code>intTrials</code></td>
+<td align="left">Number of trials.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>dblPr</code>
-</td>
-<td style="text-align:left;">
-Probability of success.
-</td>
+<tr class="even">
+<td align="left"><code>dblPr</code></td>
+<td align="left">Probability of success.</td>
 </tr>
 </tbody>
 </table>
@@ -4736,39 +3958,23 @@ Probability of success.
 )</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>intSize</code>
-</td>
-<td style="text-align:left;">
-Random numbers generated
-</td>
+<tr class="odd">
+<td align="left"><code>intSize</code></td>
+<td align="left">Random numbers generated</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>dblLambda</code>
-</td>
-<td style="text-align:left;">
-Mean.
-</td>
+<tr class="even">
+<td align="left"><code>dblLambda</code></td>
+<td align="left">Mean.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-Array to store the values in.
-</td>
+<tr class="odd">
+<td align="left"><code>ary</code></td>
+<td align="left">Array to store the values in.</td>
 </tr>
 </tbody>
 </table>
@@ -4827,23 +4033,15 @@ Array to store the values in.
 ) As Long</code></pre>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>dblLambda</code>
-</td>
-<td style="text-align:left;">
-Mean.
-</td>
+<tr class="odd">
+<td align="left"><code>dblLambda</code></td>
+<td align="left">Mean.</td>
 </tr>
 </tbody>
 </table>
@@ -4861,40 +4059,28 @@ Mean.
    ary As Variant
 )</code></pre>
 <table>
+<colgroup>
+<col width="9%" />
+<col width="90%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>intSize</code>
-</td>
-<td style="text-align:left;">
-Random numbers generated
-</td>
+<tr class="odd">
+<td align="left"><code>intSize</code></td>
+<td align="left">Random numbers generated</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>dblDens</code>
-</td>
-<td style="text-align:left;">
-The probability density. First column contains the outcome and the second the probability.
-</td>
+<tr class="even">
+<td align="left"><code>dblDens</code></td>
+<td align="left">The probability density. First column contains the outcome and the second the probability.</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<code>ary</code>
-</td>
-<td style="text-align:left;">
-Array to store the values in.
-</td>
+<tr class="odd">
+<td align="left"><code>ary</code></td>
+<td align="left">Array to store the values in.</td>
 </tr>
 </tbody>
 </table>
@@ -4952,24 +4138,20 @@ Array to store the values in.
    aryDens As Variant
 ) As Variant</code></pre>
 <table>
+<colgroup>
+<col width="9%" />
+<col width="90%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Argument
-</th>
-<th style="text-align:left;">
-Description
-</th>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<code>aryDens</code>
-</td>
-<td style="text-align:left;">
-The probability density. First column contains the outcome and the second the probability.
-</td>
+<tr class="odd">
+<td align="left"><code>aryDens</code></td>
+<td align="left">The probability density. First column contains the outcome and the second the probability.</td>
 </tr>
 </tbody>
 </table>
@@ -4992,7 +4174,7 @@ The probability density. First column contains the outcome and the second the pr
 </div>
 </div>
 <h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-vba-book" class="csl-entry">
 Wøhlk, S. 2010. <em>VBA Programming in Business Economics</em>. DJØF Publishing.
 </div>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 2 An introduction to VBA | Tools for Analytics (TFA)</title>
   <meta name="description" content="Course notes for the ‘Tools for Analytics’ course" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 2 An introduction to VBA | Tools for Analytics (TFA)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2024-01-24" />
+<meta name="date" content="2024-06-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,35 +52,36 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="libs/viz-1.8.2/viz.js"></script>
 <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-<script src="libs/grViz-binding-1.0.10/grViz.js"></script>
+<script src="libs/grViz-binding-1.0.11/grViz.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.1.2/leaflet.js"></script>
-<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.1.2/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
 <link href="libs/minichart-0.2.2/minicharts.css" rel="stylesheet" />
 <script src="libs/minichart-0.2.2/leaflet.minicharts.min.js"></script>
 <link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.28/datatables.js"></script>
-<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
 <link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <html>
 <head>
 <script>
@@ -104,7 +105,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -176,6 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -590,8 +592,8 @@ for exercises. Guiding answers for the exercises can be found in the file
 <div id="learning-path-diagram-1" class="section level4 unnumbered hasAnchor">
 <h4>Learning path diagram<a href="mod-vba-intro.html#learning-path-diagram-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Click/hover the nodes to follow links and see details.</p>
-<div id="htmlwidget-47be89e70899f3259d24" style="width:100%;height:300px;" class="grViz html-widget "></div>
-<script type="application/json" data-for="htmlwidget-47be89e70899f3259d24">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 What is VBA\", URL = \"#vba-what\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"0,6!\"] \n  \"2\" [label = \"💡 Setup Excel for VBA\", URL = \"#vba-setup\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"2.5,6!\"] \n  \"3\" [label = \"💡 Your first program\", URL = \"#vba-hello\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"6,6!\"] \n  \"4\" [label = \"💡 The macro recorder\", URL = \"#vba-macro\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"9.5,6!\"] \n  \"5\" [label = \"💡 VBA a short overview\", URL = \"#vba-overview\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"13,6!\"] \n  \"6\" [label = \"📖 Good coding pratice\", URL = \"#vba-coding-practice\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"16,6!\"] \n  \"7\" [label = \"💻 Exercises\", URL = \"#ex-vba-intro\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"18.5,6!\"] \n  \"8\" [label = \"🎬 Developer Tab\", URL = \"https://youtu.be/awEOUaw9q58\", tooltip = \"A short intro to the developer tab.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"2.5,5!\"] \n  \"9\" [label = \"🎬 The VBA Editor\", URL = \"https://youtu.be/utfS_8sWfF8\", tooltip = \"A short intro to the VBA editor.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"2.5,4!\"] \n  \"10\" [label = \"🎬 The Project Explorer\", URL = \"https://youtu.be/fp6PTbU7bXo\", tooltip = \"A short intro to the project explorer.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"2.5,3!\"] \n  \"11\" [label = \"🎬 The Properties Window\", URL = \"https://youtu.be/ks2QYKAd9Xw\", tooltip = \"A short intro to the properties window.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"2.5,2!\"] \n  \"12\" [label = \"🎬 Your First Macro\", URL = \"https://youtu.be/EQ6tDWBc8G4\", tooltip = \"How to write a sub procedure (macro).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"6,5!\"] \n  \"13\" [label = \"🎬 The macro recorder\", URL = \"https://youtu.be/J42AlhUGHH8\", tooltip = \"An introduction to the macro recorder.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"9.5,5!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"12\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"13\" [color = \"black\", arrowhead = \"vee\"] \n\"5\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"6\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n\"8\"->\"9\" [color = \"black\", arrowhead = \"vee\"] \n\"9\"->\"10\" [color = \"black\", arrowhead = \"vee\"] \n\"10\"->\"11\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-94da4921e8ee8c8c2703" style="width:100%;height:300px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-94da4921e8ee8c8c2703">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"📖 What is VBA\", URL = \"#vba-what\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"0,6!\"] \n  \"2\" [label = \"💡 Setup Excel for VBA\", URL = \"#vba-setup\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"2.5,6!\"] \n  \"3\" [label = \"💡 Your first program\", URL = \"#vba-hello\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"6,6!\"] \n  \"4\" [label = \"💡 The macro recorder\", URL = \"#vba-macro\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"9.5,6!\"] \n  \"5\" [label = \"💡 VBA a short overview\", URL = \"#vba-overview\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"13,6!\"] \n  \"6\" [label = \"📖 Good coding pratice\", URL = \"#vba-coding-practice\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"16,6!\"] \n  \"7\" [label = \"💻 Exercises\", URL = \"#ex-vba-intro\", tooltip = \"\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"egg\", margin = \"0.2\", fillcolor = \"DarkSeaGreen4\", pos = \"18.5,6!\"] \n  \"8\" [label = \"🎬 Developer Tab\", URL = \"https://youtu.be/awEOUaw9q58\", tooltip = \"A short intro to the developer tab.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"2.5,5!\"] \n  \"9\" [label = \"🎬 The VBA Editor\", URL = \"https://youtu.be/utfS_8sWfF8\", tooltip = \"A short intro to the VBA editor.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"2.5,4!\"] \n  \"10\" [label = \"🎬 The Project Explorer\", URL = \"https://youtu.be/fp6PTbU7bXo\", tooltip = \"A short intro to the project explorer.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"2.5,3!\"] \n  \"11\" [label = \"🎬 The Properties Window\", URL = \"https://youtu.be/ks2QYKAd9Xw\", tooltip = \"A short intro to the properties window.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"2.5,2!\"] \n  \"12\" [label = \"🎬 Your First Macro\", URL = \"https://youtu.be/EQ6tDWBc8G4\", tooltip = \"How to write a sub procedure (macro).\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"6,5!\"] \n  \"13\" [label = \"🎬 The macro recorder\", URL = \"https://youtu.be/J42AlhUGHH8\", tooltip = \"An introduction to the macro recorder.\", style = \"filled\", fixedsize = \"FALSE\", fontsize = \"11\", fontcolor = \"white\", penwidth = \"2\", fontname = \"Helvetica-bold\", shape = \"rect\", margin = \"0.2\", fillcolor = \"PeachPuff3\", pos = \"9.5,5!\"] \n\"1\"->\"2\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"3\" [color = \"black\", arrowhead = \"vee\"] \n\"2\"->\"8\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"4\" [color = \"black\", arrowhead = \"vee\"] \n\"3\"->\"12\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"5\" [color = \"black\", arrowhead = \"vee\"] \n\"4\"->\"13\" [color = \"black\", arrowhead = \"vee\"] \n\"5\"->\"6\" [color = \"black\", arrowhead = \"vee\"] \n\"6\"->\"7\" [color = \"black\", arrowhead = \"vee\"] \n\"8\"->\"9\" [color = \"black\", arrowhead = \"vee\"] \n\"9\"->\"10\" [color = \"black\", arrowhead = \"vee\"] \n\"10\"->\"11\" [color = \"black\", arrowhead = \"vee\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>If you like a different learning style there is a lot for videos about VBA online such as course <a href="https://www.youtube.com/playlist?list=PL3A6U40JUYCi4njVx59-vaUxYkG0yRO4m">14-Hour VBA Course</a>. The videos have been pointed out as extra online supplements in the learning path diagram. However, they are not necessary for the course. Since Excel change as new versions arrive and it work on different operating systems, the look in the screenshots and videos might be a bit different from your version. However, you still should be able to understand it.</p>
 </div>
 <div id="lo-vba-intro" class="section level2 hasAnchor" number="2.1">
@@ -1392,31 +1394,31 @@ for exercises. Guiding answers for the exercises can be found in the file
 <h3><span class="header-section-number">2.9.4</span> Exercise - Max and min number<a href="mod-vba-intro.html#ex-vba-max-min" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The worksheet <em>TM2_Numbers</em> contains a button to a procedure that generate 40 random integers in the interval <span class="math inline">\([-1000,1000]\)</span>.</p>
 <!-- Q1 -->
-<div id="hint-aro5D7mEQQpiJ6s8JNKkBWZTZrlfrU" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="hint-aro5D7mEQQpiJ6s8JNKkBWZTZrlfrU-title">
+<div id="hint-TcFijwn52MdUn6DSQWpJTVUaNFV6iK" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="hint-TcFijwn52MdUn6DSQWpJTVUaNFV6iK-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="hint-aro5D7mEQQpiJ6s8JNKkBWZTZrlfrU-title1">
+<h4 class="modal-title" id="hint-TcFijwn52MdUn6DSQWpJTVUaNFV6iK-title1">
 Hint
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="mod-vba-intro.html#cb16-1" aria-hidden="true" tabindex="-1"></a>Sub <span class="fu">TM2_FindMax</span>()</span>
-<span id="cb16-2"><a href="mod-vba-intro.html#cb16-2" aria-hidden="true" tabindex="-1"></a>    Dim intM As Integer</span>
-<span id="cb16-3"><a href="mod-vba-intro.html#cb16-3" aria-hidden="true" tabindex="-1"></a>    Dim r As Integer</span>
-<span id="cb16-4"><a href="mod-vba-intro.html#cb16-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb16-5"><a href="mod-vba-intro.html#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Worksheets</span>(<span class="st">&quot;TM2_Numbers&quot;</span>).Activate</span>
-<span id="cb16-6"><a href="mod-vba-intro.html#cb16-6" aria-hidden="true" tabindex="-1"></a>    intM <span class="ot">=</span> <span class="sc">-</span><span class="dv">1001</span></span>
-<span id="cb16-7"><a href="mod-vba-intro.html#cb16-7" aria-hidden="true" tabindex="-1"></a>    For r <span class="ot">=</span> <span class="dv">1</span> To <span class="dv">40</span></span>
-<span id="cb16-8"><a href="mod-vba-intro.html#cb16-8" aria-hidden="true" tabindex="-1"></a>        If <span class="fu">Cells</span>(r, <span class="dv">1</span>) ___ intM Then</span>
-<span id="cb16-9"><a href="mod-vba-intro.html#cb16-9" aria-hidden="true" tabindex="-1"></a>            intM <span class="ot">=</span> ___</span>
-<span id="cb16-10"><a href="mod-vba-intro.html#cb16-10" aria-hidden="true" tabindex="-1"></a>        End If</span>
-<span id="cb16-11"><a href="mod-vba-intro.html#cb16-11" aria-hidden="true" tabindex="-1"></a>    Next</span>
-<span id="cb16-12"><a href="mod-vba-intro.html#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Range</span>(<span class="st">&quot;D1&quot;</span>) <span class="ot">=</span> ___</span>
-<span id="cb16-13"><a href="mod-vba-intro.html#cb16-13" aria-hidden="true" tabindex="-1"></a>End Sub</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="mod-vba-intro.html#cb16-1" tabindex="-1"></a>Sub <span class="fu">TM2_FindMax</span>()</span>
+<span id="cb16-2"><a href="mod-vba-intro.html#cb16-2" tabindex="-1"></a>    Dim intM As Integer</span>
+<span id="cb16-3"><a href="mod-vba-intro.html#cb16-3" tabindex="-1"></a>    Dim r As Integer</span>
+<span id="cb16-4"><a href="mod-vba-intro.html#cb16-4" tabindex="-1"></a>    </span>
+<span id="cb16-5"><a href="mod-vba-intro.html#cb16-5" tabindex="-1"></a>    <span class="fu">Worksheets</span>(<span class="st">&quot;TM2_Numbers&quot;</span>).Activate</span>
+<span id="cb16-6"><a href="mod-vba-intro.html#cb16-6" tabindex="-1"></a>    intM <span class="ot">=</span> <span class="sc">-</span><span class="dv">1001</span></span>
+<span id="cb16-7"><a href="mod-vba-intro.html#cb16-7" tabindex="-1"></a>    For r <span class="ot">=</span> <span class="dv">1</span> To <span class="dv">40</span></span>
+<span id="cb16-8"><a href="mod-vba-intro.html#cb16-8" tabindex="-1"></a>        If <span class="fu">Cells</span>(r, <span class="dv">1</span>) ___ intM Then</span>
+<span id="cb16-9"><a href="mod-vba-intro.html#cb16-9" tabindex="-1"></a>            intM <span class="ot">=</span> ___</span>
+<span id="cb16-10"><a href="mod-vba-intro.html#cb16-10" tabindex="-1"></a>        End If</span>
+<span id="cb16-11"><a href="mod-vba-intro.html#cb16-11" tabindex="-1"></a>    Next</span>
+<span id="cb16-12"><a href="mod-vba-intro.html#cb16-12" tabindex="-1"></a>    <span class="fu">Range</span>(<span class="st">&quot;D1&quot;</span>) <span class="ot">=</span> ___</span>
+<span id="cb16-13"><a href="mod-vba-intro.html#cb16-13" tabindex="-1"></a>End Sub</span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1426,7 +1428,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#hint-aro5D7mEQQpiJ6s8JNKkBWZTZrlfrU">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#hint-TcFijwn52MdUn6DSQWpJTVUaNFV6iK">
 Hint
 </button>
 <ol style="list-style-type: decimal">
@@ -1434,31 +1436,31 @@ Hint
 <li>Create a procedure that use loops and conditional statements to find the minimum number and write it to cell D2. Assign the procedure to button <em>Find min</em>.</li>
 </ol>
 <!-- Q3 -->
-<div id="hint-G83V11zVmT6wRLFDI1TV8uFoqkHcaW" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="hint-G83V11zVmT6wRLFDI1TV8uFoqkHcaW-title">
+<div id="hint-sF0P1m8DiqFlw9soXEJXDUyZUgySPr" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="hint-sF0P1m8DiqFlw9soXEJXDUyZUgySPr-title">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">×</span>
 </button>
-<h4 class="modal-title" id="hint-G83V11zVmT6wRLFDI1TV8uFoqkHcaW-title1">
+<h4 class="modal-title" id="hint-sF0P1m8DiqFlw9soXEJXDUyZUgySPr-title1">
 Hint
 </h4>
 </div>
 <div class="modal-body">
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="mod-vba-intro.html#cb17-1" aria-hidden="true" tabindex="-1"></a>Sub <span class="fu">TM2_FindRange</span>()</span>
-<span id="cb17-2"><a href="mod-vba-intro.html#cb17-2" aria-hidden="true" tabindex="-1"></a>    Dim intM1 As Integer</span>
-<span id="cb17-3"><a href="mod-vba-intro.html#cb17-3" aria-hidden="true" tabindex="-1"></a>    Dim intM2 As Integer</span>
-<span id="cb17-4"><a href="mod-vba-intro.html#cb17-4" aria-hidden="true" tabindex="-1"></a>    Dim r As Integer</span>
-<span id="cb17-5"><a href="mod-vba-intro.html#cb17-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb17-6"><a href="mod-vba-intro.html#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Worksheets</span>(<span class="st">&quot;TM2_Numbers&quot;</span>).Activate</span>
-<span id="cb17-7"><a href="mod-vba-intro.html#cb17-7" aria-hidden="true" tabindex="-1"></a>    intM1 <span class="ot">=</span> <span class="dv">1001</span></span>
-<span id="cb17-8"><a href="mod-vba-intro.html#cb17-8" aria-hidden="true" tabindex="-1"></a>    intM2 <span class="ot">=</span> <span class="sc">-</span><span class="dv">1001</span></span>
-<span id="cb17-9"><a href="mod-vba-intro.html#cb17-9" aria-hidden="true" tabindex="-1"></a>    For r <span class="ot">=</span> <span class="dv">1</span> To <span class="dv">40</span></span>
-<span id="cb17-10"><a href="mod-vba-intro.html#cb17-10" aria-hidden="true" tabindex="-1"></a>        ___</span>
-<span id="cb17-11"><a href="mod-vba-intro.html#cb17-11" aria-hidden="true" tabindex="-1"></a>    Next</span>
-<span id="cb17-12"><a href="mod-vba-intro.html#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Range</span>(<span class="st">&quot;D3&quot;</span>) <span class="ot">=</span> <span class="st">&quot;[&quot;</span> <span class="sc">&amp;</span> intM1 <span class="sc">&amp;</span> <span class="st">&quot;,&quot;</span> <span class="sc">&amp;</span> intM2 <span class="sc">&amp;</span> <span class="st">&quot;]&quot;</span></span>
-<span id="cb17-13"><a href="mod-vba-intro.html#cb17-13" aria-hidden="true" tabindex="-1"></a>End Sub</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="mod-vba-intro.html#cb17-1" tabindex="-1"></a>Sub <span class="fu">TM2_FindRange</span>()</span>
+<span id="cb17-2"><a href="mod-vba-intro.html#cb17-2" tabindex="-1"></a>    Dim intM1 As Integer</span>
+<span id="cb17-3"><a href="mod-vba-intro.html#cb17-3" tabindex="-1"></a>    Dim intM2 As Integer</span>
+<span id="cb17-4"><a href="mod-vba-intro.html#cb17-4" tabindex="-1"></a>    Dim r As Integer</span>
+<span id="cb17-5"><a href="mod-vba-intro.html#cb17-5" tabindex="-1"></a>    </span>
+<span id="cb17-6"><a href="mod-vba-intro.html#cb17-6" tabindex="-1"></a>    <span class="fu">Worksheets</span>(<span class="st">&quot;TM2_Numbers&quot;</span>).Activate</span>
+<span id="cb17-7"><a href="mod-vba-intro.html#cb17-7" tabindex="-1"></a>    intM1 <span class="ot">=</span> <span class="dv">1001</span></span>
+<span id="cb17-8"><a href="mod-vba-intro.html#cb17-8" tabindex="-1"></a>    intM2 <span class="ot">=</span> <span class="sc">-</span><span class="dv">1001</span></span>
+<span id="cb17-9"><a href="mod-vba-intro.html#cb17-9" tabindex="-1"></a>    For r <span class="ot">=</span> <span class="dv">1</span> To <span class="dv">40</span></span>
+<span id="cb17-10"><a href="mod-vba-intro.html#cb17-10" tabindex="-1"></a>        ___</span>
+<span id="cb17-11"><a href="mod-vba-intro.html#cb17-11" tabindex="-1"></a>    Next</span>
+<span id="cb17-12"><a href="mod-vba-intro.html#cb17-12" tabindex="-1"></a>    <span class="fu">Range</span>(<span class="st">&quot;D3&quot;</span>) <span class="ot">=</span> <span class="st">&quot;[&quot;</span> <span class="sc">&amp;</span> intM1 <span class="sc">&amp;</span> <span class="st">&quot;,&quot;</span> <span class="sc">&amp;</span> intM2 <span class="sc">&amp;</span> <span class="st">&quot;]&quot;</span></span>
+<span id="cb17-13"><a href="mod-vba-intro.html#cb17-13" tabindex="-1"></a>End Sub</span></code></pre></div>
 </div>
 <div class="modal-footer">
 <button class="btn btn-default" data-dismiss="modal">
@@ -1468,7 +1470,7 @@ Close
 </div>
 </div>
 </div>
-<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#hint-G83V11zVmT6wRLFDI1TV8uFoqkHcaW">
+<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#hint-sF0P1m8DiqFlw9soXEJXDUyZUgySPr">
 Hint
 </button>
 <ol start="3" style="list-style-type: decimal">
