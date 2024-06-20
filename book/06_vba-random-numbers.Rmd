@@ -672,6 +672,58 @@ $$
    - Stores the results in worksheet _TM6_Functions_. 
 
 
+
+### Exercise - Customer demand {#ex-vba-customer-demand}
+
+*This exercise is a slightly modified version an exam assignment (exam 2024-A2).*
+
+A company sells a product and the demand $D$ of the product depends on the price $p$. The demand has been estimated to be $D = D_1 + D_2$, where $D_i$ denote the demand from Customer Segment $i$. The demand from Customer Segment 1 is stochastic and follows a custom discrete distribution:
+
+   * $D_1=\frac{625}{p}-5$ with probability $0.25$
+   * $D_1=\frac{625}{p}$ with probability $0.5$
+   * $D_1=\frac{625}{p}+5$ with probability $0.25$
+
+The demand from Customer Segment 2 is stochastic and follows a Possion distribution with parameter/mean equal to $8000/p^2$. Hint: The course procedure `RandInvPoisson` stored in module `ModRand` may be useful. 
+
+Write a set of VBA procedures that answer/complete the following questions/tasks. All procedures should be documented using a skeleton similar to the examples given in the course notes ([Section D1](https://bss-osca.github.io/tfa/coding-convention.html#commenting-your-code)).
+
+1) Create two procedures `TM6_Demand1` and `TM6_Demand2` that return the stochastic demand $D_1$ and $D_2$ given a price. Next, create a procedure `TM6_Demand` that use the procedures `TM6_Demand1` and `TM6_Demand2` to calculate the total stochastic demand. 
+
+
+2) The company has a production capacity of 75 units. If the demand is above the production capacity then sales is 75 and the remaining demand is lost at a cost of $l$ DKK per unit. The profit is given by the sales revenue minus the lost sales cost.
+
+   Create a procedure `TM6_Profit` that calculates the profit given price $p$ and lost sales cost $l$ with the following features:
+   
+     - Stochastic demand are used inside the procedure and returned (`ByRef`)
+     - The number of sold units is returned (`ByRef`).
+     - The number of lost sales units is returned (`ByRef`).
+     - The profit is returned (`ByRef`).
+     - The default value of $l$ is 10 DKK.
+
+   You may test `TM6_Profit` using procedure `TM6_ProfitTest`:
+
+   ```
+   Sub TM6_ProfitTest()
+      Dim dblDemand As Double
+      Dim dblSold As Double
+      Dim dblLost As Double
+      Dim dblProfit As Double
+      
+      Call TM6_Profit(20, dblDemand, dblSold, dblLost, dblProfit, dblCost:=20)
+      MsgBox ("The profit is " & dblProfit)
+   End Sub
+   ```
+
+
+3) The company consider setting the price $p$ of the product in the range $5, \ldots, 40$. Make a procedure `TM6_ProfitSim` that does a simulation with the following features:
+
+     - An input box is used to give the lost sales cost $l$.
+     - Given a price calculate measures: demand, number of sold units, number of lost sales units and the profit. 
+     - For each price in the range do 500 runs and calculate the averages for each measure. 
+     - Output the results in worksheet _TM6_CustDemand_ so one row is given for each price with the averages.
+   
+   Add a button running the procedure to worksheet _TM6_CustDemand_. Which price gives the best profit given $l=15$ (add this as a comment inside the procedure)?
+     
   
   
 ```{r links, child="links.md", include=FALSE}
