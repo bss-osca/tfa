@@ -723,6 +723,59 @@ Write a set of VBA procedures that answer/complete the following questions/tasks
      - Output the results in worksheet _TM6_CustDemand_ so one row is given for each price with the averages.
    
    Add a button running the procedure to worksheet _TM6_CustDemand_. Which price gives the best profit given $l=15$ (add this as a comment inside the procedure)?
+   
+   
+   
+   
+   
+### Exercise - A simple game {#ex-vba-simple-game}
+
+Consider a simple game using an uneven dice with outcomes 1-8. The outcome $D$ of the dice follows a custom discrete distribution (unknown to the player):
+$$
+\Pr(D = x) = 
+\begin{cases}
+			0.1,      & x = 1, 2, 4, 5, 7\\
+			0.3,      & x = 3\\
+			0.15,     & x = 6\\	
+			0.05,     & x = 8
+\end{cases}
+$$
+
+The player of the game bet on an outcome $x$, next he throws the dice 6 times and wins if the dice hit $x$ at least one time.   
+
+Write a set of VBA procedures that answer/complete the following questions/tasks. All procedures MUST be documented using a skeleton similar to the examples given in the course notes ([Section D1](#coding-convention)).
+
+(1) Create a function `TM6_PlayAGame` that returns true if the game is won given argument $x$ (the number to bet on); otherwise false is returned.
+
+
+(2) Create a procedure `TM6_Play` with the following features:
+
+     - Use an input box to ask for the number $x$ to bet on.
+     - Play the game 4 times and store the results of each play in a collection.
+     - Use message box(s) to output which games you won or that you did not win any games. 
+   
+      Add a button running the procedure to worksheet _TM6_Game_. 
+
+
+(3) If you bet on number $x$ then it costs you $x/2$ and if you win then you receive $x$. That is, the profit is 
+$$
+\pi = 
+\begin{cases}
+			-x/2,      & \text{if loose}\\
+			x - x/2,   &  \text{if win}
+\end{cases}
+$$
+
+      Make a sub `TM6_SimGame` that does a simulation with the following features:
+   
+     - For each bet $x$ calculate the average profit based on 1000 runs.
+     - Output the results in worksheet _Game_ so one row is given for each bet $x$ with the bet $x$ and average profit. 
+   
+      Add a button running the procedure to worksheet _TM6_Game_. Which bet gives the best average profit (add this as a comment inside the procedure)?
+
+   
+   
+   
      
   
   
