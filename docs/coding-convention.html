@@ -23,7 +23,7 @@
 <meta name="author" content="Lars Relund Nielsen" />
 
 
-<meta name="date" content="2024-06-20" />
+<meta name="date" content="2024-08-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -323,6 +323,7 @@ div.csl-indent {
 <li class="chapter" data-level="5.10.8" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-search-table"><i class="fa fa-check"></i><b>5.10.8</b> Exercise - Search table</a></li>
 <li class="chapter" data-level="5.10.9" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-next-task"><i class="fa fa-check"></i><b>5.10.9</b> Exercise - Find next task</a></li>
 <li class="chapter" data-level="5.10.10" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-seat-reservation"><i class="fa fa-check"></i><b>5.10.10</b> Exercise - Seat reservation</a></li>
+<li class="chapter" data-level="5.10.11" data-path="mod-vba-datatypes.html"><a href="mod-vba-datatypes.html#ex-vba-select"><i class="fa fa-check"></i><b>5.10.11</b> Exercise - Transform data (select and filter)</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="mod-vba-random-numbers.html"><a href="mod-vba-random-numbers.html"><i class="fa fa-check"></i><b>6</b> Generating random numbers</a>
@@ -679,19 +680,19 @@ Public Function MyFunc(strA As String, intB As Integer) As Integer {
 }</code></pre>
 <p>Further tags (i.e. keywords starting with @) can be seen <a href="https://roxygen2.r-lib.org/articles/rd.html">here</a>.</p>
 <p>In R we use a ‘hash’ (#’) to comment functions:</p>
-<div class="sourceCode" id="cb958"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb958-1"><a href="coding-convention.html#cb958-1" tabindex="-1"></a><span class="co">#&#39; Subtract two vectors</span></span>
-<span id="cb958-2"><a href="coding-convention.html#cb958-2" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb958-3"><a href="coding-convention.html#cb958-3" tabindex="-1"></a><span class="co">#&#39; @param x First vector.</span></span>
-<span id="cb958-4"><a href="coding-convention.html#cb958-4" tabindex="-1"></a><span class="co">#&#39; @param y Vector to be subtracted.</span></span>
-<span id="cb958-5"><a href="coding-convention.html#cb958-5" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb958-6"><a href="coding-convention.html#cb958-6" tabindex="-1"></a><span class="co">#&#39; @return The difference.</span></span>
-<span id="cb958-7"><a href="coding-convention.html#cb958-7" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
-<span id="cb958-8"><a href="coding-convention.html#cb958-8" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb958-9"><a href="coding-convention.html#cb958-9" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
-<span id="cb958-10"><a href="coding-convention.html#cb958-10" tabindex="-1"></a><span class="co">#&#39; subtract(x = c(5,5), y = c(2,3))</span></span>
-<span id="cb958-11"><a href="coding-convention.html#cb958-11" tabindex="-1"></a>subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
-<span id="cb958-12"><a href="coding-convention.html#cb958-12" tabindex="-1"></a>  <span class="fu">return</span>(x<span class="sc">-</span>y)</span>
-<span id="cb958-13"><a href="coding-convention.html#cb958-13" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb959"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb959-1"><a href="coding-convention.html#cb959-1" tabindex="-1"></a><span class="co">#&#39; Subtract two vectors</span></span>
+<span id="cb959-2"><a href="coding-convention.html#cb959-2" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb959-3"><a href="coding-convention.html#cb959-3" tabindex="-1"></a><span class="co">#&#39; @param x First vector.</span></span>
+<span id="cb959-4"><a href="coding-convention.html#cb959-4" tabindex="-1"></a><span class="co">#&#39; @param y Vector to be subtracted.</span></span>
+<span id="cb959-5"><a href="coding-convention.html#cb959-5" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb959-6"><a href="coding-convention.html#cb959-6" tabindex="-1"></a><span class="co">#&#39; @return The difference.</span></span>
+<span id="cb959-7"><a href="coding-convention.html#cb959-7" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
+<span id="cb959-8"><a href="coding-convention.html#cb959-8" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb959-9"><a href="coding-convention.html#cb959-9" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb959-10"><a href="coding-convention.html#cb959-10" tabindex="-1"></a><span class="co">#&#39; subtract(x = c(5,5), y = c(2,3))</span></span>
+<span id="cb959-11"><a href="coding-convention.html#cb959-11" tabindex="-1"></a>subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb959-12"><a href="coding-convention.html#cb959-12" tabindex="-1"></a>  <span class="fu">return</span>(x<span class="sc">-</span>y)</span>
+<span id="cb959-13"><a href="coding-convention.html#cb959-13" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div>
             </section>
