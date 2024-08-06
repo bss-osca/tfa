@@ -1705,6 +1705,119 @@ Comments to the features/tasks can the added in the _Main_ worksheet.
 
 
 
+### Exercise - Transform data (select and filter) {#ex-vba-select}
+
+*This exercise is a slightly modified version an exam assignment (exam 2024-A1).*
+
+Consider the Excel template file provided. The file contains different datasets in worksheets starting with _TM6_Data_. You may assume that all datasets have a header in the first row (starting in cell A1). Each column contains either doubles or strings. If the header title of a column starts with _str_ then the column contains strings; otherwise the column contains doubles. 
+
+A dataset can be stored in two arrays where one store the column headers and one the data. For instance, the following code in VBA read the data in worksheet _TM6_Data1_ into two arrays:
+
+```
+Sub TM6_ReadData1()
+   Dim aryData As Variant
+   Dim aryHeaders() As String
+   Dim rng As Range
+   
+   ThisWorkbook.Worksheets("TM6_Data1").Activate
+   Set rng = Range("A1:" & RngGetCurRegionLastCol(Range("A1"), asLetter:=True) & "1")
+   Call AryRead(aryHeaders, rng)
+   Set rng = RngGetCurRegionRange(Range("A1"), row:=2, col:=1)
+   Call AryRead(aryData, rng)
+End Sub
+```
+
+The array storing the header titles contains strings. However, since we do not know the datatype of a column in the dataset, the array `aryData` is of type `Variant`. That is, we don't write `Dim aryData() As Variant` (which we normally do when defining a dynamic array), but `Dim aryData As Variant`, since a variant in itself can be an array. 
+
+Write a set of VBA procedures that answer/complete the following questions/tasks. All procedures MUST be documented using a skeleton similar to the examples given in the course notes ([Section D1](#coding-convention)).
+
+
+(1) Given a header title, create a procedure `TM6_IsColumnString` with the following features:
+
+    - The procedure takes a header title (string) as argument.
+    - Returns true if the string starts with _str_ and false otherwise.
+    
+    That is, if call the procedure with string `str_desc` then the procedure would return true, while calling the procedure with string `item_id` would return false. Hint: The `LEFT` string function in VBA may be useful. 
+
+
+(2) Given the array with header titles, create a procedure `TM6_GetColumnIndex` that return the column index of a header title with the following features:
+
+    - The procedure takes an array as argument containing the header titles.
+    - The procedure takes a string as argument with the header title to search for.
+    - Returns the index of the header title (if found) else -1.
+  
+    For instance, if the header titles are array `("Ship", "Profit", "Cost")` with index starting from 1. Then a call to the procedure searching for `Cost` would return 3 while searching for `Boat` would return -1. 
+
+
+(3) Create a procedure `TM6_SelectColumns` that selects a set of columns in a dataset stored using two arrays with the following features:
+
+    - The procedure takes the two arrays representing the dataset (header and data) as arguments.
+    - The procedure takes an array of strings as argument containing the header titles to select. If this array contains header titles not present in the dataset, then they are ignored. 
+    - The modified dataset is output/pasted to the worksheet named _TM6_Select_ (starting in cell A1), i.e. no new arrays are needed to store the new dataset. This worksheet is cleared if it contains old data. 
+    - The procedure should work for different datasets stored in the arrays (e.g. the dataset in worksheet _TM6_Data2_). 
+    - The procedure does not have any intermediate steps which use ranges to select columns. 
+  
+    Hint: The course procedure `AryPasteColumn` stored in module `ModAry` may be useful.  
+  
+    Test `SelectColumns` by writing a procedure `SelectTest` that:
+  
+    - Loads the dataset in worksheet _TM6_Data1_ in two arrays (a dataset of orders to a set of ships).
+    - Select columns _ship_, _price_ and _item_id_ (in that sequence).
+    - Create message box with the value of cell B2 in worksheet _Select_ along with the column name.
+    - Given the original dataset, select columns _ship_, _boat_ and _item_id_ (in that sequence).
+    - Create message box with the value of cell B2 in worksheet _Select_ along with the column name.
+  
+    Add a button running the procedure to worksheet _TM6_Select_.
+
+
+(4) Create a procedure `TM6_Filter` that filter some rows based on a criteria in a dataset stored using two arrays with the following features:
+
+    - The procedure takes the two arrays representing the dataset (header and data) as arguments.
+    - The procedure takes a string as argument containing the header title of the column to filter on.  
+    - The procedure takes a string as argument containing the compare operator used. The valid compare operators are 
+      * `<=` : less than or equal (valid for a double column).
+      * `>=` : greater than or equal (valid for a double column).
+      * `=` : equal (valid for all column types).
+      * `in` : contained in (valid for a string column).
+    - The procedure takes a variant as argument containing the value to compare with.
+    - The modified dataset is output to the worksheet named _TM6_Filter_ (starting in cell A1), i.e. no new arrays are needed to store the new dataset. This worksheet is cleared if it contains old data. 
+    - If the header title or the compare operator is not valid then nothing should be output to the _TM6_Filter_ worksheet.
+    - The procedure should work for different datasets stored in the arrays. 
+    - The procedure does not have any intermediate steps which use ranges to filter rows. 
+  
+    For instance, calling the procedure with header title `price`, compare operator `<=` and value `4`, will output the rows of the dataset where the values in the _price_ column is less than or equal 4. Similar calling the procedure with header title `str_item_desc`, compare operator `in` and value `Gasket`, will return the rows of the dataset where the values in the *str_item_desc* column contain the string `Gasket`. 
+  
+    Hint: The course procedure `AryPasteRow` stored in module `ModAry` may be useful.  
+  
+    Test `Filter` by finishing the code of procedure `TM6_FilterTest` that:
+  
+    - Loads the dataset in worksheet _TM6_Data1_ in two arrays.
+    - Filter so get rows where price is greater than or equal 500000.
+    - Create message box with the value of cell G2 in worksheet _TM6_Filter_ along with the column name.
+    - Given the original dataset, filter so get rows where the item description contains _Gasket_.
+    - Create message box with the value of cell B2 in worksheet _TM6_Filter_ along with the column name.
+  
+    Add a button running the procedure to worksheet _TM6_Filter_.
+
+
+(5) The `TM6_Filter` procedure can only be used with a single compare operator. Consider the dataset in worksheet _TM6_Data1_ and discuss how a sequence of calls to `Filter` can be used to find rows where
+
+    1) price is less than or equal to 400 AND supplier id equals 11,
+    2) price is less than or equal to 400 OR price is greater than or equal to 3000,
+    3) (price is less than or equal to 400 AND supplier id equals 11) OR item description contains _Gasket_.
+    
+    Add your discussion as a VBA comment (at most 10 sentences). Note you should not code this, just comment.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
