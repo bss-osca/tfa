@@ -77,6 +77,14 @@ opts_hooks$set(hint = function(options) {
   options
 })
 
+# function for eval inline r in a string
+eval_inline <- function(str) {
+  file <- textConnection(str)
+  result <- knitr::knit_expand(file, delim = c("`r ", "`"))
+  close(file)
+  return(result)
+}
+
 knit_hooks$set(solution = function(before, options, envir) {
   if (is.null(options$title)) options$title <- "Solution"
   if (before) {
@@ -89,7 +97,7 @@ knit_hooks$set(solution = function(before, options, envir) {
            '</div><div class="modal-body">\n')
   } else {
     text <- "\n"
-    if (!is.null(options$text)) text <- paste0(text, markdown::renderMarkdown(text = options$text), '\n')
+    if (!is.null(options$text)) text <- paste0(text, markdown::renderMarkdown(text = eval_inline(options$text)), '\n')
     paste0(text, '</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div>',
            '</div></div></div>',
            '<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#', options$str_id, '">', options$title, '</button>\n')
