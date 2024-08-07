@@ -2047,3 +2047,170 @@ Consider the most costly item with respect to the calculated value in `res1`. At
 
 
 
+### Exercise (jobs) {#ex-r-jobs}
+
+*This exercise is a slightly modified version an exam assignment (exam 2023-A1).*
+
+Consider the dataset in the file `jobs.csv` with engine maintenance jobs for a group of ships. 
+
+The dataset contains a row for each item used. The columns/variables are:
+
+  - `ship`: The ship considered.
+  - `job_id`: Maintenance job id. A job is a collection of items replaced.
+  - `job_desc`: Job description.
+  - `item_id`: Item id.
+  - `item_name`: Item name.
+  - `item_quantity`: Number of items used.
+  - `item_manufaturer`: Item manufacturer.
+  - `component_id`: Engine component id.
+  - `component_desc`: Engine component description.
+  - `done_date`: Date the job finished.
+  - `year`: Year of done date.
+  - `days`: Days since the item was last used for maintenance on the ship.
+  
+You can access the dataset file at location
+
+```{r}
+# remotes::install_github("bss-osca/tfa-package", build = FALSE)  # run if tfa not installed
+path <- system.file("extdata/jobs.csv", package = "tfa")
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames) and answer/complete the following questions/tasks.
+
+
+```{r, solution=TRUE, warning=FALSE, text="It can be seen that a comma (`,`) is used a delimiter. That is, the dataset is loaded using `read_csv`."}
+library(tidyverse)
+lines <- read_lines(path, n_max = 3)
+lines
+dat <- read_csv(path)
+```
+```{r, hint=TRUE, text="Use the `read_lines` function to have a look at the csv file.", eval=FALSE}
+```
+
+(1) Find the delimiter used in the csv file and load the file into a tibble/data frame called `dat`.
+
+
+
+```{r, solution=TRUE, warning=FALSE, text="We have a total of `r dat %>% nrow()` rows/observations for 9 ships over a period from 2015-01-24 to 2020-04-21."}
+library(skimr)
+skim(dat)
+```
+```{r, hint=TRUE, text="Use the `skimr` package.", eval=FALSE}
+```
+
+(2) Provide a short overview of the data. How many rows are there in the data, what is the number of different ships, and what is the range of dates?
+
+
+```{r, solution=TRUE, text="We have a total of 463 jobs, the number of jobs for each ship can be seen using res2 with and average of 72.44 jobs per ship."}
+res1 <- dat %>% 
+   distinct(job_id) %>% 
+   nrow() %>% 
+   print()
+
+res2 <- dat %>% 
+   group_by(ship) %>% 
+   summarise(jobs = n_distinct(job_id)) %>% 
+   print()
+
+res3 <- res2 %>% 
+   summarise(avg_jobs = mean(jobs)) %>% 
+   print()
+```
+```{r, hint=TRUE, eval=FALSE}
+res1 <- dat %>% 
+   distinct(___) %>% 
+   ___ %>% 
+   print()
+
+res2 <- dat %>% 
+   group_by(ship) %>% 
+   summarise(___) %>% 
+   print()
+
+res3 <- res2 %>% 
+   ___
+```
+
+(3) What is the total number of different jobs, number of different jobs per ship, and average number of jobs per ship? Hint: The function `n_distinct` may be used to find distinct values within a group.
+
+
+```{r, solution=TRUE, text="The range and average of unique items considered can be seen using `res1` and the range and average of items used can be seen using `res2`. Note some jobs don't use the allocated item."}
+res1 <- dat %>% 
+   distinct(job_id, item_id) %>% 
+   count(job_id) %>% 
+   summarise(min = min(n), avg = mean(n), max = max(n)) %>% 
+   print()
+
+res2 <- dat %>% 
+   group_by(job_id) %>% 
+   summarise(n = sum(item_quantity)) %>% 
+   summarise(min = min(n), avg = mean(n), max = max(n)) %>% 
+   print()
+```
+```{r, hint=TRUE, eval=FALSE}
+res1 <- dat %>% 
+   distinct(___) %>% 
+   count(___) %>% 
+   summarise(___) %>% 
+   print()
+
+res2 <- dat %>% 
+   group_by(___) %>% 
+   summarise(___) %>% 
+   summarise(___) %>% 
+   print()
+```
+
+(4) What is the minimum, average, and  maximum number of *different* items considered at each job? What is the minimum, average, and  maximum number of items used for maintenance at each job?
+
+
+```{r, solution=TRUE, text="Ship-10 have a lot of jobs where the items scheduled in a job, have not been used."}
+res <- dat %>% 
+   filter(item_quantity == 0) %>% 
+   group_by(ship) %>%
+   summarise(jobs = n_distinct(job_id)) %>% 
+   arrange(desc(jobs)) %>% 
+   print()
+```
+```{r, hint=TRUE, eval=FALSE}
+res <- dat %>% 
+   filter(___) %>% 
+   group_by(__) %>%
+   summarise(___) %>% 
+   arrange(___) %>% 
+   print()
+```
+
+(5) It seems that some items considered in a job are not used anyway. Which ship has most jobs where an item should have been used, but has not (quantity is zero)?
+
+
+```{r, solution=TRUE, text="Item 601.003.013 a Sealing Ring is used most"}
+res <- dat %>% 
+   group_by(item_id) %>%  
+   summarize(n = sum(item_quantity), item_name = first(item_name)) %>% 
+   arrange(desc(n)) %>% 
+   print()
+```
+```{r, hint=TRUE, eval=FALSE}
+res <- dat %>% 
+   group_by(___) %>%  
+   summarize(n = ___, item_name = first(___)) %>% 
+   arrange(___) %>% 
+   print()
+```
+
+(6) Which item is the most used one for maintenance?
+
+
+
+
+
+
+
+
+
+
+
+
+
+

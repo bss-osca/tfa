@@ -2449,6 +2449,228 @@ dat_c <- flights %>%
 
 
 
+### Exercise (jobs) {#ex-r-jobs-plot}
+
+*This exercise is a slightly modified version an exam assignment (exam 2023-A2).*
+
+Consider the dataset in the file `jobs.csv` with engine maintenance jobs for a group of ships. 
+
+The dataset contains a row for each item used. The columns/variables are:
+
+  - `ship`: The ship considered.
+  - `job_id`: Maintenance job id. A job is a collection of items replaced.
+  - `job_desc`: Job description.
+  - `item_id`: Item id.
+  - `item_name`: Item name.
+  - `item_quantity`: Number of items used.
+  - `item_manufaturer`: Item manufacturer.
+  - `component_id`: Engine component id.
+  - `component_desc`: Engine component description.
+  - `done_date`: Date the job finished.
+  - `year`: Year of done date.
+  - `days`: Days since the item was last used for maintenance on the ship.
+  
+You can load the data using
+
+```{r}
+# remotes::install_github("bss-osca/tfa-package", build = FALSE)  # run if tfa not installed
+path <- system.file("extdata/jobs.csv", package = "tfa")
+dat <- read_csv(path)
+```
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). 
+
+
+```{r, solution=TRUE, text="Most jobs where done in 2018."}
+dat %>% 
+   group_by(year, job_id) %>% 
+   summarise(ship = first(ship)) %>% 
+   ggplot(aes(x = year, fill = ship)) +
+   geom_bar() +
+   labs(title = "Total number of jobs",
+    x = "Year",
+    y = "Jobs",
+    fill = "Ship") +
+   theme(legend.position = "bottom")
+```
+```{r, hint=TRUE, eval=FALSE}
+dat %>% 
+   group_by(___) %>% 
+   summarise(ship = first(___)) %>% 
+   ggplot(aes(x = ___, fill = ___)) +
+   geom_bar() +
+   labs(title = "Total number of jobs",
+    x = "Year",
+    y = "Jobs",
+    fill = "Ship") +
+   theme(legend.position = "bottom")
+```
+
+(1) For each year and job id, identify the ship the job was done on. Hint: The `first` function may be used to select the first item within a group. Use this to create a visualization showing the number of maintenance jobs for each year with the following features:
+
+    * Bars are used for each year.
+    * Fill colors are used to identify the ship.
+    * Legends are put at the bottom of the plot.
+    * Informative figure title and axis titles are given.
+    
+    Which year had the most jobs?
+
+
+
+```{r, solution=TRUE, text="Most items are used for `r res$ship[1]`."}
+res <- dat %>% 
+   group_by(ship) %>% 
+   summarize(n = n_distinct(item_id)) %>% 
+   arrange(desc(n)) 
+res %>% 
+   ggplot(aes(x = reorder(ship, n), y = n)) +
+   geom_col() +
+   labs(title = "Number of unique items used",
+    x = "Ship",
+    y = "Items") +
+   theme(legend.position = "bottom")
+```
+```{r, hint=TRUE, eval=FALSE}
+res <- dat %>% 
+   group_by(___) %>% 
+   summarize(n = n_distinct(___)) %>% 
+   arrange(___) 
+res %>% 
+   ggplot(aes(x = reorder(___), y = ___)) +
+   geom_col() +
+   labs(title = "Number of unique items used",
+    x = "Ship",
+    y = "Items") +
+   theme(legend.position = "bottom")
+```
+
+(2) Create a visualization showing the number of different items used for each ship with the following features:
+
+    * The numbers are shown using columns.
+    * Reorder the columns so they increase along the x-axis.
+    * Informative figure title and axis titles are given.
+    
+    Which ship uses most items? 
+
+
+
+```{r, solution=TRUE, warning=FALSE, text="On a specific date must items are used for Ship-12."}
+res <- dat %>% 
+   group_by(ship, done_date) %>% 
+   summarize(n = sum(item_quantity)) 
+res %>% 
+   ggplot(aes(x = done_date, y = n)) +
+   geom_col(linewidth = 1, color = "blue") +
+   facet_wrap(~ ship, scales = "free_y") +
+   labs(title = "Number of items used",
+    x = "Date",
+    y = "Items used") 
+```
+```{r, hint=TRUE, eval=FALSE}
+res <- dat %>% 
+   group_by(___) %>% 
+   summarize(n = sum(___)) 
+res %>% 
+   ggplot(aes(x = ___, y = ___)) +
+   geom_col(linewidth = 1, color = "blue") +
+   facet_wrap(~ ship, scales = "free_y") +
+   labs(title = "Number of items used",
+    x = "Date",
+    y = "Items used") 
+```
+
+(3) Create a visualization showing the number of items used as a function of done date with the following features:
+
+    * The numbers are shown using columns with a fixed line width of 1 and a blue color. 
+    * The plot is divided using `ship` (facet). Hint: You may use `scales = "free_y"`. 
+    * Informative figure title and axis titles are given.
+    
+    Which ship has most items used at a specific date?
+
+
+
+```{r, solution=TRUE, text="It can be seen that over the years, the demand peak of the Piston Ring is higher that for the O-Ring, i.e. it seems to hold. "}
+res <- dat %>% 
+   filter(item_id %in% items)
+res %>% 
+   ggplot(aes(item_quantity, fill = item_name)) + 
+   geom_density(bw = 1, alpha = 0.5) +
+   facet_wrap(~ year) +
+   labs(title = "Demand density",
+    x = "Demand",
+    y = "",
+    fill = "Item") +
+   theme(legend.position = "bottom")
+```
+```{r, hint=TRUE, eval=FALSE}
+res <- dat %>% 
+   filter(___)
+res %>% 
+   ggplot(aes(___, fill = ___)) + 
+   geom_density(bw = 1, alpha = 0.5) +
+   facet_wrap(~ ___) +
+   labs(title = "Demand density",
+    x = "Demand",
+    y = "",
+    fill = "Item") +
+   theme(legend.position = "bottom")
+```
+
+(4) Consider two items with id:
+
+    ```{r}
+    items <- c("601.004.006", "601.026.128")
+    ```
+    
+    Create a visualization showing the variation of demand (item quantity) of each item with the following features:
+    
+    * A density is plotted for each item with a fixed bandwidth (`bw`) of 1 and transparency (`alpha`) of 0.5. 
+    * Item name is used as fill. 
+    * The plot is divided using `year` (facet).
+    * Informative figure title and axis titles are given.
+    
+    Over the years, is it consistent that on average the demand of one of the items is higher than the other?
+
+
+
+```{r, solution=TRUE, text = "Most often there are less than 100 days between a repeated usage of the item, but there can be over 600 days. The Piston Ring have in general a lower number of days in between than the O-Ring on average."}
+dat %>% 
+   filter(item_id %in% items) %>% 
+   ggplot(aes(y = days, x = item_id, fill = item_name)) + 
+   geom_violin() + 
+   labs(title = "Violin density",
+    x = "Item id",
+    y = "Days",
+    fill = "Item") +
+   theme(legend.position = "bottom")
+```
+```{r, hint=TRUE, eval=FALSE}
+dat %>% 
+   filter(___) %>% 
+   ggplot(aes(y = ___, x = ___, fill = ___)) + 
+   geom_violin() + 
+   labs(title = "Violin density",
+    x = "Item id",
+    y = "Days",
+    fill = "Item") +
+   theme(legend.position = "bottom")
+```
+
+(5) Consider two items with id:
+
+    ```{r}
+    items <- c("601.004.006", "601.026.128")
+    ```
+    
+    Create a visualization showing the variation of days since last used for maintenance given an item with the following features:
+    
+    * A violin is used to plot days since last used given an item. 
+    * Item name is used as fill. 
+    * Informative figure title and axis titles are given.
+    
+    Comment on the plot.
+
+
 
 
 
