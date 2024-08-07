@@ -15,7 +15,7 @@ jobs:
       GGMAP_GOOGLE_API_KEY: ${{ secrets.GGMAP_GOOGLE_KEY }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -33,7 +33,7 @@ jobs:
           R -e 'icons::download_fontawesome()'
 
       - name: Cache bookdown results
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: _bookdown_files
           key: bookdown-${{ hashFiles('**/*Rmd') }}
