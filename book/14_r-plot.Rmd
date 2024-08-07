@@ -313,7 +313,7 @@ In the plot above, we have to pay special attention to the range to notice that 
 </div>
 
 
-```{r, solution=TRUE}
+```{r, solution=TRUE, ignoreWarning = TRUE}
 gapminder %>% 
   filter(continent == "Asia") %>%
   ggplot(aes(fertility, life_expectancy, col = year)) +
@@ -335,7 +335,7 @@ The visualizations above effectively illustrate that data no longer supports the
 
 Time series plots have time in the x-axis and an outcome or measurement of interest on the y-axis. For example, here is a trend plot of United States fertility rates:
 
-```{r fertility-time-series-plot-points, warning=FALSE}
+```{r fertility-time-series-plot-points, warning=FALSE, ignoreWarning = TRUE}
 gapminder %>% 
   filter(country == "United States") %>% 
   ggplot(aes(year, fertility)) +
@@ -347,7 +347,7 @@ We see that the trend is not linear at all. Instead there is sharp drop during t
 When the points are regularly and densely spaced, as they are here, we create curves by joining the points with lines, to convey that these data are from a single series, here a country. To do this, we use the `geom_line` function instead of `geom_point`. 
 
 
-```{r, solution=TRUE}
+```{r, solution=TRUE, ignoreWarning = TRUE}
 gapminder %>% 
   filter(country == "United States") %>% 
   ggplot(aes(year, fertility)) +
@@ -357,7 +357,7 @@ gapminder %>%
   5) Make a lineplot showing the time series of fertility versus year for United States.
   
   
-```{r, solution=TRUE, text = "The plot clearly shows how South Korea's fertility rate dropped drastically during the 1960s and 1970s, and by 1990 had a similar rate to that of Germany."}
+```{r, solution=TRUE, text = "The plot clearly shows how South Korea's fertility rate dropped drastically during the 1960s and 1970s, and by 1990 had a similar rate to that of Germany.", ignoreWarning = TRUE}
 countries <- c("South Korea", "Germany")
 gapminder %>% filter(country %in% countries) %>% 
   ggplot(aes(year, fertility, col = country)) +

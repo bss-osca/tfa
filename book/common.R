@@ -4,8 +4,8 @@ library(knitr)
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
-  message = FALSE,
-  warning = FALSE,
+  # message = FALSE,
+  # warning = FALSE,
   # cache = TRUE,
   # fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
   # dpi = 300,
@@ -19,6 +19,22 @@ knitr::opts_chunk$set(
 library(tidyverse)
 options(dplyr.summarise.inform = FALSE)
 options(readr.show_col_types = FALSE)
+
+# options(warn = 2)  # turn warnings into errors for debugging
+# Ignore warning even if warn >= 2 (becomes an error), i.e use warning = FALSE and ignoreWarning = TRUE in the chunk
+knitr::knit_hooks$set(ignoreWarning  = local({
+  function(before, options) {
+    warn <- getOption("warn")
+    if (warn >= 2){
+      if (before) {
+        options(warn = 1)
+      } else {
+        options(warn = warn)
+      }
+    }
+  }
+}))
+
 library(bsplus)
 library(htmltools)
 # To install igraph on OSX you may have to run 'brew unlink suite-sparse', install igraph and finally 'brew link suite-sparse' to re-enable.
@@ -122,6 +138,7 @@ knit_hooks$set(hint = function(before, options, envir) {
            '<button class="btn btn-default btn-xs" style="float:right" data-toggle="modal" data-target="#', options$str_id, '">', options$title,'</button>\n')
   }
 })
+
 
 # knitr::knit_hooks$set(chunk_envvar = function(before, options, envir) {
 #   envvar <- options$chunk_envvar

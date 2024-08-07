@@ -32,6 +32,9 @@ bookdown::serve_book(dir = "book", output_dir = "_book", preview = FALSE, in_ses
 # Check github actions: commit, pull and push and check if GHA works
 
 
+## Render book with warnings as errors
+# Modify line 22 in common.R and knit the book
+
 
 #### Install packages (if missing) ####
 # TFA package
