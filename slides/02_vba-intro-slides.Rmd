@@ -47,7 +47,7 @@ knitr::opts_chunk$set(fig.path=str_c("img/", module_name, "-"))
 - A programming language intended to control and automate Microsoft Office applications (we use Excel).
 - VBA (Visual Basic for Applications) is an implementation of BASIC developed by Microsoft. 
 - A [compiled language](https://en.wikipedia.org/wiki/Compiled_language#:~:text=A%20compiled%20language%20is%20a,%2Druntime%20translation%20takes%20place). That is, code need to be compiled first before running it. 
-- You can only run VBA using the desktop version of Excel (not the web version). MS doesn't support VBA in MS 365 (Office 365).
+- You can only run VBA using the desktop version of Excel (not the web version). MS doesn't support VBA in MS 365.
 - With VBA you can extend Excel and automate tasks by coding different algorithms that for instance can be run by pressing a button. 
 
 ---
@@ -83,17 +83,28 @@ A few useful shortcuts:
 An __algorithm__ is a finite sequence of well-defined instructions to solve a specific problem or to perform a computation. Let us try to program [this algorithm](https://github.com/bss-osca/tfa/blob/master/vba/vba-groups.xlsm) written in pseudo code:
 
 .instructions[
-**Precondition**: A list of student names and a 2-dim array `pref` with group preferences. Entry `pref(i,j)` equals one if student `i` like to be in group with student `j` and zero otherwise.
+**Precondition**: A list of student names including e-mail and study program.
 
 **Postcondition**: A list of groups with 3-6 persons.
 
-- Step 1: Allocate students that want to be together to a group number
-- Step 2: Fix groups with between 3 to 6 students
-- Step 3: Split groups with more that 6 students into N groups such that N gives the minimum number of groups between 3 to 6 students
-- Step 4: Merge groups with 2 students into a group with 4 students
-- Step 5: Consider the remaining students and create a group by adding students until the group size is 4.
-- Step 6: Return the student names of each group.
+	For each program category do							
+		While students not allocated do						
+			Let n = number of students not allocated					
+			If n >= 10 allocate the first 5 students to a group					
+			Else if n = 5 or 6 create a group with the persons					
+			Else if n = 7 to 10 split the remaining students into two groups					
+	Return the student names of each group
 ]]
+
+
+						
+					
+					
+								
+
+
+
+
 
 ---
 
