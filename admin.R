@@ -6,7 +6,7 @@
 # - Delete the prefs (so the same link is valid) in sheet https://docs.google.com/spreadsheets/d/14LOGGBGnriLFOAOxXPMsmjruxlMoN2Acl1Xf2FE5nnY/edit?usp=sharing
 # - Delete the old answers in the Google Form (under responses click ...)
 # - Signin to datacamp using Econ email and create a new classroom "Tools for Analytics YYYY" at https://www.datacamp.com/universities#classroom-form (valid from 1 Sep, students 150)
-# - Add todo to your calendar 1/9 (add assignments and change signup link in link.md line 9)
+# - Add todo to your calendar 1/9 (add assignments and change signup link in link.md line 9). Set end date of a course to 01/03/20xx.
 # - At Posit Cloud update the 'Tools for Analytics' workspace (R and packages) using `update.packages(ask = F)`
 
 

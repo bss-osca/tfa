@@ -6,7 +6,7 @@
 [course-welcome-to-the-tidyverse]: https://github.com/rstudio-education/welcome-to-the-tidyverse
 
 [DataCamp]: https://www.datacamp.com/
-[datacamp-signup]: https://www.datacamp.com/groups/shared_links/7a7a4ede68772eefe3a53ce01aead09b538efdf6770fd59911afc29ae396b88e
+[datacamp-signup]: https://www.datacamp.com/groups/shared_links/c90b55dfb7c72d4f8184f5e53ac5c2521e67a220a9e40778ee28178b284eef77
 [datacamp-r-intro]: https://learn.datacamp.com/courses/free-introduction-to-r
 [datacamp-r-rmarkdown]: https://campus.datacamp.com/courses/reporting-with-rmarkdown
 [datacamp-r-communicating]: https://learn.datacamp.com/courses/communicating-with-data-in-the-tidyverse
