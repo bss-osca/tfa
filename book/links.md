@@ -46,7 +46,7 @@
 [hg-credential-helper]: https://happygitwithr.com/credential-caching.html
 [hypothes.is]: https://web.hypothes.is/
 
-[osca-programme]: https://kandidat.au.dk/en/operationsandsupplychainanalytics/
+[osca-programme]: https://masters.au.dk/operationsandsupplychainanalytics
 
 [Peergrade]: https://peergrade.io
 [peergrade-signup]: https://app.peergrade.io/join
