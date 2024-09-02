@@ -83,6 +83,7 @@
 [stat-545-functions-part1]: https://stat545.com/functions-part1.html
 [stat-545-functions-part2]: https://stat545.com/functions-part2.html
 [stat-545-functions-part3]: https://stat545.com/functions-part3.html
+[slides]: https://bss-osca.github.io/tfa/slides/
 [slides-welcome]: https://bss-osca.github.io/tfa/slides/00-tfa_welcome.html
 [slides-m1-3]: https://bss-osca.github.io/tfa/slides/01-welcome_r_part.html
 [slides-m4-5]: https://bss-osca.github.io/tfa/slides/02-programming.html
