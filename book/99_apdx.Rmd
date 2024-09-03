@@ -437,10 +437,10 @@ for (f in files) {
    titles <- str_remove(titles, "'' ")
    dat <- bind_rows(dat,tibble(Procedure = procedures, Type = type, Description = titles))
 }
-dat <- dat %>% 
-   arrange(Procedure, Type) %>% 
+dat <- dat |> 
+   arrange(Procedure, Type) |> 
    mutate(Procedure = str_c("[`", Procedure, "`](#def-vba-", Procedure, ")"))
-kbl(dat, caption = str_c("Course procedures. See the modules named ", knitr::combine_words(files), " for further info.")) %>%
+kbl(dat, caption = str_c("Course procedures. See the modules named ", knitr::combine_words(files), " for further info.")) |>
    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))  
 ```
 
@@ -601,7 +601,7 @@ This version of the book was built with:
 
 ```{r message = FALSE, warning = FALSE, echo = FALSE}
 # needed because new_session is set to true in _bookdown.yml
-all_pkgs <- renv::dependencies() %>% 
+all_pkgs <- renv::dependencies() |> 
   pull(Package) 
 
 session <- devtools::session_info(pkgs = all_pkgs)
@@ -612,8 +612,8 @@ session$platform
 Along with these packages:
 
 ```{r message = FALSE, warning = FALSE, echo = FALSE}
-session$packages %>% 
-  select(package, loadedversion, date, source) %>% 
+session$packages |> 
+  select(package, loadedversion, date, source) |> 
   DT::datatable(rownames = FALSE,
                 class = 'cell-border stripe',
                 filter = list(position = 'top'),

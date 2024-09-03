@@ -309,13 +309,13 @@ The arrival of demands and demand size may follow a compound Poisson process whi
 
 ```{r}
 library(tidyverse)
-datDf <- demand_goods %>% 
-  group_by(product) %>% 
-  mutate(between = as.numeric(date - lag(date), units="days")) %>% 
+datDf <- demand_goods |> 
+  group_by(product) |> 
+  mutate(between = as.numeric(date - lag(date), units="days")) |> 
   print()
 
-dat <- datDf %>% 
-  filter(product == 1, !is.na(between)) %>% 
+dat <- datDf |> 
+  filter(product == 1, !is.na(between)) |> 
   pull(between)
 plotdist(dat, histo = TRUE, demp = TRUE)
 descdist(dat)
@@ -340,8 +340,8 @@ The fit seems okay. Note that the horizontal and vertical points in the Q-Q and 
 Let us do the analysis for product 2:
 
 ```{r}
-dat <- datDf %>% 
-  filter(product == 2, !is.na(between)) %>% 
+dat <- datDf |> 
+  filter(product == 2, !is.na(between)) |> 
   pull(between)
 plotdist(dat, histo = TRUE, demp = TRUE)
 descdist(dat)
@@ -368,8 +368,8 @@ To summarize the demand rate for product 1 is estimated to be `r round(fitE1$est
 Given a demand arrive the question is how much is the demand size? That is, we have to fit a distribution to the demand. Let us do the analysis for product 2:
 
 ```{r}
-dat <- datDf %>% 
-  filter(product == 2) %>% 
+dat <- datDf |> 
+  filter(product == 2) |> 
   pull(demand)
 plotdist(dat, histo = TRUE, demp = TRUE, discrete = TRUE)
 ```
@@ -428,9 +428,9 @@ We first transform the dataset a bit:
 
 ```{r}
 library(lubridate)
-calls <- calls %>%
-  group_by(date) %>% 
-  arrange(date, time) %>% 
+calls <- calls |>
+  group_by(date) |> 
+  arrange(date, time) |> 
   mutate(
     arrival = row_number(),
     wday = wday(date, label = TRUE),
@@ -446,10 +446,10 @@ calls <- calls %>%
 The number of calls may follow a Poisson process with a fixed rate of calls per hour during the day. Let us try to plot the hourly rates:
 
 ```{r}
-calls %>% 
-  count(date, hour, wday) %>% 
-  group_by(hour, wday) %>% 
-  summarize(rate = mean(n)) %>% 
+calls |> 
+  count(date, hour, wday) |> 
+  group_by(hour, wday) |> 
+  summarize(rate = mean(n)) |> 
   ggplot(aes(x = hour, y = rate)) + 
   geom_line() + 
   facet_wrap(~wday) + 
@@ -464,12 +464,12 @@ Since the rate is not fixed we may have a non-homogeneous Poisson process where 
 
 ```{r, solution=TRUE, text="For a Poisson process the inter arrival times should follow an exponential distribution. It seems to be a good fit here."}
 library(fitdistrplus)
-dat <- calls %>% 
+dat <- calls |> 
   filter(
     wday == "Tue",
     hour == 10,
-    !is.na(between)) %>% 
-  pull(between) %>% 
+    !is.na(between)) |> 
+  pull(between) |> 
   as.numeric() 
 descdist(dat)
 fit1 <- fitdist(dat, distr = "exp")
@@ -488,13 +488,13 @@ ppcomp(lst, legendtext = pLegend)
 ```
 ```{r, hint=TRUE, eval=FALSE}
 library(fitdistrplus)
-dat <- calls %>% 
+dat <- calls |> 
   filter(
     wday == ___,
     hour == ___
-    !is.na(between)) %>% 
-  pull(between) %>% 
-  as.numeric() %>% 
+    !is.na(between)) |> 
+  pull(between) |> 
+  as.numeric() |> 
   print()
 descdist(dat)
 ___ # try to fit the exp, lnorm and gamma
@@ -505,12 +505,12 @@ ___ # try to fit the exp, lnorm and gamma
 
 ```{r, solution=TRUE}
 library(fitdistrplus)
-dat <- calls %>% 
+dat <- calls |> 
   filter(
     wday == "Tue",
     hour == 15,
-    !is.na(between)) %>% 
-  pull(between) %>% 
+    !is.na(between)) |> 
+  pull(between) |> 
   as.numeric() 
 descdist(dat)
 fit12 <- fitdist(dat, distr = "exp")

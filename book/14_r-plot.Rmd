@@ -25,7 +25,7 @@ This module considers visualization of your data using the [ggplot2][tidyverse-g
 
 #### Learning path diagram {-}
 
-```{r, echo=FALSE, out.width="100%", fig.asp=NA, include=TRUE}
+```{r, echo=FALSE, out.width="100%", fig.asp=NA, include=TRUE, message=FALSE}
 g <- create_learning_path(
    url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
    sheet = "r-plot", 
@@ -66,7 +66,7 @@ The package implements the grammar of graphics, a coherent system for describing
 
 An excellent introduction to data visualization using [ggplot2][tidyverse-ggplot2] is given in the interactive DataCamp course [Introduction to data visualization with ggplot2][datacamp-r-ggplot2-intro]. Please complete the course before continuing. 
 
-Note that there is a difference between using the pipe `%>%` operator which passes the output of the previous line of code as the first input of the next line of code and the `+` operator used between **ggplot2** functions for "layering". That is, you create the plot in layers, separated by `+`.
+Note that there is a difference between using the pipe `|>` operator which passes the output of the previous line of code as the first input of the next line of code and the `+` operator used between **ggplot2** functions for "layering". That is, you create the plot in layers, separated by `+`.
 
 
 ## Combining plots into one using _patchwork_  {#r-plot-multi}
@@ -158,7 +158,7 @@ unlink(c("test1.png", "test2.png", "test3.png", "test1.pdf"))
 * Themes can be applied to the plot using the `theme_` functions and control all the non-data ink used to modify the overall look of a plot.
 * Separate ggplots can be combined into the same graphic using the _patchwork_ package. 
 * Save plots as variables and different image files using the device functions such as `png` and `pdf`.
-* The pipe `%>%` operator is used to "pipe" the output of the previous line of code as the first input of the next line of code.
+* The pipe `|>` operator is used to "pipe" the output of the previous line of code as the first input of the next line of code.
 * The `+` operator in **ggplot2** functions is used for "layering". This means you create the plot in layers, separated by `+`.
 * The 'Data visualization with ggplot2' cheatsheet is very useful. Find the newest version in RStudio **Help > Cheatsheets**.
 * A good place to see examples are on the [main reference page](https://ggplot2.tidyverse.org/reference/index.html). Follow the link to the function of interest and have a look at the examples.
@@ -190,7 +190,7 @@ To answer these questions, we will be using the `gapminder` dataset provided in 
 library(tidyverse)
 library(dslabs)
 data(gapminder)
-gapminder %>% as_tibble()
+gapminder |> as_tibble()
 ```
 
 We start by testing our knowledge regarding differences in child mortality across different countries. For each of the six pairs of countries below, which country do you think had the highest child mortality rates in 2015? Which pairs do you think are most similar?
@@ -206,8 +206,8 @@ When answering these questions without data, the non-European countries are typi
 To answer these questions __with data__, we can use __dplyr__. For example, for the first comparison we see that:
 
 ```{r, message=FALSE}
-gapminder %>%
-  filter(year == 2015 & country %in% c("Sri Lanka","Turkey")) %>%
+gapminder |>
+  filter(year == 2015 & country %in% c("Sri Lanka","Turkey")) |>
   select(country, infant_mortality)
 ```
 Turkey has the higher infant mortality rate.
@@ -217,17 +217,17 @@ We can use this code on all comparisons and find the following:
 comp_table <- tibble(comparison = rep(1:5, each = 2),
            country = c("Sri Lanka", "Turkey", "Poland", "South Korea", "Malaysia", "Russia", "Pakistan","Vietnam","Thailand","South Africa"))
 
-tmp <- gapminder %>%
-  filter(year == 2015) %>%
-  select(country, infant_mortality) %>%
+tmp <- gapminder |>
+  filter(year == 2015) |>
+  select(country, infant_mortality) |>
   mutate(country = as.character(country)) ##to match characters to characters
 
-tab <- inner_join(comp_table, tmp, by = "country") %>% select(-comparison)
+tab <- inner_join(comp_table, tmp, by = "country") |> select(-comparison)
 
 tmp <- bind_cols(slice(tab,seq(1,9,2)), slice(tab,seq(2,10,2)))
 names(tmp) <- c("country", "infant mortality", "country", "infant mortality")
 
-knitr::kable(tmp, "html") %>%
+knitr::kable(tmp, "html") |>
     kableExtra::kable_styling(bootstrap_options = "striped", full_width = FALSE)
 
 ```
@@ -242,13 +242,13 @@ There is a preconceived notion that the world is divided into two groups: the We
 
 
 ```{r, solution=TRUE, text = "Most points fall into two distinct categories:\n\n1. Life expectancy around 70 years and 3 or fewer children per family.\n2. Life expectancy lower than 65 years and more than 5 children per family.\n3. Countries are from the regions we expect."}
-filter(gapminder, year == 1962) %>%
+filter(gapminder, year == 1962) |>
   ggplot( aes(fertility, life_expectancy, color = continent)) +
   geom_point() 
 ``` 
 
 ```{r, hint=TRUE, eval=FALSE}
-filter(gapminder, year == ___) %>%
+filter(gapminder, year == ___) |>
   ggplot( aes(___, ___, color = ___)) +
   geom_point() 
 ``` 
@@ -258,14 +258,14 @@ filter(gapminder, year == ___) %>%
    
 
 ```{r, solution=TRUE, text = "This plot clearly shows that the majority of countries have moved from the _developing world_ cluster to the _western world_ one. In 2012, the western versus developing world view no longer makes sense. This is particularly clear when comparing Europe to Asia, the latter of which includes several countries that have made great improvements."}
-filter(gapminder, year %in% c(1962, 2012)) %>%
+filter(gapminder, year %in% c(1962, 2012)) |>
   ggplot(aes(fertility, life_expectancy, col = continent)) +
   geom_point() +
   facet_grid(cols = vars(year))
 ``` 
 
 ```{r, hint=TRUE, eval=FALSE}
-filter(gapminder, ___ %in% c(1962, 2012)) %>%
+filter(gapminder, ___ %in% c(1962, 2012)) |>
   ggplot(aes(___, ___, col = ___)) +
   geom_point() +
   facet_grid(cols = vars(___))
@@ -278,16 +278,16 @@ filter(gapminder, ___ %in% c(1962, 2012)) %>%
 ```{r, solution=TRUE, text = "The plot clearly shows how most Asian countries have improved at a much faster rate than European ones."}
 years <- c(1962, 1970, 1980, 1990, 2000, 2012)
 continents <- c("Europe", "Asia")
-gapminder %>% 
-  filter(year %in% years & continent %in% continents) %>%
+gapminder |> 
+  filter(year %in% years & continent %in% continents) |>
   ggplot( aes(fertility, life_expectancy, col = continent)) +
   geom_point() +
   facet_wrap(vars(year)) 
 ``` 
 
 ```{r, hint=TRUE, eval=FALSE}
-gapminder %>% 
-  filter(year %in% ___ & continent %in% ___) %>%
+gapminder |> 
+  filter(year %in% ___ & continent %in% ___) |>
   ggplot(aes(___)) +
   geom_point() +
   facet_wrap(___) 
@@ -303,7 +303,7 @@ gapminder %>%
 The default choice of the range of the axes is important. When not using `facet`, this range is determined by the data shown in the plot. When using `facet`, this range is determined by the data shown in all plots and therefore kept fixed across plots. This makes comparisons across plots much easier. For example, in the above plot, we can see that life expectancy has increased and the fertility has decreased across most countries. We see this because the cloud of points moves. This is not the case if we adjust the scales:
 
 ```{r, echo=FALSE, warning=FALSE}
-filter(gapminder, year%in%c(1962, 2012)) %>%
+filter(gapminder, year%in%c(1962, 2012)) |>
   ggplot(aes(fertility, life_expectancy, col = continent)) +
   geom_point() +
   facet_wrap(. ~ year, scales = "free")
@@ -314,14 +314,14 @@ In the plot above, we have to pay special attention to the range to notice that 
 
 
 ```{r, solution=TRUE, ignoreWarning = TRUE}
-gapminder %>% 
-  filter(continent == "Asia") %>%
+gapminder |> 
+  filter(continent == "Asia") |>
   ggplot(aes(fertility, life_expectancy, col = year)) +
   geom_point()  
 ``` 
 ```{r, hint=TRUE, eval=FALSE}
-gapminder %>% 
-  filter(___) %>%
+gapminder |> 
+  filter(___) |>
   ggplot(aes(___)) +
   geom_point() 
 ``` 
@@ -336,8 +336,8 @@ The visualizations above effectively illustrate that data no longer supports the
 Time series plots have time in the x-axis and an outcome or measurement of interest on the y-axis. For example, here is a trend plot of United States fertility rates:
 
 ```{r fertility-time-series-plot-points, warning=FALSE, ignoreWarning = TRUE}
-gapminder %>% 
-  filter(country == "United States") %>% 
+gapminder |> 
+  filter(country == "United States") |> 
   ggplot(aes(year, fertility)) +
   geom_point()
 ```
@@ -348,8 +348,8 @@ When the points are regularly and densely spaced, as they are here, we create cu
 
 
 ```{r, solution=TRUE, ignoreWarning = TRUE}
-gapminder %>% 
-  filter(country == "United States") %>% 
+gapminder |> 
+  filter(country == "United States") |> 
   ggplot(aes(year, fertility)) +
   geom_line()
 ``` 
@@ -359,13 +359,13 @@ gapminder %>%
   
 ```{r, solution=TRUE, text = "The plot clearly shows how South Korea's fertility rate dropped drastically during the 1960s and 1970s, and by 1990 had a similar rate to that of Germany.", ignoreWarning = TRUE}
 countries <- c("South Korea", "Germany")
-gapminder %>% filter(country %in% countries) %>% 
+gapminder |> filter(country %in% countries) |> 
   ggplot(aes(year, fertility, col = country)) +
   geom_line() 
 ``` 
 
 ```{r, hint=TRUE, eval=FALSE}
-gapminder %>% filter(country %in% ___) %>% 
+gapminder |> filter(country %in% ___) |> 
   ggplot(aes(year, fertility, col = ___)) +
   geom_line()
 ``` 
@@ -374,8 +374,8 @@ gapminder %>% filter(country %in% ___) %>%
   
   
 ```{r, solution=TRUE, text = "The plot clearly shows how an improvement in life expectancy followed the drops in fertility rates. In 1960, Germans lived 15 years longer than South Koreans, although by 2010 the gap is completely closed. It exemplifies the improvement that many non-western countries have achieved in the last 40 years."}
-gapminder %>% 
-  filter(country %in% countries) %>% 
+gapminder |> 
+  filter(country %in% countries) |> 
   ggplot(aes(year, life_expectancy, col = country)) +
   geom_line() 
 ``` 
@@ -391,7 +391,7 @@ We now shift our attention to the second question related to the commonly held n
 The `gapminder` data table includes a column with the countries' gross domestic product (GDP). GDP measures the market value of goods and services produced by a country in a year. The GDP per person is often used as a rough summary of a country's wealth. Here we divide this quantity by 365 to obtain the more interpretable measure _dollars per day_.  Using current U.S. dollars as a unit, a person surviving on an income of less than $2 a day, is defined to be living in _absolute poverty_. We add this variable to the data table:
 
 ```{r}
-gapminder <- gapminder %>%  
+gapminder <- gapminder |>  
   mutate(dollars_per_day = gdp/population/365)
 ```
 
@@ -401,22 +401,22 @@ Here is a histogram of per day incomes from 1970:
 
 ```{r dollars-per-day-distribution}
 past_year <- 1970
-gapminder %>% 
-  filter(year == past_year & !is.na(gdp)) %>%
+gapminder |> 
+  filter(year == past_year & !is.na(gdp)) |>
   ggplot(aes(dollars_per_day)) + 
   geom_histogram(binwidth = 1, color = "black")
 ```
 
 We use the `color = "black"` argument to draw a boundary and clearly distinguish the bins.
 
-In this plot, we see that for the majority of countries, averages are below \$10 a day. However, the majority of the x-axis is dedicated to the `r filter(gapminder, year == past_year & !is.na(gdp)) %>% summarise(x = sum(dollars_per_day>10)) %>% pull(x)` countries with averages above \$10. So the plot is not very informative about countries with values below \$10 a day.
+In this plot, we see that for the majority of countries, averages are below \$10 a day. However, the majority of the x-axis is dedicated to the `r filter(gapminder, year == past_year & !is.na(gdp)) |> summarise(x = sum(dollars_per_day>10)) |> pull(x)` countries with averages above \$10. So the plot is not very informative about countries with values below \$10 a day.
 
 It might be more informative to quickly be able to see how many countries have average daily incomes of about $1 (extremely poor), \$2 (very poor), \$4 (poor), \$8 (middle), \$16 (well off), \$32 (rich), \$64 (very rich) per day. These changes are multiplicative and log transformations convert multiplicative changes into additive ones: when using base 2, a doubling of a value turns into an increase by 1. 
 
 
 ```{r, solution=TRUE, text = "This provides a _close-up_ of the mid to lower income countries."}
-gapminder %>% 
-  filter(year == past_year & !is.na(gdp)) %>%
+gapminder |> 
+  filter(year == past_year & !is.na(gdp)) |>
   ggplot(aes(log2(dollars_per_day))) + 
   geom_histogram(binwidth = 1, color = "black")
 ``` 
@@ -439,15 +439,15 @@ With base two, our range includes -2, -1, 0, 1, 2, 3, 4, and 5. It is easier to 
 For an example in which base 10 makes more sense, consider population sizes. A log base 10 is preferable since the range for these is:
 
 ```{r}
-filter(gapminder, year == past_year) %>%
+filter(gapminder, year == past_year) |>
   summarize(min = min(population), max = max(population))
 ```
 
 Here is the histogram of the transformed values:
 
 ```{r population-histogram-log10}
-gapminder %>% 
-  filter(year == past_year) %>%
+gapminder |> 
+  filter(year == past_year) |>
   ggplot(aes(log10(population))) +
   geom_histogram(binwidth = 0.5, color = "black")
 ```
@@ -467,8 +467,8 @@ then, to determine `x`, we need to compute $10^{1.5}$, which is not easy to do i
 
 
 ```{r, solution=TRUE, text = "The plot from Q8 is the same except the values on the x-axis."}
-gapminder %>% 
-  filter(year == past_year & !is.na(gdp)) %>%
+gapminder |> 
+  filter(year == past_year & !is.na(gdp)) |>
   ggplot(aes(dollars_per_day)) + 
   geom_histogram(binwidth = 1, color = "black") +
   scale_x_continuous(trans = "log2")
@@ -481,19 +481,19 @@ The histograms in Questions 8 and 9 have two _bumps_: one at about 4 and another
 The histogram above suggests that the 1970 country income distribution has two modes: one at about 2 dollars per day (1 in the log 2 scale) and another at about 32 dollars per day (5 in the log 2 scale). However, the histogram does not show us if the two groups of countries are _west_ versus the _rest_. Let us create the `group` column:
 
 ```{r}
-gapminder <- gapminder %>% 
+gapminder <- gapminder |> 
   mutate(group = case_when(
     region %in% c("Western Europe", "Northern Europe","Southern Europe", 
                   "Northern America", "Australia and New Zealand") ~ "West",
-    TRUE ~ "Rest")) %>% 
+    TRUE ~ "Rest")) |> 
   as_tibble()
 ```
 
 
 
 ```{r, solution=TRUE, text = "The plot confirms the west vs the rest dichotomy."}
-gapminder %>% 
-  filter(year == past_year & !is.na(gdp)) %>%
+gapminder |> 
+  filter(year == past_year & !is.na(gdp)) |>
   ggplot(aes(dollars_per_day)) + 
   geom_histogram(binwidth = 1, color = "black") +
   facet_grid(cols = vars(group)) +
@@ -501,8 +501,8 @@ gapminder %>%
 ``` 
 
 ```{r, hint=TRUE, eval=FALSE}
-gapminder %>% 
-  filter(year == past_year & !is.na(gdp)) %>%
+gapminder |> 
+  filter(year == past_year & !is.na(gdp)) |>
   ggplot(aes(dollars_per_day)) + 
   geom_histogram(binwidth = 1, color = "black") +
   facet_grid(cols = ___) +
@@ -515,8 +515,8 @@ The exploratory data analysis above has revealed two characteristics about avera
 
 
 ```{r, solution=TRUE}
-gapminder %>% 
-  filter(year == past_year & !is.na(gdp)) %>%
+gapminder |> 
+  filter(year == past_year & !is.na(gdp)) |>
   ggplot(aes(group, dollars_per_day)) +
   geom_boxplot() +
   scale_y_continuous(trans = "log2") + 
@@ -524,8 +524,8 @@ gapminder %>%
 ``` 
 
 ```{r, hint=TRUE, eval=FALSE}
-gapminder %>% 
-  filter(year == past_year & !is.na(gdp)) %>%
+gapminder |> 
+  filter(year == past_year & !is.na(gdp)) |>
   ggplot(aes(group, dollars_per_day)) +
   geom____() +
   scale_y_continuous(trans = "log2") + 
@@ -541,12 +541,12 @@ Data exploration clearly shows that in 1970 there was a "west versus the rest" d
 past_year <- 1970
 present_year <- 2010
 years <- c(past_year, present_year)
-country_list_1 <- gapminder %>% 
-  filter(year == past_year & !is.na(dollars_per_day)) %>% 
+country_list_1 <- gapminder |> 
+  filter(year == past_year & !is.na(dollars_per_day)) |> 
   pull(country)
 
-country_list_2 <- gapminder %>% 
-  filter(year == present_year & !is.na(dollars_per_day)) %>% 
+country_list_2 <- gapminder |> 
+  filter(year == present_year & !is.na(dollars_per_day)) |> 
   pull(country)
       
 country_list <- intersect(country_list_1, country_list_2)
@@ -557,8 +557,8 @@ We can now filter the rows by `years` and `country_list`.
 
 
 ```{r, solution=TRUE, text = "The income gap between rich and poor countries has narrowed considerably during the last 40 years"}
-gapminder %>% 
-  filter(year %in% years & country %in% country_list) %>%
+gapminder |> 
+  filter(year %in% years & country %in% country_list) |>
   ggplot(aes(dollars_per_day)) +
   geom_histogram(binwidth = 1, color = "black") +
   scale_x_continuous(trans = "log2") + 
@@ -566,8 +566,8 @@ gapminder %>%
 ``` 
 
 ```{r, hint=TRUE, eval=FALSE}
-gapminder %>% 
-  filter(year %in% ___ & country %in% ___) %>%
+gapminder |> 
+  filter(year %in% ___ & country %in% ___) |>
   ggplot(aes(dollars_per_day)) +
   geom_histogram(binwidth = 1, color = "black") +
   scale_x_continuous(trans = "log2") + 
@@ -578,18 +578,18 @@ gapminder %>%
   
 
 ```{r, solution=TRUE, text = "We now see that the rich countries have become a bit richer, but percentage-wise, the poor countries appear to have improved more. In particular, we see that the proportion of _developing_ countries earning more than $16 a day increased substantially."}
-gapminder %>% 
-  filter(year %in% years & country %in% country_list) %>%
-  mutate(year = factor(year)) %>%
+gapminder |> 
+  filter(year %in% years & country %in% country_list) |>
+  mutate(year = factor(year)) |>
   ggplot(aes(group, dollars_per_day, fill = year)) +
   geom_boxplot() +
   scale_y_continuous(trans = "log2") 
 ``` 
 
 ```{r, hint=TRUE, eval=FALSE}
-gapminder %>% 
-  filter(year %in% years & country %in% country_list) %>%
-  mutate(year = factor(___)) %>%
+gapminder |> 
+  filter(year %in% years & country %in% country_list) |>
+  mutate(year = factor(___)) |>
   ggplot(aes(group, dollars_per_day, fill = ___)) +
   geom_boxplot() +
   scale_y_continuous(trans = "log2") 
@@ -605,8 +605,8 @@ The previous data exploration suggested that the income gap between rich and poo
 We used a series of histograms and boxplots to see this. Let us now shift to density plots. Let us start by noting that density plots for income distribution in `r past_year` and `r present_year` deliver the message that the gap is closing:
 
 ```{r income-smooth-density-by-year}
-gapminder %>% 
-  filter(year %in% years & country %in% country_list) %>%
+gapminder |> 
+  filter(year %in% years & country %in% country_list) |>
   ggplot(aes(dollars_per_day)) +
   geom_density(fill = "grey") + 
   scale_x_continuous(trans = "log2") + 
@@ -616,11 +616,11 @@ gapminder %>%
 In the `r past_year` plot, we see two clear modes: poor and rich countries. In `r present_year`, it appears that some of the poor countries have shifted towards the right, closing the gap. 
 
 ```{r, echo=FALSE, include=FALSE}
-tmp <- gapminder %>% 
-  filter(year == past_year & country %in% country_list) %>%
-  mutate(group = ifelse(group == "West", "West", "Developing")) %>% 
-  group_by(group) %>% 
-  summarize(n=n()) %>%
+tmp <- gapminder |> 
+  filter(year == past_year & country %in% country_list) |>
+  mutate(group = ifelse(group == "West", "West", "Developing")) |> 
+  group_by(group) |> 
+  summarize(n=n()) |>
   spread(group, n)
 ```
 
@@ -628,8 +628,8 @@ tmp <- gapminder %>%
 The next message we need to convey is that the reason for this change in distribution is that several poor countries became richer, rather than some rich countries becoming poorer. To do this, we can assign a color to the groups we identified during data exploration. 
 
 ```{r income-smooth-density-by-year-west-v-developing}
-gapminder %>% 
-  filter(year %in% years & country %in% country_list) %>%
+gapminder |> 
+  filter(year %in% years & country %in% country_list) |>
   ggplot(aes(dollars_per_day, fill = group)) +
   scale_x_continuous(trans = "log2") +
   geom_density(alpha = 0.2) + 
@@ -640,8 +640,8 @@ Note the default is to have the area represented by each distribution add up to 
 
 
 ```{r income-smooth-density-counts}
-p <- gapminder %>% 
-  filter(year %in% years & country %in% country_list) %>%
+p <- gapminder |> 
+  filter(year %in% years & country %in% country_list) |>
   ggplot(aes(dollars_per_day, y = ..count.., fill = group)) +
   scale_x_continuous(trans = "log2", limit = c(0.125, 300)) +
   facet_grid(cols = vars(year))
@@ -659,17 +659,17 @@ p + geom_density(alpha = 0.2, bw = 0.75)
 As a final point, we note that in these distributions the weight of every country is the same. So if most of the population is improving, but living in a very large country, such as China, we might not appreciate this. We can actually weight the smooth densities using the `weight` mapping argument. We modify the dataset:
 
 ```{r}
-gapminder <- gapminder %>% 
-  filter(year %in% years & country %in% country_list) %>%
-  group_by(year) %>%
-  mutate(weight = population/sum(population)*2) %>%
+gapminder <- gapminder |> 
+  filter(year %in% years & country %in% country_list) |>
+  group_by(year) |>
+  mutate(weight = population/sum(population)*2) |>
   ungroup() 
 ```
 
 
 
 ```{r, solution=TRUE, text = "We now see that the rich countries have become a bit richer, but percentage-wise, the poor countries appear to have improved more. In particular, we see that the proportion of _developing_ countries earning more than $16 a day increased substantially."}
-gapminder %>% 
+gapminder |> 
   ggplot(aes(dollars_per_day, fill = group, weight = weight)) +
   scale_x_continuous(trans = "log2", limit = c(0.125, 300)) + 
   geom_density(alpha = 0.2, bw = 0.75) + 
@@ -677,7 +677,7 @@ gapminder %>%
 ``` 
 
 ```{r, hint=TRUE, eval=FALSE}
-gapminder %>% 
+gapminder |> 
   ggplot(aes(dollars_per_day, fill = group, weight = ___)) +
   scale_x_continuous(trans = "log2", limit = c(0.125, 300)) + 
   geom_density(alpha = 0.2, bw = 0.75) + 
@@ -706,11 +706,11 @@ skim(profit)
   1) Make a barplot that shows the total profitability of the product lines. Use the following steps:
 
 ```{r, solution=TRUE}
-profit <- profit %>%
+profit <- profit |>
   mutate(across(where(is.character), as.factor))
 ``` 
 ```{r, hint=TRUE, eval=FALSE}
-profit <- profit %>%
+profit <- profit |>
   mutate(across(where(is.___), as.___))
 ``` 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -718,16 +718,16 @@ a) Convert all character columns to factor columns.
 
 
 ```{r, solution=TRUE}
-profit %>% 
-  group_by(`Product Line`) %>% 
-  summarise(Profit = sum(Profit)) %>% 
+profit |> 
+  group_by(`Product Line`) |> 
+  summarise(Profit = sum(Profit)) |> 
   ggplot(aes(x = `Product Line`, y = Profit)) +
   geom_col()
 ``` 
 ```{r, hint=TRUE, eval=FALSE}
-profit %>% 
-  group_by(___) %>% 
-  summarise(Profit = sum(___)) %>% 
+profit |> 
+  group_by(___) |> 
+  summarise(Profit = sum(___)) |> 
   ggplot(aes(x = ___, y = ___)) +
   geom_col()
 ``` 
@@ -736,26 +736,26 @@ b) Group by product line, calculate the total profit and plot profit for each pr
 
 
 ```{r, solution=TRUE}
-profit %>% 
-  group_by(`Product Line`) %>% 
-  summarise(Profit = sum(Profit)) %>% 
+profit |> 
+  group_by(`Product Line`) |> 
+  summarise(Profit = sum(Profit)) |> 
   ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
   geom_col()
 
 # Alternatively you can reorder the data frame before calling ggplot
-profit %>% 
-  group_by(`Product Line`) %>% 
-  summarise(Profit = sum(Profit)) %>% 
-  arrange(Profit) %>% 
-  mutate(`Product Line` = factor(`Product Line`, levels = `Product Line`, ordered = TRUE)) %>% 
+profit |> 
+  group_by(`Product Line`) |> 
+  summarise(Profit = sum(Profit)) |> 
+  arrange(Profit) |> 
+  mutate(`Product Line` = factor(`Product Line`, levels = `Product Line`, ordered = TRUE)) |> 
   ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
   geom_col() + 
   labs(title = "Total profit for each product line") 
 ``` 
 ```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
-profit %>% 
-  group_by(`Product Line`) %>% 
-  summarise(Profit = sum(Profit)) %>% 
+profit |> 
+  group_by(`Product Line`) |> 
+  summarise(Profit = sum(Profit)) |> 
   ggplot(aes(x = reorder(___), y = Profit)) +
   geom_col()
 ``` 
@@ -766,9 +766,9 @@ c) Plot profit for each product line where product line is reordered based on to
 
 
 ```{r, solution=TRUE}
-profit %>% 
-  group_by(`Product Line`) %>% 
-  summarise(Profit = sum(Profit)) %>% 
+profit |> 
+  group_by(`Product Line`) |> 
+  summarise(Profit = sum(Profit)) |> 
   ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
   geom_col() + 
   labs(title = "Total profit for each product line") 
@@ -780,9 +780,9 @@ d) Add a title to the plot using `labs`.
 
 
 ```{r, solution=TRUE}
-profit %>% 
-  group_by(`Product Line`) %>% 
-  summarise(Profit = sum(Profit)) %>% 
+profit |> 
+  group_by(`Product Line`) |> 
+  summarise(Profit = sum(Profit)) |> 
   ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
   geom_col() +
   labs(title = "Total profit for each product line") + 
@@ -796,18 +796,18 @@ e) Rotate the x-axis labels 90 degrees.
 
 
 ```{r, solution=TRUE}
-dat <- profit %>% 
-  group_by(`Product Line`) %>% 
+dat <- profit |> 
+  group_by(`Product Line`) |> 
   summarise(Profit = sum(Profit)) 
-dat %>% slice_min(Profit)
-dat %>% slice_max(Profit)
+dat |> slice_min(Profit)
+dat |> slice_max(Profit)
 ```
 ```{r, hint=TRUE, eval=FALSE}
-dat <- profit %>% 
-  group_by(`Product Line`) %>% 
+dat <- profit |> 
+  group_by(`Product Line`) |> 
   summarise(Profit = sum(Profit)) 
-dat %>% slice_min(___)
-dat %>% ___
+dat |> slice_min(___)
+dat |> ___
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 f) Which product line is best and worst?
@@ -815,9 +815,9 @@ f) Which product line is best and worst?
 
 
 ```{r, solution=TRUE, text="Some product lines have quite different earnings in different quarters."}
-profit %>% 
-  group_by(`Product Line`, Quarter) %>% 
-  summarise(Profit = sum(Profit)) %>% 
+profit |> 
+  group_by(`Product Line`, Quarter) |> 
+  summarise(Profit = sum(Profit)) |> 
   ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
   geom_col() +
   facet_grid(cols = vars(Quarter)) +
@@ -826,9 +826,9 @@ profit %>%
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ``` 
 ```{r, hint=TRUE, eval=FALSE}
-profit %>% 
-  group_by(`Product Line`, ___) %>% 
-  summarise(Profit = sum(Profit)) %>% 
+profit |> 
+  group_by(`Product Line`, ___) |> 
+  summarise(Profit = sum(Profit)) |> 
   ggplot(aes(x = reorder(`Product Line`, Profit), y = Profit)) +
   geom_col() +
   facet_grid(cols = vars(___)) +
@@ -841,14 +841,14 @@ profit %>%
 
 
 ```{r, solution=TRUE, text="The profit varies more for three of the product lines."}
-profit %>% 
+profit |> 
   ggplot(aes(y = Profit, x = `Product Line`)) +
   geom_boxplot() +
   labs(title = "Profit for each product line") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ``` 
 ```{r, hint=TRUE, eval=FALSE}
-profit %>% 
+profit |> 
   ggplot(aes(y = ___, x = ___)) +
   geom_boxplot() +
   labs(title = "Profit for each product line") + 
@@ -859,18 +859,18 @@ profit %>%
 
 
 ```{r, solution=TRUE, text="Lowest and highest total profit is for PBI and WEM, respectively."}
-profit %>% 
-  group_by(`Customer ID`) %>% 
-  summarise(Profit = sum(Profit)) %>% 
+profit |> 
+  group_by(`Customer ID`) |> 
+  summarise(Profit = sum(Profit)) |> 
   ggplot(aes(x = reorder(`Customer ID`, Profit), y = Profit)) +
   geom_col() +
   labs(title = "Total profit for each customer") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ``` 
 ```{r, hint=TRUE, eval=FALSE}
-profit %>% 
-  group_by(___) %>% 
-  summarise(Profit = sum(___)) %>% 
+profit |> 
+  group_by(___) |> 
+  summarise(Profit = sum(___)) |> 
   ggplot(aes(x = reorder(___, ___), y = Profit)) +
   geom_col() +
   labs(title = "Total profit for each customer") + 
@@ -881,18 +881,18 @@ profit %>%
 
 
 ```{r, solution=TRUE, text="Since the number of transactions are not the same, the order of customers will not be the same."}
-profit %>% 
-  group_by(`Customer ID`) %>% 
-  summarise(Profit = mean(Profit)) %>% 
+profit |> 
+  group_by(`Customer ID`) |> 
+  summarise(Profit = mean(Profit)) |> 
   ggplot(aes(x = reorder(`Customer ID`, Profit), y = Profit)) +
   geom_col() +
   labs(title = "Mean profit for each customer") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ``` 
 ```{r, hint=TRUE, eval=FALSE}
-profit %>% 
-  group_by(`Customer ID`) %>% 
-  summarise(Profit = ___) %>% 
+profit |> 
+  group_by(`Customer ID`) |> 
+  summarise(Profit = ___) |> 
   ggplot(aes(x = reorder(`Customer ID`, Profit), y = Profit)) +
   geom_col() +
   labs(title = "Mean profit for each customer") + 
@@ -903,9 +903,9 @@ profit %>%
   
   
 ```{r, solution=TRUE, eval=FALSE}
-profit %>% 
-  group_by(`Customer ID`) %>% 
-  summarise(ctr = n(), `Total Profit` = sum(Profit)) %>% 
+profit |> 
+  group_by(`Customer ID`) |> 
+  summarise(ctr = n(), `Total Profit` = sum(Profit)) |> 
   ggplot(aes(x = reorder(`Customer ID`, `Total Profit`), y = ctr, fill = `Total Profit`)) +
   geom_col() +
   labs(title = "Number of transactions (rows) for each customer") + 
@@ -913,9 +913,9 @@ profit %>%
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ``` 
 ```{r, hint=TRUE, eval=FALSE}
-profit %>% 
-  group_by(`Customer ID`) %>% 
-  summarise(ctr = ___, `Total Profit` = sum(___)) %>% 
+profit |> 
+  group_by(`Customer ID`) |> 
+  summarise(ctr = ___, `Total Profit` = sum(___)) |> 
   ggplot(aes(x = reorder(___, `Total Profit`), y = ctr, fill = ___)) +
   geom_col() +
   labs(title = "Number of transactions (rows) for each customer") + 
@@ -927,14 +927,14 @@ profit %>%
   
   
 ```{r, solution=TRUE}
-profit %>% 
+profit |> 
   ggplot(aes(y = Profit, x = `Customer ID`)) +
   geom_boxplot() +
   labs(title = "Profit for each customer") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 ```{r, hint=TRUE, eval=FALSE}
-profit %>% 
+profit |> 
   ggplot(aes(y = ___, x = ___)) +
   geom_boxplot() +
   labs(title = "Profit for each customer") + 
@@ -984,25 +984,25 @@ coronavirus <- read_csv(
 We calculate the total number of cases per day, cumulative numbers and days since first record: 
 
 ```{r}
-dat <- coronavirus %>%
-  group_by(country, date, type) %>% 
-  summarise(tot_cases = sum(cases)) %>%
-  group_by(country, type) %>% 
-  arrange(date) %>%
-  mutate(cumulative_cases = cumsum(tot_cases)) %>%
-  ungroup() %>%
+dat <- coronavirus |>
+  group_by(country, date, type) |> 
+  summarise(tot_cases = sum(cases)) |>
+  group_by(country, type) |> 
+  arrange(date) |>
+  mutate(cumulative_cases = cumsum(tot_cases)) |>
+  ungroup() |>
   mutate(
     days_elapsed = as.numeric(date - min(date)),
     year = year(date)
-  ) %>% print()
+  ) |> print()
 ```
 
 
 
 ```{r, solution=TRUE}
-dat %>% 
-  group_by(date, type) %>% 
-  summarise(tot_cases = sum(tot_cases)) %>% print() %>% 
+dat |> 
+  group_by(date, type) |> 
+  summarise(tot_cases = sum(tot_cases)) |> print() |> 
   ggplot(aes(x = date, y = tot_cases)) +
   geom_col() + 
   facet_grid(rows = vars(type), scales = "free") +
@@ -1012,9 +1012,9 @@ dat %>%
   )
 ```
 ```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
-dat %>% 
-  group_by(date, type) %>% 
-  summarise(tot_cases = sum(tot_cases)) %>% print() %>% 
+dat |> 
+  group_by(date, type) |> 
+  summarise(tot_cases = sum(tot_cases)) |> print() |> 
   ggplot(aes(x = ___, y = ___)) +
   geom_col() + 
   facet_grid(rows = vars(___), scales = "___") +
@@ -1024,8 +1024,8 @@ dat %>%
   )
 ```
 ```{r, hint=TRUE, eval=FALSE, title="Hint 1", text="Note you must aggegrate the numbers for the countries."}
-dat %>% 
-  group_by(date, ___) %>% 
+dat |> 
+  group_by(date, ___) |> 
   summarise(tot_cases = sum(___)) 
 ```
   1) Calculate and plot the number of confirmed, death and recovered cases per day given date using `facet_grid` and `geom_col`.
@@ -1047,8 +1047,8 @@ countries <- c(
 
 
 ```{r, solution=TRUE}
-dat %>% 
-  filter(type == "death", country %in% countries) %>% 
+dat |> 
+  filter(type == "death", country %in% countries) |> 
   ggplot(aes(x = days_elapsed, 
              y = cumulative_cases, 
              color = country)) +
@@ -1061,8 +1061,8 @@ dat %>%
   )
 ```
 ```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
-dat %>% 
-  filter(type == "death", country %in% countries) %>% 
+dat |> 
+  filter(type == "death", country %in% countries) |> 
   ggplot(aes(x = ___, 
              y = ___, 
              color = ___)) +
@@ -1075,8 +1075,8 @@ dat %>%
   )
 ```
 ```{r, hint=TRUE, eval=FALSE, title="Hint 1", text="First you have to filter type and country"}
-dat %>% 
-  filter(type == "___", country %in% ___) %>% 
+dat |> 
+  filter(type == "___", country %in% ___) |> 
 ```
 2) Plot a lineplot of the cumulative number of deaths as a function of days elapsed for the selected countries. Use country as color aesthetic. 
 
@@ -1084,8 +1084,8 @@ dat %>%
 Since the countries have different population sizes, we would like to calculate some numbers relative to the population size. First we need population sizes for each country. They are given in the dataset `world_pop` in the _tfa_ package:
 
 ```{r}
-world_pop <- tfa::world_pop %>%
-  filter(country %in% countries) %>% 
+world_pop <- tfa::world_pop |>
+  filter(country %in% countries) |> 
   print()
 ```
 
@@ -1093,9 +1093,9 @@ world_pop <- tfa::world_pop %>%
 We can join the datasets using:
 
 ```{r}
-dat <- dat %>% 
-  filter(country %in% countries) %>% 
-  left_join(world_pop) %>% 
+dat <- dat |> 
+  filter(country %in% countries) |> 
+  left_join(world_pop) |> 
   print()
 any(is.na(dat))  # check if any missing values
 ```
@@ -1103,7 +1103,7 @@ any(is.na(dat))  # check if any missing values
 
 
 ```{r, solution=TRUE}
-dat <- dat %>% 
+dat <- dat |> 
   mutate(tot_cases_pop = 100000 * tot_cases/pop)
 ```
 3) Calculate `tot_cases_pop` as number of cases per 100000 inhabitants. That is, total cases divided by population and multiplied by 100000.
@@ -1111,15 +1111,15 @@ dat <- dat %>%
 
 
 ```{r, solution=TRUE, warning=FALSE}
-dat %>% 
-  filter(date >= today() - days(21), type == "confirmed") %>% 
+dat |> 
+  filter(date >= today() - days(21), type == "confirmed") |> 
   ggplot(aes(x = date, y = tot_cases_pop, fill = country)) +
   geom_col(position = position_dodge2())
 
 ```
 ```{r, hint=TRUE, eval=FALSE, title="Hint 2"}
-dat %>% 
-  filter(date >= today() - days(21), type == ___) %>% 
+dat |> 
+  filter(date >= today() - days(21), type == ___) |> 
   ggplot(aes(x = date, y = ___, fill = ___)) +
   geom_col(position = position_dodge2())
 ```
@@ -1132,14 +1132,14 @@ today() - days(21)
 
 
 ```{r, solution=TRUE, warning=FALSE}
-dat %>% 
-  filter(date >= today() - days(14), country == "Denmark", type == "confirmed") %>% 
+dat |> 
+  filter(date >= today() - days(14), country == "Denmark", type == "confirmed") |> 
   ggplot(aes(x = date, y = tot_cases_pop)) +
   geom_col()
 ```
 ```{r, hint=TRUE, eval=FALSE}
-dat %>% 
-  filter(date >= ___, country == ___, type == ___) %>% 
+dat |> 
+  filter(date >= ___, country == ___, type == ___) |> 
   ggplot(aes(x = date, y = tot_cases_pop)) +
   geom_col()
 ```
@@ -1226,8 +1226,8 @@ Answer this assignment using the *ggplot2* package in *tidyverse* (you might nee
 
 <!-- Q1 -->
 ```{r, solution=TRUE, text="Based on the plot, the lowest number of companies are in the _Trading companies_ category."}
-companies %>% 
-  count(category) %>% 
+companies |> 
+  count(category) |> 
   ggplot(aes(x = reorder(category, -n), y = n)) +
   geom_col() +
   labs(title = "Number of companies in each product category",
@@ -1236,8 +1236,8 @@ companies %>%
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 ```{r, hint=TRUE}
-companies %>% 
-  count(___) %>% 
+companies |> 
+  count(___) |> 
   ggplot(aes(x = reorder(___, -n), y = n)) +
   geom_col() +
   labs(title = "Number of companies in each product category",
@@ -1257,8 +1257,8 @@ companies %>%
 
 <!-- Q2 -->
 ```{r, solution=TRUE, text="Based on the plot the _Drugs & biotechnology_ product category gives the best profit."}
-companies %>% 
-  filter(category %in% c("Drugs & biotechnology", "Media")) %>% 
+companies |> 
+  filter(category %in% c("Drugs & biotechnology", "Media")) |> 
   ggplot(aes(x = sales, y = profits, color = category)) +
   geom_point() +
   geom_smooth() +
@@ -1269,8 +1269,8 @@ companies %>%
   theme(legend.position = "bottom")
 ```
 ```{r, hint=TRUE}
-companies %>% 
-  filter(category %in% c(___)) %>% 
+companies |> 
+  filter(category %in% c(___)) |> 
   ggplot(aes(x = ___, y = ___, color = ___)) +
   geom_point() +
   geom_smooth() +
@@ -1294,12 +1294,12 @@ companies %>%
 
 <!-- Q3 -->
 ```{r, solution=TRUE, text="Given the plot above, it can be seen that the highest ratio with respect to the mean and the median is for _Banking_. However, the variation is also highest here."}
-companies <- companies %>% 
+companies <- companies |> 
   mutate(ratio = profits/sales) 
 
 # Option 1 - Use a boxplot
-companies %>% 
-  filter(category %in% c("Banking", "Aerospace & defense")) %>% 
+companies |> 
+  filter(category %in% c("Banking", "Aerospace & defense")) |> 
   ggplot(aes(y = ratio, color = category)) +
   geom_boxplot() +
   labs(title = "Ratio of profit/sales",
@@ -1309,8 +1309,8 @@ companies %>%
   theme(legend.position = "bottom")
 
 # Option 2 - Use a density plot
-companies %>% 
-  filter(category %in% c("Banking", "Aerospace & defense")) %>% 
+companies |> 
+  filter(category %in% c("Banking", "Aerospace & defense")) |> 
   ggplot(aes(x = ratio, fill = category)) +
   geom_density(alpha = 0.5) +
   labs(title = "Ratio of profit/sales",
@@ -1320,11 +1320,11 @@ companies %>%
   theme(legend.position = "bottom")
 ```
 ```{r, hint=TRUE}
-companies <- companies %>% 
+companies <- companies |> 
   mutate(ratio = ___) 
 
-companies %>% 
-  filter(category %in% c(___)) %>% 
+companies |> 
+  filter(category %in% c(___)) |> 
   ggplot(aes(y = ___, color = ___)) +
   geom_boxplot() +
   labs(title = "Ratio of profit/sales",
@@ -1345,11 +1345,11 @@ companies %>%
 <!-- Q4 -->
 ```{r, solution=TRUE, warning=FALSE, text="By considering the trend lines for _Banking_, it seems that if compare companies with the same marketvalue, then companies in Europe have more assets."}
 continents <- read_csv(system.file("extdata/continents.csv", package = "tfa"))
-companies %>% 
-  left_join(continents) %>% 
-  filter(continent %in% c("Americas", "Europe")) %>% 
+companies |> 
+  left_join(continents) |> 
+  filter(continent %in% c("Americas", "Europe")) |> 
   filter(category %in% c("Banking", "Aerospace & defense", 
-                         "Telecommunications services", "Semiconductors")) %>% 
+                         "Telecommunications services", "Semiconductors")) |> 
   ggplot(aes(x = marketvalue, y = assets, color = continent)) +
   geom_point() +
   geom_smooth(method = lm) +
@@ -1362,10 +1362,10 @@ companies %>%
 ```
 ```{r, hint=TRUE}
 continents <- read_csv(system.file("extdata/continents.csv", package = "tfa"))
-companies %>% 
-  left_join(___) %>% 
-  filter(continent %in% c(___)) %>% 
-  filter(category %in% c(___)) %>% 
+companies |> 
+  left_join(___) |> 
+  filter(continent %in% c(___)) |> 
+  filter(category %in% c(___)) |> 
   ggplot(aes(x = ___, y = ___, color = ___)) +
   geom_point() +
   geom_smooth(method = lm) +
@@ -1429,13 +1429,13 @@ Answer this assignment using the *ggplot2* package in *tidyverse* (you might nee
 
 <!-- Q1 -->
 ```{r, solution=TRUE, text="The main harbor was Southampton."}
-dat <- dat %>% mutate(harbor = case_when(
+dat <- dat |> mutate(harbor = case_when(
   embarked == "C" ~ "Cherbourg",
   embarked == "Q" ~ "Queenstown",
   embarked == "S" ~ "Southampton",
   TRUE ~ NA_character_
 ))
-dat %>% 
+dat |> 
   ggplot(aes(x = harbor)) +
   geom_bar() +
   labs(title = "Number of persons embarking each departure harbor",
@@ -1443,13 +1443,13 @@ dat %>%
        y = "Persons") 
 ```
 ```{r, hint=TRUE}
-dat <- dat %>% mutate(harbor = case_when(
+dat <- dat |> mutate(harbor = case_when(
   embarked == "C" ~ "Cherbourg",
   embarked == "Q" ~ "Queenstown",
   embarked == "S" ~ "Southampton",
   TRUE ~ NA_character_
 ))
-dat %>% 
+dat |> 
   ggplot(aes(x = ___)) +
   geom_bar() +
   labs(title = "Number of persons embarking each departure harbor",
@@ -1468,7 +1468,7 @@ dat %>%
 
 <!-- Q2 -->
 ```{r, solution=TRUE, text="There where most people in their twenties."}
-dat %>% 
+dat |> 
   ggplot(aes(x = age)) +
   geom_histogram(binwidth = 2) +
   labs(title = "Age distribution",
@@ -1476,7 +1476,7 @@ dat %>%
        y = "Persons") 
 ```
 ```{r, hint=TRUE}
-dat %>% 
+dat |> 
   ggplot(aes(x = ___)) +
   geom_histogram(binwidth = 2) +
   labs(title = "Age distribution",
@@ -1494,7 +1494,7 @@ dat %>%
 
 <!-- Q3 -->
 ```{r, solution=TRUE, text="Based on the trend lines females in general pays more than males."}
-dat %>% ggplot(aes(x = age, y = fare, color = sex)) +
+dat |> ggplot(aes(x = age, y = fare, color = sex)) +
   geom_point() + 
   geom_smooth() +
   labs(title = "Fare prices given age",
@@ -1504,7 +1504,7 @@ dat %>% ggplot(aes(x = age, y = fare, color = sex)) +
   theme(legend.position = "bottom")
 ```
 ```{r, hint=TRUE}
-dat %>% ggplot(aes(x = ___, y = ___, color = ___)) +
+dat |> ggplot(aes(x = ___, y = ___, color = ___)) +
   geom_point() + 
   geom_smooth() +
   labs(title = "Fare prices given age",
@@ -1526,7 +1526,7 @@ dat %>% ggplot(aes(x = ___, y = ___, color = ___)) +
 
 <!-- Q4 -->
 ```{r, solution=TRUE, text="Based on the plot most people survived at first classs."}
-dat %>% 
+dat |> 
   ggplot(aes(x = pclass, fill = as.logical(survived))) +
   geom_bar(position="fill") +
   labs(title = "Survival rate given passenger class",
@@ -1536,7 +1536,7 @@ dat %>%
   theme(legend.position = "bottom")
 ```
 ```{r, hint=TRUE}
-dat %>% 
+dat |> 
   ggplot(aes(x = ___, fill = as.logical(___))) +
   geom_bar(position="fill") +
   labs(title = "Survival rate given passenger class",
@@ -1558,18 +1558,18 @@ dat %>%
 
 <!-- Q5 -->
 ```{r, solution=TRUE, text="Based on the plot the fare prices at B and C level are more or less the same."}
-dat <- dat %>% 
+dat <- dat |> 
   mutate(level = str_sub(cabin, 1, 1)) 
 
-  dat %>% filter(!is.na(level)) %>% 
+  dat |> filter(!is.na(level)) |> 
     ggplot(aes(x = level, y = fare)) +
     geom_boxplot() 
 ```
 ```{r, hint=TRUE}
-dat <- dat %>% 
+dat <- dat |> 
   mutate(level = str_sub(cabin, 1, 1)) 
 
-  dat %>% filter(!is.na(___)) %>% 
+  dat |> filter(!is.na(___)) |> 
     ggplot(aes(x = ___, y = ___)) +
     geom_boxplot() 
 ```
@@ -1614,8 +1614,8 @@ Answer this assignment using the *ggplot2* package in *tidyverse* (you may need 
 
 <!-- Q1 -->
 ```{r, solution=TRUE, text="The number of cases in July 2020 are low."}
-dat %>%
-   filter(country == "Denmark", !is.na(cases)) %>% 
+dat |>
+   filter(country == "Denmark", !is.na(cases)) |> 
    ggplot(aes(y = cases, x = date)) +
    geom_line(color = "blue") +
    labs(title = "Number of cases in Denmark",
@@ -1624,8 +1624,8 @@ dat %>%
     )
 ```
 ```{r, hint=TRUE}
-dat %>%
-   filter(___) %>% 
+dat |>
+   filter(___) |> 
    ggplot(aes(y = ___, x = ___)) +
    geom_line(color = "blue") +
    labs(title = "Number of cases in Denmark",
@@ -1645,10 +1645,10 @@ dat %>%
 
 <!-- Q2 -->
 ```{r, solution=TRUE, text="The highest relative number of deaths are for the United Kingdom."}
-dat %>%
-   group_by(country) %>%
-   mutate(total_deaths = cumsum(replace_na(deaths, 0))) %>%
-   mutate(total_deaths_cap = total_deaths/(population/100000)) %>% 
+dat |>
+   group_by(country) |>
+   mutate(total_deaths = cumsum(replace_na(deaths, 0))) |>
+   mutate(total_deaths_cap = total_deaths/(population/100000)) |> 
    ggplot(aes(x = date, y = total_deaths_cap, color = country)) +
    geom_line() +
    labs(title = "Total number of deaths per 100000",
@@ -1659,10 +1659,10 @@ dat %>%
    theme(legend.position = "bottom") 
 ```
 ```{r, hint=TRUE}
-dat %>%
-   group_by(___) %>%
-   mutate(total_deaths = cumsum(replace_na(deaths, 0))) %>%
-   mutate(total_deaths_cap = ___) %>% 
+dat |>
+   group_by(___) |>
+   mutate(total_deaths = cumsum(replace_na(deaths, 0))) |>
+   mutate(total_deaths_cap = ___) |> 
    ggplot(aes(x = ___, y = ___, color = ___)) +
    geom_line() +
    labs(title = "Total number of deaths per 100000",
@@ -1688,11 +1688,11 @@ dat %>%
 
 <!-- Q3 -->
 ```{r, solution=TRUE, text="The plot showes that Denmark has the highest percentage of vaccinated people and the lowest gap between partly and full vaccinated."}
-dat %>% 
-   filter(year == 2021) %>% 
+dat |> 
+   filter(year == 2021) |> 
    mutate(partly = vac/population, 
-          full = fully_vac/population) %>%
-   pivot_longer(cols = c(partly, full)) %>% 
+          full = fully_vac/population) |>
+   pivot_longer(cols = c(partly, full)) |> 
    ggplot() + 
    geom_line(aes(x = date, y = value, color = name)) + 
    facet_wrap(vars(country)) +
@@ -1703,11 +1703,11 @@ dat %>%
    theme(legend.position = "bottom") 
 ```
 ```{r, hint=TRUE}
-dat %>% 
-   filter(___) %>% 
+dat |> 
+   filter(___) |> 
    mutate(partly = ___, 
-          full = ___) %>%
-   pivot_longer(cols = c(partly, full)) %>% 
+          full = ___) |>
+   pivot_longer(cols = c(partly, full)) |> 
    ggplot() + 
    geom_line(aes(x = ___, y = ___, color = ___)) + 
    facet_wrap(vars(___)) +
@@ -1729,7 +1729,7 @@ dat %>%
    Hint: If you calculated the two percentages in two new columns `partly` and `full`, then the values can be joined to one column using
    
    ```{r, eval=FALSE}
-   dat %>% 
+   dat |> 
       pivot_longer(cols = c(partly, full))
    ```
    
@@ -1739,8 +1739,8 @@ dat %>%
 
 <!-- Q4 -->
 ```{r, solution=TRUE, text="In 2021 the mean value of the ICU patients was highest when considering October."}
-dat %>%
-   filter(country == "Germany") %>% 
+dat |>
+   filter(country == "Germany") |> 
   ggplot(aes(y = icu_patients)) +
   geom_boxplot() +
   facet_grid(month ~ year, scales = "free_y") +
@@ -1753,8 +1753,8 @@ dat %>%
         legend.position = "bottom")
 ```
 ```{r, hint=TRUE}
-dat %>%
-   filter(___) %>% 
+dat |>
+   filter(___) |> 
   ggplot(aes(y = ___)) +
   geom_boxplot() +
   facet_grid(___ ~ ___, scales = "free_y") +
@@ -1778,9 +1778,9 @@ dat %>%
 
 <!-- Q5 -->
 ```{r, solution=TRUE, text="Norway had the lowest number of deaths in 2021."}
-dat %>%
-   group_by(country, year) %>% 
-   summarise(deaths = sum(deaths/(population/100000) , na.rm = TRUE)) %>% 
+dat |>
+   group_by(country, year) |> 
+   summarise(deaths = sum(deaths/(population/100000) , na.rm = TRUE)) |> 
    ggplot(aes(y = deaths, x = country, fill = factor(year))) +
    geom_col(position = position_dodge()) +
    labs(title = "Total number of deaths",
@@ -1790,9 +1790,9 @@ dat %>%
    theme(legend.position = "bottom")
 ```
 ```{r, hint=TRUE}
-dat %>%
-   group_by(___) %>% 
-   summarise(deaths = sum(___ , na.rm = TRUE)) %>% 
+dat |>
+   group_by(___) |> 
+   summarise(deaths = sum(___ , na.rm = TRUE)) |> 
    ggplot(aes(y = ___, x = ___, fill = factor(___))) +
    geom_col(position = position_dodge()) +
    labs(title = "Total number of deaths",
@@ -1837,9 +1837,9 @@ dat <- read_csv(system.file("extdata/elections.csv", package = "tfa"))
 
 
 ```{r, solution=TRUE, text="The lowest number of votes was in 2009."}
-dat %>%
-  group_by(year, party) %>% 
-  summarise(votes = sum(validVotes)) %>% 
+dat |>
+  group_by(year, party) |> 
+  summarise(votes = sum(validVotes)) |> 
   ggplot(aes(y = votes, x = factor(year), fill = party)) +
   geom_col() +
   labs(title = "Total number of votes",
@@ -1848,9 +1848,9 @@ dat %>%
     )
 ```
 ```{r, hint=TRUE, eval=FALSE}
-dat %>%
-  group_by(___) %>% 
-  summarise(votes = ___) %>% 
+dat |>
+  group_by(___) |> 
+  summarise(votes = ___) |> 
   ggplot(aes(y = ___, x = factor(year), fill = ___)) +
   geom_col() +
   labs(title = "Total number of votes",
@@ -1871,11 +1871,11 @@ Which year had the lowest number of votes?
 * Informative figure title and axis titles are given.
 
 ```{r, solution=TRUE, text="The lowest number elected is in Ærø and the highest is in Gentofte."}
-dat %>%
-  group_by(area) %>% 
-  summarize(electedWomen = sum(electedWomen), electedMen = sum(electedMen)) %>% 
-  mutate(electedWomenPct = electedWomen/(electedMen + electedWomen)) %>% 
-  filter(!is.na(electedWomenPct)) %>% 
+dat |>
+  group_by(area) |> 
+  summarize(electedWomen = sum(electedWomen), electedMen = sum(electedMen)) |> 
+  mutate(electedWomenPct = electedWomen/(electedMen + electedWomen)) |> 
+  filter(!is.na(electedWomenPct)) |> 
   ggplot(aes(x = reorder(area, electedWomenPct), y = electedWomenPct)) +
   geom_col() + 
   labs(title = "Relative number of elected women",
@@ -1885,11 +1885,11 @@ dat %>%
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 ```{r, hint=TRUE, eval=FALSE}
-dat %>%
-  group_by(___) %>% 
-  summarize(___) %>% 
-  mutate(electedWomenPct = ___) %>% 
-  filter(!is.na(electedWomenPct)) %>% 
+dat |>
+  group_by(___) |> 
+  summarize(___) |> 
+  mutate(electedWomenPct = ___) |> 
+  filter(!is.na(electedWomenPct)) |> 
   ggplot(aes(x = reorder(___), y = ___)) +
   geom_col() + 
   labs(___) +
@@ -1912,9 +1912,9 @@ Which municipality has the lowest/highest percentage of women elected?
 * A line for each party is added.
 
 ```{r, solution=TRUE, text="The trend for the Social Democratic Party in Copenhagen is decreasing over the years."}
-dat %>% 
-  filter(area %in% c("Herning", "Copenhagen", "Aarhus"), party %in% c("Social Democratic Party", "Conservative Peoples Party", "Liberal Democratic Party")) %>% 
-  mutate(elected = electedMen + electedWomen) %>% 
+dat |> 
+  filter(area %in% c("Herning", "Copenhagen", "Aarhus"), party %in% c("Social Democratic Party", "Conservative Peoples Party", "Liberal Democratic Party")) |> 
+  mutate(elected = electedMen + electedWomen) |> 
   ggplot(aes(x = year, y = elected, color = party)) +
   geom_point() +
   geom_line() +
@@ -1927,9 +1927,9 @@ dat %>%
   theme(legend.position = "bottom") 
 ```
 ```{r, hint=TRUE, eval=FALSE}
-dat %>% 
-  filter(area %in% c(___), party %in% c(___)) %>% 
-  mutate(elected = electedMen + electedWomen) %>% 
+dat |> 
+  filter(area %in% c(___), party %in% c(___)) |> 
+  mutate(elected = electedMen + electedWomen) |> 
   ggplot(aes(___)) +
   geom_point() +
   geom_line() +
@@ -1953,10 +1953,10 @@ Consider the Social Democratic Party in Copenhagen. Based on the plot do the ele
 * Informative figure title and axis titles are given.
 
 ```{r, solution=TRUE, text="For all years the Social Democratic Party has the highest number of the listed women elected."}
-dat %>%
-  mutate(electedW = electedWomen/listedWomen) %>% 
-  group_by(party, year) %>% 
-  summarize(electedW = mean(electedW, na.rm = T)) %>% 
+dat |>
+  mutate(electedW = electedWomen/listedWomen) |> 
+  group_by(party, year) |> 
+  summarize(electedW = mean(electedW, na.rm = T)) |> 
   ggplot(aes(x = reorder(party, electedW), y = electedW, fill = party)) +
   geom_col() +
   facet_grid(year ~ .) +
@@ -1969,10 +1969,10 @@ dat %>%
         axis.ticks.x=element_blank(), legend.position = "bottom")
 ```
 ```{r, hint=TRUE, eval=FALSE}
-dat %>%
-  mutate(electedW = ___) %>% 
-  group_by(___) %>% 
-  summarize(___) %>% 
+dat |>
+  mutate(electedW = ___) |> 
+  group_by(___) |> 
+  summarize(___) |> 
   ggplot(aes(x = reorder(___), y = ___, fill = ___)) +
   ___ +
   theme(axis.title.x=element_blank(),
@@ -1992,9 +1992,9 @@ Which party seems to get the highest number of the listed women elected?
 * Informative figure title and axis titles are given.
 
 ```{r, solution=TRUE, text="Based on the plot Herning has the highest median of personal votes."}
-dat %>%
-  filter(area %in% c("Herning", "Copenhagen", "Aarhus")) %>% 
-  mutate(personal = personalVotes/validVotes) %>% 
+dat |>
+  filter(area %in% c("Herning", "Copenhagen", "Aarhus")) |> 
+  mutate(personal = personalVotes/validVotes) |> 
     ggplot(aes(x = area, y = personal, fill = area)) +
     geom_boxplot() +
     labs(title = "Releative number of personal votes over all the election years.",
@@ -2004,9 +2004,9 @@ dat %>%
     theme(legend.position = "none")
 ```
 ```{r, hint=TRUE, eval=FALSE}
-dat %>%
-  filter(area %in% c(___)) %>% 
-  mutate(personal = ___) %>% 
+dat |>
+  filter(area %in% c(___)) |> 
+  mutate(personal = ___) |> 
     ggplot(aes(___)) +
     geom_boxplot() +
     labs(title = "Releative number of personal votes over all the election years.",
@@ -2064,9 +2064,9 @@ dat <- read_csv(system.file("extdata/orders.csv", package = "tfa"))
 * Informative figure title and axis titles are given.
 
 ```{r, solution=TRUE, text="Most orders are in 2018."}
-dat %>% 
-   group_by(order_year, order_id) %>% 
-   summarise(ship = first(ship)) %>% 
+dat |> 
+   group_by(order_year, order_id) |> 
+   summarise(ship = first(ship)) |> 
    ggplot(aes(x = order_year, fill = ship)) +
    geom_bar() +
    labs(title = "Number of orders",
@@ -2075,15 +2075,15 @@ dat %>%
     fill = "Ship") +
    theme(legend.position = "bottom")
 # or
-# dat %>%
-#    count(order_year, order_id, ship) %>%
+# dat |>
+#    count(order_year, order_id, ship) |>
 #    ggplot(aes(x = order_year, fill = ship)) +
 #    geom_bar()
 ```
 ```{r, hint=TRUE, eval=FALSE}
-dat %>% 
-   group_by(order_year, order_id) %>% 
-   summarise(ship = first(___)) %>% 
+dat |> 
+   group_by(order_year, order_id) |> 
+   summarise(ship = first(___)) |> 
    ggplot(aes(x = ___, fill = ___)) +
    geom_bar() +
    labs(title = ___,
@@ -2103,11 +2103,11 @@ Which year had the most orders?
 * Informative figure title and axis titles are given.
 
 ```{r, solution=TRUE, text="Most items are used for Ship-13."}
-res <- dat %>% 
-   group_by(ship) %>% 
-   summarize(n = sum(quantity)) %>% 
+res <- dat |> 
+   group_by(ship) |> 
+   summarize(n = sum(quantity)) |> 
    arrange(desc(n)) 
-res %>% 
+res |> 
    ggplot(aes(x = reorder(ship, n), y = n)) +
    geom_col() +
    labs(title = "Total number of items used",
@@ -2116,11 +2116,11 @@ res %>%
    theme(legend.position = "bottom")
 ```
 ```{r, hint=TRUE, eval=FALSE}
-res <- dat %>% 
-   group_by(ship) %>% 
-   summarize(n = ___) %>% 
+res <- dat |> 
+   group_by(ship) |> 
+   summarize(n = ___) |> 
    arrange(desc(n)) 
-res %>% 
+res |> 
    ggplot(aes(x = reorder(___)) +
    geom_col() +
    labs(___) +
@@ -2137,10 +2137,10 @@ Which ship uses most items?
 * Informative figure title and axis titles are given.
 
 ```{r, solution=TRUE, warning=FALSE, text="On a specific date must items are used for Ship-13."}
-res <- dat %>% 
-   group_by(ship, order_date) %>% 
+res <- dat |> 
+   group_by(ship, order_date) |> 
    summarize(n = sum(quantity)) 
-res %>% 
+res |> 
    ggplot(aes(x = order_date, y = n)) +
    geom_col(linewidth = 1, color = "blue") +
    facet_wrap(~ ship, scales = "free_y") +
@@ -2149,10 +2149,10 @@ res %>%
     y = "Items used") 
 ```
 ```{r, hint=TRUE, eval=FALSE}
-res <- dat %>% 
-   group_by(___) %>% 
+res <- dat |> 
+   group_by(___) |> 
    summarize(n = ___) 
-res %>% 
+res |> 
    ggplot(aes(___)) +
    geom_col(linewidth = 1, color = "blue") +
    facet_wrap(~ ___, scales = "free_y") +
@@ -2176,11 +2176,11 @@ For each row in the dataset, calculate an index variable as price divided with t
 * Informative figure title and axis titles are given.
 
 ```{r, solution=TRUE, text="If consider item 601.026.128 it can be seen that prices are very different. By considering item description it can be seen that the item is in fact not a single product, i.e we have a misclassification of item id!"}
-res <- dat %>% 
-   filter(item_id %in% items) %>% 
-   group_by(item_id) %>% 
+res <- dat |> 
+   filter(item_id %in% items) |> 
+   group_by(item_id) |> 
    mutate(idx = price/max(price))
-res %>% 
+res |> 
    ggplot(aes(y = idx, x = order_year)) + 
    geom_point() +
    geom_smooth(se = F) +
@@ -2188,15 +2188,15 @@ res %>%
    labs(title = "Price index (index 1 = max price)",
     x = "Order year",
     y = "Index") 
-dat %>% 
+dat |> 
    filter(item_id %in% "601.026.128")  
 ```
 ```{r, hint=TRUE, eval=FALSE}
-res <- dat %>% 
-   filter(item_id %in% items) %>% 
-   group_by(item_id) %>% 
+res <- dat |> 
+   filter(item_id %in% items) |> 
+   group_by(item_id) |> 
    mutate(idx = price/max(price))
-res %>% 
+res |> 
    ggplot(___) + 
    geom_point() +
    geom_smooth(se = F) +
@@ -2226,11 +2226,11 @@ Create a visualization showing the cumulative relative total value as a function
 * Informative figure title and axis titles are given.
 
 ```{r, solution=TRUE, warning=FALSE, text="Items in the A class (80% of value) are approx. 7% of the total items. "}
-res1 <- dat %>% 
-   mutate(val = price * quantity) %>% 
-   group_by(item_id) %>% 
-   summarise(total_val = sum(val), item_desc = first(item_desc), quantity = sum(quantity)) %>% 
-   arrange(desc(total_val)) %>% 
+res1 <- dat |> 
+   mutate(val = price * quantity) |> 
+   group_by(item_id) |> 
+   summarise(total_val = sum(val), item_desc = first(item_desc), quantity = sum(quantity)) |> 
+   arrange(desc(total_val)) |> 
    mutate(pct_val = total_val/sum(total_val), 
           pct_item = row_number()/n(),
           cum_pct_val = cumsum(pct_val), 
@@ -2238,11 +2238,11 @@ res1 <- dat %>%
             cum_pct_val <= 0.8 ~ "A",
             cum_pct_val <= 0.95  ~ "B",
             TRUE ~ "C"
-         )) %>% 
-   # tail() %>% 
+         )) |> 
+   # tail() |> 
    print() 
 
-res1 %>% 
+res1 |> 
    ggplot(aes(x = pct_item, y = cum_pct_val, col = class, size = quantity)) +
    geom_point() +
    geom_line(col = "black", size = 0.3) +
@@ -2253,11 +2253,11 @@ res1 %>%
     size = "Purchased") 
 ```
 ```{r, hint=TRUE, eval=FALSE}
-res1 <- dat %>% 
-   mutate(val = ___) %>% 
-   group_by(___) %>% 
-   summarise(total_val = ___, item_desc = first(___), quantity = ___) %>% 
-   arrange(desc(total_val)) %>% 
+res1 <- dat |> 
+   mutate(val = ___) |> 
+   group_by(___) |> 
+   summarise(total_val = ___, item_desc = first(___), quantity = ___) |> 
+   arrange(desc(total_val)) |> 
    mutate(pct_val = total_val/sum(total_val), 
           pct_item = row_number()/n(),
           cum_pct_val = cumsum(pct_val), 
@@ -2265,10 +2265,10 @@ res1 <- dat %>%
             cum_pct_val <= 0.8 ~ "A",
             cum_pct_val <= 0.95  ~ "B",
             TRUE ~ "C"
-         )) %>% 
+         )) |> 
    print() 
 
-res1 %>% 
+res1 |> 
    ggplot(aes(x = ___, y = ___, col = ___, size = ___)) +
    geom_point() +
    geom_line(col = "black", size = 0.3) +
@@ -2306,10 +2306,10 @@ The datasets in the `nycflights13` package are:
 
 ```{r, fig.align='center', echo=FALSE}
 res <- data(package = "nycflights13", verbose = T)
-res$results %>% 
-  as_tibble() %>% 
-  select(Dataset = Item, Description = Title) %>% 
-  kable() %>% 
+res$results |> 
+  as_tibble() |> 
+  select(Dataset = Item, Description = Title) |> 
+  kable() |> 
   kable_styling(position = "center")
 ```
 
@@ -2338,30 +2338,30 @@ For further details about the dataset see `?flights`.
 Looking at the data set indicate that some flights are cancelled. We remove these observations from the dataset:
 
 ```{r}
-dat <- flights %>%
+dat <- flights |>
   filter(!is.na(dep_time))
 ```
 
 Let us first try to do some [mutating joins](https://bss-osca.github.io/tfa/mod-r-transform.html#r-transform-joins) and combine variables from multiple tables. In `flights` we have flight information with an abbreviation for carrier (`carrier`), and in `airlines` we have a mapping between abbreviations and full names (`name`). You can use a join to add the carrier names to the flight data:
 
 ```{r, warning = FALSE}
-dat <- dat %>% 
-  left_join(airlines) %>% 
-  rename(carrier_name = name) %>% 
+dat <- dat |> 
+  left_join(airlines) |> 
+  rename(carrier_name = name) |> 
   print()
 ```
 
 Note we here join by the column `carrier` represented in both data frames. That is, the default argument `by = c("carrier" = "carrier")` is used. If we want the full name of origin airport, we need to specify which one we want to join to since each flight has an origin and destination `airport`. Afterwards we do the same for the destination airport. 
 
 ```{r}
-dat <- dat %>% 
-  left_join(airports %>% select(faa, name), 
-            by = c("origin" = "faa")) %>% 
-  rename(origin_name = name) %>% 
-  left_join(airports %>% select(faa, name), 
-            by = c("dest" = "faa")) %>% 
-  rename(dest_name = name) %>% 
-  select(month, carrier_name, origin_name, dest_name, sched_dep_time, dep_delay, arr_delay, distance, tailnum) %>% 
+dat <- dat |> 
+  left_join(airports |> select(faa, name), 
+            by = c("origin" = "faa")) |> 
+  rename(origin_name = name) |> 
+  left_join(airports |> select(faa, name), 
+            by = c("dest" = "faa")) |> 
+  rename(dest_name = name) |> 
+  select(month, carrier_name, origin_name, dest_name, sched_dep_time, dep_delay, arr_delay, distance, tailnum) |> 
   print()
 ```
 
@@ -2393,8 +2393,8 @@ We now have the flights data we need stored in the data frame `dat`. Let us try 
 Let us do a mutation join so we have a bit more information about each airplane:
 
 ```{r}
-dat <- dat %>% 
-  left_join(planes %>% 
+dat <- dat |> 
+  left_join(planes |> 
               select(tailnum, plane_manufacturer = manufacturer, plane_model = model))
 ```
 
@@ -2414,11 +2414,11 @@ For further details see `View(weather)` or read the associated help file by runn
 Observe that there is a variable called temp of hourly temperature recordings in Fahrenheit at weather stations near all three major airports in New York City: Newark (origin code EWR), John F. Kennedy International (JFK), and LaGuardia (LGA). Let us transform the temperature to Celsius:
 
 ```{r}
-dat_w <- weather %>% 
-  left_join(airports %>% select(faa, name), 
-            by = c("origin" = "faa")) %>% 
-  rename(origin_name = name) %>% 
-  mutate(temp = (temp - 32) * (5/9) ) %>% 
+dat_w <- weather |> 
+  left_join(airports |> select(faa, name), 
+            by = c("origin" = "faa")) |> 
+  rename(origin_name = name) |> 
+  mutate(temp = (temp - 32) * (5/9) ) |> 
   select(origin_name, time_hour, month, temp)
 ```
 
@@ -2432,7 +2432,7 @@ dat_w <- weather %>%
 The cancelled flights are:
 
 ```{r}
-dat_c <- flights %>%
+dat_c <- flights |>
   filter(is.na(dep_time))
 ```
 
@@ -2482,9 +2482,9 @@ Answer this assignment using the *ggplot2* package in *tidyverse* (you may need 
 
 
 ```{r, solution=TRUE, text="Most jobs where done in 2018."}
-dat %>% 
-   group_by(year, job_id) %>% 
-   summarise(ship = first(ship)) %>% 
+dat |> 
+   group_by(year, job_id) |> 
+   summarise(ship = first(ship)) |> 
    ggplot(aes(x = year, fill = ship)) +
    geom_bar() +
    labs(title = "Total number of jobs",
@@ -2494,9 +2494,9 @@ dat %>%
    theme(legend.position = "bottom")
 ```
 ```{r, hint=TRUE, eval=FALSE}
-dat %>% 
-   group_by(___) %>% 
-   summarise(ship = first(___)) %>% 
+dat |> 
+   group_by(___) |> 
+   summarise(ship = first(___)) |> 
    ggplot(aes(x = ___, fill = ___)) +
    geom_bar() +
    labs(title = "Total number of jobs",
@@ -2518,11 +2518,11 @@ dat %>%
 
 
 ```{r, solution=TRUE, text="Most items are used for `r res$ship[1]`."}
-res <- dat %>% 
-   group_by(ship) %>% 
-   summarize(n = n_distinct(item_id)) %>% 
+res <- dat |> 
+   group_by(ship) |> 
+   summarize(n = n_distinct(item_id)) |> 
    arrange(desc(n)) 
-res %>% 
+res |> 
    ggplot(aes(x = reorder(ship, n), y = n)) +
    geom_col() +
    labs(title = "Number of unique items used",
@@ -2531,11 +2531,11 @@ res %>%
    theme(legend.position = "bottom")
 ```
 ```{r, hint=TRUE, eval=FALSE}
-res <- dat %>% 
-   group_by(___) %>% 
-   summarize(n = n_distinct(___)) %>% 
+res <- dat |> 
+   group_by(___) |> 
+   summarize(n = n_distinct(___)) |> 
    arrange(___) 
-res %>% 
+res |> 
    ggplot(aes(x = reorder(___), y = ___)) +
    geom_col() +
    labs(title = "Number of unique items used",
@@ -2555,10 +2555,10 @@ res %>%
 
 
 ```{r, solution=TRUE, warning=FALSE, text="On a specific date must items are used for Ship-12."}
-res <- dat %>% 
-   group_by(ship, done_date) %>% 
+res <- dat |> 
+   group_by(ship, done_date) |> 
    summarize(n = sum(item_quantity)) 
-res %>% 
+res |> 
    ggplot(aes(x = done_date, y = n)) +
    geom_col(linewidth = 1, color = "blue") +
    facet_wrap(~ ship, scales = "free_y") +
@@ -2567,10 +2567,10 @@ res %>%
     y = "Items used") 
 ```
 ```{r, hint=TRUE, eval=FALSE}
-res <- dat %>% 
-   group_by(___) %>% 
+res <- dat |> 
+   group_by(___) |> 
    summarize(n = sum(___)) 
-res %>% 
+res |> 
    ggplot(aes(x = ___, y = ___)) +
    geom_col(linewidth = 1, color = "blue") +
    facet_wrap(~ ship, scales = "free_y") +
@@ -2590,9 +2590,9 @@ res %>%
 
 
 ```{r, solution=TRUE, text="It can be seen that over the years, the demand peak of the Piston Ring is higher that for the O-Ring, i.e. it seems to hold. "}
-res <- dat %>% 
+res <- dat |> 
    filter(item_id %in% items)
-res %>% 
+res |> 
    ggplot(aes(item_quantity, fill = item_name)) + 
    geom_density(bw = 1, alpha = 0.5) +
    facet_wrap(~ year) +
@@ -2603,9 +2603,9 @@ res %>%
    theme(legend.position = "bottom")
 ```
 ```{r, hint=TRUE, eval=FALSE}
-res <- dat %>% 
+res <- dat |> 
    filter(___)
-res %>% 
+res |> 
    ggplot(aes(___, fill = ___)) + 
    geom_density(bw = 1, alpha = 0.5) +
    facet_wrap(~ ___) +
@@ -2634,8 +2634,8 @@ res %>%
 
 
 ```{r, solution=TRUE, text = "Most often there are less than 100 days between a repeated usage of the item, but there can be over 600 days. The Piston Ring have in general a lower number of days in between than the O-Ring on average."}
-dat %>% 
-   filter(item_id %in% items) %>% 
+dat |> 
+   filter(item_id %in% items) |> 
    ggplot(aes(y = days, x = item_id, fill = item_name)) + 
    geom_violin() + 
    labs(title = "Violin density",
@@ -2645,8 +2645,8 @@ dat %>%
    theme(legend.position = "bottom")
 ```
 ```{r, hint=TRUE, eval=FALSE}
-dat %>% 
-   filter(___) %>% 
+dat |> 
+   filter(___) |> 
    ggplot(aes(y = ___, x = ___, fill = ___)) + 
    geom_violin() + 
    labs(title = "Violin density",

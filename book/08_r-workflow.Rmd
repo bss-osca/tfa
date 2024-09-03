@@ -23,7 +23,7 @@ This module contains an introduction to using R, the syntax, data types etc. Cod
 
 #### Learning path diagram {-} 
 
-```{r, echo=FALSE, out.width="100%", fig.asp=NA}
+```{r, echo=FALSE, out.width="100%", fig.asp=NA, message=FALSE}
 g <- create_learning_path(
    url = "https://docs.google.com/spreadsheets/d/1bBe42LHK-bE7CsU9eNBzi_7VNjbmv-Ybr7285pE61jM/edit?usp=sharing", 
    sheet = "r-workflow", 
@@ -195,7 +195,9 @@ DataCamp runs all the courses in your browser. That is, R is run on a server and
 
 ## Pipes
 
-Most functions support the pipe operator which is a powerful tool for clearly expressing a sequence of multiple operations. The pipe operator `%>%`, comes from the magrittr package and is loaded automatically when you load tidyverse. You may use the RStudio keyboard shortcut Ctrl+Shift+M.
+Most functions support the pipe operator which is a powerful tool for clearly expressing a sequence of multiple operations. The native pipe operator is `|>`, but you may also use the pipe operator `%>%`, that comes from the magrittr package and is loaded automatically when you load tidyverse.
+
+To insert the pipe operator, you may use the RStudio keyboard shortcut Ctrl+Shift+M. This by default uses the `%>%` pipe operator. If you want to use the native open *Tools > Global Options... > Code* and check mark *Use native pipe operator ...* (recommended).
 
 Consider the following code:
 
@@ -221,22 +223,22 @@ That is, we take what is left of the arrow (the object `x`) and put it into the 
 ```{r}
 library(tidyverse)
 x <- 16
-x <- x %>%
-   sqrt() %>%
+x <- x |>
+   sqrt() |>
    log2()
 x
 ```
 In general, the pipe _sends_ the result of the left side of the pipe to be the first argument of the function on the right side of the pipe. That is, you may have other arguments in your functions:
 
 ```{r}
-16 %>% sqrt() %>% log2()
-16 %>% sqrt() %>% log(base = 2)   # equivalent
+16 |> sqrt() |> log2()
+16 |> sqrt() |> log(base = 2)   # equivalent
 ```
 
 The above example is simple but illustrates that you can use pipes to skip intermediate assignment operations. Later you will do more complex pipes when we consider data wrangling. For instance,
 
 ```{r}
-mtcars %>% select(cyl, gear, hp, mpg) %>% filter(gear == 4, cyl == 4)
+mtcars |> select(cyl, gear, hp, mpg) |> filter(gear == 4, cyl == 4)
 ```
 
 selects the columns related to cylinders, gears, horse power and miles, and then rows with cars having four cylinders and gears. For a more detailed introduction to pipes see [Chapter 18][r4ds-pipes] in @r4ds.
@@ -368,7 +370,7 @@ The interactive DataCamp course gave an introduction to some basic programming c
 <!--   + Logical operators: `&` representing "and" as well as `|` representing "or." For example, `(2 + 1 == 3) & (2 + 1 == 4)` returns `FALSE` since both clauses are not `TRUE` (only the first clause is `TRUE`). On the other hand, `(2 + 1 == 3) | (2 + 1 == 4)` returns `TRUE` since at least one of the two clauses is `TRUE`. \index{operators!logical} -->
 <!-- * *Functions*, also called *commands*: Functions perform tasks in R. They take in inputs called *arguments* and return outputs. You can either manually specify a function's arguments or use the function's *default values*. \index{functions} -->
 
-A *pipe* (`%>%`) sends the result of the left side of the pipe to be the first argument of the function on the right side of the pipe. Use pipes if you have many intermediate assignment operations.
+A *pipe* (`|>`) sends the result of the left side of the pipe to be the first argument of the function on the right side of the pipe. Use pipes if you have many intermediate assignment operations.
 
 
 ```{r end_rbasics, include = FALSE}
@@ -431,7 +433,7 @@ You have all been allocated into groups. During the course, you are expected to 
 
 *Solve this exercise using a script file (e.g. `exercises/pipe.R` which already has been created). Remember that you can run a line in the file using Ctrl+Enter.* 
 
-The pipe `%>%` can be used to perform operations sequentially without having to define intermediate objects (Ctrl+Shift+M). Have a look at the dataset `mtcars`: 
+The pipe `|>` can be used to perform operations sequentially without having to define intermediate objects (Ctrl+Shift+M). Have a look at the dataset `mtcars`: 
 
 ```{r, eval=FALSE}
 head(mtcars)
@@ -442,17 +444,17 @@ The pipe
 
 ```{r}
 library(tidyverse)
-mtcars %>% select(cyl, gear, hp, mpg) %>% filter(gear == 4 & cyl == 4)
+mtcars |> select(cyl, gear, hp, mpg) |> filter(gear == 4 & cyl == 4)
 ```
 
 selects the columns related to cylinders, gears, horse power and miles, and then rows with cars having four cylinders and (operator `&`) gears. 
 
 ```{r, solution=TRUE}
-mtcars %>% 
+mtcars |> 
    select(mpg, hp, am, gear)
 ```
 ```{r, hint=TRUE, eval=FALSE}
-mtcars %>% 
+mtcars |> 
    select(___, ___, ___, ___)
 ```
 
@@ -460,13 +462,13 @@ mtcars %>%
 
 
 ```{r, solution=TRUE}
-mtcars %>% 
-   select(mpg, hp, am, gear) %>% 
+mtcars |> 
+   select(mpg, hp, am, gear) |> 
    filter(mpg < 20, gear == 4)
 ```
 ```{r, hint=TRUE, eval=FALSE}
-mtcars %>% 
-   select(mpg, hp, am, gear) %>% 
+mtcars |> 
+   select(mpg, hp, am, gear) |> 
    filter(___, ___)
 ```
 
@@ -475,13 +477,13 @@ mtcars %>%
 
 
 ```{r, solution=TRUE}
-mtcars %>% 
-   select(mpg, hp, am, gear) %>% 
+mtcars |> 
+   select(mpg, hp, am, gear) |> 
    filter(mpg < 20 | gear == 4)
 ```
 ```{r, hint=TRUE, eval=FALSE}
-mtcars %>% 
-   select(mpg, hp, am, gear) %>% 
+mtcars |> 
+   select(mpg, hp, am, gear) |> 
    filter(___ | ___)
 ```
 
@@ -489,13 +491,13 @@ mtcars %>%
 
 
 ```{r, solution=TRUE}
-mtcars %>% 
-   filter(mpg < 20, gear == 4) %>% 
+mtcars |> 
+   filter(mpg < 20, gear == 4) |> 
    select(wt, vs) 
 ```
 ```{r, hint=TRUE, eval=FALSE}
-mtcars %>% 
-   filter(mpg < 20, gear == 4) %>% 
+mtcars |> 
+   filter(mpg < 20, gear == 4) |> 
    select(___, ___) 
 ```
 
@@ -1051,15 +1053,15 @@ str5 <- str_replace(str5, ___, ___)
 
 
 ```{r, solution=TRUE}
-str_replace(str2, "BA", "Business Analytics") %>% 
-   str_remove(" or as a set of methodologies that enable the creation of business value") %>% 
-   str_c("This course will focus on programming and descriptive analytics.", sep= " ") %>% 
+str_replace(str2, "BA", "Business Analytics") |> 
+   str_remove(" or as a set of methodologies that enable the creation of business value") |> 
+   str_c("This course will focus on programming and descriptive analytics.", sep= " ") |> 
    str_replace("analytics", "business analytics")
 ```
 ```{r, hint=TRUE, eval=FALSE}
-str_replace(str2, ___, ___) %>% 
-   str_remove(___) %>% 
-   str_c(___) %>% 
+str_replace(str2, ___, ___) |> 
+   str_remove(___) |> 
+   str_c(___) |> 
    str_replace(___)
 ```
 

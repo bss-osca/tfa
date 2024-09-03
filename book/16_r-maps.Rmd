@@ -106,10 +106,10 @@ Note Google returns results for the fastest path between the two points. Let us 
 #' @note The API returns results for the fastest route.  
 goo_calc_distances <- function(address, mode = "driving", symmetric = TRUE) {
    datDist <- expand_grid(id_from = 1:length(address), id_to = 1:length(address))
-   datDist <- datDist %>% filter(id_from != id_to)
-   if (symmetric) datDist <- datDist %>% filter(id_from < id_to)
-   datDist <- datDist %>% mutate(from = address[id_from], to = address[id_to])
-   res <- mapdist(from = datDist %>% pull(from), to = datDist %>% pull(to), mode = mode)
+   datDist <- datDist |> filter(id_from != id_to)
+   if (symmetric) datDist <- datDist |> filter(id_from < id_to)
+   datDist <- datDist |> mutate(from = address[id_from], to = address[id_to])
+   res <- mapdist(from = datDist |> pull(from), to = datDist |> pull(to), mode = mode)
    return(left_join(datDist, res, by = c("from", "to")))
 }
 datDistGoo <- goo_calc_distances(dat$Address)
@@ -158,7 +158,7 @@ library(jsonlite)
 bing_mapdist <- function(from, to, mode = "driving", optimize = "time") {
    if (is.data.frame(from)) {
      stopifnot(all(c("from", "to") %in% names(from)))
-     from_to_df <- from %>% select("from", "to") %>% as_tibble()
+     from_to_df <- from |> select("from", "to") |> as_tibble()
    }
    else {
      from_to_df <- tibble(from = from, to = to)
@@ -195,11 +195,11 @@ Note we here can get both the shortest and fastest path between two points. Next
 #' @note The API returns results for the fastest route.  
 bing_calc_distances <- function(address, symmetric = TRUE, ...) {
    datDist <- expand_grid(id_from = 1:length(address), id_to = 1:length(address))
-   datDist <- datDist %>% filter(id_from != id_to)
-   if (symmetric) datDist <- datDist %>% filter(id_from < id_to)
-   datDist <- datDist %>% mutate(from = address[id_from], to = address[id_to])
-   res <- bing_mapdist(datDist %>% select(from, to), ...)
-   return(bind_cols(datDist %>%  select(id_from, id_to), res))
+   datDist <- datDist |> filter(id_from != id_to)
+   if (symmetric) datDist <- datDist |> filter(id_from < id_to)
+   datDist <- datDist |> mutate(from = address[id_from], to = address[id_to])
+   res <- bing_mapdist(datDist |> select(from, to), ...)
+   return(bind_cols(datDist |>  select(id_from, id_to), res))
 }
 datDistBing <- bing_calc_distances(dat$Address)
 datDistBing
@@ -231,7 +231,7 @@ geocode("Stormgade 157, 6715 Esbjerg, Denmark")
 We may use `mutate_geocode` to add the coordinates to a dataset:
 
 ```{r}
-dat <- dat %>% 
+dat <- dat |> 
   mutate_geocode(Address)
 dat
 ```
@@ -245,7 +245,7 @@ revgeocode(c(dat$lon[1], dat$lat[1]))
 To apply it to the dataset use:
 
 ```{r, ignoreWarning = TRUE}
-dat <- dat %>% 
+dat <- dat |> 
    mutate(AddressGeoGoo = 
              map_chr(1:n(), function(i) {
                revgeocode(c(lon = lon[i], lat = lat[i]))
@@ -283,14 +283,14 @@ bing_geocode(dat$Address)
 We may use `bing_mutate_geocode` to add the coordinates to a dataset:
 
 ```{r}
-dat <- dat %>% select(-lat, -lon)
+dat <- dat |> select(-lat, -lon)
 mutate_bing_geocode <- function (data, address, ...) {
     adr <- data[[deparse(substitute(Address))]]
     gcdf <- bing_geocode(adr)
     bind_cols(data, gcdf)
 }
 
-dat <- dat %>% 
+dat <- dat |> 
   mutate_bing_geocode(Address)
 dat
 ```
@@ -319,7 +319,7 @@ bing_revgeocode(c(dat$lon[1], dat$lat[1]))
 To apply it to the dataset use:
 
 ```{r}
-dat <- dat %>% 
+dat <- dat |> 
    mutate(AddressGeoBing = 
              map_chr(1:n(), function(i) {
                bing_revgeocode(c(lon = lon[i], lat = lat[i]))
@@ -339,13 +339,13 @@ First let us create a map with two base layers
 ```{r}
 library(leaflet)
 library(htmlwidgets)
-m <- leaflet() %>% 
+m <- leaflet() |> 
    # Base maps
-   addTiles(group = "Map") %>%
-   addProviderTiles('Esri.WorldImagery', group = "Satelite") %>% 
-   addProviderTiles("CartoDB.PositronOnlyLabels", group = "Map") %>% 
+   addTiles(group = "Map") |>
+   addProviderTiles('Esri.WorldImagery', group = "Satelite") |> 
+   addProviderTiles("CartoDB.PositronOnlyLabels", group = "Map") |> 
    # Center and zoom
-   setView(10.2, 56.2,  zoom = 7) %>% 
+   setView(10.2, 56.2,  zoom = 7) |> 
    # Layer control
    addLayersControl(
     baseGroups = c("Map", "Satelite"),
@@ -365,8 +365,8 @@ dat <- tibble::tribble(
        4L,   "Bilka Hjørring",  "A.F Heidemannsvej 20, 9800 Hjørring, Denmark",
        5L,  "Bilka Holstebro",         "Nyholmvej 20, 7500 Holstebro, Denmark",
       )
-dat <- dat %>% mutate_geocode(Address)
-m <- m %>% 
+dat <- dat |> mutate_geocode(Address)
+m <- m |> 
    addMarkers(~lon, ~lat, popup = ~Address, label = ~str_c(Id, "  - ", Shop), data = dat)
 m
 ```
@@ -376,16 +376,16 @@ To add a line between a set of points use the `addPolylines` function:
 ```{r}
 routeIds <- c(2, 5, 1, 2)
 route <- dat[routeIds,] 
-m %>% addPolylines(lng = ~lon, lat = ~lat, data = route, weight = 2, label = "Route 1")
+m |> addPolylines(lng = ~lon, lat = ~lat, data = route, weight = 2, label = "Route 1")
 ```
 
 A more advanced setup is to use the `addFlows` function from the [leaflet.minicharts](https://github.com/rte-antares-rpackage/leaflet.minicharts) package. First let us define some lines:
 
 ```{r}
 datLines <- tibble(FromId = c(2, 5, 1, 2, 4, 3), ToId = c(5, 1, 2, 4, 3, 2))
-datLines <- left_join(datLines, dat %>% select(-Shop, -Address), by = c("FromId" = "Id")) %>% 
-   rename("FromLat" = "lat", "FromLon" = "lon") %>% 
-   left_join(dat %>% select(-Shop, -Address), by = c("ToId" = "Id")) %>% 
+datLines <- left_join(datLines, dat |> select(-Shop, -Address), by = c("FromId" = "Id")) |> 
+   rename("FromLat" = "lat", "FromLon" = "lon") |> 
+   left_join(dat |> select(-Shop, -Address), by = c("ToId" = "Id")) |> 
    rename("ToLat" = "lat", "ToLon" = "lon")
 datLines
 ```
@@ -394,7 +394,7 @@ Note we have a from/to pair in each row. We add the lines to the map:
 
 ```{r}
 library(leaflet.minicharts)
-m %>% addFlows(datLines$FromLon, datLines$FromLat, datLines$ToLon, datLines$ToLat,
+m |> addFlows(datLines$FromLon, datLines$FromLat, datLines$ToLon, datLines$ToLat,
                flow = 1, maxFlow = 20, opacity = 0.5, popup = popupArgs(noPopup = TRUE))
 ```
 
@@ -404,18 +404,18 @@ Let us define a function for adding routes:
 add_route <- function(dat = NULL, route, solution = 1) {
    route_id = if_else(is.null(dat), 1, max(dat$RouteId) + 1)
    tmp <- tibble(From = route[1:(length(route)-1)], To = route[2:length(route)])
-   tmp <- tmp %>% mutate(Sol = solution, RouteId = route_id)
+   tmp <- tmp |> mutate(Sol = solution, RouteId = route_id)
    dat <- bind_rows(dat, tmp)
 }
 
-datLines <- add_route(route = c(2, 5, 1, 2)) %>% 
-   add_route(route = c(2, 4, 3, 2)) %>% 
-   add_route(route = c(2, 3, 1, 2), solution = 2) %>% 
+datLines <- add_route(route = c(2, 5, 1, 2)) |> 
+   add_route(route = c(2, 4, 3, 2)) |> 
+   add_route(route = c(2, 3, 1, 2), solution = 2) |> 
    add_route(route = c(2, 5, 4, 2), solution = 2)
-datLines <- left_join(datLines, dat %>% select(-Shop, -Address), by = c("From" = "Id")) %>% 
-   rename("FromLat" = "lat", "FromLon" = "lon") %>% 
-   left_join(dat %>% select(-Shop, -Address), by = c("To" = "Id")) %>% 
-   rename("ToLat" = "lat", "ToLon" = "lon") %>% 
+datLines <- left_join(datLines, dat |> select(-Shop, -Address), by = c("From" = "Id")) |> 
+   rename("FromLat" = "lat", "FromLon" = "lon") |> 
+   left_join(dat |> select(-Shop, -Address), by = c("To" = "Id")) |> 
+   rename("ToLat" = "lat", "ToLon" = "lon") |> 
    mutate(group = str_c("Solution ", Sol))
 datLines
 ```
@@ -424,8 +424,8 @@ A map with Solution 1:
 
 ```{r}
 col_pal <- rainbow(max(datLines$RouteId))
-datP <- datLines %>% filter(Sol == 1)
-m %>% addFlows(datP$FromLon, datP$FromLat, datP$ToLon, datP$ToLat,
+datP <- datLines |> filter(Sol == 1)
+m |> addFlows(datP$FromLon, datP$FromLat, datP$ToLon, datP$ToLat,
                flow = datP$RouteId, maxThickness = 2, color = col_pal[datP$RouteId],
                opacity = 0.5, popup = popupArgs(labels = "Route"))
 ```
@@ -434,8 +434,8 @@ A map with Solution 2:
 
 ```{r}
 col_pal <- rainbow(max(datLines$RouteId))
-datP <- datLines %>% filter(Sol == 2)
-m %>% addFlows(datP$FromLon, datP$FromLat, datP$ToLon, datP$ToLat,
+datP <- datLines |> filter(Sol == 2)
+m |> addFlows(datP$FromLon, datP$FromLat, datP$ToLon, datP$ToLat,
                flow = datP$RouteId, maxThickness = 2, color = col_pal[datP$RouteId],
                opacity = 0.5, popup = popupArgs(labels = "Route"))
 ```
@@ -446,19 +446,19 @@ An interactive map with both solutions:
 mm <- m
 res <- map(1:nrow(datLines), function(i) {
    tmp <- tibble(lat = c(datLines$FromLat[i], datLines$ToLat[i]), lon = c(datLines$FromLon[i], datLines$ToLon[i]))
-   mm <<- mm %>% addPolylines(lng = ~lon, lat = ~lat, 
+   mm <<- mm |> addPolylines(lng = ~lon, lat = ~lat, 
                               color = col_pal[datLines$Sol[i]], group = datLines$group[i],
                               data = tmp, weight = 2, label = datLines$group[i])
    return(invisible(NULL))
 })
-mm <- mm %>% 
+mm <- mm |> 
   # Layer control
   addLayersControl(
     baseGroups = c("Map", "Satelite"),
     overlayGroups = unique(datLines$group),
     options = layersControlOptions(collapsed = FALSE)
-  ) %>% 
-  hideGroup(unique(datLines$group)) %>% 
+  ) |> 
+  hideGroup(unique(datLines$group)) |> 
   showGroup("Solution 1")
 mm
 ```
