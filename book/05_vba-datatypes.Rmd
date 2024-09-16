@@ -1064,6 +1064,71 @@ It is recommended to use keys since using keys has three advantages:
 - You can directly access the item without reading through the entire collection
 - It can make you code more readable
 
+
+In general you cannot change the values of an item. However, this is possible if you store an object. To do this you need a class definition. How classes work is beyond this course. However let us consider an example with a simple class. First, we define a class **Insert > Class module**. You can now see a class module named `Class 1` in the *Process Explorer* window. Rename it to `SKUInfo`, double click it and add code 
+```
+Public Items As Integer
+Public Size As Double
+Public Shell As String
+```
+We have now defined a custom class containing 3 variables and can create objects of this class that can be stored in a collection:
+```
+Sub TM5_ColWObjectEx()
+   Dim col As New Collection   ' declare and create
+   Dim rng As Range
+   Dim r As Integer, c As Integer
+   Dim oSKU As SKUInfo
+   
+   ThisWorkbook.Worksheets("TM5_Col").Activate
+   Set rng = RngGetCurRegionRange(Range("F2"), row:=2) ' read from 2. row so no headers
+   
+   ' Read the data
+   For r = 1 To RngGetRows(rng)
+      Set oSKU = New SKUInfo  ' create an object
+      oSKU.Items = rng(r, 2)
+      oSKU.Size = rng(r, 3)
+      oSKU.Shell = rng(r, 4)
+      Call col.Add(oSKU, rng(r, 1)) ' add to collection with SKU as key
+   Next
+   
+   ' print info and change a value (this is possible since it is an object)
+   MsgBox ("There are " & col("G6Y89").Items & " items in stock for SKU G6Y89")
+   col("G6Y89").Items = 5
+   MsgBox ("There are " & col("G6Y89").Items & " items in stock for SKU G6Y89")
+   
+   ' remove a SKU
+   Call col.Remove("G6Y89")
+   MsgBox ("The collection now contains " & col.Count & " items.")
+End Sub
+```
+
+First the data is read into the collection. Here we create a new object `SKUInfo`, set the values and store the object as an item in the collection:
+```
+ For r = 1 To RngGetRows(rng)
+    Set oSKU = New SKUInfo  ' create an object
+    oSKU.Items = rng(r, 2)
+    oSKU.Size = rng(r, 3)
+    oSKU.Shell = rng(r, 4)
+    Call col.Add(oSKU, rng(r, 1)) ' add to collection with SKU as key
+ Next
+```
+
+Next, we print some info and change a value. Note, this is possible since `SKUInfo` is an object (passed by a reference):
+
+```
+ MsgBox ("There are " & col("G6Y89").Items & " items in stock for SKU G6Y89")
+ col("G6Y89").Items = 5
+ MsgBox ("There are " & col("G6Y89").Items & " items in stock for SKU G6Y89")
+```
+
+Finally, we delete the SKU:
+```
+ Call col.Remove("G6Y89")
+ MsgBox ("The collection now contains " & col.Count & " items.")
+```
+
+
+
 For more information about collections you may have a look at this [webpage](http://excelmacromastery.com/excel-vba-collections/).
 
 
