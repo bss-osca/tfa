@@ -80,7 +80,7 @@ lst
 
 ## Your Turn
 
-Open the [R project][r-cloud-mod8] for Teaching Module 8 (TM8) on RStudio Cloud and open the file in the exercise folder. 
+Open the [R project][r-cloud-mod8] for Teaching Module 8 (TM8) on RStudio Cloud and open the file in the lecture folder. 
 
 .your-turn[
 
@@ -153,7 +153,7 @@ countdown(minutes = 10)
 ## R packages
 
 - In R, the fundamental unit of shareable code is the package.
-- As of April 2020, there are over 15,000 packages available on the **C**omprehensive **R** **A**rchive **N**etwork (CRAN), the public clearing house for R packages. 
+- As of April 2024, there are over 21,000 packages available on the **C**omprehensive **R** **A**rchive **N**etwork (CRAN), the public clearing house for R packages. 
 - This huge variety of packages is one reason why R is so successful: the chances are that someone has already solved a problem that you’re working on, and you can benefit from their work by downloading their package.
 - Using R packages:
   - Install them from CRAN with `install.packages("x")`.
@@ -165,11 +165,11 @@ countdown(minutes = 10)
 
 ## Pipes
 
-Use the pipe `%>%` operator for expressing a sequence of multiple operations (Ctrl+Shift+M). Value `log2(sqrt(16))` using pipes:
+Use the pipe `|>` operator (or `%>%`) for expressing a sequence of multiple operations (Ctrl+Shift+M, Shift+Cmd+M). Value `log2(sqrt(16))` using pipes:
 ```{r}
 library(tidyverse)   # define the pipe operator
 x <- 16
-x %>% sqrt() %>% log2()
+x |> sqrt() |> log2()
 ```
 The pipe _sends_ the result of the left side of the pipe to be the first argument of the function on the right side of the pipe. 
 
@@ -202,9 +202,7 @@ countdown(minutes = 5)
 ???
 
 ```{r}
-x <- c(1:4, NA, 34)^2 %>% sum() %>% sqrt() # or
-x
-x <- c(1:4, NA, 34) %>% `^`(2) %>% sum() %>% sqrt()
+x <- c(1:4, NA, 34)^2 |> sum(na.rm = TRUE) |> sqrt() # or
 x
 ```
 
