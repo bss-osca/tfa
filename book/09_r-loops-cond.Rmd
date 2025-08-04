@@ -514,78 +514,49 @@ zips
 We want to calculate distances between a subset of zip areas:
 
 ```{r}
-idx <- 1:5
+idx <- sample(1:nrow(zips), 5, replace = F)
 dat <- zips[idx,]
 dat
 distanceMat <- matrix(NA, nrow = length(idx), ncol = length(idx))
-colnames(distanceMat) <- str_c(dat$Zip[idx], dat$Area[idx], sep = " ") 
+colnames(distanceMat) <- str_c(dat$postal_code, dat$place_name, sep = " ") 
 rownames(distanceMat) <- colnames(distanceMat)
 distanceMat
 ```
 
-We can find average distances between two zip codes (here rows 1 and 2 in `dat`) using Bing maps:
+We can find average distances between two zip codes in `dat` using function:
 
 ```{r}
-key <- "AlUJdApmvPe8y2_IMrC4j4x8fzytbD2M0SvlmpemL09ae_CWS6-IuNSgrAtXoyeP"
-url <- str_c("http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=",
-             dat$Zip[1], ",Denmark",
-             "&wp.1=",
-             dat$Zip[2], ",Denmark",
-             "&avoid=minimizeTolls&key=", key)
-library(jsonlite)
-lst <- jsonlite::fromJSON(url)
-dist <- lst$resourceSets$resources[[1]]$travelDistance
-dist
-lst$statusCode
-lst$statusDescription
+library(geodist)
+getDist <- function(i, j) {
+   return(geodist(dat[i, ], dat[j, ], measure = "haversine") / 1000)  # convert to km (return in meters)
+}
+getDist(1, 3) # distance between row 1 and 3
 ```
 
-Note we call the Bing maps API with the two zip codes. A [json file](https://en.wikipedia.org/wiki/JSON) is returned and stored in a list. To get the average travel distance we access `travelDistance`. The status code should be 200 if the calculation returned is okay.
-
 ```{r, solution=TRUE}
-key <- "AlUJdApmvPe8y2_IMrC4j4x8fzytbD2M0SvlmpemL09ae_CWS6-IuNSgrAtXoyeP"
 for(i in 1:nrow(distanceMat)) {
    for(j in 1:ncol(distanceMat)) {
       if (i>j) {distanceMat[i,j] <- distanceMat[j,i]; next}   # assume symmetric distances
       if (!is.na(distanceMat[i,j])) next   # value already calculated 
       if (i==j) {distanceMat[i,j] <- 0; next}
-      
-      url <- str_c("http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=",
-                   dat$Zip[i], ",Denmark",
-                   "&wp.1=",
-                   dat$Zip[j], ",Denmark",
-                   "&avoid=minimizeTolls&key=", key)
-      lst <- jsonlite::fromJSON(url)
-      if (lst$statusCode == 200) {
-         distanceMat[i,j] <- lst$resourceSets$resources[[1]]$travelDistance
-      }
+      distanceMat[i,j] <- getDist(i, j)
    }
 }
 distanceMat
 ```
 ```{r, hint=TRUE, eval=FALSE}
-key <- "AlUJdApmvPe8y2_IMrC4j4x8fzytbD2M0SvlmpemL09ae_CWS6-IuNSgrAtXoyeP"
 for(i in 1:nrow(distanceMat)) {
-   for(j in 1:ncol(___)) {
-      if (i>j) {distanceMat[i,j] <- ___; next}   # assume symmetric distances
+   for(j in 1:ncol(distanceMat)) {
+      if (i>j) {__}   # assume symmetric distances
       if (!is.na(distanceMat[i,j])) next   # value already calculated 
-      if (i==j) {distanceMat[i,j] <- ___; next}
-      
-      url <- str_c("http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=",
-                   dat$Zip[i], ",Denmark",
-                   "&wp.1=",
-                   dat$Zip[j], ",Denmark",
-                   "&avoid=minimizeTolls&key=", key)
-      lst <- jsonlite::fromJSON(url)
-      if (lst$statusCode == ___) {
-         distanceMat[i,j] <- ___
-      }
+      if (i==j) {__; next}
+      __
    }
 }
 distanceMat
 ```
 
-Use nested for loops to fill `distanceMat` with distances. Assume that the distance from a to b is the same as from b to a. That is, you only have to call the API once for two zip codes. Use an if statement to check if the status code is okay.
+Use nested for loops to fill `distanceMat` with distances. Assume that the distance from a to b is the same as from b to a. That is, you only have to call the function once for two zip codes. 
 
 
 ### Exercise (expand_grid) {#ex-r-expand}
@@ -593,42 +564,28 @@ Use nested for loops to fill `distanceMat` with distances. Assume that the dista
 ```{r, solution=TRUE}
 ite <- expand_grid(i = c(1,5), j = 2:3)
 ite
-key <- "AlUJdApmvPe8y2_IMrC4j4x8fzytbD2M0SvlmpemL09ae_CWS6-IuNSgrAtXoyeP"
-for (r in 1:nrow(ite)) { # iterate over rows
+distanceMat <- matrix(NA, nrow = length(idx), ncol = length(idx))
+for(r in 1:nrow(ite)) {
    i <- ite$i[r]
    j <- ite$j[r]
+   if (!is.na(distanceMat[j,i])) {distanceMat[i,j] <- distanceMat[j,i]; next}   # assume symmetric distances
+   if (!is.na(distanceMat[i,j])) next   # value already calculated 
    if (i==j) {distanceMat[i,j] <- 0; next}
-   url <- str_c("http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=",
-                dat$Zip[i], ",Denmark",
-                "&wp.1=",
-                dat$Zip[j], ",Denmark",
-                "&avoid=minimizeTolls&key=", key)
-   lst <- jsonlite::fromJSON(url)
-   if (lst$statusCode == 200) {
-      distanceMat[i,j] <- lst$resourceSets$resources[[1]]$travelDistance
-      distanceMat[j,i] <- distanceMat[i,j]
-   }
+   distanceMat[i,j] <- getDist(i, j)
 }
 distanceMat
 ```
 ```{r, hint=TRUE, eval=FALSE}
-ite <- expand_grid(i = ___, j = ___)
+ite <- expand_grid(i = __, j = __)
 ite
-key <- "AlUJdApmvPe8y2_IMrC4j4x8fzytbD2M0SvlmpemL09ae_CWS6-IuNSgrAtXoyeP"
-for (r in 1:nrow(ite)) { # iterate over rows
+distanceMat <- matrix(NA, nrow = length(idx), ncol = length(idx))
+for(r in 1:nrow(ite)) {
    i <- ite$i[r]
-   j <- ite$j[r]
+   j <- __
+   if (!is.na(distanceMat[j,i])) {__; next}   # assume symmetric distances
+   if (!is.na(distanceMat[i,j])) next   # value already calculated 
    if (i==j) {distanceMat[i,j] <- 0; next}
-   url <- str_c("http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=",
-                dat$Zip[i], ",Denmark",
-                "&wp.1=",
-                dat$Zip[j], ",Denmark",
-                "&avoid=minimizeTolls&key=", key)
-   lst <- jsonlite::fromJSON(url)
-   if (lst$statusCode == ___) {
-      distanceMat[i,j] <- lst$resourceSets$resources[[1]]$travelDistance
-      distanceMat[j,i] <- ___
-   }
+   distanceMat[i,j] <- __
 }
 distanceMat
 ```
