@@ -7,7 +7,13 @@
 # - Delete the old answers in the Google Form (under responses click ...)
 # - Sign in to datacamp using Econ email and create a new classroom "Tools for Analytics YYYY" at https://www.datacamp.com/universities#classroom-form (valid from 1 Sep, students 150)
 # - Add todo to your calendar 1/9 (add assignments and change signup link in link.md line 9). Set end date of a course to 01/03/20xx.
-# - At Posit Cloud update the 'Tools for Analytics' workspace (R and packages) using `update.packages(ask = F)`
+# - At Posit Cloud update the 'Tools for Analytics' workspace (R and packages) using `update.packages(ask = F)`. You may also need to install packages using:
+if (!requireNamespace("tidyverse", quietly = TRUE)) {
+   install.packages("tidyverse")
+} else {
+   update.packages("tidyverse", ask = FALSE)  # ask=FALSE updates without prompting
+}
+remotes::install_github("bss-osca/tfa-package", upgrade = TRUE, build = FALSE)
 
 
 ## Update slides
