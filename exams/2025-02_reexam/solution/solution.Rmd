@@ -1,0 +1,479 @@
+---
+title: "TFA exam - Guiding solution"
+author: "Lars Relund Nielsen"
+---
+
+<style>
+.solution {
+  background-color: aliceblue;
+  line-height: 1.5;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-top: 10px;
+  padding-right: 0px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  /*border: 3px solid green;*/
+}
+
+h2 {
+  font-size: large;
+}
+</style>
+
+
+
+```{r setup, include=FALSE, eval=T}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  eval = TRUE,
+  message=FALSE)
+options(width = 90, scipen = 10, digits = 2)
+
+library(tidyverse)
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  q_ctr <<- 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# R - `r ctrA()` (55%)
+ 
+Given a company, consider the dataset in the file `mrp.csv` containing a Material Requirements Plan (MRP) for a group of materials. For each combination of week, material, and supplier, a row is given with information about inventory, requirements, etc. 
+
+The columns/variables are:
+
+  - `week`: Week number (consider weeks 8 to 37). [in the original exam typo 30 was used instead of 37]
+  - `material_id`: Material id.
+  - `supplier_id`: Supplier id, i.e. the vendor the material is bought from. 
+  - `supplier_desc`: Supplier description. 
+  - `moq`: Minimum order quantity from supplier in units.
+  - `inventory_ini`: Initial inventory of the material in the start of week 8. 
+  - `reqs`: Material requirements for the week. Note: inventory levels and requirements are given for fixed material and supplier.
+
+The dataset can be read using:
+
+```{r, warning=FALSE}
+library(tidyverse)
+dat <- read_csv("mrp.csv") 
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames), and answer/complete the following questions/tasks:
+
+
+## `r ctrQ()`
+
+How many different weeks, materials and suppliers are considered? 
+
+```{r, solution=TRUE, warning=FALSE}
+# load packages
+library(tidyverse)
+library(skimr)
+res <- dat |> 
+   skim() |> 
+   print()
+```
+
+<div class="solution">
+We consider `r res |> filter(skim_variable == "week") |> pull(numeric.p100) - res |> filter(skim_variable == "week") |> pull(numeric.p0) + 1` weeks, `r res |> filter(skim_variable == "material_id") |> pull(character.n_unique)` materials supplied by `r res |> filter(skim_variable == "supplier_id") |> pull(character.n_unique)` suppliers.
+</div>
+
+
+## `r ctrQ()`
+
+Find the number of different materials required from each supplier. How many materials are required from the supplier with most different materials? 
+
+```{r, solution=TRUE}
+res <- dat |> 
+   group_by(supplier_id) |> 
+   summarise(n = n_distinct(material_id)) |> 
+   arrange(desc(n)) |> 
+   print() 
+```
+
+<div class="solution">
+Supplier `r res$supplier_id[1]` sell `r res$n[1]` different materials to the company.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+For each material, calculate how many suppliers supply the specific material. How many suppliers sell material `M51136441`?
+
+```{r, solution=TRUE}
+res <- dat |> 
+   group_by(material_id) |> 
+   summarize(n = n_distinct(supplier_id)) |> 
+   arrange(desc(n)) |> 
+   print() 
+```
+
+<div class="solution">
+The number of suppliers are calculated above (see `res`). Material `M51136441` is sold by `r res |> filter(material_id == "M51136441") |> pull(n)` suppliers.
+</div>
+
+
+
+
+
+
+
+## `r ctrQ()`
+
+Consider a material and a supplier. Note that the column `inventory_ini` contains the initial inventory level before the first week (week 8). Hence, for a row, the ultimo inventory level (end of week level) is calculated as the initial inventory level minus all the requirements up to and including the current week. Create a column `inventory_ultimo` with the ultimo inventory values. Hint: Given a group, the `cumsum` function can be used to add all values up to and including the current row.
+
+```{r, solution=TRUE}
+dat <- dat |> 
+   group_by(material_id, supplier_id) |> 
+   mutate(
+      inventory_ultimo = inventory_ini - cumsum(reqs)
+   ) |> 
+   print()
+```
+
+<div class="solution">
+We group by `material_id` and `supplier_id` and find the ultimo inventory. 
+</div>
+
+
+
+
+
+## `r ctrQ()` 
+
+For each material, calculate the total requirements and ultimo inventory for each week. How many materials have a negative ultimo inventory in one of the weeks?
+
+```{r, solution=T}
+res1 <- dat |> 
+   group_by(material_id, week) |> 
+   summarise(reqs = sum(reqs), inventory_ultimo = sum(inventory_ultimo)) |> 
+   print() 
+
+res2 <- res1 |> 
+   group_by(material_id) |> 
+   summarise(shortage = any(inventory_ultimo < 0)) |> 
+   summarise(n = sum(shortage)) |> 
+   print()
+```
+
+<div class="solution">
+We find the the total requirements and ultimo inventory for each week by grouping by material and week. Next, we use the dataset to calculate that `r res2$n[1]` materials have a negative ultimo inventory in one of the weeks.
+</div>
+
+
+
+
+
+
+## `r ctrQ()`
+
+A dataset with material info is given in the file `materials.csv`. 
+
+The columns/variables are:
+
+  - `material_id`: Material id.
+  - `material_desc`: Material description.
+  - `material_group_id`: Material group id.
+  - `marterial_group_desc`: Material group description.
+  - `abcd`: Inventory classification.
+
+The dataset can be read using:
+
+```{r, warning=FALSE}
+dat_mat <- read_csv("materials.csv") 
+```
+
+Answer the following questions:
+
+   - How many different materials are there in each inventory classification group?
+   - Does there exist material groups represented in more than one inventory classification group?
+   - Join the dataset with the MRP dataset. For each material group, calculate the number of suppliers, largest ultimo inventory in a week and the corresponding material used. Hint: To find the corresponding material, you have to create a second dataset and then join the results.
+
+```{r, solution=TRUE}
+res <- dat_mat |> 
+   group_by(abcd) |> 
+   summarise(n = n_distinct(material_id)) |> 
+   print()
+```
+
+<div class="solution">
+There are e.g. `r res$n[2]` different materials in Group B.
+</div>
+
+```{r, solution=TRUE}
+res <- dat_mat |> 
+   group_by(material_group_id) |> 
+   summarise(n = n_distinct(abcd)) |> 
+   arrange(desc(n)) |> 
+   print()
+```
+
+<div class="solution">
+There are some material groups that are in different inventory classification groups. 
+</div>
+
+```{r, solution=TRUE}
+# Join datasets
+dat <- dat %>% 
+   left_join(dat_mat) 
+   
+res1 <- dat |> 
+   group_by(material_group_id) |> 
+   summarise(n = n_distinct(supplier_id), inv_max = max(inventory_ultimo), ) |> 
+   arrange(desc(n)) |> 
+   print()
+
+# find the corresponding material for the maximum inventory
+res2 <- dat %>%
+   group_by(material_group_id) %>%
+   filter(inventory_ultimo == max(inventory_ultimo, na.rm = TRUE)) %>%
+   select(material_group_id, material_id) %>%
+   distinct() |> 
+   print()
+
+# Merge the results to include the corresponding material
+res <- res1 %>%
+  left_join(res2) |> print()
+```
+
+<div class="solution">
+First we find, for each material group, the number of suppliers, highest ultimo inventory in a week. Next the corresponding material used is found and then we join to get the results.
+</div>
+
+
+
+
+
+
+
+# R - `r ctrA()` (45%)
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). Work with a slightly modified dataset from Assignment 1, which can be read using:
+
+
+
+```{r}
+library(tidyverse)
+dat <- read_csv("mrp-joined.csv")
+```
+
+The columns/variables are as mentioned in Assignment 1 except now all values have been summarized over all suppliers. Moreover, included is also this column/variable:
+
+  - `inventory_ultimo`: Ultimo inventory (end of the week) for the material.
+
+
+## `r ctrQ()`
+
+Create a visualization showing the number of materials in each material group with the following features:
+
+* Bars are used for each material group ordered such that the height of the bars decreases over the x-axis.
+* The material group description is shown at the x-axis (rotated 90 degrees).
+* Informative figure title and axis titles are given.
+
+Which material group has the highest number of materials?
+
+```{r, solution=TRUE}
+dat |>
+   group_by(material_group_desc) |>
+   summarize(n = n_distinct(material_id)) |>
+   ggplot(aes(
+      x = reorder(material_group_desc, -n),
+      y = n
+   )) +
+   geom_col() +
+   labs(
+      title = "Number of materials given material group", 
+      x = "Material group", y = "Number of materials"
+   ) +
+   theme(legend.position = "bottom",
+         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)
+   )
+```
+
+<div class="solution">
+The group ALU NON-EMBOSSED CAN have 89 different suppliers.
+</div>
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the total ultimo inventory for each material group with the following features:
+
+* Lines are used for each material group. Hint: Using `geom_step` instead of `geom_line` may give a better visualization.
+* Points are used to show data values. Moreover, the point color is used to identify if the ultimo inventory is negative. Hint: You need to define a new column with different values depending on whether the ultimo inventory is negative or positive.
+* Line types are used to identify the material group.
+* Informative figure title and axis titles are given.
+
+Which material group has positive inventory in the last week?
+
+```{r, solution=TRUE}
+dat |> 
+   group_by(week, material_group_id) |>
+   summarise(inventory_ultimo = sum(inventory_ultimo)) |>
+   mutate(negative = if_else(inventory_ultimo < 0, TRUE, FALSE)) |>
+   arrange(desc(week)) |> 
+   ggplot(aes(x = week, y = inventory_ultimo, linetype = material_group_id)) +
+   geom_point(aes(color = negative)) + 
+   geom_step() +
+   labs(title = "Total inventory in each material group",
+       x = "Week", y = "Inventory", linetype = NULL, color = "Negative") 
+```
+
+<div class="solution">
+The only group with positive inventory in the last week is UNPRINTED SHRINK (MG2080102).
+</div>
+
+
+
+
+## `r ctrQ()`
+
+Consider materials with these ids:
+
+```{r}
+mat_ids <- c("M51212503", "M51327609", "M51331501", 
+             "M51344118", "M51408045", "M51342678")
+```
+
+Create a visualization showing the variation of the weekly requirements for the 6 materials with the following features:
+
+* A density is visualized for each material.
+* Fill colors are used to identify the inventory classification.
+* A plot is made for each material (facet).
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+Consider the plots. Comment on the approximate value of the mean based on the plots.
+
+```{r, solution=TRUE}
+dat |> 
+   filter(material_id %in% mat_ids) |> 
+   ggplot(aes(x = reqs, fill = abcd)) +
+   geom_density() + 
+   facet_wrap(vars(material_id), scales = "free") +
+   labs(title = "Weekly requirements",
+       x = "Requirement", y = "", fill = "ABCD classification") +
+   theme(legend.position = "bottom",
+         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)
+   )
+```
+
+<div class="solution">
+The mean is in the area from zero to the distribution drops (lower end), that may be due to that often there are no requirements in a selected week.
+</div>
+
+
+## `r ctrQ()`
+
+
+
+Negative inventories are unfavourable, and the company applies an ordering policy to get materials before negative inventories occur. Load the dataset with arrival orders using:
+
+```{r}
+dat <- read_csv(file = "mrp-w-arrivals.csv")
+```
+
+New columns are:
+
+* `inventory_primo`: the primo inventory (before arrival).
+* `arrive_primo`: units that arrive primo in a week. 
+
+Moreover, the column `inventory_ultimo` contains updated values.
+
+Create a visualization showing the total ultimo inventory in each inventory classification over the weeks with the following features:
+
+* A line is used for each inventory classification.
+* Colors are used to identify inventory classification.
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+Which inventory classification has the highest inventory levels?
+
+```{r, solution=TRUE}
+dat %>%
+   group_by(abcd, week) %>%
+   summarize(total_inventory = sum(inventory_ultimo)) |> 
+   ggplot(aes(x = week, y = total_inventory, color = abcd)) +
+   geom_line() +
+   labs(title = "Total inventory given inventory classification",
+       x = "Week", y = "Ultimo inventory", color = "Inventory classification") +
+   theme(legend.position = "bottom")
+```
+
+<div class="solution">
+Inventory classification A has the highest levels.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the inventory levels over the weeks for material `M51331501` with the following features:
+
+* Bars are used to visualize the requirements with a fixed blue fill color. Hint: You may use `width = 0.25` to make the width smaller.
+* A line is used to visualize the inventory level before the requirements are satisfied, i.e. `inventory_primo + arrive_primo`.
+* Points are used to visualize `inventory_primo + arrive_primo`. Use different colors depending on whether units arrive or not.
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+How many times do units arrive?
+
+```{r, solution=TRUE}
+mat_ids <- c("M51331501")
+dat |> 
+   filter(material_id %in% mat_ids) |> 
+   ggplot(aes(x = week, y = inventory_primo + arrive_primo)) +
+   geom_col(aes(y = reqs), width = 0.25, fill = "lightblue") +
+   geom_line() + 
+   geom_point(aes(color = arrive_primo > 0)) +
+   labs(title = "Inventory levels before satisfying requirements and requirements (bars)",
+       x = "Week", y = "Inventory level", color = "Do units arrive?") +
+   theme(legend.position = "bottom")
+```
+
+<div class="solution">
+We have two arrivals (2 points).
+</div>
+
+
+
+
+
+
+

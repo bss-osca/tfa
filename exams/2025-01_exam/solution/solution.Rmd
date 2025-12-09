@@ -1,0 +1,508 @@
+---
+title: "TFA exam - Guiding solution"
+author: "Lars Relund Nielsen"
+editor_options: 
+  chunk_output_type: console
+---
+
+<style>
+.solution {
+  background-color: aliceblue;
+  line-height: 1.5;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-top: 10px;
+  padding-right: 0px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  /*border: 3px solid green;*/
+}
+
+h2 {
+  font-size: large;
+}
+</style>
+
+
+
+```{r setup, include=FALSE, eval=T}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  eval = TRUE,
+  message=FALSE)
+options(width = 90, scipen = 10, digits = 2)
+
+library(tidyverse)
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  q_ctr <<- 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# R - `r ctrA()` (55%)
+ 
+Consider the dataset in the file `bom.csv` containing a Bill of Materials (BOM) for a group of brewery products and materials. The dataset contains a row for each material and product, i.e. a row gives information about how much of the material is needed to produce the product. A product is produced in batches, and the BOM provides information about the quantities of the materials needed to produce one batch of each product. 
+
+The columns/variables are:
+
+  - `product_id`: Product id.
+  - `product_desc`: Product description.
+  - `product_type`: Product type.
+  - `product_group_id`: Product group id.
+  - `product_group_desc`: Product group description.
+  - `material_id`: Material id.
+  - `material_quantity`: Amount needed for producing a batch of the product.
+  - `material_unit`: Unit used for the material (kilogram (KG), meters (M), items (I)).
+  - `material_unit_price`: Unit price/cost in Euros.
+  - `material_valid_from`: First date the material is valid to use.
+  - `material_valid_to`: Last date the material is valid to use.
+
+
+The dataset can be read using:
+
+```{r, warning=FALSE}
+library(tidyverse)
+dat <- read_csv("bom.csv") 
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames), and answer/complete the following questions/tasks:
+
+
+## `r ctrQ()`
+
+How many different products, product groups and materials are considered in the dataset?
+
+```{r, solution=TRUE, warning=FALSE}
+# load packages
+library(tidyverse)
+library(skimr)
+res <- dat |> 
+   skim() |> 
+   print()
+```
+
+<div class="solution">
+There are `r res |> filter(skim_variable == "product_id") |> pull(character.n_unique)` products in `r res |> filter(skim_variable == "product_group_id") |> pull(character.n_unique)` product groups which use `r res |> filter(skim_variable == "material_id") |> pull(character.n_unique)` different materials.
+</div>
+
+
+## `r ctrQ()`
+
+Find all materials that are valid on date January 1st 2022 (2022-01-01). Is the material with id `M34491` used?
+
+```{r, solution=TRUE}
+dt <- ymd("2022-01-01")
+res1 <- dat |> 
+   filter(dt >= material_valid_from & dt <= material_valid_to) |> 
+   print() 
+
+res1 |> distinct(material_id)
+
+
+(dat |> filter(material_id == "M34491") |> nrow()) > 0 
+```
+
+<div class="solution">
+We filter out materials not holding the date. Material with id `M34491` is not used.
+</div>
+
+
+
+## `r ctrQ()`
+
+Create a function `get_valid` with the following features
+
+* Takes a BOM dataset and a date as arguments.
+* Removes all materials that are not valid any more at the date and returns the filtered dataset.
+
+That is, do the same as in the previous question with an arbitrary date. Note: `get_valid` returns a data frame which can be used in a pipe. Test the function by running:
+
+```{r, eval=FALSE}
+get_valid(dat, "2023-02-15")
+```
+
+```{r, solution=TRUE}
+get_valid <- function(dat, dt) {
+   tmp <- dat |> filter(dt >= material_valid_from & dt <= material_valid_to)
+   return(tmp)
+}
+get_valid(dat, ymd("2023-02-15"))
+```
+
+<div class="solution">
+Function `get_valid` return a data frame which can be used in the next questions. 
+</div>
+
+
+
+
+
+
+
+
+
+
+## `r ctrQ()`
+
+How many rows have negative material quantity? Modify your data in the following way:     
+
+   - If `material_quantity` is negative, then assume this is a typo and set the quantity to the positive number instead.
+   - Add a column `material_cost` equal to the material quantity times the material unit price.
+   - Remove all rows where material quantity is zero. 
+
+
+```{r, solution=TRUE}
+res1 <- dat |> 
+   filter(material_quantity < 0) |> 
+   nrow() |> 
+   print()
+
+res2 <- dat |> 
+   mutate(
+      material_quantity = if_else(material_quantity < 0, -material_quantity, material_quantity),
+      material_cost = material_quantity * material_unit_price
+   ) |> 
+   filter(material_quantity != 0) |> 
+   print()
+```
+
+<div class="solution">
+There are `r res1` rows with negative material quantity. The new dataset is stored in `res2`.
+</div>
+
+
+
+
+## `r ctrQ()` 
+
+Consider the modified dataset from the previous question (if you did not succeed in modifying the data, then consider the data in the file `bom-modified.csv`).
+
+For each product group, calculate/find the number of different products and materials. Moreover, for each product group, calculate the average number of different materials used per product. Hint: The function `n_distinct` can be used to find the number of different items within a group.
+
+Which product group contains the most products, and which product group has the highest average number of different materials?
+
+```{r, solution=T}
+dat <- res2  # set dat to cleaned data (result of previous question)
+res <- dat %>% 
+   group_by(product_group_id, product_group_desc) %>% 
+   summarise(
+      products = n_distinct(product_id),
+      materials = n_distinct(material_id),
+      avg_materials = materials/products
+   ) |> 
+   arrange(desc(products)) |> 
+   print() 
+res1 <- res |> 
+   arrange(desc(avg_materials)) |> 
+   print(n = 2)
+```
+
+<div class="solution">
+Product group `r res$product_group_id[1]` (`r res$product_group_desc[1]`) contains most products while e.g. group `r res1$product_group_id[1]` (`r res1$product_group_desc[1]`) has the highest average.
+</div>
+
+
+
+
+
+
+## `r ctrQ()`
+
+A dataset with material info is given in the file `materials.csv`. 
+
+The columns/variables are:
+
+  - `material_id`: Material id.
+  - `material_desc`: Material description.
+  - `material_group_id`: Material group id.
+  - `marterial_group_desc`: Material group description
+
+The dataset can be read using:
+
+```{r, warning=FALSE}
+dat_mat <- read_csv("materials.csv") 
+```
+
+Answer the following questions:
+
+   - How many different material groups are considered?
+   - Join the dataset with the BOM dataset. Which material group is used in most products?
+   - Consider material groups `MG2130201` and `MG2130202`. For each material group and product type, calculate the minimum, average and maximum quantity used. 
+
+```{r, solution=TRUE}
+res1 <- dat_mat |> 
+   distinct(material_group_id) |> 
+   nrow() |> 
+   print()
+```
+
+<div class="solution">
+There are `r res1` different material groups. 
+</div>
+
+```{r, solution=TRUE}
+# Join datasets
+dat <- dat %>% 
+   left_join(dat_mat) 
+   
+res2 <- dat |> 
+   group_by(material_group_id, material_group_desc) |> 
+   summarise(products = n_distinct(product_id)) |> 
+   arrange(desc(products)) |> 
+   print(n = 3)
+```
+
+<div class="solution">
+Material group `r res2$material_group_id[1]` (`r res2$material_group_desc[1]`) are used in `r res2$products[1]` products. 
+</div>
+
+```{r, solution=TRUE}
+id <- c("MG2130201", "MG2130202")
+res3 <- dat |> 
+   filter(material_group_id %in% id) |> 
+   group_by(material_group_desc, product_type) |> 
+   summarise(min = min(material_quantity), avg = mean(material_quantity), max = max(material_quantity)) |> 
+   arrange(desc(material_group_desc)) |> 
+   print()
+```
+
+<div class="solution">
+The minimum, average and maximum quantity used given group and type is given in `res3`.
+</div>
+
+
+
+
+
+# R - `r ctrA()` (45%)
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). Work with the joined dataset from Assignment 1, which can be read using:
+
+
+
+
+```{r}
+library(tidyverse)
+dat <- read_csv("bom-m-groups.csv")
+```
+
+The columns/variables are as in Assignment 1 plus the following columns:
+
+  - `material_cost`: The cost of using the material in the production of a batch of a product.
+  - `material_desc`: Material description.
+  - `material_group_id`: Material group id.
+  - `marterial_group_desc`: Material group description.
+
+
+## `r ctrQ()`
+
+Create a visualization showing the variation in material costs with the following features:
+
+* A histogram is used (with argument `binwidth = 100`). 
+* Fill colors are used to identify the product type. 
+* A plot is made for each product type (facet).
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+In which interval does the material cost mostly lie? What product type has high material cost?
+
+```{r, solution=TRUE}
+dat |> 
+   ggplot(aes(x = material_cost, fill = product_type)) +
+   geom_histogram(binwidth = 100) + 
+   facet_wrap(vars(product_type), scales = "free_y") +
+   labs(title = "Distribution of material cost",
+       x = "Material cost", y = "Count", fill = "Product type") +
+   theme(legend.position = "bottom")
+
+dat |> filter(material_cost >= 5000) |> count(product_type)
+```
+
+<div class="solution">
+Most material cost are in the interval 0-100. Batches of Kegs use materials with a high cost.
+</div>
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the number of products for each product type with the following features:
+
+* Bars are used for each product type.
+* Fill colors are used to identify the product type. 
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+Which product type contains most products?
+
+```{r, solution=TRUE}
+dat |> 
+   group_by(product_type, product_id) |>
+   summarise(products = n_distinct(product_id)) |> 
+   ungroup() |> 
+   ggplot(aes(x = product_type, y = products, fill = product_type)) +
+   geom_col() + 
+   labs(title = "Number of products given product type",
+       x = "Product type", y = "Number of products", fill = "Product type") +
+   theme(legend.position = "bottom",
+         # axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)
+   )
+```
+
+<div class="solution">
+Product type Bottle contains most products.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the total costs of selected products with the following features:
+
+* The total cost of a product is the sum of the material costs.
+* Only 6 products for each product type are plotted. Pick the 6 with the highest total cost (most expensive). 
+* Bars are used for each product ordered such that the height of the bars decreases over the x-axis.
+* Fill colors are used to identify the product type. 
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+What product type category has the lowest total costs among the products visualized?
+
+```{r, solution=TRUE}
+dat |> 
+   group_by(product_id, product_desc, product_type) |> 
+   summarise(total_costs = sum(material_cost)) |> 
+   # arrange(desc(total_costs)) |> 
+   group_by(product_type) |> 
+   slice_max(total_costs, n = 6, with_ties = F) |>    
+   ungroup() |> 
+   ggplot(aes(x = reorder(product_desc, -total_costs), y = total_costs, fill = product_type)) +
+   geom_col() + 
+   labs(title = "Total cost of different products",
+       x = "Product", y = "Total costs", fill = "Product type") +
+   theme(legend.position = "bottom",
+         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)
+   )
+```
+
+<div class="solution">
+Product type Can have lowest total costs. 
+</div>
+
+
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the proportion of material costs used in each material group given a product with the following features:
+
+* Consider products with id `P10393`, `P64433` and `P100160`.
+* Bars are used for each product such that the height is the same since we want to compare proportions (`position = "fill"`).
+* Fill colors are used to identify the material group. 
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+Which material group has the highest relative cost in the product with id `P100160`.
+
+```{r, solution=TRUE}
+products <- c("P10393", "P64433", "P100160")
+dat %>% 
+   filter(product_id %in% products) |>
+   ggplot(aes(x = product_id, y = material_cost, fill = material_group_id)) +
+   geom_col(position = "fill") +
+   labs(title = "Total cost of different products",
+       x = "Product", y = "Proportion", fill = "Material group") +
+   theme(legend.position = "bottom",
+         # axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)
+   )
+
+
+dat %>% filter(product_id %in% c("P10393", "P64433", "P100160")) %>% # filtering the products
+  group_by(material_group_id, product_id) %>% # grouping by material group id
+  summarise(total_cost = sum(material_cost)) %>%
+   group_by(product_id) |> # calculating the total cost of a material group
+  mutate(relative_cost = total_cost/sum(total_cost)) %>% 
+   arrange(product_id) |> # calculating the relative cost of each material group
+
+# Plotting the relative costs of each material group for each product:  
+ggplot(aes(x = product_id, y = relative_cost, fill = material_group_id)) + # setting the x-axis to product id, y-axis to relative cost and fill to material group id
+  geom_bar(stat = "identity", position = "fill") + # creating a bar plot with position fill
+  theme(legend.position = "bottom") + # setting the legend position to bottom
+  ggtitle("Proportion of material costs used in each material group") + # Informative title of the plot
+  xlab("Product id") + ylab("Proportion of material costs") # setting the x-axis and y-axis labels
+
+
+dat |> distinct(material_group_id, material_group_desc) |> filter(material_group_id == "MG2010101")
+```
+
+<div class="solution">
+Product `P100160` has highest relative cost in material group ` MG2010101` (Returnable bottels).
+</div>
+
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the variation in material costs given the product type with the following features:
+
+* Only consider the material group with id `MG2130201`.
+* Variation is visualized using a density.
+* Fill colors are used to identify the product type. 
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+Which product type has the highest mean value in this product group?
+
+```{r, solution=TRUE}
+dat |> 
+   filter(material_group_id == "MG2130201") |> 
+   ggplot(aes(x = material_cost, fill = product_type)) +
+   geom_density(alpha = 0.5) +
+   labs(title = "Material cost density",
+       x = "Material cost", y = NULL, fill = "Product type") +
+   theme(legend.position = "bottom",
+         # axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)
+   )
+```
+
+<div class="solution">
+Product type Can have the highest mean since its peak is at the highest value.
+</div>
+
+
+

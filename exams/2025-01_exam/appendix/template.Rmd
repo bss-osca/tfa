@@ -1,0 +1,356 @@
+---
+title: "TFA exam"
+---
+
+<style>
+.solution {
+  background-color: aliceblue;
+  line-height: 1.5;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-top: 10px;
+  padding-right: 0px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  /*border: 3px solid green;*/
+}
+
+h2 {
+  font-size: large;
+}
+</style>
+
+
+
+```{r setup, include=FALSE, eval=T}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  eval = TRUE,
+  message=FALSE)
+options(width = 90, scipen = 10, digits = 2)
+
+library(tidyverse)
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  q_ctr <<- 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# R - `r ctrA()` (55%)
+ 
+Consider the dataset in the file `bom.csv` containing a Bill of Materials (BOM) for a group of brewery products and materials. The dataset contains a row for each material and product, i.e. a row gives information about how much of the material is needed to produce the product. A product is produced in batches, and the BOM provides information about the quantities of the materials needed to produce one batch of each product. 
+
+The columns/variables are:
+
+  - `product_id`: Product id.
+  - `product_desc`: Product description.
+  - `product_type`: Product type.
+  - `product_group_id`: Product group id.
+  - `product_group_desc`: Product group description.
+  - `material_id`: Material id.
+  - `material_quantity`: Amount needed for producing a batch of the product.
+  - `material_unit`: Unit used for the material (kilogram (KG), meters (M), items (I)).
+  - `material_unit_price`: Unit price/cost in Euros.
+  - `material_valid_from`: First date the material is valid to use.
+  - `material_valid_to`: Last date the material is valid to use.
+
+
+The dataset can be read using:
+
+```{r, warning=FALSE}
+library(tidyverse)
+dat <- read_csv("bom.csv") 
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames), and answer/complete the following questions/tasks:
+
+
+## `r ctrQ()`
+
+How many different products, product groups and materials are considered in the dataset?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()`
+
+Find all materials that are valid on date January 1st 2022 (2022-01-01). Is the material with id `M34491` used?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+## `r ctrQ()`
+
+Create a function `get_valid` with the following features
+
+* Takes a BOM dataset and a date as arguments.
+* Removes all materials that are not valid any more at the date and returns the filtered dataset.
+
+That is, do the same as in the previous question with an arbitrary date. Note: `get_valid` returns a data frame which can be used in a pipe. Test the function by running:
+
+```{r, eval=FALSE}
+get_valid(dat, "2023-02-15")
+```
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+
+
+
+
+
+## `r ctrQ()`
+
+How many rows have negative material quantity? Modify your data in the following way:     
+
+   - If `material_quantity` is negative, then assume this is a typo and set the quantity to the positive number instead.
+   - Add a column `material_cost` equal to the material quantity times the material unit price.
+   - Remove all rows where material quantity is zero. 
+
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()` 
+
+Consider the modified dataset from the previous question (if you did not succeed in modifying the data, then consider the data in the file `bom-modified.csv`).
+
+For each product group, calculate/find the number of different products and materials. Moreover, for each product group, calculate the average number of different materials used per product. Hint: The function `n_distinct` can be used to find the number of different items within a group.
+
+Which product group contains the most products, and which product group has the highest average number of different materials?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+
+## `r ctrQ()`
+
+A dataset with material info is given in the file `materials.csv`. 
+
+The columns/variables are:
+
+  - `material_id`: Material id.
+  - `material_desc`: Material description.
+  - `material_group_id`: Material group id.
+  - `marterial_group_desc`: Material group description
+
+The dataset can be read using:
+
+```{r, warning=FALSE}
+dat_mat <- read_csv("materials.csv") 
+```
+
+Answer the following questions:
+
+   - How many different material groups are considered?
+   - Join the dataset with the BOM dataset. Which material group is used in most products?
+   - Consider material groups `MG2130201` and `MG2130202`. For each material group and product type, calculate the minimum, average and maximum quantity used. 
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+# R - `r ctrA()` (45%)
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). Work with the joined dataset from Assignment 1, which can be read using:
+
+
+
+
+```{r}
+library(tidyverse)
+dat <- read_csv("bom-m-groups.csv")
+```
+
+The columns/variables are as in Assignment 1 plus the following columns:
+
+  - `material_cost`: The cost of using the material in the production of a batch of a product.
+  - `material_desc`: Material description.
+  - `material_group_id`: Material group id.
+  - `marterial_group_desc`: Material group description.
+
+
+## `r ctrQ()`
+
+Create a visualization showing the variation in material costs with the following features:
+
+* A histogram is used (with argument `banwidth = 100`). 
+* Fill colors are used to identify the product type. 
+* A plot is made for each product type (facet).
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+In which interval does the material cost mostly lie? What product type has high material cost?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the number of products for each product type with the following features:
+
+* Bars are used for each product type.
+* Fill colors are used to identify the product type. 
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+Which product type contains most products?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the total costs of selected products with the following features:
+
+* The total cost of a product is the sum of the material costs.
+* Only 6 products for each product type are plotted. Pick the 6 with the highest total cost (most expensive). 
+* Bars are used for each product ordered such that the height of the bars decreases over the x-axis.
+* Fill colors are used to identify the product type. 
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+What product type category has the lowest total costs among the products visualized?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the proportion of material costs used in each material group given a product with the following features:
+
+* Consider products with id `P10393`, `P64433` and `P100160`.
+* Bars are used for each product such that the height is the same since we want to compare proportions (`position = "fill"`).
+* Fill colors are used to identify the material group. 
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+Which material group has the highest relative cost in the product with id `P100160`.
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the variation in material costs given the product type with the following features:
+
+* Only consider the material group with id `MG2130201`.
+* Variation is visualized using a density.
+* Fill colors are used to identify the product type. 
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+Which product type has the highest mean value in this product group?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+

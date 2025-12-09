@@ -1,0 +1,350 @@
+---
+title: "TFA exam"
+---
+
+<style>
+.solution {
+  background-color: aliceblue;
+  line-height: 1.5;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-top: 10px;
+  padding-right: 0px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  /*border: 3px solid green;*/
+}
+
+h2 {
+  font-size: large;
+}
+</style>
+
+
+
+```{r setup, include=FALSE, eval=T}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  eval = TRUE,
+  message=FALSE)
+options(width = 90, scipen = 10, digits = 2)
+
+library(tidyverse)
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  q_ctr <<- 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# R - `r ctrA()` (55%)
+ 
+Given a company, consider the dataset in the file `mrp.csv` containing a Material Requirements Plan (MRP) for a group of materials. For each combination of week, material, and supplier, a row is given with information about inventory, requirements, etc. 
+
+The columns/variables are:
+
+  - `week`: Week number (consider weeks 8 to 37). [in the original exam typo 30 was used instead of 37]
+  - `material_id`: Material id.
+  - `supplier_id`: Supplier id, i.e. the vendor the material is bought from. 
+  - `supplier_desc`: Supplier description. 
+  - `moq`: Minimum order quantity from supplier in units.
+  - `inventory_ini`: Initial inventory of the material in the start of week 8. 
+  - `reqs`: Material requirements for the week. Note: inventory levels and requirements are given for fixed material and supplier.
+
+The dataset can be read using:
+
+```{r, warning=FALSE}
+library(tidyverse)
+dat <- read_csv("mrp.csv") 
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames), and answer/complete the following questions/tasks:
+
+
+## `r ctrQ()`
+
+How many different weeks, materials and suppliers are considered? 
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()`
+
+Find the number of different materials required from each supplier. How many materials are required from the supplier with most different materials? 
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+For each material, calculate how many suppliers supply the specific material. How many suppliers sell material `M51136441`?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+
+
+## `r ctrQ()`
+
+Consider a material and a supplier. Note that the column `inventory_ini` contains the initial inventory level before the first week (week 8). Hence, for a row, the ultimo inventory level (end of week level) is calculated as the initial inventory level minus all the requirements up to and including the current week. Create a column `inventory_ultimo` with the ultimo inventory values. Hint: Given a group, the `cumsum` function can be used to add all values up to and including the current row.
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+## `r ctrQ()` 
+
+For each material, calculate the total requirements and ultimo inventory for each week. How many materials have a negative ultimo inventory in one of the weeks?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+
+## `r ctrQ()`
+
+A dataset with material info is given in the file `materials.csv`. 
+
+The columns/variables are:
+
+  - `material_id`: Material id.
+  - `material_desc`: Material description.
+  - `material_group_id`: Material group id.
+  - `marterial_group_desc`: Material group description.
+  - `abcd`: Inventory classification.
+
+The dataset can be read using:
+
+```{r, warning=FALSE}
+dat_mat <- read_csv("materials.csv") 
+```
+
+Answer the following questions:
+
+   - How many different materials are there in each inventory classification group?
+   - Does there exist material groups represented in more than one inventory classification group?
+   - Join the dataset with the MRP dataset. For each material group, calculate the number of suppliers, largest ultimo inventory in a week and the corresponding material used. Hint: To find the corresponding material, you have to create a second dataset and then join the results.
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+
+
+# R - `r ctrA()` (45%)
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). Work with a slightly modified dataset from Assignment 1, which can be read using:
+
+
+
+```{r}
+library(tidyverse)
+dat <- read_csv("mrp-joined.csv")
+```
+
+The columns/variables are as mentioned in Assignment 1 except now all values have been summarized over all suppliers. Moreover, included is also this column/variable:
+
+  - `inventory_ultimo`: Ultimo inventory (end of the week) for the material.
+
+
+## `r ctrQ()`
+
+Create a visualization showing the number of materials in each material group with the following features:
+
+* Bars are used for each material group ordered such that the height of the bars decreases over the x-axis.
+* The material group description is shown at the x-axis (rotated 90 degrees).
+* Informative figure title and axis titles are given.
+
+Which material group has the highest number of materials?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the total ultimo inventory for each material group with the following features:
+
+* Lines are used for each material group. Hint: Using `geom_step` instead of `geom_line` may give a better visualization.
+* Points are used to show data values. Moreover, the point color is used to identify if the ultimo inventory is negative. Hint: You need to define a new column with different values depending on whether the ultimo inventory is negative or positive.
+* Line types are used to identify the material group.
+* Informative figure title and axis titles are given.
+
+Which material group has positive inventory in the last week?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+Consider materials with these ids:
+
+```{r}
+mat_ids <- c("M51212503", "M51327609", "M51331501", 
+             "M51344118", "M51408045", "M51342678")
+```
+
+Create a visualization showing the variation of the weekly requirements for the 6 materials with the following features:
+
+* A density is visualized for each material.
+* Fill colors are used to identify the inventory classification.
+* A plot is made for each material (facet).
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+Consider the plots. Comment on the approximate value of the mean based on the plots.
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()`
+
+
+
+Negative inventories are unfavourable, and the company applies an ordering policy to get materials before negative inventories occur. Load the dataset with arrival orders using:
+
+```{r}
+dat <- read_csv(file = "mrp-w-arrivals.csv")
+```
+
+New columns are:
+
+* `inventory_primo`: the primo inventory (before arrival).
+* `arrive_primo`: units that arrive primo in a week. 
+
+Moreover, the column `inventory_ultimo` contains updated values.
+
+Create a visualization showing the total ultimo inventory in each inventory classification over the weeks with the following features:
+
+* A line is used for each inventory classification.
+* Colors are used to identify inventory classification.
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+Which inventory classification has the highest inventory levels?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the inventory levels over the weeks for material `M51331501` with the following features:
+
+* Bars are used to visualize the requirements with a fixed blue fill color. Hint: You may use `width = 0.25` to make the width smaller.
+* A line is used to visualize the inventory level before the requirements are satisfied, i.e. `inventory_primo + arrive_primo`.
+* Points are used to visualize `inventory_primo + arrive_primo`. Use different colors depending on whether units arrive or not.
+* Legends are added at the bottom of the plot.
+* Informative figure title and axis titles are given.
+
+How many times do units arrive?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+
+
