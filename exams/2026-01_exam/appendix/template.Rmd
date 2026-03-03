@@ -1,0 +1,305 @@
+---
+title: "TFA exam"
+---
+
+<style>
+.solution {
+  background-color: aliceblue;
+  line-height: 1.5;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-top: 10px;
+  padding-right: 0px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  /*border: 3px solid green;*/
+}
+
+h2 {
+  font-size: large;
+}
+</style>
+
+
+
+```{r setup, include=FALSE, eval=T}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  eval = TRUE,
+  message=FALSE)
+options(width = 90, scipen = 10, digits = 2)
+
+library(tidyverse)
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  q_ctr <<- 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# R - `r ctrA()` (55%)
+ 
+Consider the dataset in the file `catch.csv` containing catches from rivers in Denmark. A row is given for each catch with information about weight, length, date, angler, place, method etc.
+
+Some of the columns/variables are:
+
+  - `Date`: Date of catch.
+  - `Length`: Length of fish (cm).
+  - `Weight`: Weight of fish (kilograms).
+  - `Place`: Place of catch (Lower, Middle, Upper).
+  - `Method`: Method used (Spin, Fly, Worm).
+  - `Killed`: If the fish was killed.
+  - `River`: River of catch.
+  - `Species`: Species of fish.
+  - `Name`: Name of angler.
+
+The dataset can be read using:
+
+```{r, warning=FALSE}
+library(tidyverse)
+dat <- read_csv("catch.csv") 
+```
+
+Moreover, consider the dataset in the file `weight.csv` containing weight estimates for a given length. A row is given for each length with information about weight, month, river, species etc.
+
+Some of the columns/variables are:
+
+  - `Length`: Length of fish (cm).
+  - `Month`: Month considered.
+  - `Avg`: Average weight of fish (kilograms).
+  - `Lower`: Lower confidence interval weight (kilograms).
+  - `Upper`: Uppper confidence interval weight (kilograms).
+
+The dataset can be read using:
+
+```{r, warning=FALSE}
+library(tidyverse)
+dat_weight <- read_csv("weight.csv")
+res <- dat_weight |> 
+   filter(River == "Karup", 
+          Species == "Seatrout", 
+          Length == 50, 
+          Month == 5) |> 
+   print()
+```
+
+That is, for instance, the average weight of a 50 cm seatrout in Karup River in May is `r res$Avg` kg with a 95% confidence interval of [`r res$Lower`, `r res$Upper`] kg.
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames), and answer/complete the following questions/tasks:
+
+
+## `r ctrQ()`
+
+Which method resulted in most fish caught in Skjern River?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()`
+
+Which angler has caught most fish in total and in kilograms over all the years considered?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()`
+
+Calculate the condition factor for each fish using the formula `Weight*100000/Length^3`. 
+
+```{r}
+# your code here
+```
+
+Is the average condition factor higher for salmon or seatrout?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+Consider the months after April and fish with a weight above 50 cm. Do seatrout in Karup River have a higher average condition factor than seatrout in Skjern River?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()`
+
+Are there more catches per day on average on weekdays or during weekends in Skjern River? 
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()`
+
+Calculate the catch and release rate (number released / total number caught) for each river over all years. Have the catch and release rates increased over the years in Karup River?
+
+```{r}
+# your code here
+```
+
+
+## `r ctrQ()`
+
+Use the weight dataset to update missing weights in the catch dataset. That is, for each fish, with a missing weight, use the average weight from the weight dataset for the corresponding length, river, species and month. Hint: Before joining the datasets, you need to round the length to an integer.
+
+
+
+```{r}
+# your code here
+```
+
+
+
+# R - `r ctrA()` (45%)
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). We use the same dataset as given in Assignment 1 if not specified.
+
+
+## `r ctrQ()`
+
+Create a visualization showing the average weight of seatrout in Karup River over the months with the following features:
+
+* Use the dataset from Assignment 1 in which missing weights have been updated if possible.
+* Bars with the fill colour `darkred` are used.
+* An informative figure title and axis titles are given.
+
+Which month has the highest average weight?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the relationship between length and weight for all fish caught with the following features:
+
+* Different colours are used for each species.
+* Points are used to show the individual catches with some transparency (alpha).
+* A trend line is added for each species.
+* An informative figure title and axis titles are given.
+* The legend is placed at the bottom of the figure.
+
+Are salmon generally heavier than seatrout for a given length? Can salmon reach a higher weight than seatrout?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()`
+
+Consider the weight dataset. Create a visualization showing the weight for a given length with the following features:
+
+* Only Skjern River is considered.
+* Lines are used to show the average weight given length for each species.
+* Different colours are used for each month.
+* A subplot is made for each species.
+* An informative figure title and axis titles are given.
+* The legend is placed at the bottom of the figure.
+
+In which month is the weight lowest for seatrout?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()`
+
+Create a visualization showing the percentage of fish over 59 cm killed over the years with the following features:
+
+* Bars are used to visualize the percentage of fish killed.
+* Different fill colours are used for each river (use `position = "dodge2"` to place bars beside each other).
+* An informative figure title and axis titles are given.
+* The legend is placed at the bottom of the figure.
+
+In which river do most anglers catch and release fish (i.e. the lowest percentage killed)?
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+
+## `r ctrQ()`
+
+Consider seatrout. For each river, year, and month, calculate the number of catches. Next, calculate the catch percentage for each month (number caught per month / total number caught per year). 
+
+```{r}
+# your code here
+```
+
+Create a visualization showing the variation in these percentages for each month with the following features:
+
+* A boxplot is used to show the variation of the catch percentages.
+* A subplot is made for each River.
+* An informative figure title and axis titles are given.
+
+Comment on the results for July.
+
+```{r}
+# your code here
+```
+
+[Your comment here]
+
+

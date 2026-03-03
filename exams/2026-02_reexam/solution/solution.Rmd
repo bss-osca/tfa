@@ -1,0 +1,415 @@
+---
+title: "TFA exam - Guiding solution"
+author: "Lars Relund Nielsen"
+---
+
+<style>
+.solution {
+  background-color: aliceblue;
+  line-height: 1.5;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-top: 10px;
+  padding-right: 0px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  /*border: 3px solid green;*/
+}
+
+h2 {
+  font-size: large;
+}
+</style>
+
+
+
+```{r setup, include=FALSE, eval=T}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  eval = TRUE,
+  message=FALSE)
+options(width = 90, scipen = 10, digits = 2)
+
+library(tidyverse)
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  q_ctr <<- 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# R - `r ctrA()` (60%)
+
+You work as an analyst in NordicHome, a mid-sized omnichannel retailer selling home and lifestyle products in the Nordics. The company has a set of stores across the Nordics and an online channel. Management wants a compact, data-driven review of sales performance, customer behaviour, and delivery quality across channels and regions.
+
+Consider the dataset in the file `orders.csv` containing orders over a set of years. A row is given for each order. Some of the columns/variables are:
+
+- `Date`: When the order was placed.
+- `Region`: In which region the order was placed.
+- `Channel`: How the product is sold.
+- `Store`: The store at which the order was sold (only for the store channel).
+- `CustomerSegment`: Which segment the customer belongs to.
+- `ProductCategory`: Which product category the order belongs to.
+- `Units`: Number of units ordered.
+- `UnitPrice`: Price per unit (in DKK).
+- `DiscountPct`: Discount percentage given on the order.
+- `ShippingDays`: Number of days from order to delivery (only for the online channel).
+- `Returned`: Whether the order was returned (1 = true, 0 = false).
+- `Satisfaction`: Customer satisfaction with the order on a scale from 0 to 10, where 10 is best. 
+
+The dataset can be read using:
+
+```{r, warning=FALSE}
+library(tidyverse)
+dat <- read_csv("orders.csv")
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames), and answer/complete the following questions/tasks:
+
+
+## `r ctrQ()`
+
+How many orders, different years, and different product categories are there? How many stores does NordicHome have and where?
+
+```{r, solution=TRUE, warning=FALSE}
+# load packages
+library(tidyverse)
+library(skimr)
+res <- dat |> 
+   skim() |> 
+   print()
+distinct(dat, Store)
+```
+
+<div class="solution">
+We consider `r nrow(dat)` orders. The orders are from `r n_distinct(dat$Year)` different years and `r n_distinct(dat$ProductCategory)` different product categories. Moreover, NordicHome have `r n_distinct(na.omit(dat$Store))` stores which are located in `r knitr::combine_words(distinct(dat, Store) |> na.omit(Store) |> pull(Store))`.
+</div>
+
+
+## `r ctrQ()`
+
+Consider the `Loyal` customer segment. How many orders are from this segment, and what is the average satisfaction for this segment? 
+
+```{r, solution=TRUE}
+res <- dat |> 
+   filter(CustomerSegment == "Loyal") |>
+   summarize(
+      n_orders = n(),
+      avg_satisfaction = mean(Satisfaction, na.rm = TRUE)
+   ) |>
+   print()
+```
+
+<div class="solution">
+There are `r res$n_orders` orders from the Loyal segment. The average satisfaction for this segment is `r round(res$avg_satisfaction, 2)`.
+</div>
+
+
+
+## `r ctrQ()`
+
+Calculate two new KPIs for each order: 
+
+- The gross revenue as the number of units times the unit price. 
+- The net revenue as the gross revenue minus the discount given on the order if the order is not returned; otherwise, if the order is returned, the net revenue is negative and equals a handling cost which is 50% of the gross revenue. 
+
+Add these two KPIs as new columns `GrossRevenue` and `NetRevenue` to the dataset. What is the total gross and net revenue? Moreover, calculate the ratio between the total net revenue and total gross revenue, and interpret it.
+
+```{r, solution=TRUE}
+dat <- dat |>
+   mutate(
+      GrossRevenue = Units * UnitPrice,
+      NetRevenue = if_else(Returned == 1, - 0.5 * GrossRevenue, GrossRevenue * (1 - DiscountPct))
+   ) 
+res <- dat |> 
+   summarize(
+      TotalGrossRevenue = sum(GrossRevenue),
+      TotalNetRevenue = sum(NetRevenue),
+      Ratio = TotalNetRevenue / TotalGrossRevenue
+   ) |>
+   print()
+```
+
+<div class="solution">
+The total gross revenue is `r scales::comma(res$TotalGrossRevenue)` DKK and the total net revenue is `r scales::comma(res$TotalNetRevenue)` DKK. The ratio between the total net revenue and total gross revenue is `r res$Ratio`. This means that NordicHome keep `r scales::percent(res$Ratio)` of the gross revenue as net revenue after discounts and returns.
+</div>
+
+
+
+## `r ctrQ()`
+
+For each channel, calculate the total gross and net revenue, the return rate, and the share of total net revenue. Which channel generates the highest net revenue, and what is the return rate? Moreover, what is the share of total net revenue?
+
+```{r, solution=TRUE}
+res <- dat |> 
+   group_by(Channel) |>
+   summarize(
+      GrossRevenue = sum(GrossRevenue),
+      NetRevenue = sum(NetRevenue),
+      ReturnRate = mean(Returned)
+   ) |>
+   ungroup() |>
+   mutate(
+      share = NetRevenue / sum(NetRevenue)
+   ) |>
+   arrange(desc(NetRevenue)) |>
+   print() 
+```
+
+<div class="solution">
+The largest net revenue comes from the `r res$Channel[1]` cannel, accounting for `r round(100*res$share[1], 1)`% of total net revenue. The return rate for this channel is `r scales::percent(res$ReturnRate[1])`.
+</div>
+
+
+## `r ctrQ()`
+
+Given the online channel, which region generates the highest net revenue, and what is the return rate?
+
+```{r, solution=TRUE}
+res <- dat |>
+   filter(Channel == "Online") |>
+   group_by(Region) |>
+   summarize(
+      NetRevenue = sum(NetRevenue),
+      ReturnRate = mean(Returned)
+   ) |>
+   arrange(desc(NetRevenue)) |>
+   print()
+```
+
+<div class="solution">
+The region with the highest net revenue in the online channel is `r res$Region[1]` with a net revenue of `r scales::comma(res$NetRevenue[1])` DKK. The return rate in this region is approx. `r scales::percent(res$ReturnRate[1])`.
+</div>
+
+
+## `r ctrQ()`
+
+Management is worried that discounts erode revenue. For each product category, compute the average discount percentage and the average net revenue per order. Which category has the highest average discount percentage, and which has the highest average net revenue per order?
+
+```{r, solution=TRUE}
+res <- dat |>
+   group_by(ProductCategory) |>
+   summarize(
+    avg_discount = mean(DiscountPct),
+    avg_net_rev = mean(NetRevenue),
+    .groups = "drop"
+   ) |> 
+   arrange(desc(avg_net_rev)) |>
+   print()
+```
+
+<div class="solution">
+The category with the highest average discount is `r res |> arrange(desc(avg_discount)) |> slice_head(n=1) |> pull(ProductCategory)`. The category with the highest average net revenue per order is `r res$ProductCategory[1]`.
+</div>
+
+
+
+
+## `r ctrQ()`
+
+For online orders, compute the return rate by the following shipping speed categories: `1-2 days`, `3-4 days`, `5+ days`. Which speed category has the highest return rate, and what might be a plausible operational explanation for this?
+
+```{r, solution=TRUE}
+res <- dat |>
+   filter(Channel == "Online") |>
+   mutate(
+    ShipCat = case_when(
+      ShippingDays <= 2 ~ "1-2 days",
+      ShippingDays <= 4 ~ "3-4 days",
+      TRUE ~ "5+ days"
+    )
+   ) |>
+   group_by(ShipCat) |>
+   summarize(
+    n_orders = n(),
+    return_rate = mean(Returned),
+    avg_satisfaction = mean(Satisfaction, na.rm = TRUE),
+    .groups = "drop"
+   ) |>
+   arrange(desc(return_rate)) |> 
+   print()
+```
+
+<div class="solution">
+The highest return rate is observed for `r res$ship_bucket[1]` with `r round(100*res$return_rate[1], 1)`% returns. A plausible operational explanation is that slower deliveries can increase cancellations/returns and reduce satisfaction, especially for time-sensitive purchases.
+</div>
+
+
+
+
+
+
+# R - `r ctrA()` (40%)
+
+
+
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). We use the same dataset as given in Assignment 1 with the gross and net revenue KPIs added as columns. If you have not completed Assignment 1, you can read the dataset using:
+
+```{r, warning=FALSE}
+library(tidyverse)
+dat <- read_csv("orders-plot.csv")
+```
+
+
+## `r ctrQ()`
+
+Create a visualization showing the number of orders for each product category with the following features:
+
+* A bar is used to visualize the number of orders for each product category.
+* Different fill colours are used for each customer segment.
+* An informative figure title and axis titles are given.
+* The legend is placed at the bottom of the figure.
+
+Which product category has the highest number of orders, and which customer segment orders the most in this category?
+
+```{r, solution=TRUE}
+dat |>
+   ggplot(aes(x = ProductCategory, fill = CustomerSegment)) +
+   geom_bar() +
+   labs(
+      title = "Number of orders by product category and customer segment",
+      x = "Product category",
+      y = "Number of orders",
+      fill = "Customer segment"
+   ) +
+   theme(legend.position = "bottom")
+```
+
+<div class="solution">
+The product category with the highest number of orders is `r dat |> count(ProductCategory) |> arrange(desc(n)) |> slice_head(n=1) |> pull(ProductCategory)`. Here, the `r dat |> filter(ProductCategory == "Living") |> count(CustomerSegment) |> arrange(desc(n)) |> slice_head(n=1) |> pull(CustomerSegment)` customers order most.
+</div>
+
+
+
+## `r ctrQ()`
+
+Create a visualization showing the net revenue for a given month with the following features:
+
+* A line is used to show the net revenue for each region and channel.
+* Different colours are used for each region.
+* A subplot is made for each channel (facet).
+* An informative figure title and axis titles are given.
+
+Is there any seasonal variation in net revenue? Which region has the highest net revenue, and which channel seems to have the highest net revenue?
+
+```{r, solution=TRUE}
+dat_monthly <- dat |>
+   group_by(Region, Channel, Month) |>
+   summarize(
+      NetRevenue = sum(NetRevenue),
+      .groups = "drop"
+   )
+dat_monthly |>
+  ggplot(aes(x = Month, y = NetRevenue, color = Region)) +
+  geom_line() +
+  facet_wrap(~ Channel, ncol = 1, scales = "free_y") +
+  labs(
+    title = "NordicHome: Monthly net revenue by region and channel",
+    x = "Month",
+    y = "Net revenue"
+  ) +
+  theme(legend.position = "bottom")
+```
+
+<div class="solution">
+There is a clear seasonal variation in net revenue with peaks in November to January, which is likely due to the Christmas and "on sale" season. The online channel has a higher scale of net revenue compared to the store channel. The region with the highest net revenue is DK for both channels.
+</div>
+
+
+## `r ctrQ()`
+
+Create a visualization showing the gross revenue for a given year with the following features:
+
+* Lines are used to show the gross revenue for each region and channel.
+* Different colours are used for each region.
+* A subplot is made for each channel.
+* An informative figure title and axis titles are given.
+* The legend is placed at the bottom of the figure.
+
+Is there any trend in gross revenue over the years, and is the trend the same across regions and channels?  
+
+```{r, solution=TRUE}
+dat |>
+   group_by(Region, Channel, Year) |>
+   summarize(
+      Revenue = sum(GrossRevenue),
+      .groups = "drop"
+   ) |>
+   ggplot(aes(x = Year, y = Revenue, color = Region)) +
+   geom_line() +
+   facet_grid(Channel ~ .) +
+   labs(
+    title = "NordicHome: Yearly gross revenue by region and channel",
+    x = "Year",
+    y = "Gross revenue"
+   ) +
+   theme(legend.position = "bottom")
+```
+
+<div class="solution">
+There is a clear trend in gross revenue over the years for the online channel, where DK, SE and FI have an increasing trend and NO have a decreasing trend. For the store channel there is no clear trend over the years (status quo).
+</div>
+
+
+## `r ctrQ()`
+
+Create a visualization showing the variation in satisfaction for each customer segment with the following features:
+
+* A boxplot is used to show the distribution of satisfaction for a given customer segment.
+* Different fill colours are used for each customer segment.
+* An informative figure title and axis titles are given.
+
+One would expect that loyal customers are more satisfied than new customers. Does the plot support this expectation? 
+
+```{r, solution=TRUE}
+dat |>
+   filter(!is.na(Satisfaction)) |>
+   ggplot(aes(y = Satisfaction, x = CustomerSegment, fill = CustomerSegment)) +
+   geom_boxplot() +
+   labs(
+      title = "Customer satisfaction by customer segment",
+      x = "Customer segment",
+      y = "Customer satisfaction",
+      fill = ""
+   ) +
+   theme(legend.position = "none")
+```
+
+<div class="solution">
+The plot supports the expectation that loyal customers are more satisfied than new customers, as the median satisfaction is higher for the loyal segment compared to the new segment. Moreover, the distribution of satisfaction for loyal customers is more skewed towards higher satisfaction values compared to new customers.
+</div>
+
+
+
+

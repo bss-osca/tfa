@@ -1,0 +1,455 @@
+---
+title: "TFA exam - Guiding solution"
+author: "Lars Relund Nielsen"
+---
+
+<style>
+.solution {
+  background-color: aliceblue;
+  line-height: 1.5;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-top: 10px;
+  padding-right: 0px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  /*border: 3px solid green;*/
+}
+
+h2 {
+  font-size: large;
+}
+</style>
+
+
+
+```{r setup, include=FALSE, eval=T}
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  out.width = "100%",
+  eval = TRUE,
+  message=FALSE)
+options(width = 90, scipen = 10, digits = 2)
+
+library(tidyverse)
+a_ctr <- 1  # assignment counter
+ctrA <- function() {
+  a_ctr <<- a_ctr + 1
+  q_ctr <<- 1
+  return(str_c("Assignment ", a_ctr - 1))
+}
+
+q_ctr <- 1  # question counter
+ctrQ <- function(reset = FALSE) {
+  if (reset) q_ctr <<- 1
+  q_ctr <<- q_ctr + 1
+  return(str_c("Question ", q_ctr - 1, ""))
+}
+
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("select", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# R - `r ctrA()` (55%)
+ 
+Consider the dataset in the file `catch.csv` containing catches from rivers in Denmark. A row is given for each catch with information about weight, length, date, angler, place, method etc.
+
+Some of the columns/variables are:
+
+  - `Date`: Date of catch.
+  - `Length`: Length of fish (cm).
+  - `Weight`: Weight of fish (kilograms).
+  - `Place`: Place of catch (Lower, Middle, Upper).
+  - `Method`: Method used (Spin, Fly, Worm).
+  - `Killed`: If the fish was killed.
+  - `River`: River of catch.
+  - `Species`: Species of fish.
+  - `Name`: Name of angler.
+
+The dataset can be read using:
+
+```{r, warning=FALSE}
+library(tidyverse)
+dat <- read_csv("catch.csv") 
+```
+
+Use the *dplyr* package in _tidyverse_ to calculate relevant summary tables (tibbles/data frames), and answer/complete the following questions/tasks:
+
+
+## `r ctrQ()`
+
+How many catches, different years, and different anglers are considered? What are the rivers and species considered?
+
+```{r, solution=TRUE, warning=FALSE}
+# load packages
+library(tidyverse)
+library(skimr)
+res <- dat |> 
+   skim() |> 
+   print()
+```
+
+<div class="solution">
+We consider `r nrow(dat)` catches over `r res |> filter(skim_variable == "Year") |> pull(numeric.p100) - res |> filter(skim_variable == "Year") |> pull(numeric.p0) + 1` years. There are `r res |> filter(skim_variable == "Name") |> pull(character.n_unique)` different anglers. The rivers considered are `r knitr::combine_words(unique(dat$River))` and the species considered are `r knitr::combine_words(unique(dat$Species))`.
+</div>
+
+
+## `r ctrQ()`
+
+Given the catches, do male or female seatrout generally weigh more (on average)?
+
+```{r, solution=TRUE}
+res <- dat |>
+   filter(Species == "Seatrout") |>
+   group_by(Sex) |> 
+   summarize(
+      avg_weight = mean(Weight, na.rm = TRUE)
+   ) |> 
+   arrange(desc(avg_weight)) |>
+   print()
+```
+
+<div class="solution">
+On average, `r res$Sex[1]` seatrout generally weigh most with an average weight of `r round(res$avg_weight[1], 2)` kilograms.
+</div>
+
+
+## `r ctrQ()`
+
+Find the starting and ending date for all catches for each year and river. When do you expect the fishing season starts and ends for each river?
+
+```{r, solution=TRUE}
+res <- dat |> 
+   group_by(Year, River) |> 
+   summarize(
+      start_date = min(Date),
+      end_date = max(Date)
+   ) |> 
+   arrange(River, Year) |>
+   ungroup() |>
+   print() 
+```
+
+<div class="solution">
+For Karup River, the fishing season to start around `r res |> filter(River == "Karup") |> head(n=1) |> pull(start_date)` and ends `r res |> filter(River == "Karup") |> head(n=1) |> pull(end_date)`. In Skjern River, the fishing season starts around `r res |> filter(River == "Skjern") |> head(n=1) |> pull(start_date)` and ends `r res |> filter(River == "Skjern") |> head(n=1) |> pull(end_date)`.
+</div>
+
+
+## `r ctrQ()`
+
+Consider the data from Karup River after 2019. How may anglers have at least one year caught and killed more than 20 kilograms of fish?
+
+```{r, solution=TRUE}
+res <- dat |>
+   filter(River == "Karup", Year >= 2020) |> 
+   group_by(Year, Name) |> 
+   summarize(
+      total_weight = sum(Weight),
+      n_killed = sum(Killed)
+   ) |> 
+   filter(total_weight > 20) |>
+   ungroup() |> 
+   arrange(Name, Year) |>
+   print() 
+res2 <- res |>
+   distinct(Name) |> 
+   summarise(n = n()) |> 
+   print()
+```
+
+<div class="solution">
+There are `r res2$n[1]` anglers that in one year have caught and killed more than 20 kilograms of fish in Karup River after 2019.
+</div>
+
+
+## `r ctrQ()`
+
+For each year and river, calculate the total number of fish caught, as well as the average and maximum length. For each river, what is the best season in terms of the number of fish caught? 
+
+```{r, solution=TRUE}
+res <- dat |>
+   group_by(Year, River) |> 
+   summarize(
+      n_caught = n(),
+      avg_length = mean(Length),
+      max_length = max(Length)
+   ) |> 
+   arrange(River, desc(n_caught)) |>
+   ungroup() |>
+   print()
+```
+
+<div class="solution">
+For Karup River, the best season in terms of number of fish caught is `r res |> filter(River == "Karup") |> head(n=1) |> pull(Year)` with `r res |> filter(River == "Karup") |> head(n=1) |> pull(n_caught)` fish caught. For Skjern River, the best season is `r res |> filter(River == "Skjern") |> head(n=1) |> pull(Year)` with `r res |> filter(River == "Skjern") |> head(n=1) |> pull(n_caught)` fish caught.
+</div>
+
+
+What is the average length of the longest fish caught each year in Skjern River?
+
+```{r, solution=TRUE}
+res2 <- res |>
+   filter(River == "Skjern") |>
+   summarize(
+      avg_length_max_fish = mean(max_length)
+   ) |> 
+   print()
+```
+
+<div class="solution">
+The average length of the biggest fish caught in Skjern River over all years is `r round(res2$avg_length_max_fish[1], 2)` cm.
+</div>
+
+
+## `r ctrQ()`
+
+For each river, year, and month, calculate the cumulative number (absolute and in percentages) of fish caught over the year (ordered by month). Has the percentage of fish caught before August in Karup River increased over the years?
+Hint: Given a group, the `cumsum` function can be used to add all values up to and including the current row. 
+
+```{r, solution=TRUE}
+res <- dat |> 
+   group_by(River, Year, Month) |> 
+   summarize(
+      n_caught = n()
+   ) |> 
+   arrange(River, Year, Month) |> 
+   group_by(River, Year) |> 
+   mutate(cum_n_caught = cumsum(n_caught),
+          cum_n_caught_pct = cum_n_caught / sum(n_caught)  
+             ) |> 
+   ungroup() |> 
+   print()
+
+res2 <- res |> 
+   filter(River == "Karup", Month == 7) |> 
+   select(Year, cum_n_caught_pct) |>
+   arrange(Year) |> 
+   print()
+```
+
+<div class="solution">
+For Karup River, the percentage of fish caught before August don't seem to have increased over the years as the values are: `r paste(round(res2$cum_n_caught_pct * 100, 2), collapse = ", ")` for the years `r paste(res2$Year, collapse = ", ")`.
+</div>
+
+
+
+
+# R - `r ctrA()` (45%)
+
+Answer this assignment using the *ggplot2* package in *tidyverse* (you may need *dplyr* for preparing the datasets you want to plot). We use the same dataset as given in Assignment 1 if not specified.
+
+## `r ctrQ()`
+
+Create a visualization showing the total number of salmon caught in Skjern River over the years with the following features:
+
+* Bars with the fill color steelblue are used.
+* An informative figure title and axis titles are given.
+
+Which year has the highest number of salmon caught in Skjern River?
+
+```{r, solution=TRUE}
+dat |> 
+   filter(River == "Skjern", Species == "Salmon") |>
+   ggplot(aes(x = Year)) +
+   geom_bar(fill = "steelblue") +
+   labs(
+      title = "Total number of fish caught",
+      x = "Month",
+      y = "Number of fish caught"
+   ) 
+```
+
+<div class="solution">
+The year with the highest number of salmon caught in Skjern River is 2022.
+</div>
+
+
+## `r ctrQ()`
+
+Create a visualization showing the weight of fish caught in each river over the weeks with the following features:
+
+* Points are used to show the weight given week with a 0.5 size.
+* A trend line is added to show the trend over weeks.
+* Different colours are used for each river.
+* A subplot is used for each species.
+* An informative figure title and axis titles are given.
+* The legend is placed at the bottom of the figure.
+
+Is the average weight of fish in general higher in the beginning of the season?
+
+```{r, solution=TRUE}
+dat |>
+   filter(Week >= 15) |> 
+   ggplot(aes(x = Week, y = Weight, color = River)) +
+   geom_point(size = 0.5) +
+   geom_smooth(se = FALSE) +
+   facet_wrap(~Species, scales = "free") +
+   labs(
+      title = "Weight of fish caught in each river",
+      x = "Week",
+      y = "Weight (kg)"
+   ) +
+   theme(legend.position = "bottom")
+```
+
+<div class="solution">
+In general, the average weight of fish is higher in the start of the season as seen from the trend lines in the figure. One exception is for seatrout in Karup River where the weight is low in the start of the season (due to kelts still in the river).
+</div>
+
+
+## `r ctrQ()`
+
+Consider seatrout caught in Skjern River in 2020 and 2023.
+Create a visualization showing the proportion of catches over the months with the following features:
+
+* Bars are used to visualize the proportion of catches per place (all bars have the same height).
+* Different fill colours are used for each place.
+* A subplot is made for each year.
+* An informative figure title and axis titles are given.
+* The legend is placed at the bottom of the figure.
+
+Which place has the highest proportion of catches early and later in the year? Are there any differences between 2020 and 2023?
+
+```{r, solution=TRUE}
+dat |>
+   filter(River == "Skjern", Species == "Seatrout") |>
+   filter(Year %in% c(2020, 2023)) |> 
+   ggplot(aes(x = Month, fill = Place)) +
+   geom_bar(position = "fill") +
+   facet_grid(Year~.) +
+   labs(
+      title = "Proportion of seatrout catches in each month for 2020 and 2023",
+      x = "Month",
+      y = "Proportion of catches"
+   ) +
+   theme(legend.position = "bottom")
+```
+
+<div class="solution">
+Early in the year, the highest proportion of catches is in the lower part of the river, while late in the year the upper part of the river
+has most catches. Comparing 2020 and 2023, it seems that in 2023 there is a higher proportion of catches in the lower part of the river compared to 2020.
+</div>
+
+
+## `r ctrQ()`
+
+Consider a dataset with water level measurements given in the file `waterlevel.csv`. The dataset can be read using:
+
+```{r, warning=FALSE}
+library(tidyverse)
+dat_wl <- read_csv("waterlevel.csv") 
+```
+
+The dataset contains daily water level measurements from two places in Karup River in 2023. The water levels are given as deviations (in cm) from the mean water level for the place (same year). The columns/variables are:
+
+  - `Date`: Date of measurement.
+  - `Waterlevel`: Water level deviation from mean (cm).
+  - `River`: River of measurement.
+  - `Place`: Place of measurement.
+
+Create a visualization showing the water level over the dates with the following features:
+
+* A line plot is used to show the water level.
+* Different colours are used for each place.
+* An informative figure title and axis titles are given.
+* The legend is placed at the bottom of the figure.
+
+How is the water level in general increasing/decreasing over the year?
+
+```{r, solution=TRUE}
+dat_wl |>
+   ggplot(aes(x = Date, y = Waterlevel, color = Place)) +
+   geom_line() +
+   labs(
+      title = "Water level 2023 for Karup River relative to mean level",
+      x = "Date",
+      y = "Water level (cm)"
+   ) + 
+   theme(legend.position = "bottom")
+```
+
+<div class="solution">
+In general, the water level is decreasing until approx. mid June and then increasing over the rest of the year.
+</div>
+
+
+## `r ctrQ()`
+
+Consider only the water levels in the middle part of the Karup River and observations from March to October 2023.
+Calculate the trend of the water level compared to last day (i.e. the difference between the current day and the last day). Next, classify the trend into three categories:
+
+  - "Increasing" if the water level has increased by more than 1 cm compared to the last day.
+  - "Decreasing" if the water level has decreased by more than 1 cm compared to the last day.
+  - "None" if the water level change is between -1 cm and 1 cm compared to the last day.
+
+Hint: Note you can use the `lag` function to retrieve the value in the previous row.
+
+```{r, solution=TRUE}
+res <- dat_wl |>
+   filter(Place == "Middle", Date >= "2023-03-01", Date <= "2023-10-31") |>
+   group_by(River, Place) |> 
+   arrange(Date) |> 
+   mutate(
+      trend = Waterlevel - lag(Waterlevel, n = 1),
+      trend = if_else(is.na(trend), 0, trend),
+      trend_num = trend,
+      trend = case_when(
+         trend > 1 ~ "Increasing",
+         trend < -1 ~ "Decreasing",
+         TRUE ~ "None"
+      )
+   ) |> 
+   ungroup() |> 
+   arrange(River, Place, Date) |>
+   print() 
+```
+
+Create a visualization showing the variation in water levels with the following features:
+
+* A density is used to show the distribution of water levels given the trend category.
+* Different fill colours are used for each trend category.
+* Transparency is used to see overlapping areas.
+* An informative figure title and axis titles are given.
+* The legend is placed at the bottom of the figure.
+
+Which trend category seems to be the most dominant one when the water levels are low?
+
+```{r, solution=TRUE}
+res |> 
+   ggplot(aes(x = Waterlevel, fill = trend)) +
+   geom_density(alpha = 0.5) +
+   labs(
+      title = "Distribution of water level given trend category",
+      x = "Water level (cm)",
+      y = "Density"
+   ) +
+   theme(legend.position = "bottom")
+```
+
+<div class="solution">
+When low water levels, the "None" trend category seems to be the most dominant as seen from the figure. That is, when the water level is low, it most of the time tends to be stable and not changing much from day to day.
+</div>
+
+
+
+
+
